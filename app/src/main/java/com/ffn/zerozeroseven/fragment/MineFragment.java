@@ -18,6 +18,7 @@ import com.ffn.zerozeroseven.ui.AdrMannGerActivity;
 import com.ffn.zerozeroseven.ui.CourierActivity;
 import com.ffn.zerozeroseven.ui.HistoryTalkActivity;
 import com.ffn.zerozeroseven.ui.KuaiDiYuanRenZhengActivity;
+import com.ffn.zerozeroseven.ui.LevelActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
 import com.ffn.zerozeroseven.ui.MessAgeActivity;
 import com.ffn.zerozeroseven.ui.MyDingDanActivity;
@@ -240,7 +241,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    @OnClick({R.id.rl_vip, R.id.rl_yaoqing, R.id.rl_shouyi})
+    @OnClick({R.id.rl_vip, R.id.rl_yaoqing, R.id.rl_shouyi,R.id.iv_level})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.rl_vip:
@@ -268,6 +269,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class, null);
                 }
+                break;
+            case R.id.iv_level:
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt,LevelActivity.class);
                 break;
         }
     }

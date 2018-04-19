@@ -244,6 +244,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.AdvertisingActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.LevelActivity"
+            android:screenOrientation="portrait"/>
 
         <!-- Required SDK核心功能-->
         <service

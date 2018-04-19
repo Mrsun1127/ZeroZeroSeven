@@ -204,11 +204,13 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                 try {
                     a = allMoney + carShopInfo.getShopInfos().get(0).getRunMoney();
                 } catch (Exception e) {
+                    a=0.0;
                 }
-                tv_allmoney.setText("共计：¥" + ZeroZeroSevenUtils.reactMoney(a));
                 if ("null".equals(a + "")) {
                     a = 0.0;
                 }
+                tv_allmoney.setText("共计：¥" + ZeroZeroSevenUtils.reactMoney(a));
+
                 money.setText(ZeroZeroSevenUtils.reactMoney(a) + "");
                 tv_runMoney.setText("跑腿费：¥" + carShopInfo.getShopInfos().get(0).getRunMoney());
             } else {
