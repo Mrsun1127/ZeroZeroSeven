@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">零零7</string>
+    <string name="no_more_data">没有更多数据了</string>
+    <string name="error_no_data">没有找到相关数据</string>
+    <string name="state_tip_no_data">无相关数据</string>
+    <string name="state_tip_server_error">网络异常错误，请重试或者检查网络</string>
+    <string name="check_phone_net">请检查本机网络是否打开！</string>
+    <string name="send_again">重新发送</string>
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+</resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.ffn.zerozeroseven.view.TitleView
+        android:id="@+id/titleview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.ffn.zerozeroseven.view.TitleView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_success"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="154dp"
+            android:background="@drawable/empty_box_icon" />
+
+        <TextView
+            android:id="@+id/tv_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_success"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="22dp"
+            android:text="感谢您的惠顾！"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_top"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="支付异常，请稍后再试"
+            android:textSize="16sp" />
+        <Button
+            android:id="@+id/bt_sub"
+            android:layout_marginTop="150dp"
+            android:layout_below="@+id/tv_top"
+            android:background="@drawable/circlebutton"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_marginLeft="105dp"
+            android:layout_marginRight="105dp"/>
+    </RelativeLayout>
+</LinearLayout>

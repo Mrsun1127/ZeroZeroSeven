@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbg">
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iv_icon"
+        android:layout_width="55.5dp"
+        android:layout_height="55.5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/avatar" />
+
+    <TextView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:text="点击设置您的头像" />
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="13.5dp"
+        android:layout_height="13.5dp"
+        android:layout_marginLeft="4.5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/close" />
+
+    <RelativeLayout
+        android:id="@+id/rl_yzm"
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:layout_marginTop="141dp"
+        android:visibility="visible">
+
+        <EditText
+            android:inputType="number"
+            android:id="@+id/et_phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginTop="50dp"
+            android:background="@null"
+            android:hint="输入手机号"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/bt_send"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40.5dp"
+            android:layout_marginTop="66.5dp"
+            android:text="发送验证码"
+            android:textColor="@drawable/send_code_tv_bg"
+            android:background="@drawable/send_code"
+            android:textSize="12sp" />
+
+        <EditText
+            android:inputType="number"
+            android:id="@+id/et_code"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="40.5dp"
+            android:background="@null"
+            android:hint="输入六位数字的验证码"
+            android:textSize="12sp" />
+    </RelativeLayout>
+    <EditText
+        android:layout_below="@+id/rl_yzm"
+        android:inputType="number"
+        android:id="@+id/et_yaoqing"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="40.5dp"
+        android:background="@null"
+        android:hint="请输入邀请码,没有请忽略"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/et_yaoqing"
+        android:layout_marginLeft="32.5dp"
+        android:layout_marginRight="32.5dp"
+        android:background="#d2d2d2" />
+
+    <Button
+        android:textColor="#FFF"
+        android:text="下一步"
+        android:id="@+id/bt_reg"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="160dp"
+        android:layout_marginLeft="33.5dp"
+        android:layout_marginRight="33.5dp"
+        android:background="@drawable/circlebutton" />
+
+    <TextView
+        android:gravity="bottom"
+        android:id="@+id/tv_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="7dp"
+        android:text="已有账号？点击这里登录" />
+
+</RelativeLayout>

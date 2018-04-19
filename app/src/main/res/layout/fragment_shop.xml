@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:lv="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F3F3"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/focus"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:background="@drawable/banner">
+
+        <TextView
+            android:id="@+id/tv_school_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="32dp"
+            android:text="去选择学校"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <android.support.v7.widget.SearchView
+            app:iconifiedByDefault="false"
+            android:id="@+id/et_search"
+            android:layout_width="200dp"
+            android:layout_height="39dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="11dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_search_corner20px"
+            android:queryHint="请输入搜索内容"></android.support.v7.widget.SearchView>
+
+
+    </RelativeLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_level"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/tab_under_line"
+        app:tabSelectedTextColor="@color/text_show_color"
+        app:tabTextColor="@color/line_color"></android.support.design.widget.TabLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
+
+        <me.wangyuwei.loadingview.LoadingView
+            android:id="@+id/loadingView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            lv:lv_duration="8"
+            lv:lv_end_color="#fff"
+            lv:lv_external_radius="30dp"
+            lv:lv_internal_radius="6dp"
+            lv:lv_start_color="@color/tab_color" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+
+        <RelativeLayout
+            android:layout_width="59dp"
+            android:layout_height="59dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="34dp">
+
+            <ImageButton
+                android:id="@+id/ib_shopcar"
+                android:layout_width="59dp"
+                android:layout_height="59dp"
+                android:background="@drawable/redcircle" />
+
+            <ImageView
+                android:layout_width="29dp"
+                android:layout_height="26dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/car" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

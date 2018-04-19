@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/ll_all"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/apply_banner">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="12dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/black_left_arrow" />
+
+        <RelativeLayout
+            android:id="@+id/rl_become"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"></RelativeLayout>
+    </RelativeLayout>
+
+    <com.ffn.zerozeroseven.view.UserDefineScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="181dp"
+                android:layout_margin="15dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="18dp"
+                    android:text="什么是007?"
+                    android:textColor="@color/tab_color"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/iv_top"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_top"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/line" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_top"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="17dp"
+                    android:text="XXXXXXXXXXXXXXXXXXXXX我也不知道些什么兄弟就这么字吧可以了完美
+我也不知道些什么兄弟就这么字吧可以了完美
+我也不知道些什么兄弟就这么字吧可以了完美
+我也不知道些什么兄弟就这么字吧可以了完美" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="181dp"
+                android:layout_margin="15dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_top1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="18dp"
+                    android:text="申请流程?"
+                    android:textColor="@color/tab_color"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/iv_top1"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_top1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/line" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_top1"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="17dp"
+                    android:text="XXXXXXXXXXXXXXXXXXXXX我也不知道些什么兄弟就这么字吧可以了完美
+我也不知道些什么兄弟就这么字吧可以了完美
+我也不知道些什么兄弟就这么字吧可以了完美
+我也不知道些什么兄弟就这么字吧可以了完美" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_call"
+                android:layout_width="match_parent"
+                android:layout_height="181dp"
+                android:layout_margin="15dp"
+                android:background="@color/white">
+
+
+                <ImageView
+                    android:id="@+id/iv_top2"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="23dp"
+                    android:background="@drawable/hotline" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_show_color"
+                    android:textSize="16sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/iv_top2"
+                    android:layout_marginTop="32dp"
+                    android:id="@+id/tv_phone1"
+                    android:text="湖南地区热线 18613991582"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_show_color"
+                    android:textSize="16sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tv_phone1"
+                    android:layout_marginTop="17dp"
+                    android:id="@+id/tv_phone2"
+                    android:text="北京地区热线 18613991582"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </com.ffn.zerozeroseven.view.UserDefineScrollView>
+
+</LinearLayout>

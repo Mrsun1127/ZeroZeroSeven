@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="underLine">#000000</color>
+    <color name="text_color">#333333</color>
+    <color name="line_color">#c8c8cc</color>
+    <color name="dark_blue">#3384f0</color><!--暗蓝色 -->
+    <color name="rb_bg_color">#0ca1ff</color>
+    <color name="tab_color">#fbb03b</color>
+    <color name="transtale">#00FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="text_show_color">#333</color>
+    <color name="tab_under_line">#FF0025</color>
+    <color name="all_bg">#EDEDED</color>
+    <color name="transparent">#00000000</color>
+    <color name="nobg">#F3F3F3</color>
+    <color name="tab_indicator_color">#299bef</color>
+    <color name="navpage">#FFE1E8EB</color>
+    <color name="status_ok">#81D741</color>
+    <color name="text_secondary_color">#9d9d9d</color>
+    <color name="dialogcolor">#7F000000</color>
+</resources>

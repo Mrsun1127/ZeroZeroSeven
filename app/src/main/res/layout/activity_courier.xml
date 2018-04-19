@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.ffn.zerozeroseven.view.TitleView
+        android:id="@+id/titleview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.ffn.zerozeroseven.view.TitleView>
+
+    <RelativeLayout
+        android:background="@color/nobg"
+        android:layout_width="match_parent"
+        android:layout_height="160dp">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="76dp"
+            android:layout_marginTop="18dp"
+            android:layout_height="78dp"
+            android:layout_marginLeft="24dp"
+            android:background="@drawable/courier_selfie" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="113dp"
+            android:layout_marginTop="37dp"
+            android:text="王大锤"
+            android:textColor="@color/text_show_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="39dp"
+            android:layout_toRightOf="@+id/tv_name"
+            android:text="零零七小哥你好"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_bianhao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="113dp"
+            android:layout_marginTop="10dp"
+            android:text="快递员编号：10086"
+            android:textColor="@color/text_show_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_icon"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="11dp"
+            android:text="接单权限范围"
+            android:textSize="14sp" />
+
+        <TextView
+            android:textColor="@color/text_show_color"
+            android:id="@+id/tv_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_bottom"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="11dp"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+    <android.support.design.widget.TabLayout
+        app:tabBackground="@color/white"
+        android:id="@+id/tab_level"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#F3F3F3"
+        app:tabIndicatorColor="@color/tab_color"
+        app:tabSelectedTextColor="@color/text_show_color"
+        app:tabTextColor="@color/line_color"></android.support.design.widget.TabLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_courier"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+</LinearLayout>

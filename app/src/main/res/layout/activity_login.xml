@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbg">
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="11dp"
+        android:layout_height="11dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="11.5dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/close" />
+
+    <TextView
+        android:id="@+id/tv_yanzhen"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="63dp"
+        android:layout_marginTop="112dp"
+        android:text="验证码登录"
+        android:textColor="#2b2b2b"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="69dp"
+        android:layout_marginTop="112dp"
+        android:text="密码登录"
+        android:textColor="#2b2b2b"
+        android:textSize="12sp" />
+
+    <View
+        android:id="@+id/v_yzm"
+        android:layout_width="86dp"
+        android:layout_height="2.5dp"
+        android:layout_below="@+id/tv_yanzhen"
+        android:layout_marginLeft="50.5dp"
+        android:background="#fbb03b" />
+
+    <View
+        android:id="@+id/v_pwd"
+        android:layout_width="86dp"
+        android:layout_height="2.5dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_pwd"
+        android:layout_marginRight="50.5dp"
+        android:background="#fbb03b"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:id="@+id/rl_yzm"
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:layout_below="@+id/v_yzm"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/et_phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginTop="50dp"
+            android:background="@null"
+            android:hint="输入手机号"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textSize="13sp"
+            />
+
+        <Button
+            android:id="@+id/bt_send"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40.5dp"
+            android:layout_marginTop="66.5dp"
+            android:background="@drawable/send_code"
+            android:text="发送验证码"
+            android:textColor="@drawable/send_code_tv_bg"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/et_code"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="40.5dp"
+            android:background="@null"
+            android:hint="输入六位数字的验证码"
+            android:inputType="number"
+            android:maxLength="6"
+            android:textSize="13sp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:layout_below="@+id/v_yzm"
+        android:visibility="invisible">
+
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginTop="50dp"
+            android:background="@null"
+            android:hint="输入用户名"
+            android:inputType="number"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_forgetpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40.5dp"
+            android:layout_marginTop="105dp"
+            android:text="忘记密码?"
+            android:textColor="#000"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/et_userpassWord"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="100dp"
+            android:background="@null"
+            android:hint="输入密码"
+            android:inputType="textPassword"
+            android:textSize="13sp"
+             />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_yaoqing"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/rl_yzm"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="100dp"
+        android:background="@null"
+        android:hint="请输入邀请码,没有或者已填写请忽略"
+        android:textSize="13sp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/et_yaoqing"
+        android:layout_marginLeft="32.5dp"
+        android:layout_marginRight="32.5dp"
+        android:background="#d2d2d2" />
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="180dp"
+        android:layout_marginLeft="33.5dp"
+        android:layout_marginRight="33.5dp"
+        android:background="@drawable/circlebutton"
+        android:text="登录"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_desigh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="150dp"
+        android:layout_marginRight="42.5dp"
+        android:text="首次登录视为注册"
+        android:textSize="9.5sp" />
+
+    <TextView
+        android:id="@+id/tv_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23.5dp"
+        android:gravity="bottom"
+        android:text="去随便逛逛>>"
+        android:textSize="9.5sp" />
+</RelativeLayout>

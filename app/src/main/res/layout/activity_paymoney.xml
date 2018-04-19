@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ll_all"
+    android:orientation="vertical">
+    <com.ffn.zerozeroseven.view.TitleView
+        android:id="@+id/titleview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.ffn.zerozeroseven.view.TitleView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="162dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="17dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_peoplephone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:text="支付金额：23RMB"
+            android:textColor="@color/text_show_color"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/view_line3"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/tv_peoplephone"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:layout_marginTop="20dp"
+            android:background="#EDEDED" />
+
+        <Button
+            android:text="选择下面支付方式"
+            android:layout_width="128dp"
+            android:layout_height="39dp"
+            android:layout_below="@+id/view_line3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/circlebt"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <include layout="@layout/pay_type" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/bt_pay"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:textColor="@color/white"
+        android:text="支付"
+        android:background="@drawable/bg"/>
+</LinearLayout>

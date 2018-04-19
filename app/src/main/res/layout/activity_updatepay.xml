@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<com.ffn.zerozeroseven.view.TitleView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/titleview"></com.ffn.zerozeroseven.view.TitleView>
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginRight="22dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="29dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <EditText
+                android:id="@+id/et_phoneNumber"
+                android:hint="输入手机号"
+                android:layout_width="150dp"
+                android:background="@null"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_send"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/text_show_color"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="获取验证码"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/line_color"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <EditText
+                android:id="@+id/et_phoneYan"
+                android:hint="手机验证码"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:background="@null"/>
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/line_color"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <EditText
+                android:id="@+id/et_newpwd"
+                android:hint="支付新密码"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:background="@null"/>
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/line_color"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <EditText
+                android:id="@+id/et_newpwdagain"
+                android:hint="重新输入新密码"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:background="@null"/>
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/line_color"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/bt_sub"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="确认"
+        android:textColor="@color/white"
+        android:background="@drawable/bg"/>
+</LinearLayout>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="190dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:id="@+id/iv_icon"
+        android:layout_width="140dp"
+        android:layout_height="90dp"
+        android:scaleType="centerInside"
+         />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_icon"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="9dp"
+        android:text="提前拜个早年之说啥套餐"
+        android:textColor="@color/text_show_color"
+        android:textSize="13sp" />
+
+
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="9dp"
+        android:background="@color/line_color" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:text="¥5:00"
+        android:textColor="#ff0025" />
+
+    <RelativeLayout
+        android:id="@+id/rl_add"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/view_line"
+        android:layout_marginRight="8dp">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/addone" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_none"
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/view_line"
+        android:layout_marginRight="8dp"
+        android:layout_width="50dp"
+        android:layout_height="35dp">
+        <TextView
+            android:textSize="11sp"
+            android:textColor="@color/text_show_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="已售完"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_count"
+        android:textSize="13sp"
+        android:layout_marginRight="5dp"
+        android:text="0"
+        android:gravity="center"
+        android:layout_toLeftOf="@+id/rl_add"
+        android:layout_below="@+id/view_line"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"/>
+    <RelativeLayout
+        android:id="@+id/rl_close"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_toLeftOf="@+id/tv_count"
+        android:layout_below="@+id/view_line"
+         >
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_centerInParent="true"
+            android:layout_height="15dp"
+            android:background="@drawable/closeone" />
+    </RelativeLayout>
+
+</RelativeLayout>

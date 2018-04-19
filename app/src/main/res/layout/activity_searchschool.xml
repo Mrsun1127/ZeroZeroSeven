@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lv="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:background="@drawable/search_top_bar_higher">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="12dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+
+                android:background="@drawable/arrow_left_white" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:text="选择学校"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+        <RelativeLayout
+            android:id="@+id/et_top"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="21dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/bg_search_corner20px"
+            android:paddingLeft="25dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_centerInParent="true"
+                android:text="搜索关键字"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="22dp"
+            android:text="当前定位学校:"
+            android:textSize="13sp" />
+
+        <TextView
+            android:ellipsize="start"
+            android:id="@+id/tv_name"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/tv_left"
+            android:text="正在定位中..."
+            android:textColor="@color/text_show_color"
+            android:textSize="10sp" />
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_relocate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:drawableLeft="@drawable/relocate_icon"
+            android:drawablePadding="5dp"
+            android:text="重新定位"
+            android:textColor="@color/tab_under_line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="15dp"
+            android:layout_height="21dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/school_commend_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/iv_left"
+            android:text="推荐学校"
+            android:textColor="@color/tab_under_line"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/bt_one"
+            android:layout_width="130dp"
+            android:layout_height="38dp"
+            android:layout_alignLeft="@+id/bt_three"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/bt_three"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/schools_name_unselect_bg"
+            android:text="湖南农业大学"
+            android:textColor="@color/tab_color" />
+
+        <Button
+            android:id="@+id/bt_two"
+            android:layout_width="130dp"
+            android:layout_height="38dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/schools_name_selected_bg"
+            android:text="湖南大学"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/bt_three"
+            android:layout_width="130dp"
+            android:layout_height="38dp"
+            android:layout_below="@+id/bt_one"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/schools_name_unselect_bg"
+            android:text="湖南财经大学"
+            android:textColor="@color/tab_color" />
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="38dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/bt_two"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/schools_name_unselect_bg"
+            android:text="湖南涉外"
+            android:textColor="@color/tab_color" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:id="@+id/iv_left1"
+            android:layout_width="15dp"
+            android:layout_height="21dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/school_else_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/iv_left1"
+            android:text="其他学校"
+            android:textColor="@color/tab_under_line"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_select_shen"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/sp_city"
+            android:gravity="center"
+            android:text="北京市"
+            android:textColor="@color/text_show_color"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/sp_city"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"></Spinner>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="105dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rc_city"
+            android:layout_width="105dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"></android.support.v7.widget.RecyclerView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/rc_city"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/rc_city">
+
+            <me.wangyuwei.loadingview.LoadingView
+                android:visibility="gone"
+                android:id="@+id/loadingView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"
+                lv:lv_duration="8"
+                lv:lv_end_color="#fff"
+                lv:lv_external_radius="30dp"
+                lv:lv_internal_radius="6dp"
+                lv:lv_start_color="@color/tab_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_nodata"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/rc_city"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_nodata"
+                android:layout_width="122dp"
+                android:layout_height="122dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/empty_space_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_nodata"
+                android:layout_centerHorizontal="true"
+                android:text="暂无查询结果"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rc_school"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/rc_city"></android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+
+</LinearLayout>

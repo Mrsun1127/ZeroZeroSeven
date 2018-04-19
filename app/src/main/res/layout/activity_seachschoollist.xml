@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F3F3">
+    <RelativeLayout
+        android:layout_marginBottom="17dp"
+        android:background="@drawable/search_top_bar_higher"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="12dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+
+                android:background="@drawable/arrow_left_white" />
+        </RelativeLayout>
+        <com.ffn.zerozeroseven.view.ClearEditText
+            android:layout_toRightOf="@+id/rl_back"
+            android:id="@+id/ct_school"
+            android:paddingLeft="12dp"
+            android:hint="搜索所在学校"
+            android:textSize="13sp"
+            android:layout_marginTop="23dp"
+            android:background="@drawable/bg_search_corner20px"
+            android:layout_marginRight="26dp"
+            android:layout_marginLeft="26dp"
+            android:textColor="@color/text_show_color"
+            android:layout_width="match_parent"
+            android:layout_height="42dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:background="@color/white"
+            android:id="@+id/rc_school"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        <RelativeLayout
+            android:id="@+id/rl_nodata"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="5dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_nodata"
+                android:layout_width="122dp"
+                android:layout_height="122dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/empty_space_icon" />
+
+            <TextView
+                android:id="@+id/bt_get"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_nodata"
+                android:text="暂无搜索结果"
+                android:textSize="13sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

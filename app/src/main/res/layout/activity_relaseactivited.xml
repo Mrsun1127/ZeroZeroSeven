@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F3F3"
+    android:orientation="vertical">
+
+    <com.ffn.zerozeroseven.view.TitleView
+        android:id="@+id/titleview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.ffn.zerozeroseven.view.TitleView>
+
+    <com.ffn.zerozeroseven.view.UserDefineScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:id="@+id/rg_group"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_love"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rb_releaseactiviedselector"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="表白帖"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/rb_good"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rb_releaseactiviedselector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="技术帖"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/rb_find"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rb_releaseactiviedselector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="寻物帖"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/rb_friend"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rb_releaseactiviedselector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="交友帖"
+                    android:textColor="@color/white" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_topone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="5dp"
+                android:text="表白对象"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_top"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:layout_margin="11dp"
+                android:background="@color/white"
+                android:maxLength="15"
+                android:hint="例如：xx学院 xx年级 xx专业 xx班"
+                android:paddingLeft="9dp"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:background="@color/white"
+                android:hint="Ta的姓名或呢称"
+                android:paddingLeft="9dp"
+                android:maxLength="5"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="7dp"
+                android:text="你想对TA说些什么？"
+                android:textSize="14sp" />
+
+            <EditText
+                android:maxLength="150"
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="226dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:gravity="start"
+                android:hint="请输入你想说的话"
+                android:paddingLeft="9dp"
+                android:paddingTop="9dp"
+                android:textSize="13sp" />
+            <TextView
+                android:id="@+id/tv_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="7dp"
+                android:text="你的名字？"
+                android:textSize="16sp" />
+            <EditText
+                android:maxLength="5"
+                android:id="@+id/et_writer"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:background="@color/white"
+                android:hint="如果匿名请勾选下面匿名项"
+                android:paddingLeft="9dp"
+                android:textSize="14sp" />
+            <LinearLayout
+                android:id="@+id/ll_niming"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:textSize="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="匿名发布"/>
+                <CheckBox
+                    android:id="@+id/cb_niming"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.ffn.zerozeroseven.view.UserDefineScrollView>
+    <Button
+        android:id="@+id/bt_release"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="@color/white"
+        android:text="发布"
+        android:background="@drawable/bg"/>
+</LinearLayout>

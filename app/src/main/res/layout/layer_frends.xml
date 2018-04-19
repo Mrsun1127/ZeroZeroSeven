@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_marginLeft="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:paddingBottom="60dp"
+        android:textSize="16sp"
+        android:layout_alignParentBottom="true"
+        android:text="拖动数字小图标释放可以清空购物车"
+        android:textColor="@color/white" />
+
+
+</RelativeLayout>

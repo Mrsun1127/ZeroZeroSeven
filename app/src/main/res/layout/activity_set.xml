@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/title_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_title"
+        android:layout_marginBottom="29dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_clean"
+            android:layout_width="match_parent"
+            android:layout_height="57dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="22dp"
+                android:text="清除缓存"
+                android:textColor="@color/text_show_color"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/rl_clean"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:background="#EDEDED" />
+        <RelativeLayout
+            android:id="@+id/rl_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="57dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="22dp"
+                android:text="修改密码"
+                android:textColor="@color/text_show_color"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_line4"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/rl_clean"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:background="#EDEDED" />
+        <RelativeLayout
+            android:id="@+id/rl_zfb"
+            android:layout_width="match_parent"
+            android:layout_height="57dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="22dp"
+                android:text="修改支付宝账号"
+                android:textColor="@color/text_show_color"
+                android:textSize="16sp" />
+        </RelativeLayout>
+        <View
+            android:id="@+id/view_line5"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/rl_clean"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:background="#EDEDED" />
+        <RelativeLayout
+            android:id="@+id/rl_zzs"
+            android:layout_width="match_parent"
+            android:layout_height="57dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="22dp"
+                android:text="关于007"
+                android:textColor="@color/text_show_color"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_exit"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg"
+        android:text="退出"
+        android:textColor="@color/white" />
+</RelativeLayout>

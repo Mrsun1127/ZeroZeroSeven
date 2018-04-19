@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#F9F9F9"
+    android:layout_height="78dp">
+
+    <ImageView
+        android:background="@drawable/oops"
+        android:scaleType="fitXY"
+        android:id="@+id/iv_shop"
+        android:layout_centerVertical="true"
+        android:layout_width="98dp"
+        android:layout_height="70dp" />
+    <TextView
+        android:id="@+id/tv_shopname"
+        android:layout_toRightOf="@+id/iv_shop"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textColor="@color/text_show_color"
+        android:text="冰镇气泡饮料"/>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_close"
+        android:layout_toRightOf="@+id/iv_shop"
+        android:layout_below="@+id/tv_shopname"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        >
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:id="@+id/iv_close"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="@drawable/closeone"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_shopcount"
+        android:layout_marginTop="19dp"
+        android:layout_toRightOf="@+id/rl_close"
+        android:layout_below="@+id/tv_shopname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13dp"
+        android:text="x0"/>
+
+    <RelativeLayout
+        android:layout_toRightOf="@+id/tv_shopcount"
+        android:layout_below="@+id/tv_shopname"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:id="@+id/rl_add"
+        >
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:id="@+id/iv_add"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="@drawable/addone"/>
+    </RelativeLayout>
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tv_peoplephone"
+        android:layout_marginRight="11dp"
+        android:layout_alignParentRight="true"
+        android:textColor="#ff0025"
+        android:textSize="13sp"
+        android:text="¥66"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <RelativeLayout
+        android:visibility="visible"
+        android:id="@+id/rl_delete"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true">
+        <ImageView
+            android:layout_marginTop="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="11dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/shopupdate"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

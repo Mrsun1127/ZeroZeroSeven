@@ -1,0 +1,28 @@
+apply plugin: 'com.android.library'
+
+android {
+//    compileSdkVersion ANDROID_BUILD_SDK_VERSION as int
+//    buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
+    compileSdkVersion 25
+    buildToolsVersion '26.0.2'
+
+    defaultConfig {
+//        minSdkVersion ANDROID_BUILD_MIN_SDK_VERSION as int
+//        targetSdkVersion ANDROID_BUILD_TARGET_SDK_VERSION as int
+        minSdkVersion 14
+        targetSdkVersion 25
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    provided 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.facebook.rebound:rebound:0.3.8'
+}
+
+// gradle uploadArchives
+//apply from: 'https://raw.githubusercontent.com/bingoogolapple/PublishAar/master/central-publish.gradle'

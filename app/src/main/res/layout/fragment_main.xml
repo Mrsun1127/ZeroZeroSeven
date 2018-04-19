@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.ffn.zerozeroseven.view.TitleView
+        android:id="@+id/titleview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.ffn.zerozeroseven.view.TitleView>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.youth.banner.Banner
+                    app:delay_time="5000"
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="163dp"
+                    >
+
+
+                </com.youth.banner.Banner>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="9dp"
+                    android:background="#F3F3F3"></RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:padding="5dp"
+                        android:src="@drawable/guangbo" />
+
+                    <com.ffn.zerozeroseven.view.AutoVerticalScrollTextView
+                        android:id="@+id/scrollTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_become"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:background="@drawable/noapplication"
+                    android:visibility="gone"></RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_qiang"
+                    android:layout_width="match_parent"
+                    android:layout_height="374dp"
+                    android:background="@drawable/mainbg"
+                    >
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:id="@+id/rl_bri"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/iv_top">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/iv_bri"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/ribbon_left"/>
+                        <ImageView
+                            android:id="@+id/iv_bri"
+                            android:layout_marginTop="5dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/birthday_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/iv_bri"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/ribbon_right"/>
+                        <TextView
+                            android:id="@+id/tv_briname"
+                            android:layout_marginTop="5dp"
+                            android:textSize="10sp"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/iv_bri"
+                            android:text="今天是您的生日，007为您送来祝福"/>
+                    </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/iv_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginTop="13dp"
+                        android:background="@drawable/title" />
+
+                    <com.ffn.zerozeroseven.view.ScroolRecyleView
+                        android:id="@+id/rc_activityview"
+                        android:layout_width="match_parent"
+                        android:layout_height="177dp"
+                        android:layout_centerInParent="true"></com.ffn.zerozeroseven.view.ScroolRecyleView>
+
+                    <ImageView
+                        android:id="@+id/iv_centertext"
+                        android:layout_width="match_parent"
+                        android:layout_height="147dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="115dp"
+                        android:layout_marginRight="115dp"
+                        android:background="@drawable/no_wishing"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/iv_up"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginRight="60dp"
+                        android:background="@drawable/button" />
+
+                    <TextView
+                        android:id="@+id/tv_more"
+                        android:layout_width="55dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center|left"
+                        android:text="更多>>"
+                        android:textColor="@color/white"
+                        android:textSize="13dp" />
+                </RelativeLayout>
+
+
+                <include layout="@layout/time_hot_shop" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="6.5dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/bt_helpother"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selected"
+                        android:text="我来跑腿"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <Button
+                        android:id="@+id/bt_helpme"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_toRightOf="@+id/bt_helpother"
+                        android:layout_weight="1"
+                        android:background="@drawable/unselected"
+                        android:text="帮我跑腿"
+                        android:textColor="@color/tab_color"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/ll_helpme"
+                        android:layout_width="match_parent"
+                        android:layout_height="172dp"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_kuaidi"
+                            android:layout_width="0dp"
+                            android:layout_height="99dp"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/iv_kuaidi"
+                                android:layout_width="43dp"
+                                android:layout_height="43dp"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/xpackage" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/iv_kuaidi"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:text="快递" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_file"
+                            android:layout_width="0dp"
+                            android:layout_height="99dp"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/iv_file"
+                                android:layout_width="43dp"
+                                android:layout_height="43dp"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/file" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/iv_file"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:text="文件" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_other"
+                            android:layout_width="0dp"
+                            android:layout_height="99dp"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/iv_other"
+                                android:layout_width="43dp"
+                                android:layout_height="43dp"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/xelse" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/iv_other"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:text="其他" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/rl_runlist"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        android:background="@drawable/loginbg"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rc_runlist"
+                            android:layout_width="match_parent"
+                            android:layout_height="170dp"
+                            android:visibility="visible"></android.support.v7.widget.RecyclerView>
+                        <RelativeLayout
+                            android:id="@+id/rl_lookmore"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_centerInParent="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="...查看更多..."
+                                android:textColor="@color/line_color"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_minerun"
+                        android:layout_width="match_parent"
+                        android:layout_height="172dp"
+                        android:background="@drawable/paotuibg"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tv_release_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="46dp"
+                            android:text="当前无跑腿任务，快来发布吧！"
+                            android:textColor="#2b2b2b"
+                            android:textSize="10sp" />
+
+                        <Button
+                            android:id="@+id/bt_release"
+                            android:layout_width="200dp"
+                            android:layout_height="56dp"
+                            android:layout_below="@+id/tv_release_status"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="38dp"
+                            android:background="@drawable/release" />
+                    </RelativeLayout>
+                </FrameLayout>
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/white"></RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+</LinearLayout>

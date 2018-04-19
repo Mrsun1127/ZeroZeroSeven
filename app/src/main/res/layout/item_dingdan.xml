@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="15dp">
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="下单时间：2017-10-11 9:00" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="支付成功" />
+
+    <RelativeLayout
+        android:descendantFocusability="blocksDescendants"
+        android:id="@+id/rl_rc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_time"
+        android:layout_marginTop="10dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rc_shop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ></android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_allmoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/rl_rc"
+        android:layout_marginBottom="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="13dp"
+        android:text="共五件商品一共666元" />
+    <RelativeLayout
+        android:layout_below="@+id/tv_allmoney"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <Button
+            android:id="@+id/bt_again"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
+            android:textSize="11sp"
+            android:textColor="#ff0000"
+            android:text="再来一单"
+            android:layout_width="85dp"
+            android:background="@drawable/bgcircle"
+            android:layout_height="29dp" />
+        <Button
+            android:id="@+id/bt_delete"
+            android:layout_toLeftOf="@+id/bt_again"
+            android:layout_marginRight="30dp"
+            android:textSize="11sp"
+            android:textColor="#ff0000"
+            android:text="删除订单"
+            android:layout_width="85dp"
+            android:background="@drawable/bgcircle"
+            android:layout_height="29dp" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginTop="24dp"
+    android:background="@color/white"
+    android:layout_height="125dp">
+
+    <ImageView
+        android:background="@color/tab_color"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/iv_messAgeStatus"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        />
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_marginTop="22dp"
+        android:layout_marginLeft="34dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_show_color"
+        android:textSize="16sp"
+        android:text="系统消息"
+        />
+    <TextView
+        android:id="@+id/tv_body"
+        android:textSize="13sp"
+        android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginLeft="34dp"
+        android:layout_marginRight="33dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="2"/>
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="34dp"
+        android:layout_below="@+id/tv_body"
+        android:text="2017-10-5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

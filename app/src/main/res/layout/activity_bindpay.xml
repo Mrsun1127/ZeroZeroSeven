@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.ffn.zerozeroseven.view.TitleView
+        android:id="@+id/titleview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.ffn.zerozeroseven.view.TitleView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="29dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginTop="24dp"
+        android:layout_weight="1"
+        android:background="@color/white">
+
+        <EditText
+            android:inputType="number"
+            android:id="@+id/et_phoneNumber"
+            android:layout_width="180dp"
+            android:layout_height="55dp"
+            android:background="@null"
+            android:hint="填写验证码"
+            android:paddingLeft="10dp" />
+
+        <Button
+            android:id="@+id/tv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/et_phoneNumber"
+            android:background="@drawable/send_code"
+            android:text="发送验证码"
+            android:textColor="@drawable/send_code_tv_bg"
+            android:textSize="12sp" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tv_send"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:background="#EDEDED" />
+
+        <EditText
+            android:id="@+id/et_phoneYan"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@+id/view_line"
+            android:background="@null"
+            android:hint="填写支付宝账号"
+            android:paddingLeft="10dp" />
+
+        <View
+            android:id="@+id/view_line1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/et_phoneYan"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:background="#EDEDED" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_sub"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/tab_color"
+        android:text="确认"
+        android:textColor="@color/white" />
+</LinearLayout>

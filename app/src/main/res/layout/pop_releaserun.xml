@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="60dp"
+    android:layout_marginRight="60dp"
+    android:id="@+id/ll_pop"
+    android:layout_height="wrap_content"
+    android:background="@drawable/popup_bg">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:gravity="center"
+        android:text="温馨提示"
+        android:textColor="@color/tab_color"
+        android:textSize="18sp" />
+
+
+    <View
+        android:layout_marginTop="10dp"
+        android:id="@+id/view_line1"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_below="@id/tv_title"
+        android:layout_marginLeft="44dp"
+        android:layout_marginRight="44dp"
+        android:background="@color/line_color" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/text_show_color"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_content"
+        android:gravity="center"
+        android:text="10:00"
+        android:textColor="@color/text_show_color"
+        android:textSize="16sp"
+        android:visibility="gone" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <Button
+        android:layout_marginBottom="12dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/bt_sub"
+        android:layout_width="124dp"
+        android:layout_height="34dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/circlebutton"
+        android:text="确定"
+        android:textColor="@color/white" />
+</LinearLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <TextView
+        android:id="@+id/all"
+        android:textSize="16sp"
+        android:textColor="@color/text_show_color"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="全部"/>
+    <TextView
+        android:id="@+id/love"
+        android:textSize="16sp"
+        android:textColor="@color/text_show_color"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="表白帖"/>
+    <TextView
+        android:id="@+id/good"
+        android:textSize="16sp"
+        android:textColor="@color/text_show_color"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="技术贴"/>
+    <TextView
+        android:id="@+id/find"
+        android:textSize="16sp"
+        android:textColor="@color/text_show_color"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="寻物贴"/>
+    <TextView
+        android:id="@+id/friend"
+        android:textSize="16sp"
+        android:textColor="@color/text_show_color"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="交友贴"/>
+
+</LinearLayout>

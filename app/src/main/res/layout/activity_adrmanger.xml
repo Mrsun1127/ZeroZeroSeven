@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.ffn.zerozeroseven.view.TitleView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/titleview"></com.ffn.zerozeroseven.view.TitleView>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <com.ffn.zerozeroseven.view.StateLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/common_stateLayout"
+                android:visibility="gone"
+                />
+            <com.ffn.zerozeroseven.view.PullSwipeMenuListView
+                android:layout_marginTop="15dp"
+                android:id="@+id/msg_pull_lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:cacheColorHint="@android:color/transparent"
+                android:divider="@null"
+                android:dividerHeight="10dp"
+                android:listSelector="@android:color/transparent"
+                />
+        </FrameLayout>
+
+
+
+    <Button
+        android:id="@+id/bt_addadr"
+        android:textSize="19sp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="新增地址"
+        android:textColor="@color/white"
+        android:background="@drawable/bg"/>
+</LinearLayout>

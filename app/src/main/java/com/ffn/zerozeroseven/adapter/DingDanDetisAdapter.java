@@ -1,0 +1,62 @@
+package com.ffn.zerozeroseven.adapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.DingDanDetlsInfo;
+
+/**
+ * Created by GT on 2017/11/27.
+ */
+
+public class DingDanDetisAdapter extends BaseRecyclerAdapter<DingDanDetlsInfo.DataBean.OrderBean.DetailsBean> {
+    public DingDanDetisAdapter(Context context) {
+        super(context);
+    }
+
+    @Override
+    protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
+        return new DingDanDetisAdapter.MViewHolder(mInflater.inflate(R.layout.item_dingdan_shop, null));
+    }
+
+    @Override
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder,DingDanDetlsInfo.DataBean.OrderBean.DetailsBean info, int position) {
+        MViewHolder mHolder = (MViewHolder) holder;
+        Glide.with(mContext)
+                .load(info.getGoodsImage())
+                .error(R.drawable.oops)
+                .into(mHolder.iv_shop);
+        mHolder.iv_add.setVisibility(View.GONE);
+        mHolder.iv_close.setVisibility(View.GONE);
+        mHolder.tv_shopname.setText(info.getGoodsName());
+        mHolder.tv_shopcount.setText("x" + info.getGoodsCount());
+        mHolder.tv_money.setText("¥" + info.getGoodsCount() * info.getGoodsPrice());
+    }
+
+    private class MViewHolder extends RecyclerView.ViewHolder {
+        ImageView iv_shop;
+        ImageView iv_close;
+        ImageView iv_add;
+        TextView tv_shopname;
+        TextView tv_shopcount;
+        TextView tv_money;
+
+        MViewHolder(View itemView) {
+            super(itemView);
+            iv_shop = itemView.findViewById(R.id.iv_shop);
+            iv_close = itemView.findViewById(R.id.iv_close);
+            iv_add = itemView.findViewById(R.id.iv_add);
+            tv_shopname = itemView.findViewById(R.id.tv_shopname);
+            tv_shopcount = itemView.findViewById(R.id.tv_shopcount);
+            tv_money = itemView.findViewById(R.id.tv_peoplephone);
+
+        }
+    }
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lv="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_all"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F3F3"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_no_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/empty_box_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:text="还未选择学校"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <com.ffn.zerozeroseven.view.StateLayout
+            android:id="@+id/common_stateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <me.wangyuwei.loadingview.LoadingView
+            android:id="@+id/loadingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            lv:lv_duration="8"
+            lv:lv_end_color="#fff"
+            lv:lv_external_radius="30dp"
+            lv:lv_internal_radius="6dp"
+            lv:lv_start_color="@color/tab_color" />
+
+        <cn.bingoogolapple.refreshlayout.util.BGARefreshLayout
+            android:id="@+id/common_refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/common_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+        </cn.bingoogolapple.refreshlayout.util.BGARefreshLayout>
+
+
+    </FrameLayout>
+
+</LinearLayout>

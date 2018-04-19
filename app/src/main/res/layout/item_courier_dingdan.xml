@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:background="#e4e4e4">
+
+        <TextView
+            android:id="@+id/tv_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:text="订单编号：8654852"
+            android:textColor="@color/text_show_color"
+            android:textSize="13sp" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:text="12:00前送达"
+            android:textColor="@color/text_show_color"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_center"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:layout_below="@+id/rl_top">
+
+        <ImageView
+            android:id="@+id/iv_phone"
+            android:layout_width="11dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/cell" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/iv_phone"
+            android:text="186****1234"
+            android:textColor="@color/text_show_color"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/iv_location"
+            android:layout_width="15dp"
+            android:layout_height="19dp"
+            android:layout_below="@+id/iv_phone"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/home01_icon_location" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_phone"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/iv_location"
+            android:text="湖南大学13舍605"
+            android:textColor="@color/text_show_color"
+            android:textSize="13sp" />
+
+        <Button
+            android:textSize="11sp"
+            android:id="@+id/bt_qiang"
+            android:layout_width="55dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="19dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/line_color"
+            android:text="未取货"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_shop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_center"
+        android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:visibility="visible"
+        android:id="@+id/rl_shop"
+        android:layout_below="@+id/rc_shop"
+        android:layout_width="match_parent"
+        android:layout_height="52dp">
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_lanjie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:text="揽件时间：2018/2/8"/>
+        <Button
+            android:id="@+id/bt_right"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="29dp"
+            android:text="完成订单"
+            android:textColor="@color/white"
+            android:background="@drawable/circlebutton"
+            android:layout_width="82dp"
+            android:layout_height="29dp" />
+    </RelativeLayout>
+</RelativeLayout>
