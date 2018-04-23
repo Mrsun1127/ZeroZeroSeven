@@ -204,7 +204,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                 try {
                     a = allMoney + carShopInfo.getShopInfos().get(0).getRunMoney();
                 } catch (Exception e) {
-                    a=0.0;
+                    a = 0.0;
                 }
                 if ("null".equals(a + "")) {
                     a = 0.0;
@@ -402,11 +402,11 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
 //                    ZeroZeroSevenUtils.showCustonPop(CommitDingDanActivity.this, "亲，商铺现在打烊，请于早上9.30之后下单", rl_addadr);
 //                    return;
 //                }
-                if("跑腿费：¥null".equals(tv_runMoney.getText().toString())){
+                if ("跑腿费：¥null".equals(tv_runMoney.getText().toString())) {
                     ToastUtils.showShort("当前网络较差，建议连接wifi或退出重新进入app下单");
                     return;
                 }
-                if("暂无可支付的商品".equals(tv_allmoney.getText().toString())){
+                if ("暂无可支付的商品".equals(tv_allmoney.getText().toString())) {
                     ToastUtils.showShort("请购买商品");
                     return;
                 }
@@ -415,9 +415,9 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                     return;
                 }
                 carShopInfo = (CarShopInfo) SharePrefUtils.readObject(CommitDingDanActivity.this, "carShopInfo");
-                if (shouHuoInfo.getData().getAddresses().size() > 0) {
+                if (shouHuoInfo.getData().getAddresses() != null && shouHuoInfo.getData().getAddresses().size() > 0) {
                     if (carShopInfo != null && carShopInfo.getShopInfos().size() > 0) {
-                        String reMark=et_beizhu.getText().toString().trim();
+                        String reMark = et_beizhu.getText().toString().trim();
                         if (tv_location.getText().toString().trim().contains(userInfo.getSchoolName())) {
                             Bundle bundle = new Bundle();
                             double d = 0.0;
@@ -438,8 +438,8 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                             bundle.putString("adr", tv_location.getText().toString());
                             bundle.putString("phone", tv_phone.getText().toString());
                             bundle.putString("dormId", dormId);
-                            if(!TextUtils.isEmpty(reMark)){
-                                bundle.putString("beizhu",reMark);
+                            if (!TextUtils.isEmpty(reMark)) {
+                                bundle.putString("beizhu", reMark);
                             }
                             ZeroZeroSevenUtils.SwitchActivity(CommitDingDanActivity.this, PayMoneyActivity.class, bundle);
                             finish();

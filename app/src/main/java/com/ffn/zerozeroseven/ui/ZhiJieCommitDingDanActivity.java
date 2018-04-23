@@ -292,7 +292,7 @@ public class ZhiJieCommitDingDanActivity extends BaseActivity implements View.On
                     return;
                 }
                 carShopInfo = (CarShopInfo) SharePrefUtils.readObject(ZhiJieCommitDingDanActivity.this, "zhijiecarShopInfo");
-                if (shouHuoInfo.getData().getAddresses().size() > 0) {
+                if (shouHuoInfo.getData().getAddresses() != null &&shouHuoInfo.getData().getAddresses().size() > 0) {
                     if(carShopInfo.getShopInfos().size()>0){
                         if(tv_location.getText().toString().trim().contains(userInfo.getSchoolName())){
                             String reMark=et_beizhu.getText().toString().trim();
