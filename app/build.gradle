@@ -126,6 +126,5 @@ dependencies {
     compile 'com.just.agentweb:agentweb:1.2.2'
     compile 'com.umeng.sdk:common:latest.integration'
     compile 'com.umeng.sdk:analytics:latest.integration'
-
     compile 'com.android.support:multidex:1.0.0'
 }
