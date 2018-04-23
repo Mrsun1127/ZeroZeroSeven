@@ -217,7 +217,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                ToastUtils.showShort("获取失败，请稍后再试");
+                BaseAppApplication.mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtils.showShort("获取失败，请稍后再试");
+                    }
+                });
                 disLoadProgress();
             }
 
