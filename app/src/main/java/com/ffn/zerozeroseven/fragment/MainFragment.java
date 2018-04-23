@@ -683,16 +683,21 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         if (poiResult != null) {
             if (poiResult.getAllPoi() != null && poiResult.getAllPoi().size() > 0) {
                 String poi = poiResult.getAllPoi().get(0).name;
-                poi.substring(0, poi.indexOf("学"));
-                FindSchoolId(poi.substring(0, poi.indexOf("学") + 1));
+                if(poi.indexOf("学")!=-1){
+                    poi.substring(0, poi.lastIndexOf("学"));
+                    FindSchoolId(poi.substring(0, poi.indexOf("学") + 1));
+                }else{
+                    BaseAppApplication.mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            disLoadProgress();
+                            titleView.setTopText("去选择学校");
+                        }
+                    });
+                }
+
             } else {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        titleView.setTopText("去选择学校");
-                    }
-                });
+
             }
         }
     }
