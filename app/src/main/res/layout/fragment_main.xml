@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
     android:orientation="vertical">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -11,9 +13,10 @@
         android:layout_height="match_parent">
 
         <ScrollView
-            android:scrollbars="none"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,16 +82,135 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:id="@+id/iv_one"
+                            android:background="@drawable/main_one"
+                            android:layout_centerInParent="true"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp" />
+                        <TextView
+                            android:textColor="#333"
+                            android:textSize="9sp"
+                            android:text="零食外卖"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/iv_one"
+                            android:layout_marginTop="4dp"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:id="@+id/iv_two"
+                            android:background="@drawable/main_two"
+                            android:layout_centerInParent="true"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp" />
+                        <TextView
+                            android:textColor="#333"
+                            android:textSize="9sp"
+                            android:text="数码产品"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/iv_two"
+                            android:layout_marginTop="4dp"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:id="@+id/iv_three"
+                            android:background="@drawable/main_three"
+                            android:layout_centerInParent="true"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp" />
+                        <TextView
+                            android:textColor="#333"
+                            android:textSize="9sp"
+                            android:text="跳蚤市场"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/iv_three"
+                            android:layout_marginTop="4dp"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:id="@+id/iv_four"
+                            android:background="@drawable/main_four"
+                            android:layout_centerInParent="true"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp" />
+                        <TextView
+                            android:textColor="#333"
+                            android:textSize="9sp"
+                            android:text="积分有礼"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/iv_four"
+                            android:layout_marginTop="4dp"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:id="@+id/iv_five"
+                            android:background="@drawable/main_five"
+                            android:layout_centerInParent="true"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp" />
+                        <TextView
+                            android:textColor="#333"
+                            android:textSize="9sp"
+                            android:text="土豪排行"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/iv_five"
+                            android:layout_marginTop="4dp"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="visible"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:background="@drawable/main_circle"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="25dp"
+                        android:layout_width="99dp"
                         android:layout_height="25dp"
                         android:padding="5dp"
-                        android:src="@drawable/guangbo" />
+                        android:src="@drawable/xiaoqikuaibao" />
 
                     <com.ffn.zerozeroseven.view.AutoVerticalScrollTextView
                         android:id="@+id/scrollTextView"
