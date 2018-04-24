@@ -41,6 +41,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.MainGoodsAdapter;
 import com.ffn.zerozeroseven.adapter.RunListAdapter;
 import com.ffn.zerozeroseven.adapter.UserLikeAdapter;
+import com.ffn.zerozeroseven.adapter.WebBannerAdapter;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
@@ -91,16 +92,11 @@ import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.ffn.zerozeroseven.view.ScroolRecyleView;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
-import com.ffn.zerozeroseven.view.TitleView;
+import com.ffn.zerozeroseven.view.banner.BannerLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yanzhenjie.permission.AndPermission;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerListener;
-import com.youth.banner.loader.ImageLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -143,7 +139,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private double latitude;
     private double longitude;
     private PoiSearch mPoiSearch;
-    private TitleView titleView;
     private boolean loginStaus;
     public static MainFragment mInstance;
     private TextView tv_time;
@@ -169,8 +164,11 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private Thread thread;
     private ProgressDialog pd;
     @Bind(R.id.banner)
-    Banner banner;
+    BannerLayout banner;
+    @Bind(R.id.rl_location)
+    RelativeLayout rl_location;
     private BannerInfo bannerInfo;
+    private WebBannerAdapter bannerAdapter;
 
     public RunListRquestInfo.DataBean.ListBean getRunlist(int poition) {
         return runListRquestInfo.getData().getList().get(poition);
@@ -208,55 +206,12 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 //
     }
 
-    public class GlideImageLoader extends ImageLoader {
-        @Override
-        public void displayImage(Context context, Object path, ImageView imageView) {
-            /**
-             注意：
-             1.图片加载器由自己选择，这里不限制，只是提供几种使用方法
-             2.返回的图片路径为Object类型，由于不能确定你到底使用的那种图片加载器，
-             传输的到的是什么格式，那么这种就使用Object接收和返回，你只需要强转成你传输的类型就行，
-             切记不要胡乱强转！
-             */
-            //Glide 加载图片简单用法
-            Glide.with(context).load(path).into(imageView);
-            Uri uri = Uri.parse((String) path);
-            imageView.setImageURI(uri);
-        }
-    }
 
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//如果 API level 是大于等于 23(Android 6.0) 时
-//            //判断是否具有权限
-//            if (ContextCompat.checkSelfPermission(bfCxt,
-//                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                //判断是否需要向用户解释为什么需要申请该权限
-//                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-//                        Manifest.permission.ACCESS_COARSE_LOCATION)) {
-//                    Toast.makeText(bfCxt, "自Android 6.0开始需要打开位置权限", Toast.LENGTH_SHORT).show();
-//                }
-//                //请求权限
-//                ActivityCompat.requestPermissions(getActivity(),
-//                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-//                        1);
-//            }
-//        }
-        banner.setImageLoader(new GlideImageLoader());
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        banner.setBannerAnimation(Transformer.Default);
-        banner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                Bundle bundle = new Bundle();
-                bundle.putString("url", bannerInfo.getData().getList().get(position).getLink());
-                bundle.putString("title", bannerInfo.getData().getList().get(position).getTitle());
-                if (!TextUtils.isEmpty(bannerInfo.getData().getList().get(position).getLink())) {
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class, bundle);
-                }
-            }
-        });
+
+
         refreshLayout.setOnRefreshListener(this);
         mInstance = this;
         mLocationClient = new LocationClient(BaseAppApplication.context);
@@ -280,30 +235,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         view.findViewById(R.id.tv_more).setOnClickListener(this);
         view.findViewById(R.id.iv_up).setOnClickListener(this);
         tv_time = view.findViewById(R.id.tv_time);
-        titleView = view.findViewById(R.id.titleview);
-        titleView.setBackUnSHow();
-        titleView.setDownShow();
-        titleView.setMessAgeShow();
-        titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {
-            @Override
-            public void ivBack() {
-
-            }
-
-            @Override
-            public void ivDown() {
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, SearchSchoolActivity.class);
-            }
-
-            @Override
-            public void ivMessAge() {
-                if (userInfo != null) {
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MessAgeActivity.class);
-                } else {
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class, null);
-                }
-            }
-        });
         ll_both = view.findViewById(R.id.ll_both);
         ll_often = view.findViewById(R.id.ll_often);
         ll_hot = view.findViewById(R.id.ll_hot);
@@ -524,7 +455,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             pd.show();
                         }
                     });
-                    File file = DownLoadManager.getFileFromServer(apkUrl, pd,bfCxt);
+                    File file = DownLoadManager.getFileFromServer(apkUrl, pd, bfCxt);
                     BaseAppApplication.mainHandler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -683,15 +614,15 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         if (poiResult != null) {
             if (poiResult.getAllPoi() != null && poiResult.getAllPoi().size() > 0) {
                 String poi = poiResult.getAllPoi().get(0).name;
-                if(poi.indexOf("学")!=-1){
+                if (poi.indexOf("学") != -1) {
                     poi.substring(0, poi.lastIndexOf("学"));
                     FindSchoolId(poi.substring(0, poi.indexOf("学") + 1));
-                }else{
+                } else {
                     BaseAppApplication.mainHandler.post(new Runnable() {
                         @Override
                         public void run() {
                             disLoadProgress();
-                            titleView.setTopText("去选择学校");
+                            tv_school.setText("去选择学校");
                         }
                     });
                 }
@@ -710,14 +641,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         schoolInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
         okGoUtils.httpPostJSON(schoolInfo, true, true);
-//        okGoUtils.setOnLoadError(new OkGoUtils.OnLoadError() {
-//            @Override
-//            public void onErrorLoad() {
-//                ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance, "请手动定位", titleView);
-//                titleView.setTopText("去选择学校");
-//                reQuest();
-//            }
-//        });
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -725,10 +648,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 if (findSchoolInfo.getCode() == 0) {
                     if (findSchoolInfo.getData() != null) {
                         if (TextUtils.isEmpty(findSchoolInfo.getData().getName())) {
-                            titleView.setTopText("去选择学校");
-                            ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance, "请手动定位", titleView);
+                            tv_school.setText("去选择学校");
+                            ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance, "请手动定位",tv_school);
                         } else {
-                            titleView.setTopText(findSchoolInfo.getData().getName());
+                            tv_school.setText(findSchoolInfo.getData().getName());
                             BaseAppApplication.userInfo.setSchoolName(name);
                             BaseAppApplication.userInfo.setSchoolId(findSchoolInfo.getData().getId() + "");
                             SharePrefUtils.saveObject(bfCxt, "userInfo", BaseAppApplication.getInstance().getLoginUser());
@@ -737,8 +660,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
                         reQuest();
                     } else {
-                        ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance, "请手动定位", titleView);
-                        titleView.setTopText("去选择学校");
+                        ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance, "请手动定位", tv_school);
+                        tv_school.setText("去选择学校");
                         reQuest();
                     }
                 } else {
@@ -852,9 +775,19 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         for (int i = 0; i < bannerInfo.getData().getList().size(); i++) {
                             images.add(bannerInfo.getData().getList().get(i).getPicUrl());
                         }
-                        banner.setImages(images);
-                        banner.isAutoPlay(true);
-                        banner.start();
+                        bannerAdapter = new WebBannerAdapter(bfCxt, images);
+                        banner.setAdapter(bannerAdapter);
+                        bannerAdapter.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+                            @Override
+                            public void onItemClick(int position) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("url", bannerInfo.getData().getList().get(position).getLink());
+                                bundle.putString("title", bannerInfo.getData().getList().get(position).getTitle());
+                                if (!TextUtils.isEmpty(bannerInfo.getData().getList().get(position).getLink())) {
+                                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class, bundle);
+                                }
+                            }
+                        });
                     }
                 }
             }
@@ -862,21 +795,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        banner.startAutoPlay();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        banner.stopAutoPlay();
-    }
-    //    public void openZhiLingService() {
-//        Intent intents = new Intent(bfCxt, TimeCheckService.class);
-//        getActivity().startService(intents);
-//    }
 
 //    private void requestRunList() {
 //        RunListInfo runListInfo = new RunListInfo();
@@ -1172,10 +1090,22 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     Button helpme;
     @Bind(R.id.bt_helpother)
     Button helpother;
+    @Bind(R.id.tv_school)
+    TextView tv_school;
 
-    @OnClick({R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore})
+    @OnClick({R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location,R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.tv_school:
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, SearchSchoolActivity.class);
+                break;
+            case R.id.rl_location:
+                if (userInfo != null) {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MessAgeActivity.class);
+                } else {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class, null);
+                }
+                break;
             case R.id.bt_helpother:
                 helpother.setBackgroundResource(R.drawable.selected);
                 helpother.setTextColor(bfCxt.getResources().getColor(R.color.white));
@@ -1277,12 +1207,12 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
             if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
-                titleView.setTopText(userInfo.getSchoolName());
+                tv_school.setText(userInfo.getSchoolName());
             } else {
-                titleView.setTopText("请选择学校");
+                tv_school.setText("请选择学校");
             }
         } else {
-            titleView.setTopText("请选择学校");
+            tv_school.setText("请选择学校");
         }
 
     }

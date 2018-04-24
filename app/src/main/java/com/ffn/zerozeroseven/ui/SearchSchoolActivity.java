@@ -76,7 +76,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
     private double latitude;
     private double longitude;
     private PoiSearch mPoiSearch;
-    private WaitingDialog waitingDialog1;
+//    private WaitingDialog waitingDialog1;
     TextView tv_name;
     TextView tv_relocate;
     private List<SchoolListInfo.DataBean.SchoolsBean> schools;
@@ -111,7 +111,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                         1);
             }
         }
-        waitingDialog1=new WaitingDialog(this);
+//        waitingDialog1=new WaitingDialog(this);
         doGoLocation();
 
     }
@@ -142,7 +142,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        waitingDialog1.dismiss();
+//                        waitingDialog1.dismiss();
                         tv_name.setText(poiResult.getAllPoi().get(0).name.substring(0,poiResult.getAllPoi().get(0).name.indexOf("学")+1));
                     }
                 });
@@ -152,7 +152,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                     @Override
                     public void run() {
                         tv_name.setText("请手动定位");
-                        waitingDialog1.dismiss();
+//                        waitingDialog1.dismiss();
                     }
                 });
             }
@@ -182,7 +182,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void searchNeayBy(double latitude1, double longitude1) {
-        waitingDialog1.showInfo("正在获取学校定位中...");
+//        waitingDialog1.showInfo("正在获取学校定位中...");
         PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
         nearbySearchOption.location(new LatLng(latitude1, longitude1));
         nearbySearchOption.keyword("大学");
