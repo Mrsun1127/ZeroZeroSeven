@@ -4,11 +4,12 @@ android {
     compileSdkVersion 26
     defaultConfig {
         multiDexEnabled true
+
         applicationId "com.ffn.zerozeroseven"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 5
-        versionName "1.0.1"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
