@@ -26,7 +26,7 @@
                 <RelativeLayout
                     android:id="@+id/rl_top_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="230dp"
                     android:background="@drawable/main_top">
 
                     <RelativeLayout
@@ -72,7 +72,7 @@
                     <com.ffn.zerozeroseven.view.banner.BannerLayout
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="190dp"
                         android:layout_below="@+id/rl_top"
                         app:autoPlaying="true"
                         app:centerScale="1.3"
@@ -195,7 +195,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="visible"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="17dp"
@@ -218,7 +217,13 @@
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
-
+                <ImageView
+                    android:id="@+id/iv_guanggao"
+                    android:background="@drawable/main_guanggao"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"/>
                 <RelativeLayout
                     android:id="@+id/rl_become"
                     android:layout_width="match_parent"

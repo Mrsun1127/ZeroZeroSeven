@@ -1093,9 +1093,12 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Bind(R.id.tv_school)
     TextView tv_school;
 
-    @OnClick({R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location,R.id.tv_school})
+    @OnClick({R.id.iv_guanggao,R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location,R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.iv_guanggao:
+                HomeActivity.getmInstance().go2Fragment(1);
+                break;
             case R.id.tv_school:
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, SearchSchoolActivity.class);
                 break;

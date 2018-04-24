@@ -61,6 +61,7 @@ public class BannerLayout extends FrameLayout {
                     mRecyclerView.smoothScrollToPosition(currentIndex);
                     mHandler.sendEmptyMessageDelayed(WHAT_AUTO_PLAY, autoPlayDuration);
                     refreshIndicator();
+
                 }
             }
             return false;
@@ -132,7 +133,6 @@ public class BannerLayout extends FrameLayout {
         mLayoutManager.setMoveSpeed(moveSpeed);
         mRecyclerView.setLayoutManager(mLayoutManager);
         new CenterSnapHelper().attachToRecyclerView(mRecyclerView);
-
 
         //指示器部分
         indicatorContainer = new RecyclerView(context);
