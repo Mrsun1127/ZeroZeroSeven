@@ -26,7 +26,7 @@
                 <RelativeLayout
                     android:id="@+id/rl_top_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="230dp"
+                    android:layout_height="200dp"
                     android:background="@drawable/main_top">
 
                     <RelativeLayout
@@ -36,8 +36,8 @@
 
                         <ImageView
                             android:id="@+id/iv_location"
-                            android:layout_width="19dp"
-                            android:layout_height="25dp"
+                            android:layout_width="13dp"
+                            android:layout_height="17dp"
                             android:layout_alignParentBottom="true"
                             android:layout_marginLeft="15dp"
                             android:background="@drawable/main_location" />
@@ -89,6 +89,7 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
+                        android:id="@+id/rl_snack"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
@@ -110,6 +111,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rl_computer"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
@@ -131,6 +133,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rl_flea"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
@@ -152,6 +155,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rl_integer"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
@@ -173,6 +177,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rl_local"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
@@ -218,10 +223,11 @@
 
                 </LinearLayout>
                 <ImageView
+                    android:layout_gravity="center_horizontal"
                     android:id="@+id/iv_guanggao"
                     android:background="@drawable/main_guanggao"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
+                    android:layout_width="279dp"
+                    android:layout_height="89dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"/>
                 <RelativeLayout
