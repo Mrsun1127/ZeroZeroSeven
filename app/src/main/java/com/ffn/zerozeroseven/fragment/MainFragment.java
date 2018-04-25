@@ -649,7 +649,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     if (findSchoolInfo.getData() != null) {
                         if (TextUtils.isEmpty(findSchoolInfo.getData().getName())) {
                             tv_school.setText("去选择学校");
-                            ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance, "请手动定位",tv_school);
+                            ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance, "请手动定位", tv_school);
                         } else {
                             tv_school.setText(findSchoolInfo.getData().getName());
                             BaseAppApplication.userInfo.setSchoolName(name);
@@ -1093,9 +1093,20 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Bind(R.id.tv_school)
     TextView tv_school;
 
-    @OnClick({R.id.iv_guanggao,R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location,R.id.tv_school})
+    @OnClick({R.id.rl_snack, R.id.rl_computer, R.id.rl_flea, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.rl_snack:
+                HomeActivity.getmInstance().go2Fragment(1);
+                break;
+            case R.id.rl_computer:
+                break;
+            case R.id.rl_flea:
+                break;
+            case R.id.rl_integer:
+                break;
+            case R.id.rl_local:
+                break;
             case R.id.iv_guanggao:
                 HomeActivity.getmInstance().go2Fragment(1);
                 break;
