@@ -8,6 +8,7 @@ android {
         applicationId "com.ffn.zerozeroseven"
         minSdkVersion 16
         targetSdkVersion 23
+        renderscriptSupportModeEnabled true
         versionCode 5
         versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -130,4 +131,5 @@ dependencies {
     compile 'com.umeng.sdk:common:latest.integration'
     compile 'com.umeng.sdk:analytics:latest.integration'
     compile 'com.android.support:multidex:1.0.0'
+    compile 'com.github.mmin18:realtimeblurview:1.1.0'
 }

@@ -6,16 +6,21 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -37,6 +42,8 @@ import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.mapapi.search.poi.PoiSortType;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.MainGoodsAdapter;
 import com.ffn.zerozeroseven.adapter.RunListAdapter;
@@ -92,16 +99,22 @@ import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.ffn.zerozeroseven.view.ScroolRecyleView;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
+import com.ffn.zerozeroseven.view.ZQImageViewRoundOval;
 import com.ffn.zerozeroseven.view.banner.BannerLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yanzhenjie.permission.AndPermission;
+import com.zhouwei.mzbanner.MZBannerView;
+import com.zhouwei.mzbanner.holder.MZHolderCreator;
+import com.zhouwei.mzbanner.holder.MZViewHolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -164,7 +177,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private Thread thread;
     private ProgressDialog pd;
     @Bind(R.id.banner)
-    BannerLayout banner;
+    MZBannerView banner;
     @Bind(R.id.rl_location)
     RelativeLayout rl_location;
     private BannerInfo bannerInfo;
@@ -206,6 +219,19 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 //
     }
 
+    @Bind(R.id.rl_top_bg)
+    RelativeLayout rl_top_bg;
+
+    private Drawable loadImageFromNetwork(String imageUrl) {
+        Drawable drawable = null;
+        try {
+            // 可以在这里通过文件名来判断，是否本地有此图片
+            drawable = Drawable.createFromStream(
+                    new URL(imageUrl).openStream(), "image.jpg");
+        } catch (IOException e) {
+        }
+        return drawable;
+    }
 
     @Override
     protected void initView(View view) {
@@ -227,7 +253,39 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         if (SharePrefUtils.getInt(bfCxt, "isLocation", 0) != 1) {
             mLocationClient.start();
         }
+        banner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
+            @Override
+            public void onPageClick(View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("url", bannerInfo.getData().getList().get(position).getLink());
+                bundle.putString("title", bannerInfo.getData().getList().get(position).getTitle());
+                if (!TextUtils.isEmpty(bannerInfo.getData().getList().get(position).getLink())) {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class, bundle);
+                }
+            }
+        });
+        banner.addPageChangeLisnter(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Glide.with(bfCxt).load(bannerInfo.getData().getList().get(position).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        Drawable drawable = new BitmapDrawable(getResources(),resource);
+                        rl_top_bg.setBackground(drawable);
+                    }
+                });
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         iv_centertext = view.findViewById(R.id.iv_centertext);
         view.findViewById(R.id.rl_become).setOnClickListener(this);
         view.findViewById(R.id.bt_release).setOnClickListener(this);
@@ -555,6 +613,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onPause() {
         super.onPause();
+        banner.pause();//暂停轮播
         if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
             recyclerView.stop();
         }
@@ -757,6 +816,26 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
     List<String> images;
 
+    public static class BannerViewHolder implements MZViewHolder<String> {
+        private ZQImageViewRoundOval mImageView;
+
+        @Override
+        public View createView(Context context) {
+            // 返回页面布局
+            View view = LayoutInflater.from(context).inflate(R.layout.item_image, null);
+            mImageView =  view.findViewById(R.id.image);
+            mImageView.setType(ZQImageViewRoundOval.TYPE_ROUND);
+            mImageView.setRoundRadius(25);//矩形凹行大小
+            return view;
+        }
+
+        @Override
+        public void onBind(Context context, int position, String data) {
+            // 数据绑定
+            Glide.with(context).load(data).into(mImageView);
+        }
+    }
+
     private void requestBaner() {
         LunBoInfo lunBoInfo = new LunBoInfo();
         lunBoInfo.setFunctionName("ListAd");
@@ -775,17 +854,17 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         for (int i = 0; i < bannerInfo.getData().getList().size(); i++) {
                             images.add(bannerInfo.getData().getList().get(i).getPicUrl());
                         }
-                        bannerAdapter = new WebBannerAdapter(bfCxt, images);
-                        banner.setAdapter(bannerAdapter);
-                        bannerAdapter.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+                        Glide.with(bfCxt).load(bannerInfo.getData().getList().get(0).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                             @Override
-                            public void onItemClick(int position) {
-                                Bundle bundle = new Bundle();
-                                bundle.putString("url", bannerInfo.getData().getList().get(position).getLink());
-                                bundle.putString("title", bannerInfo.getData().getList().get(position).getTitle());
-                                if (!TextUtils.isEmpty(bannerInfo.getData().getList().get(position).getLink())) {
-                                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class, bundle);
-                                }
+                            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                                Drawable drawable = new BitmapDrawable(getResources(),resource);
+                                rl_top_bg.setBackground(drawable);
+                            }
+                        });
+                        banner.setPages(images, new MZHolderCreator() {
+                            @Override
+                            public BannerViewHolder createViewHolder() {
+                                return new BannerViewHolder();
                             }
                         });
                     }
@@ -1168,6 +1247,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onResume() {
         super.onResume();
+        banner.start();//开始轮播
 //        if (ZeroZeroSevenUtils.Date2date()) {
 //
 //            if (hotGoodsAdapter.getCount() == 0) {

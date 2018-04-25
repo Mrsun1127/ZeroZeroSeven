@@ -22,13 +22,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:id="@+id/rl_top_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="230dp"
+                        >
 
-                <RelativeLayout
-                    android:id="@+id/rl_top_bg"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@drawable/main_top">
+                        <com.github.mmin18.widget.RealtimeBlurView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:realtimeBlurRadius="20dp"
+                             />
 
+                        <RelativeLayout
+                            android:background="@drawable/sjx"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"></RelativeLayout>
+                        <com.zhouwei.mzbanner.MZBannerView
+                            android:layout_marginTop="67dp"
+                            android:id="@+id/banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            app:open_mz_mode="true"
+                            app:middle_page_cover="false"
+                            app:canLoop="true"
+                            app:indicatorAlign="center"
+                            />
+
+                    </RelativeLayout>
                     <RelativeLayout
                         android:id="@+id/rl_top"
                         android:layout_width="match_parent"
@@ -68,24 +93,13 @@
                                 android:background="@drawable/message" />
                         </RelativeLayout>
                     </RelativeLayout>
+                </FrameLayout>
 
-                    <com.ffn.zerozeroseven.view.banner.BannerLayout
-                        android:id="@+id/banner"
-                        android:layout_width="match_parent"
-                        android:layout_height="190dp"
-                        android:layout_below="@+id/rl_top"
-                        app:autoPlaying="true"
-                        app:centerScale="1.3"
-                        app:itemSpace="20"
-                        app:moveSpeed="1.8"
-                        app:showIndicator="false" />
-                </RelativeLayout>
 
                 <LinearLayout
                     android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
-                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <RelativeLayout
