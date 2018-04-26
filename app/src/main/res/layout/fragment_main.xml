@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:focusable="true"
-    android:orientation="vertical">
+    >
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshlayout"
@@ -41,7 +41,7 @@
                             android:background="@drawable/sjx"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"></RelativeLayout>
+                             android:layout_alignParentBottom="true"></RelativeLayout>
                         <com.zhouwei.mzbanner.MZBannerView
                             android:layout_marginTop="67dp"
                             android:id="@+id/banner"
@@ -54,45 +54,7 @@
                             />
 
                     </RelativeLayout>
-                    <RelativeLayout
-                        android:id="@+id/rl_top"
-                        android:layout_width="match_parent"
-                        android:layout_height="47dp">
 
-                        <ImageView
-                            android:id="@+id/iv_location"
-                            android:layout_width="13dp"
-                            android:layout_height="17dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginLeft="15dp"
-                            android:background="@drawable/main_location" />
-
-                        <TextView
-                            android:id="@+id/tv_school"
-                            android:layout_width="150dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="5dp"
-                            android:layout_toRightOf="@+id/iv_location"
-                            android:gravity="center_vertical|bottom"
-                            android:text="湖南农业大学"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
-
-                        <RelativeLayout
-                            android:id="@+id/rl_location"
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentRight="true">
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_alignParentBottom="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginRight="10dp"
-                                android:background="@drawable/message" />
-                        </RelativeLayout>
-                    </RelativeLayout>
                 </FrameLayout>
 
 
@@ -111,8 +73,8 @@
                             android:id="@+id/iv_one"
                             android:background="@drawable/main_one"
                             android:layout_centerInParent="true"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp" />
+                            android:layout_width="38dp"
+                            android:layout_height="38dp" />
                         <TextView
                             android:textColor="#333"
                             android:textSize="9sp"
@@ -133,8 +95,8 @@
                             android:id="@+id/iv_two"
                             android:background="@drawable/main_two"
                             android:layout_centerInParent="true"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp" />
+                            android:layout_width="38dp"
+                            android:layout_height="38dp" />
                         <TextView
                             android:textColor="#333"
                             android:textSize="9sp"
@@ -155,8 +117,8 @@
                             android:id="@+id/iv_three"
                             android:background="@drawable/main_three"
                             android:layout_centerInParent="true"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp" />
+                            android:layout_width="38dp"
+                            android:layout_height="38dp" />
                         <TextView
                             android:textColor="#333"
                             android:textSize="9sp"
@@ -177,8 +139,8 @@
                             android:id="@+id/iv_four"
                             android:background="@drawable/main_four"
                             android:layout_centerInParent="true"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp" />
+                            android:layout_width="38dp"
+                            android:layout_height="38dp" />
                         <TextView
                             android:textColor="#333"
                             android:textSize="9sp"
@@ -199,8 +161,8 @@
                             android:id="@+id/iv_five"
                             android:background="@drawable/main_five"
                             android:layout_centerInParent="true"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp" />
+                            android:layout_width="38dp"
+                            android:layout_height="38dp" />
                         <TextView
                             android:textColor="#333"
                             android:textSize="9sp"
@@ -530,6 +492,44 @@
             </LinearLayout>
         </ScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="47dp">
 
+        <ImageView
+            android:id="@+id/iv_location"
+            android:layout_width="13dp"
+            android:layout_height="17dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/main_location" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_school"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/iv_location"
+            android:gravity="center_vertical|bottom"
+            android:text="湖南农业大学"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_location"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/message" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
