@@ -123,56 +123,6 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-
-        <Button
-            android:id="@+id/bt_one"
-            android:layout_width="130dp"
-            android:layout_height="38dp"
-            android:layout_alignLeft="@+id/bt_three"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/bt_three"
-            android:layout_marginTop="9dp"
-            android:background="@drawable/schools_name_unselect_bg"
-            android:text="湖南农业大学"
-            android:textColor="@color/tab_color" />
-
-        <Button
-            android:id="@+id/bt_two"
-            android:layout_width="130dp"
-            android:layout_height="38dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="9dp"
-            android:background="@drawable/schools_name_selected_bg"
-            android:text="湖南大学"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/bt_three"
-            android:layout_width="130dp"
-            android:layout_height="38dp"
-            android:layout_below="@+id/bt_one"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="9dp"
-            android:background="@drawable/schools_name_unselect_bg"
-            android:text="湖南财经大学"
-            android:textColor="@color/tab_color" />
-
-        <Button
-            android:layout_width="130dp"
-            android:layout_height="38dp"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/bt_two"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="9dp"
-            android:background="@drawable/schools_name_unselect_bg"
-            android:text="湖南涉外"
-            android:textColor="@color/tab_color" />
-    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

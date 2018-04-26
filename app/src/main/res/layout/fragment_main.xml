@@ -11,6 +11,11 @@
         android:id="@+id/refreshlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/eat2"/>
 
         <ScrollView
             android:focusableInTouchMode="true"
