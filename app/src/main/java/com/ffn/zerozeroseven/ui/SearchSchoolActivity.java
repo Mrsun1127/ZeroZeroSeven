@@ -234,6 +234,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
 
             }
         });
+
         rc_school = findViewById(R.id.rc_school);
         rc_school.setLayoutManager(new LinearLayoutManager(SearchSchoolActivity.this));
         schoolListAdapter = new SchoolListAdapter(SearchSchoolActivity.this);
@@ -296,6 +297,11 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        spCity.setSelection(17);
+//        cityAdapter.setClickPosition(17);
+//        rl_nodata.setVisibility(View.GONE);
+//        rc_school.setVisibility(View.GONE);
+//        showSchoolList(430100+"");
     }
 
     private void showSchoolList(String id) {
