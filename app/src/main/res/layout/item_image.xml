@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     >
-    <com.ffn.zerozeroseven.view.ZQImageViewRoundOval
+    <ImageView
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:id="@+id/image"
