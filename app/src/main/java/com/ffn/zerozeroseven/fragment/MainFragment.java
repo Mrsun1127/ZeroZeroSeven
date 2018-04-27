@@ -817,15 +817,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     List<String> images;
 
     public static class BannerViewHolder implements MZViewHolder<String> {
-        private ZQImageViewRoundOval mImageView;
+        private ImageView mImageView;
 
         @Override
         public View createView(Context context) {
             // 返回页面布局
             View view = LayoutInflater.from(context).inflate(R.layout.item_image, null);
             mImageView =  view.findViewById(R.id.image);
-            mImageView.setType(ZQImageViewRoundOval.TYPE_ROUND);
-            mImageView.setRoundRadius(25);//矩形凹行大小
             return view;
         }
 
