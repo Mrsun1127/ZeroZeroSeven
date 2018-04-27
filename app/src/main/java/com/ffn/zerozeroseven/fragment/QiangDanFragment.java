@@ -221,34 +221,38 @@ public class QiangDanFragment extends BaseFragment implements BGARefreshLayout.B
                     @Override
                     public void run() {
                         disLoadState();
-                        if (showInfo.getCode() == 0) {
-                            if(!TextUtils.isEmpty(showInfo.getData().getTotal()+"")){
-                                tv_countstatus.setText("当前订单数量: "+showInfo.getData().getTotal());
-                            }
-                            List<PeiSongShowInfo.DataBean.ListBean> orders = showInfo.getData().getList();
+                       try {
+                           if (showInfo.getCode() == 0) {
+                               if(!TextUtils.isEmpty(showInfo.getData().getTotal()+"")){
+                                   tv_countstatus.setText("当前订单数量: "+showInfo.getData().getTotal());
+                               }
+                               List<PeiSongShowInfo.DataBean.ListBean> orders = showInfo.getData().getList();
 
-                            switch (rgRefreshStatus) {
-                                case IDLE:
-                                case REFRESHING:
-                                    adapter.clear();
-                                    if (orders.size() == 0) {
-                                        showErrorLayout(StateLayout.noData);
-                                    } else {
-                                        adapter.addAll(orders);
-                                    }
-                                    break;
-                                case PULL_DOWN:
-                                    if (orders.size() == 0) {
-                                        UiTipUtil.showToast(bfCxt, R.string.no_more_data);
-                                    } else {
-                                        adapter.addAll(orders);
-                                    }
+                               switch (rgRefreshStatus) {
+                                   case IDLE:
+                                   case REFRESHING:
+                                       adapter.clear();
+                                       if (orders.size() == 0) {
+                                           showErrorLayout(StateLayout.noData);
+                                       } else {
+                                           adapter.addAll(orders);
+                                       }
+                                       break;
+                                   case PULL_DOWN:
+                                       if (orders.size() == 0) {
+                                           UiTipUtil.showToast(bfCxt, R.string.no_more_data);
+                                       } else {
+                                           adapter.addAll(orders);
+                                       }
 
-                                    break;
-                            }
-                        }else{
-                            showErrorLayout(StateLayout.noData);
-                        }
+                                       break;
+                               }
+                           }else{
+                               showErrorLayout(StateLayout.noData);
+                           }
+                       }catch (Exception e){
+                           ToastUtils.showShort("服务器异常，请控制您的刷新频率");
+                       }
                     }
                 });
             }
