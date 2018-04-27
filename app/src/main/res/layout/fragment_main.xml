@@ -3,60 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusableInTouchMode="true"
     android:focusable="true"
-    >
+    android:focusableInTouchMode="true">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <pl.droidsonroids.gif.GifImageView
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/eat2"/>
 
         <ScrollView
-            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
             android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <RelativeLayout
                         android:id="@+id/rl_top_bg"
                         android:layout_width="match_parent"
-                        android:layout_height="230dp"
-                        >
+                        android:layout_height="230dp">
 
                         <com.github.mmin18.widget.RealtimeBlurView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:realtimeBlurRadius="20dp"
-                             />
+                            app:realtimeBlurRadius="20dp" />
 
                         <RelativeLayout
-                            android:background="@drawable/sjx"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                             android:layout_alignParentBottom="true"></RelativeLayout>
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/sjx"></RelativeLayout>
+
                         <com.zhouwei.mzbanner.MZBannerView
-                            android:layout_marginTop="67dp"
                             android:id="@+id/banner"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            app:open_mz_mode="true"
-                            app:middle_page_cover="false"
+                            android:layout_marginTop="67dp"
                             app:canLoop="true"
                             app:indicatorAlign="center"
-                            />
+                            app:middle_page_cover="false"
+                            app:open_mz_mode="true" />
 
                     </RelativeLayout>
 
@@ -64,9 +58,9 @@
 
 
                 <LinearLayout
-                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
+                    android:background="@color/white"
                     android:orientation="horizontal">
 
                     <RelativeLayout
@@ -74,21 +68,23 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
+
                         <ImageView
                             android:id="@+id/iv_one"
-                            android:background="@drawable/main_one"
-                            android:layout_centerInParent="true"
                             android:layout_width="38dp"
-                            android:layout_height="38dp" />
+                            android:layout_height="38dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/main_one" />
+
                         <TextView
-                            android:textColor="#333"
-                            android:textSize="9sp"
-                            android:text="零食外卖"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_below="@+id/iv_one"
-                            android:layout_marginTop="4dp"/>
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="零食外卖"
+                            android:textColor="#333"
+                            android:textSize="9sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -96,21 +92,23 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
+
                         <ImageView
                             android:id="@+id/iv_two"
-                            android:background="@drawable/main_two"
-                            android:layout_centerInParent="true"
                             android:layout_width="38dp"
-                            android:layout_height="38dp" />
+                            android:layout_height="38dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/main_two" />
+
                         <TextView
-                            android:textColor="#333"
-                            android:textSize="9sp"
-                            android:text="数码产品"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_below="@+id/iv_two"
-                            android:layout_marginTop="4dp"/>
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="数码产品"
+                            android:textColor="#333"
+                            android:textSize="9sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -118,21 +116,23 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
+
                         <ImageView
                             android:id="@+id/iv_three"
-                            android:background="@drawable/main_three"
-                            android:layout_centerInParent="true"
                             android:layout_width="38dp"
-                            android:layout_height="38dp" />
+                            android:layout_height="38dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/main_three" />
+
                         <TextView
-                            android:textColor="#333"
-                            android:textSize="9sp"
-                            android:text="跳蚤市场"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_below="@+id/iv_three"
-                            android:layout_marginTop="4dp"/>
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="跳蚤市场"
+                            android:textColor="#333"
+                            android:textSize="9sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -140,21 +140,23 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
+
                         <ImageView
                             android:id="@+id/iv_four"
-                            android:background="@drawable/main_four"
-                            android:layout_centerInParent="true"
                             android:layout_width="38dp"
-                            android:layout_height="38dp" />
+                            android:layout_height="38dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/main_four" />
+
                         <TextView
-                            android:textColor="#333"
-                            android:textSize="9sp"
-                            android:text="积分有礼"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_below="@+id/iv_four"
-                            android:layout_marginTop="4dp"/>
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="积分有礼"
+                            android:textColor="#333"
+                            android:textSize="9sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -162,32 +164,34 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
+
                         <ImageView
                             android:id="@+id/iv_five"
-                            android:background="@drawable/main_five"
-                            android:layout_centerInParent="true"
                             android:layout_width="38dp"
-                            android:layout_height="38dp" />
+                            android:layout_height="38dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/main_five" />
+
                         <TextView
-                            android:textColor="#333"
-                            android:textSize="9sp"
-                            android:text="土豪排行"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_below="@+id/iv_five"
-                            android:layout_marginTop="4dp"/>
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="土豪排行"
+                            android:textColor="#333"
+                            android:textSize="9sp" />
                     </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="17dp"
                     android:layout_marginRight="17dp"
+                    android:layout_marginTop="5dp"
                     android:background="@drawable/main_circle"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -203,14 +207,16 @@
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
+
                 <ImageView
-                    android:layout_gravity="center_horizontal"
                     android:id="@+id/iv_guanggao"
-                    android:background="@drawable/main_guanggao"
                     android:layout_width="279dp"
                     android:layout_height="89dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginLeft="16dp"/>
+                    android:background="@drawable/main_guanggao" />
+
                 <RelativeLayout
                     android:id="@+id/rl_become"
                     android:layout_width="match_parent"
@@ -497,6 +503,7 @@
             </LinearLayout>
         </ScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
