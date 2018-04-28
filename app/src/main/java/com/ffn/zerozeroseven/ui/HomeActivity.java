@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
     View view_main;
     View view_shop;
     View view_mine;
+    public LinearLayout Ll_bot;
     private ArrayList<RelativeLayout> rlArrayList = new ArrayList<>();
     private ArrayList<Fragment> fragments = new ArrayList<>();
     public static HomeActivity mInstance;
@@ -95,6 +97,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initRadio() {
+        Ll_bot = this.findViewById(R.id.Ll_bot);
         rl_main = this.findViewById(R.id.rl_main);
         rl_shop = this.findViewById(R.id.rl_shop);
         rl_mine = this.findViewById(R.id.rl_mine);
@@ -115,7 +118,13 @@ public class HomeActivity extends AppCompatActivity {
         fragments.add(new ShopFragment());
         fragments.add(new MineFragment());
     }
-
+    public void ll_Show(boolean s){
+        if(s){
+            Ll_bot.setVisibility(View.VISIBLE);
+        }else{
+            Ll_bot.setVisibility(View.GONE);
+        }
+    }
 
 
     @Override

@@ -6,8 +6,9 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+    <com.ffn.zerozeroseven.view.mainscroll.TwoLevelSmoothRefreshLayout
         android:id="@+id/refreshlayout"
+        app:sr_enableTwoLevelRefresh="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -502,7 +503,7 @@
                     android:visibility="gone"></RelativeLayout>
             </LinearLayout>
         </ScrollView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.ffn.zerozeroseven.view.mainscroll.TwoLevelSmoothRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/rl_top"

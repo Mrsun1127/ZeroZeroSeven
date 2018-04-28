@@ -99,11 +99,9 @@ import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.ffn.zerozeroseven.view.ScroolRecyleView;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
-import com.ffn.zerozeroseven.view.ZQImageViewRoundOval;
-import com.ffn.zerozeroseven.view.banner.BannerLayout;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.ffn.zerozeroseven.view.mainscroll.CustomTwoLevelHeader;
+import com.ffn.zerozeroseven.view.mainscroll.TwoLevelRefreshingListenerAdapter;
+import com.ffn.zerozeroseven.view.mainscroll.TwoLevelSmoothRefreshLayout;
 import com.yanzhenjie.permission.AndPermission;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
@@ -114,7 +112,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -129,7 +126,7 @@ import static android.net.wifi.WifiConfiguration.Status.strings;
  * Created by GT on 2017/11/15.
  */
 
-public class MainFragment extends BaseFragment implements View.OnClickListener, OnGetPoiSearchResultListener, OnRefreshListener {
+public class MainFragment extends BaseFragment implements View.OnClickListener, OnGetPoiSearchResultListener {
 
     //    private RelativeLayout et_select;
     private UserLikeAdapter userLikeAdapter;
@@ -168,7 +165,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Bind(R.id.scrollTextView)
     AutoVerticalScrollTextView scrollTextView;
     @Bind(R.id.refreshlayout)
-    SmartRefreshLayout refreshLayout;
+    public TwoLevelSmoothRefreshLayout mRefreshLayout;
     private RunListAdapter runListAdapter;
     public RunListRquestInfo runListRquestInfo;
     private UserLikeInfo userLikeInfo;
@@ -238,7 +235,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         ButterKnife.bind(this, view);
 
 
-        refreshLayout.setOnRefreshListener(this);
         mInstance = this;
         mLocationClient = new LocationClient(BaseAppApplication.context);
         //声明LocationClient类
@@ -421,6 +417,40 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
                     }
                 });
+            }
+        });
+        mRefreshLayout.setHeaderView(new CustomTwoLevelHeader(bfCxt));
+        mRefreshLayout.setEnableKeepRefreshView(true);
+        //设置保持头部的Offset（占头部的高度比）
+        mRefreshLayout.setRatioToKeepHeader(.12f);
+        //设置触发刷新的头部高度比
+        mRefreshLayout.setRatioOfHeaderToRefresh(.12f);
+        //设置滚动到保持二级刷新的头部位置的时长
+        mRefreshLayout.setDurationOfBackToKeepTwoLevel(1000);
+        //设置关闭二级刷新头部回滚到起始位置的时长
+        mRefreshLayout.setDurationToCloseTwoLevel(1000);
+        //设置刷新时保持头部的Offset(占头部的高度比)
+        mRefreshLayout.setRatioToKeepTwoLevelHeader(1f);
+        //设置触发提示二级刷新的头部高度比
+        mRefreshLayout.setRatioOfHeaderToHintTwoLevel(.45f);
+        //设置触发二级刷新的头部高度比
+        mRefreshLayout.setRatioOfHeaderToTwoLevel(0.5f);
+
+        //TwoLevelRefreshingListenerAdapter
+        mRefreshLayout.setOnRefreshListener(new TwoLevelRefreshingListenerAdapter() {
+            @Override
+            public void onTwoLevelRefreshBegin() {
+                mRefreshLayout.setEnableInterceptEventWhileLoading(true);
+            }
+
+            @Override
+            public void onRefreshBegin(boolean isRefresh) {
+                reQuest();
+            }
+
+            @Override
+            public void onRefreshComplete(boolean isSuccessful) {
+                mRefreshLayout.setEnableInterceptEventWhileLoading(false);
             }
         });
         checkVersion();
@@ -740,10 +770,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
     }
 
-    @Override
-    public void onRefresh(RefreshLayout refreshlayout) {
-        reQuest();
-    }
+//    @Override
+//    public void onRefresh(RefreshLayout refreshlayout) {
+//        reQuest();
+//    }
 
     public class MyLocationListener extends BDAbstractLocationListener {
         @Override
@@ -847,6 +877,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             public void onSuccLoad(String response) {
                 bannerInfo = JSON.parseObject(response, BannerInfo.class);
                 if (bannerInfo.getCode() == 0) {
+                    mRefreshLayout.refreshComplete();
                     if (bannerInfo.getData().getList().size() > 0) {
                         images = new ArrayList<>();
                         for (int i = 0; i < bannerInfo.getData().getList().size(); i++) {
@@ -1076,8 +1107,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             public void onSuccLoad(String response) {
                 try {
                     userLikeInfo = JSON.parseObject(response, UserLikeInfo.class);
-
-                    refreshLayout.finishRefresh(1000);
+//                    refreshLayout.finishRefresh(1000);
                     if (userLikeInfo.getCode() == 0) {
                         if (userLikeInfo.getData().getPosts().size() > 0) {
                             haveData = 2;

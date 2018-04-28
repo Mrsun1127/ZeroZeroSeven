@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="interval" format="integer"/>
-    <attr name="showIndicator" format="boolean"/>
+    <attr name="interval" format="integer" />
+    <attr name="showIndicator" format="boolean" />
     <attr name="orientation" format="enum">
-        <enum name="horizontal" value="0"/>
-        <enum name="vertical" value="1"/>
+        <enum name="horizontal" value="0" />
+        <enum name="vertical" value="1" />
     </attr>
-    <attr name="autoPlaying" format="boolean"/>
+    <attr name="autoPlaying" format="boolean" />
     <declare-styleable name="RecyclerViewBannerBase">
-        <attr name="interval"/>
+        <attr name="interval" />
         <attr name="showIndicator" />
         <attr name="orientation" />
-        <attr name="autoPlaying"/>
-        <attr name="indicatorSelectedSrc" format="color|reference"/>
-        <attr name="indicatorUnselectedSrc" format="color|reference"/>
-        <attr name="indicatorSpace" format="dimension|reference"/>
-        <attr name="indicatorMarginLeft" format="dimension|reference"/>
-        <attr name="indicatorMarginRight" format="dimension|reference"/>
-        <attr name="indicatorMarginBottom" format="dimension|reference"/>
+        <attr name="autoPlaying" />
+        <attr name="indicatorSelectedSrc" format="color|reference" />
+        <attr name="indicatorUnselectedSrc" format="color|reference" />
+        <attr name="indicatorSpace" format="dimension|reference" />
+        <attr name="indicatorMarginLeft" format="dimension|reference" />
+        <attr name="indicatorMarginRight" format="dimension|reference" />
+        <attr name="indicatorMarginBottom" format="dimension|reference" />
         <attr name="indicatorGravity" format="enum">
-            <enum name="left" value="0"/>
-            <enum name="center" value="1"/>
-            <enum name="right" value="2"/>
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
         </attr>
     </declare-styleable>
 
@@ -29,10 +29,10 @@
         <attr name="interval" />
         <attr name="showIndicator" />
         <attr name="orientation" />
-        <attr name="autoPlaying"/>
-        <attr name="itemSpace" format="integer"/>
-        <attr name="centerScale" format="float"/>
-        <attr name="moveSpeed" format="float"/>
+        <attr name="autoPlaying" />
+        <attr name="itemSpace" format="integer" />
+        <attr name="centerScale" format="float" />
+        <attr name="moveSpeed" format="float" />
     </declare-styleable>
 
     <declare-styleable name="CircleImageView">
@@ -53,5 +53,103 @@
         <attr name="rotation_degrees" format="float" />
         <attr name="min_adapter_stack" format="integer" />
         <attr name="max_visible" format="integer" />
+    </declare-styleable>
+
+
+    <attr name="sr_style" format="enum">
+        <enum name="style_default" value="0" />
+        <enum name="style_scale" value="1" />
+        <enum name="style_pin" value="2" />
+        <enum name="style_followScale" value="3" />
+        <enum name="style_followPin" value="4" />
+        <enum name="style_followCenter" value="5" />
+    </attr>
+    <declare-styleable name="SmoothRefreshLayout">
+        <attr name="sr_content" format="reference" />
+        <attr name="sr_resistance" format="float" />
+        <attr name="sr_resistanceOfFooter" format="float" />
+        <attr name="sr_resistanceOfHeader" format="float" />
+        <attr name="sr_ratioToRefresh" format="float" />
+        <attr name="sr_ratioOfHeaderToRefresh" format="float" />
+        <attr name="sr_ratioOfFooterToRefresh" format="float" />
+        <attr name="sr_ratioToKeep" format="float" />
+        <attr name="sr_ratioToKeepHeader" format="float" />
+        <attr name="sr_ratioToKeepFooter" format="float" />
+        <attr name="sr_maxMoveRatio" format="float" />
+        <attr name="sr_maxMoveRatioOfHeader" format="float" />
+        <attr name="sr_maxMoveRatioOfFooter" format="float" />
+        <attr name="sr_closeDuration" format="integer" />
+        <attr name="sr_closeHeaderDuration" format="integer" />
+        <attr name="sr_closeFooterDuration" format="integer" />
+        <attr name="sr_backToKeepDuration" format="integer" />
+        <attr name="sr_backToKeepHeaderDuration" format="integer" />
+        <attr name="sr_backToKeepFooterDuration" format="integer" />
+        <attr name="sr_enablePullToRefresh" format="boolean" />
+        <attr name="sr_enableKeep" format="boolean" />
+        <attr name="sr_enableOverScroll" format="boolean" />
+        <attr name="sr_enablePinContent" format="boolean" />
+        <attr name="layout_gravity">
+            <!-- Push object to the top of its container, not changing its size. -->
+            <flag name="top" value="0x30" />
+            <!-- Push object to the bottom of its container, not changing its size. -->
+            <flag name="bottom" value="0x50" />
+            <!-- Push object to the left of its container, not changing its size. -->
+            <flag name="left" value="0x03" />
+            <!-- Push object to the right of its container, not changing its size. -->
+            <flag name="right" value="0x05" />
+            <!-- Place object in the vertical center of its container, not changing its size. -->
+            <flag name="center_vertical" value="0x10" />
+            <!-- Grow the vertical size of the object if needed so it completely fills its container. -->
+            <flag name="fill_vertical" value="0x70" />
+            <!-- Place object in the horizontal center of its container, not changing its size. -->
+            <flag name="center_horizontal" value="0x01" />
+            <!-- Grow the horizontal size of the object if needed so it completely fills its container. -->
+            <flag name="fill_horizontal" value="0x07" />
+            <!-- Place the object in the center of its container in both the vertical and horizontal axis, not changing its size. -->
+            <flag name="center" value="0x11" />
+            <!-- Grow the horizontal and vertical size of the object if needed so it completely fills its container. -->
+            <flag name="fill" value="0x77" />
+            <!-- Additional option that can be set to have the top and/or bottom edges of
+                 the child clipped to its container's bounds.
+                 The clip will be based on the vertical gravity: a top gravity will clip the bottom
+                 edge, a bottom gravity will clip the top edge, and neither will clip both edges. -->
+            <flag name="clip_vertical" value="0x80" />
+            <!-- Additional option that can be set to have the left and/or right edges of
+                 the child clipped to its container's bounds.
+                 The clip will be based on the horizontal gravity: a left gravity will clip the right
+                 edge, a right gravity will clip the left edge, and neither will clip both edges. -->
+            <flag name="clip_horizontal" value="0x08" />
+            <!-- Push object to the beginning of its container, not changing its size. -->
+            <flag name="start" value="0x00800003" />
+            <!-- Push object to the end of its container, not changing its size. -->
+            <flag name="end" value="0x00800005" />
+        </attr>
+        <attr name="sr_enableRefresh" format="boolean" />
+        <attr name="sr_enableLoadMore" format="boolean" />
+        <attr name="sr_emptyLayout" format="reference" />
+        <attr name="sr_errorLayout" format="reference" />
+        <attr name="sr_customLayout" format="reference" />
+        <attr name="sr_stickyHeader" format="reference" />
+        <attr name="sr_state" format="enum">
+            <enum name="content" value="0" />
+            <enum name="error" value="1" />
+            <enum name="empty" value="2" />
+            <enum name="custom" value="3" />
+        </attr>
+        <attr name="sr_mode" format="enum">
+            <enum name="mode_default" value="0" />
+            <enum name="mode_scale" value="1" />
+        </attr>
+        <attr name="sr_headerBackgroundColor" format="color" />
+        <attr name="sr_footerBackgroundColor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="IRefreshView">
+        <attr name="sr_style" />
+    </declare-styleable>
+    <declare-styleable name="TwoLevelSmoothRefreshLayout">
+        //This attribute only can be used in TwoLevelSmoothRefreshLayout
+        <attr name="sr_enableTwoLevelRefresh" format="boolean"/>
+        <attr name="sr_backToKeep2Duration" format="boolean"/>
+        <attr name="sr_closeHeader2Duration" format="boolean"/>
     </declare-styleable>
 </resources>

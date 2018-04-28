@@ -69,3 +69,5 @@
 -keep class com.youth.banner.** {
     *;
  }
+ -keep public class * extends android.webkit.WebChromeClient
+
