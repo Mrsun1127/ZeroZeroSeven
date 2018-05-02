@@ -19,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,6 +96,7 @@ import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.AutoVerticalScrollTextView;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
+import com.ffn.zerozeroseven.view.FullyGridLayoutManager;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.ffn.zerozeroseven.view.ScroolRecyleView;
@@ -272,7 +274,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 Glide.with(bfCxt).load(bannerInfo.getData().getList().get(position).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        Drawable drawable = new BitmapDrawable(getResources(),resource);
+                        Drawable drawable = new BitmapDrawable(getResources(), resource);
                         rl_top_bg.setBackground(drawable);
                     }
                 });
@@ -294,7 +296,11 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         ll_often = view.findViewById(R.id.ll_often);
         ll_hot = view.findViewById(R.id.ll_hot);
         recyclerView = view.findViewById(R.id.rc_activityview);
-        recyclerView.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
+//        FullyGridLayoutManager layoutManager=new FullyGridLayoutManager(bfCxt,3);
+//        layoutManager.setOrientation(FullyGridLayoutManager.HORIZONTAL);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL);
+        staggeredGridLayoutManager.setOrientation(StaggeredGridLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
         userLikeAdapter = new UserLikeAdapter(bfCxt);
         userLikeAdapter.setOnItemClickListener(new BaseRecyclerTallAniAdapter.OnItemClickListener() {
             @Override
@@ -315,7 +321,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (!recyclerView.canScrollVertically(1)) {
+                if (!recyclerView.canScrollHorizontally(1)) {
                     pageNo += 1;
                     LogUtils.D("MainFragment", "我是rc的监听事件" + pageNo);
                     requestpopularList();
@@ -854,7 +860,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         public View createView(Context context) {
             // 返回页面布局
             View view = LayoutInflater.from(context).inflate(R.layout.item_image, null);
-            mImageView =  view.findViewById(R.id.image);
+            mImageView = view.findViewById(R.id.image);
             return view;
         }
 
@@ -887,7 +893,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         Glide.with(bfCxt).load(bannerInfo.getData().getList().get(0).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                Drawable drawable = new BitmapDrawable(getResources(),resource);
+                                Drawable drawable = new BitmapDrawable(getResources(), resource);
                                 rl_top_bg.setBackground(drawable);
                             }
                         });
