@@ -848,7 +848,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     List<String> images;
 
     public static class BannerViewHolder implements MZViewHolder<String> {
-        private ZQImageViewRoundOval mImageView;
+        private ImageView mImageView;
 
         @Override
         public View createView(Context context) {
