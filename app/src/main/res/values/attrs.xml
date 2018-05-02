@@ -152,4 +152,7 @@
         <attr name="sr_backToKeep2Duration" format="boolean"/>
         <attr name="sr_closeHeader2Duration" format="boolean"/>
     </declare-styleable>
+    <declare-styleable name="RoundCornerImageView">
+        <attr name="corner_size" format="integer" />
+    </declare-styleable>
 </resources>

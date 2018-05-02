@@ -4,17 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.just.library.AgentWebView
-        android:id="@+id/web"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.just.library.AgentWebView>
-
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash"/>
     <TextView
-        android:layout_centerHorizontal="true"
         android:id="@+id/tv_up"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_margin="8dp"
+        android:textSize="15sp"
+        android:textColor="@color/text_show_color"
+        android:layout_centerHorizontal="true"
         android:text="收起" />
 </RelativeLayout>

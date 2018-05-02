@@ -5,6 +5,7 @@ import android.widget.LinearLayout;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
+import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.view.TitleView;
 import com.just.library.AgentWeb;
 
@@ -31,6 +32,7 @@ public class MrsunWebActivity extends BaseActivity {
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {
             @Override
             public void ivBack() {
+                MainFragment.mInstance.mRefreshLayout.refreshComplete();
                 finish();
             }
 

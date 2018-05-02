@@ -107,34 +107,12 @@
                             android:layout_below="@+id/iv_two"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
-                            android:text="数码产品"
+                            android:text="许愿墙"
                             android:textColor="#333"
                             android:textSize="9sp" />
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/rl_flea"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
 
-                        <ImageView
-                            android:id="@+id/iv_three"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/main_three" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/iv_three"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="4dp"
-                            android:text="跳蚤市场"
-                            android:textColor="#333"
-                            android:textSize="9sp" />
-                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/rl_integer"
@@ -147,7 +125,7 @@
                             android:layout_width="38dp"
                             android:layout_height="38dp"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/main_four" />
+                            android:background="@drawable/main_three" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -171,7 +149,7 @@
                             android:layout_width="38dp"
                             android:layout_height="38dp"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/main_five" />
+                            android:background="@drawable/main_four" />
 
                         <TextView
                             android:layout_width="wrap_content"

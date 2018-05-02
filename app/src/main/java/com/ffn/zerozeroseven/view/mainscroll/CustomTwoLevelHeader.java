@@ -1,6 +1,7 @@
 package com.ffn.zerozeroseven.view.mainscroll;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.ui.HomeActivity;
+import com.ffn.zerozeroseven.ui.MrsunWebActivity;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.just.library.AgentWeb;
 import com.just.library.AgentWebView;
 
@@ -36,9 +39,7 @@ public class CustomTwoLevelHeader extends FrameLayout implements TwoLevelRefresh
     private static final byte STATUS_TWO_LEVEL_REFRESH_HINT = 4;
     private static final byte STATUS_TWO_LEVEL_RELEASE_TO_REFRESH = 5;
     private byte mStatus = STATUS_PULL_DOWN;
-    private AgentWeb web;
     private TextView mTextViewTitle;
-    AgentWebView webView;
     public CustomTwoLevelHeader(Context context) {
         this(context, null);
     }
@@ -51,42 +52,6 @@ public class CustomTwoLevelHeader extends FrameLayout implements TwoLevelRefresh
         super(context, attrs, defStyle);
         View header = LayoutInflater.from(context).inflate(R.layout.layout_custom_two_level_header, this);
         mTextViewTitle=header.findViewById(R.id.tv_up);
-        mTextViewTitle.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainFragment.mInstance.mRefreshLayout.refreshComplete();
-                BaseAppApplication.mainHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        HomeActivity.getmInstance().ll_Show(true);
-                    }
-                },1000);
-                HomeActivity.getmInstance().ll_Show(false);
-            }
-        });
-        webView=header.findViewById(R.id.web);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setAppCacheEnabled(true);
-        //设置 缓存模式
-        webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
-        // 开启 DOM storage API 功能
-        webView.getSettings().setDomStorageEnabled(true);
-        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-        webView.getSettings().setUseWideViewPort(true);
-        webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setGeolocationEnabled(true);
-        webView.requestFocus();
-        webView.setScrollBarStyle(0);
-        webView.setWebViewClient(new WebViewClient(){
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
-        String s="http://www.baidu.com";
-        webView.loadUrl(s);
-
     }
 
     @Override
@@ -192,7 +157,14 @@ public class CustomTwoLevelHeader extends FrameLayout implements TwoLevelRefresh
 
     @Override
     public void onTwoLevelRefreshBegin(TwoLevelSmoothRefreshLayout layout, ITwoLevelIndicator twoLevelIndicator) {
-        mTextViewTitle.setText("收起");
-        HomeActivity.getmInstance().ll_Show(false);
+        BaseAppApplication.mainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Bundle bundle=new Bundle();
+                bundle.putString("url","http://www.baidu.com");
+                bundle.putString("title","百度一下");
+                ZeroZeroSevenUtils.SwitchActivity(HomeActivity.getmInstance(),MrsunWebActivity.class,bundle);
+            }
+        },500);
     }
 }

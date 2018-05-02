@@ -13,10 +13,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.fragment.MainFragment;
@@ -41,9 +43,9 @@ public class HomeActivity extends AppCompatActivity {
     RelativeLayout rl_main;
     RelativeLayout rl_shop;
     RelativeLayout rl_mine;
-    View view_main;
-    View view_shop;
-    View view_mine;
+    ImageView main;
+    ImageView shop;
+    ImageView mine;
     public LinearLayout Ll_bot;
     private ArrayList<RelativeLayout> rlArrayList = new ArrayList<>();
     private ArrayList<Fragment> fragments = new ArrayList<>();
@@ -90,26 +92,24 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    protected void protectApp() {
-        BaseAppApplication.getInstance().clearActivityList();
-//        startActivity(new Intent(this, SplashActivity.class));
-//        finish();
-    }
 
     private void initRadio() {
         Ll_bot = this.findViewById(R.id.Ll_bot);
         rl_main = this.findViewById(R.id.rl_main);
         rl_shop = this.findViewById(R.id.rl_shop);
         rl_mine = this.findViewById(R.id.rl_mine);
-        view_main = this.findViewById(R.id.view_main);
-        view_shop = this.findViewById(R.id.view_shop);
-        view_mine = this.findViewById(R.id.view_mine);
+        main = this.findViewById(R.id.iv_main);
+        shop = this.findViewById(R.id.iv_shop);
+        mine = this.findViewById(R.id.iv_mine);
         rlArrayList.add((RelativeLayout) findViewById(R.id.rl_main));
         rlArrayList.add((RelativeLayout) findViewById(R.id.rl_shop));
         rlArrayList.add((RelativeLayout) findViewById(R.id.rl_mine));
         rlArrayList.get(0).setOnClickListener(new MyRlClickListener(0));
         rlArrayList.get(1).setOnClickListener(new MyRlClickListener(1));
         rlArrayList.get(2).setOnClickListener(new MyRlClickListener(2));
+        Glide.with(HomeActivity.this).load(R.drawable.selected_home).into(main);
+        Glide.with(HomeActivity.this).load(R.drawable.normal_classification).into(shop);
+        Glide.with(HomeActivity.this).load(R.drawable.normal_center).into(mine);
     }
 
     private void initFragments() {
@@ -127,12 +127,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        LogUtils.D("neicunxiaohao","我走了Home内存消耗");
-    }
-
     private class MyRlClickListener implements View.OnClickListener {
         private int index;
 
@@ -143,17 +137,17 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             if (index == 0) {
-                view_main.setVisibility(View.VISIBLE);
-                view_shop.setVisibility(View.GONE);
-                view_mine.setVisibility(View.GONE);
+                Glide.with(HomeActivity.this).load(R.drawable.selected_home).into(main);
+                Glide.with(HomeActivity.this).load(R.drawable.normal_classification).into(shop);
+                Glide.with(HomeActivity.this).load(R.drawable.normal_center).into(mine);
             } else if (index == 1) {
-                view_shop.setVisibility(View.VISIBLE);
-                view_main.setVisibility(View.GONE);
-                view_mine.setVisibility(View.GONE);
+                Glide.with(HomeActivity.this).load(R.drawable.normal_home).into(main);
+                Glide.with(HomeActivity.this).load(R.drawable.selected_classification).into(shop);
+                Glide.with(HomeActivity.this).load(R.drawable.normal_center).into(mine);
             } else if (index == 2) {
-                view_mine.setVisibility(View.VISIBLE);
-                view_main.setVisibility(View.GONE);
-                view_shop.setVisibility(View.GONE);
+                Glide.with(HomeActivity.this).load(R.drawable.normal_home).into(main);
+                Glide.with(HomeActivity.this).load(R.drawable.normal_classification).into(shop);
+                Glide.with(HomeActivity.this).load(R.drawable.selected_center).into(mine);
             }
             showFragment(index);
         }
@@ -188,10 +182,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void go2Fragment(int pos) {
+        Glide.with(HomeActivity.this).load(R.drawable.normal_home).into(main);
+        Glide.with(HomeActivity.this).load(R.drawable.selected_classification).into(shop);
+        Glide.with(HomeActivity.this).load(R.drawable.normal_center).into(mine);
         showContentFragment(pos);
-        view_shop.setVisibility(View.VISIBLE);
-        view_main.setVisibility(View.GONE);
-        view_mine.setVisibility(View.GONE);
     }
 
     private static boolean mBackKeyPressed = false;//记录是否有首次按键

@@ -99,6 +99,7 @@ import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.ffn.zerozeroseven.view.ScroolRecyleView;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
+import com.ffn.zerozeroseven.view.ZQImageViewRoundOval;
 import com.ffn.zerozeroseven.view.mainscroll.CustomTwoLevelHeader;
 import com.ffn.zerozeroseven.view.mainscroll.TwoLevelRefreshingListenerAdapter;
 import com.ffn.zerozeroseven.view.mainscroll.TwoLevelSmoothRefreshLayout;
@@ -847,7 +848,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     List<String> images;
 
     public static class BannerViewHolder implements MZViewHolder<String> {
-        private ImageView mImageView;
+        private ZQImageViewRoundOval mImageView;
 
         @Override
         public View createView(Context context) {
@@ -1201,15 +1202,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Bind(R.id.tv_school)
     TextView tv_school;
 
-    @OnClick({R.id.rl_snack, R.id.rl_computer, R.id.rl_flea, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
+    @OnClick({R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.rl_snack:
                 HomeActivity.getmInstance().go2Fragment(1);
                 break;
             case R.id.rl_computer:
-                break;
-            case R.id.rl_flea:
                 break;
             case R.id.rl_integer:
                 break;
