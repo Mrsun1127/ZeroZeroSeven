@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent">
-
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    >
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        >
-
+        android:background="@drawable/talk_bubble_opacity80"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="12dp"
-            android:maxLength="20"
-            android:text="小明 我有一句麻麻批对你讲"
             android:textColor="@color/text_show_color"
-            android:textSize="13sp" />
-
-        <TextView
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/tv_content"
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
+            android:textSize="13sp"
             android:layout_marginTop="12dp"
+            android:layout_marginLeft="27dp"
+            android:maxLength="20"
+            android:text="小明 我有一句麻麻批对你讲"/>
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_marginRight="15dp"
+            android:textSize="13sp"
+            android:layout_marginTop="12dp"
+            android:layout_alignParentRight="true"
             android:text="325班小美"
-            android:textSize="13sp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
 </RelativeLayout>
