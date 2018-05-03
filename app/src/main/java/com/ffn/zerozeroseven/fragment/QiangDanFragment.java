@@ -105,10 +105,15 @@ public class QiangDanFragment extends BaseFragment implements BGARefreshLayout.B
         qiangDanInfo.setFunctionName("CourierGrabOrder");
         QiangDanInfo.ParametersBean parametersBean=new QiangDanInfo.ParametersBean();
         parametersBean.setCourierId(id);
-        if(TextUtils.isEmpty(adapter.getItem(position).getId()+"")){
-            ToastUtils.showShort("请刷新列表数据");
-            return;
+        try {
+            if(TextUtils.isEmpty(adapter.getItem(position).getId()+"")){
+                ToastUtils.showShort("服务器异常,请重新刷新列表数据");
+                return;
+            }
+        }catch (Exception e){
+            ToastUtils.showShort("服务器异常,请重新刷新列表数据");
         }
+
         parametersBean.setOrderId(adapter.getItem(position).getId());
         qiangDanInfo.setParameters(parametersBean);
         httpPostJSON(qiangDanInfo,true);
