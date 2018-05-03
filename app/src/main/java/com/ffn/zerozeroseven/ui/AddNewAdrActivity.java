@@ -135,12 +135,18 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void doMain() {
-        if(!TextUtils.isEmpty(userInfo.getSchoolName())){
-            et_adr.setText(userInfo.getSchoolName());
+        if(userInfo!=null){
+            if(!TextUtils.isEmpty(userInfo.getSchoolName())){
+                et_adr.setText(userInfo.getSchoolName());
+            }else{
+                ToastUtils.showShort("请重新登录");
+                finish();
+            }
         }else{
             ToastUtils.showShort("请重新登录");
             finish();
         }
+
         TitleView titleView = findViewById(R.id.titleview);
         titleView.setTopText("新增地址");
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {
