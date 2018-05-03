@@ -28,6 +28,7 @@ import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.NXHooldeView;
 import com.umeng.analytics.MobclickAgent;
@@ -88,13 +89,18 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 MobclickAgent.onEvent(getActivity(), "商品搜索关键字");
-                ShopViewPagerAllFragment.mInstance.requestShopOnUp(query);
-                BaseAppApplication.mainHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        viewPager.setCurrentItem(0);
-                    }
-                }, 500);
+                if(!TextUtils.isEmpty(query)){
+                    ShopViewPagerAllFragment.mInstance.requestShopOnUp(query);
+                    BaseAppApplication.mainHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            viewPager.setCurrentItem(0);
+                        }
+                    }, 500);
+                }else{
+                    ToastUtils.showShort("请输入关键字");
+                }
+
                 return false;
             }
 
