@@ -147,7 +147,10 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
         parametersBean.setGoodsType(shopType);
         parametersBean.setPageIndex(pageNo);
         parametersBean.setPageSize(16);
-        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
+        try {
+            parametersBean.setSchoolId(Integer.parseInt(schoolIId));
+        }catch (Exception e){
+        }
         listInfo.setParameters(parametersBean);
         httpPostJSON(listInfo, true);
         call.enqueue(new Callback() {
