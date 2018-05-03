@@ -113,8 +113,8 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
             public void onDragStateChanged(int dragState, Badge badge, View targetView) {
                 if (dragState == 5) {
                     SharePrefUtils.saveObject(CommitDingDanActivity.this, "carShopInfo", null);
-                    ShopViewPagerAllFragment.mInstance.notifyShop();
-                    ShopViewPagerFragment.mInstance.notifyShop();
+                    ShopViewPagerAllFragment.mInstance.get().notifyShop();
+                    ShopViewPagerFragment.mInstance.get().notifyShop();
                     adapter.cleanDates();
                     notifyCar();
                 }

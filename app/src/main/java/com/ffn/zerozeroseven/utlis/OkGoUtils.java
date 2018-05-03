@@ -134,7 +134,7 @@ public class OkGoUtils {
                     gotoLogin();
                 }
                 if("-101".equals(code)){
-                    HomeActivity.getmInstance().showpop();
+                    HomeActivity.getmInstance().get().showpop();
                 }
                 LogUtils.E("response", json);
                 BaseAppApplication.mainHandler.post(new Runnable() {

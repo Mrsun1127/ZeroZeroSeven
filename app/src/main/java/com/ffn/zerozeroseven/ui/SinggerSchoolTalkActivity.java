@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseActivity;
@@ -52,6 +53,8 @@ public class SinggerSchoolTalkActivity extends BaseActivity {
     ImageView iv_like;
     @Bind(R.id.slide_like)
     ImageView slide_like;
+    @Bind(R.id.iv_type)
+    ImageView iv_type;
     private int id;
     private SinggerDetilsInfo singgerDetilsInfo;
 
@@ -128,22 +131,26 @@ public class SinggerSchoolTalkActivity extends BaseActivity {
                             tv_time.setText(data.getCreateTime());
                             tv_likecount.setText(data.getLikeCount() + "");
                             if (data.getIsLike() == 1) {
-                                iv_like.setBackgroundResource(R.drawable.heart_solid);
+                                Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.heart_solid).into(iv_like);
                             } else {
-                                iv_like.setBackgroundResource(R.drawable.heart_hollow);
+                                Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.heart_hollow).into(iv_like);
                             }
                             switch (data.getPostType()) {
                                 case "01":
                                     titleView.setTopText("表白帖");
+                                    Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.topic_romance_bg).into(iv_type);
                                     break;
                                 case "02":
                                     titleView.setTopText("技术帖");
+                                    Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.topic_tech_bg).into(iv_type);
                                     break;
                                 case "03":
                                     titleView.setTopText("寻物帖");
+                                    Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.topic_lostnfound_bg).into(iv_type);
                                     break;
                                 case "04":
                                     titleView.setTopText("交友帖");
+                                    Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.topic_friends_bg).into(iv_type);
                                     break;
                             }
                         }
@@ -157,15 +164,15 @@ public class SinggerSchoolTalkActivity extends BaseActivity {
     boolean close = false;
     boolean add = false;
 
-    @OnClick({R.id.ll_share, R.id.iv_dislike,R.id.slide_like})
+    @OnClick({R.id.ll_share, R.id.iv_dislike, R.id.slide_like})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.ll_share:
                 showShare(singgerDetilsInfo.getData().getTitle(), singgerDetilsInfo.getData().getContent());
                 break;
             case R.id.slide_like:
-                if(singgerDetilsInfo.getData().getIsLike()==1){
-                    ZeroZeroSevenUtils.showCustonPop(SinggerSchoolTalkActivity.this,"您已经点过赞",slide_like);
+                if (singgerDetilsInfo.getData().getIsLike() == 1) {
+                    ZeroZeroSevenUtils.showCustonPop(SinggerSchoolTalkActivity.this, "您已经点过赞", slide_like);
                     return;
                 }
                 if (add) {

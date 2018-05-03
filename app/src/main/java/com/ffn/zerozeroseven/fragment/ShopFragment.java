@@ -34,6 +34,7 @@ import com.ffn.zerozeroseven.view.NXHooldeView;
 import com.umeng.analytics.MobclickAgent;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     private ShopViewPagerFragment mineFragment;
     private ImageButton ib_shopcar;
     private TextView tv_school_name;
-    public static ShopFragment mInstance;
+    public static WeakReference<ShopFragment> mInstance;
     private SearchView etSearch;
     private QBadgeView badgeView;
     private RelativeLayout focus;
@@ -80,8 +81,8 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                 LogUtils.D("state", "" + dragState);
                 if (dragState == 5) {
                     SharePrefUtils.saveObject(bfCxt, "carShopInfo", null);
-                    ShopViewPagerAllFragment.mInstance.notifyShop();
-                    ShopViewPagerFragment.mInstance.notifyShop();
+                    ShopViewPagerAllFragment.mInstance.get().notifyShop();
+                    ShopViewPagerFragment.mInstance.get().notifyShop();
                 }
             }
         });
@@ -90,7 +91,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
             public boolean onQueryTextSubmit(String query) {
                 MobclickAgent.onEvent(getActivity(), "商品搜索关键字");
                 if(!TextUtils.isEmpty(query)){
-                    ShopViewPagerAllFragment.mInstance.requestShopOnUp(query);
+                    ShopViewPagerAllFragment.mInstance.get().requestShopOnUp(query);
                     BaseAppApplication.mainHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -108,13 +109,13 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
             public boolean onQueryTextChange(String newText) {
                 try{
                     if("".equals(newText)){
-                        ShopViewPagerAllFragment.mInstance.requestShopOnUp("");
+                        ShopViewPagerAllFragment.mInstance.get().requestShopOnUp("");
                     }
                 }catch (Exception e){}
                 return false;
             }
         });
-        mInstance = this;
+        mInstance = new WeakReference<>(this);
         initTabs();
     }
 

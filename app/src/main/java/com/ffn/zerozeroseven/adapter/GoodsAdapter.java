@@ -83,7 +83,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
             public void onClick(View v) {
                 mHolder.tv_count.setText((Integer.parseInt(mHolder.tv_count.getText().toString()) + 1) + "");
                 AddCarInfo(info, mHolder.tv_count);
-                ShopFragment.mInstance.addAction(mHolder.rl_add);
+                ShopFragment.mInstance.get().addAction(mHolder.rl_add);
             }
         });
 
@@ -158,7 +158,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                    lastCarShopInfo.getShopInfos().remove(i);
                }
                SharePrefUtils.saveObject(mContext, "carShopInfo", lastCarShopInfo);
-               ShopFragment.mInstance.notifyCar();
+               ShopFragment.mInstance.get().notifyCar();
            }
        }catch (Exception e){
            try {
@@ -168,7 +168,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                    if (list.get(i).getGoodsId() == goodsInfo.getId()) {
                        lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() - 1);
                        SharePrefUtils.saveObject(mContext, "carShopInfo", lastCarShopInfo);
-                       ShopFragment.mInstance.notifyCar();
+                       ShopFragment.mInstance.get().notifyCar();
                        return;
                    }
                }
@@ -188,7 +188,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                     if (list.get(i).getGoodsId() == goodsInfo.getId()) {
                         lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() + 1);
                         SharePrefUtils.saveObject(mContext, "carShopInfo", lastCarShopInfo);
-                        ShopFragment.mInstance.notifyCar();
+                        ShopFragment.mInstance.get().notifyCar();
                         return;
                     }
                 }
@@ -203,7 +203,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 list.add(shopInfo);
                 lastCarShopInfo.setShopInfos(list);
                 SharePrefUtils.saveObject(mContext, "carShopInfo", lastCarShopInfo);
-                ShopFragment.mInstance.notifyCar();
+                ShopFragment.mInstance.get().notifyCar();
             } else {//购物车里面的东西是空的
                 List<CarShopInfo.ShopInfo> list = new ArrayList<>();
                 CarShopInfo carShopInfo = new CarShopInfo();
@@ -218,7 +218,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 list.add(shopInfo);
                 carShopInfo.setShopInfos(list);
                 SharePrefUtils.saveObject(mContext, "carShopInfo", carShopInfo);
-                ShopFragment.mInstance.notifyCar();
+                ShopFragment.mInstance.get().notifyCar();
             }
         } catch (Exception e) {
             List<CarShopInfo.ShopInfo> list = new ArrayList<>();
@@ -234,7 +234,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
             list.add(shopInfo);
             carShopInfo.setShopInfos(list);
             SharePrefUtils.saveObject(mContext, "carShopInfo", carShopInfo);
-            ShopFragment.mInstance.notifyCar();
+            ShopFragment.mInstance.get().notifyCar();
         }
 
     }

@@ -32,7 +32,7 @@ public class MrsunWebActivity extends BaseActivity {
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {
             @Override
             public void ivBack() {
-                MainFragment.mInstance.mRefreshLayout.refreshComplete();
+                MainFragment.mInstance.get().mRefreshLayout.refreshComplete();
                 finish();
             }
 

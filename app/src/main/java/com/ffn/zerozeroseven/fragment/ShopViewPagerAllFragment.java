@@ -30,6 +30,7 @@ import com.ffn.zerozeroseven.view.StateLayout;
 import com.ffn.zerozeroseven.view.WaitingDialog;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
@@ -59,7 +60,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
     private String storeId;
     private RelativeLayout rl_no_select;
     private WaitingDialog dialog;
-    public static ShopViewPagerAllFragment mInstance;
+    public static WeakReference<ShopViewPagerAllFragment> mInstance;
 
     private void setRefreshLayoutVis() {
         if (commonRefreshLayout.getVisibility() == View.GONE) {
@@ -85,7 +86,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
 
     @Override
     protected void initView(View view) {
-        mInstance = this;
+        mInstance = new WeakReference<>(this);
         rl_no_select = view.findViewById(R.id.rl_no_select);
         loadingView = view.findViewById(R.id.loadingView);
         commonStateLayout = view.findViewById(R.id.common_stateLayout);

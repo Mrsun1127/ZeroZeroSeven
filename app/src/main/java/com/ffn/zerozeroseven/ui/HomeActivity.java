@@ -30,6 +30,7 @@ import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.gyf.barlibrary.ImmersionBar;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,9 +50,9 @@ public class HomeActivity extends AppCompatActivity {
     public LinearLayout Ll_bot;
     private ArrayList<RelativeLayout> rlArrayList = new ArrayList<>();
     private ArrayList<Fragment> fragments = new ArrayList<>();
-    public static HomeActivity mInstance;
+    public static WeakReference<HomeActivity> mInstance;
 
-    public static HomeActivity getmInstance() {
+    public static WeakReference<HomeActivity> getmInstance() {
         return mInstance;
     }
 
@@ -62,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
 
         ImmersionBar.with(this).init();
         BaseAppApplication.getInstance().addActivity(this);
-        mInstance = this;
+        mInstance = new WeakReference<>(this);
         initRadio();
         initFragments();
         showFragment(0);

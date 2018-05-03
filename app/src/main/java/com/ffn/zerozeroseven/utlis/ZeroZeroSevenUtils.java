@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -32,6 +34,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -478,5 +481,14 @@ public class ZeroZeroSevenUtils {
         }
         return false;
     }
-
+    public static BitmapDrawable getBitmapDraw(Activity activity,int draw){
+        BitmapFactory.Options opt = new BitmapFactory.Options();
+        opt.inPreferredConfig = Bitmap.Config.RGB_565;
+        opt.inPurgeable = true;
+        opt.inInputShareable = true;
+        InputStream is = activity.getResources().openRawResource(draw);
+        Bitmap bm = BitmapFactory.decodeStream(is, null, opt);
+        BitmapDrawable bd = new BitmapDrawable(activity.getResources(), bm);
+        return  bd;
+    }
 }

@@ -117,9 +117,9 @@ public class SeachSchoolListActivity extends BaseActivity {
                 SharePrefUtils.saveObject(SeachSchoolListActivity.this, "carShopInfo",null);
                 SearchSchoolActivity.inStance.get().finish();
                 finish();
-                MainFragment.mInstance.reQuest();
+                MainFragment.mInstance.get().reQuest();
                 try {
-                    ShopFragment.mInstance.initTabs();
+                    ShopFragment.mInstance.get().initTabs();
                 } catch (Exception e) {
 
                 }

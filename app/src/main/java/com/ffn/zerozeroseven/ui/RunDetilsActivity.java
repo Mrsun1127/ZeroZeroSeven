@@ -74,7 +74,7 @@ public class RunDetilsActivity extends BaseActivity {
     }
 
     private void showMain() {
-        listBean = MainFragment.mInstance.getRunlist(position);
+        listBean = MainFragment.mInstance.get().getRunlist(position);
         tv_phone.setText(listBean.getPublisherPhone());
         tv_time.setText(listBean.getCreateTime());
         tv_type.setText(listBean.getType());

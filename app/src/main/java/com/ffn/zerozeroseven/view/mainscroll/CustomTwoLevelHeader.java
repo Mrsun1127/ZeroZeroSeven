@@ -163,7 +163,7 @@ public class CustomTwoLevelHeader extends FrameLayout implements TwoLevelRefresh
                 Bundle bundle=new Bundle();
                 bundle.putString("url","http://www.baidu.com");
                 bundle.putString("title","百度一下");
-                ZeroZeroSevenUtils.SwitchActivity(HomeActivity.getmInstance(),MrsunWebActivity.class,bundle);
+                ZeroZeroSevenUtils.SwitchActivity(HomeActivity.getmInstance().get(),MrsunWebActivity.class,bundle);
             }
         },500);
     }

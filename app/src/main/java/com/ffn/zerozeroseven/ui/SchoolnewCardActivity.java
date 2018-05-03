@@ -1,5 +1,8 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -21,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseActivity;
@@ -38,6 +42,7 @@ import com.ffn.zerozeroseven.view.fingerswipe.SwipeFlingAdapterView;
 import com.ffn.zerozeroseven.view.pop.SchoolPopWindow;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -563,18 +568,18 @@ public class SchoolnewCardActivity extends BaseActivity implements SwipeFlingAda
             holder.tv_content.setText(talent.content);
             holder.tv_title.setText(talent.title);
             if (talent.isLike == 0) {
-                holder.iv_like.setBackgroundResource(R.drawable.heart_hollow);
+                Glide.with(SchoolnewCardActivity.this).load(R.drawable.heart_hollow).into(holder.iv_like);
             }else{
-                holder.iv_like.setBackgroundResource(R.drawable.heart_solid);
+                Glide.with(SchoolnewCardActivity.this).load(R.drawable.heart_solid).into(holder.iv_like);
             }
             if(talent.postType.equals("01")){
-                holder.ll_background.setBackgroundResource(R.drawable.topic_romance_bg);
+                Glide.with(SchoolnewCardActivity.this).load(R.drawable.topic_romance_bg).into(holder.iv_type);
             }else if("02".equals(talent.postType)){
-                holder.ll_background.setBackgroundResource(R.drawable.topic_tech_bg);
+                Glide.with(SchoolnewCardActivity.this).load(R.drawable.topic_tech_bg).into(holder.iv_type);
             }else if("03".equals(talent.postType)){
-                holder.ll_background.setBackgroundResource(R.drawable.topic_lostnfound_bg);
+                Glide.with(SchoolnewCardActivity.this).load(R.drawable.topic_lostnfound_bg).into(holder.iv_type);
             }else if("04".equals(talent.postType)){
-                holder.ll_background.setBackgroundResource(R.drawable.topic_friends_bg);
+                Glide.with(SchoolnewCardActivity.this).load(R.drawable.topic_friends_bg).into(holder.iv_type);
 
             }
             holder.ll_share.setOnClickListener(new View.OnClickListener() {
@@ -616,8 +621,9 @@ public class SchoolnewCardActivity extends BaseActivity implements SwipeFlingAda
         ImageView iv_like;
         LinearLayout ll_background;
         LinearLayout ll_share;
-
+        ImageView iv_type;
         public ViewHolder(View view) {
+            iv_type=view.findViewById(R.id.iv_type);
             tv_project = view.findViewById(R.id.tv_project);
             ll_background = view.findViewById(R.id.ll_background);
             ll_share = view.findViewById(R.id.ll_share);

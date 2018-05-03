@@ -1,20 +1,15 @@
 package com.ffn.zerozeroseven.fragment;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.SystemClock;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -62,7 +57,6 @@ import com.ffn.zerozeroseven.bean.GoodsDetilsInfo;
 import com.ffn.zerozeroseven.bean.LunBoOkInfo;
 import com.ffn.zerozeroseven.bean.QiangDanOkInfo;
 import com.ffn.zerozeroseven.bean.RunListRquestInfo;
-import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.UserLikeInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AppUpdateInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.GoodsOftenInfo;
@@ -89,19 +83,15 @@ import com.ffn.zerozeroseven.ui.SinggerSchoolTalkActivity;
 import com.ffn.zerozeroseven.ui.ToBeAGoodPeople;
 import com.ffn.zerozeroseven.utlis.DownLoadManager;
 import com.ffn.zerozeroseven.utlis.LogUtils;
-import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.AutoVerticalScrollTextView;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
-import com.ffn.zerozeroseven.view.FullyGridLayoutManager;
-import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.ffn.zerozeroseven.view.ScroolRecyleView;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
-import com.ffn.zerozeroseven.view.ZQImageViewRoundOval;
 import com.ffn.zerozeroseven.view.mainscroll.CustomTwoLevelHeader;
 import com.ffn.zerozeroseven.view.mainscroll.TwoLevelRefreshingListenerAdapter;
 import com.ffn.zerozeroseven.view.mainscroll.TwoLevelSmoothRefreshLayout;
@@ -112,6 +102,7 @@ import com.zhouwei.mzbanner.holder.MZViewHolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +114,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-import static android.net.wifi.WifiConfiguration.Status.strings;
 
 /**
  * Created by GT on 2017/11/15.
@@ -153,7 +143,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private double longitude;
     private PoiSearch mPoiSearch;
     private boolean loginStaus;
-    public static MainFragment mInstance;
+    public static WeakReference<MainFragment> mInstance;
     private TextView tv_time;
     @Bind(R.id.ll_helpme)
     LinearLayout ll_helpme;
@@ -238,7 +228,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         ButterKnife.bind(this, view);
 
 
-        mInstance = this;
+        mInstance = new WeakReference<>(this);
         mLocationClient = new LocationClient(BaseAppApplication.context);
         //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);
@@ -415,9 +405,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             public void run() {
                                 disLoadProgress();
                                 if (qiangDanOkInfo.getCode() == 0) {
-                                    ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance, "抢单成功", recyclerView);
+                                    ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance.get(), "抢单成功", recyclerView);
                                 } else {
-                                    ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance, qiangDanOkInfo.getMessage(), recyclerView);
+                                    ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance.get(), qiangDanOkInfo.getMessage(), recyclerView);
                                 }
                             }
                         });
@@ -753,7 +743,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     if (findSchoolInfo.getData() != null) {
                         if (TextUtils.isEmpty(findSchoolInfo.getData().getName())) {
                             tv_school.setText("去选择学校");
-                            ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance, "请手动定位", tv_school);
+                            ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance.get(), "请手动定位", tv_school);
                         } else {
                             tv_school.setText(findSchoolInfo.getData().getName());
                             BaseAppApplication.userInfo.setSchoolName(name);
@@ -764,7 +754,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
                         reQuest();
                     } else {
-                        ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance, "请手动定位", tv_school);
+                        ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance.get(), "请手动定位", tv_school);
                         tv_school.setText("去选择学校");
                         reQuest();
                     }
@@ -1220,7 +1210,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.rl_snack:
-                HomeActivity.getmInstance().go2Fragment(1);
+                HomeActivity.getmInstance().get().go2Fragment(1);
                 break;
             case R.id.rl_computer:
                 break;
@@ -1229,7 +1219,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             case R.id.rl_local:
                 break;
             case R.id.iv_guanggao:
-                HomeActivity.getmInstance().go2Fragment(1);
+                HomeActivity.getmInstance().get().go2Fragment(1);
                 break;
             case R.id.tv_school:
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, SearchSchoolActivity.class);

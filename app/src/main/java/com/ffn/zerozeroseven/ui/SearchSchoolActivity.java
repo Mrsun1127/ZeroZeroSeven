@@ -252,9 +252,9 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                     SharePrefUtils.setInt(SearchSchoolActivity.this,"isLocation",1);
                     SharePrefUtils.saveObject(SearchSchoolActivity.this, "carShopInfo",null);
                     finish();
-                    MainFragment.mInstance.reQuest();
+                    MainFragment.mInstance.get().reQuest();
                     try {
-                        ShopFragment.mInstance.initTabs();
+                        ShopFragment.mInstance.get().initTabs();
                     }catch (Exception e){
 
                     }
