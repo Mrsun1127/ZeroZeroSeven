@@ -435,16 +435,18 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
 
                 break;
             case 3:
-                if (data != null) {
-                    Bundle extras = data.getExtras();
-                    head = extras.getParcelable("data");
-                    if (head != null) {
-                        iv_photo.setImageBitmap(head);// 用ImageView显示出来
-                        ImageItemInfo takePhoto = new ImageItemInfo();
-                        takePhoto.setBitmap(head);
-                        Constant.tempSelectBitmap.add(takePhoto);
+                try {
+                    if (data != null) {
+                        Bundle extras = data.getExtras();
+                        head = extras.getParcelable("data");
+                        if (head != null) {
+                            iv_photo.setImageBitmap(head);// 用ImageView显示出来
+                            ImageItemInfo takePhoto = new ImageItemInfo();
+                            takePhoto.setBitmap(head);
+                            Constant.tempSelectBitmap.add(takePhoto);
+                        }
                     }
-                }
+                }catch (Exception e){}
                 break;
             default:
                 break;
