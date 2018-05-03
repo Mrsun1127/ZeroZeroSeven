@@ -137,9 +137,13 @@ public class PeiSongFragment extends BaseFragment implements BGARefreshLayout.BG
         FinishInfo.ParametersBean parametersBean=new FinishInfo.ParametersBean();
         parametersBean.setCourierId(id);
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        if(TextUtils.isEmpty(adapter.getItem(position).getId()+"")){
+        try {
+            if(TextUtils.isEmpty(adapter.getItem(position).getId()+"")){
+                ToastUtils.showShort("请重新刷新列表数据");
+                return;
+            }
+        }catch (Exception e){
             ToastUtils.showShort("请重新刷新列表数据");
-            return;
         }
         parametersBean.setOrderId(adapter.getItem(position).getId());
         finishInfo.setParameters(parametersBean);
