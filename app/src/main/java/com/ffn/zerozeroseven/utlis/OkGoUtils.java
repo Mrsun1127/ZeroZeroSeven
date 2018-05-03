@@ -149,8 +149,6 @@ public class OkGoUtils {
     }
 
     public void gotoLogin() {
-        MrsunAppCacheUtils.get(context).clear();
-        SharePrefUtils.clearData(context);
         BaseAppApplication.getInstance().setLoginUser(null);
         ZeroZeroSevenUtils.SwitchActivity(context, LoginActivity.class);
         BaseAppApplication.getInstance().clearActivityList();
