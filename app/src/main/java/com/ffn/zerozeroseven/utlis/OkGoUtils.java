@@ -140,7 +140,11 @@ public class OkGoUtils {
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        loadSuccess.onSuccLoad(json);
+                        try {
+                            loadSuccess.onSuccLoad(json);
+                        }catch (Exception e){
+                            ToastUtils.showShort("服务器异常");
+                        }
                     }
                 });
             }
