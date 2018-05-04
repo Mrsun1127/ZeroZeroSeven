@@ -340,8 +340,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
 
         rc_all = view.findViewById(R.id.rc_all);
-        rc_all.setLayoutManager(new GridLayoutManager(bfCxt, 3));
-        rc_all.addItemDecoration(new GridSpacingItemDecoration(3, 15, false));
+        rc_all.setLayoutManager(new LinearLayoutManager(bfCxt));
+        rc_all.addItemDecoration(new SpaceItemDecoration(15));
         bothGoodsAdapter = new BestNewGoodsAdapter(bfCxt);
         rc_all.setAdapter(bothGoodsAdapter);
         bothGoodsAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
@@ -353,8 +353,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
 
         rc_hot = view.findViewById(R.id.rc_hot);
-        rc_hot.setLayoutManager(new GridLayoutManager(bfCxt, 3));
-        rc_hot.addItemDecoration(new GridSpacingItemDecoration(3, 15, false));
+        rc_hot.setLayoutManager(new LinearLayoutManager(bfCxt));
+        rc_hot.addItemDecoration(new SpaceItemDecoration(15));
         hotGoodsAdapter = new MainGoodsAdapter(bfCxt);
         rc_hot.setAdapter(hotGoodsAdapter);
         hotGoodsAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
