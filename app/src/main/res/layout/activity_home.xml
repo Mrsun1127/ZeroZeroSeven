@@ -72,8 +72,8 @@
                 android:layout_weight="1">
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="22dp"
                     android:layout_margin="5dp"
                     android:id="@+id/iv_mine"
                     android:layout_centerHorizontal="true"

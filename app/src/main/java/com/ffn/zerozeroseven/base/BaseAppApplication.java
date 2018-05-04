@@ -67,23 +67,23 @@ public class BaseAppApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         context = this;
-//        Cockroach.install(new Cockroach.ExceptionHandler() {
-//            @Override
-//            public void handlerException(Thread thread, Throwable throwable) {
-//                new Handler(Looper.getMainLooper()).post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
-//                            ToastUtils.showShort("服务器网络异常，请双击返回退出重进，或者重新登录");
-//                        } catch (Throwable e) {
-//
-//                        }
-//                    }
-//                });
-//            }
-//        });
+        Cockroach.install(new Cockroach.ExceptionHandler() {
+            @Override
+            public void handlerException(Thread thread, Throwable throwable) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            ToastUtils.showShort("拦截异常");
+                        } catch (Throwable e) {
+
+                        }
+                    }
+                });
+            }
+        });
         //发布版本的时候把下面代码打开
-//        LogUtils.isDebug=false;
+        LogUtils.isDebug=false;
         mainHandler = new Handler();
         new ToastUtils(getApplicationContext());
         registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());

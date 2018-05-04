@@ -8,11 +8,12 @@
 
     <com.ffn.zerozeroseven.view.mainscroll.TwoLevelSmoothRefreshLayout
         android:id="@+id/refreshlayout"
-        app:sr_enableTwoLevelRefresh="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:sr_enableTwoLevelRefresh="true">
 
         <ScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusableInTouchMode="true"
@@ -113,7 +114,6 @@
                     </RelativeLayout>
 
 
-
                     <RelativeLayout
                         android:id="@+id/rl_integer"
                         android:layout_width="0dp"
@@ -195,112 +195,6 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:background="@drawable/main_guanggao" />
-
-                <RelativeLayout
-                    android:id="@+id/rl_become"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:background="@drawable/noapplication"
-                    android:visibility="gone"></RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/rl_qiang"
-                    android:layout_width="match_parent"
-                    android:layout_height="374dp"
-                    android:background="@drawable/mainbg">
-
-                    <RelativeLayout
-                        android:id="@+id/rl_bri"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/iv_top"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginTop="25dp"
-                            android:layout_toLeftOf="@+id/iv_bri"
-                            android:background="@drawable/ribbon_left" />
-
-                        <ImageView
-                            android:id="@+id/iv_bri"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/birthday_icon" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="25dp"
-                            android:layout_toRightOf="@+id/iv_bri"
-                            android:background="@drawable/ribbon_right" />
-
-                        <TextView
-                            android:id="@+id/tv_briname"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/iv_bri"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="5dp"
-                            android:text="今天是您的生日，007为您送来祝福"
-                            android:textColor="@color/white"
-                            android:textSize="10sp" />
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:id="@+id/iv_top"
-                        android:layout_width="match_parent"
-                        android:layout_height="16dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:layout_marginTop="13dp"
-                        android:background="@drawable/title" />
-
-                    <com.ffn.zerozeroseven.view.ScroolRecyleView
-                        android:id="@+id/rc_activityview"
-                        android:layout_width="match_parent"
-                        android:layout_height="177dp"
-                        android:layout_centerInParent="true"></com.ffn.zerozeroseven.view.ScroolRecyleView>
-
-                    <ImageView
-                        android:id="@+id/iv_centertext"
-                        android:layout_width="match_parent"
-                        android:layout_height="147dp"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="115dp"
-                        android:layout_marginRight="115dp"
-                        android:background="@drawable/no_wishing"
-                        android:visibility="gone" />
-
-                    <ImageView
-                        android:id="@+id/iv_up"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="60dp"
-                        android:layout_marginRight="60dp"
-                        android:background="@drawable/button" />
-
-                    <TextView
-                        android:id="@+id/tv_more"
-                        android:layout_width="55dp"
-                        android:layout_height="35dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginBottom="16dp"
-                        android:gravity="center|left"
-                        android:text="更多>>"
-                        android:textColor="@color/white"
-                        android:textSize="13dp" />
-                </RelativeLayout>
 
 
                 <include layout="@layout/time_hot_shop" />
@@ -523,4 +417,69 @@
         </RelativeLayout>
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/iv_show"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/rl_qiang"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/main_four" />
+
+    <RelativeLayout
+        android:id="@+id/rl_qiang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/rl_bri"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_top"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_toLeftOf="@+id/iv_bri"
+                android:background="@drawable/ribbon_left" />
+
+            <ImageView
+                android:id="@+id/iv_bri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/birthday_icon" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_toRightOf="@+id/iv_bri"
+                android:background="@drawable/ribbon_right" />
+
+            <TextView
+                android:id="@+id/tv_briname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_bri"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="今天是您的生日，007为您送来祝福"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+
+        <com.ffn.zerozeroseven.view.ScroolRecyleView
+            android:id="@+id/rc_activityview"
+            android:layout_width="match_parent"
+            android:layout_height="177dp"
+            android:layout_below="@+id/rl_bri"
+            android:layout_centerInParent="true"></com.ffn.zerozeroseven.view.ScroolRecyleView>
+    </RelativeLayout>
 </RelativeLayout>

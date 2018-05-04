@@ -17,11 +17,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -123,7 +125,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
     //    private RelativeLayout et_select;
     private UserLikeAdapter userLikeAdapter;
-    private ImageView iv_centertext;
     private MainGoodsAdapter mainGoodsAdapter;
     private MainGoodsAdapter bothGoodsAdapter;
     private MainGoodsAdapter hotGoodsAdapter;
@@ -211,6 +212,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
     @Bind(R.id.rl_top_bg)
     RelativeLayout rl_top_bg;
+    @Bind(R.id.iv_show)
+    ImageView iv_show;
+    @Bind(R.id.scrollview)
+    ScrollView scrollview;
 
     private Drawable loadImageFromNetwork(String imageUrl) {
         Drawable drawable = null;
@@ -242,6 +247,23 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         if (SharePrefUtils.getInt(bfCxt, "isLocation", 0) != 1) {
             mLocationClient.start();
         }
+        scrollview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        iv_show.setVisibility(View.VISIBLE);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        iv_show.setVisibility(View.GONE);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        iv_show.setVisibility(View.GONE);
+                        break;
+                }
+                return false;
+            }
+        });
         banner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
             @Override
             public void onPageClick(View view, int position) {
@@ -275,12 +297,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
             }
         });
-        iv_centertext = view.findViewById(R.id.iv_centertext);
-        view.findViewById(R.id.rl_become).setOnClickListener(this);
         view.findViewById(R.id.bt_release).setOnClickListener(this);
         view.findViewById(R.id.rl_minerun).setOnClickListener(this);
-        view.findViewById(R.id.tv_more).setOnClickListener(this);
-        view.findViewById(R.id.iv_up).setOnClickListener(this);
         tv_time = view.findViewById(R.id.tv_time);
         ll_both = view.findViewById(R.id.ll_both);
         ll_often = view.findViewById(R.id.ll_often);
@@ -717,7 +735,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseAppApplication.mainHandler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -1118,14 +1136,12 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             haveData = 2;
                             userLikeAdapter.addAll(userLikeInfo.getData().getPosts());
                             recyclerView.setVisibility(View.VISIBLE);
-                            iv_centertext.setVisibility(View.GONE);
                             if (userLikeInfo.getData().getPosts().size() > 3) {
                                 recyclerView.start();
                             }
                         } else {
                             haveData = 1;
                             if (pageNo == 0) {
-                                iv_centertext.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);
                             } else {
                                 pageNo = 0;
@@ -1136,7 +1152,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
                     } else {
                         haveData = 1;
-                        iv_centertext.setVisibility(View.VISIBLE);
                         recyclerView.setVisibility(View.GONE);
                         LogUtils.D("MainFragment", "nodate");
                     }
@@ -1152,7 +1167,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 //                haveData = 1;
 //                refreshLayout.finishRefresh(1000);
 //                if (pageNo == 0) {
-//                    iv_centertext.setVisibility(View.VISIBLE);
 //                    recyclerView.setVisibility(View.GONE);
 //                }
 //            }
@@ -1171,9 +1185,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.rl_become:
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, ToBeAGoodPeople.class);
-                break;
             case R.id.bt_release:
                 Bundle bundle = new Bundle();
                 bundle.putString("type", "其他");
@@ -1182,20 +1193,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             case R.id.rl_minerun:
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, MineRunActivity.class);
                 break;
-            case R.id.tv_more:
-                if (userInfo != null) {
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, SchoolnewCardActivity.class);
-                } else {
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
-                }
-                break;
-            case R.id.iv_up:
-                if (userInfo != null) {
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MineWantGoQiangActivity.class);
-                } else {
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
-                }
-                break;
+
         }
     }
 
@@ -1206,9 +1204,16 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Bind(R.id.tv_school)
     TextView tv_school;
 
-    @OnClick({R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
+    @OnClick({R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.iv_show:
+                if(userInfo!=null){
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,SchoolnewCardActivity.class);
+                }else{
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,LoginActivity.class);
+                }
+                break;
             case R.id.rl_snack:
                 HomeActivity.getmInstance().get().go2Fragment(1);
                 break;
