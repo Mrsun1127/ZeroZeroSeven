@@ -34,6 +34,7 @@ public class UserLikeAdapter extends BaseRecyclerTallAniAdapter<UserLikeInfo.Dat
         }else{
             mHolder.tv_content.setText(content);
         }
+
         String name=info.getUserCollege()+info.getUserClazz();
         if(name.length()>8){
             mHolder.tv_name.setText(name.substring(0,8)+"...");
