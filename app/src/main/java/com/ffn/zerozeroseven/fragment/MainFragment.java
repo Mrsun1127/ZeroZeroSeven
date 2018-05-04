@@ -1208,16 +1208,17 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.iv_show:
-                if(userInfo!=null){
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,SchoolnewCardActivity.class);
-                }else{
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,LoginActivity.class);
-                }
+
                 break;
             case R.id.rl_snack:
                 HomeActivity.getmInstance().get().go2Fragment(1);
                 break;
             case R.id.rl_computer:
+                if(userInfo!=null){
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,SchoolnewCardActivity.class);
+                }else{
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,LoginActivity.class);
+                }
                 break;
             case R.id.rl_integer:
                 break;
