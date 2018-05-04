@@ -43,6 +43,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.adapter.BestNewGoodsAdapter;
 import com.ffn.zerozeroseven.adapter.MainGoodsAdapter;
 import com.ffn.zerozeroseven.adapter.RunListAdapter;
 import com.ffn.zerozeroseven.adapter.UserLikeAdapter;
@@ -61,6 +62,7 @@ import com.ffn.zerozeroseven.bean.QiangDanOkInfo;
 import com.ffn.zerozeroseven.bean.RunListRquestInfo;
 import com.ffn.zerozeroseven.bean.UserLikeInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AppUpdateInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.BestNewShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.GoodsOftenInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.LunBoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.LunXunInfo;
@@ -125,17 +127,14 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
     //    private RelativeLayout et_select;
     private UserLikeAdapter userLikeAdapter;
-    private MainGoodsAdapter mainGoodsAdapter;
-    private MainGoodsAdapter bothGoodsAdapter;
+    private BestNewGoodsAdapter bothGoodsAdapter;
     private MainGoodsAdapter hotGoodsAdapter;
-    private RecyclerView rc_often;
     private RecyclerView rc_all;
     private RecyclerView rc_hot;
     private LinearLayout ll_both;
-    private LinearLayout ll_often;
     private LinearLayout ll_hot;
     private OftenShowInfo showHotInfo;
-    private OftenShowInfo showBothInfo;
+    private BestNewShowInfo showBothInfo;
     private OftenShowInfo showOftenInfo;
     private ScroolRecyleView recyclerView;
     public LocationClient mLocationClient = null;
@@ -301,7 +300,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         view.findViewById(R.id.rl_minerun).setOnClickListener(this);
         tv_time = view.findViewById(R.id.tv_time);
         ll_both = view.findViewById(R.id.ll_both);
-        ll_often = view.findViewById(R.id.ll_often);
         ll_hot = view.findViewById(R.id.ll_hot);
         recyclerView = view.findViewById(R.id.rc_activityview);
 //        FullyGridLayoutManager layoutManager=new FullyGridLayoutManager(bfCxt,3);
@@ -338,28 +336,18 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         });
 
 
-        rc_often = view.findViewById(R.id.rc_often);
-        rc_often.setLayoutManager(new GridLayoutManager(bfCxt, 3));
-        rc_often.addItemDecoration(new GridSpacingItemDecoration(3, 15, false));
-        mainGoodsAdapter = new MainGoodsAdapter(bfCxt);
-        rc_often.setAdapter(mainGoodsAdapter);
-        mainGoodsAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, long itemId) {
-                goToDetils(position, mainGoodsAdapter);
-            }
-        });
+
 
 
         rc_all = view.findViewById(R.id.rc_all);
         rc_all.setLayoutManager(new GridLayoutManager(bfCxt, 3));
         rc_all.addItemDecoration(new GridSpacingItemDecoration(3, 15, false));
-        bothGoodsAdapter = new MainGoodsAdapter(bfCxt);
+        bothGoodsAdapter = new BestNewGoodsAdapter(bfCxt);
         rc_all.setAdapter(bothGoodsAdapter);
         bothGoodsAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                goToDetils(position, bothGoodsAdapter);
+//                goToDetils(position, bothGoodsAdapter);
             }
         });
 
@@ -833,8 +821,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     TextView tv_hot;
     @Bind(R.id.tv_both)
     TextView tv_both;
-    @Bind(R.id.tv_often)
-    TextView tv_often;
+
 
     public void reQuest() {
         if (userInfo != null) {
@@ -862,7 +849,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         } else {
             requestHotBuyList("17:00", "19:00");
         }
-        requestOftenBuyList();
         requestBothBuyList();
 //        requestRunList();
     }
@@ -1022,19 +1008,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
 
     private void requestBothBuyList() {
-//        if (!ZeroZeroSevenUtils.Date2date()) {
-//            BaseAppApplication.mainHandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    ll_both.setVisibility(View.VISIBLE);
-//                    tv_both.setText("商铺已经打烊");
-//                    rc_all.setVisibility(View.GONE);
-//                }
-//            });
-//
-//        } else {
         GoodsOftenInfo oftenInfo = new GoodsOftenInfo();
-        oftenInfo.setFunctionName("ListGoodsHotSales");
+        oftenInfo.setFunctionName("ListLatestGoods");
         GoodsOftenInfo.ParametersBean parametersBean = new GoodsOftenInfo.ParametersBean();
         parametersBean.setPageIndex(0);
         parametersBean.setPageSize(3);
@@ -1045,11 +1020,11 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                showBothInfo = JSON.parseObject(response, OftenShowInfo.class);
+                showBothInfo = JSON.parseObject(response, BestNewShowInfo.class);
                 if (showBothInfo.getCode() == 0) {
-                    if (showBothInfo.getData().getGoods().size() > 0) {
+                    if (showBothInfo.getData().getLatestGoods().size() > 0) {
                         bothGoodsAdapter.cleanDates();
-                        bothGoodsAdapter.addAll(showBothInfo.getData().getGoods());
+                        bothGoodsAdapter.addAll(showBothInfo.getData().getLatestGoods());
                         ll_both.setVisibility(View.GONE);
                         rc_all.setVisibility(View.VISIBLE);
                     } else {
@@ -1067,50 +1042,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     }
 //    }
 
-    private void requestOftenBuyList() {
-//        if (!ZeroZeroSevenUtils.Date2date()) {
-//            BaseAppApplication.mainHandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    ll_often.setVisibility(View.VISIBLE);
-//                    tv_often.setText("商铺已经打烊");
-//                    rc_often.setVisibility(View.GONE);
-//                }
-//            });
-//
-//        } else {
-        GoodsOftenInfo oftenInfo = new GoodsOftenInfo();
-        oftenInfo.setFunctionName("ListUserRegularPurchase");
-        GoodsOftenInfo.ParametersBean parametersBean = new GoodsOftenInfo.ParametersBean();
-        parametersBean.setPageIndex(0);
-        parametersBean.setPageSize(3);
-        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        oftenInfo.setParameters(parametersBean);
-        OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(oftenInfo, true, false);
-        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
-            @Override
-            public void onSuccLoad(String response) {
-                showOftenInfo = JSON.parseObject(response, OftenShowInfo.class);
-                if (showOftenInfo.getCode() == 0) {
-                    if (showOftenInfo.getData().getGoods().size() > 0) {
-                        mainGoodsAdapter.cleanDates();
-                        mainGoodsAdapter.addAll(showOftenInfo.getData().getGoods());
-                        ll_often.setVisibility(View.GONE);
-                        rc_often.setVisibility(View.VISIBLE);
-                    } else {
-                        mainGoodsAdapter.cleanDates();
-                        ll_often.setVisibility(View.VISIBLE);
-                        rc_often.setVisibility(View.GONE);
-                    }
 
-                } else {
-                    mainGoodsAdapter.cleanDates();
-                    ll_often.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-    }
 //    }
 
     int pageNo = 0;
@@ -1286,44 +1218,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     public void onResume() {
         super.onResume();
         banner.start();//开始轮播
-//        if (ZeroZeroSevenUtils.Date2date()) {
-//
-//            if (hotGoodsAdapter.getCount() == 0) {
-//                ll_hot.setVisibility(View.VISIBLE);
-//                rc_hot.setVisibility(View.GONE);
-//                tv_hot.setText("暂无数据");
-//            } else {
-//                ll_hot.setVisibility(View.GONE);
-//                rc_hot.setVisibility(View.VISIBLE);
-//            }
-//            if (bothGoodsAdapter.getCount() == 0) {
-//                ll_both.setVisibility(View.VISIBLE);
-//                rc_all.setVisibility(View.GONE);
-//                tv_both.setText("暂无数据");
-//            } else {
-//                ll_both.setVisibility(View.GONE);
-//                rc_all.setVisibility(View.VISIBLE);
-//            }
-//            if (mainGoodsAdapter.getCount() == 0) {
-//                ll_often.setVisibility(View.VISIBLE);
-//                rc_often.setVisibility(View.GONE);
-//                tv_often.setText("暂无数据");
-//            } else {
-//                ll_often.setVisibility(View.GONE);
-//                rc_often.setVisibility(View.VISIBLE);
-//            }
-//
-//        } else {
-//            ll_hot.setVisibility(View.VISIBLE);
-//            tv_hot.setText("商铺已经打烊");
-//            rc_hot.setVisibility(View.GONE);
-//            ll_both.setVisibility(View.VISIBLE);
-//            tv_both.setText("商铺已经打烊");
-//            rc_all.setVisibility(View.GONE);
-//            ll_often.setVisibility(View.VISIBLE);
-//            tv_often.setText("商铺已经打烊");
-//            rc_often.setVisibility(View.GONE);
-//        }
         if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
             recyclerView.start();
         }
