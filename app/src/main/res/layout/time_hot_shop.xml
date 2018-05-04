@@ -2,6 +2,7 @@
 <com.ffn.zerozeroseven.view.UserDefineScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -10,44 +11,37 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:background="#F3F3F3"
+            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="37dp">
-
+            android:layout_height="wrap_content">
             <ImageView
-                android:layout_width="103dp"
-                android:layout_height="15dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/recommend" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white">
-
-            <RelativeLayout
-                android:id="@+id/rl_time"
-                android:layout_width="match_parent"
-                android:layout_height="66dp">
-
-                <View
-                    android:layout_width="80dp"
-                    android:layout_height="2dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/tv_time"
-                    android:background="@drawable/line" />
-
-                <View
-                    android:layout_width="80dp"
-                    android:layout_height="2dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/tv_time"
-                    android:background="@drawable/line" />
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="13dp"
+                android:layout_toLeftOf="@+id/tv_shiduanrejian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/main_time_hot"/>
+            <ImageView
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="13dp"
+                android:layout_toRightOf="@+id/tv_shiduanrejian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/main_time_hot"/>
+            <TextView
+                android:id="@+id/tv_shiduanrejian"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="时段热荐"/>
 
                 <TextView
+                    android:layout_marginTop="12dp"
+                    android:layout_below="@+id/tv_shiduanrejian"
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -57,10 +51,16 @@
                     android:text="21:00--24:00"
                     android:textColor="#000"
                     android:textSize="10sp" />
-            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
             <RelativeLayout
-                android:layout_below="@+id/rl_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingRight="20dp"
@@ -95,58 +95,11 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:background="#F3F3F3"
+            android:background="@drawable/xinpin"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_width="match_parent"
-            android:layout_height="37dp">
-
-            <ImageView
-                android:layout_width="103dp"
-                android:layout_height="15dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/shoplist" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:padding="20dp">
-            <LinearLayout
-                android:visibility="gone"
-                android:gravity="center_horizontal"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content"
-                android:id="@+id/ll_often">
-                <ImageView
-                    android:layout_width="60dp"
-                    android:background="@drawable/empty_box_icon"
-                    android:layout_height="60dp" />
-                <TextView
-                    android:id="@+id/tv_often"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="暂无数据"/>
-            </LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rc_often"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:background="#F3F3F3"
-            android:layout_width="match_parent"
-            android:layout_height="37dp">
-
-            <ImageView
-                android:layout_width="103dp"
-                android:layout_height="15dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/hotsale" />
+            android:layout_height="70dp">
         </RelativeLayout>
 
         <RelativeLayout

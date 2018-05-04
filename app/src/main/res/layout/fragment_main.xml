@@ -170,17 +170,20 @@
                     android:layout_marginLeft="17dp"
                     android:layout_marginRight="17dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/main_circle"
-                    android:gravity="center_vertical"
+                    android:background="@drawable/main_notify"
+                    android:gravity="bottom"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="99dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:padding="5dp"
-                        android:src="@drawable/xiaoqikuaibao" />
+                        android:src="@drawable/main_laba" />
 
                     <com.ffn.zerozeroseven.view.AutoVerticalScrollTextView
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/rectangle"
                         android:id="@+id/scrollTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
