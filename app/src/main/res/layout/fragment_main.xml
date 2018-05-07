@@ -181,12 +181,12 @@
                         android:src="@drawable/main_laba" />
 
                     <com.ffn.zerozeroseven.view.AutoVerticalScrollTextView
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/rectangle"
                         android:id="@+id/scrollTextView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/rectangle" />
 
                 </LinearLayout>
 
@@ -420,13 +420,6 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/iv_show"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_above="@+id/rl_qiang"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/main_four" />
 
     <RelativeLayout
         android:id="@+id/rl_qiang"
@@ -476,13 +469,24 @@
                 android:textColor="@color/white"
                 android:textSize="10sp" />
         </RelativeLayout>
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <com.ffn.zerozeroseven.view.ScroolRecyleView
             android:id="@+id/rc_activityview"
             android:layout_width="match_parent"
             android:layout_height="177dp"
-            android:layout_below="@+id/rl_bri"
-            android:layout_centerInParent="true"></com.ffn.zerozeroseven.view.ScroolRecyleView>
+            android:layout_alignParentBottom="true"></com.ffn.zerozeroseven.view.ScroolRecyleView>
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_show"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/danmug" />
 </RelativeLayout>
