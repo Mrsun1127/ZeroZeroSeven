@@ -944,7 +944,16 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     if (bannerInfo.getData().getList().size() > 0) {
                         images = new ArrayList<>();
                         for (int i = 0; i < bannerInfo.getData().getList().size(); i++) {
-                            images.add(bannerInfo.getData().getList().get(i).getPicUrl());
+                            if (bannerInfo.getData().getList().get(i).getType().equals("03")) {//横幅
+                                images.add(bannerInfo.getData().getList().get(i).getPicUrl());
+                            }else if(bannerInfo.getData().getList().get(i).getType().equals("下拉广告")){//下拉
+
+                            }else if(bannerInfo.getData().getList().get(i).getType().equals("启动广告")){//启动
+                                userInfo.setDowmPoster(bannerInfo.getData().getList().get(i).getPicUrl());
+                                SharePrefUtils.saveObject(bfCxt,"userInfo",userInfo);
+                            }else if(bannerInfo.getData().getList().get(i).getType().equals("专题广告")){
+
+                            }
                         }
                         Glide.with(bfCxt).load(bannerInfo.getData().getList().get(0).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                             @Override
