@@ -43,6 +43,7 @@ public class BaseAppApplication extends MultiDexApplication {
     public static UserInfo.DataBean userInfo;
     //判断是否被回收
     public static int flag = -1;
+
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
@@ -67,23 +68,23 @@ public class BaseAppApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         context = this;
-        Cockroach.install(new Cockroach.ExceptionHandler() {
-            @Override
-            public void handlerException(Thread thread, Throwable throwable) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            ToastUtils.showShort("拦截异常");
-                        } catch (Throwable e) {
-
-                        }
-                    }
-                });
-            }
-        });
+//        Cockroach.install(new Cockroach.ExceptionHandler() {
+//            @Override
+//            public void handlerException(Thread thread, Throwable throwable) {
+//                new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            ToastUtils.showShort("拦截异常");
+//                        } catch (Throwable e) {
+//
+//                        }
+//                    }
+//                });
+//            }
+//        });
         //发布版本的时候把下面代码打开
-        LogUtils.isDebug=false;
+//        LogUtils.isDebug=false;
         mainHandler = new Handler();
         new ToastUtils(getApplicationContext());
         registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());

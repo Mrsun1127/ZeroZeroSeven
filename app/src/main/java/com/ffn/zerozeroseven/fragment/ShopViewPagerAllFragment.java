@@ -27,7 +27,6 @@ import com.ffn.zerozeroseven.utlis.UiTipUtil;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.ffn.zerozeroseven.view.StateLayout;
-import com.ffn.zerozeroseven.view.WaitingDialog;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -59,7 +58,6 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
     private Double runMoney;
     private String storeId;
     private RelativeLayout rl_no_select;
-    private WaitingDialog dialog;
     public static WeakReference<ShopViewPagerAllFragment> mInstance;
 
     private void setRefreshLayoutVis() {
@@ -122,7 +120,6 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
 
     @Override
     public void initDate() {
-        dialog = new WaitingDialog(getContext());
         setRefreshLayoutVis();
         if(userInfo!=null){
             schoolIId = BaseAppApplication.getInstance().getLoginUser().getSchoolId();
@@ -277,7 +274,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
     }
 
     private void getShangChangInfo() {
-        dialog.show();
+        showLoadProgress();
         final ShangchangInfo shangchangInfo = new ShangchangInfo();
         shangchangInfo.setFunctionName("QuerySchoolStore");
         ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
@@ -290,7 +287,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        dialog.dismiss();
+                       disLoadProgress();
                     }
                 });
             }
@@ -300,7 +297,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        dialog.dismiss();
+                        disLoadProgress();
                     }
                 });
                 final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response.body().string(), ShangChangShowInfo.class);
