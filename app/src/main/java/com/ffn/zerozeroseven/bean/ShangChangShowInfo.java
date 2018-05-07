@@ -7,16 +7,9 @@ import java.io.Serializable;
  */
 
 public class ShangChangShowInfo implements Serializable {
-    public ShangChangShowInfo(){}
-    public ShangChangShowInfo(int code, DataBean data, String message) {
-        this.code = code;
-        this.data = data;
-        this.message = message;
-    }
-
     /**
      * code : 0
-     * data : {"storeDesc":"专卖香甜水果","storeType":"01","address":"地址","createTime":"2017-11-30 00:09:51","schoolId":1,"storeName":"007商铺","id":1,"extraFee":1,"promotion":"明天打5折"}
+     * data : {"storeDesc":"零零7湖南农业大学分仓","freeOrderNum":4,"address":"","servicePhone":"1230000","city":"430100","openingTime":"09:00:00","updateTime":"2018-05-06 17:22:45","deliveryPrice":5,"adminName":"刘海海","closingTime2":"22:00:00","adminPhone":"18229853043","closingTime":"14:00:00","province":"430000","createTime":"2018-03-06 09:55:42","schoolId":1719,"storeName":"湖南农业大学","id":14,"extraFee":0,"openingTime2":"16:00:00","promotion":"随机免单+推广收益","status":1}
      * message : 请求成功
      */
 
@@ -49,40 +42,60 @@ public class ShangChangShowInfo implements Serializable {
     }
 
     public static class DataBean implements Serializable{
-        public DataBean(){}
-        public DataBean(String storeDesc, String storeType, String address, String createTime, int schoolId, String storeName, int id, Double extraFee, String promotion) {
-            this.storeDesc = storeDesc;
-            this.storeType = storeType;
-            this.address = address;
-            this.createTime = createTime;
-            this.schoolId = schoolId;
-            this.storeName = storeName;
-            this.id = id;
-            this.extraFee = extraFee;
-            this.promotion = promotion;
-        }
-
         /**
-         * storeDesc : 专卖香甜水果
-         * storeType : 01
-         * address : 地址
-         * createTime : 2017-11-30 00:09:51
-         * schoolId : 1
-         * storeName : 007商铺
-         * id : 1
-         * extraFee : 1
-         * promotion : 明天打5折
+         * storeDesc : 零零7湖南农业大学分仓
+         * freeOrderNum : 4
+         * address :
+         * servicePhone : 1230000
+         * city : 430100
+         * openingTime : 09:00:00
+         * updateTime : 2018-05-06 17:22:45
+         * deliveryPrice : 5
+         * adminName : 刘海海
+         * closingTime2 : 22:00:00
+         * adminPhone : 18229853043
+         * closingTime : 14:00:00
+         * province : 430000
+         * createTime : 2018-03-06 09:55:42
+         * schoolId : 1719
+         * storeName : 湖南农业大学
+         * id : 14
+         * extraFee : 0
+         * openingTime2 : 16:00:00
+         * promotion : 随机免单+推广收益
+         * status : 1
          */
 
         private String storeDesc;
-        private String storeType;
+        private int freeOrderNum;
         private String address;
+        private String servicePhone;
+        private String city;
+        private String openingTime;
+        private String updateTime;
+        private Double deliveryPrice;
+        private String adminName;
+        private String closingTime2;
+        private String adminPhone;
+        private String closingTime;
+        private String province;
         private String createTime;
         private int schoolId;
         private String storeName;
         private int id;
         private Double extraFee;
+        private String openingTime2;
         private String promotion;
+        private int status;
+        private boolean isClosing;
+
+        public boolean isClosing() {
+            return isClosing;
+        }
+
+        public void setClosing(boolean closing) {
+            isClosing = closing;
+        }
 
         public String getStoreDesc() {
             return storeDesc;
@@ -92,12 +105,12 @@ public class ShangChangShowInfo implements Serializable {
             this.storeDesc = storeDesc;
         }
 
-        public String getStoreType() {
-            return storeType;
+        public int getFreeOrderNum() {
+            return freeOrderNum;
         }
 
-        public void setStoreType(String storeType) {
-            this.storeType = storeType;
+        public void setFreeOrderNum(int freeOrderNum) {
+            this.freeOrderNum = freeOrderNum;
         }
 
         public String getAddress() {
@@ -106,6 +119,86 @@ public class ShangChangShowInfo implements Serializable {
 
         public void setAddress(String address) {
             this.address = address;
+        }
+
+        public String getServicePhone() {
+            return servicePhone;
+        }
+
+        public void setServicePhone(String servicePhone) {
+            this.servicePhone = servicePhone;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getOpeningTime() {
+            return openingTime;
+        }
+
+        public void setOpeningTime(String openingTime) {
+            this.openingTime = openingTime;
+        }
+
+        public String getUpdateTime() {
+            return updateTime;
+        }
+
+        public void setUpdateTime(String updateTime) {
+            this.updateTime = updateTime;
+        }
+
+        public Double getDeliveryPrice() {
+            return deliveryPrice;
+        }
+
+        public void setDeliveryPrice(Double deliveryPrice) {
+            this.deliveryPrice = deliveryPrice;
+        }
+
+        public String getAdminName() {
+            return adminName;
+        }
+
+        public void setAdminName(String adminName) {
+            this.adminName = adminName;
+        }
+
+        public String getClosingTime2() {
+            return closingTime2;
+        }
+
+        public void setClosingTime2(String closingTime2) {
+            this.closingTime2 = closingTime2;
+        }
+
+        public String getAdminPhone() {
+            return adminPhone;
+        }
+
+        public void setAdminPhone(String adminPhone) {
+            this.adminPhone = adminPhone;
+        }
+
+        public String getClosingTime() {
+            return closingTime;
+        }
+
+        public void setClosingTime(String closingTime) {
+            this.closingTime = closingTime;
+        }
+
+        public String getProvince() {
+            return province;
+        }
+
+        public void setProvince(String province) {
+            this.province = province;
         }
 
         public String getCreateTime() {
@@ -148,12 +241,28 @@ public class ShangChangShowInfo implements Serializable {
             this.extraFee = extraFee;
         }
 
+        public String getOpeningTime2() {
+            return openingTime2;
+        }
+
+        public void setOpeningTime2(String openingTime2) {
+            this.openingTime2 = openingTime2;
+        }
+
         public String getPromotion() {
             return promotion;
         }
 
         public void setPromotion(String promotion) {
             this.promotion = promotion;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
         }
     }
 }
