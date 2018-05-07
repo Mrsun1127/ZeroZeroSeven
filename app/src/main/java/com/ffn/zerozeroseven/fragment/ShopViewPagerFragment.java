@@ -60,7 +60,6 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
     private Double runMoney;
     private String storeId;
     private RelativeLayout rl_no_select;
-    private WaitingDialog dialog;
     public static WeakReference<ShopViewPagerFragment> mInstance;
     private void setRefreshLayoutVis() {
         if (commonRefreshLayout.getVisibility() == View.GONE) {
@@ -131,7 +130,6 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
     }
     @Override
     public void initDate() {
-        dialog = new WaitingDialog(getContext());
         setRefreshLayoutVis();
         if(userInfo!=null){
             schoolIId=BaseAppApplication.getInstance().getLoginUser().getSchoolId();
@@ -276,7 +274,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
         });
     }
     private void getShangChangInfo() {
-        dialog.show();
+        showLoadProgress();
         final ShangchangInfo shangchangInfo = new ShangchangInfo();
         shangchangInfo.setFunctionName("QuerySchoolStore");
         ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
@@ -289,7 +287,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        dialog.dismiss();
+                       disLoadProgress();
                     }
                 });
             }
@@ -299,7 +297,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        dialog.dismiss();
+                        disLoadProgress();
                     }
                 });
                 final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response.body().string(), ShangChangShowInfo.class);
