@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -215,6 +216,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     ImageView iv_show;
     @Bind(R.id.scrollview)
     ScrollView scrollview;
+    @Bind(R.id.rl_qiang)
+    RelativeLayout rl_qiang;
 
     private Drawable loadImageFromNetwork(String imageUrl) {
         Drawable drawable = null;
@@ -302,6 +305,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         ll_both = view.findViewById(R.id.ll_both);
         ll_hot = view.findViewById(R.id.ll_hot);
         recyclerView = view.findViewById(R.id.rc_activityview);
+        recyclerView.setOnTouchListener(rcViewOnTouch);
 //        FullyGridLayoutManager layoutManager=new FullyGridLayoutManager(bfCxt,3);
 //        layoutManager.setOrientation(FullyGridLayoutManager.HORIZONTAL);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL);
@@ -334,9 +338,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 }
             }
         });
-
-
-
 
 
         rc_all = view.findViewById(R.id.rc_all);
@@ -458,6 +459,59 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         });
         checkVersion();
     }
+
+    private View.OnTouchListener rcViewOnTouch = new View.OnTouchListener() {
+        int lastX, lastY;
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            int ea = event.getAction();
+            DisplayMetrics dm = getResources().getDisplayMetrics();
+            int screenWidth = dm.widthPixels;
+            int screenHeight = dm.heightPixels - 177;//需要减掉图片的高度
+            switch (ea) {
+                case MotionEvent.ACTION_DOWN:
+                    lastX = (int) event.getRawX();//获取触摸事件触摸位置的原始X坐标
+                    lastY = (int) event.getRawY();
+                    return false;
+                case MotionEvent.ACTION_MOVE:
+                    //event.getRawX();获得移动的位置
+                    int dx = (int) event.getRawX() - lastX;
+                    int dy = (int) event.getRawY() - lastY;
+                    int l = v.getLeft() + dx;
+                    int b = v.getBottom() + dy;
+                    int r = v.getRight() + dx;
+                    int t = v.getTop() + dy;
+
+                    //下面判断移动是否超出屏幕
+                    if (l < 0) {
+                        l = 0;
+                        r = l + v.getWidth();
+                    }
+                    if (t < 0) {
+                        t = 0;
+                        b = t + v.getHeight();
+                    }
+                    if (r > screenWidth) {
+                        r = screenWidth;
+                        l = r - v.getWidth();
+                    }
+                    if (b > screenHeight) {
+                        b = screenHeight;
+                        t = b - v.getHeight();
+                    }
+                    v.layout(l, t, r, b);
+                    lastX = (int) event.getRawX();
+                    lastY = (int) event.getRawY();
+                    v.postInvalidate();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    recyclerView.start();
+//                    break;
+            }
+            return true;
+        }
+    };
 
     private void checkVersion() {
         BaseAppApplication.mainHandler.post(new Runnable() {
@@ -1135,21 +1189,32 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     Button helpother;
     @Bind(R.id.tv_school)
     TextView tv_school;
+    boolean open = true;
 
     @OnClick({R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.iv_show:
-
+                if (open) {
+                    open = false;
+                    Glide.with(bfCxt).load(R.drawable.danmuk).into(iv_show);
+                    recyclerView.stop();
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    open = true;
+                    recyclerView.start();
+                    Glide.with(bfCxt).load(R.drawable.danmug).into(iv_show);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
                 break;
             case R.id.rl_snack:
                 HomeActivity.getmInstance().get().go2Fragment(1);
                 break;
             case R.id.rl_computer:
-                if(userInfo!=null){
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,SchoolnewCardActivity.class);
-                }else{
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,LoginActivity.class);
+                if (userInfo != null) {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, SchoolnewCardActivity.class);
+                } else {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
                 }
                 break;
             case R.id.rl_integer:
