@@ -744,6 +744,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 //                          goodsInfo.setPromotionPrice(goodsDetilsInfo.getData().getPromotionPrice());
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("shopInfo", goodsInfo);
+                    bundle.putString("back","main");
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
                 } else {
                     ToastUtils.showShort(goodsDetilsInfo.getMessage());
@@ -773,6 +774,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 //                          goodsInfo.setPromotionPrice(goodsDetilsInfo.getData().getPromotionPrice());
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("shopInfo", goodsInfo);
+                    bundle.putString("back","main");
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
                 } else {
                     ToastUtils.showShort(goodsDetilsInfo.getMessage());
