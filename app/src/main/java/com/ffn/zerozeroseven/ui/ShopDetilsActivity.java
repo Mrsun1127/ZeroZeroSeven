@@ -1,11 +1,13 @@
 package com.ffn.zerozeroseven.ui;
 
 import android.graphics.Point;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
@@ -25,6 +27,8 @@ import com.ffn.zerozeroseven.view.NXHooldeView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -58,6 +62,8 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
     private ImageButton ib_lose;
     @Bind(R.id.tv_desc)
     TextView tv_desc;
+    private String backType;
+    private boolean isAdd=false;
 
     @Override
     protected int setLayout() {
@@ -143,14 +149,24 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         }
         countCompare = Integer.parseInt(count1);
         lastCarShopInfo = (CarShopInfo) SharePrefUtils.readObject(ShopDetilsActivity.this, "carShopInfo");
+        backType = getIntent().getStringExtra("back");
     }
 
     int tvCount = 0;
-
+//    @Override
+//    public void onBackPressed() {
+//        if(!TextUtils.isEmpty(backType) && "main".equals(backType)&& isAdd){
+//            HomeActivity.getmInstance().get().go2Fragment(1);
+//        }
+//        finish();
+//    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
+//                if(!TextUtils.isEmpty(backType) && "main".equals(backType)&& isAdd){
+//                    HomeActivity.getmInstance().get().go2Fragment(1);
+//                }
                 finish();
                 break;
             case R.id.ib_add:
@@ -260,7 +276,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 SharePrefUtils.saveObject(ShopDetilsActivity.this, "carShopInfo", carShopInfo);
                 ToastUtils.showShort("添加成功");
             }
-
+            isAdd = true;
         } else {
             ToastUtils.showShort("请选择添加购物车商品的数量");
         }
