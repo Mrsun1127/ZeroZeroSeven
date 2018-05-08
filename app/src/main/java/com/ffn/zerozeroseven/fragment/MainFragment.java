@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -20,6 +21,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,6 +57,7 @@ import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.base.BaseRecyclerTallAniAdapter;
 import com.ffn.zerozeroseven.bean.AppVersionInfo;
 import com.ffn.zerozeroseven.bean.BannerInfo;
+import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.FindSchoolInfo;
 import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
 import com.ffn.zerozeroseven.bean.GoodsDetilsInfo;
@@ -95,6 +98,7 @@ import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.AutoVerticalScrollTextView;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
+import com.ffn.zerozeroseven.view.NXHooldeView;
 import com.ffn.zerozeroseven.view.ScroolRecyleView;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.mainscroll.CustomTwoLevelHeader;
@@ -348,7 +352,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         bothGoodsAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-//                goToDetils(position, bothGoodsAdapter);
+                goToDetils(position, bothGoodsAdapter);
             }
         });
 
@@ -364,7 +368,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 goToDetils(position, hotGoodsAdapter);
             }
         });
-
         rc_runlist.setLayoutManager(new LinearLayoutManager(bfCxt));
         rc_runlist.addItemDecoration(new SpaceItemDecoration(10));
         runListAdapter = new RunListAdapter(bfCxt);
@@ -459,6 +462,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         });
         checkVersion();
     }
+
+
+
+
 
     private View.OnTouchListener rcViewOnTouch = new View.OnTouchListener() {
         int lastX, lastY;
@@ -744,7 +751,35 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             }
         });
     }
-
+    public void goToDetils(final int position, final BestNewGoodsAdapter adapter) {
+        RequeseGoods requeseGoods = new RequeseGoods();
+        requeseGoods.setFunctionName("QueryGoods");
+        RequeseGoods.ParametersBean parametersBean = new RequeseGoods.ParametersBean();
+        parametersBean.setGoodsId(adapter.getItem(position).getId());
+        requeseGoods.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(getActivity());
+        okGoUtils.httpPostJSON(requeseGoods, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                final GoodsDetilsInfo goodsDetilsInfo = JSON.parseObject(response, GoodsDetilsInfo.class);
+                if (goodsDetilsInfo.getCode() == 0) {
+                    GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
+                    goodsInfo.setId(adapter.getItem(position).getId());
+                    goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
+                    goodsInfo.setThumbnail(adapter.getItem(position).getThumbnail());
+                    goodsInfo.setStockNum(goodsDetilsInfo.getData().getStockNum());
+                    goodsInfo.setPrice(goodsDetilsInfo.getData().getPrice());
+//                          goodsInfo.setPromotionPrice(goodsDetilsInfo.getData().getPromotionPrice());
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("shopInfo", goodsInfo);
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
+                } else {
+                    ToastUtils.showShort(goodsDetilsInfo.getMessage());
+                }
+            }
+        });
+    }
     @Override
     protected int setLayout() {
         return R.layout.fragment_main;
@@ -772,8 +807,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             }
                         });
                     }
-
-                } else {
 
                 }
             }
@@ -944,7 +977,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     if (bannerInfo.getData().getList().size() > 0) {
                         images = new ArrayList<>();
                         for (int i = 0; i < bannerInfo.getData().getList().size(); i++) {
-                            if (bannerInfo.getData().getList().get(i).getType().equals("03")) {//横幅
+                            if (bannerInfo.getData().getList().get(i).getType().equals("横幅广告")) {//横幅
                                 images.add(bannerInfo.getData().getList().get(i).getPicUrl());
                             }else if(bannerInfo.getData().getList().get(i).getType().equals("下拉广告")){//下拉
 
@@ -1022,16 +1055,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
     //    05:00 - 09:00  09:00 - 11:30 11:30 - 14:00 14:00-17:00 17:00-19:00 19:00-24:00 24:00-05:00
     private void requestHotBuyList(String beforeTime, String afterTime) {
-//        if (!ZeroZeroSevenUtils.Date2date()) {
-//            BaseAppApplication.mainHandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    ll_hot.setVisibility(View.VISIBLE);
-//                    tv_hot.setText("商铺已经打烊");
-//                    rc_hot.setVisibility(View.GONE);
-//                }
-//            });
-//        } else {
         GoodsOftenInfo oftenInfo = new GoodsOftenInfo();
         oftenInfo.setFunctionName("ListGoodsHotSales");
         GoodsOftenInfo.ParametersBean parametersBean = new GoodsOftenInfo.ParametersBean();
@@ -1067,7 +1090,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         });
 
     }
-//    }
+
 
 
     private void requestBothBuyList() {
@@ -1156,16 +1179,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 }
             }
         });
-//        okGoUtils.setOnLoadError(new OkGoUtils.OnLoadError() {
-//            @Override
-//            public void onErrorLoad() {
-//                haveData = 1;
-//                refreshLayout.finishRefresh(1000);
-//                if (pageNo == 0) {
-//                    recyclerView.setVisibility(View.GONE);
-//                }
-//            }
-//        });
+
 
     }
 

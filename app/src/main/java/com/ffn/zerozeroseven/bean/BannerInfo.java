@@ -102,6 +102,15 @@ public class BannerInfo implements Serializable {
              * id : 1
              * title : 007
              */
+            private String type;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
 
             private String picUrl;
             private String intro;

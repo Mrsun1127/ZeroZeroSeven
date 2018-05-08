@@ -9,13 +9,13 @@ import java.util.List;
 public class BestNewShowInfo {
     /**
      * code : 0
-     * data : {"LatestGoods":[{"goodsName":"蜀鼎香辣金针菇","id":1337,"price":0.98,"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523508511329.jpg"},{"goodsName":"湘阁香辣脆骨","id":1336,"price":0.98,"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523509209700.jpg"},{"goodsName":"顶牛爆炒牛筋","id":1335,"price":0.98,"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523509113402.jpg"},{"goodsName":"美味乐麻辣素牛肉","id":1334,"price":1.98,"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523509347906.jpg"},{"goodsName":"京牛香素食烤鸭","id":1333,"price":2.48,"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523509301145.jpg"},{"goodsName":"双汇Q趣香辣风味香肠","id":1332,"price":1.98,"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523508906592.jpg"}],"total":229,"pageIndex":0,"totalPage":39,"pageSize":6}
-     * success : true
+     * data : {"LatestGoods":[{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521001836630.jpg","price":2.48,"id":620,"storeId":14,"goodsName":"翻天娃红烧牛腩味","extraFee":0,"goodsType":"02"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521002055424.jpg","price":2.48,"id":619,"storeId":14,"goodsName":"翻天娃薯条味辣条","extraFee":0,"goodsType":"02"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521002022637.jpg","price":4.98,"id":618,"storeId":14,"goodsName":"酱香鸭脖","extraFee":0,"goodsType":"02"}],"total":22,"pageIndex":0,"totalPage":8,"pageSize":3}
+     * message : 请求成功
      */
 
     private int code;
     private DataBean data;
-    private boolean success;
+    private String message;
 
     public int getCode() {
         return code;
@@ -33,21 +33,21 @@ public class BestNewShowInfo {
         this.data = data;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public String getMessage() {
+        return message;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public static class DataBean {
         /**
-         * LatestGoods : [{"goodsName":"蜀鼎香辣金针菇","id":1337,"price":0.98,"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523508511329.jpg"},{"goodsName":"湘阁香辣脆骨","id":1336,"price":0.98,"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523509209700.jpg"},{"goodsName":"顶牛爆炒牛筋","id":1335,"price":0.98,"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523509113402.jpg"},{"goodsName":"美味乐麻辣素牛肉","id":1334,"price":1.98,"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523509347906.jpg"},{"goodsName":"京牛香素食烤鸭","id":1333,"price":2.48,"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523509301145.jpg"},{"goodsName":"双汇Q趣香辣风味香肠","id":1332,"price":1.98,"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523508906592.jpg"}]
-         * total : 229
+         * LatestGoods : [{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521001836630.jpg","price":2.48,"id":620,"storeId":14,"goodsName":"翻天娃红烧牛腩味","extraFee":0,"goodsType":"02"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521002055424.jpg","price":2.48,"id":619,"storeId":14,"goodsName":"翻天娃薯条味辣条","extraFee":0,"goodsType":"02"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521002022637.jpg","price":4.98,"id":618,"storeId":14,"goodsName":"酱香鸭脖","extraFee":0,"goodsType":"02"}]
+         * total : 22
          * pageIndex : 0
-         * totalPage : 39
-         * pageSize : 6
+         * totalPage : 8
+         * pageSize : 3
          */
 
         private int total;
@@ -98,31 +98,29 @@ public class BestNewShowInfo {
 
         public static class LatestGoodsBean {
             /**
-             * goodsName : 蜀鼎香辣金针菇
-             * id : 1337
-             * price : 0.98
-             * thumbnail : http://www.lingling7.com/lingling7-res/image/20180412/thumbnail1523508511329.jpg
+             * thumbnail : http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521001836630.jpg
+             * price : 2.48
+             * id : 620
+             * storeId : 14
+             * goodsName : 翻天娃红烧牛腩味
+             * extraFee : 0
+             * goodsType : 02
              */
 
-            private String goodsName;
-            private int id;
-            private Double price;
             private String thumbnail;
+            private Double price;
+            private int id;
+            private String goodsName;
+            private int storeId;
+            private Double extraFee;
+            private String goodsType;
 
-            public String getGoodsName() {
-                return goodsName;
+            public String getThumbnail() {
+                return thumbnail;
             }
 
-            public void setGoodsName(String goodsName) {
-                this.goodsName = goodsName;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
+            public void setThumbnail(String thumbnail) {
+                this.thumbnail = thumbnail;
             }
 
             public Double getPrice() {
@@ -133,12 +131,44 @@ public class BestNewShowInfo {
                 this.price = price;
             }
 
-            public String getThumbnail() {
-                return thumbnail;
+            public int getId() {
+                return id;
             }
 
-            public void setThumbnail(String thumbnail) {
-                this.thumbnail = thumbnail;
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public int getStoreId() {
+                return storeId;
+            }
+
+            public void setStoreId(int storeId) {
+                this.storeId = storeId;
+            }
+
+            public String getGoodsName() {
+                return goodsName;
+            }
+
+            public void setGoodsName(String goodsName) {
+                this.goodsName = goodsName;
+            }
+
+            public Double getExtraFee() {
+                return extraFee;
+            }
+
+            public void setExtraFee(Double extraFee) {
+                this.extraFee = extraFee;
+            }
+
+            public String getGoodsType() {
+                return goodsType;
+            }
+
+            public void setGoodsType(String goodsType) {
+                this.goodsType = goodsType;
             }
         }
     }

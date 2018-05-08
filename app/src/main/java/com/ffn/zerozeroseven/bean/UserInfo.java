@@ -77,6 +77,15 @@ public class UserInfo implements Serializable{
         private String clazz;
         private String schoolName;
         private String schoolId="943478288";
+        private String dowmPoster;
+
+        public String getDowmPoster() {
+            return dowmPoster;
+        }
+
+        public void setDowmPoster(String dowmPoster) {
+            this.dowmPoster = dowmPoster;
+        }
 
         public String getSchoolId() {
             return schoolId;

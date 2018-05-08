@@ -106,6 +106,42 @@ public class OftenShowInfo {
             private String thumbnail;
             private int id;
             private String goodsName;
+            private int storeId;
+            private Double extraFee;
+            private String goodsType;
+            private Double price;
+
+            public Double getPrice() {
+                return price;
+            }
+
+            public void setPrice(Double price) {
+                this.price = price;
+            }
+
+            public int getStoreId() {
+                return storeId;
+            }
+
+            public void setStoreId(int storeId) {
+                this.storeId = storeId;
+            }
+
+            public Double getExtraFee() {
+                return extraFee;
+            }
+
+            public void setExtraFee(Double extraFee) {
+                this.extraFee = extraFee;
+            }
+
+            public String getGoodsType() {
+                return goodsType;
+            }
+
+            public void setGoodsType(String goodsType) {
+                this.goodsType = goodsType;
+            }
 
             public String getThumbnail() {
                 return thumbnail;
