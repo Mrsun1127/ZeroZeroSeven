@@ -223,6 +223,7 @@ public class HomeActivity extends AppCompatActivity {
         BaseAppApplication.mainHandler.post(new Runnable() {
             @Override
             public void run() {
+
                 ZeroZeroSevenUtils.showSleepPop(HomeActivity.this,rl_mine);
             }
         });
