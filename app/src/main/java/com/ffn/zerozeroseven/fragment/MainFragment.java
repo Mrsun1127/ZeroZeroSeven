@@ -748,6 +748,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             public void onSuccLoad(String response) {
                 final GoodsDetilsInfo goodsDetilsInfo = JSON.parseObject(response, GoodsDetilsInfo.class);
                 if (goodsDetilsInfo.getCode() == 0) {
+                    HomeActivity.getmInstance().get().go2Fragment(1);
                     GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
                     goodsInfo.setId(adapter.getItem(position).getId());
                     goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
@@ -779,6 +780,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             public void onSuccLoad(String response) {
                 final GoodsDetilsInfo goodsDetilsInfo = JSON.parseObject(response, GoodsDetilsInfo.class);
                 if (goodsDetilsInfo.getCode() == 0) {
+                    HomeActivity.getmInstance().get().go2Fragment(1);
                     GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
                     goodsInfo.setId(adapter.getItem(position).getId());
                     goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
