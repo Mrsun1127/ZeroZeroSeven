@@ -321,9 +321,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onItemClick(int position, long itemId) {
                 //修改跳转 单个帖子界面
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", userLikeAdapter.getItem(position).getId());
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, SinggerSchoolTalkActivity.class, bundle);
+                if (Math.abs(yMove
+                ) < 1) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", userLikeAdapter.getItem(position).getId());
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, SinggerSchoolTalkActivity.class, bundle);
+                }
+
             }
         });
         recyclerView.setAdapter(userLikeAdapter);
@@ -466,9 +470,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     }
 
 
-
-
-
+    int yMove = 0;
+    int yDowm = 0;
     private View.OnTouchListener rcViewOnTouch = new View.OnTouchListener() {
         int lastX, lastY;
 
@@ -482,7 +485,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 case MotionEvent.ACTION_DOWN:
                     lastX = (int) event.getRawX();//获取触摸事件触摸位置的原始X坐标
                     lastY = (int) event.getRawY();
-                    return false;
+                    yDowm = (int) event.getRawY();
                 case MotionEvent.ACTION_MOVE:
                     //event.getRawX();获得移动的位置
                     int dx = (int) event.getRawX() - lastX;
@@ -516,9 +519,17 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     break;
                 case MotionEvent.ACTION_UP:
                     recyclerView.start();
-//                    break;
+                    yMove = (int) event.getRawY() - yDowm;
+                    break;
             }
-            return true;
+            if (Math.abs(yMove
+            ) < 1) {
+                LogUtils.D("touch","fasle");
+                return false;
+            } else {
+                LogUtils.D("touch","true");
+                return true;
+            }
         }
     };
 
@@ -746,7 +757,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 //                          goodsInfo.setPromotionPrice(goodsDetilsInfo.getData().getPromotionPrice());
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("shopInfo", goodsInfo);
-                    bundle.putString("back","main");
+                    bundle.putString("back", "main");
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
                 } else {
                     ToastUtils.showShort(goodsDetilsInfo.getMessage());
@@ -754,6 +765,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             }
         });
     }
+
     public void goToDetils(final int position, final BestNewGoodsAdapter adapter) {
         RequeseGoods requeseGoods = new RequeseGoods();
         requeseGoods.setFunctionName("QueryGoods");
@@ -776,7 +788,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 //                          goodsInfo.setPromotionPrice(goodsDetilsInfo.getData().getPromotionPrice());
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("shopInfo", goodsInfo);
-                    bundle.putString("back","main");
+                    bundle.putString("back", "main");
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
                 } else {
                     ToastUtils.showShort(goodsDetilsInfo.getMessage());
@@ -784,6 +796,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             }
         });
     }
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_main;
@@ -983,12 +996,12 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         for (int i = 0; i < bannerInfo.getData().getList().size(); i++) {
                             if (bannerInfo.getData().getList().get(i).getType().equals("横幅广告")) {//横幅
                                 images.add(bannerInfo.getData().getList().get(i).getPicUrl());
-                            }else if(bannerInfo.getData().getList().get(i).getType().equals("下拉广告")){//下拉
+                            } else if (bannerInfo.getData().getList().get(i).getType().equals("下拉广告")) {//下拉
                                 header.loadImage(bannerInfo.getData().getList().get(i).getPicUrl());
-                            }else if(bannerInfo.getData().getList().get(i).getType().equals("启动广告")){//启动
+                            } else if (bannerInfo.getData().getList().get(i).getType().equals("启动广告")) {//启动
                                 userInfo.setDowmPoster(bannerInfo.getData().getList().get(i).getPicUrl());
-                                SharePrefUtils.saveObject(bfCxt,"userInfo",userInfo);
-                            }else if(bannerInfo.getData().getList().get(i).getType().equals("专题广告")){
+                                SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
+                            } else if (bannerInfo.getData().getList().get(i).getType().equals("专题广告")) {
 
                             }
                         }
@@ -1094,7 +1107,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         });
 
     }
-
 
 
     private void requestBothBuyList() {
