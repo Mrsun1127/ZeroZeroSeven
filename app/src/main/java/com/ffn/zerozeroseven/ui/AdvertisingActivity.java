@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.utlis.MyCountTimer;
@@ -27,6 +28,8 @@ public class AdvertisingActivity extends AppCompatActivity {
     Button jump;
     private Timer timer;
     int time=3;
+    private String imgUrl;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,8 @@ public class AdvertisingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_advertising);
         BaseAppApplication.getInstance().addActivity(this);
         ButterKnife.bind(this);
+        imgUrl = getIntent().getStringExtra("imgurl");
+        Glide.with(this).load(imgUrl).into(imageView);
         timer = new Timer();
         timer.schedule(new TimerTask() {
 

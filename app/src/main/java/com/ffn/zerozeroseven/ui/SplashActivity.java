@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -54,7 +55,13 @@ public class SplashActivity extends AppCompatActivity {
                 } else {
                     if (userInfo !=null) {
                         BaseAppApplication.getInstance().setLoginUser(userInfo);
-                        ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, AdvertisingActivity.class, null);
+                        if(!TextUtils.isEmpty(userInfo.getDowmPoster())){
+                            Bundle bundle=new Bundle();
+                            bundle.putString("imgurl",userInfo.getDowmPoster());
+                            ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, AdvertisingActivity.class, bundle);
+                        }else{
+                            ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, HomeActivity.class, null);
+                        }
                         finish();
                     } else {
                         ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, LoginActivity.class, null);
