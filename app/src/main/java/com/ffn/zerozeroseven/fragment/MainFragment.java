@@ -177,6 +177,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     RelativeLayout rl_location;
     private BannerInfo bannerInfo;
     private WebBannerAdapter bannerAdapter;
+    private CustomTwoLevelHeader header;
 
     public RunListRquestInfo.DataBean.ListBean getRunlist(int poition) {
         return runListRquestInfo.getData().getList().get(poition);
@@ -426,7 +427,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 });
             }
         });
-        mRefreshLayout.setHeaderView(new CustomTwoLevelHeader(bfCxt));
+        header = new CustomTwoLevelHeader(bfCxt);
+        mRefreshLayout.setHeaderView(header);
         mRefreshLayout.setEnableKeepRefreshView(true);
         //设置保持头部的Offset（占头部的高度比）
         mRefreshLayout.setRatioToKeepHeader(.12f);
@@ -982,7 +984,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             if (bannerInfo.getData().getList().get(i).getType().equals("横幅广告")) {//横幅
                                 images.add(bannerInfo.getData().getList().get(i).getPicUrl());
                             }else if(bannerInfo.getData().getList().get(i).getType().equals("下拉广告")){//下拉
-
+                                header.loadImage(bannerInfo.getData().getList().get(i).getPicUrl());
                             }else if(bannerInfo.getData().getList().get(i).getType().equals("启动广告")){//启动
                                 userInfo.setDowmPoster(bannerInfo.getData().getList().get(i).getPicUrl());
                                 SharePrefUtils.saveObject(bfCxt,"userInfo",userInfo);

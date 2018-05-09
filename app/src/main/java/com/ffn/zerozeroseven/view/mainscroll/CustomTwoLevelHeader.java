@@ -14,9 +14,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.fragment.MainFragment;
@@ -40,6 +42,7 @@ public class CustomTwoLevelHeader extends FrameLayout implements TwoLevelRefresh
     private static final byte STATUS_TWO_LEVEL_RELEASE_TO_REFRESH = 5;
     private byte mStatus = STATUS_PULL_DOWN;
     private TextView mTextViewTitle;
+    private ImageView iv_splash;
     public CustomTwoLevelHeader(Context context) {
         this(context, null);
     }
@@ -52,8 +55,11 @@ public class CustomTwoLevelHeader extends FrameLayout implements TwoLevelRefresh
         super(context, attrs, defStyle);
         View header = LayoutInflater.from(context).inflate(R.layout.layout_custom_two_level_header, this);
         mTextViewTitle=header.findViewById(R.id.tv_up);
+        iv_splash=header.findViewById(R.id.iv_splash);
     }
-
+    public void loadImage(String url){
+        Glide.with(getContext()).load(url).into(iv_splash);
+    }
     @Override
     public int getType() {
         return TYPE_HEADER;
