@@ -18,6 +18,7 @@ import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
+import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
@@ -155,18 +156,16 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
     int tvCount = 0;
 //    @Override
 //    public void onBackPressed() {
-//        if(!TextUtils.isEmpty(backType) && "main".equals(backType)&& isAdd){
 //            HomeActivity.getmInstance().get().go2Fragment(1);
-//        }
+//        LogUtils.D("backType","backType="+backType+"::是否添加购物车="+isAdd);
 //        finish();
 //    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
-//                if(!TextUtils.isEmpty(backType) && "main".equals(backType)&& isAdd){
 //                    HomeActivity.getmInstance().get().go2Fragment(1);
-//                }
+                LogUtils.D("backType","backType="+backType+"::是否添加购物车="+isAdd);
                 finish();
                 break;
             case R.id.ib_add:
