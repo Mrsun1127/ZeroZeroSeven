@@ -7,7 +7,7 @@
         android:id="@+id/iv_advertisting"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/leadthree" />
+         />
     <Button
         android:background="#FF000000 "
         android:textColor="@color/white"
