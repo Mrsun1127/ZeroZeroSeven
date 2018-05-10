@@ -83,6 +83,7 @@ import com.ffn.zerozeroseven.ui.MessAgeActivity;
 import com.ffn.zerozeroseven.ui.MineRunActivity;
 import com.ffn.zerozeroseven.ui.MineWantGoQiangActivity;
 import com.ffn.zerozeroseven.ui.MrsunWebActivity;
+import com.ffn.zerozeroseven.ui.MyBitisActivity;
 import com.ffn.zerozeroseven.ui.RunDetilsActivity;
 import com.ffn.zerozeroseven.ui.SchoolnewCardActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
@@ -1253,7 +1254,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 break;
             case R.id.rl_computer:
                 if (userInfo != null) {
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, SchoolnewCardActivity.class);
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MyBitisActivity.class);
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
                 }
