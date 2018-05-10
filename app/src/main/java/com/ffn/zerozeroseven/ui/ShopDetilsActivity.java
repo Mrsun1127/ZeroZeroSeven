@@ -63,6 +63,8 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
     private ImageButton ib_lose;
     @Bind(R.id.tv_desc)
     TextView tv_desc;
+    @Bind(R.id.tv_phone)
+    TextView tv_phone;
     private String backType;
     private boolean isAdd=false;
 
@@ -90,12 +92,15 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
             public void onSuccLoad(String response) {
                 final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
                 if (shangChangShowInfo.getCode() == 0) {
+                    storeId = shangChangShowInfo.getData().getId() + "";//商家Id
+                    tv_phone.setText("商家电话："+shangChangShowInfo.getData().getServicePhone());
+                    if(shangChangShowInfo.getData().isIsClosing()){
+                        ZeroZeroSevenUtils.showSleepPop(ShopDetilsActivity.this,tv_phone);
+                    }
                     if (shangChangShowInfo.getData().getExtraFee() != null) {
                         runMoney = shangChangShowInfo.getData().getExtraFee();
-                        storeId = shangChangShowInfo.getData().getId() + "";//商家Id
                     } else {
                         runMoney = 1.0;
-                        storeId = "1";
                     }
                     tv_smallmoney.setText("另需007跑腿费 " + runMoney);
                 }
