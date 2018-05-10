@@ -15,6 +15,7 @@ import com.ffn.zerozeroseven.bean.QiangShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.XiaoYuanQiangInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
+import com.ffn.zerozeroseven.view.TopView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import butterknife.Bind;
@@ -22,12 +23,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MyBitisActivity extends BaseActivity {
-@Bind(R.id.tv_top)
-TextView tv_top;
-@Bind(R.id.smartrefreshlayout)
+    @Bind(R.id.smartrefreshlayout)
     SmartRefreshLayout smartrefreshlayout;
-@Bind(R.id.recycleview)
+    @Bind(R.id.recycleview)
     RecyclerView recycleview;
+    @Bind(R.id.topView)
+    TopView topView;
     private BitisAdapter bitisAdapter;
 
     @Override
@@ -38,6 +39,19 @@ TextView tv_top;
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        topView.setTopText("许愿墙");
+        topView.setTvRightDrawable(R.drawable.bitits_post);
+        topView.setOnTitleListener(new TopView.OnTitleClickListener() {
+            @Override
+            public void Right() {
+                ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this, MineWantGoQiangActivity.class);
+            }
+
+            @Override
+            public void Back() {
+                finish();
+            }
+        });
         recycleview.setLayoutManager(new LinearLayoutManager(this));
         bitisAdapter = new BitisAdapter(this);
         recycleview.setAdapter(bitisAdapter);
@@ -56,28 +70,16 @@ TextView tv_top;
         parametersBean.setPageSize(20);
         parametersBean.setPostType(type);
         qiangInfo.setParameters(parametersBean);
-        OkGoUtils okGoUtils=new OkGoUtils(MyBitisActivity.this);
-        okGoUtils.httpPostJSON(qiangInfo,true,true);
+        OkGoUtils okGoUtils = new OkGoUtils(MyBitisActivity.this);
+        okGoUtils.httpPostJSON(qiangInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 QiangShowInfo showInfo = JSON.parseObject(response, QiangShowInfo.class);
-                if(showInfo.getCode()==0 && showInfo.getData().getItems().size()>0){
+                if (showInfo.getCode() == 0 && showInfo.getData().getItems().size() > 0) {
                     bitisAdapter.addAll(showInfo.getData().getItems());
                 }
             }
         });
-    }
-
-    @OnClick({R.id.rl_back,R.id.rl_post})
-    void setOnClicks(View v) {
-        switch (v.getId()) {
-            case R.id.rl_back:
-                finish();
-            break;
-            case R.id.rl_post:
-                ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this,MineWantGoQiangActivity.class);
-                break;
-        }
     }
 }
