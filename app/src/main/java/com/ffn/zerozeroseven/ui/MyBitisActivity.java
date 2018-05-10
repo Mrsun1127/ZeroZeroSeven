@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.BitisAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.QiangShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.XiaoYuanQiangInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
@@ -58,6 +59,14 @@ public class MyBitisActivity extends BaseActivity {
         recycleview.setLayoutManager(new LinearLayoutManager(this));
         bitisAdapter = new BitisAdapter(this);
         recycleview.setAdapter(bitisAdapter);
+        bitisAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("info",bitisAdapter.getItem(position));
+                ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this,BitisDetils.class,bundle);
+            }
+        });
     }
 
     @Override
