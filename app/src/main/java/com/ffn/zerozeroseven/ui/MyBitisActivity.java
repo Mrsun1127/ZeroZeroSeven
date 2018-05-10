@@ -1,6 +1,7 @@
 package com.ffn.zerozeroseven.ui;
 
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -44,7 +45,9 @@ public class MyBitisActivity extends BaseActivity {
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
             public void Right() {
-                ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this, MineWantGoQiangActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("showType","01");
+                ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this, MineWantGoQiangActivity.class,bundle);
             }
 
             @Override
@@ -61,7 +64,29 @@ public class MyBitisActivity extends BaseActivity {
     protected void doMain() {
         requestDate("");
     }
+    @OnClick({R.id.rl_love,R.id.rl_good,R.id.rl_find,R.id.rl_friend})
+    void setOnClicks(View v) {
+        Bundle bundle=new Bundle();
+        switch (v.getId()) {
+            case R.id.rl_love:
+                bundle.putString("showType","01");
+                ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this, MineWantGoQiangActivity.class,bundle);
+            break;
+            case R.id.rl_good:
+                bundle.putString("showType","02");
+                ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this, MineWantGoQiangActivity.class,bundle);
+                break;
+            case R.id.rl_find:
+                bundle.putString("showType","03");
+                ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this, MineWantGoQiangActivity.class,bundle);
+                break;
+            case R.id.rl_friend:
+                bundle.putString("showType","04");
+                ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this, MineWantGoQiangActivity.class,bundle);
+                break;
 
+        }
+    }
     private void requestDate(String type) {
         XiaoYuanQiangInfo qiangInfo = new XiaoYuanQiangInfo();
         qiangInfo.setFunctionName("ListPost");
