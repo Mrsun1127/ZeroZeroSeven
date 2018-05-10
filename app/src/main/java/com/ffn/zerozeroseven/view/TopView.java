@@ -40,6 +40,7 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
     public void setTvRightText(String str) {
         tv_right.setVisibility(View.VISIBLE);
         iv_post.setVisibility(View.GONE);
+        setRightShow(true);
         tv_right.setText(str);
     }
 
