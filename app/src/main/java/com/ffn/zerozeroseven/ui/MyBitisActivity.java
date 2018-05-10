@@ -73,10 +73,14 @@ public class MyBitisActivity extends BaseActivity {
     protected void doMain() {
         requestDate("");
     }
-    @OnClick({R.id.rl_love,R.id.rl_good,R.id.rl_find,R.id.rl_friend})
+    @OnClick({R.id.rl_love,R.id.rl_good,R.id.rl_find,R.id.rl_friend,R.id.tv_top})
     void setOnClicks(View v) {
         Bundle bundle=new Bundle();
         switch (v.getId()) {
+            case R.id.tv_top:
+                bundle.putString("showType","01");
+                ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this, MineWantGoQiangActivity.class,bundle);
+                break;
             case R.id.rl_love:
                 bundle.putString("showType","01");
                 ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this, MineWantGoQiangActivity.class,bundle);
