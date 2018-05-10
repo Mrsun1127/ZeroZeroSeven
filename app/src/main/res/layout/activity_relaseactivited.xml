@@ -23,14 +23,16 @@
             <RadioGroup
                 android:id="@+id/rg_group"
                 android:layout_width="match_parent"
-                android:layout_height="62dp"
+                android:layout_height="55dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:paddingLeft="12dp"
+                    android:drawableLeft="@drawable/big_confession"
                     android:id="@+id/rb_love"
                     android:layout_width="0dp"
-                    android:layout_height="42dp"
+                    android:layout_height="35dp"
                     android:layout_marginLeft="11dp"
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
@@ -39,43 +41,49 @@
                     android:checked="true"
                     android:gravity="center"
                     android:text="表白帖"
-                    android:textColor="@color/white" />
+                    android:textColor="@drawable/bitis_text" />
 
                 <RadioButton
+                    android:drawableLeft="@drawable/big_technology"
+                    android:paddingLeft="12dp"
                     android:id="@+id/rb_good"
                     android:layout_width="0dp"
-                    android:layout_height="42dp"
+                    android:layout_height="35dp"
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/rb_releaseactiviedselector"
                     android:button="@null"
                     android:gravity="center"
                     android:text="技术帖"
-                    android:textColor="@color/white" />
+                    android:textColor="@drawable/bitis_text" />
 
                 <RadioButton
+                    android:drawableLeft="@drawable/big_search"
+                    android:paddingLeft="12dp"
                     android:id="@+id/rb_find"
                     android:layout_width="0dp"
-                    android:layout_height="42dp"
+                    android:layout_height="35dp"
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/rb_releaseactiviedselector"
                     android:button="@null"
                     android:gravity="center"
                     android:text="寻物帖"
-                    android:textColor="@color/white" />
+                    android:textColor="@drawable/bitis_text" />
 
                 <RadioButton
+                    android:drawableLeft="@drawable/big_dating"
+                    android:paddingLeft="12dp"
                     android:id="@+id/rb_friend"
                     android:layout_width="0dp"
-                    android:layout_height="42dp"
+                    android:layout_height="35dp"
                     android:layout_marginRight="11dp"
                     android:layout_weight="1"
                     android:background="@drawable/rb_releaseactiviedselector"
                     android:button="@null"
                     android:gravity="center"
                     android:text="交友帖"
-                    android:textColor="@color/white" />
+                    android:textColor="@drawable/bitis_text" />
             </RadioGroup>
 
             <TextView

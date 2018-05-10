@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/courier_selfie"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:textSize="10sp"
+        android:id="@+id/tv_phone"
+        android:layout_marginLeft="10dp"
+        android:textColor="#501A0B"
+        android:layout_toRightOf="@+id/user_icon"
+        android:layout_marginTop="30dp"
+        android:text="138****9999"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textSize="11sp"
+        android:id="@+id/tv_type"
+        android:textColor="#E9642C"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:background="@drawable/bitis_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="表白帖"/>
+    <TextView
+        android:id="@+id/tv_time"
+        android:textSize="10sp"
+        android:text="20分钟前"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/user_icon"
+        android:layout_below="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textSize="11sp"
+        android:id="@+id/tv_content"
+        android:textColor="@color/black"
+        android:layout_marginRight="60dp"
+        android:layout_toRightOf="@+id/user_icon"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/user_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="10sp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentRight="true"
+            android:drawableLeft="@drawable/bitis_share"
+            android:text="分享"
+            android:gravity="bottom"
+            android:drawablePadding="5dp"
+            android:layout_below="@+id/tv_content"
+            android:id="@+id/tv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    <TextView
+        android:textSize="10sp"
+        android:layout_toLeftOf="@+id/tv_share"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:drawableLeft="@drawable/bitis_like"
+        android:text="642"
+        android:gravity="bottom"
+        android:drawablePadding="5dp"
+        android:layout_below="@+id/tv_content"
+        android:id="@+id/tv_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+<View
+    android:layout_marginTop="10dp"
+    android:layout_below="@+id/tv_share"
+    android:background="#FAFAFA"
+    android:layout_width="match_parent"
+    android:layout_height="0.5dp"/>
+</RelativeLayout>

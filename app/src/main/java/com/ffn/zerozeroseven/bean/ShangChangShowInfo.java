@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class ShangChangShowInfo implements Serializable {
     /**
      * code : 0
-     * data : {"storeDesc":"零零7湖南农业大学分仓","freeOrderNum":4,"address":"","servicePhone":"1230000","city":"430100","openingTime":"09:00:00","updateTime":"2018-05-06 17:22:45","deliveryPrice":5,"adminName":"刘海海","closingTime2":"22:00:00","adminPhone":"18229853043","closingTime":"14:00:00","province":"430000","createTime":"2018-03-06 09:55:42","schoolId":1719,"storeName":"湖南农业大学","id":14,"extraFee":0,"openingTime2":"16:00:00","promotion":"随机免单+推广收益","status":1}
+     * data : {"storeDesc":"零零7湖南农业大学分仓","freeOrderNum":1000,"address":"","servicePhone":"85315177","city":"430100","openingTime":"11:30:00","updateTime":"2018-05-07 11:59:01","deliveryPrice":5,"adminName":"刘海波","closingTime2":"22:30:00","adminPhone":"18229853043","closingTime":"14:00:00","province":"430000","createTime":"2018-03-06 09:55:42","schoolId":1719,"storeName":"湖南农业大学","id":14,"isClosing":true,"extraFee":0,"openingTime2":"18:00:00","promotion":"随机免单+推广收益","status":1}
      * message : 请求成功
      */
 
@@ -44,15 +44,15 @@ public class ShangChangShowInfo implements Serializable {
     public static class DataBean implements Serializable{
         /**
          * storeDesc : 零零7湖南农业大学分仓
-         * freeOrderNum : 4
+         * freeOrderNum : 1000
          * address :
-         * servicePhone : 1230000
+         * servicePhone : 85315177
          * city : 430100
-         * openingTime : 09:00:00
-         * updateTime : 2018-05-06 17:22:45
+         * openingTime : 11:30:00
+         * updateTime : 2018-05-07 11:59:01
          * deliveryPrice : 5
-         * adminName : 刘海海
-         * closingTime2 : 22:00:00
+         * adminName : 刘海波
+         * closingTime2 : 22:30:00
          * adminPhone : 18229853043
          * closingTime : 14:00:00
          * province : 430000
@@ -60,8 +60,9 @@ public class ShangChangShowInfo implements Serializable {
          * schoolId : 1719
          * storeName : 湖南农业大学
          * id : 14
+         * isClosing : true
          * extraFee : 0
-         * openingTime2 : 16:00:00
+         * openingTime2 : 18:00:00
          * promotion : 随机免单+推广收益
          * status : 1
          */
@@ -83,19 +84,11 @@ public class ShangChangShowInfo implements Serializable {
         private int schoolId;
         private String storeName;
         private int id;
+        private boolean isClosing;
         private Double extraFee;
         private String openingTime2;
         private String promotion;
         private int status;
-        private boolean isClosing;
-
-        public boolean isClosing() {
-            return isClosing;
-        }
-
-        public void setClosing(boolean closing) {
-            isClosing = closing;
-        }
 
         public String getStoreDesc() {
             return storeDesc;
@@ -231,6 +224,14 @@ public class ShangChangShowInfo implements Serializable {
 
         public void setId(int id) {
             this.id = id;
+        }
+
+        public boolean isIsClosing() {
+            return isClosing;
+        }
+
+        public void setIsClosing(boolean isClosing) {
+            this.isClosing = isClosing;
         }
 
         public Double getExtraFee() {
