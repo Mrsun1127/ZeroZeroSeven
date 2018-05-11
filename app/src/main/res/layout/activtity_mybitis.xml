@@ -10,17 +10,30 @@
         android:layout_height="wrap_content"/>
 
     <include layout="@layout/bitits_top"/>
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/smartrefreshlayout"
-        android:layout_marginTop="10dp"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/recycleview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</android.support.v7.widget.RecyclerView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/smartrefreshlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--<pl.droidsonroids.gif.GifImageView-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@mipmap/refrshok"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="80dp" />-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <com.ffn.zerozeroseven.view.StateLayout
+            android:id="@+id/common_stateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </FrameLayout>
 
 </LinearLayout>

@@ -13,26 +13,76 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.BitisAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.base.BaseRefreshActivity;
+import com.ffn.zerozeroseven.base.RgRefreshStatus;
 import com.ffn.zerozeroseven.bean.QiangShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.XiaoYuanQiangInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.UiTipUtil;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
+import com.ffn.zerozeroseven.view.StateLayout;
 import com.ffn.zerozeroseven.view.TopView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MyBitisActivity extends BaseActivity {
+public class MyBitisActivity extends BaseActivity implements OnRefreshListener, OnLoadmoreListener {
     @Bind(R.id.smartrefreshlayout)
-    SmartRefreshLayout smartrefreshlayout;
+    SmartRefreshLayout commonRefreshLayout;
     @Bind(R.id.recycleview)
     RecyclerView recycleview;
     @Bind(R.id.topView)
     TopView topView;
+    @Bind(R.id.common_stateLayout)
+    StateLayout commonStateLayout;
     private BitisAdapter bitisAdapter;
+    private RgRefreshStatus rgRefreshStatus = RgRefreshStatus.IDLE;
+    int pageNo = 0;
+    private void setRefreshLayoutVis() {
+        if (commonRefreshLayout.getVisibility() == View.GONE) {
+            commonRefreshLayout.setVisibility(View.VISIBLE);
+            commonStateLayout.setVisibility(View.GONE);
+        }
+    }
 
+    private void showErrorLayout(int errType) {
+        commonRefreshLayout.setVisibility(View.GONE);
+        bitisAdapter.clear();
+        commonStateLayout.setVisibility(View.VISIBLE);
+        commonStateLayout.showError(errType);
+    }
+    private void disLoadState() {
+        switch (rgRefreshStatus) {
+            case IDLE:
+                disLoadProgress();
+                break;
+            case REFRESHING:
+                commonRefreshLayout.finishRefresh();
+                disLoadProgress();
+                break;
+            case PULL_DOWN:
+                commonRefreshLayout.finishLoadmore();
+                disLoadProgress();
+                break;
+        }
+    }
+    private void setLoadPage() {
+        switch (rgRefreshStatus) {
+            case PULL_DOWN:
+                pageNo = pageNo + 1;
+                break;
+            case IDLE:
+                showLoadProgress();
+            case REFRESHING:
+                pageNo = 0;
+                break;
+        }
+    }
     @Override
     protected int setLayout() {
         return R.layout.activtity_mybitis;
@@ -59,6 +109,8 @@ public class MyBitisActivity extends BaseActivity {
         recycleview.setLayoutManager(new LinearLayoutManager(this));
         bitisAdapter = new BitisAdapter(this);
         recycleview.setAdapter(bitisAdapter);
+        commonRefreshLayout.setOnRefreshListener(this);
+        commonRefreshLayout.setOnLoadmoreListener(this);
         bitisAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
@@ -67,6 +119,16 @@ public class MyBitisActivity extends BaseActivity {
                 ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this,BitisDetils.class,bundle);
             }
         });
+        commonStateLayout.setOnStateCallListener(new StateLayout.OnStateLayoutCallListener() {
+            @Override
+            public void reCall() {
+                commonStateLayout.setVisibility(View.GONE);
+                commonRefreshLayout.setVisibility(View.VISIBLE);
+                rgRefreshStatus = RgRefreshStatus.IDLE;
+                requestDate("");
+            }
+        });
+        setRefreshLayoutVis();
     }
 
     @Override
@@ -101,23 +163,61 @@ public class MyBitisActivity extends BaseActivity {
         }
     }
     private void requestDate(String type) {
+        setLoadPage();
         XiaoYuanQiangInfo qiangInfo = new XiaoYuanQiangInfo();
         qiangInfo.setFunctionName("ListPost");
         XiaoYuanQiangInfo.ParametersBean parametersBean = new XiaoYuanQiangInfo.ParametersBean();
-        parametersBean.setPageIndex(0);
+        parametersBean.setPageIndex(pageNo);
         parametersBean.setPageSize(20);
         parametersBean.setPostType(type);
         qiangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(MyBitisActivity.this);
-        okGoUtils.httpPostJSON(qiangInfo, true, true);
+        okGoUtils.httpPostJSON(qiangInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
+                disLoadState();
                 QiangShowInfo showInfo = JSON.parseObject(response, QiangShowInfo.class);
-                if (showInfo.getCode() == 0 && showInfo.getData().getItems().size() > 0) {
+                if (showInfo.getCode() == 0) {
                     bitisAdapter.addAll(showInfo.getData().getItems());
+                    switch (rgRefreshStatus) {
+                        case IDLE:
+                        case REFRESHING:
+                            commonRefreshLayout.finishRefresh();
+                            bitisAdapter.clear();
+                            if (showInfo.getData().getItems().size() == 0) {
+                                showErrorLayout(StateLayout.noData);
+                            } else {
+                                commonRefreshLayout.setVisibility(View.VISIBLE);
+                                commonStateLayout.setVisibility(View.GONE);
+                                bitisAdapter.addAll(showInfo.getData().getItems());
+                            }
+                            break;
+                        case PULL_DOWN:
+                            commonRefreshLayout.finishLoadmore();
+                            if (showInfo.getData().getItems().size() == 0) {
+                                UiTipUtil.showToast(MyBitisActivity.this, R.string.no_more_data);
+                            } else {
+                                bitisAdapter.addAll(showInfo.getData().getItems());
+                            }
+                            break;
+                    }
+                }else {
+                    showErrorLayout(StateLayout.noData);
                 }
             }
         });
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        rgRefreshStatus = RgRefreshStatus.REFRESHING;
+        requestDate("");
+    }
+
+    @Override
+    public void onLoadmore(RefreshLayout refreshlayout) {
+        rgRefreshStatus = RgRefreshStatus.PULL_DOWN;
+        requestDate("");
     }
 }
