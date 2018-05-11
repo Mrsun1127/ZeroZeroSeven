@@ -23,6 +23,7 @@ import com.ffn.zerozeroseven.view.ConfirmDialog;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.StateLayout;
 import com.ffn.zerozeroseven.view.TitleView;
+import com.ffn.zerozeroseven.view.TopView;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 import com.yanzhenjie.recyclerview.swipe.touch.OnItemMoveListener;
 
@@ -64,22 +65,18 @@ public class HistoryTalkActivity extends BaseActivity implements BGARefreshLayou
     @Override
     public void initView() {
         BaseAppApplication.getInstance().addActivity(this);
-        TitleView titleview = findViewById(R.id.titleview);
-        titleview.setTopText("历史发表");
-        titleview.setOnTitleListener(new TitleView.OnTitleClickListener() {
+        TopView topView=findViewById(R.id.topView);
+        topView.setTopText("历史发表");
+        topView.setOnTitleListener(new TopView.OnTitleClickListener() {
+
+
             @Override
-            public void ivBack() {
+            public void Right() {
+            }
+
+            @Override
+            public void Back() {
                 finish();
-            }
-
-            @Override
-            public void ivDown() {
-
-            }
-
-            @Override
-            public void ivMessAge() {
-
             }
         });
         common_recyclerView = findViewById(R.id.common_recyclerView);
