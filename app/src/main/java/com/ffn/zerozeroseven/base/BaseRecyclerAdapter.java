@@ -77,13 +77,13 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
     }
 
     public void setAnimation(final View convertView) {
-        ViewHelper.setScaleX(convertView, 0.9f);
-        ViewHelper.setScaleY(convertView, 0.9f);
+        ViewHelper.setScaleX(convertView, 0.5f);
+        ViewHelper.setScaleY(convertView, 0.5f);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                ViewPropertyAnimator.animate(convertView).scaleX(1f).setDuration(300).setInterpolator(new OvershootInterpolator());
-                ViewPropertyAnimator.animate(convertView).scaleY(1f).setDuration(300).setInterpolator(new OvershootInterpolator());
+                ViewPropertyAnimator.animate(convertView).scaleX(1f).setDuration(500).setInterpolator(new OvershootInterpolator());
+                ViewPropertyAnimator.animate(convertView).scaleY(1f).setDuration(500).setInterpolator(new OvershootInterpolator());
             }
         }, 50);
 
