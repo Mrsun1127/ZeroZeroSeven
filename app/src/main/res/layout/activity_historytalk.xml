@@ -2,12 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.ffn.zerozeroseven.view.TitleView
-        android:id="@+id/titleview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></com.ffn.zerozeroseven.view.TitleView>
-
-
+   <com.ffn.zerozeroseven.view.TopView
+       android:id="@+id/topView"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
     <include layout="@layout/lay_common_swipe_recycler"/>
 
 </LinearLayout>
