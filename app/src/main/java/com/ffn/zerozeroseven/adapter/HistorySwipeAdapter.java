@@ -28,17 +28,15 @@ public class HistorySwipeAdapter extends BaseRecyclerAdapter<HistoryInfo.DataBea
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, HistoryInfo.DataBean.PostsBean info, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_time.setText(info.getCreateTime());
-        mHolder.tv_title.setText(info.getTitle());
-        mHolder.tv_type.setText(info.getPostType());
-        mHolder.tv_content.setText(info.getContent());
+        mHolder.tv_title.setText(info.getContent());
+        mHolder.tv_content.setText("186****8888赞了你的帖子");
+        mHolder.tv_count.setText(info.getId() + "");
         switch (info.getStatus()) {
             case 0:
-                mHolder.tv_state.setText("未审核");
-                mHolder.tv_state.setTextColor(getResource().getColor(R.color.tab_under_line));
+                mHolder.tv_type.setText(info.getPostType() + "(未审核)");
                 break;
             case 1:
-                mHolder.tv_state.setText("已审核");
-                mHolder.tv_state.setTextColor(getResource().getColor(R.color.status_ok));
+                mHolder.tv_type.setText(info.getPostType() + "(已审核)");
                 break;
         }
 
@@ -49,7 +47,7 @@ public class HistorySwipeAdapter extends BaseRecyclerAdapter<HistoryInfo.DataBea
         TextView tv_title;
         TextView tv_type;
         TextView tv_content;
-        TextView tv_state;
+        TextView tv_count;
 
 
         MViewHolder(View view) {
@@ -58,7 +56,7 @@ public class HistorySwipeAdapter extends BaseRecyclerAdapter<HistoryInfo.DataBea
             tv_title = view.findViewById(R.id.tv_title);
             tv_type = view.findViewById(R.id.tv_type);
             tv_content = view.findViewById(R.id.tv_content);
-            tv_state = view.findViewById(R.id.tv_state);
+            tv_count = view.findViewById(R.id.tv_count);
         }
     }
 }
