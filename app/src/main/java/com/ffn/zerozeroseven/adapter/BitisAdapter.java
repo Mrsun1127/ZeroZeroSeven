@@ -1,10 +1,12 @@
 package com.ffn.zerozeroseven.adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,6 +16,8 @@ import com.ffn.zerozeroseven.bean.QiangShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DafenInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.nineoldandroids.view.ViewHelper;
+import com.nineoldandroids.view.ViewPropertyAnimator;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -42,15 +46,27 @@ public class BitisAdapter extends BaseRecyclerAdapter<QiangShowInfo.DataBean.Ite
         mHolder.rl_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setAnimationone(mHolder.tv_like);
                 if(item.getIsLike()==1){
-                    ToastUtils.showShort("请不要重复点赞");
+                    ToastUtils.showShort("你已经点过赞了");
                     return;
                 }
                 likebitis(mHolder.tv_like,item);
             }
         });
     }
+    public void setAnimationone(final View convertView) {
+        ViewHelper.setScaleX(convertView, 2f);
+        ViewHelper.setScaleY(convertView, 2f);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ViewPropertyAnimator.animate(convertView).scaleX(1f).setDuration(500).setInterpolator(new OvershootInterpolator());
+                ViewPropertyAnimator.animate(convertView).scaleY(1f).setDuration(500).setInterpolator(new OvershootInterpolator());
+            }
+        }, 50);
 
+    }
     private void likebitis(final TextView tv,final QiangShowInfo.DataBean.ItemsBean item) {
         DafenInfo dafenInfo1 = new DafenInfo();
         dafenInfo1.setFunctionName("UpdatePostLike");
