@@ -23,15 +23,12 @@ import com.ffn.zerozeroseven.bean.ShouHuoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AllAdrInfo;
 import com.ffn.zerozeroseven.fragment.ShopViewPagerAllFragment;
 import com.ffn.zerozeroseven.fragment.ShopViewPagerFragment;
-import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.TitleView;
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
-import com.yanzhenjie.recyclerview.swipe.touch.OnItemMoveListener;
 
 import java.io.IOException;
 
@@ -49,7 +46,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
 
     private RelativeLayout rl_selectadr;
     private RelativeLayout rl_addadr;
-    private SwipeMenuRecyclerView rc_shop;
+    private RecyclerView rc_shop;
     private TextView tv_location;
     private TextView tv_username;
     private TextView tv_phone;
@@ -122,21 +119,8 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
         });
         rc_shop.setLayoutManager(new LinearLayoutManager(CommitDingDanActivity.this));
         rc_shop.addItemDecoration(new SpaceItemDecoration(13));
-        rc_shop.setItemViewSwipeEnabled(true);
-        rc_shop.setOnItemMoveListener(new OnItemMoveListener() {
-            @Override
-            public boolean onItemMove(RecyclerView.ViewHolder srcHolder, RecyclerView.ViewHolder targetHolder) {
-                return false;
-            }
-
-            @Override
-            public void onItemDismiss(RecyclerView.ViewHolder srcHolder) {
-                deleteDingDan(srcHolder.getAdapterPosition());
-            }
-        });
         adapter = new CarShopGoodsAdapter(CommitDingDanActivity.this);
         rc_shop.setAdapter(adapter);
-//        adapter.init(carShopInfo.getShopInfos().size());
         adapter.setOnItemAddViewClick(new CarShopGoodsAdapter.OnItemAddClick() {
             @Override
             public void onClick(View view, int position) {
@@ -193,7 +177,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                 notifyCar();
             }
         });
-        if (carShopInfo != null) {
+        if (carShopInfo != null && carShopInfo.getShopInfos() != null) {
             if (carShopInfo.getShopInfos().size() > 0) {
                 adapter.addAll(carShopInfo.getShopInfos());
                 notifyCar();

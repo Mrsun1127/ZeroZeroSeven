@@ -90,7 +90,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 MobclickAgent.onEvent(getActivity(), "商品搜索关键字");
-                if(!TextUtils.isEmpty(query)){
+                if (!TextUtils.isEmpty(query)) {
                     ShopViewPagerAllFragment.mInstance.get().requestShopOnUp(query);
                     BaseAppApplication.mainHandler.postDelayed(new Runnable() {
                         @Override
@@ -98,7 +98,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                             viewPager.setCurrentItem(0);
                         }
                     }, 500);
-                }else{
+                } else {
                     ToastUtils.showShort("请输入关键字");
                 }
 
@@ -107,11 +107,12 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                try{
-                    if("".equals(newText)){
+                try {
+                    if ("".equals(newText)) {
                         ShopViewPagerAllFragment.mInstance.get().requestShopOnUp("");
                     }
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
                 return false;
             }
         });
@@ -156,7 +157,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                     list_title = new ArrayList<>();
                     list_title.add("全部");
                     list_fragment = new ArrayList<>();
-                    list_fragment.add(ShopViewPagerAllFragment.newInstance("",""));
+                    list_fragment.add(ShopViewPagerAllFragment.newInstance("", ""));
                     for (int i = 0; i < showInfo.getData().getItems().size(); i++) {
                         list_title.add(showInfo.getData().getItems().get(i).getDicValue());
                         mineFragment = ShopViewPagerFragment.newInstance(showInfo.getData().getItems().get(i).getDicValue(), showInfo.getData().getItems().get(i).getDicKey());
@@ -194,16 +195,11 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ib_shopcar:
-                if (userInfo!=null) {
-//                    CarShopInfo carShopInfo = (CarShopInfo) SharePrefUtils.readObject(bfCxt, "carShopInfo");
-//                    if (carShopInfo != null && carShopInfo.getShopInfos().size() > 0) {
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("type", 0);//0标记从购物车进来的
-                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, CommitDingDanActivity.class, bundle);
-//                    } else {
-//                        ZeroZeroSevenUtils.showCustonPop(bfCxt, "您的购物车空空如也~请选择心仪的商品加入购物车", ib_shopcar);
-//
-//                    }
+                userInfo = BaseAppApplication.getInstance().getLoginUser();
+                if (userInfo != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("type", 0);//0标记从购物车进来的
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, CommitDingDanActivity.class, bundle);
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class, null);
                 }
@@ -228,7 +224,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         focus.setFocusableInTouchMode(true);
         focus.requestFocus();
 //        String schoolName = MrsunAppCacheUtils.get(getActivity()).getAsString("schoolName");
-        userInfo=BaseAppApplication.getInstance().getLoginUser();
+        userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
             if (userInfo.getSchoolName().length() > 7) {
                 tv_school_name.setText(userInfo.getSchoolName().substring(0, 6) + "...");
