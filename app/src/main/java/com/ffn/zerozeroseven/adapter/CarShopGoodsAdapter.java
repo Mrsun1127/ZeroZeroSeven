@@ -22,25 +22,11 @@ import java.util.HashMap;
  */
 
 public class CarShopGoodsAdapter extends BaseRecyclerAdapter<CarShopInfo.ShopInfo> {
-    public static HashMap<Integer, Boolean> isSelected;
 
     public CarShopGoodsAdapter(Context context) {
         super(context);
     }
 
-    public void init(int size) {
-        isSelected = new HashMap<Integer, Boolean>();
-        for (int i = 0; i < size; i++) {
-            isSelected.put(i, false);
-        }
-    }
-    public static HashMap<Integer, Boolean> getIsSelected() {
-        return isSelected;
-    }
-
-    public static void setIsSelected(HashMap<Integer, Boolean> isSelected) {
-        CarShopGoodsAdapter.isSelected = isSelected;
-    }
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
         return new CarShopGoodsAdapter.MViewHolder(mInflater.inflate(R.layout.item_shopcar, null));
@@ -58,26 +44,6 @@ public class CarShopGoodsAdapter extends BaseRecyclerAdapter<CarShopInfo.ShopInf
         mHolder.tv_money.setText("¥" + ZeroZeroSevenUtils.reactMoney((info.getBuyCount() * info.getShopMoney())));
         mHolder.iv_close.setTag(mHolder);
         mHolder.rl_delete.setVisibility(View.VISIBLE);
-        mHolder.cb_select.setTag(mHolder);
-        mHolder.cb_select.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isSelected.get(position)) {
-                    isSelected.put(position, false);
-                    setIsSelected(isSelected);
-                } else {
-                    isSelected.put(position, true);
-                    setIsSelected(isSelected);
-                }
-
-            }
-
-        });
-        try {
-            mHolder.cb_select.setChecked(getIsSelected().get(position));
-        } catch (Exception e) {
-
-        }
         mHolder.rl_close.setOnClickListener(new View.OnClickListener() {
 
             @Override
