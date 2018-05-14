@@ -140,7 +140,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">z
 
-            <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/rc_shop"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -150,7 +150,7 @@
                 android:layout_weight="8"
                 android:background="@color/white"
                 android:paddingLeft="5dp"
-                android:paddingTop="17dp"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+                android:paddingTop="17dp"/>
 
             <RelativeLayout
                 android:id="@+id/rl_content"

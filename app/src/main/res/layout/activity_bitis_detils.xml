@@ -19,7 +19,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="40dp"
         android:layout_toRightOf="@+id/iv_left"
-        android:text="138****8888"
         android:textColor="#4F1908"
         android:textSize="18sp" />
 
@@ -31,7 +30,6 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="25dp"
-        android:text="我睡个撒打开手机打开洒家打开链接啊可视角度看恺撒奖的卡拉建设靠大家萨科的棵洒家打开拉萨角度来讲撒"
         android:textColor="@color/text_show_color"
         android:textSize="16sp" />
 

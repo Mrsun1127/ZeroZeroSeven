@@ -115,6 +115,7 @@ public class MyBitisActivity extends BaseActivity implements OnRefreshListener, 
             @Override
             public void onItemClick(int position, long itemId) {
                 Bundle bundle=new Bundle();
+                bundle.putString("clickType","detils");
                 bundle.putSerializable("info",bitisAdapter.getItem(position));
                 ZeroZeroSevenUtils.SwitchActivity(MyBitisActivity.this,BitisDetils.class,bundle);
             }

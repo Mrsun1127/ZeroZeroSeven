@@ -75,6 +75,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.PoppurlarListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.QiangRunRequsetInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RequeseGoods;
 import com.ffn.zerozeroseven.bean.requsetbean.SearchSchoolInfo;
+import com.ffn.zerozeroseven.ui.BitisDetils;
 import com.ffn.zerozeroseven.ui.HelpmeRunActivity;
 import com.ffn.zerozeroseven.ui.HomeActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
@@ -325,8 +326,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 if (Math.abs(yMove
                 ) < 1) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id", userLikeAdapter.getItem(position).getId());
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, SinggerSchoolTalkActivity.class, bundle);
+                    bundle.putString("clickType","singer");
+                    bundle.putInt("id",userLikeAdapter.getItem(position).getId());
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,BitisDetils.class,bundle);
+
                 }
 
             }
