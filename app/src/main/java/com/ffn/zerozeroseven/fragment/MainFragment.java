@@ -449,6 +449,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         mRefreshLayout.setRatioOfHeaderToHintTwoLevel(.45f);
         //设置触发二级刷新的头部高度比
         mRefreshLayout.setRatioOfHeaderToTwoLevel(0.5f);
+        mRefreshLayout.setResistance(3f);
+        mRefreshLayout.setResistanceOfHeader(5f);
 
         //TwoLevelRefreshingListenerAdapter
         mRefreshLayout.setOnRefreshListener(new TwoLevelRefreshingListenerAdapter() {
