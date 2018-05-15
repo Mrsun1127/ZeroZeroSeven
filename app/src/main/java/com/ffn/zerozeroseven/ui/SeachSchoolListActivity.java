@@ -19,6 +19,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.IdSearchInfo;
 import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.fragment.ShopFragment;
 import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.ClearEditText;
@@ -64,20 +65,14 @@ public class SeachSchoolListActivity extends BaseActivity {
     }
 
     private void requestAllSchoolData() {
-        showLoadProgress();
         IdSearchInfo searchInfo = new IdSearchInfo();
         searchInfo.setFunctionName("ListSchool");
-        httpPostJSON(searchInfo);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils=new OkGoUtils(SeachSchoolListActivity.this);
+        okGoUtils.httpPostJSON(searchInfo,true,true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                disLoadProgress();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                disLoadProgress();
-                SchoolLikeListInfo info = JSON.parseObject(response.body().string(), SchoolLikeListInfo.class);
+            public void onSuccLoad(String response) {
+                SchoolLikeListInfo info = JSON.parseObject(response, SchoolLikeListInfo.class);
                 if (info.getCode() == 0 && info.getData() != null) {
                     final SchoolLikeListInfo.DataBean data = info.getData();
                     MrsunAppCacheUtils.get(SeachSchoolListActivity.this).put("allSchoolList", JSON.toJSONString(data));
@@ -90,6 +85,7 @@ public class SeachSchoolListActivity extends BaseActivity {
                 }
             }
         });
+
     }
 
     @Override
