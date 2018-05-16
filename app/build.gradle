@@ -95,6 +95,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     /*圆形ImageView*/
     compile 'de.hdodenhof:circleimageview:2.2.0'
+    compile 'com.dingmouren.paletteimageview:paletteimageview:1.0.7'
     /*Json解析*/
     compile 'com.alibaba:fastjson:1.1.67.android'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
@@ -131,5 +132,4 @@ dependencies {
     compile 'com.umeng.sdk:analytics:latest.integration'
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.github.mmin18:realtimeblurview:1.1.0'
-    compile 'com.github.hust201010701:XDanmuku:-SNAPSHOT'//弹幕
 }

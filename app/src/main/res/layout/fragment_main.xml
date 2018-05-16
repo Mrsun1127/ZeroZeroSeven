@@ -421,55 +421,7 @@
     </RelativeLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/rl_qiang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
 
-        <RelativeLayout
-            android:id="@+id/rl_bri"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_top"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="25dp"
-                android:layout_toLeftOf="@+id/iv_bri"
-                android:background="@drawable/ribbon_left" />
-
-            <ImageView
-                android:id="@+id/iv_bri"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/birthday_icon" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="25dp"
-                android:layout_toRightOf="@+id/iv_bri"
-                android:background="@drawable/ribbon_right" />
-
-            <TextView
-                android:id="@+id/tv_briname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_bri"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:text="今天是您的生日，007为您送来祝福"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
-        </RelativeLayout>
-    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -223,8 +223,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     ImageView iv_show;
     @Bind(R.id.scrollview)
     ScrollView scrollview;
-    @Bind(R.id.rl_qiang)
-    RelativeLayout rl_qiang;
+
 
     private Drawable loadImageFromNetwork(String imageUrl) {
         Drawable drawable = null;
@@ -658,46 +657,14 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         startActivity(intent);
     }
 
-    @Bind(R.id.rl_bri)
-    RelativeLayout rl_bri;
-    public MediaPlayer mediaPlayer;
 
-    private void initMedie() {
-        try {
-            if (!TextUtils.isEmpty(userInfo.getBirthday())) {
-                if (ZeroZeroSevenUtils.getCurTime("MM.dd").replaceAll("0", "").equals(userInfo.getBirthday().substring(5, userInfo.getBirthday().length()).replaceAll("0", ""))) {
-                    if (SharePrefUtils.getBoolean(bfCxt, "bri", true)) {
-                        openMusic();
-                    }
-                }
-            }
-            if (!TextUtils.isEmpty(userInfo.getBirthday())) {
-                if (ZeroZeroSevenUtils.getCurTime("MM-dd").replaceAll("0", "").equals(userInfo.getBirthday().substring(5, userInfo.getBirthday().length()).replaceAll("0", ""))) {
-                    if (SharePrefUtils.getBoolean(bfCxt, "bri", true)) {
-                        openMusic();
-                    }
-                }
-            }
-        } catch (Exception e) {
 
-        }
-    }
 
-    @Bind(R.id.tv_briname)
-    TextView tv_briname;
 
-    private void openMusic() {
-        SharePrefUtils.setBoolean(bfCxt, "bri", false);
-        BaseAppApplication.mainHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                rl_bri.setVisibility(View.VISIBLE);
-                tv_briname.setText("亲爱的用户,今天是您的生日，零零7为您送来祝福");
-            }
-        });
-        mediaPlayer = MediaPlayer.create(bfCxt, R.raw.happy);
-        mediaPlayer.start();
-    }
+
+
+
+
 
     public void requestTime() {
         BaseAppApplication.mainHandler.post(new Runnable() {
@@ -730,13 +697,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
             recyclerView.stop();
         }
-        try {
-            if (mediaPlayer != null) {
-                mediaPlayer.stop();
-                mediaPlayer.release();
-            }
-        } catch (Exception e) {
-        }
+
 
 
     }
@@ -924,10 +885,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         reQuest();
     }
 
-    @Override
-    public void doOther() {
-        initMedie();
-    }
+
 
     @Bind(R.id.tv_hot)
     TextView tv_hot;
