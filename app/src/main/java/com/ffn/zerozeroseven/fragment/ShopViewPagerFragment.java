@@ -61,6 +61,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
     private String storeId;
     private RelativeLayout rl_no_select;
     public static WeakReference<ShopViewPagerFragment> mInstance;
+
     private void setRefreshLayoutVis() {
         if (commonRefreshLayout.getVisibility() == View.GONE) {
             commonRefreshLayout.setVisibility(View.VISIBLE);
@@ -72,22 +73,22 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        title=getArguments().getString("title");
-        shopType=getArguments().getString("shopType");
+        title = getArguments().getString("title");
+        shopType = getArguments().getString("shopType");
     }
 
-    public static ShopViewPagerFragment newInstance(String title, String shopType){
-        Bundle args=new Bundle();
-        args.putString("title",title);
-        args.putString("shopType",shopType);
-        ShopViewPagerFragment fragment=new ShopViewPagerFragment();
+    public static ShopViewPagerFragment newInstance(String title, String shopType) {
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        args.putString("shopType", shopType);
+        ShopViewPagerFragment fragment = new ShopViewPagerFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     protected void initView(View view) {
-        mInstance=new WeakReference<>(this);
+        mInstance = new WeakReference<>(this);
         rl_no_select = view.findViewById(R.id.rl_no_select);
         loadingView = view.findViewById(R.id.loadingView);
         commonStateLayout = view.findViewById(R.id.common_stateLayout);
@@ -115,24 +116,26 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
                 commonStateLayout.setVisibility(View.GONE);
                 commonRefreshLayout.setVisibility(View.VISIBLE);
                 rgRefreshStatus = RgRefreshStatus.IDLE;
-                requestShop();
+                getShangChangInfo();
             }
         });
 
     }
-    public void notifyShop(){
+
+    public void notifyShop() {
         try {
             adapter.clearCount();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
+
     @Override
     public void initDate() {
         setRefreshLayoutVis();
-        if(userInfo!=null){
-            schoolIId=BaseAppApplication.getInstance().getLoginUser().getSchoolId();
+        if (userInfo != null) {
+            schoolIId = BaseAppApplication.getInstance().getLoginUser().getSchoolId();
         }
         if ("943478288".equals(schoolIId)) {
             rl_no_select.setVisibility(View.VISIBLE);
@@ -140,8 +143,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
             rl_no_select.setVisibility(View.GONE);
             try {
                 getShangChangInfo();
-                requestShop();
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
         }
@@ -157,10 +159,10 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
         parametersBean.setPageSize(16);
         try {
             parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        }catch (Exception e){
+        } catch (Exception e) {
         }
         listInfo.setParameters(parametersBean);
-        httpPostJSON(listInfo,true);
+        httpPostJSON(listInfo, true);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -191,7 +193,6 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
                                     } else {
                                         adapter.addAll(products);
                                         adapter.setRunMoneyAndStoreId(runMoney, storeId);
-                                        adapter.setLastCarShopInfo(SharePrefUtils.readObject(getContext(), "carShopInfo"));
                                     }
                                     break;
                                 case PULL_DOWN:
@@ -211,7 +212,6 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
             }
         });
     }
-
 
 
     public void requestShopOnUp(String name) {
@@ -222,7 +222,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         parametersBean.setGoodsName(name);
         listInfo.setParameters(parametersBean);
-        httpPostJSON(listInfo,true);
+        httpPostJSON(listInfo, true);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -273,21 +273,23 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
             }
         });
     }
+
     private void getShangChangInfo() {
         showLoadProgress();
-        final ShangchangInfo shangchangInfo = new ShangchangInfo();
+        ShangchangInfo shangchangInfo = new ShangchangInfo();
         shangchangInfo.setFunctionName("QuerySchoolStore");
         ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         shangchangInfo.setParameters(parametersBean);
-        httpPostJSON(shangchangInfo,true);
+        httpPostJSON(shangchangInfo, true);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                       disLoadProgress();
+                        disLoadProgress();
+                        showErrorLayout(StateLayout.netError);
                     }
                 });
             }
@@ -307,6 +309,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
                         public void run() {
                             runMoney = shangChangShowInfo.getData().getExtraFee();
                             storeId = shangChangShowInfo.getData().getId() + "";
+                            requestShop();
                         }
                     });
                 }

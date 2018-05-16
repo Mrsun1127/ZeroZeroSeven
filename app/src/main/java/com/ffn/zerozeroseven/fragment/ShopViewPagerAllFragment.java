@@ -112,7 +112,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                 commonStateLayout.setVisibility(View.GONE);
                 commonRefreshLayout.setVisibility(View.VISIBLE);
                 rgRefreshStatus = RgRefreshStatus.IDLE;
-                requestShop();
+                getShangChangInfo();
             }
         });
 
@@ -130,7 +130,6 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
             rl_no_select.setVisibility(View.GONE);
             try {
                 getShangChangInfo();
-                requestShop();
             } catch (Exception e) {
 
             }
@@ -181,7 +180,6 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                                     } else {
                                         adapter.addAll(products);
                                         adapter.setRunMoneyAndStoreId(runMoney, storeId);
-                                        adapter.setLastCarShopInfo(SharePrefUtils.readObject(getContext(), "carShopInfo"));
                                     }
                                     break;
                                 case PULL_DOWN:
@@ -190,7 +188,6 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                                     } else {
                                         adapter.addAll(products);
                                         adapter.setRunMoneyAndStoreId(runMoney, storeId);
-                                        adapter.setLastCarShopInfo(SharePrefUtils.readObject(getContext(), "carShopInfo"));
                                     }
 
                                     break;
@@ -288,6 +285,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                     @Override
                     public void run() {
                        disLoadProgress();
+                        showErrorLayout(StateLayout.netError);
                     }
                 });
             }
@@ -307,6 +305,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                         public void run() {
                             runMoney = shangChangShowInfo.getData().getExtraFee();
                             storeId = shangChangShowInfo.getData().getId() + "";
+                            requestShop();
                         }
                     });
                 }
