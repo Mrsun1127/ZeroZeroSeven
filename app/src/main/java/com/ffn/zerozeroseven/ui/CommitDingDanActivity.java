@@ -196,7 +196,13 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                 tv_allmoney.setText("共计：¥" + ZeroZeroSevenUtils.reactMoney(a));
 
                 money.setText(ZeroZeroSevenUtils.reactMoney(a) + "");
-                tv_runMoney.setText("跑腿费：¥" + carShopInfo.getShopInfos().get(0).getRunMoney());
+                Double b=0.0;
+                try {
+                    b=carShopInfo.getShopInfos().get(0).getRunMoney();
+                }catch (Exception e){
+                    b=0.0;
+                }
+                tv_runMoney.setText("跑腿费：¥" + b);
             } else {
                 tv_allmoney.setText("暂无可支付的商品");
                 ToastUtils.showShort("暂无可支付的商品");
