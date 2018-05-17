@@ -31,12 +31,7 @@
                     <RelativeLayout
                         android:id="@+id/rl_top_bg"
                         android:layout_width="match_parent"
-                        android:layout_height="230dp">
-
-                        <com.github.mmin18.widget.RealtimeBlurView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:realtimeBlurRadius="5dp" />
+                        android:layout_height="220dp">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -48,7 +43,7 @@
                             android:id="@+id/banner"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            android:layout_marginTop="67dp"
+                            android:layout_marginTop="57dp"
                             app:canLoop="true"
                             app:indicatorAlign="center"
                             app:middle_page_cover="false"
@@ -61,7 +56,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
+                    android:layout_height="65dp"
                     android:background="@color/white"
                     android:orientation="horizontal">
 
@@ -75,7 +70,7 @@
                             android:id="@+id/iv_one"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:layout_centerInParent="true"
+                            android:layout_centerHorizontal="true"
                             android:background="@drawable/main_one" />
 
                         <TextView
@@ -99,7 +94,7 @@
                             android:id="@+id/iv_two"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:layout_centerInParent="true"
+                            android:layout_centerHorizontal="true"
                             android:background="@drawable/main_two" />
 
                         <TextView
@@ -124,7 +119,7 @@
                             android:id="@+id/iv_four"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:layout_centerInParent="true"
+                            android:layout_centerHorizontal="true"
                             android:background="@drawable/main_three" />
 
                         <TextView
@@ -148,7 +143,7 @@
                             android:id="@+id/iv_five"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:layout_centerInParent="true"
+                            android:layout_centerHorizontal="true"
                             android:background="@drawable/main_four" />
 
                         <TextView
@@ -165,7 +160,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="60dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="17dp"
                     android:layout_marginRight="17dp"
@@ -175,15 +170,17 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:layout_marginBottom="5dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="25dp"
+                        android:layout_height="30dp"
                         android:padding="5dp"
                         android:src="@drawable/main_laba" />
 
                     <com.ffn.zerozeroseven.view.AutoVerticalScrollTextView
+                        android:paddingTop="5dp"
                         android:id="@+id/scrollTextView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="25dp"
                         android:layout_marginBottom="3dp"
                         android:layout_marginRight="15dp"
                         android:background="@drawable/rectangle" />

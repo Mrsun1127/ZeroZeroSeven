@@ -5,14 +5,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -21,7 +18,6 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,7 +53,6 @@ import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.base.BaseRecyclerTallAniAdapter;
 import com.ffn.zerozeroseven.bean.AppVersionInfo;
 import com.ffn.zerozeroseven.bean.BannerInfo;
-import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.FindSchoolInfo;
 import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
 import com.ffn.zerozeroseven.bean.GoodsDetilsInfo;
@@ -82,16 +77,13 @@ import com.ffn.zerozeroseven.ui.LoginActivity;
 import com.ffn.zerozeroseven.ui.LookMoreRunActivity;
 import com.ffn.zerozeroseven.ui.MessAgeActivity;
 import com.ffn.zerozeroseven.ui.MineRunActivity;
-import com.ffn.zerozeroseven.ui.MineWantGoQiangActivity;
 import com.ffn.zerozeroseven.ui.MrsunWebActivity;
 import com.ffn.zerozeroseven.ui.MyBitisActivity;
 import com.ffn.zerozeroseven.ui.RunDetilsActivity;
-import com.ffn.zerozeroseven.ui.SchoolnewCardActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
 import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
-import com.ffn.zerozeroseven.ui.SinggerSchoolTalkActivity;
-import com.ffn.zerozeroseven.ui.ToBeAGoodPeople;
 import com.ffn.zerozeroseven.utlis.DownLoadManager;
+import com.ffn.zerozeroseven.utlis.FastBlurUtil;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
@@ -99,8 +91,6 @@ import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.AutoVerticalScrollTextView;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
-import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
-import com.ffn.zerozeroseven.view.NXHooldeView;
 import com.ffn.zerozeroseven.view.ScroolRecyleView;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.mainscroll.CustomTwoLevelHeader;
@@ -114,7 +104,6 @@ import com.zhouwei.mzbanner.holder.MZViewHolder;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -217,24 +206,12 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 //
     }
 
-    @Bind(R.id.rl_top_bg)
-    RelativeLayout rl_top_bg;
     @Bind(R.id.iv_show)
     ImageView iv_show;
     @Bind(R.id.scrollview)
     ScrollView scrollview;
 
 
-    private Drawable loadImageFromNetwork(String imageUrl) {
-        Drawable drawable = null;
-        try {
-            // 可以在这里通过文件名来判断，是否本地有此图片
-            drawable = Drawable.createFromStream(
-                    new URL(imageUrl).openStream(), "image.jpg");
-        } catch (IOException e) {
-        }
-        return drawable;
-    }
 
     @Override
     protected void initView(View view) {
@@ -294,7 +271,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 Glide.with(bfCxt).load(bannerInfo.getData().getList().get(position).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        Drawable drawable = new BitmapDrawable(getResources(), resource);
+                        Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 8);
+                        Drawable drawable=new BitmapDrawable(getResources(), blurBitmap);
                         rl_top_bg.setBackground(drawable);
                     }
                 });
@@ -942,7 +920,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             Glide.with(context).load(data).into(mImageView);
         }
     }
-
+@Bind(R.id.rl_top_bg)
+RelativeLayout rl_top_bg;
     private void requestBaner() {
         LunBoInfo lunBoInfo = new LunBoInfo();
         lunBoInfo.setFunctionName("ListAd");
@@ -974,7 +953,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         Glide.with(bfCxt).load(bannerInfo.getData().getList().get(0).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                Drawable drawable = new BitmapDrawable(getResources(), resource);
+                                Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 8);
+                                Drawable drawable=new BitmapDrawable(getResources(), blurBitmap);
                                 rl_top_bg.setBackground(drawable);
                             }
                         });
