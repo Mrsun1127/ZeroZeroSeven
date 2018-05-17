@@ -169,6 +169,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private BannerInfo bannerInfo;
     private WebBannerAdapter bannerAdapter;
     private CustomTwoLevelHeader header;
+    private String projectUrl;
 
     public RunListRquestInfo.DataBean.ListBean getRunlist(int poition) {
         return runListRquestInfo.getData().getList().get(poition);
@@ -922,6 +923,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     }
 @Bind(R.id.rl_top_bg)
 RelativeLayout rl_top_bg;
+    String upUrl="";
+    public String getUpurl(){
+        return upUrl;
+    };
     private void requestBaner() {
         LunBoInfo lunBoInfo = new LunBoInfo();
         lunBoInfo.setFunctionName("ListAd");
@@ -943,11 +948,14 @@ RelativeLayout rl_top_bg;
                                 images.add(bannerInfo.getData().getList().get(i).getPicUrl());
                             } else if (bannerInfo.getData().getList().get(i).getType().equals("下拉广告")) {//下拉
                                 header.loadImage(bannerInfo.getData().getList().get(i).getPicUrl());
+                                upUrl=bannerInfo.getData().getList().get(i).getLink();
                             } else if (bannerInfo.getData().getList().get(i).getType().equals("启动广告")) {//启动
                                 userInfo.setDowmPoster(bannerInfo.getData().getList().get(i).getPicUrl());
                                 SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
                             } else if (bannerInfo.getData().getList().get(i).getType().equals("专题广告")) {
-
+                                iv_guanggao.setVisibility(View.VISIBLE);
+                                projectUrl = bannerInfo.getData().getList().get(i).getLink();
+                                Glide.with(bfCxt).load(bannerInfo.getData().getList().get(i).getPicUrl()).into(iv_guanggao);
                             }
                         }
                         Glide.with(bfCxt).load(bannerInfo.getData().getList().get(0).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
@@ -1175,7 +1183,8 @@ RelativeLayout rl_top_bg;
     @Bind(R.id.tv_school)
     TextView tv_school;
     boolean open = true;
-
+@Bind(R.id.iv_guanggao)
+ImageView iv_guanggao;
     @OnClick({R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
@@ -1207,7 +1216,9 @@ RelativeLayout rl_top_bg;
             case R.id.rl_local:
                 break;
             case R.id.iv_guanggao:
-                HomeActivity.getmInstance().get().go2Fragment(1);
+                if(!TextUtils.isEmpty(projectUrl)){
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,MrsunWebActivity.class);
+                }
                 break;
             case R.id.tv_school:
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, SearchSchoolActivity.class);

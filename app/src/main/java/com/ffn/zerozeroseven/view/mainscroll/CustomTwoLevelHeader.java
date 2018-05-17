@@ -3,6 +3,7 @@ package com.ffn.zerozeroseven.view.mainscroll;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -163,14 +164,11 @@ public class CustomTwoLevelHeader extends FrameLayout implements TwoLevelRefresh
 
     @Override
     public void onTwoLevelRefreshBegin(TwoLevelSmoothRefreshLayout layout, ITwoLevelIndicator twoLevelIndicator) {
-        BaseAppApplication.mainHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Bundle bundle=new Bundle();
-                bundle.putString("url","http://www.baidu.com");
-                bundle.putString("title","百度一下");
-                ZeroZeroSevenUtils.SwitchActivity(HomeActivity.getmInstance().get(),MrsunWebActivity.class,bundle);
-            }
-        },500);
+                if(!TextUtils.isEmpty(MainFragment.mInstance.get().getUpurl())){
+                    Bundle bundle=new Bundle();
+                    bundle.putString("url",MainFragment.mInstance.get().getUpurl());
+                    ZeroZeroSevenUtils.SwitchActivity(HomeActivity.getmInstance().get(),MrsunWebActivity.class,bundle);
+                }
+                layout.refreshComplete();
     }
 }

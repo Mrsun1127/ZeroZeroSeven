@@ -28,11 +28,9 @@ public class MrsunWebActivity extends BaseActivity {
         super.initView();
         ButterKnife.bind(this);
         BaseAppApplication.getInstance().addActivity(this);
-        titleView.setTopText(getIntent().getStringExtra("title"));
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {
             @Override
             public void ivBack() {
-                MainFragment.mInstance.get().mRefreshLayout.refreshComplete();
                 finish();
             }
 

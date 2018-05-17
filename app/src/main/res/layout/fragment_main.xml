@@ -188,13 +188,14 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/iv_guanggao"
                     android:layout_width="279dp"
                     android:layout_height="89dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:background="@drawable/main_guanggao" />
+                     />
 
 
                 <include layout="@layout/time_hot_shop" />
