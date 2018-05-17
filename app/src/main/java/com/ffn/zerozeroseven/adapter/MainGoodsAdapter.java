@@ -42,6 +42,7 @@ public class MainGoodsAdapter extends BaseRecyclerAdapter<OftenShowInfo.DataBean
                 .error(R.drawable.oops)
                 .into(mHolder.imageView);
         mHolder.tv_name.setText(info.getGoodsName());
+        mHolder.tv_money.setText(String.valueOf(info.getPrice()));
         mHolder.rl_add.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -55,12 +56,14 @@ public class MainGoodsAdapter extends BaseRecyclerAdapter<OftenShowInfo.DataBean
     private class MViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView tv_name;
+        TextView tv_money;
         RelativeLayout rl_add;
         MViewHolder(View itemView) {
             super(itemView);
 
             imageView=itemView.findViewById(R.id.iv_icon);
             tv_name=itemView.findViewById(R.id.tv_name);
+            tv_money=itemView.findViewById(R.id.tv_money);
             rl_add=itemView.findViewById(R.id.rl_add);
 
         }
