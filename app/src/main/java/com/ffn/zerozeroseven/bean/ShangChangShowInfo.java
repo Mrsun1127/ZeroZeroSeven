@@ -85,7 +85,7 @@ public class ShangChangShowInfo implements Serializable {
         private String storeName;
         private int id;
         private boolean isClosing;
-        private Double extraFee;
+        private Double extraFee=0.0;
         private String openingTime2;
         private String promotion;
         private int status;
