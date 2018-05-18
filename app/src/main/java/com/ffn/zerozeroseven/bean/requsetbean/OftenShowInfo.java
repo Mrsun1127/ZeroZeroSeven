@@ -109,7 +109,7 @@ public class OftenShowInfo {
             private int storeId;
             private Double extraFee;
             private String goodsType;
-            private Double price;
+            private Double price=0.0;
 
             public Double getPrice() {
                 return price;

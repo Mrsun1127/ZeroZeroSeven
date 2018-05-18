@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         app:sr_enableTwoLevelRefresh="true">
 
-        <ScrollView
+        <com.ffn.zerozeroseven.view.SmartScrollView
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -375,7 +375,7 @@
                     android:background="@color/white"
                     android:visibility="gone"></RelativeLayout>
             </LinearLayout>
-        </ScrollView>
+        </com.ffn.zerozeroseven.view.SmartScrollView>
     </com.ffn.zerozeroseven.view.mainscroll.TwoLevelSmoothRefreshLayout>
 
     <RelativeLayout

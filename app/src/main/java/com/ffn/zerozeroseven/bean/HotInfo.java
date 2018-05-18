@@ -1,15 +1,11 @@
-package com.ffn.zerozeroseven.bean.requsetbean;
+package com.ffn.zerozeroseven.bean;
 
 import java.util.List;
 
-/**
- * Created by GT on 2017/12/6.
- */
-
-public class BestNewShowInfo {
+public class HotInfo {
     /**
      * code : 0
-     * data : {"LatestGoods":[{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521001836630.jpg","price":2.48,"id":620,"storeId":14,"goodsName":"翻天娃红烧牛腩味","extraFee":0,"goodsType":"02"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521002055424.jpg","price":2.48,"id":619,"storeId":14,"goodsName":"翻天娃薯条味辣条","extraFee":0,"goodsType":"02"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521002022637.jpg","price":4.98,"id":618,"storeId":14,"goodsName":"酱香鸭脖","extraFee":0,"goodsType":"02"}],"total":22,"pageIndex":0,"totalPage":8,"pageSize":3}
+     * data : {"total":3,"pageIndex":0,"totalPage":1,"pageSize":6,"products":[{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180307/1520411393939.png","price":7.88,"id":793,"storeId":14,"goodsName":"叼嘴巴槟榔（有票无奖）","goodsType":"06"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180324/thumbnail1521877922423.jpg","price":3.78,"id":783,"storeId":14,"goodsName":"银鹭花生牛奶瓶装","goodsType":"05"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180320/thumbnail1521527296253.jpg","price":4.98,"id":774,"storeId":14,"goodsName":"香飘飘奶茶原味80g装","goodsType":"05"}]}
      * message : 请求成功
      */
 
@@ -43,18 +39,18 @@ public class BestNewShowInfo {
 
     public static class DataBean {
         /**
-         * LatestGoods : [{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521001836630.jpg","price":2.48,"id":620,"storeId":14,"goodsName":"翻天娃红烧牛腩味","extraFee":0,"goodsType":"02"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521002055424.jpg","price":2.48,"id":619,"storeId":14,"goodsName":"翻天娃薯条味辣条","extraFee":0,"goodsType":"02"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521002022637.jpg","price":4.98,"id":618,"storeId":14,"goodsName":"酱香鸭脖","extraFee":0,"goodsType":"02"}]
-         * total : 22
+         * total : 3
          * pageIndex : 0
-         * totalPage : 8
-         * pageSize : 3
+         * totalPage : 1
+         * pageSize : 6
+         * products : [{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180307/1520411393939.png","price":7.88,"id":793,"storeId":14,"goodsName":"叼嘴巴槟榔（有票无奖）","goodsType":"06"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180324/thumbnail1521877922423.jpg","price":3.78,"id":783,"storeId":14,"goodsName":"银鹭花生牛奶瓶装","goodsType":"05"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180320/thumbnail1521527296253.jpg","price":4.98,"id":774,"storeId":14,"goodsName":"香飘飘奶茶原味80g装","goodsType":"05"}]
          */
 
         private int total;
         private int pageIndex;
         private int totalPage;
         private int pageSize;
-        private List<LatestGoodsBean> LatestGoods;
+        private List<ProductsBean> products;
 
         public int getTotal() {
             return total;
@@ -88,32 +84,39 @@ public class BestNewShowInfo {
             this.pageSize = pageSize;
         }
 
-        public List<LatestGoodsBean> getLatestGoods() {
-            return LatestGoods;
+        public List<ProductsBean> getProducts() {
+            return products;
         }
 
-        public void setLatestGoods(List<LatestGoodsBean> LatestGoods) {
-            this.LatestGoods = LatestGoods;
+        public void setProducts(List<ProductsBean> products) {
+            this.products = products;
         }
 
-        public static class LatestGoodsBean {
+        public static class ProductsBean {
             /**
-             * thumbnail : http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521001836630.jpg
-             * price : 2.48
-             * id : 620
+             * thumbnail : http://www.lingling7.com/lingling7-res/image/20180307/1520411393939.png
+             * price : 7.88
+             * id : 793
              * storeId : 14
-             * goodsName : 翻天娃红烧牛腩味
-             * extraFee : 0
-             * goodsType : 02
+             * goodsName : 叼嘴巴槟榔（有票无奖）
+             * goodsType : 06
              */
 
             private String thumbnail;
             private Double price;
             private int id;
-            private String goodsName;
             private int storeId;
-            private Double extraFee=0.0;
+            private String goodsName;
             private String goodsType;
+            private Double extraFee=0.0;
+
+            public Double getExtraFee() {
+                return extraFee;
+            }
+
+            public void setExtraFee(Double extraFee) {
+                this.extraFee = extraFee;
+            }
 
             public String getThumbnail() {
                 return thumbnail;
@@ -153,14 +156,6 @@ public class BestNewShowInfo {
 
             public void setGoodsName(String goodsName) {
                 this.goodsName = goodsName;
-            }
-
-            public Double getExtraFee() {
-                return extraFee;
-            }
-
-            public void setExtraFee(Double extraFee) {
-                this.extraFee = extraFee;
             }
 
             public String getGoodsType() {

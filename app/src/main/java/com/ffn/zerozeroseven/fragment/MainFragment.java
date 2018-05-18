@@ -43,6 +43,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.BestNewGoodsAdapter;
+import com.ffn.zerozeroseven.adapter.HotTimeAdapter;
 import com.ffn.zerozeroseven.adapter.MainGoodsAdapter;
 import com.ffn.zerozeroseven.adapter.RunListAdapter;
 import com.ffn.zerozeroseven.adapter.UserLikeAdapter;
@@ -56,6 +57,7 @@ import com.ffn.zerozeroseven.bean.BannerInfo;
 import com.ffn.zerozeroseven.bean.FindSchoolInfo;
 import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
 import com.ffn.zerozeroseven.bean.GoodsDetilsInfo;
+import com.ffn.zerozeroseven.bean.HotInfo;
 import com.ffn.zerozeroseven.bean.LunBoOkInfo;
 import com.ffn.zerozeroseven.bean.QiangDanOkInfo;
 import com.ffn.zerozeroseven.bean.RunListRquestInfo;
@@ -92,6 +94,7 @@ import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.AutoVerticalScrollTextView;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
 import com.ffn.zerozeroseven.view.ScroolRecyleView;
+import com.ffn.zerozeroseven.view.SmartScrollView;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.mainscroll.CustomTwoLevelHeader;
 import com.ffn.zerozeroseven.view.mainscroll.TwoLevelRefreshingListenerAdapter;
@@ -124,12 +127,12 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     //    private RelativeLayout et_select;
     private UserLikeAdapter userLikeAdapter;
     private BestNewGoodsAdapter bothGoodsAdapter;
-    private MainGoodsAdapter hotGoodsAdapter;
+    private HotTimeAdapter hotGoodsAdapter;
     private RecyclerView rc_all;
     private RecyclerView rc_hot;
     private LinearLayout ll_both;
     private LinearLayout ll_hot;
-    private OftenShowInfo showHotInfo;
+    private HotInfo showHotInfo;
     private BestNewShowInfo showBothInfo;
     private OftenShowInfo showOftenInfo;
     private ScroolRecyleView recyclerView;
@@ -210,7 +213,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Bind(R.id.iv_show)
     ImageView iv_show;
     @Bind(R.id.scrollview)
-    ScrollView scrollview;
+    SmartScrollView scrollview;
 
 
 
@@ -233,6 +236,23 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         if (SharePrefUtils.getInt(bfCxt, "isLocation", 0) != 1) {
             mLocationClient.start();
         }
+        scrollview.setScanScrollChangedListener(new SmartScrollView.ISmartScrollChangedListener() {
+            @Override
+            public void onScrolledToBottom() {
+
+            }
+
+            @Override
+            public void onScrolledToTop() {
+                scrollview.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+//                        ToastUtils.showShort("我滑动到底部了");
+                        scrollview.scrollTo(0,1);
+                    }
+                },1000);
+            }
+        });
         scrollview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -347,7 +367,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         rc_hot = view.findViewById(R.id.rc_hot);
         rc_hot.setLayoutManager(new LinearLayoutManager(bfCxt));
         rc_hot.addItemDecoration(new SpaceItemDecoration(15));
-        hotGoodsAdapter = new MainGoodsAdapter(bfCxt);
+        hotGoodsAdapter = new HotTimeAdapter(bfCxt);
         rc_hot.setAdapter(hotGoodsAdapter);
         hotGoodsAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
@@ -429,9 +449,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         //设置触发提示二级刷新的头部高度比
         mRefreshLayout.setRatioOfHeaderToHintTwoLevel(.45f);
         //设置触发二级刷新的头部高度比
-        mRefreshLayout.setRatioOfHeaderToTwoLevel(0.5f);
-        mRefreshLayout.setResistance(2f);
-        mRefreshLayout.setResistanceOfHeader(4f);
+        mRefreshLayout.setRatioOfHeaderToTwoLevel(0.4f);
 
         //TwoLevelRefreshingListenerAdapter
         mRefreshLayout.setOnRefreshListener(new TwoLevelRefreshingListenerAdapter() {
@@ -744,7 +762,37 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             }
         });
     }
-
+    public void goToDetils(final int position, final HotTimeAdapter adapter) {
+        RequeseGoods requeseGoods = new RequeseGoods();
+        requeseGoods.setFunctionName("QueryGoods");
+        RequeseGoods.ParametersBean parametersBean = new RequeseGoods.ParametersBean();
+        parametersBean.setGoodsId(adapter.getItem(position).getId());
+        requeseGoods.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(getActivity());
+        okGoUtils.httpPostJSON(requeseGoods, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                final GoodsDetilsInfo goodsDetilsInfo = JSON.parseObject(response, GoodsDetilsInfo.class);
+                if (goodsDetilsInfo.getCode() == 0) {
+                    HomeActivity.getmInstance().get().go2Fragment(1);
+                    GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
+                    goodsInfo.setId(adapter.getItem(position).getId());
+                    goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
+                    goodsInfo.setThumbnail(adapter.getItem(position).getThumbnail());
+                    goodsInfo.setStockNum(goodsDetilsInfo.getData().getStockNum());
+                    goodsInfo.setPrice(goodsDetilsInfo.getData().getPrice());
+//                          goodsInfo.setPromotionPrice(goodsDetilsInfo.getData().getPromotionPrice());
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("shopInfo", goodsInfo);
+                    bundle.putString("back", "main");
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
+                } else {
+                    ToastUtils.showShort(goodsDetilsInfo.getMessage());
+                }
+            }
+        });
+    }
     @Override
     protected int setLayout() {
         return R.layout.fragment_main;
@@ -1027,7 +1075,7 @@ RelativeLayout rl_top_bg;
     //    05:00 - 09:00  09:00 - 11:30 11:30 - 14:00 14:00-17:00 17:00-19:00 19:00-24:00 24:00-05:00
     private void requestHotBuyList(String beforeTime, String afterTime) {
         GoodsOftenInfo oftenInfo = new GoodsOftenInfo();
-        oftenInfo.setFunctionName("ListGoodsHotSales");
+        oftenInfo.setFunctionName("ListSchoolHotGoods");
         GoodsOftenInfo.ParametersBean parametersBean = new GoodsOftenInfo.ParametersBean();
         parametersBean.setPageIndex(0);
         parametersBean.setPageSize(6);
@@ -1040,11 +1088,11 @@ RelativeLayout rl_top_bg;
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                showHotInfo = JSON.parseObject(response, OftenShowInfo.class);
+                showHotInfo = JSON.parseObject(response, HotInfo.class);
                 if (showHotInfo.getCode() == 0) {
-                    if (showHotInfo.getData().getGoods().size() > 0) {
+                    if (showHotInfo.getData().getProducts().size() > 0) {
                         hotGoodsAdapter.cleanDates();
-                        hotGoodsAdapter.addAll(showHotInfo.getData().getGoods());
+                        hotGoodsAdapter.addAll(showHotInfo.getData().getProducts());
                         ll_hot.setVisibility(View.GONE);
                         rc_hot.setVisibility(View.VISIBLE);
                     } else {
