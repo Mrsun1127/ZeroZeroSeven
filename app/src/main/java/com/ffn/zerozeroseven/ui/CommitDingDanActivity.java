@@ -188,7 +188,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                 try {
                     a = allMoney + carShopInfo.getShopInfos().get(0).getRunMoney();
                 } catch (Exception e) {
-                    a = 0.0;
+                    a = allMoney;
                 }
                 if ("null".equals(a + "")) {
                     a = 0.0;
@@ -200,9 +200,8 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                 try {
                     b=carShopInfo.getShopInfos().get(0).getRunMoney();
                 }catch (Exception e){
-                    b=0.0;
                 }
-                tv_runMoney.setText("跑腿费：¥" + b);
+                tv_runMoney.setText("跑腿费：¥" + (b!=null?b:0.0));
             } else {
                 tv_allmoney.setText("暂无可支付的商品");
                 ToastUtils.showShort("暂无可支付的商品");
