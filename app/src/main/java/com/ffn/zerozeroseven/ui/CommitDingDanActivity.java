@@ -227,6 +227,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
             @Override
             public void ivMessAge() {
 
+
             }
         });
     }
