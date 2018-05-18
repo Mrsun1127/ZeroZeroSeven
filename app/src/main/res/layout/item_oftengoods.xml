@@ -8,6 +8,7 @@
         android:layout_width="50dp"
         android:layout_height="match_parent">
         <ImageView
+            android:layout_alignParentRight="true"
             android:layout_marginTop="25dp"
             android:background="@drawable/tianjia"
             android:layout_width="20dp"
@@ -22,7 +23,7 @@
             android:id="@+id/iv_icon"
             android:layout_width="61dp"
             android:layout_height="54dp"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:scaleType="centerCrop" />
     </RelativeLayout>
 

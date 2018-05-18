@@ -108,7 +108,7 @@ public class HotInfo {
             private int storeId;
             private String goodsName;
             private String goodsType;
-            private Double extraFee=0.0;
+            private Double extraFee;
 
             public Double getExtraFee() {
                 return extraFee;

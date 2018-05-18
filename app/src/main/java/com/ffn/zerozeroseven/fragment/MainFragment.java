@@ -253,23 +253,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 },1000);
             }
         });
-        scrollview.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_UP:
-                        iv_show.setVisibility(View.VISIBLE);
-                        break;
-                    case MotionEvent.ACTION_DOWN:
-                        iv_show.setVisibility(View.GONE);
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        iv_show.setVisibility(View.GONE);
-                        break;
-                }
-                return false;
-            }
-        });
         banner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
             @Override
             public void onPageClick(View view, int position) {
@@ -1171,14 +1154,12 @@ RelativeLayout rl_top_bg;
                         if (userLikeInfo.getData().getPosts().size() > 0) {
                             haveData = 2;
                             userLikeAdapter.addAll(userLikeInfo.getData().getPosts());
-                            recyclerView.setVisibility(View.VISIBLE);
                             if (userLikeInfo.getData().getPosts().size() > 3) {
                                 recyclerView.start();
                             }
                         } else {
                             haveData = 1;
                             if (pageNo == 0) {
-                                recyclerView.setVisibility(View.GONE);
                             } else {
                                 pageNo = 0;
                                 new Thread(new MyRunnable()).start();
@@ -1188,7 +1169,6 @@ RelativeLayout rl_top_bg;
 
                     } else {
                         haveData = 1;
-                        recyclerView.setVisibility(View.GONE);
                         LogUtils.D("MainFragment", "nodate");
                     }
 

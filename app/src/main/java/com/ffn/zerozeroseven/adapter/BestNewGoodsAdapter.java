@@ -42,7 +42,7 @@ public class BestNewGoodsAdapter extends BaseRecyclerAdapter<BestNewShowInfo.Dat
                 .error(R.drawable.oops)
                 .into(mHolder.imageView);
         mHolder.tv_name.setText(info.getGoodsName());
-        mHolder.tv_money.setText(String.valueOf(info.getPrice()));
+        mHolder.tv_money.setText("￥"+String.valueOf(info.getPrice()));
         mHolder.rl_add.setOnClickListener(new View.OnClickListener() {
 
             @Override
