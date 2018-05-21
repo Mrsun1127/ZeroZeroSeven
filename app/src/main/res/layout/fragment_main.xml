@@ -178,6 +178,7 @@
 
                     <com.ffn.zerozeroseven.view.AutoVerticalScrollTextView
                         android:paddingTop="5dp"
+                        android:paddingLeft="10dp"
                         android:id="@+id/scrollTextView"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
