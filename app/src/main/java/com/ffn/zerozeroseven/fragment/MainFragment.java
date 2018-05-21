@@ -84,6 +84,7 @@ import com.ffn.zerozeroseven.ui.MyBitisActivity;
 import com.ffn.zerozeroseven.ui.RunDetilsActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
 import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
+import com.ffn.zerozeroseven.ui.WebViewActivity;
 import com.ffn.zerozeroseven.utlis.DownLoadManager;
 import com.ffn.zerozeroseven.utlis.FastBlurUtil;
 import com.ffn.zerozeroseven.utlis.LogUtils;
@@ -1242,6 +1243,13 @@ ImageView iv_guanggao;
             case R.id.rl_integer:
                 break;
             case R.id.rl_local:
+                if (userInfo != null) {
+                    Bundle bundle3=new Bundle();
+                    bundle3.putString("url","http://www.lingling7.com/lingling7-res/app/dist/index.html#/");
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,WebViewActivity.class,bundle3);
+                } else {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
+                }
                 break;
             case R.id.iv_guanggao:
                 if(!TextUtils.isEmpty(projectUrl)){

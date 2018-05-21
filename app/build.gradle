@@ -9,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         renderscriptSupportModeEnabled true
-        versionCode 5
+        versionCode 7
         versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
@@ -117,15 +117,18 @@ dependencies {
     compile 'com.kaopiz:kprogresshud:1.0.2'
     implementation files('libs/jpush-android_v3.0.6.jar')
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
-    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'//没有使用特殊Header，可以不加这行
-    compile 'com.wanjian:cockroach:0.0.5' //拦截闪退
-//    compile 'com.xujinyang.BiuEditText:library:1.4.1' //一个带有动画的EditText
-    compile 'com.contrarywind:Android-PickerView:3.2.7'//时间选择器
-//    compile 'com.stone.vega.library:VegaLayoutManager:1.0.6'//RecycleView的设置
-//    compile 'com.youth.banner:banner:1.4.10'  //最新版本
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-//    implementation 'com.android.support:cardview-v7:27.0.2'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
+    //没有使用特殊Header，可以不加这行
+    compile 'com.wanjian:cockroach:0.0.5'
+    //拦截闪退
+    //    compile 'com.xujinyang.BiuEditText:library:1.4.1' //一个带有动画的EditText
+    compile 'com.contrarywind:Android-PickerView:3.2.7'
+    //时间选择器
+    //    compile 'com.stone.vega.library:VegaLayoutManager:1.0.6'//RecycleView的设置
+    //    compile 'com.youth.banner:banner:1.4.10'  //最新版本
+    //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    //    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    //    implementation 'com.android.support:cardview-v7:27.0.2'
     compile 'com.github.pinguo-zhouwei:MZBannerView:v2.0.1'
     compile 'com.just.agentweb:agentweb:1.2.2'
     compile 'com.umeng.sdk:common:latest.integration'

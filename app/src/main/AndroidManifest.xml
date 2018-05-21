@@ -251,6 +251,7 @@
         <activity android:name=".ui.BitisDetils"
             android:exported="true"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.WebViewActivity" />
 
         <!-- Required SDK核心功能-->
         <service
