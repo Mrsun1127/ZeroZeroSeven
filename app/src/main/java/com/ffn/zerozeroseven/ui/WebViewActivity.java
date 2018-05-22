@@ -2,6 +2,8 @@ package com.ffn.zerozeroseven.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -24,6 +26,8 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 
 public class WebViewActivity extends BaseActivity {
     @Bind(R.id.webView)
@@ -74,12 +78,19 @@ public class WebViewActivity extends BaseActivity {
             finish();
         }
     }
-
+    public static Bitmap loadBitmapFromViewBySystem(View v) {
+        if (v == null) {
+            return null;
+        }
+        Bitmap screenshot;
+        screenshot = Bitmap.createBitmap(ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight()-100, Bitmap.Config.ARGB_4444);
+        Canvas canvas = new Canvas(screenshot);
+        canvas.translate(-v.getScrollX(), -v.getScrollY());//我们在用滑动View获得它的Bitmap时候，获得的是整个View的区域（包括隐藏的），如果想得到当前区域，需要重新定位到当前可显示的区域
+        v.draw(canvas);// 将 view 画到画布上
+        return screenshot;
+    }
     @Override
     protected void doMain() {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.splash);
-        String fileUrl = ScreenUtils.saveMyBitmap(System.currentTimeMillis() + "", bitmap);
-        showShare(fileUrl);
     }
     private void showShare(final String filename) {
         OnekeyShare oks = new OnekeyShare();
@@ -105,6 +116,16 @@ public class WebViewActivity extends BaseActivity {
                     paramsToShare.setTitleUrl(null);
                     paramsToShare.setImagePath(filename);
                 } else if (platform.getName().equalsIgnoreCase(QZone.NAME)) {
+                    paramsToShare.setText(null);
+                    paramsToShare.setTitle(null);
+                    paramsToShare.setTitleUrl(null);
+                    paramsToShare.setImagePath(filename);
+                }else if (platform.getName().equalsIgnoreCase(Wechat.NAME)) {
+                    paramsToShare.setText(null);
+                    paramsToShare.setTitle(null);
+                    paramsToShare.setTitleUrl(null);
+                    paramsToShare.setImagePath(filename);
+                }else if (platform.getName().equalsIgnoreCase(WechatMoments.NAME)) {
                     paramsToShare.setText(null);
                     paramsToShare.setTitle(null);
                     paramsToShare.setTitleUrl(null);
@@ -147,7 +168,7 @@ public class WebViewActivity extends BaseActivity {
 
         @JavascriptInterface
         public void sharePhoto() {
-            String fileUrl = ScreenUtils.saveMyBitmap(System.currentTimeMillis() + "", ScreenUtils.screenShot(WebViewActivity.this));
+            String fileUrl = ScreenUtils.saveMyBitmap(System.currentTimeMillis() + "", loadBitmapFromViewBySystem(webView));
             showShare(fileUrl);
         }
     }
