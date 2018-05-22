@@ -94,9 +94,6 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 if (shangChangShowInfo.getCode() == 0) {
                     storeId = shangChangShowInfo.getData().getId() + "";//商家Id
                     tv_phone.setText("商家电话："+shangChangShowInfo.getData().getServicePhone());
-                    if(shangChangShowInfo.getData().isIsClosing()){
-                        ZeroZeroSevenUtils.showSleepPop(ShopDetilsActivity.this,tv_phone);
-                    }
                     if (shangChangShowInfo.getData().getExtraFee() != null) {
                         runMoney = shangChangShowInfo.getData().getExtraFee();
                     } else {
