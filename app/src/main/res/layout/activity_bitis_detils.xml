@@ -50,39 +50,39 @@
         <View
             android:id="@+id/line"
             android:layout_width="0.1dp"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:layout_centerInParent="true" />
 
         <ImageButton
             android:id="@+id/ib_qzone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginRight="8dp"
             android:layout_toLeftOf="@+id/line"
-            android:background="@drawable/share_qzone" />
+            android:background="@drawable/qzone" />
 
         <ImageButton
             android:id="@+id/ib_wechat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/line"
-            android:background="@drawable/share_wechat" />
+            android:background="@drawable/wechat" />
 
         <ImageButton
             android:id="@+id/ib_qq"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@+id/ib_qzone"
-            android:background="@drawable/share_qq" />
+            android:background="@drawable/qq" />
 
         <ImageButton
             android:id="@+id/ib_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="16dp"
             android:layout_toRightOf="@+id/ib_wechat"
-            android:background="@drawable/share_circleoffriends" />
+            android:background="@drawable/wechatme" />
     </RelativeLayout>
 </RelativeLayout>
