@@ -169,8 +169,14 @@ public class WebViewActivity extends BaseActivity {
 
         @JavascriptInterface
         public void sharePhoto() {
-            String fileUrl = ScreenUtils.saveMyBitmap(System.currentTimeMillis() + "", loadBitmapFromViewBySystem(webView));
-            showShare(fileUrl);
+            BaseAppApplication.mainHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    String fileUrl = ScreenUtils.saveMyBitmap(System.currentTimeMillis() + "", loadBitmapFromViewBySystem(webView));
+                    showShare(fileUrl);
+                }
+            },500);
+
         }
     }
 
