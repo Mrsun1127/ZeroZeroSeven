@@ -303,6 +303,9 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                     BaseAppApplication.mainHandler.post(new Runnable() {
                         @Override
                         public void run() {
+                            if(shangChangShowInfo.getData().isIsClosing()){
+                                ZeroZeroSevenUtils.showSleepPop(bfCxt,rl_no_select);
+                            }
                             runMoney = shangChangShowInfo.getData().getExtraFee();
                             storeId = shangChangShowInfo.getData().getId() + "";
                             requestShop();
