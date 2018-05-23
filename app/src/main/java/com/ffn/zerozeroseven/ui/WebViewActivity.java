@@ -35,6 +35,7 @@ public class WebViewActivity extends BaseActivity {
     WebView webView;
     @Bind(R.id.topView)
     TopView topView;
+    private Bitmap bit;
 
     @Override
     protected int setLayout() {
@@ -172,7 +173,8 @@ public class WebViewActivity extends BaseActivity {
             BaseAppApplication.mainHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    String fileUrl = ScreenUtils.saveMyBitmap(System.currentTimeMillis() + "", loadBitmapFromViewBySystem(webView));
+                    bit = loadBitmapFromViewBySystem(webView);
+                    String fileUrl = ScreenUtils.saveMyBitmap(System.currentTimeMillis() + "", bit);
                     showShare(fileUrl);
                 }
             },500);
@@ -183,6 +185,9 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(bit != null && !bit.isRecycled()) {
+            bit.recycle();
+        }
         webView.setWebChromeClient(null);
         webView.setWebViewClient(null);
         webView.getSettings().setJavaScriptEnabled(false);
