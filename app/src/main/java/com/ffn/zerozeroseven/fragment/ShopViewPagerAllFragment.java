@@ -306,6 +306,9 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                             if(shangChangShowInfo.getData().isIsClosing()){
                                 ZeroZeroSevenUtils.showSleepPop(bfCxt,rl_no_select);
                             }
+                            userInfo.setServicePhone(shangChangShowInfo.getData().getServicePhone());
+                            BaseAppApplication.getInstance().setLoginUser(userInfo);
+                            SharePrefUtils.saveObject(bfCxt,"userInfo",userInfo);
                             runMoney = shangChangShowInfo.getData().getExtraFee();
                             storeId = shangChangShowInfo.getData().getId() + "";
                             requestShop();

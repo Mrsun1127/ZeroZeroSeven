@@ -1,6 +1,14 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
+import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.PermissionChecker;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +74,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
     @Bind(R.id.tv_phone)
     TextView tv_phone;
     private String backType;
-    private boolean isAdd=false;
+    private boolean isAdd = false;
 
     @Override
     protected int setLayout() {
@@ -93,7 +101,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
                 if (shangChangShowInfo.getCode() == 0) {
                     storeId = shangChangShowInfo.getData().getId() + "";//商家Id
-                    tv_phone.setText("商家电话："+shangChangShowInfo.getData().getServicePhone());
+                    tv_phone.setText("商家电话：" + shangChangShowInfo.getData().getServicePhone());
                     if (shangChangShowInfo.getData().getExtraFee() != null) {
                         runMoney = shangChangShowInfo.getData().getExtraFee();
                     } else {
@@ -128,6 +136,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         iv_back.setOnClickListener(this);
         ib_lose.setOnClickListener(this);
         ib_add.setOnClickListener(this);
+        tv_phone.setOnClickListener(this);
         tv_addshopcar.setOnClickListener(this);
         goodsInfo = getIntent().getParcelableExtra("shopInfo");
         Glide.with(ShopDetilsActivity.this)
@@ -156,18 +165,54 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
     }
 
     int tvCount = 0;
-//    @Override
+
+    //    @Override
 //    public void onBackPressed() {
 //            HomeActivity.getmInstance().get().go2Fragment(1);
 //        LogUtils.D("backType","backType="+backType+"::是否添加购物车="+isAdd);
 //        finish();
 //    }
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE && PermissionChecker.checkSelfPermission(ShopDetilsActivity.this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            ToastUtils.showShort("授权成功,请重新拨打电话");
+        }
+    }
+    private void callPhone(String phoneNum) {
+        //直接拨号
+        Uri uri = Uri.parse("tel:" + phoneNum);
+        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+        //此处不判断就会报错
+        if (ActivityCompat.checkSelfPermission(ShopDetilsActivity.this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            startActivity(intent);
+        }
+    }
+    private final int REQUEST_CODE = 0x1001;
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tv_phone:
+                if (Build.VERSION.SDK_INT >= 23) {
+
+                    //判断有没有拨打电话权限
+                    if (PermissionChecker.checkSelfPermission(ShopDetilsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+
+                        //请求拨打电话权限
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CODE);
+
+                    } else {
+                        callPhone(userInfo.getServicePhone());
+                    }
+
+                } else {
+                    callPhone(userInfo.getServicePhone());
+                }
+                break;
             case R.id.iv_back:
 //                    HomeActivity.getmInstance().get().go2Fragment(1);
-                LogUtils.D("backType","backType="+backType+"::是否添加购物车="+isAdd);
+                LogUtils.D("backType", "backType=" + backType + "::是否添加购物车=" + isAdd);
                 finish();
                 break;
             case R.id.ib_add:
@@ -198,7 +243,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 badgeView.setBadgeNumber(tvCount);
                 break;
             case R.id.bt_pay:
-                if(tv_smallmoney.getText().toString().equals("加载中")){
+                if (tv_smallmoney.getText().toString().equals("加载中")) {
                     ToastUtils.showShort("亲，正在加载商品信息");
                     return;
                 }

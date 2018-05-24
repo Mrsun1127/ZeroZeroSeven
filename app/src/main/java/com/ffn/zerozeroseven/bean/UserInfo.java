@@ -78,6 +78,15 @@ public class UserInfo implements Serializable{
         private String schoolName;
         private String schoolId="943478288";
         private String dowmPoster;
+        private String servicePhone="0731-85315177";
+
+        public String getServicePhone() {
+            return servicePhone;
+        }
+
+        public void setServicePhone(String servicePhone) {
+            this.servicePhone = servicePhone;
+        }
 
         public String getDowmPoster() {
             return dowmPoster;

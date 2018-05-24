@@ -137,7 +137,7 @@ public class DingDanBobyActivity extends BaseActivity {
                     public void run() {
                         if (info.getCode() == 0) {
                             tv_time.setText("下单时间：" + info.getData().getOrder().getCreateTime());
-                            tv_endTime.setText("联系客服：0731-85315177");
+                            tv_endTime.setText("联系客服:"+userInfo.getServicePhone());
                             tv_staus.setText(info.getData().getOrder().getStatus() + "");
                             tv_allmoney.setText("共" + info.getData().getOrder().getTotalCount() + "个商品，合计¥：" + (info.getData().getOrder().getTotalPrice() + info.getData().getOrder().getExtraPrice()) + "（含跑腿费）¥" + info.getData().getOrder().getExtraPrice());
                             adapter.addAll(info.getData().getOrder().getDetails());
@@ -242,11 +242,11 @@ public class DingDanBobyActivity extends BaseActivity {
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CODE);
 
                     } else {
-                        callPhone(tv_phone.getText().toString());
+                        callPhone(userInfo.getServicePhone());
                     }
 
                 } else {
-                    callPhone(tv_phone.getText().toString());
+                    callPhone(userInfo.getServicePhone());
                 }
                 break;
             case R.id.tv_sug:
