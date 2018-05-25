@@ -254,6 +254,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 },1000);
             }
         });
+        scrollview.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                        ToastUtils.showShort("我滑动到底部了");
+                scrollview.scrollTo(0,1);
+            }
+        },500);
         banner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
             @Override
             public void onPageClick(View view, int position) {
