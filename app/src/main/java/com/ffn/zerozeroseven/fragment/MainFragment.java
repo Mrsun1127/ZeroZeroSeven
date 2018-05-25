@@ -217,7 +217,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     SmartScrollView scrollview;
 
 
-
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
@@ -249,18 +248,18 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     @Override
                     public void run() {
 //                        ToastUtils.showShort("我滑动到底部了");
-                        scrollview.scrollTo(0,1);
+                        scrollview.scrollTo(0, 1);
                     }
-                },1000);
+                }, 1000);
             }
         });
         scrollview.postDelayed(new Runnable() {
             @Override
             public void run() {
 //                        ToastUtils.showShort("我滑动到底部了");
-                scrollview.scrollTo(0,1);
+                scrollview.scrollTo(0, 1);
             }
-        },500);
+        }, 500);
         banner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
             @Override
             public void onPageClick(View view, int position) {
@@ -284,7 +283,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                         Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 8);
-                        Drawable drawable=new BitmapDrawable(getResources(), blurBitmap);
+                        Drawable drawable = new BitmapDrawable(getResources(), blurBitmap);
                         rl_top_bg.setBackground(drawable);
                     }
                 });
@@ -315,9 +314,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 if (Math.abs(yMove
                 ) < 1) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("clickType","singer");
-                    bundle.putInt("id",userLikeAdapter.getItem(position).getId());
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,BitisDetils.class,bundle);
+                    bundle.putString("clickType", "singer");
+                    bundle.putInt("id", userLikeAdapter.getItem(position).getId());
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, BitisDetils.class, bundle);
 
                 }
 
@@ -517,10 +516,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             }
             if (Math.abs(yMove
             ) < 1) {
-                LogUtils.D("touch","fasle");
+                LogUtils.D("touch", "fasle");
                 return false;
             } else {
-                LogUtils.D("touch","true");
+                LogUtils.D("touch", "true");
                 return true;
             }
         }
@@ -646,14 +645,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     }
 
 
-
-
-
-
-
-
-
-
     public void requestTime() {
         BaseAppApplication.mainHandler.post(new Runnable() {
             @Override
@@ -685,7 +676,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
             recyclerView.stop();
         }
-
 
 
     }
@@ -753,6 +743,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             }
         });
     }
+
     public void goToDetils(final int position, final HotTimeAdapter adapter) {
         RequeseGoods requeseGoods = new RequeseGoods();
         requeseGoods.setFunctionName("QueryGoods");
@@ -784,6 +775,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             }
         });
     }
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_main;
@@ -904,7 +896,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     }
 
 
-
     @Bind(R.id.tv_hot)
     TextView tv_hot;
     @Bind(R.id.tv_both)
@@ -960,12 +951,17 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             Glide.with(context).load(data).into(mImageView);
         }
     }
-@Bind(R.id.rl_top_bg)
-RelativeLayout rl_top_bg;
-    String upUrl="";
-    public String getUpurl(){
+
+    @Bind(R.id.rl_top_bg)
+    RelativeLayout rl_top_bg;
+    String upUrl = "";
+
+    public String getUpurl() {
         return upUrl;
-    };
+    }
+
+    ;
+
     private void requestBaner() {
         LunBoInfo lunBoInfo = new LunBoInfo();
         lunBoInfo.setFunctionName("ListAd");
@@ -987,7 +983,7 @@ RelativeLayout rl_top_bg;
                                 images.add(bannerInfo.getData().getList().get(i).getPicUrl());
                             } else if (bannerInfo.getData().getList().get(i).getType().equals("下拉广告")) {//下拉
                                 header.loadImage(bannerInfo.getData().getList().get(i).getPicUrl());
-                                upUrl=bannerInfo.getData().getList().get(i).getLink();
+                                upUrl = bannerInfo.getData().getList().get(i).getLink();
                             } else if (bannerInfo.getData().getList().get(i).getType().equals("启动广告")) {//启动
                                 userInfo.setDowmPoster(bannerInfo.getData().getList().get(i).getPicUrl());
                                 SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
@@ -1001,7 +997,7 @@ RelativeLayout rl_top_bg;
                             @Override
                             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                                 Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 8);
-                                Drawable drawable=new BitmapDrawable(getResources(), blurBitmap);
+                                Drawable drawable = new BitmapDrawable(getResources(), blurBitmap);
                                 rl_top_bg.setBackground(drawable);
                             }
                         });
@@ -1219,8 +1215,9 @@ RelativeLayout rl_top_bg;
     @Bind(R.id.tv_school)
     TextView tv_school;
     boolean open = true;
-@Bind(R.id.iv_guanggao)
-ImageView iv_guanggao;
+    @Bind(R.id.iv_guanggao)
+    ImageView iv_guanggao;
+
     @OnClick({R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
@@ -1251,16 +1248,16 @@ ImageView iv_guanggao;
                 break;
             case R.id.rl_local:
                 if (userInfo != null) {
-                    Bundle bundle3=new Bundle();
-                    bundle3.putString("url","http://www.lingling7.com/lingling7-res/app/dist/index.html#/");
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,WebViewActivity.class,bundle3);
+                    Bundle bundle3 = new Bundle();
+                    bundle3.putString("url", "http://www.lingling7.com/lingling7-res/app/dist/index.html#/");
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, WebViewActivity.class, bundle3);
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
                 }
                 break;
             case R.id.iv_guanggao:
-                if(!TextUtils.isEmpty(projectUrl)){
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,MrsunWebActivity.class);
+                if (!TextUtils.isEmpty(projectUrl)) {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class);
                 }
                 break;
             case R.id.tv_school:
