@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.ffn.zerozeroseven.view.TopView
+        android:id="@+id/topView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/integral_top" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/integral_back">
+
+                    <ImageView
+                        android:id="@+id/iv_center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/integral_text" />
+
+                    <Button
+                        android:id="@+id/bt_sign"
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/integral_left"
+                        android:text="签到领积分"
+                        android:textSize="9sp" />
+
+                    <Button
+                        android:id="@+id/bt_news"
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/integral_right"
+                        android:text="最新揭晓"
+                        android:textColor="#4E2300"
+                        android:textSize="9sp" />
+
+                    <View
+                        android:layout_width="35dp"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/iv_center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toRightOf="@+id/tv_center"
+                        android:background="@color/white" />
+
+                    <View
+                        android:layout_width="35dp"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/iv_center"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toLeftOf="@+id/tv_center"
+                        android:background="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/iv_center"
+                        android:layout_centerHorizontal="true"
+                        android:text="活动规则"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_rules"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_center"
+                        android:paddingLeft="55dp"
+                        android:paddingRight="55dp"
+                        android:text="1.活动规则活动规则活动规则活动规则\n\n2.活动规则活动规则活动规则活动规则\n\n3.活动规则活动规则活动规则活动规则活动规则"
+                        android:textColor="@color/white"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/iv_oneban"/>
+                </RelativeLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycleview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white" />
+            </LinearLayout>
+        </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

@@ -75,6 +75,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.SearchSchoolInfo;
 import com.ffn.zerozeroseven.ui.BitisDetils;
 import com.ffn.zerozeroseven.ui.HelpmeRunActivity;
 import com.ffn.zerozeroseven.ui.HomeActivity;
+import com.ffn.zerozeroseven.ui.IntegralDrawActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
 import com.ffn.zerozeroseven.ui.LookMoreRunActivity;
 import com.ffn.zerozeroseven.ui.MessAgeActivity;
@@ -1245,6 +1246,11 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 }
                 break;
             case R.id.rl_integer:
+                if (userInfo != null) {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, IntegralDrawActivity.class);
+                } else {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
+                }
                 break;
             case R.id.rl_local:
                 if (userInfo != null) {

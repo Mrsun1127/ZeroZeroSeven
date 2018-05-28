@@ -252,6 +252,7 @@
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.WebViewActivity" />
+        <activity android:name=".ui.IntegralDrawActivity" />
 
         <!-- Required SDK核心功能-->
         <service
