@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:paddingLeft="27dp"
-            android:text="还差" />
+            android:text="距离开奖还差" />
 
         <TextView
             android:textSize="10sp"
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/tv_left"
-            android:text="500000000"
+            android:text="50000000"
             android:textColor="#FC3835" />
 
         <TextView
