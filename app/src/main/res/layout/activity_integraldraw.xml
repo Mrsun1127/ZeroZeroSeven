@@ -103,17 +103,20 @@
 
 
                 </RelativeLayout>
+
                 <RelativeLayout
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white">
+
                     <ImageView
-                        android:layout_centerInParent="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/iv_oneban"/>
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/iv_oneban" />
                 </RelativeLayout>
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycleview"
                     android:layout_width="match_parent"
