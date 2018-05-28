@@ -51,12 +51,6 @@ public class IntegralDrawActivity extends BaseActivity {
                 finish();
             }
         });
-        recycleview.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return false;
-            }
-        });
         recycleview.setLayoutManager(new FullyGridLayoutManager(this, 2));
         recycleview.addItemDecoration(new GridSpacingItemDecoration(2, 10, false));
         adapter = new InteralAdapter(this);
