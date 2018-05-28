@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E6E6E6"
     android:orientation="vertical">
 
     <com.ffn.zerozeroseven.view.TopView
@@ -15,6 +16,7 @@
         android:background="@drawable/integral_top" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:focusableInTouchMode="true"
         android:id="@+id/refreshlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -118,10 +120,11 @@
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
+                    android:descendantFocusability="blocksDescendants"
                     android:id="@+id/recycleview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                     />
             </LinearLayout>
         </ScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -1,9 +1,18 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.ProgressBar;
+
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.adapter.InteralAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.ffn.zerozeroseven.view.TopView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -13,6 +22,11 @@ public class IntegralDrawActivity extends BaseActivity {
     SmartRefreshLayout refreshlayout;
     @Bind(R.id.topView)
     TopView topView;
+    @Bind(R.id.recycleview)
+    RecyclerView recycleview;
+
+    private InteralAdapter adapter;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_integraldraw;
@@ -33,11 +47,20 @@ public class IntegralDrawActivity extends BaseActivity {
                 finish();
             }
         });
-
+        recycleview.setLayoutManager(new GridLayoutManager(this, 2));
+        recycleview.addItemDecoration(new GridSpacingItemDecoration(2, 10, false));
+        adapter = new InteralAdapter(this);
+        recycleview.setAdapter(adapter);
     }
 
     @Override
     protected void doMain() {
-
+        List<String> s=new ArrayList<>();
+        s.add("1");
+        s.add("1");
+        s.add("1");
+        s.add("1");
+        s.add("1");
+        adapter.addAll(s);
     }
 }
