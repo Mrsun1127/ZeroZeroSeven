@@ -15,7 +15,7 @@
         android:layout_height="20dp"
         android:background="@drawable/integral_top" />
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+    <com.ffn.zerozeroseven.view.mainscroll.SmoothRefreshLayout
         android:focusableInTouchMode="true"
         android:id="@+id/refreshlayout"
         android:layout_width="match_parent"
@@ -125,7 +125,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                      />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/white"/>
             </LinearLayout>
         </ScrollView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.ffn.zerozeroseven.view.mainscroll.SmoothRefreshLayout>
 </LinearLayout>
