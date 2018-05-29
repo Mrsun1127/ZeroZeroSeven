@@ -80,13 +80,9 @@
                 android:id="@+id/ib_shopcar"
                 android:layout_width="59dp"
                 android:layout_height="59dp"
-                android:background="@drawable/redcircle" />
+                android:background="@drawable/shop_car" />
 
-            <ImageView
-                android:layout_width="29dp"
-                android:layout_height="26dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/car" />
+
         </RelativeLayout>
 
     </RelativeLayout>
