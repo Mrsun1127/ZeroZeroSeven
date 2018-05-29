@@ -1,135 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:addStatesFromChildren="true"
     android:background="#E6E6E6"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <com.ffn.zerozeroseven.view.TopView
-        android:id="@+id/topView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <ImageView
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="@drawable/integral_top" />
+        android:layout_height="wrap_content">
 
-    <com.ffn.zerozeroseven.view.mainscroll.SmoothRefreshLayout
-        android:focusableInTouchMode="true"
-        android:id="@+id/refreshlayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ScrollView
+        <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:theme="@style/AppBarOverlay"
+            app:contentScrim="@color/white"
+            app:expandedTitleMarginStart="10dp"
+            app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed">
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:scaleType="centerCrop"
+                android:src="@drawable/interal_banner_top"
+                app:layout_collapseParallaxMultiplier="1" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <com.ffn.zerozeroseven.view.mainscroll.SmoothRefreshLayout
+        android:id="@+id/refreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/integral_back">
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/iv_oneban" />
+            </RelativeLayout>
 
-                    <ImageView
-                        android:id="@+id/iv_center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/integral_text" />
-
-                    <Button
-                        android:id="@+id/bt_sign"
-                        android:layout_width="70dp"
-                        android:layout_height="25dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/integral_left"
-                        android:text="签到领积分"
-                        android:textSize="9sp" />
-
-                    <Button
-                        android:id="@+id/bt_news"
-                        android:layout_width="70dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/integral_right"
-                        android:text="最新揭晓"
-                        android:textColor="#4E2300"
-                        android:textSize="9sp" />
-
-                    <View
-                        android:layout_width="35dp"
-                        android:layout_height="1dp"
-                        android:layout_below="@+id/iv_center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_toRightOf="@+id/tv_center"
-                        android:background="@color/white" />
-
-                    <View
-                        android:layout_width="35dp"
-                        android:layout_height="1dp"
-                        android:layout_below="@+id/iv_center"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_toLeftOf="@+id/tv_center"
-                        android:background="@color/white" />
-
-                    <TextView
-                        android:id="@+id/tv_center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/iv_center"
-                        android:layout_centerHorizontal="true"
-                        android:text="活动规则"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/tv_rules"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_center"
-                        android:paddingLeft="55dp"
-                        android:paddingRight="55dp"
-                        android:text="1.活动规则活动规则活动规则活动规则\n\n2.活动规则活动规则活动规则活动规则\n\n3.活动规则活动规则活动规则活动规则活动规则"
-                        android:textColor="@color/white"
-                        android:textSize="11sp" />
-
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/iv_oneban" />
-                </RelativeLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:descendantFocusability="blocksDescendants"
-                    android:id="@+id/recycleview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                     />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:background="@color/white"/>
-            </LinearLayout>
-        </ScrollView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants" />
+        </LinearLayout>
     </com.ffn.zerozeroseven.view.mainscroll.SmoothRefreshLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
