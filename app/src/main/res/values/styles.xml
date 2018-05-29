@@ -15,6 +15,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
     </style>
     <!--通用弹窗-->
     <style name="Dialog" parent="android:style/Theme.Dialog">
@@ -67,4 +68,20 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat"/>
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar"> <item name="actionMenuTextColor">@color/black</item> <!-- 敲定颜色--> <item name="android:textSize">11sp</item> <!-- 搞掂字体大小--> </style>
+    <style name="OverflowMenuStyle" parent="@style/Widget.AppCompat.PopupMenu.Overflow">
+        <!-- 是否覆盖锚点，默认为true，即盖住Toolbar -->
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownWidth">wrap_content</item>
+        <item name="android:paddingRight">5dp</item>
+        <!-- 弹出层背景颜色 -->
+        <item name="android:popupBackground">@color/white</item>
+        <!-- 弹出层垂直方向上的偏移，即在竖直方向上距离Toolbar的距离，值为负则会盖住Toolbar -->
+        <item name="android:dropDownVerticalOffset">5dp</item>
+        <!-- 弹出层水平方向上的偏移，即距离屏幕左边的距离，负值会导致右边出现空隙 -->
+        <item name="android:dropDownHorizontalOffset">0dp</item>
+        <!-- 设置弹出菜单文字颜色 -->
+        <item name="android:textColor">@color/black</item>
+        <item name="android:width">90dp</item>
+    </style>
 </resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/more"
+        android:title="签到"
+        app:showAsAction="ifRoom">
+        <!-- item包含menu表示该menu是item下的子菜单 -->
+        <menu>
+            <!-- 将group中的菜单项放于一个组里面 -->
+            <group>
+                <item
+                    android:id="@+id/qiandao"
+                    android:title="签到"
+                    app:showAsAction="ifRoom" />
+                <item
+                    android:id="@+id/minesigh"
+                    android:title="我的中奖"
+                    app:showAsAction="ifRoom" />
+
+            </group>
+        </menu>
+    </item>
+</menu>
