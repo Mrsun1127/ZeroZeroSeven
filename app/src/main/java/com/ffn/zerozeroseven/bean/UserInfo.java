@@ -79,6 +79,15 @@ public class UserInfo implements Serializable{
         private String schoolId="943478288";
         private String dowmPoster;
         private String servicePhone="0731-85315177";
+        private boolean isLoginCouris;
+
+        public boolean isLoginCouris() {
+            return isLoginCouris;
+        }
+
+        public void setLoginCouris(boolean loginCouris) {
+            isLoginCouris = loginCouris;
+        }
 
         public String getServicePhone() {
             return servicePhone;
