@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.ffn.zerozeroseven.view.TopView
+        android:id="@+id/topView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_allinteral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="共1个宝贝 总计： 120积分"
+            android:textColor="@color/text_show_color" />
+
+        <Button
+            android:id="@+id/bt_gobuy"
+            android:layout_width="54dp"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="23dp"
+            android:background="@drawable/interalred"
+            android:text="贡献"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="158dp"
+        android:layout_below="@+id/topView"
+        android:layout_marginTop="5dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="21dp"
+            android:background="@drawable/willdelete" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="19dp"
+            android:layout_marginRight="38dp"
+            android:layout_marginTop="23dp"
+            android:layout_toRightOf="@+id/iv_product"
+            android:text="OPPO R11s星幕新年版移动联通电信4G手机移动联通电信4G手机"
+            android:textColor="@color/text_show_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_needinteral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_product"
+            android:layout_marginLeft="19dp"
+            android:layout_toRightOf="@+id/iv_product"
+            android:text="总需5000积分"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/tv_closeinteral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_product"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="38dp"
+            android:text="还差520积分"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/tv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_product"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="24dp"
+            android:layout_toRightOf="@+id/iv_product"
+            android:text="贡献积分"
+            android:textColor="@color/text_show_color"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_buy"
+            android:layout_width="97dp"
+            android:layout_height="31dp"
+            android:layout_below="@+id/iv_product"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/tv_left"
+            android:background="#F3F3F3"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_add"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:src="@drawable/interaladd" />
+            </RelativeLayout>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/et_count"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="88" />
+
+            <RelativeLayout
+                android:id="@+id/rl_close"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:src="@drawable/interal_close" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_baowei"
+            android:layout_width="50dp"
+            android:layout_height="22dp"
+            android:layout_alignBottom="@id/ll_buy"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/interalred"
+            android:text="包尾"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

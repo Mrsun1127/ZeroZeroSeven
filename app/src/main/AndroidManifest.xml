@@ -253,6 +253,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.WebViewActivity" />
         <activity android:name=".ui.IntegralDrawActivity" />
+        <activity android:name=".ui.InteralDetilsActivity" />
 
         <!-- Required SDK核心功能-->
         <service

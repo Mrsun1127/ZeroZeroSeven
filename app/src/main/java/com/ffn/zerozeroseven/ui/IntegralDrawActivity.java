@@ -10,7 +10,9 @@ import android.view.View;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.InteralAdapter;
 import com.ffn.zerozeroseven.base.BaseFullActivity;
+import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyGridLayoutManager;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.ffn.zerozeroseven.view.mainscroll.SmoothRefreshLayout;
@@ -67,6 +69,12 @@ public class IntegralDrawActivity extends BaseFullActivity {
         recycleview.addItemDecoration(new GridSpacingItemDecoration(2, 10, false));
         adapter = new InteralAdapter(this);
         recycleview.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                ZeroZeroSevenUtils.SwitchActivity(IntegralDrawActivity.this,InteralDetilsActivity.class);
+            }
+        });
     }
 
     @Override
