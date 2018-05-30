@@ -1247,16 +1247,24 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 break;
             case R.id.rl_integer:
                 if (userInfo != null) {
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, IntegralDrawActivity.class);
+                    if ("943478288".equals(schoolIId)) {
+                        ToastUtils.showShort("请先选择学校");
+                    } else {
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, IntegralDrawActivity.class);
+                    }
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
                 }
                 break;
             case R.id.rl_local:
                 if (userInfo != null) {
-                    Bundle bundle3 = new Bundle();
-                    bundle3.putString("url", "http://www.lingling7.com/lingling7-res/app/dist/index.html#/");
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, WebViewActivity.class, bundle3);
+                    if ("943478288".equals(schoolIId)) {
+                        ToastUtils.showShort("请先选择学校");
+                    } else {
+                        Bundle bundle3 = new Bundle();
+                        bundle3.putString("url", "http://www.lingling7.com/lingling7-res/app/dist/index.html#/");
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, WebViewActivity.class, bundle3);
+                    }
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
                 }
