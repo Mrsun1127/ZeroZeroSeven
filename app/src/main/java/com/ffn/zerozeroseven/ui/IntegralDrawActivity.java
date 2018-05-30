@@ -72,7 +72,7 @@ public class IntegralDrawActivity extends BaseFullActivity {
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                ZeroZeroSevenUtils.SwitchActivity(IntegralDrawActivity.this,InteralDetilsActivity.class);
+                ZeroZeroSevenUtils.SwitchActivity(IntegralDrawActivity.this,ProductDetilsActivity.class);
             }
         });
     }
