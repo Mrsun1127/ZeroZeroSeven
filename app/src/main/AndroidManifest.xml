@@ -254,6 +254,7 @@
         <activity android:name=".ui.WebViewActivity" />
         <activity android:name=".ui.IntegralDrawActivity" />
         <activity android:name=".ui.InteralDetilsActivity" />
+        <activity android:name=".ui.ProductDetilsActivity" />
 
         <!-- Required SDK核心功能-->
         <service

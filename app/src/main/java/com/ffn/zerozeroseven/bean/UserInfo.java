@@ -80,6 +80,15 @@ public class UserInfo implements Serializable{
         private String dowmPoster;
         private String servicePhone="0731-85315177";
         private boolean isLoginCouris;
+        private String curisInfoJson;
+
+        public String getCurisInfoJson() {
+            return curisInfoJson;
+        }
+
+        public void setCurisInfoJson(String curisInfoJson) {
+            this.curisInfoJson = curisInfoJson;
+        }
 
         public boolean isLoginCouris() {
             return isLoginCouris;
