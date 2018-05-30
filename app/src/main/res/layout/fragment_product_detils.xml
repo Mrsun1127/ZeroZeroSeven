@@ -160,7 +160,11 @@
             android:id="@+id/rc_allgoin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="37dp" />
     </LinearLayout>
+
 </android.support.v4.widget.NestedScrollView>
     <Button
         android:id="@+id/bt_go"
