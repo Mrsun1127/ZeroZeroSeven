@@ -50,6 +50,7 @@ public class ProductDetilsActivity extends BaseActivity {
                 finish();
             }
         });
+        viewPager.setOffscreenPageLimit(4);
     }
 
     @Override

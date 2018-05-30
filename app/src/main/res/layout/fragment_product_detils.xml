@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<com.ffn.zerozeroseven.view.UserDefineScrollView
+<android.support.v4.widget.NestedScrollView
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -134,8 +135,10 @@
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:descendantFocusability="blocksDescendants"
+            android:id="@+id/rc_minegoin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -153,10 +156,12 @@
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:descendantFocusability="blocksDescendants"
+            android:id="@+id/rc_allgoin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
-</com.ffn.zerozeroseven.view.UserDefineScrollView>
+</android.support.v4.widget.NestedScrollView>
     <Button
         android:id="@+id/bt_go"
         android:layout_gravity="bottom"

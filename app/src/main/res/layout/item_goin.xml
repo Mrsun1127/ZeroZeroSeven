@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="39dp"
+        android:background="@drawable/courier_selfie" />
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iv_icon"
+        android:layout_marginLeft="29dp"
+        android:layout_toRightOf="@+id/iv_icon"
+        android:text="188****8888"
+        android:textColor="#0080FE"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_phone"
+        android:layout_marginLeft="29dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/iv_icon"
+        android:text="贡献了520积分"
+        android:textColor="@color/text_show_color" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_count"
+        android:layout_marginLeft="29dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/iv_icon"
+        android:text="2018-05-18 10:19:47" />
+
+    <TextView
+        android:textColor="@color/text_show_color"
+        android:id="@+id/tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_phone"
+        android:layout_marginLeft="29dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/tv_count"
+        android:text="积分号码：9859-10006"
+        android:textSize="11sp" />
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/tv_time"
+        android:background="#D1D1D1"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"/>
+</RelativeLayout>
