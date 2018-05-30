@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ffn.zerozeroseven.view.UserDefineScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/willdelete"
+                android:layout_marginTop="27dp"
+                android:layout_width="137dp"
+                android:layout_height="158dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </RelativeLayout>
+    </LinearLayout>
+</com.ffn.zerozeroseven.view.UserDefineScrollView>

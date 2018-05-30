@@ -10,6 +10,7 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.CuriousInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RenZhenInfo;
 import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
+import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 import java.io.IOException;
@@ -85,7 +86,9 @@ public class KuaiDiYuanRenZhengActivity extends BaseActivity implements View.OnC
                     @Override
                     public void run() {
                         if (info.getCode() == 0) {
-                            MrsunAppCacheUtils.get(KuaiDiYuanRenZhengActivity.this).put("curInfo", JSON.toJSONString(info));
+                            userInfo.setLoginCouris(true);
+                            userInfo.setCurisInfoJson(JSON.toJSONString(info));
+                            SharePrefUtils.saveObject(KuaiDiYuanRenZhengActivity.this,"userInfo",userInfo);
                             ZeroZeroSevenUtils.SwitchActivity(KuaiDiYuanRenZhengActivity.this, CourierActivity.class, null);
                             finish();
                         } else {

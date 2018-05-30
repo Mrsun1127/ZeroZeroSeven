@@ -50,7 +50,7 @@ public class CourierActivity extends BaseActivity {
     @Override
     public void initView() {
         BaseAppApplication.getInstance().addActivity(this);
-        json = MrsunAppCacheUtils.get(CourierActivity.this).getAsString("curInfo");
+        json = userInfo.getCurisInfoJson();
         curiousInfo = JSON.parseObject(json, CuriousInfo.class);
         tv_place = findViewById(R.id.tv_place);
         tv_name = findViewById(R.id.tv_name);
