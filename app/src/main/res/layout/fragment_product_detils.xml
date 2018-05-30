@@ -1,22 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ffn.zerozeroseven.view.UserDefineScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<com.ffn.zerozeroseven.view.UserDefineScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
-            <ImageView
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/willdelete"
-                android:layout_marginTop="27dp"
-                android:layout_width="137dp"
-                android:layout_height="158dp" />
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="137dp"
+            android:layout_height="158dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="27dp"
+            android:background="@drawable/willdelete" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:layout_marginTop="23dp">
+
+            <Button
+                android:id="@+id/bt_status"
+                android:layout_width="57dp"
+                android:layout_height="22dp"
+                android:background="@drawable/interalred"
+                android:text="进行中"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/bt_status"
+                android:text="【第169期】OPPO R11s星幕新年版移动联通电信4G手机移动联通电信4G"
+                android:textColor="@color/text_show_color"
+                android:textSize="13sp" />
+
+            <ProgressBar
+                android:id="@+id/pb_watch"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:id="@+id/tv_need"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pb_watch"
+                android:layout_marginTop="5dp"
+                android:text="总需 450"
+                android:textSize="9sp" />
+
+            <TextView
+                android:id="@+id/tv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/pb_watch"
+                android:layout_marginTop="5dp"
+                android:text="还差450"
+                android:textSize="9sp" />
+
 
         </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginTop="13dp"
+            android:background="#D1D1D1" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp">
+
+            <TextView
+                android:id="@+id/tv_lleft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="价值" />
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/tv_lleft"
+                android:text="￥5000"
+                android:textColor="#FE0000" />
+
+            <TextView
+                android:id="@+id/tv_detils"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_lleft"
+                android:layout_marginTop="8dp"
+                android:text="描述：凭质保证书及京东商城发票，可享受全国联保服务（奢侈品、钟表除外；奢侈品钟表由京东联系保修，享受法定三包售后服务），与您亲临商场选购的商品享受相同的质量保证。京东商城还为您提供具有竞争力的商品价格和运费政策，请您放心购买！"
+                android:textSize="11sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginTop="13dp"
+            android:background="#D1D1D1" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:background="#F3F3F3">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="23dp"
+                android:text="我的参与"
+                android:textColor="@color/text_show_color"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:background="#F3F3F3">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="23dp"
+                android:text="全部参与记录"
+                android:textColor="@color/text_show_color"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </com.ffn.zerozeroseven.view.UserDefineScrollView>
+    <Button
+        android:id="@+id/bt_go"
+        android:layout_gravity="bottom"
+        android:textSize="13sp"
+        android:textColor="@color/white"
+        android:text="立即参与"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:background="#FE0000"/>
+</FrameLayout>
