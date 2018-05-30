@@ -183,8 +183,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.rl_history:
                 if (userInfo != null) {
-                    String json = MrsunAppCacheUtils.get(bfCxt).getAsString("curInfo");
-                    if (json != null) {
+                    if (userInfo.isLoginCouris()) {
                         ZeroZeroSevenUtils.SwitchActivity(bfCxt, CourierActivity.class, null);
                     } else {
                         ZeroZeroSevenUtils.SwitchActivity(bfCxt, KuaiDiYuanRenZhengActivity.class, null);
