@@ -64,9 +64,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_left"
             android:layout_marginLeft="27dp"
-            android:max="100" />
+             />
 
         <TextView
+            android:id="@+id/tv_progress"
             android:textSize="10sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

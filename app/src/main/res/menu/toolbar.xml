@@ -14,6 +14,10 @@
                     android:title="签到"
                     app:showAsAction="ifRoom" />
                 <item
+                    android:id="@+id/rencently"
+                    android:title="最新揭晓"
+                    app:showAsAction="ifRoom" />
+                <item
                     android:id="@+id/minesigh"
                     android:title="我的中奖"
                     app:showAsAction="ifRoom" />

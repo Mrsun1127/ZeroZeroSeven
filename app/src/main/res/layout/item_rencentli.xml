@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <ImageView
+        android:layout_marginTop="25dp"
+        android:id="@+id/iv_product"
+        android:layout_marginLeft="30dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/willdelete"
+        android:layout_width="77dp"
+        android:layout_height="89dp" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:textSize="11sp"
+        android:textColor="@color/text_show_color"
+        android:text="【第126期】OPPO R11s星幕新年版移动联通电信4G手机移动联通电信4G"
+        android:layout_toRightOf="@+id/iv_product"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iv_product"/>
+    <ImageView
+        android:id="@+id/iv_left"
+        android:layout_toRightOf="@+id/iv_product"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/tv_name"
+        android:layout_width="14dp"
+        android:layout_height="16dp"
+        android:background="@drawable/daojishi"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_toRightOf="@+id/iv_left"
+            android:layout_marginTop="11dp"
+            android:textColor="#FE0000"
+            android:text="马上开奖"
+            android:textSize="11sp"
+            android:layout_marginLeft="9dp"/>
+    <TextView
+        android:textColor="#FE0000"
+        android:text="5:00 49s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_left"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/iv_product"
+        android:layout_marginLeft="37dp"/>
+</RelativeLayout>

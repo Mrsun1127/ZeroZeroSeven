@@ -255,6 +255,7 @@
         <activity android:name=".ui.IntegralDrawActivity" />
         <activity android:name=".ui.InteralDetilsActivity" />
         <activity android:name=".ui.ProductDetilsActivity" />
+        <activity android:name=".ui.RencentlyInteralACtivity" />
 
         <!-- Required SDK核心功能-->
         <service

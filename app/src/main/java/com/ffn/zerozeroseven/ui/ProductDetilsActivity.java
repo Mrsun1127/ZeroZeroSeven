@@ -56,10 +56,10 @@ public class ProductDetilsActivity extends BaseActivity {
     @Override
     protected void doMain() {
         titleList = new ArrayList<>();
-        titleList.add("161期");
-        titleList.add("162期");
-        titleList.add("163期");
         titleList.add("164期");
+        titleList.add("163期");
+        titleList.add("162期");
+        titleList.add("161期");
         fragmentList = new ArrayList<>();
         fragmentList.add(new ProductDetilsFragment());
         fragmentList.add(new ProductDetilsFragment());

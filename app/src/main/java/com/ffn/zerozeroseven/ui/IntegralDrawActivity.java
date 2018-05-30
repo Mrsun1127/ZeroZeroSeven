@@ -7,10 +7,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.InteralAdapter;
 import com.ffn.zerozeroseven.base.BaseFullActivity;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.base.RgRefreshStatus;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
+import com.ffn.zerozeroseven.bean.JiangChiInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.InteraglSignInfo;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyGridLayoutManager;
@@ -33,7 +39,7 @@ public class IntegralDrawActivity extends BaseFullActivity {
     Toolbar toolbar;
     @Bind(R.id.colllayout)
     CollapsingToolbarLayout colllayout;
-
+    private RgRefreshStatus rgRefreshStatus = RgRefreshStatus.IDLE;
     @Override
     protected int setLayout() {
         return R.layout.activity_integraldraw;
@@ -57,8 +63,13 @@ public class IntegralDrawActivity extends BaseFullActivity {
                     case R.id.more:
                         break;
                     case R.id.minesigh:
+
                         break;
                     case R.id.qiandao:
+                        sign();
+                        break;
+                    case R.id.rencently:
+                        ZeroZeroSevenUtils.SwitchActivity(IntegralDrawActivity.this,RencentlyInteralACtivity.class);
                         break;
                 }
                 return true;    //返回为true
@@ -72,7 +83,28 @@ public class IntegralDrawActivity extends BaseFullActivity {
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                ZeroZeroSevenUtils.SwitchActivity(IntegralDrawActivity.this,ProductDetilsActivity.class);
+                ZeroZeroSevenUtils.SwitchActivity(IntegralDrawActivity.this, ProductDetilsActivity.class);
+            }
+        });
+    }
+
+    private void sign() {
+        InteraglSignInfo signInfo = new InteraglSignInfo();
+        signInfo.setFunctionName("AddUserSignInPoint");
+        InteraglSignInfo.ParametersBean parametersBean = new InteraglSignInfo.ParametersBean();
+        parametersBean.setUserId(userId);
+        signInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
+        okGoUtils.httpPostJSON(signInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo codeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (codeInfo.getCode() == 0) {
+                    ToastUtils.showShort(codeInfo.getMessage());
+                }else{
+                    ToastUtils.showShort(codeInfo.getMessage());
+                }
             }
         });
     }
@@ -85,19 +117,24 @@ public class IntegralDrawActivity extends BaseFullActivity {
 
     @Override
     protected void doMain() {
-        List<String> s = new ArrayList<>();
-        s.add("1");
-        s.add("1");
-        s.add("1");
-        s.add("1");
-        s.add("1");
-        s.add("1");
-        s.add("1");
-        s.add("1");
-        s.add("1");
-        s.add("1");
-        s.add("1");
-        s.add("1");
-        adapter.addAll(s);
+        requestData();
+    }
+
+    private void requestData() {
+        InteraglSignInfo interaglSignInfo=new InteraglSignInfo();
+        interaglSignInfo.setFunctionName("ListPointJackpotPrize");
+        OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
+        okGoUtils.httpPostJSON(interaglSignInfo,true,false);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                JiangChiInfo jiangChiInfo = JSON.parseObject(response,JiangChiInfo.class);
+                if(jiangChiInfo.getCode()==0){
+                    adapter.addAll(jiangChiInfo.getData().getJackpotPrizes());
+                }else{
+                    ToastUtils.showShort("奖池暂无信息");
+                }
+            }
+        });
     }
 }
