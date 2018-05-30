@@ -32,7 +32,7 @@
             android:layout_marginRight="11dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_search_corner20px"
-            android:queryHint="请输入搜索内容"></android.support.v7.widget.SearchView>
+            android:queryHint="请输入搜索内容"/>
 
 
     </RelativeLayout>
@@ -44,7 +44,7 @@
         android:background="@color/white"
         app:tabIndicatorColor="@color/tab_under_line"
         app:tabSelectedTextColor="@color/text_show_color"
-        app:tabTextColor="@color/line_color"></android.support.design.widget.TabLayout>
+        app:tabTextColor="@color/line_color"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -66,7 +66,7 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+            android:layout_height="match_parent"/>
 
         <RelativeLayout
             android:layout_width="59dp"
