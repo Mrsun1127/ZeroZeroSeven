@@ -27,7 +27,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/welcome_bt_bg"
         android:text="马上进入"
         android:textColor="@color/tab_color"
