@@ -123,6 +123,8 @@ dependencies {
     //拦截闪退
     //    compile 'com.xujinyang.BiuEditText:library:1.4.1' //一个带有动画的EditText
     compile 'com.contrarywind:Android-PickerView:3.2.7'
+    //自动滚动的TextView
+    compile 'com.github.paradoxie:AutoVerticalTextview:0.1'
     //时间选择器
     //    compile 'com.stone.vega.library:VegaLayoutManager:1.0.6'//RecycleView的设置
     //    compile 'com.youth.banner:banner:1.4.10'  //最新版本

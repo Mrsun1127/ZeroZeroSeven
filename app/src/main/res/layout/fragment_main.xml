@@ -176,7 +176,7 @@
                         android:padding="5dp"
                         android:src="@drawable/main_laba" />
 
-                    <com.ffn.zerozeroseven.view.AutoVerticalScrollTextView
+                    <com.paradoxie.autoscrolltextview.VerticalTextview
                         android:paddingTop="5dp"
                         android:paddingLeft="10dp"
                         android:id="@+id/scrollTextView"

@@ -62,8 +62,8 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
         });
         // 设置引导图片
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  仅需在这设置图片 指示器和page自动添加
-        images = new int[]{R.drawable.leadone, R.drawable.leadtwo,
-                R.drawable.leadthree};
+        images = new int[]{R.drawable.lead_one, R.drawable.lead_two,
+                R.drawable.lead_three};
         initData();
         requestSomePermission();
     }

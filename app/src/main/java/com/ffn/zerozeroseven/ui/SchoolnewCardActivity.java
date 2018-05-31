@@ -572,16 +572,16 @@ public class SchoolnewCardActivity extends BaseActivity implements SwipeFlingAda
             }else{
                 Glide.with(SchoolnewCardActivity.this).load(R.drawable.heart_solid).into(holder.iv_like);
             }
-            if(talent.postType.equals("01")){
-                Glide.with(SchoolnewCardActivity.this).load(R.drawable.topic_romance_bg).into(holder.iv_type);
-            }else if("02".equals(talent.postType)){
-                Glide.with(SchoolnewCardActivity.this).load(R.drawable.topic_tech_bg).into(holder.iv_type);
-            }else if("03".equals(talent.postType)){
-                Glide.with(SchoolnewCardActivity.this).load(R.drawable.topic_lostnfound_bg).into(holder.iv_type);
-            }else if("04".equals(talent.postType)){
-                Glide.with(SchoolnewCardActivity.this).load(R.drawable.topic_friends_bg).into(holder.iv_type);
-
-            }
+//            if(talent.postType.equals("01")){
+//                Glide.with(SchoolnewCardActivity.this).load(R.drawable.topic_romance_bg).into(holder.iv_type);
+//            }else if("02".equals(talent.postType)){
+//                Glide.with(SchoolnewCardActivity.this).load(R.drawable.topic_tech_bg).into(holder.iv_type);
+//            }else if("03".equals(talent.postType)){
+//                Glide.with(SchoolnewCardActivity.this).load(R.drawable.topic_lostnfound_bg).into(holder.iv_type);
+//            }else if("04".equals(talent.postType)){
+//                Glide.with(SchoolnewCardActivity.this).load(R.drawable.topic_friends_bg).into(holder.iv_type);
+//
+//            }
             holder.ll_share.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

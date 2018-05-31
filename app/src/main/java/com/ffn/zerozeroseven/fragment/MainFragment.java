@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -61,6 +62,7 @@ import com.ffn.zerozeroseven.bean.HotInfo;
 import com.ffn.zerozeroseven.bean.LunBoOkInfo;
 import com.ffn.zerozeroseven.bean.QiangDanOkInfo;
 import com.ffn.zerozeroseven.bean.RunListRquestInfo;
+import com.ffn.zerozeroseven.bean.TongzhiInfo;
 import com.ffn.zerozeroseven.bean.UserLikeInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AppUpdateInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.BestNewShowInfo;
@@ -72,6 +74,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.PoppurlarListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.QiangRunRequsetInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RequeseGoods;
 import com.ffn.zerozeroseven.bean.requsetbean.SearchSchoolInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.TongZhiShowInfo;
 import com.ffn.zerozeroseven.ui.BitisDetils;
 import com.ffn.zerozeroseven.ui.HelpmeRunActivity;
 import com.ffn.zerozeroseven.ui.HomeActivity;
@@ -101,6 +104,7 @@ import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.mainscroll.CustomTwoLevelHeader;
 import com.ffn.zerozeroseven.view.mainscroll.TwoLevelRefreshingListenerAdapter;
 import com.ffn.zerozeroseven.view.mainscroll.TwoLevelSmoothRefreshLayout;
+import com.paradoxie.autoscrolltextview.VerticalTextview;
 import com.yanzhenjie.permission.AndPermission;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
@@ -157,7 +161,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Bind(R.id.rl_lookmore)
     RelativeLayout rl_lookmore;
     @Bind(R.id.scrollTextView)
-    AutoVerticalScrollTextView scrollTextView;
+    VerticalTextview scrollTextView;
     @Bind(R.id.refreshlayout)
     public TwoLevelSmoothRefreshLayout mRefreshLayout;
     private RunListAdapter runListAdapter;
@@ -175,35 +179,46 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private WebBannerAdapter bannerAdapter;
     private CustomTwoLevelHeader header;
     private String projectUrl;
+    private TongzhiInfo tongzhiInfo;
 
     public RunListRquestInfo.DataBean.ListBean getRunlist(int poition) {
         return runListRquestInfo.getData().getList().get(poition);
     }
 
+    ArrayList<String> titles;
 
     private void initHeadView() {
-        LunXunInfo lunXunInfo = new LunXunInfo();
-        lunXunInfo.setFunctionName("ListSchoolFreeOrder");
-        LunXunInfo.ParametersBean parametersBean = new LunXunInfo.ParametersBean();
-        parametersBean.setSchoolId(schoolIId);
-        lunXunInfo.setParameters(parametersBean);
+        TongZhiShowInfo lunXunInfo = new TongZhiShowInfo();
+        lunXunInfo.setFunctionName("ListPushLetters");
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(lunXunInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                final LunBoOkInfo lunBoOkInfo = JSON.parseObject(response, LunBoOkInfo.class);
-                if (lunBoOkInfo.getCode() == 0) {
-                    stringss = null;
-                    stringss = new String[lunBoOkInfo.getData().getList().size()];
-                    for (int i = 0; i < lunBoOkInfo.getData().getList().size(); i++) {
-                        stringss[i] = "恭喜" + ZeroZeroSevenUtils.phoneClose(lunBoOkInfo.getData().getList().get(i).getPhone()) + "用户获得了一次免单机会";
+                tongzhiInfo = JSON.parseObject(response, TongzhiInfo.class);
+                if (tongzhiInfo.getCode() == 0) {
+                    if (tongzhiInfo.getData().getList().size() > 0) {
+                        titles = new ArrayList<>();
+                        for (int i = 0; i < tongzhiInfo.getData().getList().size(); i++) {
+                            titles.add(tongzhiInfo.getData().getList().get(i).getTitle());
+                        }
+                        scrollTextView.setTextList(titles);
+                        scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
+                        scrollTextView.setTextStillTime(3000);//设置停留时长间隔
+                        scrollTextView.setAnimTime(300);
+                        scrollTextView.startAutoScroll();
                     }
-                    if (stringss.length > 0) {
-                        scrollTextView.setText(stringss[stringss.length - 1]);
+                    else {
+                        titles = new ArrayList<>();
+                        titles.add("欢迎使用零零7");
+                        scrollTextView.setTextList(titles);
+                        scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
+                        scrollTextView.setTextStillTime(3000);//设置停留时长间隔
+                        scrollTextView.setAnimTime(300);
+                        scrollTextView.startAutoScroll();
                     }
-                }
 
+                }
             }
         });
 
@@ -268,6 +283,16 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 bundle.putString("url", bannerInfo.getData().getList().get(position).getLink());
                 bundle.putString("title", bannerInfo.getData().getList().get(position).getTitle());
                 if (!TextUtils.isEmpty(bannerInfo.getData().getList().get(position).getLink())) {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class, bundle);
+                }
+            }
+        });
+        scrollTextView.setOnItemClickListener(new VerticalTextview.OnItemClickListener() {
+            @Override
+            public void onItemClick(int i) {
+                if (!TextUtils.isEmpty(tongzhiInfo.getData().getList().get(i).getLink())) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("url", tongzhiInfo.getData().getList().get(i).getLink());
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class, bundle);
                 }
             }
@@ -673,6 +698,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onPause() {
         super.onPause();
+        if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
+            scrollTextView.stopAutoScroll();
+        }
         banner.pause();//暂停轮播
         if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
             recyclerView.stop();
@@ -1334,6 +1362,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     public void onResume() {
         super.onResume();
         banner.start();//开始轮播
+        if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
+            scrollTextView.startAutoScroll();
+        }
         if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
             recyclerView.start();
         }

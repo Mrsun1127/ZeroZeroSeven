@@ -138,19 +138,19 @@ public class SinggerSchoolTalkActivity extends BaseActivity {
                             switch (data.getPostType()) {
                                 case "01":
                                     titleView.setTopText("表白帖");
-                                    Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.topic_romance_bg).into(iv_type);
+//                                    Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.topic_romance_bg).into(iv_type);
                                     break;
                                 case "02":
                                     titleView.setTopText("技术帖");
-                                    Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.topic_tech_bg).into(iv_type);
+//                                    Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.topic_tech_bg).into(iv_type);
                                     break;
                                 case "03":
                                     titleView.setTopText("寻物帖");
-                                    Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.topic_lostnfound_bg).into(iv_type);
+//                                    Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.topic_lostnfound_bg).into(iv_type);
                                     break;
                                 case "04":
                                     titleView.setTopText("交友帖");
-                                    Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.topic_friends_bg).into(iv_type);
+//                                    Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.topic_friends_bg).into(iv_type);
                                     break;
                             }
                         }
