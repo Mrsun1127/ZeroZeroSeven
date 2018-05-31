@@ -14,15 +14,16 @@
          />
 
     <TextView
+        android:gravity="center|left"
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_below="@+id/iv_icon"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="9dp"
         android:text="提前拜个早年之说啥套餐"
         android:textColor="@color/text_show_color"
-        android:textSize="11sp" />
+        android:textSize="10sp" />
 
 
 
