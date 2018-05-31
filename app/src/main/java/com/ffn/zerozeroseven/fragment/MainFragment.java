@@ -1187,9 +1187,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         if (userLikeInfo.getData().getPosts().size() > 0) {
                             haveData = 2;
                             userLikeAdapter.addAll(userLikeInfo.getData().getPosts());
-                            if (userLikeInfo.getData().getPosts().size() > 3) {
-                                recyclerView.start();
-                            }
+
                         } else {
                             haveData = 1;
                             if (pageNo == 0) {

@@ -323,7 +323,7 @@
                             android:id="@+id/rc_runlist"
                             android:layout_width="match_parent"
                             android:layout_height="170dp"
-                            android:visibility="visible"></android.support.v7.widget.RecyclerView>
+                            android:visibility="visible"/>
 
                         <RelativeLayout
                             android:id="@+id/rl_lookmore"
@@ -374,7 +374,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="15dp"
                     android:background="@color/white"
-                    android:visibility="gone"></RelativeLayout>
+                    android:visibility="gone"/>
             </LinearLayout>
         </com.ffn.zerozeroseven.view.SmartScrollView>
     </com.ffn.zerozeroseven.view.mainscroll.TwoLevelSmoothRefreshLayout>
@@ -427,10 +427,11 @@
         android:layout_height="match_parent">
 
         <com.ffn.zerozeroseven.view.ScroolRecyleView
+            android:visibility="gone"
             android:id="@+id/rc_activityview"
             android:layout_width="match_parent"
             android:layout_height="177dp"
-            android:layout_alignParentBottom="true"></com.ffn.zerozeroseven.view.ScroolRecyleView>
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
     <ImageView
