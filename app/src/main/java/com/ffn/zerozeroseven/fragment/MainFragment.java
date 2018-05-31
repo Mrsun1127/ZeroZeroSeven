@@ -1251,14 +1251,14 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             case R.id.iv_show:
                 if (open) {
                     open = false;
-                    Glide.with(bfCxt).load(R.drawable.dmooff).into(iv_show);
-                    recyclerView.stop();
-                    recyclerView.setVisibility(View.GONE);
-                } else {
-                    open = true;
                     recyclerView.start();
                     Glide.with(bfCxt).load(R.drawable.dmopen).into(iv_show);
                     recyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    open = true;
+                    Glide.with(bfCxt).load(R.drawable.dmooff).into(iv_show);
+                    recyclerView.stop();
+                    recyclerView.setVisibility(View.GONE);
                 }
                 break;
             case R.id.rl_snack:

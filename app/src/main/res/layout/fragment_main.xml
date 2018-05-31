@@ -440,5 +440,5 @@
         android:layout_height="59dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/dmopen" />
+        android:background="@drawable/dmooff" />
 </RelativeLayout>
