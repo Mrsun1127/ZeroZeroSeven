@@ -99,7 +99,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_width="match_parent"
-            android:layout_height="70dp">
+            android:layout_height="85dp">
         </RelativeLayout>
 
         <RelativeLayout

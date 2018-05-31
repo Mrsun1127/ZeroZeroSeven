@@ -178,7 +178,7 @@
                         android:src="@drawable/main_laba" />
 
                     <com.paradoxie.autoscrolltextview.VerticalTextview
-                        android:paddingTop="5dp"
+                        android:paddingTop="3dp"
                         android:paddingLeft="10dp"
                         android:id="@+id/scrollTextView"
                         android:layout_width="match_parent"
@@ -434,7 +434,12 @@
             android:layout_height="177dp"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
-
+    <ImageView
+        android:layout_above="@+id/iv_show"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fristshow"/>
     <ImageView
         android:id="@+id/iv_show"
         android:layout_width="59dp"
