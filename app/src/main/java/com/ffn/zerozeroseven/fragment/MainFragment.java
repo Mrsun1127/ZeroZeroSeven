@@ -307,7 +307,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 Glide.with(bfCxt).load(bannerInfo.getData().getList().get(position).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 8);
+                        Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 15);
                         Drawable drawable = new BitmapDrawable(getResources(), blurBitmap);
                         rl_top_bg.setBackground(drawable);
                     }
@@ -993,7 +993,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     ;
-
+    boolean showTwo=false;
     private void requestBaner() {
         LunBoInfo lunBoInfo = new LunBoInfo();
         lunBoInfo.setFunctionName("ListAd");
@@ -1014,6 +1014,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             if (bannerInfo.getData().getList().get(i).getType().equals("横幅广告")) {//横幅
                                 images.add(bannerInfo.getData().getList().get(i).getPicUrl());
                             } else if (bannerInfo.getData().getList().get(i).getType().equals("下拉广告")) {//下拉
+                                showTwo=true;
                                 header.loadImage(bannerInfo.getData().getList().get(i).getPicUrl());
                                 upUrl = bannerInfo.getData().getList().get(i).getLink();
                             } else if (bannerInfo.getData().getList().get(i).getType().equals("启动广告")) {//启动
@@ -1025,10 +1026,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                                 Glide.with(bfCxt).load(bannerInfo.getData().getList().get(i).getPicUrl()).into(iv_guanggao);
                             }
                         }
+                        if(!showTwo){
+                            mRefreshLayout.setResistance(3f);
+                        }
                         Glide.with(bfCxt).load(bannerInfo.getData().getList().get(0).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 8);
+                                Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 15);
                                 Drawable drawable = new BitmapDrawable(getResources(), blurBitmap);
                                 rl_top_bg.setBackground(drawable);
                             }
