@@ -303,15 +303,25 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                     BaseAppApplication.mainHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            if(shangChangShowInfo.getData().isIsClosing()){
-                                ZeroZeroSevenUtils.showSleepPop(bfCxt,rl_no_select);
-                            }
                             userInfo.setServicePhone(shangChangShowInfo.getData().getServicePhone());
                             BaseAppApplication.getInstance().setLoginUser(userInfo);
                             SharePrefUtils.saveObject(bfCxt,"userInfo",userInfo);
                             runMoney = shangChangShowInfo.getData().getExtraFee();
                             storeId = shangChangShowInfo.getData().getId() + "";
                             requestShop();
+                            if(shangChangShowInfo.getData().isIsClosing()){
+                                if(!"00:00:00".equals(shangChangShowInfo.getData().getOpeningTime()) && !"00:00:00".equals(shangChangShowInfo.getData().getClosingTime())){
+                                    if(!"00:00:00".equals(shangChangShowInfo.getData().getOpeningTime2()) && !"00:00:00".equals(shangChangShowInfo.getData().getClosingTime2())){
+                                        ZeroZeroSevenUtils.showSleepPop(bfCxt,"营业时间（"+shangChangShowInfo.getData().getOpeningTime()+"--"+shangChangShowInfo.getData().getClosingTime()+"）"+"\n"+"("+shangChangShowInfo.getData().getOpeningTime2()+"--"+shangChangShowInfo.getData().getClosingTime2()+")",rl_no_select);
+                                    }else{
+                                        ZeroZeroSevenUtils.showSleepPop(bfCxt,"营业时间（"+shangChangShowInfo.getData().getOpeningTime()+"--"+shangChangShowInfo.getData().getClosingTime()+"）",rl_no_select);
+                                        return;
+                                    }
+                                }else{
+                                    ZeroZeroSevenUtils.showSleepPop(bfCxt,rl_no_select);
+                                }
+                            }
+
                         }
                     });
                 }

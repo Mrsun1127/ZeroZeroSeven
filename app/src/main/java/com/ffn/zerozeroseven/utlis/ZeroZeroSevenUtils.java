@@ -406,7 +406,19 @@ public class ZeroZeroSevenUtils {
             }
         });
     }
-
+    public static void showSleepPop(final Context context,String s, View view) {
+        final CustomPopWindow popWindow = new CustomPopWindow((Activity) context);
+        popWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+        popWindow.setBackGroud(R.drawable.sleep);
+        popWindow.setContent(s);
+        popWindow.setgoneLine();
+        popWindow.setMlistener(new CustomPopWindow.OnButonClikListener() {
+            @Override
+            public void BtAgain() {
+                popWindow.dismiss();
+            }
+        });
+    }
     public static void showCustonPopToActivity(final Context context, String message, View view, final Class cls) {
         final CustomPopWindow popWindow = new CustomPopWindow((Activity) context);
         popWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
