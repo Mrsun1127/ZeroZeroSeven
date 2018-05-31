@@ -96,7 +96,6 @@ import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
-import com.ffn.zerozeroseven.view.AutoVerticalScrollTextView;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
 import com.ffn.zerozeroseven.view.ScroolRecyleView;
 import com.ffn.zerozeroseven.view.SmartScrollView;
