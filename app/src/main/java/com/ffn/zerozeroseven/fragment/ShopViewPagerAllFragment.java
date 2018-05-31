@@ -312,7 +312,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                             if(shangChangShowInfo.getData().isIsClosing()){
                                 if(!"00:00:00".equals(shangChangShowInfo.getData().getOpeningTime()) && !"00:00:00".equals(shangChangShowInfo.getData().getClosingTime())){
                                     if(!"00:00:00".equals(shangChangShowInfo.getData().getOpeningTime2()) && !"00:00:00".equals(shangChangShowInfo.getData().getClosingTime2())){
-                                        ZeroZeroSevenUtils.showSleepPop(bfCxt,"营业时间（"+shangChangShowInfo.getData().getOpeningTime()+"--"+shangChangShowInfo.getData().getClosingTime()+"）"+"\n"+"("+shangChangShowInfo.getData().getOpeningTime2()+"--"+shangChangShowInfo.getData().getClosingTime2()+")",rl_no_select);
+                                        ZeroZeroSevenUtils.showSleepPop(bfCxt,"\t\t营业时间"+"\n"+shangChangShowInfo.getData().getOpeningTime()+"--"+shangChangShowInfo.getData().getClosingTime()+"\n"+shangChangShowInfo.getData().getOpeningTime2()+"--"+shangChangShowInfo.getData().getClosingTime2(),rl_no_select);
                                     }else{
                                         ZeroZeroSevenUtils.showSleepPop(bfCxt,"营业时间（"+shangChangShowInfo.getData().getOpeningTime()+"--"+shangChangShowInfo.getData().getClosingTime()+"）",rl_no_select);
                                         return;
