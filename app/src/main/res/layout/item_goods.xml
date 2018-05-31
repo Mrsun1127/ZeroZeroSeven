@@ -5,6 +5,7 @@
     android:background="@color/white">
 
     <ImageView
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/iv_icon"
         android:layout_width="140dp"
@@ -21,7 +22,7 @@
         android:layout_marginTop="9dp"
         android:text="提前拜个早年之说啥套餐"
         android:textColor="@color/text_show_color"
-        android:textSize="13sp" />
+        android:textSize="11sp" />
 
 
 
