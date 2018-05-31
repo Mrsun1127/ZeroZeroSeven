@@ -1246,15 +1246,16 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 }
                 break;
             case R.id.rl_integer:
-                if (userInfo != null) {
-                    if ("943478288".equals(schoolIId)) {
-                        ToastUtils.showShort("请先选择学校");
-                    } else {
-                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, IntegralDrawActivity.class);
-                    }
-                } else {
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
-                }
+                ToastUtils.showShort("该功能暂未开放");
+//                if (userInfo != null) {
+//                    if ("943478288".equals(schoolIId)) {
+//                        ToastUtils.showShort("请先选择学校");
+//                    } else {
+//                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, IntegralDrawActivity.class);
+//                    }
+//                } else {
+//                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
+//                }
                 break;
             case R.id.rl_local:
                 if (userInfo != null) {
