@@ -594,7 +594,11 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
                                     @Override
                                     public void doCancel() {
-                                        dialog.dismiss();
+                                        if(appVersionInfo.getData().getConstraint()==1){
+                                            BaseAppApplication.getInstance().exit();
+                                        }else{
+                                            dialog.dismiss();
+                                        }
                                     }
                                 });
 
