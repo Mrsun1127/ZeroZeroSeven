@@ -964,7 +964,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         } else {
             requestHotBuyList("17:00", "19:00");
         }
-        requestBothBuyList();
 //        requestRunList();
     }
 
@@ -1117,28 +1116,38 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             public void onSuccLoad(String response) {
                 showHotInfo = JSON.parseObject(response, HotInfo.class);
                 if (showHotInfo.getCode() == 0) {
-                    if (showHotInfo.getData().getProducts().size() > 0) {
-                        hotGoodsAdapter.cleanDates();
-                        hotGoodsAdapter.addAll(showHotInfo.getData().getProducts());
-                        ll_hot.setVisibility(View.GONE);
-                        rc_hot.setVisibility(View.VISIBLE);
-                    } else {
+                    if(!showHotInfo.getData().getStores().isIsClosing()){
+                        if (showHotInfo.getData().getProducts().size() > 0) {
+                            hotGoodsAdapter.cleanDates();
+                            hotGoodsAdapter.addAll(showHotInfo.getData().getProducts());
+                            ll_hot.setVisibility(View.GONE);
+                            rc_hot.setVisibility(View.VISIBLE);
+                        } else {
+                            hotGoodsAdapter.cleanDates();
+                            ll_hot.setVisibility(View.VISIBLE);
+                            tv_hot.setText("暂无商品");
+                            rc_hot.setVisibility(View.GONE);
+                        }
+                    }else{
+                        rc_hot.setVisibility(View.GONE);
                         hotGoodsAdapter.cleanDates();
                         ll_hot.setVisibility(View.VISIBLE);
-                        rc_hot.setVisibility(View.GONE);
+                        tv_hot.setText("打烊中");
                     }
+
 
                 } else {
                     hotGoodsAdapter.cleanDates();
                     ll_hot.setVisibility(View.VISIBLE);
                 }
+                requestBothBuyList(showHotInfo.getData().getStores().isIsClosing());
             }
         });
 
     }
 
 
-    private void requestBothBuyList() {
+    private void requestBothBuyList(final boolean isClosing) {
         GoodsOftenInfo oftenInfo = new GoodsOftenInfo();
         oftenInfo.setFunctionName("ListLatestGoods");
         GoodsOftenInfo.ParametersBean parametersBean = new GoodsOftenInfo.ParametersBean();
@@ -1153,16 +1162,25 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             public void onSuccLoad(String response) {
                 showBothInfo = JSON.parseObject(response, BestNewShowInfo.class);
                 if (showBothInfo.getCode() == 0) {
-                    if (showBothInfo.getData().getLatestGoods().size() > 0) {
-                        bothGoodsAdapter.cleanDates();
-                        bothGoodsAdapter.addAll(showBothInfo.getData().getLatestGoods());
-                        ll_both.setVisibility(View.GONE);
-                        rc_all.setVisibility(View.VISIBLE);
-                    } else {
+                    if(isClosing){
                         bothGoodsAdapter.cleanDates();
                         ll_both.setVisibility(View.VISIBLE);
+                        tv_both.setText("打烊中");
                         rc_all.setVisibility(View.GONE);
+                    }else{
+                        if (showBothInfo.getData().getLatestGoods().size() > 0) {
+                            bothGoodsAdapter.cleanDates();
+                            bothGoodsAdapter.addAll(showBothInfo.getData().getLatestGoods());
+                            ll_both.setVisibility(View.GONE);
+                            rc_all.setVisibility(View.VISIBLE);
+                        } else {
+                            bothGoodsAdapter.cleanDates();
+                            ll_both.setVisibility(View.VISIBLE);
+                            tv_both.setText("暂无商品");
+                            rc_all.setVisibility(View.GONE);
+                        }
                     }
+
 
                 } else {
                     bothGoodsAdapter.cleanDates();
