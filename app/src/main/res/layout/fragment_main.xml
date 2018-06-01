@@ -43,8 +43,8 @@
                         <com.zhouwei.mzbanner.MZBannerView
                             android:id="@+id/banner"
                             android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:layout_marginTop="57dp"
+                            android:layout_height="160dp"
+                            android:layout_marginTop="50dp"
                             app:canLoop="true"
                             app:indicatorAlign="center"
                             app:middle_page_cover="false"
@@ -82,7 +82,7 @@
                             android:layout_marginTop="4dp"
                             android:text="零食外卖"
                             android:textColor="#333"
-                            android:textSize="9sp" />
+                            android:textSize="13sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -106,11 +106,12 @@
                             android:layout_marginTop="4dp"
                             android:text="许愿墙"
                             android:textColor="#333"
-                            android:textSize="9sp" />
+                            android:textSize="13sp" />
                     </RelativeLayout>
 
 
                     <RelativeLayout
+                        android:visibility="gone"
                         android:id="@+id/rl_integer"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -131,7 +132,7 @@
                             android:layout_marginTop="4dp"
                             android:text="积分有礼"
                             android:textColor="#333"
-                            android:textSize="9sp" />
+                            android:textSize="13sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -155,7 +156,7 @@
                             android:layout_marginTop="4dp"
                             android:text="土豪排行"
                             android:textColor="#333"
-                            android:textSize="9sp" />
+                            android:textSize="13sp" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -183,7 +184,7 @@
                         android:id="@+id/scrollTextView"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
-                        android:layout_marginBottom="3dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_marginRight="15dp"
                         android:background="@drawable/rectangle" />
 
