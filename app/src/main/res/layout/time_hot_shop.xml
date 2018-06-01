@@ -40,16 +40,20 @@
                 android:text="时段热荐"/>
 
                 <TextView
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
                     android:layout_marginTop="12dp"
                     android:layout_below="@+id/tv_shiduanrejian"
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/time_rounded"
+                    android:background="@drawable/time_hot"
                     android:gravity="center"
                     android:text="21:00--24:00"
-                    android:textColor="#000"
+                    android:textColor="@color/white"
                     android:textSize="10sp" />
 
         </RelativeLayout>
