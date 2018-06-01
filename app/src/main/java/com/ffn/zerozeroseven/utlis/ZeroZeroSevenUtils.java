@@ -410,7 +410,7 @@ public class ZeroZeroSevenUtils {
         final CustomPopWindow popWindow = new CustomPopWindow((Activity) context);
         popWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         popWindow.setBackGroud(R.drawable.sleep);
-        popWindow.setContent(s);
+        popWindow.setContentText(s);
         popWindow.setgoneLine();
         popWindow.setMlistener(new CustomPopWindow.OnButonClikListener() {
             @Override

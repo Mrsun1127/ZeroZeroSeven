@@ -295,7 +295,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             public void onItemClick(int i) {
                 if (!TextUtils.isEmpty(tongzhiInfo.getData().getList().get(i).getLink())) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("url", tongzhiInfo.getData().getList().get(i).getLink());
+                    bundle.putString("url", tongzhiInfo.getData().getList().get(i).getLink()+"?"+tongzhiInfo.getData().getList().get(i).getId());
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class, bundle);
                 }
             }

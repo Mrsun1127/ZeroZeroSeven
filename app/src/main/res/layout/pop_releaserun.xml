@@ -42,7 +42,16 @@
         android:gravity="center"
         android:textColor="@color/text_show_color"
         android:textSize="12sp" />
-
+    <TextView
+        android:gravity="center"
+        android:layout_marginTop="80dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:id="@+id/tv_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_show_color"
+        android:textSize="12sp" />
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="match_parent"

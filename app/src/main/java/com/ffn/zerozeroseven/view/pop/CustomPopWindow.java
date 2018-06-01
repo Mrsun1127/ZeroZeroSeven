@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -24,6 +25,7 @@ public class CustomPopWindow extends PopupWindow implements View.OnClickListener
     private Context context;
     OnButonClikListener mlistener;
     private TextView title;
+    private TextView tv_text;
     private TextView content;
     private Button bt_sub;
     private LinearLayout ll_pop;
@@ -100,6 +102,9 @@ public class CustomPopWindow extends PopupWindow implements View.OnClickListener
     public void setContent(String s){
         content.setText(s);
     }
+    public void setContentText(String s){
+        tv_text.setText(s);
+    }
     public void setBtText(String s){
         bt_sub.setText(s);
     }
@@ -113,12 +118,17 @@ public class CustomPopWindow extends PopupWindow implements View.OnClickListener
         bt_sub = mContentView.findViewById(R.id.bt_sub);
         bt_sub.setOnClickListener(this);
         title = mContentView.findViewById(R.id.tv_title);
+        tv_text = mContentView.findViewById(R.id.tv_text);
         content = mContentView.findViewById(R.id.tv_content);
         ll_pop = mContentView.findViewById(R.id.ll_pop);
         view_line1 = mContentView.findViewById(R.id.view_line1);
 
     }
-
+    public void setMargin(){
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)content.getLayoutParams();
+        layoutParams.topMargin=100;
+        content.setLayoutParams(layoutParams);
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
