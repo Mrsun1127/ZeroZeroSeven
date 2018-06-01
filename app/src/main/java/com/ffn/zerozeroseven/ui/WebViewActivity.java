@@ -3,6 +3,7 @@ package com.ffn.zerozeroseven.ui;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
@@ -55,6 +56,10 @@ public class WebViewActivity extends BaseActivity {
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(getIntent().getStringExtra("url"));
+        String title=getIntent().getStringExtra("title");
+        if(!TextUtils.isEmpty(title)){
+            topView.setTopText(title);
+        }
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
             public void Right() {

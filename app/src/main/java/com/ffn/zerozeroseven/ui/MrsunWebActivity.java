@@ -1,5 +1,6 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.text.TextUtils;
 import android.widget.LinearLayout;
 
 import com.ffn.zerozeroseven.R;
@@ -44,6 +45,10 @@ public class MrsunWebActivity extends BaseActivity {
 
             }
         });
+        String title=getIntent().getStringExtra("title");
+        if(!TextUtils.isEmpty(title)){
+            titleView.setTopText(title);
+        }
     }
 
     @Override

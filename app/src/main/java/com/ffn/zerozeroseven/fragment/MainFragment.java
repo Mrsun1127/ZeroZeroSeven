@@ -964,6 +964,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         } else {
             requestHotBuyList("17:00", "19:00");
         }
+        requestBothBuyList();
 //        requestRunList();
     }
 
@@ -1136,18 +1137,22 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     }
 
 
+                 }else if(showHotInfo.getCode()==-102){
+                    rc_hot.setVisibility(View.GONE);
+                    hotGoodsAdapter.cleanDates();
+                    ll_hot.setVisibility(View.VISIBLE);
+                    tv_hot.setText("暂无商铺信息");
                 } else {
                     hotGoodsAdapter.cleanDates();
                     ll_hot.setVisibility(View.VISIBLE);
                 }
-                requestBothBuyList(showHotInfo.getData().getStores().isIsClosing());
             }
         });
 
     }
 
 
-    private void requestBothBuyList(final boolean isClosing) {
+    private void requestBothBuyList() {
         GoodsOftenInfo oftenInfo = new GoodsOftenInfo();
         oftenInfo.setFunctionName("ListLatestGoods");
         GoodsOftenInfo.ParametersBean parametersBean = new GoodsOftenInfo.ParametersBean();
@@ -1162,7 +1167,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             public void onSuccLoad(String response) {
                 showBothInfo = JSON.parseObject(response, BestNewShowInfo.class);
                 if (showBothInfo.getCode() == 0) {
-                    if(isClosing){
+                    if(showBothInfo.getData().getStores().isIsClosing()){
                         bothGoodsAdapter.cleanDates();
                         ll_both.setVisibility(View.VISIBLE);
                         tv_both.setText("打烊中");
@@ -1180,8 +1185,11 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             rc_all.setVisibility(View.GONE);
                         }
                     }
-
-
+                }else if(showBothInfo.getCode()==-102){
+                    bothGoodsAdapter.cleanDates();
+                    ll_both.setVisibility(View.VISIBLE);
+                    tv_both.setText("暂无商铺信息");
+                    rc_all.setVisibility(View.GONE);
                 } else {
                     bothGoodsAdapter.cleanDates();
                     ll_both.setVisibility(View.VISIBLE);
@@ -1318,6 +1326,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         ToastUtils.showShort("请先选择学校");
                     } else {
                         Bundle bundle3 = new Bundle();
+                        bundle3.putString("title","土豪吃货榜");
                         bundle3.putString("url", "http://www.lingling7.com/lingling7-res/app/dist/index.html#/");
                         ZeroZeroSevenUtils.SwitchActivity(bfCxt, WebViewActivity.class, bundle3);
                     }
