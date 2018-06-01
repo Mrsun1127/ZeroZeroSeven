@@ -69,11 +69,11 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
     }
 
 
-    public static ShopViewPagerAllFragment newInstance(String title,String shopType){
-        Bundle args=new Bundle();
-        args.putString("title",title);
-        args.putString("shopType",shopType);
-        ShopViewPagerAllFragment fragment=new ShopViewPagerAllFragment();
+    public static ShopViewPagerAllFragment newInstance(String title, String shopType) {
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        args.putString("shopType", shopType);
+        ShopViewPagerAllFragment fragment = new ShopViewPagerAllFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -121,7 +121,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
     @Override
     public void initDate() {
         setRefreshLayoutVis();
-        if(userInfo!=null){
+        if (userInfo != null) {
             schoolIId = BaseAppApplication.getInstance().getLoginUser().getSchoolId();
         }
         if ("943478288".equals(schoolIId)) {
@@ -146,7 +146,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
         parametersBean.setPageSize(16);
         try {
             parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        }catch (Exception e){
+        } catch (Exception e) {
         }
         listInfo.setParameters(parametersBean);
         httpPostJSON(listInfo, true);
@@ -210,7 +210,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
         listInfo.setFunctionName("ListSchoolGoods");
         GoodsListInfo.ParametersBean parametersBean = new GoodsListInfo.ParametersBean();
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        if(!TextUtils.isEmpty(name)){
+        if (!TextUtils.isEmpty(name)) {
             parametersBean.setGoodsName(name);
         }
         parametersBean.setGoodsType(shopType);
@@ -284,7 +284,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                       disLoadProgress();
+                        disLoadProgress();
                         showErrorLayout(StateLayout.netError);
                     }
                 });
@@ -305,20 +305,15 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                         public void run() {
                             userInfo.setServicePhone(shangChangShowInfo.getData().getServicePhone());
                             BaseAppApplication.getInstance().setLoginUser(userInfo);
-                            SharePrefUtils.saveObject(bfCxt,"userInfo",userInfo);
+                            SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
                             runMoney = shangChangShowInfo.getData().getExtraFee();
                             storeId = shangChangShowInfo.getData().getId() + "";
                             requestShop();
-                            if(shangChangShowInfo.getData().isIsClosing()){
-                                if(!"00:00:00".equals(shangChangShowInfo.getData().getOpeningTime()) && !"00:00:00".equals(shangChangShowInfo.getData().getClosingTime())){
-                                    if(!"00:00:00".equals(shangChangShowInfo.getData().getOpeningTime2()) && !"00:00:00".equals(shangChangShowInfo.getData().getClosingTime2())){
-                                        ZeroZeroSevenUtils.showSleepPop(bfCxt,"\t\t营业时间"+"\n"+shangChangShowInfo.getData().getOpeningTime()+"--"+shangChangShowInfo.getData().getClosingTime()+"\n"+shangChangShowInfo.getData().getOpeningTime2()+"--"+shangChangShowInfo.getData().getClosingTime2(),rl_no_select);
-                                    }else{
-                                        ZeroZeroSevenUtils.showSleepPop(bfCxt,"营业时间（"+shangChangShowInfo.getData().getOpeningTime()+"--"+shangChangShowInfo.getData().getClosingTime()+"）",rl_no_select);
-                                        return;
-                                    }
-                                }else{
-                                    ZeroZeroSevenUtils.showSleepPop(bfCxt,rl_no_select);
+                            if (shangChangShowInfo.getData().isIsClosing()) {
+                                if (shangChangShowInfo.getData().getOpeningTime().equals(shangChangShowInfo.getData().getClosingTime()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime2()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime())) {
+                                    ZeroZeroSevenUtils.showSleepPop(bfCxt, "打烊一天", rl_no_select);
+                                } else {
+                                    ZeroZeroSevenUtils.showSleepPop(bfCxt, "\t\t营业时间" + "\n" + shangChangShowInfo.getData().getOpeningTime() + "--" + shangChangShowInfo.getData().getClosingTime() + "\n" + shangChangShowInfo.getData().getOpeningTime2() + "--" + shangChangShowInfo.getData().getClosingTime2(), rl_no_select);
                                 }
                             }
 
