@@ -199,10 +199,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     if (tongzhiInfo.getData().getList().size() > 0) {
                         titles = new ArrayList<>();
                         for (int i = 0; i < tongzhiInfo.getData().getList().size(); i++) {
-                            if (tongzhiInfo.getData().getList().get(i).getTitle().length() > 18) {
-                                titles.add(tongzhiInfo.getData().getList().get(i).getTitle().substring(0,17)+"...");
+                            if (tongzhiInfo.getData().getList().get(i).getContent().length() > 18) {
+                                titles.add(tongzhiInfo.getData().getList().get(i).getContent().substring(0,17)+"...");
                             } else {
-                                titles.add(tongzhiInfo.getData().getList().get(i).getTitle());
+                                titles.add(tongzhiInfo.getData().getList().get(i).getContent());
                             }
                         }
                         scrollTextView.setTextList(titles);
@@ -295,6 +295,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             public void onItemClick(int i) {
                 if (!TextUtils.isEmpty(tongzhiInfo.getData().getList().get(i).getLink())) {
                     Bundle bundle = new Bundle();
+                    bundle.putString("title",tongzhiInfo.getData().getList().get(i).getTitle());
                     bundle.putString("url", tongzhiInfo.getData().getList().get(i).getLink()+"?"+tongzhiInfo.getData().getList().get(i).getId());
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class, bundle);
                 }
