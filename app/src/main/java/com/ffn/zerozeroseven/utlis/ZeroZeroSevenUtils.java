@@ -409,7 +409,7 @@ public class ZeroZeroSevenUtils {
     public static void showSleepPop(final Context context,String s, View view) {
         final CustomPopWindow popWindow = new CustomPopWindow((Activity) context);
         popWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
-        popWindow.setBackGroud(R.drawable.sleep);
+        popWindow.setBackGroud(R.drawable.dayangluo);
         popWindow.setContentText(s);
         popWindow.setgoneLine();
         popWindow.setMlistener(new CustomPopWindow.OnButonClikListener() {
