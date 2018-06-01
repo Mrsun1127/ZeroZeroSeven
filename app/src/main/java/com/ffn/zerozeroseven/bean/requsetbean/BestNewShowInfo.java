@@ -9,7 +9,7 @@ import java.util.List;
 public class BestNewShowInfo {
     /**
      * code : 0
-     * data : {"LatestGoods":[{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521001836630.jpg","price":2.48,"id":620,"storeId":14,"goodsName":"翻天娃红烧牛腩味","extraFee":0,"goodsType":"02"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521002055424.jpg","price":2.48,"id":619,"storeId":14,"goodsName":"翻天娃薯条味辣条","extraFee":0,"goodsType":"02"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521002022637.jpg","price":4.98,"id":618,"storeId":14,"goodsName":"酱香鸭脖","extraFee":0,"goodsType":"02"}],"total":22,"pageIndex":0,"totalPage":8,"pageSize":3}
+     * data : {"total":2,"LatestGoods":[{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180601/thumbnail1527839848496.jpg","price":23,"id":2453,"storeId":14,"goodsName":"手机","extraFee":0,"goodsType":"07"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180505/thumbnail1525498574652.jpg","price":3.78,"id":1863,"storeId":14,"goodsName":"统一来一桶桶装农家小炒肉面","extraFee":0,"goodsType":"01"}],"pageIndex":0,"totalPage":1,"stores":{"closingTime2":"00:00:00","closingTime":"10:00:00","openingTime":"10:00:00","isClosing":true,"openingTime2":"00:00:00"},"pageSize":3}
      * message : 请求成功
      */
 
@@ -43,16 +43,18 @@ public class BestNewShowInfo {
 
     public static class DataBean {
         /**
-         * LatestGoods : [{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521001836630.jpg","price":2.48,"id":620,"storeId":14,"goodsName":"翻天娃红烧牛腩味","extraFee":0,"goodsType":"02"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521002055424.jpg","price":2.48,"id":619,"storeId":14,"goodsName":"翻天娃薯条味辣条","extraFee":0,"goodsType":"02"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521002022637.jpg","price":4.98,"id":618,"storeId":14,"goodsName":"酱香鸭脖","extraFee":0,"goodsType":"02"}]
-         * total : 22
+         * total : 2
+         * LatestGoods : [{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180601/thumbnail1527839848496.jpg","price":23,"id":2453,"storeId":14,"goodsName":"手机","extraFee":0,"goodsType":"07"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180505/thumbnail1525498574652.jpg","price":3.78,"id":1863,"storeId":14,"goodsName":"统一来一桶桶装农家小炒肉面","extraFee":0,"goodsType":"01"}]
          * pageIndex : 0
-         * totalPage : 8
+         * totalPage : 1
+         * stores : {"closingTime2":"00:00:00","closingTime":"10:00:00","openingTime":"10:00:00","isClosing":true,"openingTime2":"00:00:00"}
          * pageSize : 3
          */
 
         private int total;
         private int pageIndex;
         private int totalPage;
+        private StoresBean stores;
         private int pageSize;
         private List<LatestGoodsBean> LatestGoods;
 
@@ -80,6 +82,14 @@ public class BestNewShowInfo {
             this.totalPage = totalPage;
         }
 
+        public StoresBean getStores() {
+            return stores;
+        }
+
+        public void setStores(StoresBean stores) {
+            this.stores = stores;
+        }
+
         public int getPageSize() {
             return pageSize;
         }
@@ -96,23 +106,79 @@ public class BestNewShowInfo {
             this.LatestGoods = LatestGoods;
         }
 
+        public static class StoresBean {
+            /**
+             * closingTime2 : 00:00:00
+             * closingTime : 10:00:00
+             * openingTime : 10:00:00
+             * isClosing : true
+             * openingTime2 : 00:00:00
+             */
+
+            private String closingTime2;
+            private String closingTime;
+            private String openingTime;
+            private boolean isClosing;
+            private String openingTime2;
+
+            public String getClosingTime2() {
+                return closingTime2;
+            }
+
+            public void setClosingTime2(String closingTime2) {
+                this.closingTime2 = closingTime2;
+            }
+
+            public String getClosingTime() {
+                return closingTime;
+            }
+
+            public void setClosingTime(String closingTime) {
+                this.closingTime = closingTime;
+            }
+
+            public String getOpeningTime() {
+                return openingTime;
+            }
+
+            public void setOpeningTime(String openingTime) {
+                this.openingTime = openingTime;
+            }
+
+            public boolean isIsClosing() {
+                return isClosing;
+            }
+
+            public void setIsClosing(boolean isClosing) {
+                this.isClosing = isClosing;
+            }
+
+            public String getOpeningTime2() {
+                return openingTime2;
+            }
+
+            public void setOpeningTime2(String openingTime2) {
+                this.openingTime2 = openingTime2;
+            }
+        }
+
         public static class LatestGoodsBean {
             /**
-             * thumbnail : http://www.lingling7.com/lingling7-res/image/20180314/thumbnail1521001836630.jpg
-             * price : 2.48
-             * id : 620
+             * thumbnail : http://www.lingling7.com/lingling7-res/image/20180601/thumbnail1527839848496.jpg
+             * price : 23
+             * id : 2453
              * storeId : 14
-             * goodsName : 翻天娃红烧牛腩味
+             * goodsName : 手机
              * extraFee : 0
-             * goodsType : 02
+             * goodsType : 07
              */
 
             private String thumbnail;
             private Double price;
             private int id;
-            private String goodsName;
             private int storeId;
-            private Double extraFee=0.0;
+            private String goodsName;
+            private Double extraFee;
             private String goodsType;
 
             public String getThumbnail() {
