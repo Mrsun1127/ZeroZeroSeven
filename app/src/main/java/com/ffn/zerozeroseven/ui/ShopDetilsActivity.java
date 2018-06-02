@@ -25,6 +25,7 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RequeseGoods;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
@@ -163,6 +164,8 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         lastCarShopInfo = (CarShopInfo) SharePrefUtils.readObject(ShopDetilsActivity.this, "carShopInfo");
         backType = getIntent().getStringExtra("back");
     }
+
+
 
     int tvCount = 0;
 
