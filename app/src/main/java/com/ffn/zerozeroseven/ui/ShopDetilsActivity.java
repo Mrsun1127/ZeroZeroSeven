@@ -146,7 +146,11 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 .into(iv_icon);
         tv_kucun.setVisibility(View.INVISIBLE);
         tv_name.setText(goodsInfo.getGoodsName());
-        tv_desc.setText(goodsInfo.getGoodsName() + "值得你消费");
+        if(!TextUtils.isEmpty(goodsInfo.getGoodsDesc())){
+            tv_desc.setText(goodsInfo.getGoodsDesc());
+        }else{
+            tv_desc.setText(goodsInfo.getGoodsName()+"值得你消费");
+        }
         try {
             tv_money.setText("¥" + goodsInfo.getPrice());
             tv_kucun.setText("库存" + goodsInfo.getStockNum());
@@ -166,7 +170,6 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
     }
 
 
-
     int tvCount = 0;
 
     //    @Override
@@ -182,6 +185,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
             ToastUtils.showShort("授权成功,请重新拨打电话");
         }
     }
+
     private void callPhone(String phoneNum) {
         //直接拨号
         Uri uri = Uri.parse("tel:" + phoneNum);
@@ -191,6 +195,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
             startActivity(intent);
         }
     }
+
     private final int REQUEST_CODE = 0x1001;
 
     @Override
