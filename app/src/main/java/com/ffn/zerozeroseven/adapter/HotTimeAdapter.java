@@ -14,6 +14,7 @@ import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.HotInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.OftenShowInfo;
+import com.ffn.zerozeroseven.fragment.ShopFragment;
 import com.ffn.zerozeroseven.ui.HomeActivity;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 
@@ -50,6 +51,9 @@ public class HotTimeAdapter extends BaseRecyclerAdapter<HotInfo.DataBean.Product
             public void onClick(View v) {
                 AddCar(info);
                 HomeActivity.getmInstance().get().addAction(mHolder.imageView);
+                try {
+                    ShopFragment.mInstance.get().notifyCar();
+                }catch (Exception e){}
             }
         });
     }
