@@ -68,21 +68,21 @@ public class BaseAppApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         context = this;
-//        Cockroach.install(new Cockroach.ExceptionHandler() {
-//            @Override
-//            public void handlerException(Thread thread, Throwable throwable) {
-//                new Handler(Looper.getMainLooper()).post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
-//                            ToastUtils.showShort("拦截异常");
-//                        } catch (Throwable e) {
-//
-//                        }
-//                    }
-//                });
-//            }
-//        });
+        Cockroach.install(new Cockroach.ExceptionHandler() {
+            @Override
+            public void handlerException(Thread thread, Throwable throwable) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            ToastUtils.showShort("出了点小问题 请您双击返回退出app，重新进入");
+                        } catch (Throwable e) {
+
+                        }
+                    }
+                });
+            }
+        });
         //发布版本的时候把下面代码打开
 //        LogUtils.isDebug=false;
         mainHandler = new Handler();
