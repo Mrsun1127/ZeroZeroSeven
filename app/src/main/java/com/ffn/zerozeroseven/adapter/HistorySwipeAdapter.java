@@ -29,8 +29,6 @@ public class HistorySwipeAdapter extends BaseRecyclerAdapter<HistoryInfo.DataBea
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_time.setText(info.getCreateTime());
         mHolder.tv_title.setText(info.getContent());
-        mHolder.tv_content.setText("186****8888赞了你的帖子");
-        mHolder.tv_count.setText(info.getId() + "");
         switch (info.getStatus()) {
             case 0:
                 mHolder.tv_type.setText(info.getPostType() + "(未审核)");
