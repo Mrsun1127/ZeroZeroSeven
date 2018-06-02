@@ -68,7 +68,7 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
                             if(!"楼栋号".equals(loudong)){
                                 if(!TextUtils.isEmpty(sushe)){
                                     if(ZeroZeroSevenUtils.isMobileNO(phone)){
-                                        if(adr.contains("大学")||adr.contains("学院")||adr.contains("学校")){
+                                        if(adr.contains("大学")||adr.contains("学院")||adr.contains("学校") || adr.contains("国储")){
                                             AddAdr(adr, name, phone,loudong,sushe);
                                         }else{
                                             ToastUtils.showShort("请将学校名称填写正确");
