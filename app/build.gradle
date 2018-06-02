@@ -136,5 +136,5 @@ dependencies {
     compile 'com.umeng.sdk:common:latest.integration'
     compile 'com.umeng.sdk:analytics:latest.integration'
     compile 'com.android.support:multidex:1.0.0'
-    compile 'com.github.mmin18:realtimeblurview:1.1.0'
+    compile 'com.github.mmin18:realtimeblurview:1.1.2'
 }
