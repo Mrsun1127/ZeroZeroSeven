@@ -73,6 +73,9 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
         showType = getIntent().getStringExtra("showType");
         switch (showType) {
             case "01":
+                tv_bottom.setVisibility(View.GONE);
+                et_writer.setVisibility(View.GONE);
+                ll_niming.setVisibility(View.GONE);
                 break;
             case "02":
                 rb_good.setChecked(true);
@@ -83,9 +86,9 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
                 et_content.setHint("输入您的话题内容");
                 tv_bottom.setVisibility(View.GONE);
                 et_writer.setVisibility(View.GONE);
+                ll_niming.setVisibility(View.GONE);
                 tv_bottom.setText("你的联系方式");
                 et_writer.setHint("手机号码/QQ/WeChat");
-                ll_niming.setVisibility(View.GONE);
                 break;
             case "03":
                 rb_find.setChecked(true);
