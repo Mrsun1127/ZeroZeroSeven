@@ -174,6 +174,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     MZBannerView banner;
     @Bind(R.id.rl_location)
     RelativeLayout rl_location;
+    @Bind(R.id.iv_bg)
+    ImageView iv_bg;
     private BannerInfo bannerInfo;
     private WebBannerAdapter bannerAdapter;
     private CustomTwoLevelHeader header;
@@ -309,14 +311,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
             @Override
             public void onPageSelected(int position) {
-                Glide.with(bfCxt).load(bannerInfo.getData().getList().get(position).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 8);
-                        Drawable drawable = new BitmapDrawable(getResources(), blurBitmap);
-                        rl_top_bg.setBackground(drawable);
-                    }
-                });
+                Glide.with(bfCxt)
+                        .load(bannerInfo.getData().getList().get(position).getPicUrl())
+                        .into(iv_bg);
             }
 
             @Override
@@ -352,6 +349,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
             }
         });
+        iv_bg.setScaleX(1.5f);
+        iv_bg.setScaleY(1.5f);
         recyclerView.setAdapter(userLikeAdapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -1034,14 +1033,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         if(!showTwo){
                             mRefreshLayout.setResistance(3f);
                         }
-                        Glide.with(bfCxt).load(bannerInfo.getData().getList().get(0).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
-                            @Override
-                            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 8);
-                                Drawable drawable = new BitmapDrawable(getResources(), blurBitmap);
-                                rl_top_bg.setBackground(drawable);
-                            }
-                        });
+                        Glide.with(bfCxt)
+                                .load(bannerInfo.getData().getList().get(0).getPicUrl())
+                                .into(iv_bg);
                         banner.setPages(images, new MZHolderCreator() {
                             @Override
                             public BannerViewHolder createViewHolder() {
