@@ -242,15 +242,13 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
         switch (view.getId()) {
             case R.id.rb_love:
                 sub_type = 0;
-                tv_topone.setText("表白对象");
-                et_top.setHint("例如：xx学院 xx年级 xx专业 xx班");
-                tv_center.setText("你想对TA说些什么？");
-                et_content.setHint("请输入你想说的话");
-                tv_bottom.setVisibility(View.VISIBLE);
-                et_writer.setVisibility(View.VISIBLE);
-                tv_bottom.setText("你的名字？");
-                et_writer.setHint("如果匿名请勾选下面匿名项");
-                ll_niming.setVisibility(View.VISIBLE);
+                tv_topone.setText("标题");
+                et_top.setHint("输入您的标题");
+                tv_center.setText("内容");
+                et_content.setHint("输入您的话题内容");
+                tv_bottom.setVisibility(View.GONE);
+                et_writer.setVisibility(View.GONE);
+                ll_niming.setVisibility(View.GONE);
                 break;
             case R.id.rb_good:
                 sub_type = 1;

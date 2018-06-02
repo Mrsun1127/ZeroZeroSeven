@@ -312,7 +312,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 Glide.with(bfCxt).load(bannerInfo.getData().getList().get(position).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 15);
+                        Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 8);
                         Drawable drawable = new BitmapDrawable(getResources(), blurBitmap);
                         rl_top_bg.setBackground(drawable);
                     }
@@ -1037,7 +1037,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         Glide.with(bfCxt).load(bannerInfo.getData().getList().get(0).getPicUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 15);
+                                Bitmap blurBitmap = FastBlurUtil.toBlur(resource, 8);
                                 Drawable drawable = new BitmapDrawable(getResources(), blurBitmap);
                                 rl_top_bg.setBackground(drawable);
                             }

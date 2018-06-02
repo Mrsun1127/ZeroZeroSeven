@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
                 android:layout_marginTop="5dp"
-                android:text="表白对象"
+                android:text="标题"
                 android:textSize="14sp" />
 
             <EditText
@@ -102,7 +102,7 @@
                 android:layout_height="59dp"
                 android:layout_margin="11dp"
                 android:background="@color/white"
-                android:hint="例如：xx学院 xx年级 xx专业 xx班"
+                android:hint="输入您的标题"
                 android:maxLength="15"
                 android:paddingLeft="9dp"
                 android:textSize="13sp" />
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
                 android:layout_marginTop="7dp"
-                android:text="你想对TA说些什么？"
+                android:text="内容"
                 android:textSize="14sp" />
 
             <EditText
@@ -125,7 +125,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@color/white"
                 android:gravity="start"
-                android:hint="请输入你想说的话"
+                android:hint="输入您的话题内容"
                 android:maxLength="150"
                 android:paddingLeft="9dp"
                 android:paddingTop="9dp"
