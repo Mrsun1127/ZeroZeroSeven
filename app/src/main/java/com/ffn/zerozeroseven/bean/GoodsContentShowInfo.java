@@ -189,12 +189,15 @@ public class GoodsContentShowInfo implements Parcelable{
                 this.goodsName = goodsName;
             }
 
+
+
             /**
              * thumbnail : https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=302546753,428540576&fm=27&gp=0.jpg
              * promotionPrice : 0
              * price : 20
              * stockNum : 0
              * id : 5
+
              * goodsName : 橘子
              */
 
@@ -204,7 +207,7 @@ public class GoodsContentShowInfo implements Parcelable{
             private int stockNum;
             private int id;
             private String goodsName;
-
+            private String goodsDesc;
             protected ProductsBean(Parcel in) {
                 thumbnail = in.readString();
                 promotionPrice = in.readString();
@@ -212,6 +215,7 @@ public class GoodsContentShowInfo implements Parcelable{
                 stockNum = in.readInt();
                 id = in.readInt();
                 goodsName = in.readString();
+                goodsDesc=in.readString();
             }
 
             public static final Creator<ProductsBean> CREATOR = new Creator<ProductsBean>() {
@@ -225,7 +229,13 @@ public class GoodsContentShowInfo implements Parcelable{
                     return new ProductsBean[size];
                 }
             };
+            public String getGoodsDesc() {
+                return goodsDesc;
+            }
 
+            public void setGoodsDesc(String goodsDesc) {
+                this.goodsDesc = goodsDesc;
+            }
             public String getThumbnail() {
                 return thumbnail;
             }
@@ -287,6 +297,7 @@ public class GoodsContentShowInfo implements Parcelable{
                 parcel.writeInt(stockNum);
                 parcel.writeInt(id);
                 parcel.writeString(goodsName);
+                parcel.writeString(goodsDesc);
             }
         }
     }
