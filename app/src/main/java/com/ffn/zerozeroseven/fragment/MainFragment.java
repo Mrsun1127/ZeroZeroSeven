@@ -1322,7 +1322,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     } else {
                         Bundle bundle3 = new Bundle();
                         bundle3.putString("title","土豪吃货榜");
-                        bundle3.putString("url", "http://www.lingling7.com/lingling7-res/app/dist/index.html#/");
+                        bundle3.putString("url", "https://www.lingling7.com/lingling7-res/app/dist/index.html#/");
                         ZeroZeroSevenUtils.SwitchActivity(bfCxt, WebViewActivity.class, bundle3);
                     }
                 } else {

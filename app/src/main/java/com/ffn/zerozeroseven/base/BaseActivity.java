@@ -158,7 +158,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
             Request request = new Request.Builder()
                     .addHeader("platform", "android")
                     .addHeader("Authorization", "Bearer " + token)
-                    .addHeader("version", "1.0.1")
+                    .addHeader("version", "1.0.2")
                     .url(url)
                     .post(body)
                     .build();

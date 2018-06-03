@@ -187,7 +187,7 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
             ImageItemInfo info = Constant.tempSelectBitmap.get(Constant.tempSelectBitmap.size() - 1);
             iconFile = ZeroZeroSevenUtils.getBitmapFile(this, info.getBitmap(), 0);
             OkHttpUtils.post()
-                    .url("http://www.lingling7.com/lingling7-server/upload")
+                    .url("https://www.lingling7.com/lingling7-server/upload")
                     .addHeader("Authorization", "Bearer " + userInfo.getToken())
                     .addParams("uploadType", "IMAGE")
                     .addFile("file", iconFile.getName(), iconFile)

@@ -102,7 +102,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
                 if (shangChangShowInfo.getCode() == 0) {
                     storeId = shangChangShowInfo.getData().getId() + "";//商家Id
-                    tv_phone.setText("商家电话：" + shangChangShowInfo.getData().getServicePhone());
+//                    tv_phone.setText("商家电话：" + shangChangShowInfo.getData().getServicePhone());
                     if (shangChangShowInfo.getData().getExtraFee() != null) {
                         runMoney = shangChangShowInfo.getData().getExtraFee();
                     } else {
