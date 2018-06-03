@@ -1130,7 +1130,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         rc_hot.setVisibility(View.GONE);
                         hotGoodsAdapter.cleanDates();
                         ll_hot.setVisibility(View.VISIBLE);
-                        tv_hot.setText("打烊中");
+                        tv_hot.setText("小七打烊中");
                     }
 
 
@@ -1167,7 +1167,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     if(showBothInfo.getData().getStores().isIsClosing()){
                         bothGoodsAdapter.cleanDates();
                         ll_both.setVisibility(View.VISIBLE);
-                        tv_both.setText("打烊中");
+                        tv_both.setText("小七打烊中");
                         rc_all.setVisibility(View.GONE);
                     }else{
                         if (showBothInfo.getData().getLatestGoods().size() > 0) {
