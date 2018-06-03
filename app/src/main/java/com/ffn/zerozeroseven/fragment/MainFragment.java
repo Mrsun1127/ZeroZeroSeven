@@ -998,7 +998,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         return upUrl;
     }
 
-    ;
     boolean showTwo=false;
     private void requestBaner() {
         LunBoInfo lunBoInfo = new LunBoInfo();
