@@ -393,7 +393,12 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
 //                    return;
 //                }
                 if ("跑腿费：¥null".equals(tv_runMoney.getText().toString())) {
-                    ToastUtils.showShort("当前网络较差，建议连接wifi或退出重新进入app下单");
+                    SharePrefUtils.saveObject(CommitDingDanActivity.this, "carShopInfo", null);
+                    ShopViewPagerAllFragment.mInstance.get().notifyShop();
+                    ShopViewPagerFragment.mInstance.get().notifyShop();
+                    adapter.cleanDates();
+                    notifyCar();
+                    ToastUtils.showShort("当前网络较差，建议连接wifi或退出重新选择商品下单");
                     return;
                 }
                 if ("暂无可支付的商品".equals(tv_allmoney.getText().toString())) {
