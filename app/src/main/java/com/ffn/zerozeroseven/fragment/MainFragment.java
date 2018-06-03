@@ -201,10 +201,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     if (tongzhiInfo.getData().getList().size() > 0) {
                         titles = new ArrayList<>();
                         for (int i = 0; i < tongzhiInfo.getData().getList().size(); i++) {
-                            if (tongzhiInfo.getData().getList().get(i).getContent().length() > 18) {
-                                titles.add(tongzhiInfo.getData().getList().get(i).getContent().substring(0,17)+"...");
+                            if (tongzhiInfo.getData().getList().get(i).getTitle().length() > 18) {
+                                titles.add(tongzhiInfo.getData().getList().get(i).getTitle().substring(0,17)+"...");
                             } else {
-                                titles.add(tongzhiInfo.getData().getList().get(i).getContent());
+                                titles.add(tongzhiInfo.getData().getList().get(i).getTitle());
                             }
                         }
                         scrollTextView.setTextList(titles);
