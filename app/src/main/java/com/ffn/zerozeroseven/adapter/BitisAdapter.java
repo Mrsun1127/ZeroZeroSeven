@@ -10,6 +10,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.QiangShowInfo;
@@ -43,6 +44,9 @@ public class BitisAdapter extends BaseRecyclerAdapter<QiangShowInfo.DataBean.Ite
         mHolder.tv_like.setText(item.getLikeCount());
         mHolder.tv_content.setText(TextUtils.isEmpty(item.getContent())?"加载失败":item.getContent());
         selectType(mHolder.tv_type,item.getPostType());
+        if(!TextUtils.isEmpty(item.getAvatar())){
+            Glide.with(mContext).load(item.getAvatar()).into(mHolder.user_icon);
+        }
         mHolder.rl_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
