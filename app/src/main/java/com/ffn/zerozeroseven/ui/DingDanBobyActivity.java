@@ -23,8 +23,11 @@ import com.ffn.zerozeroseven.adapter.DingDanDetisAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.DingDanDetlsInfo;
+import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.GoodsDetilsInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
@@ -57,6 +60,7 @@ public class DingDanBobyActivity extends BaseActivity {
     TextView tv_show;
     @Bind(R.id.tv_remark)
     TextView tv_remark;
+    private ShangChangShowInfo shangChangShowInfo;
 
     @Override
     protected int setLayout() {
@@ -100,6 +104,7 @@ public class DingDanBobyActivity extends BaseActivity {
     protected void doMain() {
         int orderId = getIntent().getIntExtra("orderId", 0);
         requestDetils(orderId);
+        getShangChangInfo();
     }
 
     @Bind(R.id.rl_peple)
@@ -110,7 +115,24 @@ public class DingDanBobyActivity extends BaseActivity {
     TextView tv_phone;
     @Bind(R.id.tv_finish)
     TextView tv_finish;
-
+    private void getShangChangInfo() {
+        final ShangchangInfo shangchangInfo = new ShangchangInfo();
+        shangchangInfo.setFunctionName("QuerySchoolStore");
+        ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
+        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
+        shangchangInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(DingDanBobyActivity.this);
+        okGoUtils.httpPostJSON(shangchangInfo,true,false);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
+                if(shangChangShowInfo.getCode()==0){
+                    tv_endTime.setText("联系客服:"+ shangChangShowInfo.getData().getServicePhone());
+                }
+            }
+        });
+    }
     private void requestDetils(int orderId) {
         showLoadProgress();
         GoodsDetilsInfo detilsInfo = new GoodsDetilsInfo();
@@ -136,7 +158,7 @@ public class DingDanBobyActivity extends BaseActivity {
                     public void run() {
                         if (info.getCode() == 0) {
                             tv_time.setText("下单时间：" + info.getData().getOrder().getCreateTime());
-                            tv_endTime.setText("联系客服:"+userInfo.getServicePhone());
+
                             tv_staus.setText(info.getData().getOrder().getStatus() + "");
                             tv_allmoney.setText("共" + info.getData().getOrder().getTotalCount() + "个商品，合计¥：" + (info.getData().getOrder().getTotalPrice() + info.getData().getOrder().getExtraPrice()) + "（含跑腿费）¥" + info.getData().getOrder().getExtraPrice());
                             adapter.addAll(info.getData().getOrder().getDetails());
@@ -241,11 +263,11 @@ public class DingDanBobyActivity extends BaseActivity {
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CODE);
 
                     } else {
-                        callPhone(userInfo.getServicePhone());
+                        callPhone(tv_phone.getText().toString());
                     }
 
                 } else {
-                    callPhone(userInfo.getServicePhone());
+                    callPhone(tv_phone.getText().toString());
                 }
                 break;
             case R.id.tv_sug:
@@ -264,11 +286,11 @@ public class DingDanBobyActivity extends BaseActivity {
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CODE);
 
                     } else {
-                        callPhone(userInfo.getServicePhone());
+                        callPhone(shangChangShowInfo.getData().getServicePhone());
                     }
 
                 } else {
-                    callPhone(userInfo.getServicePhone());
+                    callPhone(shangChangShowInfo.getData().getServicePhone());
                 }
                 break;
         }
