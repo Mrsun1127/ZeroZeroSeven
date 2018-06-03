@@ -125,6 +125,15 @@ public class QiangShowInfo implements Serializable {
             private String content;
             private String avatar;
 
+            public String getUserPhone() {
+                return userPhone;
+            }
+
+            public void setUserPhone(String userPhone) {
+                this.userPhone = userPhone;
+            }
+
+            private String userPhone;
             public String getAvatar() {
                 return avatar;
             }
