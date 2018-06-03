@@ -37,9 +37,9 @@ public class SchoolListAdapter extends BaseRecyclerAdapter<SchoolListInfo.DataBe
             mHolder.tv_name.setTextColor(mContext.getResources().getColor(R.color.text_show_color));
         }
         if (item.getFullName().length() > 11) {
-            mHolder.tv_name.setText(item.getFullName().substring(0, 10) + "..");
+            mHolder.tv_name.setText(item.getName().substring(0, 10) + "..");
         } else {
-            mHolder.tv_name.setText(item.getFullName());
+            mHolder.tv_name.setText(item.getName());
         }
     }
 
