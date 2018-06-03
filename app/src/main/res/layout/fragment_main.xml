@@ -39,8 +39,8 @@
                             android:layout_height="match_parent"
                              />
                         <com.github.mmin18.widget.RealtimeBlurView
-                            app:realtimeBlurRadius="5dp"
-                            app:realtimeOverlayColor="#7FFFFFFF"
+                            app:realtimeBlurRadius="20dp"
+                            app:realtimeOverlayColor="@color/ee"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                         <RelativeLayout
