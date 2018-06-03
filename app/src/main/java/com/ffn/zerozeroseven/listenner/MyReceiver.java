@@ -21,7 +21,7 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class MyReceiver extends BroadcastReceiver {
     private static final String TAG = "JPush";
-    public MediaPlayer mediaPlayer;
+//    public MediaPlayer mediaPlayer;
     @Override
     public void onReceive(final Context context, Intent intent) {
         final Bundle bundle = intent.getExtras();
@@ -31,8 +31,8 @@ public class MyReceiver extends BroadcastReceiver {
             String content=bundle.getString(JPushInterface.EXTRA_ALERT);
             String extra=bundle.getString(JPushInterface.EXTRA_EXTRA);
             Log.i(TAG, "标题:【"+title+"】，内容：【"+content+"】，附加参数:【"+extra+"】");
-            mediaPlayer = MediaPlayer.create(context, R.raw.herewego);
-            mediaPlayer.start();
+//            mediaPlayer = MediaPlayer.create(context, R.raw.herewego);
+//            mediaPlayer.start();
         }else if(intent.getAction().equals(JPushInterface.ACTION_MESSAGE_RECEIVED)){
             Log.i(TAG, "接收到了消息");
             Log.i(TAG, "接收到的消息是:");
