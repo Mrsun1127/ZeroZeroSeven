@@ -1004,6 +1004,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         lunBoInfo.setFunctionName("ListAd");
         LunBoInfo.ParametersBean parametersBean = new LunBoInfo.ParametersBean();
         parametersBean.setStatus("1");
+        parametersBean.setType("00");
         lunBoInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(lunBoInfo, true, false);
