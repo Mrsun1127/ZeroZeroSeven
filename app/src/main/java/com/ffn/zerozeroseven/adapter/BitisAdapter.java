@@ -12,11 +12,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.QiangShowInfo;
+import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DafenInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
@@ -39,7 +42,7 @@ public class BitisAdapter extends BaseRecyclerAdapter<QiangShowInfo.DataBean.Ite
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final QiangShowInfo.DataBean.ItemsBean item, int position) {
         final MViewHolder mHolder = (MViewHolder) holder;
-        mHolder.tv_phone.setText(TextUtils.isEmpty(item.getUserName())?"该用户还未起名字":item.getUserName());
+        mHolder.tv_phone.setText(TextUtils.isEmpty(item.getUserName())? ZeroZeroSevenUtils.phoneClose(item.getUserPhone()):item.getUserName());
         mHolder.tv_time.setText(item.getCreateTime());
         mHolder.tv_like.setText(item.getLikeCount());
         mHolder.tv_content.setText(TextUtils.isEmpty(item.getContent())?"加载失败":item.getContent());
