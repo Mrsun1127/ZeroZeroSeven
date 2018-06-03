@@ -453,6 +453,7 @@
         android:id="@+id/iv_show"
         android:layout_width="59dp"
         android:layout_height="59dp"
+        android:layout_marginBottom="25dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="@drawable/dmooff" />
