@@ -110,7 +110,6 @@ public class DingDanBobyActivity extends BaseActivity {
     TextView tv_phone;
     @Bind(R.id.tv_finish)
     TextView tv_finish;
-    private String phoneNumber = "0731-85315177";
 
     private void requestDetils(int orderId) {
         showLoadProgress();
@@ -265,11 +264,11 @@ public class DingDanBobyActivity extends BaseActivity {
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CODE);
 
                     } else {
-                        callPhone(phoneNumber);
+                        callPhone(userInfo.getServicePhone());
                     }
 
                 } else {
-                    callPhone(phoneNumber);
+                    callPhone(userInfo.getServicePhone());
                 }
                 break;
         }
