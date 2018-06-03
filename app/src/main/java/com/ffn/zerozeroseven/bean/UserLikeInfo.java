@@ -76,12 +76,13 @@ public class UserLikeInfo implements Serializable {
 
             }
 
-            public PostsBean(String userClazz, int isAnonymity, boolean like, String userCollege, String title) {
+            public PostsBean(String userClazz, int isAnonymity, boolean like, String userCollege, String title,String content) {
                 this.userClazz = userClazz;
                 this.isAnonymity = isAnonymity;
                 this.like = like;
                 this.userCollege = userCollege;
                 this.title = title;
+                this.content = content;
             }
 
             /**
@@ -98,6 +99,15 @@ public class UserLikeInfo implements Serializable {
             private String userCollege;
             private String title;
             private int id;
+            private String content;
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
 
             public int getId() {
                 return id;

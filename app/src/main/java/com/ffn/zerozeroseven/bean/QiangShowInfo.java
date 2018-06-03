@@ -123,6 +123,15 @@ public class QiangShowInfo implements Serializable {
             private String title;
             private String userName;
             private String content;
+            private String avatar;
+
+            public String getAvatar() {
+                return avatar;
+            }
+
+            public void setAvatar(String avatar) {
+                this.avatar = avatar;
+            }
 
             public String getUserClazz() {
                 return userClazz;
