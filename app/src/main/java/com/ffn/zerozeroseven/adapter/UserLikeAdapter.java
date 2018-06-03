@@ -2,6 +2,7 @@ package com.ffn.zerozeroseven.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -28,7 +29,12 @@ public class UserLikeAdapter extends BaseRecyclerTallAniAdapter<UserLikeInfo.Dat
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, UserLikeInfo.DataBean.PostsBean info, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
-        String content= ZeroZeroSevenUtils.replaceBlank(info.getTitle());
+        String content="";
+        if(!TextUtils.isEmpty(info.getContent())){
+            content=ZeroZeroSevenUtils.replaceBlank(info.getContent());
+        }else{
+            content=ZeroZeroSevenUtils.replaceBlank(info.getTitle());
+        }
         if(content.length()>8){
             mHolder.tv_content.setText(content.substring(0,8)+"...");
         }else{
