@@ -295,11 +295,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         scrollTextView.setOnItemClickListener(new VerticalTextview.OnItemClickListener() {
             @Override
             public void onItemClick(int i) {
-                if (!TextUtils.isEmpty(tongzhiInfo.getData().getList().get(i).getLink())) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("title",tongzhiInfo.getData().getList().get(i).getTitle());
-                    bundle.putString("url", tongzhiInfo.getData().getList().get(i).getLink()+"?"+tongzhiInfo.getData().getList().get(i).getId());
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class, bundle);
+                if(tongzhiInfo.getData().getList().size()>0){
+                    if (!TextUtils.isEmpty(tongzhiInfo.getData().getList().get(i).getLink())) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("title",tongzhiInfo.getData().getList().get(i).getTitle());
+                        bundle.putString("url", tongzhiInfo.getData().getList().get(i).getLink()+"?"+tongzhiInfo.getData().getList().get(i).getId());
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class, bundle);
+                    }
                 }
             }
         });
