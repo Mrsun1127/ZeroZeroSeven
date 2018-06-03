@@ -33,11 +33,6 @@ public class SplashActivity extends AppCompatActivity {
         BaseAppApplication.flag=66;//设置出-1以外的数字
         tv_version=findViewById(R.id.tv_version);
         userInfo = (UserInfo.DataBean) SharePrefUtils.readObject(SplashActivity.this,"userInfo");
-        try {
-            tv_version.setText("当前版本: "+getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_CONFIGURATIONS).versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
         new Thread(new Runnable() {
             @Override
             public void run() {
