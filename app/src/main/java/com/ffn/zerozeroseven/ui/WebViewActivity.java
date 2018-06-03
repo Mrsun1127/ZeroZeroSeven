@@ -10,6 +10,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
@@ -37,6 +38,8 @@ public class WebViewActivity extends BaseActivity {
     @Bind(R.id.topView)
     TopView topView;
     private Bitmap bit;
+    @Bind(R.id.pb_watch)
+    ProgressBar pb_watch;
 
     @Override
     protected int setLayout() {
@@ -48,6 +51,7 @@ public class WebViewActivity extends BaseActivity {
         super.initView();
         ButterKnife.bind(this);
         webView.addJavascriptInterface(new JSHook(), "hello");
+
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setSupportZoom(true);
@@ -56,8 +60,22 @@ public class WebViewActivity extends BaseActivity {
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(getIntent().getStringExtra("url"));
-        String title=getIntent().getStringExtra("title");
-        if(!TextUtils.isEmpty(title)){
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {
+                    // 网页加载完成
+                    pb_watch.setVisibility(View.GONE);
+                } else {
+                    // 加载中
+                    pb_watch.setVisibility(View.VISIBLE);
+                    pb_watch.setProgress(newProgress);
+                }
+                super.onProgressChanged(view, newProgress);
+            }
+        });
+        String title = getIntent().getStringExtra("title");
+        if (!TextUtils.isEmpty(title)) {
             topView.setTopText(title);
         }
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
@@ -85,20 +103,23 @@ public class WebViewActivity extends BaseActivity {
             finish();
         }
     }
+
     public static Bitmap loadBitmapFromViewBySystem(View v) {
         if (v == null) {
             return null;
         }
         Bitmap screenshot;
-        screenshot = Bitmap.createBitmap(ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight()-100, Bitmap.Config.ARGB_4444);
+        screenshot = Bitmap.createBitmap(ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight() - 100, Bitmap.Config.ARGB_4444);
         Canvas canvas = new Canvas(screenshot);
         canvas.translate(-v.getScrollX(), -v.getScrollY());//我们在用滑动View获得它的Bitmap时候，获得的是整个View的区域（包括隐藏的），如果想得到当前区域，需要重新定位到当前可显示的区域
         v.draw(canvas);// 将 view 画到画布上
         return screenshot;
     }
+
     @Override
     protected void doMain() {
     }
+
     private void showShare(final String filename) {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
@@ -127,12 +148,12 @@ public class WebViewActivity extends BaseActivity {
                     paramsToShare.setTitle(null);
                     paramsToShare.setTitleUrl(null);
                     paramsToShare.setImagePath(filename);
-                }else if (platform.getName().equalsIgnoreCase(Wechat.NAME)) {
+                } else if (platform.getName().equalsIgnoreCase(Wechat.NAME)) {
                     paramsToShare.setText(null);
                     paramsToShare.setTitle(null);
                     paramsToShare.setTitleUrl(null);
                     paramsToShare.setImagePath(filename);
-                }else if (platform.getName().equalsIgnoreCase(WechatMoments.NAME)) {
+                } else if (platform.getName().equalsIgnoreCase(WechatMoments.NAME)) {
                     paramsToShare.setText(null);
                     paramsToShare.setTitle(null);
                     paramsToShare.setTitleUrl(null);
@@ -152,6 +173,7 @@ public class WebViewActivity extends BaseActivity {
 // 启动分享GUI
         oks.show(this);
     }
+
     public class JSHook {
         @JavascriptInterface
         public String requestDate() {
@@ -182,7 +204,7 @@ public class WebViewActivity extends BaseActivity {
                     String fileUrl = ScreenUtils.saveMyBitmap(System.currentTimeMillis() + "", bit);
                     showShare(fileUrl);
                 }
-            },500);
+            }, 500);
 
         }
     }
@@ -190,7 +212,7 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(bit != null && !bit.isRecycled()) {
+        if (bit != null && !bit.isRecycled()) {
             bit.recycle();
         }
         webView.setWebChromeClient(null);
