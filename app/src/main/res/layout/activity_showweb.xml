@@ -6,6 +6,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/topView"/>
+    <ProgressBar
+        android:max="100"
+        android:id="@+id/pb_watch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"/>
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
