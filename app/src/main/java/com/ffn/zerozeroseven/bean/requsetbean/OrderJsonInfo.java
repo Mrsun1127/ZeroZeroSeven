@@ -21,6 +21,15 @@ public class OrderJsonInfo {
     private String receiverName;
     private String receiverPhone;
     private String remark;
+    private String schoolId;
+
+    public String getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(String schoolId) {
+        this.schoolId = schoolId;
+    }
 
     public String getRemark() {
         return remark;
