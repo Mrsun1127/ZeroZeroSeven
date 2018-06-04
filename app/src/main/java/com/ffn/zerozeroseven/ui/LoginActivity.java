@@ -405,6 +405,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onDestroy() {
         super.onDestroy();
         timer.onFinish();
+        timer=null;
     }
     public void bindJiGuang(int userId){
         String registId=JPushInterface.getRegistrationID(this);
@@ -425,9 +426,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                LogUtils.E("call",response.body().string());
                 ZeroZeroSevenUtils.SwitchActivity(LoginActivity.this, HomeActivity.class);
-                finish();
+                LoginActivity.this.finish();
             }
         });
     }
