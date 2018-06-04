@@ -161,7 +161,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         if(!TextUtils.isEmpty(carShopInfo.getShopInfos().get(0).getShopId())){
             orderJsonInfo.setStoreId(Integer.parseInt(carShopInfo.getShopInfos().get(0).getShopId()));
         }
-        orderJsonInfo.setSchoolId("111");
+        orderJsonInfo.setSchoolId(schoolIId);
         if(TextUtils.isEmpty(userId)){
             ToastUtils.showShort("请重新登陆");
             return;
