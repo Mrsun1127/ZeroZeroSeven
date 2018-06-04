@@ -50,8 +50,8 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
         et_adr = findViewById(R.id.et_adr);
         et_name = findViewById(R.id.et_name);
         et_phone = findViewById(R.id.et_phone);
-        et_lou=findViewById(R.id.et_lou);
-        et_men=findViewById(R.id.et_men);
+        et_lou = findViewById(R.id.et_lou);
+        et_men = findViewById(R.id.et_men);
         findViewById(R.id.ll_addLou).setOnClickListener(this);
         Button bt_sub = findViewById(R.id.bt_sub);
         bt_sub.setOnClickListener(new View.OnClickListener() {
@@ -60,26 +60,22 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
                 String adr = et_adr.getText().toString().trim();
                 String name = et_name.getText().toString().trim();
                 String phone = et_phone.getText().toString().trim();
-                String loudong=et_lou.getText().toString();
-                String sushe=et_men.getText().toString().trim();
+                String loudong = et_lou.getText().toString();
+                String sushe = et_men.getText().toString().trim();
                 if (!TextUtils.isEmpty(adr)) {
                     if (!TextUtils.isEmpty(name)) {
                         if (!TextUtils.isEmpty(phone)) {
-                            if(!"楼栋号".equals(loudong)){
-                                if(!TextUtils.isEmpty(sushe)){
-                                    if(ZeroZeroSevenUtils.isMobileNO(phone)){
-                                        if(adr.contains("大学")||adr.contains("学院")||adr.contains("学校") || adr.contains("国储")){
-                                            AddAdr(adr, name, phone,loudong,sushe);
-                                        }else{
-                                            ToastUtils.showShort("请将学校名称填写正确");
-                                        }
-                                    }else{
+                            if (!"楼栋号".equals(loudong)) {
+                                if (!TextUtils.isEmpty(sushe)) {
+                                    if (ZeroZeroSevenUtils.isMobileNO(phone)) {
+                                        AddAdr(adr, name, phone, loudong, sushe);
+                                    } else {
                                         ToastUtils.showShort("请输入正确的手机号码");
                                     }
-                                }else{
+                                } else {
                                     ToastUtils.showShort("请选择宿舍");
                                 }
-                            }else{
+                            } else {
                                 ToastUtils.showShort("请选择楼栋号");
                             }
                         } else {
@@ -95,7 +91,7 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
         });
     }
 
-    private void AddAdr(String adr, String name, String phone,String loudong,String sushe) {
+    private void AddAdr(String adr, String name, String phone, String loudong, String sushe) {
         showLoadProgress();
         AddAdrInfo addAdrInfo = new AddAdrInfo();
         addAdrInfo.setFunctionName("AddUserAddress");
@@ -135,14 +131,14 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void doMain() {
-        if(userInfo!=null){
-            if(!TextUtils.isEmpty(userInfo.getSchoolName())){
+        if (userInfo != null) {
+            if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
                 et_adr.setText(userInfo.getSchoolName());
-            }else{
+            } else {
                 ToastUtils.showShort("请重新登录");
                 finish();
             }
-        }else{
+        } else {
             ToastUtils.showShort("请重新登录");
             finish();
         }
@@ -184,7 +180,7 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 0:
-               String lou= data.getStringExtra("loudong");
+                String lou = data.getStringExtra("loudong");
                 et_lou.setText(lou);
                 break;
             default:
