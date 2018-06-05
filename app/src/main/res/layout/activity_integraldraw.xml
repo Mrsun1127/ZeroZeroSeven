@@ -24,11 +24,39 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <ImageView
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/interal_banner_top" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/interal_banner_top" />
+
+                    <Button
+                        android:id="@+id/bt_sign"
+                        android:layout_width="66dp"
+                        android:layout_height="22dp"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="17dp"
+                        android:background="@drawable/integral_left"
+                        android:text="签到领积分"
+                        android:textColor="#5D2A00"
+                        android:textSize="9sp" />
+
+                    <Button
+                        android:id="@+id/bt_bestnew"
+                        android:layout_width="66dp"
+                        android:layout_height="22dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="27dp"
+                        android:layout_marginTop="17dp"
+                        android:background="@drawable/integral_right"
+                        android:text="最新揭晓"
+                        android:textColor="#4E2300"
+                        android:textSize="9sp" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/textView_with_recyclerView_in_coordinatorLayout_sticky_header"

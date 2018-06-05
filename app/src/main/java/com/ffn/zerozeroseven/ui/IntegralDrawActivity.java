@@ -1,6 +1,8 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
@@ -14,15 +16,16 @@ import com.ffn.zerozeroseven.bean.requsetbean.InteraglSignInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
-import com.ffn.zerozeroseven.view.FullyGridLayoutManager;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.ffn.zerozeroseven.view.TopView;
-import com.ffn.zerozeroseven.view.mainscroll.SmoothRefreshLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 
+import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class IntegralDrawActivity extends BaseFullActivity {
     @Bind(R.id.refreshlayout)
@@ -33,6 +36,7 @@ public class IntegralDrawActivity extends BaseFullActivity {
     private RgRefreshStatus rgRefreshStatus = RgRefreshStatus.IDLE;
     @Bind(R.id.topView)
     TopView topView;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_integraldraw;
@@ -42,6 +46,7 @@ public class IntegralDrawActivity extends BaseFullActivity {
     public void initView() {
         ButterKnife.bind(this);
         topView.setTopText("积分抽奖");
+        topView.setTvRightText("我的中奖");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
             public void Right() {
@@ -53,7 +58,7 @@ public class IntegralDrawActivity extends BaseFullActivity {
                 finish();
             }
         });
-        recycleview.setLayoutManager(new FullyGridLayoutManager(this, 2));
+        recycleview.setLayoutManager(new GridLayoutManager(this, 2));
         recycleview.addItemDecoration(new GridSpacingItemDecoration(2, 10, false));
         adapter = new InteralAdapter(this);
         recycleview.setAdapter(adapter);
@@ -63,6 +68,19 @@ public class IntegralDrawActivity extends BaseFullActivity {
                 ZeroZeroSevenUtils.SwitchActivity(IntegralDrawActivity.this, ProductDetilsActivity.class);
             }
         });
+    }
+
+    @OnClick({R.id.bt_sign, R.id.bt_bestnew})
+    void setOnClicks(View v) {
+        switch (v.getId()) {
+            case R.id.bt_sign:
+                sign();
+                break;
+            case R.id.bt_bestnew:
+                ToastUtils.showShort("最新揭晓");
+                break;
+
+        }
     }
 
     private void sign() {
@@ -91,7 +109,17 @@ public class IntegralDrawActivity extends BaseFullActivity {
         requestData();
     }
 
+    ArrayList<String> list = new ArrayList<>();
+
     private void requestData() {
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
         InteraglSignInfo interaglSignInfo = new InteraglSignInfo();
         interaglSignInfo.setFunctionName("ListPointJackpotPrize");
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
@@ -101,7 +129,7 @@ public class IntegralDrawActivity extends BaseFullActivity {
             public void onSuccLoad(String response) {
                 JiangChiInfo jiangChiInfo = JSON.parseObject(response, JiangChiInfo.class);
                 if (jiangChiInfo.getCode() == 0) {
-                    adapter.addAll(jiangChiInfo.getData().getJackpotPrizes());
+                    adapter.addAll(list);
                 } else {
                     ToastUtils.showShort("奖池暂无信息");
                 }
