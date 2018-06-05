@@ -19,8 +19,10 @@
             android:textSize="13sp"
             android:layout_marginLeft="27dp"
             android:maxLength="20"
-            android:text="小明 我有一句麻麻批对你讲"/>
+            android:text="小明 我有一句麻麻批对你讲"
+            android:layout_marginRight="5dp"/>
         <TextView
+            android:visibility="gone"
             android:layout_toRightOf="@+id/tv_content"
             android:id="@+id/tv_name"
             android:layout_marginLeft="15dp"
