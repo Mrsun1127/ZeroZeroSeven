@@ -109,17 +109,8 @@ public class IntegralDrawActivity extends BaseFullActivity {
         requestData();
     }
 
-    ArrayList<String> list = new ArrayList<>();
 
     private void requestData() {
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
         InteraglSignInfo interaglSignInfo = new InteraglSignInfo();
         interaglSignInfo.setFunctionName("ListPointJackpotPrize");
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
@@ -129,7 +120,7 @@ public class IntegralDrawActivity extends BaseFullActivity {
             public void onSuccLoad(String response) {
                 JiangChiInfo jiangChiInfo = JSON.parseObject(response, JiangChiInfo.class);
                 if (jiangChiInfo.getCode() == 0) {
-                    adapter.addAll(list);
+                    adapter.addAll(jiangChiInfo.getData().getJackpotPrizes());
                 } else {
                     ToastUtils.showShort("奖池暂无信息");
                 }
