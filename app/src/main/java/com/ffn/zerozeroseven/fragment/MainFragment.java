@@ -330,8 +330,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         ll_hot = view.findViewById(R.id.ll_hot);
         recyclerView = view.findViewById(R.id.rc_activityview);
         recyclerView.setOnTouchListener(rcViewOnTouch);
-//        FullyGridLayoutManager layoutManager=new FullyGridLayoutManager(bfCxt,3);
-//        layoutManager.setOrientation(FullyGridLayoutManager.HORIZONTAL);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL);
         staggeredGridLayoutManager.setOrientation(StaggeredGridLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
@@ -870,7 +868,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     if (findSchoolInfo.getData() != null) {
                         if (TextUtils.isEmpty(findSchoolInfo.getData().getName())) {
                             tv_school.setText("去选择学校");
-                            ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance.get(), "请手动定位", tv_school);
                         } else {
                             tv_school.setText(findSchoolInfo.getData().getName());
                             BaseAppApplication.userInfo.setSchoolName(name);
@@ -878,10 +875,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             SharePrefUtils.saveObject(bfCxt, "userInfo", BaseAppApplication.getInstance().getLoginUser());
                             SharePrefUtils.setInt(bfCxt, "isLocation", 1);
                         }
-
                         reQuest();
                     } else {
-                        ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance.get(), "请手动定位", tv_school);
                         tv_school.setText("去选择学校");
                         reQuest();
                     }

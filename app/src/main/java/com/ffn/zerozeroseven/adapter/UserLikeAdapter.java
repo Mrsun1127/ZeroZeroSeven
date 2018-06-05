@@ -36,17 +36,11 @@ public class UserLikeAdapter extends BaseRecyclerTallAniAdapter<UserLikeInfo.Dat
             content=ZeroZeroSevenUtils.replaceBlank(info.getTitle());
         }
         if(content.length()>8){
-            mHolder.tv_content.setText(content.substring(0,8)+"...");
+            mHolder.tv_content.setText(info.getTitle()+" "+content.substring(0,8)+"...");
         }else{
-            mHolder.tv_content.setText(content);
+            mHolder.tv_content.setText(info.getTitle()+" "+content);
         }
 
-        String name=info.getUserCollege()+info.getUserClazz();
-        if(name.length()>8){
-            mHolder.tv_name.setText(name.substring(0,8)+"...");
-        }else{
-            mHolder.tv_name.setText(name);
-        }
 
     }
 
