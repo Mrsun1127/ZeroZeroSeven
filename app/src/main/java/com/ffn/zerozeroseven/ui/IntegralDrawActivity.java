@@ -50,7 +50,7 @@ public class IntegralDrawActivity extends BaseFullActivity {
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
             public void Right() {
-
+                ZeroZeroSevenUtils.SwitchActivity(IntegralDrawActivity.this,MySignGoodActivity.class);
             }
 
             @Override
@@ -77,7 +77,7 @@ public class IntegralDrawActivity extends BaseFullActivity {
                 sign();
                 break;
             case R.id.bt_bestnew:
-                ToastUtils.showShort("最新揭晓");
+                ZeroZeroSevenUtils.SwitchActivity(IntegralDrawActivity.this,BestNewActivity.class);
                 break;
 
         }

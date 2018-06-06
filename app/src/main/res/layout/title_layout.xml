@@ -3,7 +3,7 @@
     android:id="@+id/rl_title"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@drawable/bg">
+    android:background="#FAFAFA">
     <RelativeLayout
         android:id="@+id/iv_back"
         android:layout_width="60dp"
@@ -11,9 +11,9 @@
         <ImageView
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/back"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bitis_arrow"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl_arrow_down"
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="14sp" />
 
         <RelativeLayout
@@ -69,7 +69,7 @@
         android:gravity="center"
         android:layout_width="80dp"
         android:textSize="13sp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:layout_alignParentRight="true"
         android:text="我要上墙"
         android:layout_height="match_parent" />

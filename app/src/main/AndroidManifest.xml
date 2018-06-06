@@ -256,6 +256,8 @@
         <activity android:name=".ui.InteralDetilsActivity" />
         <activity android:name=".ui.ProductDetilsActivity" />
         <activity android:name=".ui.RencentlyInteralACtivity" />
+        <activity android:name=".ui.MySignGoodActivity" />
+        <activity android:name=".ui.BestNewActivity" />
 
         <!-- Required SDK核心功能-->
         <service
