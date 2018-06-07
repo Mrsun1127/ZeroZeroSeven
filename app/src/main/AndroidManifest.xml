@@ -42,9 +42,9 @@
     <application
         android:name=".base.BaseAppApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/logo"
+        android:icon="@mipmap/icon_five"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/logo"
+        android:roundIcon="@mipmap/icon_five"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
@@ -60,26 +60,26 @@
             android:value="GlideModule" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="KUL2VBxakGB9twyZrUUmBVTMPSOyw1eC"></meta-data>
+            android:value="KUL2VBxakGB9twyZrUUmBVTMPSOyw1eC"/>
 
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote"/>
 
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".ui.MrsunTestActivity">
 
         </activity>
@@ -100,7 +100,7 @@
         <activity
             android:name=".ui.BindZFbPayActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
         <activity
             android:name=".ui.LoginActivity"
             android:screenOrientation="portrait" />
@@ -119,11 +119,11 @@
         <activity
             android:name=".ui.HomeActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
         <activity
             android:name=".ui.SugActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
         <activity
             android:name=".ui.MyDingDanActivity"
             android:screenOrientation="portrait" />
@@ -263,7 +263,7 @@
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false"/>
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
@@ -355,7 +355,7 @@
             android:name=".service.RomoteService"
             android:process=":romoteservice"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
     </application>
 
 </manifest>
