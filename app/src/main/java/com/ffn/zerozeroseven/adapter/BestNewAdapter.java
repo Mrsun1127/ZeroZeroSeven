@@ -42,7 +42,7 @@ public class BestNewAdapter extends BaseRecyclerAdapter<BestNewInfo.DataBean.Jac
         mHolder.tv_time.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
             @Override
             public void onEnd(CountdownView cv) {
-
+                mHolder.tv_status.setText("已开奖");
             }
         });
     }
@@ -50,6 +50,7 @@ public class BestNewAdapter extends BaseRecyclerAdapter<BestNewInfo.DataBean.Jac
     private class MViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView tv_name;
+        TextView tv_status;
         CountdownView tv_time;
 
         MViewHolder(View itemView) {
@@ -57,6 +58,7 @@ public class BestNewAdapter extends BaseRecyclerAdapter<BestNewInfo.DataBean.Jac
             imageView = itemView.findViewById(R.id.iv_product);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_time = itemView.findViewById(R.id.tv_time);
+            tv_status = itemView.findViewById(R.id.tv_status);
         }
     }
 
