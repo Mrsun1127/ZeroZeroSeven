@@ -56,6 +56,26 @@
                         android:text="最新揭晓"
                         android:textColor="#4E2300"
                         android:textSize="9sp" />
+
+                    <TextView
+                        android:scrollHorizontally="true"
+                        android:focusableInTouchMode="true"
+                        android:focusable="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:background="@drawable/runhourse"
+                        android:ellipsize="marquee"
+                        android:gravity="center_vertical"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:paddingLeft="20dp"
+                        android:singleLine="true"
+                        android:text="这里是测试文字 这里是测试文字 这里是测试文字这里是测试文字 这里是测试文字 这里是测试文字这里是测试文字 这里是测试文字 这里是测试文字"
+                        android:textColor="@color/white"
+                        android:textSize="9sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
