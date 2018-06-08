@@ -1,5 +1,6 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -65,7 +66,11 @@ public class IntegralDrawActivity extends BaseFullActivity {
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                ZeroZeroSevenUtils.SwitchActivity(IntegralDrawActivity.this, ProductDetilsActivity.class);
+                Bundle bundle = new Bundle();
+                try {
+                    bundle.putInt("prizeId",adapter.getItem(position).getJackpotId());
+                }catch (Exception e){}
+                ZeroZeroSevenUtils.SwitchActivity(IntegralDrawActivity.this, ProductDetilsActivity.class,bundle);
             }
         });
     }
