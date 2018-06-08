@@ -11,8 +11,9 @@
         android:layout_width="77dp"
         android:layout_height="89dp" />
     <TextView
+        android:layout_marginTop="24dp"
         android:id="@+id/tv_name"
-        android:textSize="11sp"
+        android:textSize="14sp"
         android:textColor="@color/text_show_color"
         android:text="【第126期】OPPO R11s星幕新年版移动联通电信4G手机移动联通电信4G"
         android:layout_toRightOf="@+id/iv_product"
@@ -31,6 +32,7 @@
         android:layout_height="16dp"
         android:background="@drawable/daojishi"/>
         <TextView
+            android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_name"
