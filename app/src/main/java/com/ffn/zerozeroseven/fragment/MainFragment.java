@@ -202,7 +202,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         titles = new ArrayList<>();
                         for (int i = 0; i < tongzhiInfo.getData().getList().size(); i++) {
                             if (tongzhiInfo.getData().getList().get(i).getTitle().length() > 18) {
-                                titles.add(tongzhiInfo.getData().getList().get(i).getTitle().substring(0,17)+"...");
+                                titles.add(tongzhiInfo.getData().getList().get(i).getTitle().substring(0, 17) + "...");
                             } else {
                                 titles.add(tongzhiInfo.getData().getList().get(i).getTitle());
                             }
@@ -212,8 +212,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         scrollTextView.setTextStillTime(3000);//设置停留时长间隔
                         scrollTextView.setAnimTime(300);
                         scrollTextView.startAutoScroll();
-                    }
-                    else {
+                    } else {
                         titles = new ArrayList<>();
                         titles.add("欢迎使用零零7");
                         scrollTextView.setTextList(titles);
@@ -295,11 +294,11 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         scrollTextView.setOnItemClickListener(new VerticalTextview.OnItemClickListener() {
             @Override
             public void onItemClick(int i) {
-                if(tongzhiInfo.getData().getList().size()>0){
+                if (tongzhiInfo.getData().getList().size() > 0) {
                     if (!TextUtils.isEmpty(tongzhiInfo.getData().getList().get(i).getLink())) {
                         Bundle bundle = new Bundle();
-                        bundle.putString("title",tongzhiInfo.getData().getList().get(i).getTitle());
-                        bundle.putString("url", tongzhiInfo.getData().getList().get(i).getLink()+"?id="+tongzhiInfo.getData().getList().get(i).getId());
+                        bundle.putString("title", tongzhiInfo.getData().getList().get(i).getTitle());
+                        bundle.putString("url", tongzhiInfo.getData().getList().get(i).getLink() + "?id=" + tongzhiInfo.getData().getList().get(i).getId());
                         ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class, bundle);
                     }
                 }
@@ -567,51 +566,42 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         });
         AppUpdateInfo updateInfo = new AppUpdateInfo();
         updateInfo.setFunctionName("QueryLatestAppVersion");
-        httpPostJSON(updateInfo, true);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
+        okGoUtils.httpPostJSON(updateInfo, true, false);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                LogUtils.E("updateApp", "失败");
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final AppVersionInfo appVersionInfo = JSON.parseObject(response.body().string(), AppVersionInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (appVersionInfo.getCode() == 0) {
-                            LogUtils.E("apk", JSON.toJSONString(appVersionInfo));
-                            if (!ZeroZeroSevenUtils.getAppVersionName(bfCxt).equals(appVersionInfo.getData().getLatestVersion())) {
-                                final ConfirmDialog dialog = new ConfirmDialog(bfCxt);
-                                dialog.setTitles("软件升级");
-                                dialog.setMessages("发现新版本,建议立即更新使用");
-                                dialog.setConfirmButtonText("" +
-                                        "");
-                                dialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
-                                    @Override
-                                    public void doConfirm() {
-                                        dialog.dismiss();
-                                        requestSomePermission();
-                                        downLoadApk(appVersionInfo.getData().getDownloadUrl());
-                                    }
-
-                                    @Override
-                                    public void doCancel() {
-                                        if(appVersionInfo.getData().getConstraint()==1){
-                                            BaseAppApplication.getInstance().exit();
-                                        }else{
-                                            dialog.dismiss();
-                                        }
-                                    }
-                                });
-
+            public void onSuccLoad(String response) {
+                final AppVersionInfo appVersionInfo = JSON.parseObject(response, AppVersionInfo.class);
+                if (appVersionInfo.getCode() == 0) {
+                    if (!ZeroZeroSevenUtils.getAppVersionName(bfCxt).equals(appVersionInfo.getData().getLatestVersion())) {
+                        final ConfirmDialog dialog = new ConfirmDialog(bfCxt);
+                        dialog.setTitles("软件升级");
+                        dialog.setMessages("发现新版本,建议立即更新使用");
+                        dialog.setConfirmButtonText("" +
+                                "");
+                        dialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
+                            @Override
+                            public void doConfirm() {
+                                dialog.dismiss();
+                                requestSomePermission();
+                                downLoadApk(appVersionInfo.getData().getDownloadUrl());
                             }
-                        }
+
+                            @Override
+                            public void doCancel() {
+                                if (appVersionInfo.getData().getConstraint() == 1) {
+                                    BaseAppApplication.getInstance().exit();
+                                } else {
+                                    dialog.dismiss();
+                                }
+                            }
+                        });
+
                     }
-                });
+                }
             }
         });
+
     }
 
     public void goYing() {
@@ -993,7 +983,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         return upUrl;
     }
 
-    boolean showTwo=false;
+    boolean showTwo = false;
+
     private void requestBaner() {
         LunBoInfo lunBoInfo = new LunBoInfo();
         lunBoInfo.setFunctionName("ListAd");
@@ -1015,7 +1006,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             if (bannerInfo.getData().getList().get(i).getType().equals("横幅广告")) {//横幅
                                 images.add(bannerInfo.getData().getList().get(i).getPicUrl());
                             } else if (bannerInfo.getData().getList().get(i).getType().equals("下拉广告")) {//下拉
-                                showTwo=true;
+                                showTwo = true;
                                 header.loadImage(bannerInfo.getData().getList().get(i).getPicUrl());
                                 upUrl = bannerInfo.getData().getList().get(i).getLink();
                             } else if (bannerInfo.getData().getList().get(i).getType().equals("启动广告")) {//启动
@@ -1027,7 +1018,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                                 Glide.with(bfCxt).load(bannerInfo.getData().getList().get(i).getPicUrl()).into(iv_guanggao);
                             }
                         }
-                        if(!showTwo){
+                        if (!showTwo) {
                             mRefreshLayout.setResistance(3f);
                         }
                         Glide.with(bfCxt)
@@ -1109,7 +1100,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             public void onSuccLoad(String response) {
                 showHotInfo = JSON.parseObject(response, HotInfo.class);
                 if (showHotInfo.getCode() == 0) {
-                    if(!showHotInfo.getData().getStores().isIsClosing()){
+                    if (!showHotInfo.getData().getStores().isIsClosing()) {
                         if (showHotInfo.getData().getProducts().size() > 0) {
                             hotGoodsAdapter.cleanDates();
                             hotGoodsAdapter.addAll(showHotInfo.getData().getProducts());
@@ -1121,7 +1112,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             tv_hot.setText("暂无商品");
                             rc_hot.setVisibility(View.GONE);
                         }
-                    }else{
+                    } else {
                         rc_hot.setVisibility(View.GONE);
                         hotGoodsAdapter.cleanDates();
                         ll_hot.setVisibility(View.VISIBLE);
@@ -1129,7 +1120,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     }
 
 
-                 }else if(showHotInfo.getCode()==-102){
+                } else if (showHotInfo.getCode() == -102) {
                     rc_hot.setVisibility(View.GONE);
                     hotGoodsAdapter.cleanDates();
                     ll_hot.setVisibility(View.VISIBLE);
@@ -1159,12 +1150,12 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             public void onSuccLoad(String response) {
                 showBothInfo = JSON.parseObject(response, BestNewShowInfo.class);
                 if (showBothInfo.getCode() == 0) {
-                    if(showBothInfo.getData().getStores().isIsClosing()){
+                    if (showBothInfo.getData().getStores().isIsClosing()) {
                         bothGoodsAdapter.cleanDates();
                         ll_both.setVisibility(View.VISIBLE);
                         tv_both.setText("小七打烊中");
                         rc_all.setVisibility(View.GONE);
-                    }else{
+                    } else {
                         if (showBothInfo.getData().getLatestGoods().size() > 0) {
                             bothGoodsAdapter.cleanDates();
                             bothGoodsAdapter.addAll(showBothInfo.getData().getLatestGoods());
@@ -1177,7 +1168,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             rc_all.setVisibility(View.GONE);
                         }
                     }
-                }else if(showBothInfo.getCode()==-102){
+                } else if (showBothInfo.getCode() == -102) {
                     bothGoodsAdapter.cleanDates();
                     ll_both.setVisibility(View.VISIBLE);
                     tv_both.setText("暂无商铺信息");
@@ -1317,7 +1308,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                         ToastUtils.showShort("请先选择学校");
                     } else {
                         Bundle bundle3 = new Bundle();
-                        bundle3.putString("title","土豪吃货榜");
+                        bundle3.putString("title", "土豪吃货榜");
                         bundle3.putString("url", "https://www.lingling7.com/lingling7-res/app/dist/index.html#/");
                         ZeroZeroSevenUtils.SwitchActivity(bfCxt, WebViewActivity.class, bundle3);
                     }
