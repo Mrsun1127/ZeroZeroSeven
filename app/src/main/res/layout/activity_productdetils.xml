@@ -11,14 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_level"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleview"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
+        android:layout_height="40dp"
         android:background="@color/white"
-        app:tabIndicatorColor="#DBDBDB"
-        app:tabSelectedTextColor="#FE0000"
-        app:tabTextColor="@color/text_show_color" />
+         />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

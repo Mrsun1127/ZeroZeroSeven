@@ -206,7 +206,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }, 2000);
         } else {//退出程序
-            BaseAppApplication.getInstance().exit();
+            BaseAppApplication.getInstance().clearActivityList();
         }
     }
 
