@@ -81,6 +81,15 @@ public class UserInfo implements Serializable{
         private String servicePhone="0731-85315177";
         private boolean isLoginCouris;
         private String curisInfoJson;
+        private Double smallRmb;
+
+        public Double getSmallRmb() {
+            return smallRmb;
+        }
+
+        public void setSmallRmb(Double smallRmb) {
+            this.smallRmb = smallRmb;
+        }
 
         public String getCurisInfoJson() {
             return curisInfoJson;

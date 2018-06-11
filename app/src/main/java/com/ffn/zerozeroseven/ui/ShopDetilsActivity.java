@@ -87,7 +87,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         BaseAppApplication.getInstance().addActivity(this);
         getShangChangInfo();
     }
-
+    Double rmb;
     private void getShangChangInfo() {
         final ShangchangInfo shangchangInfo = new ShangchangInfo();
         shangchangInfo.setFunctionName("QuerySchoolStore");
@@ -101,6 +101,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
             public void onSuccLoad(String response) {
                 final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
                 if (shangChangShowInfo.getCode() == 0) {
+                    rmb=shangChangShowInfo.getData().getDeliveryPrice();
                     storeId = shangChangShowInfo.getData().getId() + "";//商家Id
 //                    tv_phone.setText("商家电话：" + shangChangShowInfo.getData().getServicePhone());
                     if (shangChangShowInfo.getData().getExtraFee() != null) {
@@ -259,8 +260,8 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
 //                    ZeroZeroSevenUtils.showCustonPop(ShopDetilsActivity.this, "亲，商铺现在打烊，请于早上9.30之后下单", tv_addshopcar);
 //                    return;
 //                }
-                if ((ZeroZeroSevenUtils.reactMoney((goodsInfo.getPrice() * tvCount))) < 5.0) {
-                    ToastUtils.showShort("很抱歉，未达到5元配送金额");
+                if ((ZeroZeroSevenUtils.reactMoney((goodsInfo.getPrice() * tvCount))) < rmb) {
+                    ToastUtils.showShort("很抱歉，未达到"+rmb+"元配送金额");
                     return;
                 }
                 carBuy = false;

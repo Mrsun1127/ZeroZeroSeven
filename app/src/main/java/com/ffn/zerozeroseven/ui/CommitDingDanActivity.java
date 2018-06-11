@@ -196,12 +196,12 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                 tv_allmoney.setText("共计：¥" + ZeroZeroSevenUtils.reactMoney(a));
 
                 money.setText(ZeroZeroSevenUtils.reactMoney(a) + "");
-                Double b=0.0;
+                Double b = 0.0;
                 try {
-                    b=carShopInfo.getShopInfos().get(0).getRunMoney();
-                }catch (Exception e){
+                    b = carShopInfo.getShopInfos().get(0).getRunMoney();
+                } catch (Exception e) {
                 }
-                tv_runMoney.setText("跑腿费：¥" + (b!=null?b:0.0));
+                tv_runMoney.setText("跑腿费：¥" + (b != null ? b : 0.0));
             } else {
                 tv_allmoney.setText("暂无可支付的商品");
                 ToastUtils.showShort("暂无可支付的商品");
@@ -405,10 +405,17 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                     ToastUtils.showShort("请购买商品");
                     return;
                 }
-                if (ZeroZeroSevenUtils.reactMoney((Double.parseDouble(money.getText().toString()))) < 5.0) {
-                    ToastUtils.showShort("很抱歉，未达到5元配送金额");
-                    return;
+                try {
+                    Double rMb = userInfo.getSmallRmb();
+                    if (Double.parseDouble(money.getText().toString()) < rMb) {
+                        ToastUtils.showShort("很抱歉，未达到" + rMb + "元配送金额");
+                        return;
+                    }
+                } catch (Exception e) {
+                    ToastUtils.showShort("很抱歉，未达到5.000元配送金额");
                 }
+
+
                 carShopInfo = (CarShopInfo) SharePrefUtils.readObject(CommitDingDanActivity.this, "carShopInfo");
                 if (shouHuoInfo.getData().getAddresses() != null && shouHuoInfo.getData().getAddresses().size() > 0) {
                     if (carShopInfo != null && carShopInfo.getShopInfos().size() > 0) {

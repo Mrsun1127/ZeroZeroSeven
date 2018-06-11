@@ -19,6 +19,7 @@ import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.GoodsListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
+import com.ffn.zerozeroseven.ui.SeachSchoolListActivity;
 import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
 import com.ffn.zerozeroseven.utlis.NetUtil;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
@@ -308,6 +309,8 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                             SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
                             runMoney = shangChangShowInfo.getData().getExtraFee();
                             storeId = shangChangShowInfo.getData().getId() + "";
+                            userInfo.setSmallRmb(shangChangShowInfo.getData().getDeliveryPrice());
+                            SharePrefUtils.saveObject(bfCxt,"userInfo",userInfo);
                             requestShop();
                             if (shangChangShowInfo.getData().isIsClosing()) {
                                 if (shangChangShowInfo.getData().getOpeningTime().equals(shangChangShowInfo.getData().getClosingTime()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime2()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime())) {
