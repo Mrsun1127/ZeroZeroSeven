@@ -1,8 +1,6 @@
 package com.ffn.zerozeroseven.ui;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
@@ -15,8 +13,8 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
-import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
+import com.ffn.zerozeroseven.base.BaseLoginActivity;
 import com.ffn.zerozeroseven.bean.CodeInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.BindJiGuangInfo;
@@ -25,29 +23,24 @@ import com.ffn.zerozeroseven.bean.requsetbean.SendCodeInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.UserLoginInfo;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
 import com.ffn.zerozeroseven.utlis.LogUtils;
-import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
 import com.ffn.zerozeroseven.utlis.MyCountTimer;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.UserInfoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
-import com.umeng.analytics.MobclickAgent;
 
-import java.io.IOException;
 import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 /**
  * Created by GT on 2017/11/15.
  */
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseLoginActivity implements View.OnClickListener {
     private int LoginStatus = 0; //判断登录是以验证码还是用户名密码登录 0 验证码 1用户名密码
     Button bt_send;
     TextView tv_yanzhen;
@@ -77,7 +70,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             "android.permission.READ_EXTERNAL_STORAGE",
-            "android.permission.WRITE_EXTERNAL_STORAGE" };
+            "android.permission.WRITE_EXTERNAL_STORAGE"};
 
     public static void verifyStoragePermissions(Activity activity) {
 
@@ -87,12 +80,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     "android.permission.WRITE_EXTERNAL_STORAGE");
             if (permission != PackageManager.PERMISSION_GRANTED) {
                 // 没有写的权限，去申请写的权限，会弹出对话框
-                ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,REQUEST_EXTERNAL_STORAGE);
+                ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public void initView() {
         ButterKnife.bind(this);
@@ -121,18 +115,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         try {
             String username = txtFileInfo.get("username");
             String password = txtFileInfo.get("password");
-            if(!TextUtils.isEmpty(username)){
+            if (!TextUtils.isEmpty(username)) {
                 et_username.setText(username);
                 et_phoneNumber.setText(username);
             }
-            if(!TextUtils.isEmpty(password) && !"nopwd".equals(password)){
+            if (!TextUtils.isEmpty(password) && !"nopwd".equals(password)) {
                 et_userpassWord.setText(password);
-                if(!"set".equals(getIntent().getStringExtra("exit"))){
-                    LoginByPwd();
+                if (!"set".equals(getIntent().getStringExtra("exit"))) {
+//                    LoginByPwd();
                 }
             }
 
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
 
     }
 
@@ -193,7 +188,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 SendCode();
                 break;
         }
-}
+    }
 
     //发送验证码
     private void SendCode() {
@@ -213,40 +208,24 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         parametersBean.setEvent("LOGIN");
         parametersBean.setPhone(et_phoneNumber.getText().toString().trim());
         codeInfo.setParameters(parametersBean);
-        httpPostJSON(codeInfo);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(LoginActivity.this);
+        okGoUtils.httpPostJSON(codeInfo, false, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ToastUtils.showShort("获取失败，请稍后再试");
+            public void onSuccLoad(String response) {
+                try {
+                    CodeInfo info = JSON.parseObject(response, CodeInfo.class);
+                    if (info.getCode() == 0) {
+                        timer.start();
+                        loginCode = info.getData().getAuthcode();
+                        ToastUtils.showShort("发送成功!");
+                        LogUtils.D("LoginActivity", loginCode);
+                    } else {
+                        ToastUtils.showShort(info.getMessage());
                     }
-                });
-                disLoadProgress();
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response)  {
-                disLoadProgress();
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            CodeInfo info= JsonUtil.parseJsonToBean(response.body().string(),CodeInfo.class);
-                            if(info.getCode()==0){
-                                timer.start();
-                                loginCode = info.getData().getAuthcode();
-                                ToastUtils.showShort("发送成功!");
-                                LogUtils.D("LoginActivity",loginCode);
-                            }else{
-                                ToastUtils.showShort(info.getMessage());
-                            }
-                        }catch (Exception e){
-                            ToastUtils.showShort("服务器异常，请稍后再试");
-                        }
-                    }
-                });
+                } catch (Exception e) {
+                    ToastUtils.showShort("服务器异常，请稍后再试");
+                }
             }
         });
     }
@@ -268,42 +247,24 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         UserLoginInfo.ParametersBean parametersBean = new UserLoginInfo.ParametersBean();
         parametersBean.setPassword(et_userpassWord.getText().toString().trim());
         parametersBean.setPhone(et_username.getText().toString().trim());
-        if(!TextUtils.isEmpty(et_yaoqing.getText().toString().trim())){
+        if (!TextUtils.isEmpty(et_yaoqing.getText().toString().trim())) {
             parametersBean.setInviteCode(et_yaoqing.getText().toString().trim());
         }
         userLoginInfo.setParameters(parametersBean);
-        httpPostJSON(userLoginInfo);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils2 = new OkGoUtils(LoginActivity.this);
+        okGoUtils2.httpPostJSON(userLoginInfo, false, true);
+        okGoUtils2.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        ToastUtils.showShort("网络连接异常，请稍后再试");
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                disLoadProgress();
-                final UserInfo userInfo = JsonUtil.parseJsonToBean(response.body().string(), UserInfo.class);
+            public void onSuccLoad(String response) {
+                final UserInfo userInfo = JsonUtil.parseJsonToBean(response, UserInfo.class);
                 if (userInfo.getCode() == 0) {
-                    UserInfoUtils.saveUserInfo(LoginActivity.this,et_username.getText().toString().trim(),et_userpassWord.getText().toString().trim());
-                    MobclickAgent.onEvent(LoginActivity.this, "账号密码登录");
+                    UserInfoUtils.saveUserInfo(LoginActivity.this, et_username.getText().toString().trim(), et_userpassWord.getText().toString().trim());
                     BaseAppApplication.getInstance().setLoginUser(userInfo.getData());
                     SharePrefUtils.saveObject(LoginActivity.this, "userInfo", userInfo.getData());
                     bindJiGuang(userInfo.getData().getId());
                 } else {
-                    BaseAppApplication.mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtils.showShort(userInfo.getMessage());
-                        }
-                    });
+                    ToastUtils.showShort(userInfo.getMessage());
                 }
-
             }
         });
     }
@@ -328,57 +289,39 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         CodeLoginInfo.ParametersBean parametersBean = new CodeLoginInfo.ParametersBean();
         parametersBean.setAuthcode(et_code.getText().toString().trim());
         parametersBean.setPhone(et_phoneNumber.getText().toString().trim());
-        if(!TextUtils.isEmpty(et_yaoqing.getText().toString().trim())){
+        if (!TextUtils.isEmpty(et_yaoqing.getText().toString().trim())) {
             parametersBean.setInviteCode(et_yaoqing.getText().toString().trim());
         }
         codeLoginInfo.setParameters(parametersBean);
-        httpPostJSON(codeLoginInfo);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils3=new OkGoUtils(LoginActivity.this);
+        okGoUtils3.httpPostJSON(codeLoginInfo,false,true);
+        okGoUtils3.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                    }
-                });
-
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response)  {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                    }
-                });
-                        try {
-                            final UserInfo userInfo1 = JSON.parseObject(response.body().string(), UserInfo.class);
-                            if (userInfo1.getCode() == 0) {
-                                UserInfoUtils.saveUserInfo(LoginActivity.this,et_phoneNumber.getText().toString().trim(),"nopwd");
-                                MobclickAgent.onEvent(LoginActivity.this, "验证码登录");
-                                BaseAppApplication.getInstance().setLoginUser(userInfo1.getData());
-                                SharePrefUtils.saveObject(LoginActivity.this, "userInfo", userInfo1.getData());
-                                bindJiGuang(userInfo1.getData().getId());
-                            } else {
-                                BaseAppApplication.mainHandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ToastUtils.showShort(userInfo1.getMessage());
-                                    }
-                                });
+            public void onSuccLoad(String response) {
+                try {
+                    final UserInfo userInfo1 = JSON.parseObject(response, UserInfo.class);
+                    if (userInfo1.getCode() == 0) {
+                        UserInfoUtils.saveUserInfo(LoginActivity.this, et_phoneNumber.getText().toString().trim(), "nopwd");
+                        BaseAppApplication.getInstance().setLoginUser(userInfo1.getData());
+                        SharePrefUtils.saveObject(LoginActivity.this, "userInfo", userInfo1.getData());
+                        bindJiGuang(userInfo1.getData().getId());
+                    } else {
+                        BaseAppApplication.mainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                ToastUtils.showShort(userInfo1.getMessage());
                             }
+                        });
+                    }
 
-                        } catch (Exception e) {
-                            BaseAppApplication.mainHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ToastUtils.showShort("服务器异常，请稍后再试");
-                                }
-                            });
+                } catch (Exception e) {
+                    BaseAppApplication.mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtils.showShort("服务器异常，请稍后再试");
                         }
-
+                    });
+                }
             }
         });
     }
@@ -388,58 +331,38 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected int setLayout() {
         return R.layout.activity_login;
     }
+
     @Override
     protected void doMain() {
         BaseAppApplication.getInstance().addActivity(this);
-
         ZeroZeroSevenUtils.setUnderline(this, tv_forgetpwd, "忘记密码？");
-//        if(TextUtils.isEmpty(loginName)){
-//            et_username.setText(loginName);
-//        }
-//        if(TextUtils.isEmpty(passWord)){
-//            et_userpassWord.setText(passWord);
-//        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         timer.onFinish();
-        timer=null;
+        timer = null;
     }
-    public void bindJiGuang(int userId){
-        String registId=JPushInterface.getRegistrationID(this);
-        LogUtils.D("JPushInterface",registId);
-        BindJiGuangInfo bindJiGuangInfo=new BindJiGuangInfo();
+
+    public void bindJiGuang(int userId) {
+        String registId = JPushInterface.getRegistrationID(this);
+        LogUtils.D("JPushInterface", registId);
+        BindJiGuangInfo bindJiGuangInfo = new BindJiGuangInfo();
         bindJiGuangInfo.setFunctionName("AddUserDevice");
-        BindJiGuangInfo.ParametersBean parametersBean=new BindJiGuangInfo.ParametersBean();
+        BindJiGuangInfo.ParametersBean parametersBean = new BindJiGuangInfo.ParametersBean();
         parametersBean.setPlatform("android");
         parametersBean.setUserId(String.valueOf(userId));
         parametersBean.setClientId(registId);
         bindJiGuangInfo.setParameters(parametersBean);
-        httpPostJSON(bindJiGuangInfo);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils4=new OkGoUtils(LoginActivity.this);
+        okGoUtils4.httpPostJSON(bindJiGuangInfo,false,true);
+        okGoUtils4.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onSuccLoad(String response) {
                 ZeroZeroSevenUtils.SwitchActivity(LoginActivity.this, HomeActivity.class);
-                LoginActivity.this.finish();
+                finish();
             }
         });
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
     }
 }
