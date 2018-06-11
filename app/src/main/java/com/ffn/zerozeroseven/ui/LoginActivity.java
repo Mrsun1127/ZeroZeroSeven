@@ -122,7 +122,7 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
             if (!TextUtils.isEmpty(password) && !"nopwd".equals(password)) {
                 et_userpassWord.setText(password);
                 if (!"set".equals(getIntent().getStringExtra("exit"))) {
-//                    LoginByPwd();
+                    LoginByPwd();
                 }
             }
 
@@ -200,7 +200,6 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
             ToastUtils.showShort("请输入正确的手机号码");
             return;
         }
-        showLoadProgress();
         SendCodeInfo codeInfo = new SendCodeInfo();
         codeInfo.setFunctionName("SendAuthcode");
         codeInfo.setId("2");
@@ -213,7 +212,6 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                try {
                     CodeInfo info = JSON.parseObject(response, CodeInfo.class);
                     if (info.getCode() == 0) {
                         timer.start();
@@ -223,9 +221,6 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
                     } else {
                         ToastUtils.showShort(info.getMessage());
                     }
-                } catch (Exception e) {
-                    ToastUtils.showShort("服务器异常，请稍后再试");
-                }
             }
         });
     }
@@ -240,7 +235,6 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
             ToastUtils.showShort("密码不能为空");
             return;
         }
-        showLoadProgress();
         final UserLoginInfo userLoginInfo = new UserLoginInfo();
         userLoginInfo.setFunctionName("UserLogin");
         userLoginInfo.setId("5");
@@ -283,7 +277,6 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
             ToastUtils.showShort("请输入验证码");
             return;
         }
-        showLoadProgress();
         CodeLoginInfo codeLoginInfo = new CodeLoginInfo();
         codeLoginInfo.setFunctionName("UserAuthcodeLogin");
         CodeLoginInfo.ParametersBean parametersBean = new CodeLoginInfo.ParametersBean();
