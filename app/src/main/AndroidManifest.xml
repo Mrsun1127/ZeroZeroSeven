@@ -103,6 +103,7 @@
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
         <activity
             android:name=".ui.LoginActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.SetActivity"
@@ -243,6 +244,7 @@
         <activity android:name=".ui.MrsunWebActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.AdvertisingActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.LevelActivity"
             android:screenOrientation="portrait"/>
