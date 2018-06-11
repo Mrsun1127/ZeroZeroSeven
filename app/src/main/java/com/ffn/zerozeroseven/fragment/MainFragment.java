@@ -1294,7 +1294,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             case R.id.rl_integer:
                 if (userInfo != null) {
                     if ("943478288".equals(schoolIId)) {
-                        ToastUtils.showShort("请先选择学校");
+                        ZeroZeroSevenUtils.showCustonPop(bfCxt,"请先选择学校",recyclerView);
                     } else {
                         ZeroZeroSevenUtils.SwitchActivity(bfCxt, IntegralDrawActivity.class);
                     }
@@ -1305,7 +1305,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             case R.id.rl_local:
                 if (userInfo != null) {
                     if ("943478288".equals(schoolIId)) {
-                        ToastUtils.showShort("请先选择学校");
+                        ZeroZeroSevenUtils.showCustonPop(bfCxt,"请先选择学校",recyclerView);
                     } else {
                         Bundle bundle3 = new Bundle();
                         bundle3.putString("title", "土豪吃货榜");
