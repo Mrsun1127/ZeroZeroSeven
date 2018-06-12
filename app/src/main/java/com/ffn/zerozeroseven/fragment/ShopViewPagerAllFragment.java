@@ -122,8 +122,9 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
     @Override
     public void initDate() {
         setRefreshLayoutVis();
+        userInfo=BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
-            schoolIId = BaseAppApplication.getInstance().getLoginUser().getSchoolId();
+            schoolIId = userInfo.getSchoolId();
         }
         if ("943478288".equals(schoolIId)) {
             rl_no_select.setVisibility(View.VISIBLE);

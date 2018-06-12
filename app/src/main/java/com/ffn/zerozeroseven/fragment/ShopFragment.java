@@ -26,7 +26,6 @@ import com.ffn.zerozeroseven.ui.CommitDingDanActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
-import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -205,7 +204,12 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                 }
                 break;
             case R.id.tv_school_name:
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, SearchSchoolActivity.class);
+                if (userInfo != null) {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, SearchSchoolActivity.class);
+                } else {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class, null);
+                }
+
                 break;
         }
     }

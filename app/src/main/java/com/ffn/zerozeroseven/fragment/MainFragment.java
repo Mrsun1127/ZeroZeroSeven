@@ -90,7 +90,6 @@ import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
 import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
 import com.ffn.zerozeroseven.ui.WebViewActivity;
 import com.ffn.zerozeroseven.utlis.DownLoadManager;
-import com.ffn.zerozeroseven.utlis.FastBlurUtil;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
@@ -695,15 +694,17 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onPause() {
         super.onPause();
-        if (userLikeInfo != null) {
-            if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
-                scrollTextView.stopAutoScroll();
+        try {
+            if (userLikeInfo != null) {
+                if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
+                    scrollTextView.stopAutoScroll();
+                }
+                banner.pause();//暂停轮播
+                if (userLikeInfo.getData().getPosts().size() > 3) {
+                    recyclerView.stop();
+                }
             }
-            banner.pause();//暂停轮播
-            if (userLikeInfo.getData().getPosts().size() > 3) {
-                recyclerView.stop();
-            }
-        }
+        }catch (Exception e){}
     }
 
     public void goToDetils(final int position, final MainGoodsAdapter adapter) {
@@ -928,11 +929,11 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     public void reQuest() {
         if (userInfo != null) {
             schoolIId = BaseAppApplication.getInstance().getLoginUser().getSchoolId();
+            if(!TextUtils.isEmpty(userInfo.getSchoolName())){
+                tv_school.setText(userInfo.getSchoolName());
+            }
         }
-        if (userInfo != null) {
-            requestpopularList();
-        }
-//        openZhiLingService();
+        requestpopularList();
         initHeadView();
         requestBaner();
         //    05:00 - 09:00  09:00 - 11:30 11:30 - 14:00 14:00-17:00 17:00-19:00 19:00-24:00 24:00-05:00
@@ -1322,7 +1323,11 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 }
                 break;
             case R.id.tv_school:
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, SearchSchoolActivity.class);
+                if (userInfo != null) {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, SearchSchoolActivity.class);
+                } else {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class, null);
+                }
                 break;
             case R.id.rl_location:
                 if (userInfo != null) {
