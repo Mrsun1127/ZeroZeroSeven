@@ -695,15 +695,15 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onPause() {
         super.onPause();
-        if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
-            scrollTextView.stopAutoScroll();
+        if (userLikeInfo != null) {
+            if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
+                scrollTextView.stopAutoScroll();
+            }
+            banner.pause();//暂停轮播
+            if (userLikeInfo.getData().getPosts().size() > 3) {
+                recyclerView.stop();
+            }
         }
-        banner.pause();//暂停轮播
-        if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
-            recyclerView.stop();
-        }
-
-
     }
 
     public void goToDetils(final int position, final MainGoodsAdapter adapter) {
@@ -1294,7 +1294,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             case R.id.rl_integer:
                 if (userInfo != null) {
                     if ("943478288".equals(schoolIId)) {
-                        ZeroZeroSevenUtils.showCustonPop(bfCxt,"请先选择学校",recyclerView);
+                        ZeroZeroSevenUtils.showCustonPop(bfCxt, "请先选择学校", recyclerView);
                     } else {
                         ZeroZeroSevenUtils.SwitchActivity(bfCxt, IntegralDrawActivity.class);
                     }
@@ -1305,7 +1305,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             case R.id.rl_local:
                 if (userInfo != null) {
                     if ("943478288".equals(schoolIId)) {
-                        ZeroZeroSevenUtils.showCustonPop(bfCxt,"请先选择学校",recyclerView);
+                        ZeroZeroSevenUtils.showCustonPop(bfCxt, "请先选择学校", recyclerView);
                     } else {
                         Bundle bundle3 = new Bundle();
                         bundle3.putString("title", "土豪吃货榜");
@@ -1379,29 +1379,31 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onResume() {
         super.onResume();
-        banner.start();//开始轮播
-        if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
-            scrollTextView.startAutoScroll();
-        }
-        if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
-            recyclerView.start();
-        }
-        if (haveData == 1) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    requestpopularList();
-                }
-            }).start();
-        }
-        requestTime();
         userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
-            if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
-                tv_school.setText(userInfo.getSchoolName());
-            } else {
-                tv_school.setText("请选择学校");
-            }
+           try {
+               banner.start();//开始轮播
+               if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
+                   scrollTextView.startAutoScroll();
+               }
+               if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
+                   recyclerView.start();
+               }
+               if (haveData == 1) {
+                   new Thread(new Runnable() {
+                       @Override
+                       public void run() {
+                           requestpopularList();
+                       }
+                   }).start();
+               }
+               requestTime();
+               if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
+                   tv_school.setText(userInfo.getSchoolName());
+               } else {
+                   tv_school.setText("请选择学校");
+               }
+           }catch (Exception e){}
         } else {
             tv_school.setText("请选择学校");
         }

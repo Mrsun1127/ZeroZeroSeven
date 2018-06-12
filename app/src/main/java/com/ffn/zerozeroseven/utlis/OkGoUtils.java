@@ -85,10 +85,10 @@ public class OkGoUtils {
             if(BaseAppApplication.getInstance().getLoginUser()!=null){
                 token=BaseAppApplication.getInstance().getLoginUser().getToken();
             }
-            if(TextUtils.isEmpty(token)){
-                gotoLogin();
-                return;
-            }
+//            if(TextUtils.isEmpty(token)){
+//                gotoLogin();
+//                return;
+//            }
             Request request = new Request.Builder()
                     .addHeader("platform", "android")
                     .addHeader("Authorization", "Bearer " + token)
@@ -130,9 +130,9 @@ public class OkGoUtils {
                 }
                 json = response.body().string();
                 String code = JsonUtil.getFieldValue(json, "code");
-                if ("401".equals(code)) {
-                    gotoLogin();
-                }
+//                if ("401".equals(code)) {
+//                    gotoLogin();
+//                }
                 if("-101".equals(code)){
                     HomeActivity.getmInstance().get().showpop();
                 }

@@ -225,15 +225,17 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         focus.requestFocus();
 //        String schoolName = MrsunAppCacheUtils.get(getActivity()).getAsString("schoolName");
         userInfo = BaseAppApplication.getInstance().getLoginUser();
-        if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
-            if (userInfo.getSchoolName().length() > 7) {
-                tv_school_name.setText(userInfo.getSchoolName().substring(0, 6) + "...");
-            } else {
-                tv_school_name.setText(userInfo.getSchoolName());
+        if(userInfo!=null){
+            if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
+                if (userInfo.getSchoolName().length() > 7) {
+                    tv_school_name.setText(userInfo.getSchoolName().substring(0, 6) + "...");
+                } else {
+                    tv_school_name.setText(userInfo.getSchoolName());
 
+                }
             }
+            notifyCar();
         }
-        notifyCar();
 
     }
 
