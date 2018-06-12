@@ -50,7 +50,6 @@ public class BindZFbPayActivity extends BaseActivity {
     public void initView() {
         ButterKnife.bind(this);
         timer = new MyCountTimer(tv_send);
-        BaseAppApplication.getInstance().addActivity(this);
     }
 
     @Override

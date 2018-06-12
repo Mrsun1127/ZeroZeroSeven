@@ -18,6 +18,7 @@ import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.squareup.leakcanary.RefWatcher;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -181,5 +182,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     protected void onDestroy() {
         super.onDestroy();
         ImmersionBar.with(this).destroy();
+        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(BaseActivity.this);
+        refWatcher.watch(this);
     }
 }

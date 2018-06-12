@@ -63,7 +63,6 @@ public class RunDetilsActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         position = getIntent().getIntExtra("posotion", 0);
         type = getIntent().getStringExtra("type");
         if (type.equals("main")) {

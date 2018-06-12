@@ -41,7 +41,6 @@ public class MineRunActivity extends BaseActivity {
     }
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         commonStateLayout = findViewById(R.id.common_stateLayout);
     }
 }

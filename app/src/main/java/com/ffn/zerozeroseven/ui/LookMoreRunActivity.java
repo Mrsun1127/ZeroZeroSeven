@@ -54,7 +54,6 @@ public class LookMoreRunActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        BaseAppApplication.getInstance().addActivity(this);
         titleView.setTopText("我来跑腿");
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {
             @Override

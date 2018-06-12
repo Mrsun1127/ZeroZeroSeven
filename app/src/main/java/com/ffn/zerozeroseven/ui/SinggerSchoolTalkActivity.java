@@ -67,7 +67,6 @@ public class SinggerSchoolTalkActivity extends BaseActivity {
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
-        BaseAppApplication.getInstance().addActivity(this);
         id = getIntent().getIntExtra("id", 0);
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {
             @Override

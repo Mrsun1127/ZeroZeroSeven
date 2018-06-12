@@ -65,7 +65,6 @@ public class ZhiJieCommitDingDanActivity extends BaseActivity implements View.On
 
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         carShopInfo = (CarShopInfo) SharePrefUtils.readObject(ZhiJieCommitDingDanActivity.this, "zhijiecarShopInfo");
         rl_selectadr = findViewById(R.id.rl_selectadr);
         et_beizhu = findViewById(R.id.et_beizhu);

@@ -37,7 +37,6 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         findViewById(R.id.iv_back).setOnClickListener(this);
         TextView textView=findViewById(R.id.tv_top);
         textView.setText("意见反馈");

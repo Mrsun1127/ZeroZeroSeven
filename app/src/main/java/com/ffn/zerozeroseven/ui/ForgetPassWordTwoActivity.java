@@ -35,7 +35,6 @@ public class ForgetPassWordTwoActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         iv_back = this.findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override

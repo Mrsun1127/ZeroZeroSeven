@@ -63,7 +63,6 @@ public class RegistActivity extends BaseCaheActivity implements View.OnClickList
     EditText et_yaoqing;
     @Override
     protected void runMainThread() {
-        BaseAppApplication.getInstance().addActivity(this);
         initView();
         ZeroZeroSevenUtils.setUnderline(RegistActivity.this,tv_bottom,"已有账号？点击这里登录");
     }

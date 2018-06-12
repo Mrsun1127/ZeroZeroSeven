@@ -20,7 +20,6 @@ public class CommitSuccessActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         TitleView titleView=findViewById(R.id.titleview);
         titleView.setTopText("支付成功");
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {

@@ -17,7 +17,6 @@ public class AboutUsActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         TitleView titleView=findViewById(R.id.titleview);
         titleView.setTopText("关于我们");
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {

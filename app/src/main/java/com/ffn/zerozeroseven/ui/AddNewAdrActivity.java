@@ -46,7 +46,6 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void initView() {
         MobclickAgent.onEvent(this, "地址管理");
-        BaseAppApplication.getInstance().addActivity(this);
         et_adr = findViewById(R.id.et_adr);
         et_name = findViewById(R.id.et_name);
         et_phone = findViewById(R.id.et_phone);

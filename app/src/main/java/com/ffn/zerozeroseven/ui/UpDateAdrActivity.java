@@ -41,7 +41,6 @@ public class UpDateAdrActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         et_name.setText(getIntent().getStringExtra("name"));
         et_adr.setText(getIntent().getStringExtra("adr"));
         et_phone.setText(getIntent().getStringExtra("phone"));

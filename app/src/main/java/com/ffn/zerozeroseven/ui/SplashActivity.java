@@ -2,7 +2,6 @@ package com.ffn.zerozeroseven.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.UserInfo;
-import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 

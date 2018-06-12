@@ -17,7 +17,6 @@ public class UpdatePayPassWordActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         TitleView titleView=findViewById(R.id.titleview);
         titleView.setTopText("修改支付密码");
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {

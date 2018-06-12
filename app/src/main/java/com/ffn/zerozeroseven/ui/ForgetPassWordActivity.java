@@ -41,7 +41,6 @@ public class ForgetPassWordActivity extends BaseActivity implements View.OnClick
     private MyCountTimer timer;
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         ftCode="";
         btn_next = this.findViewById(R.id.bt_next);
         btn_next.setOnClickListener(this);

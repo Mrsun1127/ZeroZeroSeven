@@ -85,7 +85,6 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         if (userInfo != null) {
             name = userInfo.getRealName();
             phone = userInfo.getPhone();

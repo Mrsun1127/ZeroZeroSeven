@@ -51,7 +51,6 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void doMain() {
 //        GetAllAdr();
-        BaseAppApplication.getInstance().addActivity(this);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
             @Override
             public void create(SwipeMenu menu) {

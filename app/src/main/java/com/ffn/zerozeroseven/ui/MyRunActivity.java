@@ -41,7 +41,6 @@ public class MyRunActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        BaseAppApplication.getInstance().addActivity(this);
         fragmentList.add(new RunDingDanFragment());
         fragmentList.add(new ReleaseTaskFragment());
         titleList.add("");

@@ -39,7 +39,6 @@ public class LouDongActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         TitleView titleView = findViewById(R.id.titleview);
         titleView.setTopText("选择楼栋");
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {

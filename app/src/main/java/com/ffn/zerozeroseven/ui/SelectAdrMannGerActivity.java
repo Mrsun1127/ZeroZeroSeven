@@ -43,7 +43,6 @@ public class SelectAdrMannGerActivity extends BaseActivity implements View.OnCli
     @Override
     protected void doMain() {
 //        GetAllAdr();
-        BaseAppApplication.getInstance().addActivity(this);
         msgPullLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

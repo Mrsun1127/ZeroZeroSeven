@@ -57,7 +57,6 @@ public class HelpmeRunActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void doMain() {
         ButterKnife.bind(this);
-        BaseAppApplication.getInstance().addActivity(this);
         findViewById(R.id.bt_sub).setOnClickListener(this);
         TitleView titleView = findViewById(R.id.titleview);
         ll_all = findViewById(R.id.ll_all);

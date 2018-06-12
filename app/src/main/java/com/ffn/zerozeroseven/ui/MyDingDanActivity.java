@@ -89,7 +89,6 @@ public class MyDingDanActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         findViewById(R.id.iv_back).setOnClickListener(this);
         TextView textView = findViewById(R.id.tv_top);
         textView.setText("我的订单");

@@ -70,7 +70,6 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         initAdr();
         showGuide();
     }

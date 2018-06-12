@@ -165,7 +165,6 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         ll_niming = findViewById(R.id.ll_niming);
         tv_topone = findViewById(R.id.tv_topone);
         tv_bottom = findViewById(R.id.tv_bottom);

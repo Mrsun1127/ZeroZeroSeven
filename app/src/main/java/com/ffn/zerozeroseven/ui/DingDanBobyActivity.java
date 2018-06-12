@@ -70,7 +70,6 @@ public class DingDanBobyActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        BaseAppApplication.getInstance().addActivity(this);
         tv_time = findViewById(R.id.tv_time);
         tv_staus = findViewById(R.id.tv_status);
         tv_allmoney = findViewById(R.id.tv_allmoney);

@@ -30,7 +30,6 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void doMain() {
 
-        BaseAppApplication.getInstance().addActivity(this);
         Button bt_exit = findViewById(R.id.bt_exit);
         if (userInfo!=null) {
             bt_exit.setVisibility(View.VISIBLE);
@@ -87,7 +86,6 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                         Bundle bundle =new Bundle();
                         bundle.putString("exit","set");
                         ZeroZeroSevenUtils.SwitchActivity(SetActivity.this, LoginActivity.class,bundle);
-                        BaseAppApplication.getInstance().clearActivityList();
                         BaseAppApplication.getInstance().setLoginUser(null);
                         overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
                     }

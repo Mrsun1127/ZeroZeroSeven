@@ -55,7 +55,6 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         mInstance = this;
         api = WXAPIFactory.createWXAPI(this, "wx189141e4085fa0d1", false);
         api.registerApp("wx189141e4085fa0d1");

@@ -80,7 +80,6 @@ public class VipActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        BaseAppApplication.getInstance().addActivity(this);
     }
 
     @Override

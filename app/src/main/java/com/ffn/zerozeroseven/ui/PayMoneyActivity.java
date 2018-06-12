@@ -59,7 +59,6 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         mInstance = new WeakReference<PayMoneyActivity>(this);
         api = WXAPIFactory.createWXAPI(this, "wx189141e4085fa0d1", false);
         api.registerApp("wx189141e4085fa0d1");

@@ -40,7 +40,6 @@ public class KuaiDiYuanRenZhengActivity extends BaseActivity implements View.OnC
 
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         findViewById(R.id.rl_back).setOnClickListener(this);
         findViewById(R.id.bt_sub).setOnClickListener(this);
         et_phone = findViewById(R.id.et_phone);

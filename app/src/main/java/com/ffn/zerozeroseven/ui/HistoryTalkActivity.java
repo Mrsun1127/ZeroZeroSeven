@@ -64,7 +64,6 @@ public class HistoryTalkActivity extends BaseActivity implements BGARefreshLayou
 
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         TopView topView=findViewById(R.id.topView);
         topView.setTopText("历史发表");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {

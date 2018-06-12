@@ -29,7 +29,6 @@ public class MrsunWebActivity extends BaseActivity {
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
-        BaseAppApplication.getInstance().addActivity(this);
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {
             @Override
             public void ivBack() {

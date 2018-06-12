@@ -92,7 +92,6 @@ public class SchoolnewCardActivity extends BaseActivity implements SwipeFlingAda
 
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         String cache = MrsunAppCacheUtils.get(SchoolnewCardActivity.this).getAsString("cache");
         if (TextUtils.isEmpty(cache)) {
             requestRype();

@@ -44,7 +44,6 @@ public class SetPassWordActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         et_pwd = findViewById(R.id.et_pwd);
         et_password = findViewById(R.id.et_passWord);
         regCode = getIntent().getStringExtra("rgCode");

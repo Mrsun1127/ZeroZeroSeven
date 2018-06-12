@@ -52,7 +52,6 @@ public class SeachSchoolListActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         json = MrsunAppCacheUtils.get(SeachSchoolListActivity.this).getAsString("allSchoolList");
         if (TextUtils.isEmpty(json)) {
             requestAllSchoolData();

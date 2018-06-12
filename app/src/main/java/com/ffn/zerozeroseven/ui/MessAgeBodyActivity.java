@@ -44,7 +44,6 @@ public class MessAgeBodyActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        BaseAppApplication.getInstance().addActivity(this);
         titleview.setTopText("消息详情");
         titleview.setOnTitleListener(new TitleView.OnTitleClickListener() {
             @Override

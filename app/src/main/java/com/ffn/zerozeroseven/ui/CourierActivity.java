@@ -49,7 +49,6 @@ public class CourierActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        BaseAppApplication.getInstance().addActivity(this);
         json = userInfo.getCurisInfoJson();
         curiousInfo = JSON.parseObject(json, CuriousInfo.class);
         tv_place = findViewById(R.id.tv_place);

@@ -89,7 +89,6 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         MobclickAgent.onEvent(this, "选择学校");
         inStance=new WeakReference<SearchSchoolActivity>(this);
         initDate();

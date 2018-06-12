@@ -84,7 +84,6 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         getShangChangInfo();
     }
     Double rmb;

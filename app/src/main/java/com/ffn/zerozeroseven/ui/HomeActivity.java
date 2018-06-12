@@ -33,6 +33,7 @@ import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.NXHooldeView;
 import com.gyf.barlibrary.ImmersionBar;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ import java.util.TimerTask;
  */
 
 public class HomeActivity extends AppCompatActivity {
+    private static final String TAG_EXIT = "exit";
     RelativeLayout rl_main;
     RelativeLayout rl_shop;
     RelativeLayout rl_mine;
@@ -61,16 +63,26 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null) {
+            boolean isExit = intent.getBooleanExtra(TAG_EXIT, false);
+            if (isExit) {
+                this.finish();
+            }
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
-        BaseAppApplication.getInstance().addActivity(this);
         mInstance = new WeakReference<>(this);
         initRadio();
         initFragments();
         showFragment(0);
-        openAliveService();
+//        openAliveService();
         txst();
     }
 
@@ -206,13 +218,18 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }, 2000);
         } else {//退出程序
-            BaseAppApplication.getInstance().clearActivityList();
+//            BaseAppApplication.getInstance().clearActivityList();
+            Intent intent = new Intent(this,HomeActivity.class);
+            intent.putExtra(HomeActivity.TAG_EXIT, true);
+            startActivity(intent);
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(HomeActivity.this);
+        refWatcher.watch(this);
     }
 
     public void openAliveService() {

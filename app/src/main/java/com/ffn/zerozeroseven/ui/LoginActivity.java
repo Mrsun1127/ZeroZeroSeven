@@ -90,7 +90,6 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        BaseAppApplication.getInstance().addActivity(this);
         loginCode = "";
         bt_send = findViewById(R.id.bt_send);
         tv_forgetpwd = findViewById(R.id.tv_forgetpwd);
@@ -327,7 +326,6 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
 
     @Override
     protected void doMain() {
-        BaseAppApplication.getInstance().addActivity(this);
         ZeroZeroSevenUtils.setUnderline(this, tv_forgetpwd, "忘记密码？");
     }
 
