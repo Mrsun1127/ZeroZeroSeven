@@ -1,25 +1,15 @@
 package com.ffn.zerozeroseven.base;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.WindowManager;
 
 import com.aitangba.swipeback.SwipeBackActivity;
 import com.ffn.zerozeroseven.R;
-import com.ffn.zerozeroseven.bean.UserInfo;
-import com.ffn.zerozeroseven.ui.SplashActivity;
-import com.ffn.zerozeroseven.utlis.JsonUtil;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.squareup.leakcanary.RefWatcher;
 
-import okhttp3.Call;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 
 /**
  * Created by GT on 2017/11/19.
@@ -101,7 +91,5 @@ public abstract class BaseLoginActivity extends SwipeBackActivity {
         super.onDestroy();
         BaseAppApplication.getInstance().finishActivity(this);
         ImmersionBar.with(this).destroy();
-        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(BaseLoginActivity.this);
-        refWatcher.watch(this);
     }
 }

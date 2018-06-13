@@ -22,9 +22,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 import com.umeng.commonsdk.UMConfigure;
-import com.wanjian.cockroach.Cockroach;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,16 +61,11 @@ public class BaseAppApplication extends MultiDexApplication {
             }
         });
     }
-    public static RefWatcher getRefWatcher(Context context) {
-        BaseAppApplication application = (BaseAppApplication) context.getApplicationContext();
-        return application.refWatcher;
-    }
-    private RefWatcher refWatcher;
+
     @Override
     public void onCreate() {
         super.onCreate();
         context = this;
-        refWatcher=LeakCanary.install(this);
 //        Cockroach.install(new Cockroach.ExceptionHandler() {
 //            @Override
 //            public void handlerException(Thread thread, Throwable throwable) {

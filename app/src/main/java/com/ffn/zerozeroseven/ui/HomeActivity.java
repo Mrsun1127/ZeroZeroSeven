@@ -30,15 +30,10 @@ import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.fragment.MineFragment;
 import com.ffn.zerozeroseven.fragment.ShopFragment;
 import com.ffn.zerozeroseven.service.LocalService;
-import com.ffn.zerozeroseven.utlis.LogUtils;
-import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.NXHooldeView;
-import com.gyf.barlibrary.ImmersionBar;
-import com.squareup.leakcanary.RefWatcher;
 
-import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -253,8 +248,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         BaseAppApplication.getInstance().finishActivity(this);
-        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(HomeActivity.this);
-        refWatcher.watch(this);
     }
 
     public void openAliveService() {
