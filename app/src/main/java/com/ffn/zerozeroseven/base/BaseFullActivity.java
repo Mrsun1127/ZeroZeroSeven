@@ -31,7 +31,17 @@ public abstract class BaseFullActivity extends SwipeBackActivity {
     public String schoolIId;
     public UserInfo.DataBean userInfo;
     private KProgressHUD hud;
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+        super.onSaveInstanceState(savedInstanceState);
+    }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

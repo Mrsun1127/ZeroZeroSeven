@@ -1,5 +1,6 @@
 package com.ffn.zerozeroseven.base;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -40,7 +41,17 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
     private KProgressHUD hud;
     private RgRefreshStatus rgRefreshStatus = RgRefreshStatus.IDLE;
     int pageNo = 0;
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+        super.onSaveInstanceState(savedInstanceState);
+    }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+    }
     private void setRefreshLayoutVis() {
         if (commonRefreshLayout.getVisibility() == View.GONE) {
             commonRefreshLayout.setVisibility(View.VISIBLE);

@@ -56,11 +56,11 @@ public class LocalService extends Service {
             public void run() {
                 while (true) {
                     if (!ZeroZeroSevenUtils.isAppOnForeground(getApplicationContext())) {
-                        BaseAppApplication.getInstance().clearActivityList();
+                        BaseAppApplication.getInstance().exit();
                     }
                     try {
                         Thread.sleep(180000);
-//                        Thread.sleep(10000);
+//                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

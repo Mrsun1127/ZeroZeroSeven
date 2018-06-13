@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppManger;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
+import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.fragment.MineFragment;
 import com.ffn.zerozeroseven.fragment.ShopFragment;
@@ -37,6 +38,7 @@ import com.ffn.zerozeroseven.view.NXHooldeView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.squareup.leakcanary.RefWatcher;
 
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -76,8 +78,23 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState!=null){
+            BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo")); ;
+        }
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
         BaseAppApplication.getInstance().addActivity(this);
@@ -206,6 +223,8 @@ public class HomeActivity extends AppCompatActivity {
         Glide.with(HomeActivity.this).load(R.drawable.normal_center).into(mine);
         showContentFragment(pos);
     }
+
+
 
     private static boolean mBackKeyPressed = false;//记录是否有首次按键
 
