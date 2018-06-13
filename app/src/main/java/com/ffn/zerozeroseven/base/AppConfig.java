@@ -10,9 +10,10 @@ public  class AppConfig {
 
 
     //外网请求地址
-//    public static final String BaseUrl="https://api.lingling7.com/lingling7-server/api/MobileServer/single";
-    public static final String BaseUrl="http://192.168.0.199:8001/lingling7-server/api/MobileServer/single";
+    public static final String BaseUrl="https://api.lingling7.com/lingling7-server/api/MobileServer/single";
+//    public static final String BaseUrl="http://192.168.0.199:8001/lingling7-server/api/MobileServer/single";
     //分享地址
+
     public static final String SHAREURL="http://www.lingling7.com/share/t1.html";
     //logo链接
     public static final String LOGOURL="http://a1.qpic.cn/psb?/V11aBxEr3o07IR/aPTWUpzy03lS2WgXGXHDY6eDqhjVcIY*w8Azpuz32ts!/m/dEQBAAAAAAAAnull&bo=bABsAAAAAAADByI!&rf=photolist&t=5";

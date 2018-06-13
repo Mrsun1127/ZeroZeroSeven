@@ -63,10 +63,11 @@ public class OkGoUtils {
         BaseAppApplication.mainHandler.post(new Runnable() {
             @Override
             public void run() {
-                if (hud != null) {
-                    hud.dismiss();
-                } else {
-                }
+               try {
+                   if (hud != null) {
+                       hud.dismiss();
+                   }
+               }catch (Exception e){}
             }
         });
     }

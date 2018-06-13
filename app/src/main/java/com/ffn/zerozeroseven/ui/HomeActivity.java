@@ -23,12 +23,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.AppManger;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.fragment.MineFragment;
 import com.ffn.zerozeroseven.fragment.ShopFragment;
 import com.ffn.zerozeroseven.service.LocalService;
 import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.NXHooldeView;
@@ -78,11 +80,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
+        AppManger.getAppManager().addActivity(this);
         mInstance = new WeakReference<>(this);
         initRadio();
         initFragments();
         showFragment(0);
-//        openAliveService();
+        openAliveService();
         txst();
     }
 
@@ -228,6 +231,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        AppManger.getAppManager().finishActivity(this);
         RefWatcher refWatcher = BaseAppApplication.getRefWatcher(HomeActivity.this);
         refWatcher.watch(this);
     }

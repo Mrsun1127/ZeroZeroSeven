@@ -11,6 +11,7 @@ import android.os.RemoteException;
 import android.support.annotation.Nullable;
 
 import com.ffn.zerozeroseven.IMyAidlInterface;
+import com.ffn.zerozeroseven.base.AppManger;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.ui.HomeActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
@@ -55,10 +56,11 @@ public class LocalService extends Service {
             public void run() {
                 while (true) {
                     if (!ZeroZeroSevenUtils.isAppOnForeground(getApplicationContext())) {
-                        BaseAppApplication.getInstance().clearActivityList();
+                        AppManger.getAppManager().AppExit(BaseAppApplication.context);
                     }
                     try {
-                        Thread.sleep(180000);
+//                        Thread.sleep(180000);
+                        Thread.sleep(10000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

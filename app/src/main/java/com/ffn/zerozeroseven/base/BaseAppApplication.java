@@ -3,6 +3,7 @@ package com.ffn.zerozeroseven.base;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
@@ -23,6 +24,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.umeng.commonsdk.UMConfigure;
+import com.wanjian.cockroach.Cockroach;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +79,7 @@ public class BaseAppApplication extends MultiDexApplication {
 //                    @Override
 //                    public void run() {
 //                        try {
-//                            ToastUtils.showShort("出了点小问题 请您双击返回退出app，重新进入");
+////                            ToastUtils.showShort("出了点小问题 请您双击返回退出app，重新进入");
 //                        } catch (Throwable e) {
 //
 //                        }

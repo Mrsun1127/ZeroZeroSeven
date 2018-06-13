@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.AppManger;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.utlis.MyCountTimer;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -36,6 +37,7 @@ public class AdvertisingActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
         setContentView(R.layout.activity_advertising);
+        AppManger.getAppManager().addActivity(this);
         ButterKnife.bind(this);
         imgUrl = getIntent().getStringExtra("imgurl");
         Glide.with(this).load(imgUrl).into(imageView);
@@ -73,7 +75,14 @@ public class AdvertisingActivity extends AppCompatActivity {
             case R.id.bt_jump:
                 stopTimer();
                 ZeroZeroSevenUtils.SwitchActivity(AdvertisingActivity.this,HomeActivity.class);
+                finish();
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManger.getAppManager().finishActivity(this);
     }
 }

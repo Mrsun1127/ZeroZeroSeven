@@ -1,13 +1,12 @@
 package com.ffn.zerozeroseven.ui;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.AppManger;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
@@ -87,6 +86,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                         bundle.putString("exit","set");
                         ZeroZeroSevenUtils.SwitchActivity(SetActivity.this, LoginActivity.class,bundle);
                         BaseAppApplication.getInstance().setLoginUser(null);
+                        AppManger.getAppManager().finishAllActivity();
                         overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
                     }
 

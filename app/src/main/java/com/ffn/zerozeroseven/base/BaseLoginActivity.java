@@ -33,7 +33,7 @@ public abstract class BaseLoginActivity extends SwipeBackActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayout());
-
+        AppManger.getAppManager().addActivity(this);
         ImmersionBar.with(this).init();
         baContext = BaseLoginActivity.this;
         hud = KProgressHUD.create(BaseLoginActivity.this)
@@ -99,6 +99,7 @@ public abstract class BaseLoginActivity extends SwipeBackActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        AppManger.getAppManager().finishActivity(this);
         ImmersionBar.with(this).destroy();
         RefWatcher refWatcher = BaseAppApplication.getRefWatcher(BaseLoginActivity.this);
         refWatcher.watch(this);

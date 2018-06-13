@@ -60,7 +60,7 @@ import okhttp3.Response;
  * Created by GT on 2017/11/22.
  */
 
-public class SearchSchoolActivity extends BaseActivity implements View.OnClickListener, OnGetPoiSearchResultListener {
+public class SearchSchoolActivity extends BaseActivity implements View.OnClickListener {
     private String[] mItems;
     private SchoolJsonInfo jsonInfo;
     private TextView tv_select_shen;
@@ -72,10 +72,10 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
     private SchoolListAdapter schoolListAdapter;
     private LoadingView loadingView;
     public LocationClient mLocationClient = null;
-    private MyLocationListener myListener = new MyLocationListener();
-    private double latitude;
-    private double longitude;
-    private PoiSearch mPoiSearch;
+//    private MyLocationListener myListener = new MyLocationListener();
+//    private double latitude;
+//    private double longitude;
+//    private PoiSearch mPoiSearch;
 //    private WaitingDialog waitingDialog1;
     TextView tv_name;
     TextView tv_relocate;
@@ -111,84 +111,84 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
             }
         }
 //        waitingDialog1=new WaitingDialog(this);
-        doGoLocation();
+//        doGoLocation();
 
     }
-    public void doGoLocation(){
-        mLocationClient = new LocationClient(BaseAppApplication.context);
-        //声明LocationClient类
-        mLocationClient.registerLocationListener(myListener);
-        LocationClientOption option = new LocationClientOption();
-        option.setIsNeedLocationPoiList(true);
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-        option.setCoorType("bd09ll");
-        mPoiSearch = PoiSearch.newInstance();
-        mPoiSearch.setOnGetPoiSearchResultListener(this);
-        //可选，是否需要周边POI信息，默认为不需要，即参数为false
-        //如果开发者需要获得周边POI信息，此处必须为true
-        mLocationClient.setLocOption(option);
-        mLocationClient.start();
-    }
-    @Override
-    public void onGetPoiResult(final PoiResult poiResult) {
-        if (poiResult != null) {
-            if (poiResult.getAllPoi() != null && poiResult.getAllPoi().size() > 0) {
-//                FindSchoolId(poiResult.getAllPoi().get(0).name);
-                for (int i = 0; i < poiResult.getAllPoi().size(); i++) {
-                    LogUtils.D("SearCherName",poiResult.getAllPoi().get(i).name+":::"+poiResult.getAllPoi().get(i).describeContents());
+//    public void doGoLocation(){
+//        mLocationClient = new LocationClient(BaseAppApplication.context);
+//        //声明LocationClient类
+//        mLocationClient.registerLocationListener(myListener);
+//        LocationClientOption option = new LocationClientOption();
+//        option.setIsNeedLocationPoiList(true);
+//        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+//        option.setCoorType("bd09ll");
+//        mPoiSearch = PoiSearch.newInstance();
+//        mPoiSearch.setOnGetPoiSearchResultListener(this);
+//        //可选，是否需要周边POI信息，默认为不需要，即参数为false
+//        //如果开发者需要获得周边POI信息，此处必须为true
+//        mLocationClient.setLocOption(option);
+//        mLocationClient.start();
+//    }
+//    @Override
+//    public void onGetPoiResult(final PoiResult poiResult) {
+//        if (poiResult != null) {
+//            if (poiResult.getAllPoi() != null && poiResult.getAllPoi().size() > 0) {
+////                FindSchoolId(poiResult.getAllPoi().get(0).name);
+//                for (int i = 0; i < poiResult.getAllPoi().size(); i++) {
+//                    LogUtils.D("SearCherName",poiResult.getAllPoi().get(i).name+":::"+poiResult.getAllPoi().get(i).describeContents());
+//
+//                }
+//                BaseAppApplication.mainHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+////                        waitingDialog1.dismiss();
+//                        tv_name.setText(poiResult.getAllPoi().get(0).name.substring(0,poiResult.getAllPoi().get(0).name.indexOf("学")+1));
+//                    }
+//                });
+//
+//            } else {
+//                BaseAppApplication.mainHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        tv_name.setText("请手动定位");
+////                        waitingDialog1.dismiss();
+//                    }
+//                });
+//            }
+//        }
+//    }
 
-                }
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-//                        waitingDialog1.dismiss();
-                        tv_name.setText(poiResult.getAllPoi().get(0).name.substring(0,poiResult.getAllPoi().get(0).name.indexOf("学")+1));
-                    }
-                });
+//    @Override
+//    public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+//
+//    }
+//
+//    @Override
+//    public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
+//
+//    }
+//
+//    public class MyLocationListener extends BDAbstractLocationListener {
+//        @Override
+//        public void onReceiveLocation(BDLocation location) {
+//            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+//            //以下只列举部分获取周边POI信息相关的结果
+//            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
+//            latitude = location.getLatitude();
+//            longitude = location.getLongitude();
+//            searchNeayBy(latitude, longitude);
+//        }
+//    }
 
-            } else {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        tv_name.setText("请手动定位");
-//                        waitingDialog1.dismiss();
-                    }
-                });
-            }
-        }
-    }
-
-    @Override
-    public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
-
-    }
-
-    @Override
-    public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
-
-    }
-
-    public class MyLocationListener extends BDAbstractLocationListener {
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
-            //以下只列举部分获取周边POI信息相关的结果
-            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-            searchNeayBy(latitude, longitude);
-        }
-    }
-
-    private void searchNeayBy(double latitude1, double longitude1) {
-//        waitingDialog1.showInfo("正在获取学校定位中...");
-        PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
-        nearbySearchOption.location(new LatLng(latitude1, longitude1));
-        nearbySearchOption.keyword("大学");
-        nearbySearchOption.radius(3000);
-        nearbySearchOption.sortType(PoiSortType.distance_from_near_to_far);
-        mPoiSearch.searchNearby(nearbySearchOption);
-    }
+//    private void searchNeayBy(double latitude1, double longitude1) {
+////        waitingDialog1.showInfo("正在获取学校定位中...");
+//        PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
+//        nearbySearchOption.location(new LatLng(latitude1, longitude1));
+//        nearbySearchOption.keyword("大学");
+//        nearbySearchOption.radius(3000);
+//        nearbySearchOption.sortType(PoiSortType.distance_from_near_to_far);
+//        mPoiSearch.searchNearby(nearbySearchOption);
+//    }
 
     @Override
     public void onClick(View view) {
@@ -201,7 +201,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.tv_relocate:
                 LogUtils.D("SearchSchoolActivity","我走了点击方法");
-                doGoLocation();
+//                doGoLocation();
                 break;
         }
     }

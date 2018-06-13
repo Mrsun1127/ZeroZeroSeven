@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.AppManger;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
@@ -28,6 +29,7 @@ public class SplashActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
         setContentView(R.layout.activity_splash);
+        AppManger.getAppManager().addActivity(this);
         BaseAppApplication.flag=66;//设置出-1以外的数字
         tv_version=findViewById(R.id.tv_version);
         userInfo = (UserInfo.DataBean) SharePrefUtils.readObject(SplashActivity.this,"userInfo");
@@ -66,5 +68,9 @@ public class SplashActivity extends AppCompatActivity {
         }).start();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManger.getAppManager().finishActivity(this);
+    }
 }

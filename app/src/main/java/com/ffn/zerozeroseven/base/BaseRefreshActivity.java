@@ -63,6 +63,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        AppManger.getAppManager().addActivity(this);
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {
             @Override
             public void ivBack() {
@@ -254,5 +255,11 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
                 });
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManger.getAppManager().finishActivity(this);
     }
 }

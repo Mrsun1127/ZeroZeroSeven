@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.AppManger;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseCaheActivity;
 import com.ffn.zerozeroseven.bean.CodeInfo;
@@ -69,6 +70,7 @@ public class RegistActivity extends BaseCaheActivity implements View.OnClickList
 
     private void initView() {
         ButterKnife.bind(this);
+        AppManger.getAppManager().addActivity(this);
         regCode="";
         iv_back = this.findViewById(R.id.iv_back);
         bt_reg = this.findViewById(R.id.bt_reg);
@@ -358,6 +360,7 @@ public class RegistActivity extends BaseCaheActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        AppManger.getAppManager().finishActivity(this);
         timer.onFinish();
     }
     @Override

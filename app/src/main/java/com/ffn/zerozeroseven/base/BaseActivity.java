@@ -42,7 +42,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayout());
-
+        AppManger.getAppManager().addActivity(this);
         ImmersionBar.with(this).init();
         baContext = BaseActivity.this;
         userInfo = BaseAppApplication.getInstance().getLoginUser();
@@ -181,6 +181,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        AppManger.getAppManager().finishActivity(this);
         ImmersionBar.with(this).destroy();
         RefWatcher refWatcher = BaseAppApplication.getRefWatcher(BaseActivity.this);
         refWatcher.watch(this);
