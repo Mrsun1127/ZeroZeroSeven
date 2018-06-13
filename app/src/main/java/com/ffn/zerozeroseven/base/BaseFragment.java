@@ -85,13 +85,7 @@ public abstract class BaseFragment extends ImmersionFragment {
         bfCxt = context;
     }
 
-    public void gotoLogin() {
-        MrsunAppCacheUtils.get(getActivity()).clear();
-        SharePrefUtils.clearData(getActivity());
-        BaseAppApplication.getInstance().setLoginUser(null);
-        ZeroZeroSevenUtils.SwitchActivity(getActivity(), LoginActivity.class);
-        BaseAppApplication.getInstance().clearActivityList();
-    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -65,10 +65,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         doMain();
     }
 
-    protected void protectApp() {
-        BaseAppApplication.getInstance().clearActivityList();
-        startActivity(new Intent(this, SplashActivity.class));
-    }
+
 
     public void bindData() {
 

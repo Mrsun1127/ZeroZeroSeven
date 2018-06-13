@@ -131,9 +131,9 @@ public class OkGoUtils {
                 }
                 json = response.body().string();
                 String code = JsonUtil.getFieldValue(json, "code");
-//                if ("401".equals(code)) {
-//                    gotoLogin();
-//                }
+                if ("401".equals(code)) {
+                    gotoLogin();
+                }
                 if("-101".equals(code)){
                     HomeActivity.getmInstance().get().showpop();
                 }
