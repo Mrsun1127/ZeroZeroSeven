@@ -1,6 +1,7 @@
 package com.ffn.zerozeroseven.base;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

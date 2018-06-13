@@ -152,7 +152,9 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                     }
                 });
                 GoodTabsShowInfo showInfo = JSON.parseObject(response.body().string(), GoodTabsShowInfo.class);
+                LogUtils.D("logcat1","1");
                 if (showInfo.getCode() == 0) {
+                    LogUtils.D("logcat1","2");
                     list_title = new ArrayList<>();
                     list_title.add("全部");
                     list_fragment = new ArrayList<>();
@@ -161,6 +163,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                         list_title.add(showInfo.getData().getItems().get(i).getDicValue());
                         mineFragment = ShopViewPagerFragment.newInstance(showInfo.getData().getItems().get(i).getDicValue(), showInfo.getData().getItems().get(i).getDicKey());
                         list_fragment.add(mineFragment);
+                        LogUtils.D("logcat1","3");
                     }
                     BaseAppApplication.mainHandler.post(new Runnable() {
                         @Override
@@ -170,6 +173,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                                 fAdapter = new ShopViewPagerAdapter(getActivity().getSupportFragmentManager(), list_fragment, list_title);
                                 viewPager.setAdapter(fAdapter);
                                 tabLayout.setupWithViewPager(viewPager);
+                                LogUtils.D("logcat1","4");
                             } catch (Exception e) {
                             }
                         }
