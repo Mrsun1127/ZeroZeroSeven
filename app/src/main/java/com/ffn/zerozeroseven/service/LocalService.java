@@ -59,8 +59,8 @@ public class LocalService extends Service {
                         AppManger.getAppManager().AppExit(BaseAppApplication.context);
                     }
                     try {
-//                        Thread.sleep(180000);
-                        Thread.sleep(10000);
+                        Thread.sleep(180000);
+//                        Thread.sleep(10000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
