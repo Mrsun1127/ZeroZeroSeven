@@ -80,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
-        AppManger.getAppManager().addActivity(this);
+        BaseAppApplication.getInstance().addActivity(this);
         mInstance = new WeakReference<>(this);
         initRadio();
         initFragments();
@@ -231,7 +231,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppManger.getAppManager().finishActivity(this);
         RefWatcher refWatcher = BaseAppApplication.getRefWatcher(HomeActivity.this);
         refWatcher.watch(this);
     }

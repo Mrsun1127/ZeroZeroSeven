@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppManger;
+import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.yanzhenjie.permission.AndPermission;
 
@@ -47,7 +48,7 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
         setContentView(R.layout.welcome);
-        AppManger.getAppManager().addActivity(this);
+        BaseAppApplication.getInstance().addActivity(this);
         mViewpage = findViewById(R.id.viewpage);
         mStartButton = findViewById(R.id.start_button);
         mIndicator = findViewById(R.id.indicator);
@@ -174,6 +175,5 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppManger.getAppManager().finishActivity(this);
     }
 }

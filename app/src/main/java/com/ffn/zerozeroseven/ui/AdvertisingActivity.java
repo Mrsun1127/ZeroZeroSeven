@@ -37,7 +37,7 @@ public class AdvertisingActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
         setContentView(R.layout.activity_advertising);
-        AppManger.getAppManager().addActivity(this);
+        BaseAppApplication.getInstance().addActivity(this);
         ButterKnife.bind(this);
         imgUrl = getIntent().getStringExtra("imgurl");
         Glide.with(this).load(imgUrl).into(imageView);
@@ -83,6 +83,5 @@ public class AdvertisingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppManger.getAppManager().finishActivity(this);
     }
 }

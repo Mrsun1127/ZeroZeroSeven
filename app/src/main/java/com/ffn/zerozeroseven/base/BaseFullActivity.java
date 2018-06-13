@@ -37,7 +37,7 @@ public abstract class BaseFullActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(setLayout());
-        AppManger.getAppManager().addActivity(this);
+        BaseAppApplication.getInstance().addActivity(this);
         baContext = BaseFullActivity.this;
         userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
@@ -171,7 +171,6 @@ public abstract class BaseFullActivity extends SwipeBackActivity {
 
     @Override
     protected void onDestroy() {
-        AppManger.getAppManager().finishActivity(this);
         super.onDestroy();
     }
 }

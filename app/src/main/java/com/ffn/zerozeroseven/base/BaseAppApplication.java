@@ -28,6 +28,7 @@ import com.wanjian.cockroach.Cockroach;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -38,7 +39,7 @@ import cn.jpush.android.api.JPushInterface;
 public class BaseAppApplication extends MultiDexApplication {
     public static Context context;
     private static BaseAppApplication instance;
-    private List<Activity> activityList = new ArrayList<>();
+    private Stack<Activity> activityList;
     public static Handler mainHandler;//主线程的handler
     public static UserInfo.DataBean userInfo;
     //判断是否被回收
@@ -119,25 +120,32 @@ public class BaseAppApplication extends MultiDexApplication {
 
     // 添加Activity到容器中
     public void addActivity(Activity activity) {
+        if(activityList==null){
+            activityList=new Stack<>();
+        }
         activityList.add(activity);
     }
 
 
     // 遍历所有Activity并finish
     public void exit() {
-        for (Activity activity : activityList) {
-            activity.finish();
+        for (int i = 0, size = activityList.size(); i < size; i++){
+            if (null != activityList.get(i)){
+                activityList.get(i).finish();
+            }
         }
-        System.exit(0);
+        activityList.clear();
     }
 
 
     public void clearActivityList() {
-        if (activityList.size() > 0) {
-            for (int i = 0; i < activityList.size(); i++) {
+        for (int i = 0, size = activityList.size(); i < size; i++){
+            if (null != activityList.get(i)){
                 activityList.get(i).finish();
             }
         }
+        activityList.clear();
+        System.exit(0);
     }
 
     public UserInfo.DataBean getLoginUser() {

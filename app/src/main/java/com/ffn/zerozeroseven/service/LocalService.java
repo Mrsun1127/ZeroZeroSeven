@@ -56,7 +56,7 @@ public class LocalService extends Service {
             public void run() {
                 while (true) {
                     if (!ZeroZeroSevenUtils.isAppOnForeground(getApplicationContext())) {
-                        AppManger.getAppManager().AppExit(BaseAppApplication.context);
+                        BaseAppApplication.getInstance().clearActivityList();
                     }
                     try {
                         Thread.sleep(180000);
