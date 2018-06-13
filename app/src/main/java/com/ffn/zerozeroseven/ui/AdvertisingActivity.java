@@ -82,6 +82,7 @@ public class AdvertisingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        BaseAppApplication.getInstance().finishActivity(this);
         super.onDestroy();
     }
 }

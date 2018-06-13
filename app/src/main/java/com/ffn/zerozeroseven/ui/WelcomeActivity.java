@@ -48,6 +48,7 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
         setContentView(R.layout.welcome);
+        BaseAppApplication.getInstance().addActivity(this);
         mViewpage = findViewById(R.id.viewpage);
         mStartButton = findViewById(R.id.start_button);
         mIndicator = findViewById(R.id.indicator);
@@ -174,5 +175,6 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        BaseAppApplication.getInstance().finishActivity(this);
     }
 }

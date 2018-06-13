@@ -178,6 +178,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        BaseAppApplication.getInstance().finishActivity(this);
         ImmersionBar.with(this).destroy();
         RefWatcher refWatcher = BaseAppApplication.getRefWatcher(BaseActivity.this);
         refWatcher.watch(this);

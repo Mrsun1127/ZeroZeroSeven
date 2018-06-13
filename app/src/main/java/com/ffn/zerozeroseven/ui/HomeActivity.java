@@ -231,6 +231,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        BaseAppApplication.getInstance().finishActivity(this);
         RefWatcher refWatcher = BaseAppApplication.getRefWatcher(HomeActivity.this);
         refWatcher.watch(this);
     }

@@ -125,7 +125,16 @@ public class BaseAppApplication extends MultiDexApplication {
         }
         activityList.add(activity);
     }
-
+    /**
+     * 结束指定的Activity
+     */
+    public void finishActivity(Activity activity){
+        if(activity!=null){
+            activityList.remove(activity);
+            activity.finish();
+            activity=null;
+        }
+    }
 
     // 遍历所有Activity并finish
     public void exit() {

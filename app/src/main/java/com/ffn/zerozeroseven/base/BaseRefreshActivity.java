@@ -259,6 +259,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
 
     @Override
     protected void onDestroy() {
+        BaseAppApplication.getInstance().finishActivity(this);
         super.onDestroy();
     }
 }

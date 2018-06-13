@@ -30,6 +30,7 @@ public class SplashActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
         setContentView(R.layout.activity_splash);
         BaseAppApplication.flag=66;//设置出-1以外的数字
+        BaseAppApplication.getInstance().addActivity(this);
         tv_version=findViewById(R.id.tv_version);
         userInfo = (UserInfo.DataBean) SharePrefUtils.readObject(SplashActivity.this,"userInfo");
         new Thread(new Runnable() {
@@ -70,5 +71,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        BaseAppApplication.getInstance().finishActivity(this);
     }
 }
