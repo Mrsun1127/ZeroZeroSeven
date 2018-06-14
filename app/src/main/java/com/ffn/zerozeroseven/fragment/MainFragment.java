@@ -283,9 +283,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onPageClick(View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString("url", bannerInfo.getData().getList().get(position).getLink());
-                bundle.putString("title", bannerInfo.getData().getList().get(position).getTitle());
-                if (!TextUtils.isEmpty(bannerInfo.getData().getList().get(position).getLink())) {
+                bundle.putString("url", urlList.get(position));
+                bundle.putString("title", titleList.get(position));
+                if (!TextUtils.isEmpty(urlList.get(position))) {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, MrsunWebActivity.class, bundle);
                 }
             }
@@ -312,7 +312,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onPageSelected(int position) {
                 Glide.with(bfCxt)
-                        .load(bannerInfo.getData().getList().get(position).getPicUrl())
+                        .load(images.get(position))
                         .into(iv_bg);
             }
 
@@ -985,7 +985,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     boolean showTwo = false;
-
+    private List<String> urlList;
+    private List<String> titleList;
     private void requestBaner() {
         LunBoInfo lunBoInfo = new LunBoInfo();
         lunBoInfo.setFunctionName("ListAd");
@@ -1003,9 +1004,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     mRefreshLayout.refreshComplete();
                     if (bannerInfo.getData().getList().size() > 0) {
                         images = new ArrayList<>();
+                        urlList = new ArrayList<>();
+                        titleList = new ArrayList<>();
                         for (int i = 0; i < bannerInfo.getData().getList().size(); i++) {
                             if (bannerInfo.getData().getList().get(i).getType().equals("横幅广告")) {//横幅
                                 images.add(bannerInfo.getData().getList().get(i).getPicUrl());
+                                urlList.add(bannerInfo.getData().getList().get(i).getLink());
+                                titleList.add(bannerInfo.getData().getList().get(i).getTitle());
                             } else if (bannerInfo.getData().getList().get(i).getType().equals("下拉广告")) {//下拉
                                 showTwo = true;
                                 header.loadImage(bannerInfo.getData().getList().get(i).getPicUrl());
@@ -1023,7 +1028,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             mRefreshLayout.setResistance(3f);
                         }
                         Glide.with(bfCxt)
-                                .load(bannerInfo.getData().getList().get(0).getPicUrl())
+                                .load(images.get(0))
                                 .into(iv_bg);
                         banner.setPages(images, new MZHolderCreator() {
                             @Override
