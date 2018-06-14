@@ -99,7 +99,7 @@ public class HomeActivity extends AppCompatActivity {
         initRadio();
         initFragments();
         showFragment(0);
-//        openAliveService();
+        openAliveService();
         txst();
     }
 
