@@ -38,7 +38,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+        BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo"));
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

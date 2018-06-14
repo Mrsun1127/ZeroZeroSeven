@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+        BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo"));
     }
 
     @Override
@@ -99,7 +99,7 @@ public class HomeActivity extends AppCompatActivity {
         initRadio();
         initFragments();
         showFragment(0);
-        openAliveService();
+//        openAliveService();
         txst();
     }
 
