@@ -1,13 +1,19 @@
 package com.ffn.zerozeroseven.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ProductGoInAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
+import com.ffn.zerozeroseven.bean.ProductDetilsInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.LastInteralInfo;
 import com.ffn.zerozeroseven.ui.InteralDetilsActivity;
 import com.ffn.zerozeroseven.ui.ProductDetilsActivity;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 
@@ -25,30 +31,59 @@ public class ProductDetilsFragment extends BaseFragment {
     RecyclerView rc_allgoin;
     private ProductGoInAdapter goInAdapter;
     private ProductGoInAdapter goInAdapter1;
+    private int id;
+    public static ProductDetilsFragment newInstance(int id) {
+        Bundle args = new Bundle();
+        args.putInt("id", id);
+        ProductDetilsFragment fragment = new ProductDetilsFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        id=savedInstanceState.getInt("id");
+    }
 
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
-    }
-
-    @Override
-    public void initDate() {
         rc_minegoin.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
         rc_allgoin.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
         goInAdapter = new ProductGoInAdapter(bfCxt);
         goInAdapter1 = new ProductGoInAdapter(bfCxt);
         rc_minegoin.setAdapter(goInAdapter);
         rc_allgoin.setAdapter(goInAdapter);
-        List<String> s=new ArrayList<>();
-        s.add("");
-        s.add("");
-        s.add("");
-        s.add("");
-        s.add("");
-        s.add("");
-        goInAdapter.addAll(s);
-        goInAdapter1.addAll(s);
+    }
 
+    @Override
+    public void initDate() {
+       requestId(id);
+    }
+
+    public void requestId(int id) {
+        LastInteralInfo lastInteralInfo = new LastInteralInfo();
+        lastInteralInfo.setFunctionName("ListPointPrizeIssue");
+        LastInteralInfo.ParametersBean parametersBean = new LastInteralInfo.ParametersBean();
+        parametersBean.setPrizeId(id);
+        lastInteralInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
+        okGoUtils.httpPostJSON(lastInteralInfo,true,true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ProductDetilsInfo productDetilsInfo = JSON.parseObject(response,ProductDetilsInfo.class);
+                if(productDetilsInfo.getCode()==0){
+                    if(productDetilsInfo.getData().getItem().getAllUserContributionList().size()>0){
+                        goInAdapter.addAll(productDetilsInfo.getData().getItem().getAllUserContributionList());
+                    }
+                    if(productDetilsInfo.getData().getItem().getUserContributionList().size()>0){
+                        goInAdapter.addAll(productDetilsInfo.getData().getItem().getAllUserContributionList());
+                    }
+                }
+            }
+        });
     }
 
     @Override

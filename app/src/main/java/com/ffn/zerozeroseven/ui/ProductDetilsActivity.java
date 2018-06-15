@@ -71,27 +71,6 @@ public class ProductDetilsActivity extends BaseActivity {
                 productAdapter.setClickPosition(position);
             }
         });
-        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
-            @Override
-            public void onLoadMore() {
-                showLoadProgress();
-                BaseAppApplication.mainHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        titleList.clear();
-                        titleList.add("8");
-                        titleList.add("9");
-                        titleList.add("10");
-                        titleList.add("11");
-                        titleList.add("12");
-                        productAdapter.addAll(titleList);
-                    }
-                },1500);
-
-            }
-        });
-
     }
 
     @Override
@@ -104,9 +83,8 @@ public class ProductDetilsActivity extends BaseActivity {
 
     private void requestTitle() {
         LastInteralInfo lastInteralInfo = new LastInteralInfo();
-        lastInteralInfo.setFunctionName("ListPointIssuePrize");
+        lastInteralInfo.setFunctionName("ListPointPrizeIssue");
         LastInteralInfo.ParametersBean parametersBean = new LastInteralInfo.ParametersBean();
-        parametersBean.setUserPhone(userInfo.getPhone());
         parametersBean.setPrizeId(prizeId);
         lastInteralInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(ProductDetilsActivity.this);
@@ -115,27 +93,20 @@ public class ProductDetilsActivity extends BaseActivity {
             @Override
             public void onSuccLoad(String response) {
                 ProductTitleInfo productTitleInfo = JSON.parseObject(response, ProductTitleInfo.class);
-                if (productTitleInfo.getCode() == 0) {
-//                    if (productTitleInfo.getData().getIssuePrizes().size() > 0) {
+                if (productTitleInfo.getCode() == 0 && productTitleInfo.getData().getIssues().size() > 0) {
                     fragmentList = new ArrayList<>();
                     titleList = new ArrayList<>();
                     List = new ArrayList<>();
-                    List.add("第一期");
-                    titleList.add("第一期");
-                    titleList.add("第二期");
-                    titleList.add("第三期");
-                    titleList.add("第四期");
-                    titleList.add("第五期");
-                    titleList.add("第六期");
-                    titleList.add("第七期");
+                    for (int i = 0; i < productTitleInfo.getData().getIssues().size(); i++) {
+                        titleList.add(String.valueOf(productTitleInfo.getData().getIssues().get(i).getIssue()));
+                    }
+                    List.add(String.valueOf(productTitleInfo.getData().getIssues().get(0).getIssue()));
                     productAdapter.addAll(titleList);
                     productAdapter.setClickPosition(0);
-                    fragmentList.add(new ProductDetilsFragment());
+                    fragmentList.add(ProductDetilsFragment.newInstance(productTitleInfo.getData().getIssues().get(0).getId()));
                     ShopViewPagerAdapter viewPagerAdapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, List);
                     viewPager.setAdapter(viewPagerAdapter);
-//                    }
                 }
-
             }
         });
     }
