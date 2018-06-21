@@ -4,23 +4,25 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ProductGoInAdapter;
+import com.ffn.zerozeroseven.adapter.ProductSinggerGoInAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.bean.ProductDetilsInfo;
-import com.ffn.zerozeroseven.bean.requsetbean.LastInteralInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ProductDtilsInfo;
 import com.ffn.zerozeroseven.ui.InteralDetilsActivity;
-import com.ffn.zerozeroseven.ui.ProductDetilsActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,8 +34,9 @@ public class ProductDetilsFragment extends BaseFragment {
     @Bind(R.id.rc_allgoin)
     RecyclerView rc_allgoin;
     private ProductGoInAdapter goInAdapter;
-    private ProductGoInAdapter goInAdapter1;
+    private ProductSinggerGoInAdapter goInAdapter1;
     private int id;
+
     public static ProductDetilsFragment newInstance(int id) {
         Bundle args = new Bundle();
         args.putInt("id", id);
@@ -41,29 +44,60 @@ public class ProductDetilsFragment extends BaseFragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     public static WeakReference<ProductDetilsFragment> mInstance;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        id=savedInstanceState.getInt("id");
+        id = getArguments().getInt("id");
     }
 
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
-        mInstance=new WeakReference<>(this);
+        mInstance = new WeakReference<>(this);
         rc_minegoin.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
         rc_allgoin.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
         goInAdapter = new ProductGoInAdapter(bfCxt);
-        goInAdapter1 = new ProductGoInAdapter(bfCxt);
+        goInAdapter1 = new ProductSinggerGoInAdapter(bfCxt);
         rc_minegoin.setAdapter(goInAdapter);
         rc_allgoin.setAdapter(goInAdapter);
     }
 
     @Override
     public void initDate() {
-       requestId(id);
+        requestId(id);
     }
+
+    @Bind(R.id.iv_product)
+    ImageView iv_product;
+    @Bind(R.id.tv_name)
+    TextView tv_name;
+    @Bind(R.id.tv_name1)
+    TextView tv_name1;
+    @Bind(R.id.rl_close)
+    RelativeLayout rl_close;
+    @Bind(R.id.rl_open)
+    RelativeLayout rl_open;
+    @Bind(R.id.tv_money)
+    TextView tv_money;
+    @Bind(R.id.tv_detils)
+    TextView tv_detils;
+    @Bind(R.id.tv_need)
+    TextView tv_need;
+    @Bind(R.id.tv_close)
+    TextView tv_close;
+    @Bind(R.id.pb_watch)
+    ProgressBar pb_watch;
+    @Bind(R.id.tv_username)
+    TextView tv_username;
+    @Bind(R.id.tv_usercount)
+    TextView tv_usercount;
+    @Bind(R.id.tv_usernumber)
+    TextView tv_usernumber;
+    @Bind(R.id.tv_usertime)
+    TextView tv_usertime;
 
     public void requestId(int id) {
         ProductDtilsInfo lastInteralInfo = new ProductDtilsInfo();
@@ -72,12 +106,53 @@ public class ProductDetilsFragment extends BaseFragment {
         parametersBean.setIssuePrizeId(id);
         lastInteralInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(lastInteralInfo,true,true);
+        okGoUtils.httpPostJSON(lastInteralInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                ProductDetilsInfo productDetilsInfo = JSON.parseObject(response,ProductDetilsInfo.class);
-                if(productDetilsInfo.getCode()==0){
+                ProductDetilsInfo productDetilsInfo = JSON.parseObject(response, ProductDetilsInfo.class);
+                if (productDetilsInfo.getCode() == 0) {
+                    //商品详情
+                    Glide.with(bfCxt).load(productDetilsInfo.getData().getPointPrize().getPrizePic());
+                    tv_name.setText(productDetilsInfo.getData().getPointPrize().getPrizeName());
+                    tv_name1.setText(productDetilsInfo.getData().getPointPrize().getPrizeName());
+                    tv_money.setText("￥" + productDetilsInfo.getData().getPointPrize().getPrizePrice());
+                    tv_detils.setText(productDetilsInfo.getData().getPointPrize().getPrizeIntro());
+                    goInAdapter.cleanDates();
+                    goInAdapter1.cleanDates();
+                    goInAdapter.addAll(productDetilsInfo.getData().getAllUserContributionList());
+                    goInAdapter1.addAll(productDetilsInfo.getData().getUserContributionList());
+                    switch (productDetilsInfo.getData().getStatus()) {
+                        //-1=失效奖品，0=未开奖，1=可开奖，2=已开奖，3=已填配送配送
+                        case -1:
+                            rl_close.setVisibility(View.GONE);
+                            rl_open.setVisibility(View.GONE);
+                            ZeroZeroSevenUtils.showCustonPop(bfCxt, "该奖品已失效", tv_name);
+                            break;
+                        case 0:
+                            rl_close.setVisibility(View.VISIBLE);
+                            rl_open.setVisibility(View.GONE);
+                            pb_watch.setMax(productDetilsInfo.getData().getPointPrize().getPrizePoint());
+                            tv_need.setText("总需" + productDetilsInfo.getData().getPointPrize().getPrizePoint());
+                            tv_close.setText("还差" + productDetilsInfo.getData().getPointPrize().getContributionPoint());
+                            pb_watch.setProgress(productDetilsInfo.getData().getPointPrize().getPrizePoint() - productDetilsInfo.getData().getPointPrize().getContributionPoint());
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            rl_open.setVisibility(View.VISIBLE);
+                            rl_close.setVisibility(View.GONE);
+                            tv_username.setText(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone());
+                            tv_usercount.setText(productDetilsInfo.getData().getPointPrizeWinner().getIssuePrizeId()+"次");
+                            tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getIssuePrizeId()+"");
+                            tv_usertime.setText(productDetilsInfo.getData().getPointPrizeWinner().getCreateTime());
+                            break;
+                        case 3:
+                            rl_open.setVisibility(View.VISIBLE);
+                            rl_close.setVisibility(View.GONE);
+                            break;
+
+                    }
 
                 }
             }

@@ -39,6 +39,7 @@ public class ProductDetilsActivity extends BaseActivity {
     private List<Fragment> fragmentList;
     private int prizeId;
     private ProductAdapter productAdapter;
+    private ProductTitleInfo productTitleInfo;
 
     @Override
     protected int setLayout() {
@@ -69,7 +70,7 @@ public class ProductDetilsActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, long itemId) {
                 productAdapter.setClickPosition(position);
-                ProductDetilsFragment.mInstance.get().requestId(Integer.parseInt(productAdapter.getItem(position)));
+                ProductDetilsFragment.mInstance.get().requestId(productTitleInfo.getData().getIssues().get(position).getId());
             }
         });
     }
@@ -93,7 +94,7 @@ public class ProductDetilsActivity extends BaseActivity {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                ProductTitleInfo productTitleInfo = JSON.parseObject(response, ProductTitleInfo.class);
+                productTitleInfo = JSON.parseObject(response, ProductTitleInfo.class);
                 if (productTitleInfo.getCode() == 0 && productTitleInfo.getData().getIssues().size() > 0) {
                     fragmentList = new ArrayList<>();
                     titleList = new ArrayList<>();

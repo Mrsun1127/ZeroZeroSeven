@@ -55,7 +55,7 @@ public class ProductDetilsInfo {
         private PointPrizeWinnerBean pointPrizeWinner;
         private int prizeId;
         private int status;
-        private List<?> userContributionList;
+        private List<UserContributionListBean> userContributionList;
         private List<AllUserContributionListBean> allUserContributionList;
 
         public int getIssue() {
@@ -106,11 +106,11 @@ public class ProductDetilsInfo {
             this.status = status;
         }
 
-        public List<?> getUserContributionList() {
+        public List<UserContributionListBean> getUserContributionList() {
             return userContributionList;
         }
 
-        public void setUserContributionList(List<?> userContributionList) {
+        public void setUserContributionList(List<UserContributionListBean> userContributionList) {
             this.userContributionList = userContributionList;
         }
 
@@ -326,6 +326,53 @@ public class ProductDetilsInfo {
             }
 
             public void setPoint(int point) {
+                this.point = point;
+            }
+        }
+        public static class UserContributionListBean{
+            private String createTime;
+            private String userAvatar;
+            private String userPhone;
+            private String issuePrizeId;
+            private String point;
+
+            public String getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(String createTime) {
+                this.createTime = createTime;
+            }
+
+            public String getUserAvatar() {
+                return userAvatar;
+            }
+
+            public void setUserAvatar(String userAvatar) {
+                this.userAvatar = userAvatar;
+            }
+
+            public String getUserPhone() {
+                return userPhone;
+            }
+
+            public void setUserPhone(String userPhone) {
+                this.userPhone = userPhone;
+            }
+
+            public String getIssuePrizeId() {
+                return issuePrizeId;
+            }
+
+            public void setIssuePrizeId(String issuePrizeId) {
+                this.issuePrizeId = issuePrizeId;
+            }
+
+            public String getPoint() {
+                return point;
+            }
+
+            public void setPoint(String point) {
                 this.point = point;
             }
         }
