@@ -1,8 +1,9 @@
 package com.ffn.zerozeroseven.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ProductDetilsInfo {
+public class ProductDetilsInfo implements Serializable {
     /**
      * code : 0
      * data : {"issue":1,"userContributionList":[],"pointPrize":{"lotteryCountdown":30000,"prizePrice":5400,"jackpotId":2,"prizeName":"电脑","prizePic":"http://img12.360buyimg.com/n1/s450x450_jfs/t19492/207/1948722005/158668/46bfdf4e/5adf1435N83459d1e.jpg","prizeIntro":"机械革命电脑","contributionPoint":0,"id":2,"prizePoint":1000},"allUserContributionList":[{"createTime":"2018-05-30 14:37:04","userAvatar":"1","userPhone":"222222","issuePrizeId":2,"point":1},{"createTime":"2018-05-30 14:36:52","userAvatar":"1","userPhone":"111111","issuePrizeId":2,"point":10},{"createTime":"2018-05-30 14:36:41","userAvatar":"1","userPhone":"444444","issuePrizeId":2,"point":22}],"lotteryTime":"2018-06-28 13:09:45","pointPrizeWinner":{"createTime":"2018-05-28 21:09:39","userAvatar":"131313","userPhone":"13657494044","issuePrizeId":2,"status":1},"prizeId":2,"status":2}
@@ -37,7 +38,7 @@ public class ProductDetilsInfo {
         this.message = message;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * issue : 1
          * userContributionList : []
@@ -122,7 +123,7 @@ public class ProductDetilsInfo {
             this.allUserContributionList = allUserContributionList;
         }
 
-        public static class PointPrizeBean {
+        public static class PointPrizeBean implements Serializable{
             /**
              * lotteryCountdown : 30000
              * prizePrice : 5400
@@ -218,7 +219,7 @@ public class ProductDetilsInfo {
             }
         }
 
-        public static class PointPrizeWinnerBean {
+        public static class PointPrizeWinnerBean implements Serializable{
             /**
              * createTime : 2018-05-28 21:09:39
              * userAvatar : 131313
@@ -274,7 +275,7 @@ public class ProductDetilsInfo {
             }
         }
 
-        public static class AllUserContributionListBean {
+        public static class AllUserContributionListBean implements Serializable{
             /**
              * createTime : 2018-05-30 14:37:04
              * userAvatar : 1
@@ -329,7 +330,7 @@ public class ProductDetilsInfo {
                 this.point = point;
             }
         }
-        public static class UserContributionListBean{
+        public static class UserContributionListBean implements Serializable{
             private String createTime;
             private String userAvatar;
             private String userPhone;

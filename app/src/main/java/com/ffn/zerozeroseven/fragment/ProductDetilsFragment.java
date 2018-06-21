@@ -36,6 +36,7 @@ public class ProductDetilsFragment extends BaseFragment {
     private ProductGoInAdapter goInAdapter;
     private ProductSinggerGoInAdapter goInAdapter1;
     private int id;
+    private ProductDetilsInfo productDetilsInfo;
 
     public static ProductDetilsFragment newInstance(int id) {
         Bundle args = new Bundle();
@@ -110,7 +111,7 @@ public class ProductDetilsFragment extends BaseFragment {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                ProductDetilsInfo productDetilsInfo = JSON.parseObject(response, ProductDetilsInfo.class);
+                productDetilsInfo = JSON.parseObject(response, ProductDetilsInfo.class);
                 if (productDetilsInfo.getCode() == 0) {
                     //商品详情
                     Glide.with(bfCxt).load(productDetilsInfo.getData().getPointPrize().getPrizePic());
@@ -172,9 +173,10 @@ public class ProductDetilsFragment extends BaseFragment {
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_go:
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, InteralDetilsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("product",productDetilsInfo);
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, InteralDetilsActivity.class,bundle);
                 break;
-
         }
     }
 }
