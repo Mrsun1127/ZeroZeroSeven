@@ -11,12 +11,14 @@ import com.ffn.zerozeroseven.adapter.ProductGoInAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.bean.ProductDetilsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.LastInteralInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.ProductDtilsInfo;
 import com.ffn.zerozeroseven.ui.InteralDetilsActivity;
 import com.ffn.zerozeroseven.ui.ProductDetilsActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class ProductDetilsFragment extends BaseFragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+    public static WeakReference<ProductDetilsFragment> mInstance;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class ProductDetilsFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
+        mInstance=new WeakReference<>(this);
         rc_minegoin.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
         rc_allgoin.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
         goInAdapter = new ProductGoInAdapter(bfCxt);
@@ -63,10 +66,10 @@ public class ProductDetilsFragment extends BaseFragment {
     }
 
     public void requestId(int id) {
-        LastInteralInfo lastInteralInfo = new LastInteralInfo();
-        lastInteralInfo.setFunctionName("ListPointPrizeIssue");
-        LastInteralInfo.ParametersBean parametersBean = new LastInteralInfo.ParametersBean();
-        parametersBean.setPrizeId(id);
+        ProductDtilsInfo lastInteralInfo = new ProductDtilsInfo();
+        lastInteralInfo.setFunctionName("QueryPointIssuePrize");
+        ProductDtilsInfo.ParametersBean parametersBean = new ProductDtilsInfo.ParametersBean();
+        parametersBean.setIssuePrizeId(id);
         lastInteralInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(lastInteralInfo,true,true);
@@ -75,12 +78,7 @@ public class ProductDetilsFragment extends BaseFragment {
             public void onSuccLoad(String response) {
                 ProductDetilsInfo productDetilsInfo = JSON.parseObject(response,ProductDetilsInfo.class);
                 if(productDetilsInfo.getCode()==0){
-                    if(productDetilsInfo.getData().getItem().getAllUserContributionList().size()>0){
-                        goInAdapter.addAll(productDetilsInfo.getData().getItem().getAllUserContributionList());
-                    }
-                    if(productDetilsInfo.getData().getItem().getUserContributionList().size()>0){
-                        goInAdapter.addAll(productDetilsInfo.getData().getItem().getAllUserContributionList());
-                    }
+
                 }
             }
         });

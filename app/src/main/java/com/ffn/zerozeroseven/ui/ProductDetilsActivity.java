@@ -69,6 +69,7 @@ public class ProductDetilsActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, long itemId) {
                 productAdapter.setClickPosition(position);
+                ProductDetilsFragment.mInstance.get().requestId(Integer.parseInt(productAdapter.getItem(position)));
             }
         });
     }
