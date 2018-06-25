@@ -4,12 +4,15 @@ import android.os.Bundle;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.adapter.MessAgeAdapter;
+import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.base.BaseRefreshActivity;
 import com.ffn.zerozeroseven.bean.PushMessAgeOkInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.PushMessAgeInfo;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
 
 /**
  * Created by GT on 2017/11/19.
@@ -19,6 +22,7 @@ public class MessAgeActivity extends BaseRefreshActivity {
 
     private PushMessAgeOkInfo info;
     private MessAgeAdapter adapter;
+    private ArrayList<Integer> readList;
 
     @Override
     protected BaseRecyclerAdapter setAdapter() {
@@ -64,12 +68,17 @@ public class MessAgeActivity extends BaseRefreshActivity {
 
     @Override
     protected void doMain() {
+        readList = BaseAppApplication.getInstance().getReadList();
         MobclickAgent.onEvent(this, "消息管理");
+        adapter.setReadList(readList);
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", adapter.getItem(position).getId());
+                readList.add(adapter.getItem(position).getId());
+                BaseAppApplication.getInstance().setReadList(readList);
+                adapter.setReadList(readList);
                 ZeroZeroSevenUtils.SwitchActivity(MessAgeActivity.this, MessAgeBodyActivity.class, bundle);
             }
         });

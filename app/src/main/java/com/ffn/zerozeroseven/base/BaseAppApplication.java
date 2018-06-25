@@ -23,6 +23,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.umeng.commonsdk.UMConfigure;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import cn.jpush.android.api.JPushInterface;
@@ -37,9 +38,11 @@ public class BaseAppApplication extends MultiDexApplication {
     private Stack<Activity> activityList;
     public static Handler mainHandler;//主线程的handler
     public static UserInfo.DataBean userInfo;
+    private static ArrayList<Integer> readList;
     //判断是否被回收
     public static int flag = -1;
-    public static int newsNoread=0;
+    public static int newsNoread = 0;
+
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
@@ -57,6 +60,17 @@ public class BaseAppApplication extends MultiDexApplication {
                 return new ClassicsFooter(context).setDrawableSize(20);
             }
         });
+    }
+
+    public ArrayList<Integer> getReadList() {
+        if (null == readList) {
+            readList = new ArrayList<>();
+        }
+        return readList;
+    }
+
+    public void setReadList(ArrayList<Integer> readList1) {
+        readList = readList1;
     }
 
     @Override
@@ -110,26 +124,27 @@ public class BaseAppApplication extends MultiDexApplication {
 
     // 添加Activity到容器中
     public void addActivity(Activity activity) {
-        if(activityList==null){
-            activityList=new Stack<>();
+        if (activityList == null) {
+            activityList = new Stack<>();
         }
         activityList.add(activity);
     }
+
     /**
      * 结束指定的Activity
      */
-    public void finishActivity(Activity activity){
-        if(activity!=null){
+    public void finishActivity(Activity activity) {
+        if (activity != null) {
             activityList.remove(activity);
             activity.finish();
-            activity=null;
+            activity = null;
         }
     }
 
     // 遍历所有Activity并finish
     public void exit() {
-        for (int i = 0, size = activityList.size(); i < size; i++){
-            if (null != activityList.get(i)){
+        for (int i = 0, size = activityList.size(); i < size; i++) {
+            if (null != activityList.get(i)) {
                 activityList.get(i).finish();
             }
         }
@@ -138,8 +153,8 @@ public class BaseAppApplication extends MultiDexApplication {
 
 
     public void clearActivityList() {
-        for (int i = 0, size = activityList.size(); i < size; i++){
-            if (null != activityList.get(i)){
+        for (int i = 0, size = activityList.size(); i < size; i++) {
+            if (null != activityList.get(i)) {
                 activityList.get(i).finish();
             }
         }
