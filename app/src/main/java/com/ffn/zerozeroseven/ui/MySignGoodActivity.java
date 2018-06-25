@@ -1,13 +1,16 @@
 package com.ffn.zerozeroseven.ui;
 
+import com.ffn.zerozeroseven.adapter.MySignGoodAdapter;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.base.BaseRefreshActivity;
+import com.ffn.zerozeroseven.bean.requsetbean.MySignGoodInfo;
 
 public class MySignGoodActivity extends BaseRefreshActivity {
 
     @Override
     protected BaseRecyclerAdapter setAdapter() {
-        return null;
+        MySignGoodAdapter mySignGoodAdapter = new MySignGoodAdapter(MySignGoodActivity.this);
+        return mySignGoodAdapter;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class MySignGoodActivity extends BaseRefreshActivity {
 
     @Override
     protected int setSize() {
-        return 0;
+        return 5;
     }
 
     @Override
@@ -37,6 +40,11 @@ public class MySignGoodActivity extends BaseRefreshActivity {
 
     @Override
     protected Object setObj(int pageNo) {
-        return null;
+        MySignGoodInfo mySignGoodInfo = new MySignGoodInfo();
+        mySignGoodInfo.setFunctionName("ListPointPrizeWinningRecord");
+        MySignGoodInfo.ParametersBean parametersBean = new MySignGoodInfo.ParametersBean();
+        parametersBean.setUserPhone(userInfo.getPhone());
+        mySignGoodInfo.setParameters(parametersBean);
+        return mySignGoodInfo;
     }
 }

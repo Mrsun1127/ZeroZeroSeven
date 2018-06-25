@@ -23,7 +23,7 @@ public class ProductAdapter extends BaseRecyclerAdapter<String> {
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        return new ProductAdapter.MViewHolder(mInflater.inflate(R.layout.item_city, null));
+        return new ProductAdapter.MViewHolder(mInflater.inflate(R.layout.item_issue, null));
     }
 
     @Override

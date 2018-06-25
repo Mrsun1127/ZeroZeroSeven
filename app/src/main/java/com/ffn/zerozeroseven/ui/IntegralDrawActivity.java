@@ -20,6 +20,8 @@ import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.ffn.zerozeroseven.view.TopView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class IntegralDrawActivity extends BaseFullActivity {
+public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshListener {
     @Bind(R.id.refreshlayout)
     SmartRefreshLayout refreshlayout;
     @Bind(R.id.recyclerView_with_recyclerView_in_coordinatorLayout)
@@ -59,6 +61,7 @@ public class IntegralDrawActivity extends BaseFullActivity {
                 finish();
             }
         });
+        refreshlayout.setOnRefreshListener(this);
         recycleview.setLayoutManager(new GridLayoutManager(this, 2));
         recycleview.addItemDecoration(new GridSpacingItemDecoration(2, 10, false));
         adapter = new InteralAdapter(this);
@@ -119,17 +122,23 @@ public class IntegralDrawActivity extends BaseFullActivity {
         InteraglSignInfo interaglSignInfo = new InteraglSignInfo();
         interaglSignInfo.setFunctionName("ListPointJackpotPrize");
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(interaglSignInfo, true, false);
+        okGoUtils.httpPostJSON(interaglSignInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 JiangChiInfo jiangChiInfo = JSON.parseObject(response, JiangChiInfo.class);
                 if (jiangChiInfo.getCode() == 0) {
+                    adapter.cleanDates();
                     adapter.addAll(jiangChiInfo.getData().getJackpotPrizes());
                 } else {
                     ToastUtils.showShort("奖池暂无信息");
                 }
             }
         });
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        requestData();
     }
 }
