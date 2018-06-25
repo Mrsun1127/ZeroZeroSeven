@@ -1,11 +1,14 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.os.Bundle;
+
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.adapter.BestNewAdapter;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.base.BaseRefreshActivity;
 import com.ffn.zerozeroseven.bean.BestNewInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.TongyongInfo;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 public class BestNewActivity extends BaseRefreshActivity {
 
@@ -17,6 +20,20 @@ public class BestNewActivity extends BaseRefreshActivity {
     protected BaseRecyclerAdapter setAdapter() {
         bestNewAdapter = new BestNewAdapter(BestNewActivity.this);
         return bestNewAdapter;
+    }
+
+    @Override
+    protected void doMain() {
+        bestNewAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                Bundle bundle = new Bundle();
+                try {
+                    bundle.putInt("prizeId",bestNewAdapter.getItem(position).getJackpotId());
+                }catch (Exception e){}
+                ZeroZeroSevenUtils.SwitchActivity(BestNewActivity.this, ProductDetilsActivity.class,bundle);
+            }
+        });
     }
 
     @Override
