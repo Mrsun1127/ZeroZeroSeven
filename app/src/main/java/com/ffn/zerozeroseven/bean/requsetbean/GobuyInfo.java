@@ -44,10 +44,19 @@ public class GobuyInfo {
          */
         private int userId;
         private int issuePrizeId;
+        private int prizeId;
         private String honerPoint;
 
         public int getUserId() {
             return userId;
+        }
+
+        public int getPrizeId() {
+            return prizeId;
+        }
+
+        public void setPrizeId(int prizeId) {
+            this.prizeId = prizeId;
         }
 
         public void setUserId(int userId) {

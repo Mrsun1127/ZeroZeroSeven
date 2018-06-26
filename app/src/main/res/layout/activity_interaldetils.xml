@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:text="共1个宝贝 总计： 120积分"
+            android:text="共1个宝贝 总计： 0积分"
             android:textColor="@color/text_show_color" />
 
         <Button
@@ -128,7 +128,7 @@
                 android:layout_weight="1.5"
                 android:background="@color/white"
                 android:gravity="center"
-                android:hint="88" />
+                 />
 
             <RelativeLayout
                 android:id="@+id/rl_close"

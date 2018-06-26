@@ -179,6 +179,7 @@ public class ProductDetilsFragment extends BaseFragment {
             case R.id.bt_go:
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("product",productDetilsInfo);
+                bundle.putInt("prizeId",id);
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, InteralDetilsActivity.class,bundle);
                 break;
         }

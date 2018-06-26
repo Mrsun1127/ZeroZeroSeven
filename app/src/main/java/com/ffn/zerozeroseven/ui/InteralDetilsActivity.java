@@ -1,18 +1,23 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.JiInfo;
 import com.ffn.zerozeroseven.bean.ProductDetilsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.GobuyInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.JifenInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
 import butterknife.Bind;
@@ -30,7 +35,16 @@ public class InteralDetilsActivity extends BaseActivity {
     TextView tv_needinteral;
     @Bind(R.id.tv_closeinteral)
     TextView tv_closeinteral;
+    @Bind(R.id.tv_allinteral)
+    TextView tv_allinteral;
+    @Bind(R.id.et_count)
+    EditText et_count;
+    @Bind(R.id.rl_add)
+    RelativeLayout rl_add;
+    @Bind(R.id.rl_close)
+    RelativeLayout rl_close;
     private ProductDetilsInfo productDetilsInfo;
+    private int prizeId;
 
     @Override
     protected int setLayout() {
@@ -40,9 +54,11 @@ public class InteralDetilsActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        prizeId = getIntent().getIntExtra("prizeId", 0);
         productDetilsInfo = (ProductDetilsInfo) getIntent().getSerializableExtra("product");
         Glide.with(InteralDetilsActivity.this)
                 .load(productDetilsInfo.getData().getPointPrize().getPrizePic());
+        et_count.setText("0");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
             public void Right() {
@@ -80,11 +96,40 @@ public class InteralDetilsActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.bt_gobuy})
+    @OnClick({R.id.bt_gobuy, R.id.rl_close, R.id.rl_add})
     void setOnClicks(View v) {
+        String i = et_count.getText().toString();
         switch (v.getId()) {
             case R.id.bt_gobuy:
-                goBuy("20");
+                if (!TextUtils.isEmpty(i)) {
+                    if(Integer.parseInt(i) < 1){
+                        ToastUtils.showShort("请贡献(>=1)积分");
+                    }else{
+                        goBuy(i);
+                    }
+                }else{
+                    ToastUtils.showShort("请贡献(>=1)积分");
+                }
+                break;
+            case R.id.rl_close:
+                if (!TextUtils.isEmpty(i)) {
+                    int j = Integer.parseInt(i);
+                    if (j > 0) {
+                        et_count.setText(String.valueOf(j - 1));
+                        tv_allinteral.setText("共1个宝贝 总计： "+(j - 1)+"积分");
+                    }
+                }
+
+                break;
+            case R.id.rl_add:
+                if (!TextUtils.isEmpty(i)) {
+                    int j = Integer.parseInt(i);
+                    et_count.setText(String.valueOf(j + 1));
+                    tv_allinteral.setText("共1个宝贝 总计： "+(j + 1)+"积分");
+                }else{
+                    et_count.setText("1");
+                    tv_allinteral.setText("共1个宝贝 总计： 1积分");
+                }
                 break;
 
         }
@@ -96,14 +141,20 @@ public class InteralDetilsActivity extends BaseActivity {
         gobuyInfo.setFunctionName("AddUserContribution");
         GobuyInfo.ParametersBean parametersBean = new GobuyInfo.ParametersBean();
         parametersBean.setUserId(Integer.parseInt(userId));
-        parametersBean.setHonerPoint("1");
+        parametersBean.setHonerPoint(i);
+        parametersBean.setPrizeId(prizeId);
         parametersBean.setIssuePrizeId(productDetilsInfo.getData().getIssue());
         gobuyInfo.setParameters(parametersBean);
         okGoUtils.httpPostJSON(gobuyInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    ToastUtils.showShort("贡献成功");
+                } else {
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
+                }
             }
         });
     }

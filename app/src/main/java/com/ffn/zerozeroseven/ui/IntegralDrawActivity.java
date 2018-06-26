@@ -127,6 +127,7 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
             @Override
             public void onSuccLoad(String response) {
                 JiangChiInfo jiangChiInfo = JSON.parseObject(response, JiangChiInfo.class);
+                refreshlayout.finishRefresh();
                 if (jiangChiInfo.getCode() == 0) {
                     adapter.cleanDates();
                     adapter.addAll(jiangChiInfo.getData().getJackpotPrizes());
