@@ -2,13 +2,16 @@ package com.ffn.zerozeroseven.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.ProductDetilsInfo;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -29,6 +32,15 @@ public class ProductSinggerGoInAdapter extends BaseRecyclerAdapter<ProductDetils
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, ProductDetilsInfo.DataBean.UserContributionListBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
+        if(!TextUtils.isEmpty(item.getUserAvatar())){
+            Glide.with(mContext)
+                    .load(item.getUserAvatar())
+                    .into(mHolder.iv_icon);
+
+        }
+        mHolder.tv_phone.setText(ZeroZeroSevenUtils.phoneClose(item.getUserPhone()));
+        mHolder.tv_time.setText(item.getCreateTime());
+        mHolder.tv_count.setText("贡献了"+item.getPoint()+"积分");
 
     }
 

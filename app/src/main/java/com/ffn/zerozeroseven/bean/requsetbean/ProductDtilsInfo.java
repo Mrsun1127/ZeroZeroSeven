@@ -42,14 +42,23 @@ public class ProductDtilsInfo {
     public static class ParametersBean {
         /**
          */
-        private int issuePrizeId;
+        private int issuePId;
+        private int prizeId;
 
-        public int getIssuePrizeId() {
-            return issuePrizeId;
+        public int getIssuePId() {
+            return issuePId;
         }
 
-        public void setIssuePrizeId(int issuePrizeId) {
-            this.issuePrizeId = issuePrizeId;
+        public void setIssuePId(int issuePId) {
+            this.issuePId = issuePId;
+        }
+
+        public int getPrizeId() {
+            return prizeId;
+        }
+
+        public void setPrizeId(int prizeId) {
+            this.prizeId = prizeId;
         }
     }
 }

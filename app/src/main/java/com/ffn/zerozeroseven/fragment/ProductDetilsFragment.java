@@ -33,14 +33,16 @@ public class ProductDetilsFragment extends BaseFragment {
     RecyclerView rc_minegoin;
     @Bind(R.id.rc_allgoin)
     RecyclerView rc_allgoin;
-    private ProductGoInAdapter goInAdapter;
-    private ProductSinggerGoInAdapter goInAdapter1;
+    private ProductGoInAdapter productGoInAdapter;
+    private ProductSinggerGoInAdapter singgerGoInAdapter;
     private int id;
+    private int issuePId;
     private ProductDetilsInfo productDetilsInfo;
 
-    public static ProductDetilsFragment newInstance(int id) {
+    public static ProductDetilsFragment newInstance(int id,int issuePId) {
         Bundle args = new Bundle();
         args.putInt("id", id);
+        args.putInt("pid", issuePId);
         ProductDetilsFragment fragment = new ProductDetilsFragment();
         fragment.setArguments(args);
         return fragment;
@@ -52,6 +54,7 @@ public class ProductDetilsFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         id = getArguments().getInt("id");
+        issuePId = getArguments().getInt("pid");
     }
 
     @Override
@@ -60,15 +63,15 @@ public class ProductDetilsFragment extends BaseFragment {
         mInstance = new WeakReference<>(this);
         rc_minegoin.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
         rc_allgoin.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
-        goInAdapter = new ProductGoInAdapter(bfCxt);
-        goInAdapter1 = new ProductSinggerGoInAdapter(bfCxt);
-        rc_minegoin.setAdapter(goInAdapter);
-        rc_allgoin.setAdapter(goInAdapter);
+        productGoInAdapter = new ProductGoInAdapter(bfCxt);
+        singgerGoInAdapter = new ProductSinggerGoInAdapter(bfCxt);
+        rc_minegoin.setAdapter(singgerGoInAdapter);
+        rc_allgoin.setAdapter(productGoInAdapter);
     }
 
     @Override
     public void initDate() {
-        requestId(id);
+        requestId(id,issuePId);
     }
 
     @Bind(R.id.iv_product)
@@ -100,11 +103,12 @@ public class ProductDetilsFragment extends BaseFragment {
     @Bind(R.id.tv_usertime)
     TextView tv_usertime;
 
-    public void requestId(int id) {
+    public void requestId(int id,int issueId) {
         ProductDtilsInfo lastInteralInfo = new ProductDtilsInfo();
         lastInteralInfo.setFunctionName("QueryPointIssuePrize");
         ProductDtilsInfo.ParametersBean parametersBean = new ProductDtilsInfo.ParametersBean();
-        parametersBean.setIssuePrizeId(id);
+        parametersBean.setPrizeId(id);
+        parametersBean.setIssuePId(issueId);
         lastInteralInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(lastInteralInfo, true, true);
@@ -114,15 +118,15 @@ public class ProductDetilsFragment extends BaseFragment {
                 productDetilsInfo = JSON.parseObject(response, ProductDetilsInfo.class);
                 if (productDetilsInfo.getCode() == 0) {
                     //商品详情
-                    Glide.with(bfCxt).load(productDetilsInfo.getData().getPointPrize().getPrizePic());
+                    Glide.with(bfCxt).load(productDetilsInfo.getData().getPointPrize().getPrizePic()).into(iv_product);
                     tv_name.setText(productDetilsInfo.getData().getPointPrize().getPrizeName());
                     tv_name1.setText(productDetilsInfo.getData().getPointPrize().getPrizeName());
                     tv_money.setText("￥" + productDetilsInfo.getData().getPointPrize().getPrizePrice());
                     tv_detils.setText(productDetilsInfo.getData().getPointPrize().getPrizeIntro());
-                    goInAdapter.cleanDates();
-                    goInAdapter1.cleanDates();
-                    goInAdapter.addAll(productDetilsInfo.getData().getAllUserContributionList());
-                    goInAdapter1.addAll(productDetilsInfo.getData().getUserContributionList());
+                    productGoInAdapter.cleanDates();
+                    singgerGoInAdapter.cleanDates();
+                    productGoInAdapter.addAll(productDetilsInfo.getData().getAllUserContributionList());
+                    singgerGoInAdapter.addAll(productDetilsInfo.getData().getUserContributionList());
                     switch (productDetilsInfo.getData().getStatus()) {
                         //-1=失效奖品，0=未开奖，1=可开奖，2=已开奖，3=已填配送配送
                         case -1:

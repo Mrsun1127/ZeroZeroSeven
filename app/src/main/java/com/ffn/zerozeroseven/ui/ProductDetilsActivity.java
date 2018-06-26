@@ -70,7 +70,7 @@ public class ProductDetilsActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, long itemId) {
                 productAdapter.setClickPosition(position);
-                ProductDetilsFragment.mInstance.get().requestId(productTitleInfo.getData().getIssues().get(position).getId());
+                ProductDetilsFragment.mInstance.get().requestId(prizeId,productTitleInfo.getData().getIssues().get(position).getId());
             }
         });
     }
@@ -105,7 +105,7 @@ public class ProductDetilsActivity extends BaseActivity {
                     List.add(String.valueOf(productTitleInfo.getData().getIssues().get(0).getIssue()));
                     productAdapter.addAll(titleList);
                     productAdapter.setClickPosition(0);
-                    fragmentList.add(ProductDetilsFragment.newInstance(productTitleInfo.getData().getIssues().get(0).getId()));
+                    fragmentList.add(ProductDetilsFragment.newInstance(prizeId,productTitleInfo.getData().getIssues().get(0).getId()));
                     ShopViewPagerAdapter viewPagerAdapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, List);
                     viewPager.setAdapter(viewPagerAdapter);
                 }

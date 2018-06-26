@@ -6,13 +6,15 @@
 
     <ImageView
         android:id="@+id/iv_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="57dp"
+        android:layout_height="66dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="9dp"
-        android:background="@drawable/willdelete" />
+         />
 
     <TextView
+        android:singleLine="true"
+        android:maxLength="20"
         android:textSize="10dp"
         android:id="@+id/tv_product_detils"
         android:layout_width="match_parent"

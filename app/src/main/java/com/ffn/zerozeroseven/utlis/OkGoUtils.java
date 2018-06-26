@@ -81,6 +81,7 @@ public class OkGoUtils {
         String url = AppConfig.BaseUrl;
         OkHttpClient client = new OkHttpClient();//创建okhttp实例
         RequestBody body = RequestBody.create(JSON, JsonUtil.parseBeanToJson(obj));
+        LogUtils.D("response",JsonUtil.parseBeanToJson(obj));
         if (isToken) {
             String token="";
             if(BaseAppApplication.getInstance().getLoginUser()!=null){

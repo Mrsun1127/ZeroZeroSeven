@@ -71,7 +71,7 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
                 try {
-                    bundle.putInt("prizeId",adapter.getItem(position).getJackpotId());
+                    bundle.putInt("prizeId",adapter.getItem(position).getId());
                 }catch (Exception e){}
                 ZeroZeroSevenUtils.SwitchActivity(IntegralDrawActivity.this, ProductDetilsActivity.class,bundle);
             }
