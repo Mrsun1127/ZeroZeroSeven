@@ -1,104 +1,333 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#E6E6E6"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.ffn.zerozeroseven.view.TopView
-        android:id="@+id/topView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshlayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E6E6E6"
+        android:orientation="vertical">
 
-        <android.support.v4.widget.NestedScrollView
+        <com.ffn.zerozeroseven.view.TopView
+            android:id="@+id/topView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/interal_banner_top" />
+
+                        <Button
+                            android:id="@+id/bt_sign"
+                            android:layout_width="66dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="27dp"
+                            android:layout_marginTop="17dp"
+                            android:background="@drawable/integral_left"
+                            android:text="签到领积分"
+                            android:textColor="#5D2A00"
+                            android:textSize="9sp" />
+
+                        <Button
+                            android:id="@+id/bt_bestnew"
+                            android:layout_width="66dp"
+                            android:layout_height="22dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="27dp"
+                            android:layout_marginTop="17dp"
+                            android:background="@drawable/integral_right"
+                            android:text="最新揭晓"
+                            android:textColor="#4E2300"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            android:background="@drawable/runhourse"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:gravity="center_vertical"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:paddingLeft="20dp"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="这里是测试文字 这里是测试文字 这里是测试文字这里是测试文字 这里是测试文字 这里是测试文字这里是测试文字 这里是测试文字 这里是测试文字"
+                            android:textColor="@color/white"
+                            android:textSize="9sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/textView_with_recyclerView_in_coordinatorLayout_sticky_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/white">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/iv_oneban" />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView_with_recyclerView_in_coordinatorLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:descendantFocusability="blocksDescendants" />
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_pop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/trancelate"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/rl_share"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="73dp"
+            android:layout_marginRight="73dp"
+            android:background="@drawable/interalshare">
+
+            <TextView
+                android:id="@+id/tv_one"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="182dp"
+                android:text="签到成功"
+                android:textColor="#FF544C"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_one"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="签到获得2积分"
+                android:textSize="12sp" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/interal_banner_top" />
+            <TextView
+                android:id="@+id/tv_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_two"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:text="分享可获得更多积分"
+                android:textSize="12sp" />
 
-                    <Button
-                        android:id="@+id/bt_sign"
-                        android:layout_width="66dp"
-                        android:layout_height="22dp"
-                        android:layout_marginLeft="27dp"
-                        android:layout_marginTop="17dp"
-                        android:background="@drawable/integral_left"
-                        android:text="签到领积分"
-                        android:textColor="#5D2A00"
-                        android:textSize="9sp" />
+            <Button
+                android:id="@+id/bt_share"
+                android:layout_width="126dp"
+                android:layout_height="28dp"
+                android:layout_below="@+id/tv_three"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:background="@drawable/interal_sure"
+                android:text="分享"
+                android:textColor="@color/white" />
+        </RelativeLayout>
 
-                    <Button
-                        android:id="@+id/bt_bestnew"
-                        android:layout_width="66dp"
-                        android:layout_height="22dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="27dp"
-                        android:layout_marginTop="17dp"
-                        android:background="@drawable/integral_right"
-                        android:text="最新揭晓"
-                        android:textColor="#4E2300"
-                        android:textSize="9sp" />
+        <ImageButton
+            android:id="@+id/ib_close"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_below="@+id/rl_share"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ib_close" />
+    </RelativeLayout>
 
-                    <TextView
-                        android:scrollHorizontally="true"
-                        android:focusableInTouchMode="true"
-                        android:focusable="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:background="@drawable/runhourse"
-                        android:ellipsize="marquee"
-                        android:gravity="center_vertical"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:paddingLeft="20dp"
-                        android:singleLine="true"
-                        android:text="这里是测试文字 这里是测试文字 这里是测试文字这里是测试文字 这里是测试文字 这里是测试文字这里是测试文字 这里是测试文字 这里是测试文字"
-                        android:textColor="@color/white"
-                        android:textSize="9sp" />
-                </RelativeLayout>
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_zhong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/trancelate">
 
-                <RelativeLayout
-                    android:id="@+id/textView_with_recyclerView_in_coordinatorLayout_sticky_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white">
+        <RelativeLayout
+            android:layout_width="321dp"
+            android:layout_height="463dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/interal_zhong">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/iv_oneban" />
-                </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_one1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="113dp"
+                android:layout_marginTop="145dp"
+                android:text="中奖啦"
+                android:textColor="#FFF13D"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView_with_recyclerView_in_coordinatorLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:descendantFocusability="blocksDescendants" />
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            <TextView
+                android:id="@+id/tv_one2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_one1"
+                android:layout_marginLeft="118dp"
+                android:layout_marginTop="5dp"
+                android:text="恭喜获得"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_one2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="OPPO R11S星幕新年版手机"
+                android:textColor="#FFF13D"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_one3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="5dp"
+                android:text="请填写您的领奖信息"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/et_name"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/et_name"
+                android:text="姓名"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="160dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/tv_one3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:background="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/et_phone"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/et_phone"
+                android:text="电话"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="160dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/et_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:background="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/et_adr"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/et_adr"
+                android:text="地址"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/et_adr"
+                android:layout_width="160dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/et_phone"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_b1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_adr"
+                android:layout_marginLeft="39dp"
+                android:layout_marginTop="12dp"
+                android:text="客服将在24小时内与您联系，请保持电话畅通。请在"
+                android:textColor="@color/white"
+                android:textSize="9sp" />
+            <TextView
+                android:id="@+id/tv_b2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_b1"
+                android:layout_marginLeft="39dp"
+                android:text="奖品有效期内填写信息并确认填写内容无误，过期未"
+                android:textColor="@color/white"
+                android:textSize="9sp" />
+            <TextView
+                android:id="@+id/tv_b3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_b2"
+                android:layout_marginLeft="39dp"
+                android:text="填写视为自动放弃奖励。奖励有效期：5个工作日"
+                android:textColor="@color/white"
+                android:textSize="9sp" />
+            <Button
+                android:text="提交"
+                android:textColor="#FF2B00"
+                android:id="@+id/bt_sub"
+                android:layout_marginLeft="75dp"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/tv_b3"
+                android:layout_width="144dp"
+                android:layout_height="34dp"
+                android:background="@drawable/yellowcirclesure"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

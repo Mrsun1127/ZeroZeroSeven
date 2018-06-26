@@ -121,14 +121,13 @@
             </RelativeLayout>
 
             <EditText
-                android:inputType="number"
                 android:id="@+id/et_count"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"
                 android:background="@color/white"
                 android:gravity="center"
-                 />
+                android:inputType="number" />
 
             <RelativeLayout
                 android:id="@+id/rl_close"
@@ -159,4 +158,60 @@
             android:textSize="10sp" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rl_pop"
+        android:layout_width="match_parent"
+        android:layout_height="215dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="73dp"
+        android:layout_marginRight="73dp"
+        android:background="@drawable/interal_tip"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="提醒"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="79dp"
+            android:text="您将消耗1000积分"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="107dp"
+            android:text="参与积分抽奖"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/bt_sure"
+            android:layout_width="147dp"
+            android:layout_height="31dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="144dp"
+            android:background="@drawable/redcirclesure"
+            android:text="确认兑换"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="189dp"
+            android:text="返回修改" />
+    </RelativeLayout>
 </RelativeLayout>

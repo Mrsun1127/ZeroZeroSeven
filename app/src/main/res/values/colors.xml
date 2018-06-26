@@ -22,4 +22,5 @@
     <color name="text_secondary_color">#9d9d9d</color>
     <color name="dialogcolor">#7F000000</color>
     <color name="ee">#1F000000</color>
+    <color name="trancelate">#88000000</color>
 </resources>

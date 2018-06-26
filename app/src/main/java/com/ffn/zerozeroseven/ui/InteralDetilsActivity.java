@@ -43,6 +43,10 @@ public class InteralDetilsActivity extends BaseActivity {
     RelativeLayout rl_add;
     @Bind(R.id.rl_close)
     RelativeLayout rl_close;
+    @Bind(R.id.rl_pop)
+    RelativeLayout rl_pop;
+    @Bind(R.id.tv_count)
+    TextView tv_count;
     private ProductDetilsInfo productDetilsInfo;
     private int prizeId;
 
@@ -96,18 +100,26 @@ public class InteralDetilsActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.bt_gobuy, R.id.rl_close, R.id.rl_add})
+    @OnClick({R.id.bt_gobuy, R.id.rl_close, R.id.rl_add, R.id.bt_sure, R.id.tv_back})
     void setOnClicks(View v) {
         String i = et_count.getText().toString();
         switch (v.getId()) {
+            case R.id.tv_back:
+                rl_pop.setVisibility(View.GONE);
+                break;
+            case R.id.bt_sure:
+                rl_pop.setVisibility(View.GONE);
+                goBuy(i);
+                break;
             case R.id.bt_gobuy:
                 if (!TextUtils.isEmpty(i)) {
-                    if(Integer.parseInt(i) < 1){
+                    if (Integer.parseInt(i) < 1) {
                         ToastUtils.showShort("请贡献(>=1)积分");
-                    }else{
-                        goBuy(i);
+                    } else {
+                        tv_count.setText("您将消耗" + et_count.getText().toString() + "积分");
+                        rl_pop.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
                     ToastUtils.showShort("请贡献(>=1)积分");
                 }
                 break;
@@ -116,7 +128,7 @@ public class InteralDetilsActivity extends BaseActivity {
                     int j = Integer.parseInt(i);
                     if (j > 0) {
                         et_count.setText(String.valueOf(j - 1));
-                        tv_allinteral.setText("共1个宝贝 总计： "+(j - 1)+"积分");
+                        tv_allinteral.setText("共1个宝贝 总计： " + (j - 1) + "积分");
                     }
                 }
 
@@ -125,8 +137,8 @@ public class InteralDetilsActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(i)) {
                     int j = Integer.parseInt(i);
                     et_count.setText(String.valueOf(j + 1));
-                    tv_allinteral.setText("共1个宝贝 总计： "+(j + 1)+"积分");
-                }else{
+                    tv_allinteral.setText("共1个宝贝 总计： " + (j + 1) + "积分");
+                } else {
                     et_count.setText("1");
                     tv_allinteral.setText("共1个宝贝 总计： 1积分");
                 }
