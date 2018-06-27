@@ -332,7 +332,6 @@ public class ProductDetilsInfo implements Serializable {
         }
         public static class UserContributionListBean implements Serializable{
             private String createTime;
-            private String userAvatar;
             private String userPhone;
             private String issuePrizeId;
             private String point;
@@ -343,14 +342,6 @@ public class ProductDetilsInfo implements Serializable {
 
             public void setCreateTime(String createTime) {
                 this.createTime = createTime;
-            }
-
-            public String getUserAvatar() {
-                return userAvatar;
-            }
-
-            public void setUserAvatar(String userAvatar) {
-                this.userAvatar = userAvatar;
             }
 
             public String getUserPhone() {

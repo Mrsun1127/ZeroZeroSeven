@@ -42,25 +42,17 @@ public class GobuyInfo {
     public static class ParametersBean {
         /**
          */
-        private int userId;
+        private String userPhone;
         private int issuePrizeId;
-        private int prizeId;
-        private String honerPoint;
+        private int point;
+        private int isRest;
 
-        public int getUserId() {
-            return userId;
+        public String getUserPhone() {
+            return userPhone;
         }
 
-        public int getPrizeId() {
-            return prizeId;
-        }
-
-        public void setPrizeId(int prizeId) {
-            this.prizeId = prizeId;
-        }
-
-        public void setUserId(int userId) {
-            this.userId = userId;
+        public void setUserPhone(String userPhone) {
+            this.userPhone = userPhone;
         }
 
         public int getIssuePrizeId() {
@@ -71,12 +63,20 @@ public class GobuyInfo {
             this.issuePrizeId = issuePrizeId;
         }
 
-        public String getHonerPoint() {
-            return honerPoint;
+        public int getPoint() {
+            return point;
         }
 
-        public void setHonerPoint(String honerPoint) {
-            this.honerPoint = honerPoint;
+        public void setPoint(int point) {
+            this.point = point;
+        }
+
+        public int getIsRest() {
+            return isRest;
+        }
+
+        public void setIsRest(int isRest) {
+            this.isRest = isRest;
         }
     }
 }

@@ -139,8 +139,8 @@ public class ProductDetilsFragment extends BaseFragment {
                             rl_open.setVisibility(View.GONE);
                             pb_watch.setMax(productDetilsInfo.getData().getPointPrize().getPrizePoint());
                             tv_need.setText("总需" + productDetilsInfo.getData().getPointPrize().getPrizePoint());
-                            tv_close.setText("还差" + productDetilsInfo.getData().getPointPrize().getContributionPoint());
-                            pb_watch.setProgress(productDetilsInfo.getData().getPointPrize().getPrizePoint() - productDetilsInfo.getData().getPointPrize().getContributionPoint());
+                            tv_close.setText("还差" + (productDetilsInfo.getData().getPointPrize().getPrizePoint()-productDetilsInfo.getData().getPointPrize().getContributionPoint()));
+                            pb_watch.setProgress(productDetilsInfo.getData().getPointPrize().getContributionPoint());
                             break;
                         case 1:
                             break;

@@ -62,6 +62,8 @@ public class InteralDetilsActivity extends BaseActivity {
         productDetilsInfo = (ProductDetilsInfo) getIntent().getSerializableExtra("product");
         Glide.with(InteralDetilsActivity.this)
                 .load(productDetilsInfo.getData().getPointPrize().getPrizePic());
+        tv_needinteral.setText("总需" + productDetilsInfo.getData().getPointPrize().getPrizePoint());
+        tv_closeinteral.setText("还差" + (productDetilsInfo.getData().getPointPrize().getPrizePoint()-productDetilsInfo.getData().getPointPrize().getContributionPoint())+"积分");
         et_count.setText("0");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
@@ -99,19 +101,27 @@ public class InteralDetilsActivity extends BaseActivity {
             }
         });
     }
-
-    @OnClick({R.id.bt_gobuy, R.id.rl_close, R.id.rl_add, R.id.bt_sure, R.id.tv_back})
+    int isBaowei=0;
+    String i ="0";
+    @OnClick({R.id.bt_gobuy, R.id.rl_close, R.id.rl_add, R.id.bt_sure, R.id.tv_back,R.id.bt_baowei})
     void setOnClicks(View v) {
-        String i = et_count.getText().toString();
         switch (v.getId()) {
+            case R.id.bt_baowei:
+                isBaowei=1;
+                tv_count.setText("您将消耗" +(productDetilsInfo.getData().getPointPrize().getPrizePoint()-productDetilsInfo.getData().getPointPrize().getContributionPoint()) + "积分");
+                rl_pop.setVisibility(View.VISIBLE);
+                i=(productDetilsInfo.getData().getPointPrize().getPrizePoint()-productDetilsInfo.getData().getPointPrize().getContributionPoint())+"";
+                break;
             case R.id.tv_back:
                 rl_pop.setVisibility(View.GONE);
                 break;
             case R.id.bt_sure:
                 rl_pop.setVisibility(View.GONE);
-                goBuy(i);
+                goBuy(i,isBaowei);
                 break;
             case R.id.bt_gobuy:
+                isBaowei=0;
+                i=et_count.getText().toString().trim();
                 if (!TextUtils.isEmpty(i)) {
                     if (Integer.parseInt(i) < 1) {
                         ToastUtils.showShort("请贡献(>=1)积分");
@@ -124,6 +134,7 @@ public class InteralDetilsActivity extends BaseActivity {
                 }
                 break;
             case R.id.rl_close:
+                i=et_count.getText().toString().trim();
                 if (!TextUtils.isEmpty(i)) {
                     int j = Integer.parseInt(i);
                     if (j > 0) {
@@ -134,6 +145,7 @@ public class InteralDetilsActivity extends BaseActivity {
 
                 break;
             case R.id.rl_add:
+                i=et_count.getText().toString().trim();
                 if (!TextUtils.isEmpty(i)) {
                     int j = Integer.parseInt(i);
                     et_count.setText(String.valueOf(j + 1));
@@ -147,15 +159,15 @@ public class InteralDetilsActivity extends BaseActivity {
         }
     }
 
-    private void goBuy(String i) {
+    private void goBuy(String i,int baowei) {
         OkGoUtils okGoUtils = new OkGoUtils(InteralDetilsActivity.this);
         GobuyInfo gobuyInfo = new GobuyInfo();
-        gobuyInfo.setFunctionName("AddUserContribution");
+        gobuyInfo.setFunctionName("AddPointPrizeUserContribution");
         GobuyInfo.ParametersBean parametersBean = new GobuyInfo.ParametersBean();
-        parametersBean.setUserId(Integer.parseInt(userId));
-        parametersBean.setHonerPoint(i);
-        parametersBean.setPrizeId(prizeId);
-        parametersBean.setIssuePrizeId(productDetilsInfo.getData().getIssue());
+        parametersBean.setUserPhone(userInfo.getPhone());
+        parametersBean.setPoint(Integer.parseInt(i));
+        parametersBean.setIssuePrizeId(ProductDetilsActivity.mInstance.get().issuePrizeId);
+        parametersBean.setIsRest(baowei);
         gobuyInfo.setParameters(parametersBean);
         okGoUtils.httpPostJSON(gobuyInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {

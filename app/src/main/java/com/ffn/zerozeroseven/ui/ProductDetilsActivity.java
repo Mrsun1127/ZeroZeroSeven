@@ -21,6 +21,7 @@ import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,8 @@ public class ProductDetilsActivity extends BaseActivity {
     private int prizeId;
     private ProductAdapter productAdapter;
     private ProductTitleInfo productTitleInfo;
-
+    public int issuePrizeId;
+    public static WeakReference<ProductDetilsActivity> mInstance;
     @Override
     protected int setLayout() {
         return R.layout.activity_productdetils;
@@ -49,6 +51,7 @@ public class ProductDetilsActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        mInstance=new WeakReference<>(this);
         topView.setTopText("宝贝详情");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
@@ -78,6 +81,7 @@ public class ProductDetilsActivity extends BaseActivity {
     @Override
     protected void doMain() {
         prizeId = getIntent().getIntExtra("prizeId", 0);
+        issuePrizeId = getIntent().getIntExtra("issuePrizeId", 0);
         requestTitle();
 
 

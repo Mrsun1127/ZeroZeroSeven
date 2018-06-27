@@ -105,7 +105,8 @@
             android:textColor="#FC3835" />
     </RelativeLayout>
 
-    <Button
+    <TextView
+        android:gravity="center"
         android:layout_marginRight="10dp"
         android:textSize="10sp"
         android:layout_marginTop="25dp"
