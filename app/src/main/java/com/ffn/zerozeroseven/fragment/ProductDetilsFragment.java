@@ -109,6 +109,7 @@ public class ProductDetilsFragment extends BaseFragment {
         ProductDtilsInfo.ParametersBean parametersBean = new ProductDtilsInfo.ParametersBean();
         parametersBean.setPrizeId(id);
         parametersBean.setIssuePId(issueId);
+        parametersBean.setUserPhone(userInfo.getPhone());
         lastInteralInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(lastInteralInfo, true, true);
