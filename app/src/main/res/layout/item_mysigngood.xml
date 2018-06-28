@@ -3,9 +3,8 @@
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:background="@color/white">
     <ImageView
-        android:layout_marginLeft="39dp"
+        android:layout_marginLeft="19dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/willdelete"
         android:layout_width="49dp"
         android:id="@+id/iv_product"
         android:layout_height="56dp" />
