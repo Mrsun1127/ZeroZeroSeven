@@ -139,7 +139,7 @@
                             android:layout_below="@+id/iv_four"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
-                            android:text="积分有礼"
+                            android:text="积分抽奖"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
