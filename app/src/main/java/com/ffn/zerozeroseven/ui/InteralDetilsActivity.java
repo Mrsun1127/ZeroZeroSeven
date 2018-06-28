@@ -49,6 +49,7 @@ public class InteralDetilsActivity extends BaseActivity {
     TextView tv_count;
     private ProductDetilsInfo productDetilsInfo;
     private int prizeId;
+    private int replaceId;
 
     @Override
     protected int setLayout() {
@@ -59,6 +60,7 @@ public class InteralDetilsActivity extends BaseActivity {
     public void initView() {
         ButterKnife.bind(this);
         prizeId = getIntent().getIntExtra("prizeId", 0);
+        replaceId = getIntent().getIntExtra("replaceId", 0);
         productDetilsInfo = (ProductDetilsInfo) getIntent().getSerializableExtra("product");
         Glide.with(InteralDetilsActivity.this)
                 .load(productDetilsInfo.getData().getPointPrize().getPrizePic());
@@ -166,7 +168,7 @@ public class InteralDetilsActivity extends BaseActivity {
         GobuyInfo.ParametersBean parametersBean = new GobuyInfo.ParametersBean();
         parametersBean.setUserPhone(userInfo.getPhone());
         parametersBean.setPoint(Integer.parseInt(i));
-        parametersBean.setIssuePrizeId(ProductDetilsActivity.mInstance.get().issuePrizeId);
+        parametersBean.setIssuePrizeId(replaceId);
         parametersBean.setIsRest(baowei);
         gobuyInfo.setParameters(parametersBean);
         okGoUtils.httpPostJSON(gobuyInfo, true, true);

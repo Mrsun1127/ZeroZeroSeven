@@ -55,21 +55,25 @@ public abstract class BasePopRefreshActivity extends BaseActivity implements OnR
     EditText et_phone;
     @Bind(R.id.rl_zhong)
     public RelativeLayout rl_zhong;
+    @Bind(R.id.rl_close)
+    public RelativeLayout rl_close;
     BaseRecyclerAdapter adapter;
     private KProgressHUD hud;
     private RgRefreshStatus rgRefreshStatus = RgRefreshStatus.IDLE;
     int pageNo = 0;
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+        savedInstanceState.putSerializable("userInfo", BaseAppApplication.getInstance().getLoginUser());
         super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo"));
+        BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
     }
+
     private void setRefreshLayoutVis() {
         if (commonRefreshLayout.getVisibility() == View.GONE) {
             commonRefreshLayout.setVisibility(View.VISIBLE);
@@ -132,6 +136,12 @@ public abstract class BasePopRefreshActivity extends BaseActivity implements OnR
                 .setWindowColor(getResources().getColor(R.color.text_secondary_color))
                 .setAnimationSpeed(2)
                 .setDimAmount(0.5f);
+        rl_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rl_zhong.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -222,7 +232,9 @@ public abstract class BasePopRefreshActivity extends BaseActivity implements OnR
     }
 
     protected abstract BaseRecyclerAdapter setAdapter();
+
     protected abstract String setTopTitle();
+
     protected abstract void readRespones(String response);
 
     protected abstract int setFlag();
@@ -285,6 +297,7 @@ public abstract class BasePopRefreshActivity extends BaseActivity implements OnR
             }
         });
     }
+
     @OnClick({R.id.bt_sub})
     void setOnClicks(View v) {
         switch (v.getId()) {
@@ -292,20 +305,20 @@ public abstract class BasePopRefreshActivity extends BaseActivity implements OnR
                 String name = et_name.getText().toString().trim();
                 String phone = et_phone.getText().toString().trim();
                 String adr = et_adr.getText().toString().trim();
-                if(!TextUtils.isEmpty(name)){
-                    if(!TextUtils.isEmpty(phone)){
-                        if(!TextUtils.isEmpty(adr)){
-                            lingJiangLa(name,phone,adr);
-                        }else{
+                if (!TextUtils.isEmpty(name)) {
+                    if (!TextUtils.isEmpty(phone)) {
+                        if (!TextUtils.isEmpty(adr)) {
+                            lingJiangLa(name, phone, adr);
+                        } else {
                             ToastUtils.showShort("请输入收货地址");
                         }
-                    }else{
+                    } else {
                         ToastUtils.showShort("请输入手机号码");
                     }
-                }else{
+                } else {
                     ToastUtils.showShort("请填写姓名");
                 }
-            break;
+                break;
 
         }
     }

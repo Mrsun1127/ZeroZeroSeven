@@ -127,9 +127,12 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
 
     int jump = 0;
 
-    @OnClick({R.id.bt_sign, R.id.bt_bestnew, R.id.ib_close, R.id.bt_share, R.id.bt_sub})
+    @OnClick({R.id.bt_sign, R.id.bt_bestnew, R.id.ib_close, R.id.bt_share, R.id.bt_sub,R.id.rl_close})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.rl_close:
+                rl_zhong.setVisibility(View.GONE);
+                break;
             case R.id.bt_sub:
                 String name = et_name.getText().toString().trim();
                 String phone = et_phone.getText().toString().trim();

@@ -42,6 +42,7 @@ public class ProductDetilsActivity extends BaseActivity {
     private ProductAdapter productAdapter;
     private ProductTitleInfo productTitleInfo;
     public int issuePrizeId;
+    public int clickposition=0;
     public static WeakReference<ProductDetilsActivity> mInstance;
     @Override
     protected int setLayout() {
@@ -73,6 +74,7 @@ public class ProductDetilsActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, long itemId) {
                 productAdapter.setClickPosition(position);
+                clickposition=position;
                 ProductDetilsFragment.mInstance.get().requestId(prizeId,productTitleInfo.getData().getIssues().get(position).getId());
             }
         });

@@ -38,7 +38,7 @@ public class ProductDetilsFragment extends BaseFragment {
     private int id;
     private int issuePId;
     private ProductDetilsInfo productDetilsInfo;
-
+    private int replaceId;
     public static ProductDetilsFragment newInstance(int id,int issuePId) {
         Bundle args = new Bundle();
         args.putInt("id", id);
@@ -181,6 +181,7 @@ public class ProductDetilsFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("product",productDetilsInfo);
                 bundle.putInt("prizeId",id);
+                bundle.putInt("replaceId",productDetilsInfo.getData().getId());
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, InteralDetilsActivity.class,bundle);
                 break;
         }

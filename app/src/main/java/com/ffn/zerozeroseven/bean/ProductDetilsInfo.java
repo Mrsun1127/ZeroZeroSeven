@@ -49,6 +49,24 @@ public class ProductDetilsInfo implements Serializable {
          * prizeId : 2
          * status : 2
          */
+        private String nickName;
+        private int id;
+
+        public String getNickName() {
+            return nickName;
+        }
+
+        public void setNickName(String nickName) {
+            this.nickName = nickName;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
         private int issue;
         private PointPrizeBean pointPrize;
