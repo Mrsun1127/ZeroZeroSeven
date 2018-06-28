@@ -149,7 +149,7 @@ public class ProductDetilsFragment extends BaseFragment {
                             rl_open.setVisibility(View.VISIBLE);
                             rl_close.setVisibility(View.GONE);
                             tv_username.setText(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone());
-                            tv_usercount.setText(productDetilsInfo.getData().getPointPrizeWinner().getIssuePrizeId()+"次");
+                            tv_usercount.setText(productDetilsInfo.getData().getUserContributionList().size()+"次");
                             tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getIssuePrizeId()+"");
                             tv_usertime.setText(productDetilsInfo.getData().getPointPrizeWinner().getCreateTime());
                             break;

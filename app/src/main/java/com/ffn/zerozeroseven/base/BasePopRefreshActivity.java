@@ -227,8 +227,9 @@ public abstract class BasePopRefreshActivity extends BaseActivity implements OnR
 
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
-        rgRefreshStatus = RgRefreshStatus.PULL_DOWN;
-        requestData();
+//        rgRefreshStatus = RgRefreshStatus.PULL_DOWN;
+//        requestData();
+        commonRefreshLayout.finishLoadmore();
     }
 
     protected abstract BaseRecyclerAdapter setAdapter();

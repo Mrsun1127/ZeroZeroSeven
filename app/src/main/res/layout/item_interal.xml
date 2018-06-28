@@ -115,6 +115,6 @@
         android:layout_height="20dp"
         android:layout_alignParentRight="true"
         android:background="@drawable/startsign"
-        android:text="往期记录"
+        android:text="参与抽奖"
         android:textColor="#FC3835" />
 </RelativeLayout>
