@@ -1,6 +1,8 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -67,6 +69,22 @@ public class InteralDetilsActivity extends BaseActivity {
         tv_needinteral.setText("总需" + productDetilsInfo.getData().getPointPrize().getPrizePoint());
         tv_closeinteral.setText("还差" + (productDetilsInfo.getData().getPointPrize().getPrizePoint()-productDetilsInfo.getData().getPointPrize().getContributionPoint())+"积分");
         et_count.setText("0");
+        et_count.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                tv_allinteral.setText("共1个宝贝 总计： " + et_count.getText().toString().trim() + "积分");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
             public void Right() {
@@ -141,7 +159,7 @@ public class InteralDetilsActivity extends BaseActivity {
                     int j = Integer.parseInt(i);
                     if (j > 0) {
                         et_count.setText(String.valueOf(j - 1));
-                        tv_allinteral.setText("共1个宝贝 总计： " + (j - 1) + "积分");
+//                        tv_allinteral.setText("共1个宝贝 总计： " + (j - 1) + "积分");
                     }
                 }
 
@@ -151,10 +169,10 @@ public class InteralDetilsActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(i)) {
                     int j = Integer.parseInt(i);
                     et_count.setText(String.valueOf(j + 1));
-                    tv_allinteral.setText("共1个宝贝 总计： " + (j + 1) + "积分");
+//                    tv_allinteral.setText("共1个宝贝 总计： " + (j + 1) + "积分");
                 } else {
                     et_count.setText("1");
-                    tv_allinteral.setText("共1个宝贝 总计： 1积分");
+//                    tv_allinteral.setText("共1个宝贝 总计： 1积分");
                 }
                 break;
 

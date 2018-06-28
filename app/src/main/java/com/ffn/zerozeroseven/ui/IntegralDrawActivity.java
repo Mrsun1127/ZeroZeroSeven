@@ -288,10 +288,9 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
                                         winnerDanmu.getData().getPointPrizeWinner().get(i).getPrizeName()+"    ";
                             }
                             if(!TextUtils.isEmpty(sb)){
-                                tv_pao.setVisibility(View.VISIBLE);
                                 tv_pao.setText(sb);
                             }else{
-                                tv_pao.setVisibility(View.GONE);
+                                tv_pao.setText("暂无中奖信息");
                             }
 
                         }

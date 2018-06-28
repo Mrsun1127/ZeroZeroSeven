@@ -61,7 +61,6 @@
                             android:textSize="12sp" />
 
                         <TextView
-                            android:visibility="gone"
                             android:id="@+id/tv_pao"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -79,7 +78,8 @@
                             android:scrollHorizontally="true"
                             android:singleLine="true"
                             android:textColor="@color/white"
-                            android:textSize="9sp" />
+                            android:textSize="9sp"
+                            android:visibility="visible" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -101,11 +101,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:descendantFocusability="blocksDescendants" />
+
                     <View
                         android:id="@+id/view_bot"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        android:background="@color/white"/>
+                        android:background="@color/white" />
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
@@ -181,21 +182,23 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/rl_zhong"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/trancelate">
+        android:background="@color/trancelate"
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="321dp"
             android:layout_height="463dp"
             android:layout_centerInParent="true"
             android:background="@drawable/interal_zhong">
+
             <RelativeLayout
                 android:id="@+id/rl_close"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"/>
+                android:layout_height="50dp" />
+
             <TextView
                 android:id="@+id/tv_one1"
                 android:layout_width="wrap_content"
@@ -308,6 +311,7 @@
                 android:text="客服将在24小时内与您联系，请保持电话畅通。请在"
                 android:textColor="@color/white"
                 android:textSize="9sp" />
+
             <TextView
                 android:id="@+id/tv_b2"
                 android:layout_width="wrap_content"
@@ -317,6 +321,7 @@
                 android:text="奖品有效期内填写信息并确认填写内容无误，过期未"
                 android:textColor="@color/white"
                 android:textSize="9sp" />
+
             <TextView
                 android:id="@+id/tv_b3"
                 android:layout_width="wrap_content"
@@ -326,16 +331,17 @@
                 android:text="填写视为自动放弃奖励。奖励有效期：5个工作日"
                 android:textColor="@color/white"
                 android:textSize="9sp" />
+
             <Button
-                android:text="提交"
-                android:textColor="#FF2B00"
                 android:id="@+id/bt_sub"
-                android:layout_marginLeft="75dp"
-                android:layout_marginTop="15dp"
-                android:layout_below="@+id/tv_b3"
                 android:layout_width="144dp"
                 android:layout_height="34dp"
-                android:background="@drawable/yellowcirclesure"/>
+                android:layout_below="@+id/tv_b3"
+                android:layout_marginLeft="75dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/yellowcirclesure"
+                android:text="提交"
+                android:textColor="#FF2B00" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>
