@@ -4,10 +4,11 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/rl_all"
-        android:background="@color/white"
+        android:background="#F5F5F5"
         android:layout_width="89dp"
         android:layout_height="24dp">
         <TextView
+            android:textColor="#FE0000"
             android:id="@+id/tv_city"
             android:textSize="12sp"
             android:gravity="center"

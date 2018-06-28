@@ -30,10 +30,10 @@ public class ProductAdapter extends BaseRecyclerAdapter<String> {
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, String item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         if(holder.getAdapterPosition()==clickPosition){
-            mHolder.rl_all.setBackgroundResource(R.color.white);
+            mHolder.rl_all.setBackgroundResource(R.color.select);
             mHolder.tv_city.setTextColor(mContext.getResources().getColor(R.color.tab_under_line));
         }else{
-            mHolder.rl_all.setBackgroundResource(R.color.ee);
+            mHolder.rl_all.setBackgroundResource(R.color.unselect);
             mHolder.tv_city.setTextColor(mContext.getResources().getColor(R.color.black));
         }
         mHolder.tv_city.setText(item);

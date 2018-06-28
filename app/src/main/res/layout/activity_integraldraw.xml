@@ -62,6 +62,8 @@
                             android:textSize="9sp" />
 
                         <TextView
+                            android:visibility="gone"
+                            android:id="@+id/tv_pao"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
@@ -77,7 +79,6 @@
                             android:paddingLeft="20dp"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:text="这里是测试文字 这里是测试文字 这里是测试文字这里是测试文字 这里是测试文字 这里是测试文字这里是测试文字 这里是测试文字 这里是测试文字"
                             android:textColor="@color/white"
                             android:textSize="9sp" />
                     </RelativeLayout>
@@ -90,8 +91,8 @@
                         android:background="@color/white">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="151dp"
+                            android:layout_height="28dp"
                             android:layout_centerInParent="true"
                             android:background="@drawable/iv_oneban" />
                     </RelativeLayout>
@@ -101,6 +102,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:descendantFocusability="blocksDescendants" />
+                    <View
+                        android:id="@+id/view_bot"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@color/white"/>
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -23,4 +23,6 @@
     <color name="dialogcolor">#7F000000</color>
     <color name="ee">#1F000000</color>
     <color name="trancelate">#88000000</color>
+    <color name="select">#F5F5F5</color>
+    <color name="unselect">#DBDBDB</color>
 </resources>

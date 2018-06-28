@@ -23,10 +23,12 @@ import com.ffn.zerozeroseven.base.RgRefreshStatus;
 import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.JiangChiInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
+import com.ffn.zerozeroseven.bean.WinnerDanmu;
 import com.ffn.zerozeroseven.bean.ZhongLeInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.InteraglSignInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.NaJiangInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShareUserInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.TongyongInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ZhongMaInfo;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
 import com.ffn.zerozeroseven.utlis.LogUtils;
@@ -52,6 +54,8 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 
 public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshListener {
+    @Bind(R.id.view_bot)
+    View view_bot;
     @Bind(R.id.refreshlayout)
     SmartRefreshLayout refreshlayout;
     @Bind(R.id.recyclerView_with_recyclerView_in_coordinatorLayout)
@@ -82,6 +86,8 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
     EditText et_phone;
     @Bind(R.id.et_adr)
     EditText et_adr;
+    @Bind(R.id.tv_pao)
+    TextView tv_pao;
     private ZhongLeInfo zhongLeInfo;
 
 
@@ -108,7 +114,7 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         });
         refreshlayout.setOnRefreshListener(this);
         recycleview.setLayoutManager(new GridLayoutManager(this, 2));
-        recycleview.addItemDecoration(new GridSpacingItemDecoration(2, 10, false));
+        recycleview.addItemDecoration(new GridSpacingItemDecoration(2, 2, false));
         adapter = new InteralAdapter(this);
         recycleview.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
@@ -127,7 +133,7 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
 
     int jump = 0;
 
-    @OnClick({R.id.bt_sign, R.id.bt_bestnew, R.id.ib_close, R.id.bt_share, R.id.bt_sub,R.id.rl_close})
+    @OnClick({R.id.bt_sign, R.id.bt_bestnew, R.id.ib_close, R.id.bt_share, R.id.bt_sub, R.id.rl_close})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.rl_close:
@@ -137,17 +143,17 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
                 String name = et_name.getText().toString().trim();
                 String phone = et_phone.getText().toString().trim();
                 String adr = et_adr.getText().toString().trim();
-                if(!TextUtils.isEmpty(name)){
-                    if(!TextUtils.isEmpty(phone)){
-                        if(!TextUtils.isEmpty(adr)){
-                            lingJiangLa(name,phone,adr);
-                        }else{
+                if (!TextUtils.isEmpty(name)) {
+                    if (!TextUtils.isEmpty(phone)) {
+                        if (!TextUtils.isEmpty(adr)) {
+                            lingJiangLa(name, phone, adr);
+                        } else {
                             ToastUtils.showShort("请填写地址");
                         }
-                    }else{
+                    } else {
                         ToastUtils.showShort("请填写手机号码");
                     }
-                }else{
+                } else {
                     ToastUtils.showShort("请填写姓名");
                 }
                 break;
@@ -195,11 +201,11 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         parametersBean.setUserPhone(userInfo.getPhone());
         naJiangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(naJiangInfo,true,true);
+        okGoUtils.httpPostJSON(naJiangInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                if(JsonUtil.getFieldValue(response,"code").equals("0")){
+                if (JsonUtil.getFieldValue(response, "code").equals("0")) {
                     rl_zhong.setVisibility(View.GONE);
                     ToastUtils.showShort("后台将尽快安排配送");
                 }
@@ -260,6 +266,39 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
     protected void doMain() {
         requestData();
         checkZhongMa();
+        requestDanMu();
+    }
+
+    String sb="";
+
+    private void requestDanMu() {
+        TongyongInfo tongyongInfo = new TongyongInfo();
+        tongyongInfo.setFunctionName("ListPointPrizeWinner");
+        OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
+        okGoUtils.httpPostJSON(tongyongInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                WinnerDanmu winnerDanmu = JSON.parseObject(response, WinnerDanmu.class);
+                if (winnerDanmu.getCode() == 0) {
+                    if (winnerDanmu.getData().getPointPrizeWinner() != null) {
+                        if (winnerDanmu.getData().getPointPrizeWinner().size() > 0) {
+                            for (int i = 0; i < winnerDanmu.getData().getPointPrizeWinner().size(); i++) {
+                                sb=sb+"恭喜"+ ZeroZeroSevenUtils.phoneClose(winnerDanmu.getData().getPointPrizeWinner().get(i).getUserPhone())+"获得了"+
+                                        winnerDanmu.getData().getPointPrizeWinner().get(i).getPrizeName()+"    ";
+                            }
+                            if(!TextUtils.isEmpty(sb)){
+                                tv_pao.setVisibility(View.VISIBLE);
+                                tv_pao.setText(sb);
+                            }else{
+                                tv_pao.setVisibility(View.GONE);
+                            }
+
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void checkZhongMa() {
@@ -269,13 +308,13 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         parametersBean.setUserPhone(userInfo.getPhone());
         zhongMaInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(zhongMaInfo,true,true);
+        okGoUtils.httpPostJSON(zhongMaInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                zhongLeInfo = JSON.parseObject(response,ZhongLeInfo.class);
-                if(zhongLeInfo.getCode()==0){
-                    if(zhongLeInfo.getData().getPointPrizeWinners().isAccept()){
+                zhongLeInfo = JSON.parseObject(response, ZhongLeInfo.class);
+                if (zhongLeInfo.getCode() == 0) {
+                    if (zhongLeInfo.getData().getPointPrizeWinners().isAccept()) {
                         rl_zhong.setVisibility(View.VISIBLE);
                     }
                 }
@@ -295,8 +334,15 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
                 JiangChiInfo jiangChiInfo = JSON.parseObject(response, JiangChiInfo.class);
                 refreshlayout.finishRefresh();
                 if (jiangChiInfo.getCode() == 0) {
-                    adapter.cleanDates();
-                    adapter.addAll(jiangChiInfo.getData().getJackpotPrizes());
+                    if(jiangChiInfo.getData().getJackpotPrizes().size()>0){
+                        if(jiangChiInfo.getData().getJackpotPrizes().size()>=4){
+                            view_bot.setVisibility(View.VISIBLE);
+                        }else{
+                            view_bot.setVisibility(View.GONE);
+                        }
+                        adapter.cleanDates();
+                        adapter.addAll(jiangChiInfo.getData().getJackpotPrizes());
+                    }
                 } else {
                     ToastUtils.showShort("奖池暂无信息");
                 }
