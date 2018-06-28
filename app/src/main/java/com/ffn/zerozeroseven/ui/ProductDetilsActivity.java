@@ -1,19 +1,23 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ProductAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
+import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.ProductTitleInfo;
+import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.LastInteralInfo;
 import com.ffn.zerozeroseven.fragment.ProductDetilsFragment;
 import com.ffn.zerozeroseven.listenner.EndlessRecyclerOnScrollListener;
@@ -27,6 +31,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 public class ProductDetilsActivity extends BaseActivity {
     @Bind(R.id.topView)
@@ -54,10 +59,11 @@ public class ProductDetilsActivity extends BaseActivity {
         ButterKnife.bind(this);
         mInstance=new WeakReference<>(this);
         topView.setTopText("宝贝详情");
+        topView.setTvRightText("分享");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
             public void Right() {
-
+                showShare(ProductDetilsActivity.this);
             }
 
             @Override
@@ -79,7 +85,23 @@ public class ProductDetilsActivity extends BaseActivity {
             }
         });
     }
-
+    private  void showShare(Context context) {
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        // title标题，微信、QQ和QQ空间等平台使用
+        oks.setTitle("积分抽奖有礼啦");
+        // titleUrl QQ和QQ空间跳转链接
+        oks.setTitleUrl(AppConfig.PRODUCTSHAREURL+prizeId);
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("各种法拉利 兰博基尼等着你来领");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        oks.setImageUrl(AppConfig.LOGOURL);//确保SDcard下面存在此张图片
+        // url在微信、微博，Facebook等平台中使用
+        oks.setUrl(AppConfig.PRODUCTSHAREURL+prizeId);
+        // 启动分享GUI
+        oks.show(context);
+    }
     @Override
     protected void doMain() {
         prizeId = getIntent().getIntExtra("prizeId", 0);
