@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -123,6 +124,8 @@ public class ProductDetilsFragment extends BaseFragment {
     CountdownView tv_time;
     @Bind(R.id.rl_ok)
     RelativeLayout rl_ok;
+    @Bind(R.id.bt_go)
+    Button bt_go;
 
     public void requestId(int id, int issueId) {
         ProductDtilsInfo lastInteralInfo = new ProductDtilsInfo();
@@ -172,6 +175,7 @@ public class ProductDetilsFragment extends BaseFragment {
                             ZeroZeroSevenUtils.showCustonPop(bfCxt, "该奖品已失效", tv_name);
                             break;
                         case 0:
+                            bt_go.setVisibility(View.VISIBLE);
                             rl_ok.setVisibility(View.GONE);
                             rl_close.setVisibility(View.VISIBLE);
                             rl_open.setVisibility(View.GONE);
@@ -192,7 +196,7 @@ public class ProductDetilsFragment extends BaseFragment {
                             rl_close.setVisibility(View.GONE);
                             tv_username.setText(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone());
                             tv_usercount.setText(productDetilsInfo.getData().getUserContributionList().size() + "次");
-                            tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getIssuePrizeId() + "");
+                            tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getLuckNum());
                             tv_usertime.setText(productDetilsInfo.getData().getPointPrizeWinner().getCreateTime());
                             break;
                         case 3:

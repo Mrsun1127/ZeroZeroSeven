@@ -41,13 +41,23 @@ public class InteralAdapter extends BaseRecyclerAdapter<JiangChiInfo.DataBean.Ja
 
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final JiangChiInfo.DataBean.JackpotPrizesBean item, int position) {
-        final  MViewHolder mHolder = (MViewHolder) holder;
-        mHolder.progressBar.setMax(item.getPrizePoint());
-        mHolder.progressBar.setProgress(item.getContributionPoint());
-        mHolder.tv_product_detils.setText("【第"+item.getPrizeIssue()+"期】"+item.getPrizeName());
-        mHolder.tv_progress.setText("开奖进度 "+(((item.getContributionPoint()/item.getPrizePoint()))*100)+"%");
-        mHolder.tv_count.setText(String.valueOf(item.getPrizePoint()-item.getContributionPoint()));
+        final MViewHolder mHolder = (MViewHolder) holder;
         Glide.with(mContext).load(item.getPrizePic()).into(mHolder.iv_product);
+        mHolder.tv_product_detils.setText("【第" + item.getPrizeIssue() + "期】" + item.getPrizeName());
+        switch (item.getIssuePrizeStatus()) {
+            case 0:
+                mHolder.progressBar.setMax(item.getPrizePoint());
+                mHolder.progressBar.setProgress(item.getContributionPoint());
+                mHolder.tv_progress.setText("开奖进度 " + (((item.getContributionPoint() / item.getPrizePoint())) * 100) + "%");
+                mHolder.tv_count.setText(String.valueOf(item.getPrizePoint() - item.getContributionPoint()));
+                break;
+            case 1:
+                mHolder.progressBar.setVisibility(View.GONE);
+                mHolder.tv_progress.setText("系统正在开奖中");
+                mHolder.tv_load.setText("前往查看");
+                mHolder.tv_count.setText("0");
+                break;
+        }
     }
 
 
@@ -57,13 +67,16 @@ public class InteralAdapter extends BaseRecyclerAdapter<JiangChiInfo.DataBean.Ja
         TextView tv_product_detils;
         TextView tv_count;
         TextView tv_progress;
+        TextView tv_load;
+
         MViewHolder(View itemView) {
             super(itemView);
-            progressBar=itemView.findViewById(R.id.pb_watch);
-            iv_product=itemView.findViewById(R.id.iv_product);
-            tv_product_detils=itemView.findViewById(R.id.tv_product_detils);
-            tv_count=itemView.findViewById(R.id.tv_count);
-            tv_progress=itemView.findViewById(R.id.tv_progress);
+            progressBar = itemView.findViewById(R.id.pb_watch);
+            iv_product = itemView.findViewById(R.id.iv_product);
+            tv_product_detils = itemView.findViewById(R.id.tv_product_detils);
+            tv_count = itemView.findViewById(R.id.tv_count);
+            tv_progress = itemView.findViewById(R.id.tv_progress);
+            tv_load = itemView.findViewById(R.id.tv_load);
         }
     }
 

@@ -249,6 +249,16 @@ public class ProductDetilsInfo implements Serializable {
             private String createTime;
             private String userAvatar;
             private String userPhone;
+            private String luckNum;
+
+            public String getLuckNum() {
+                return luckNum;
+            }
+
+            public void setLuckNum(String luckNum) {
+                this.luckNum = luckNum;
+            }
+
             private int issuePrizeId;
             private int status;
 

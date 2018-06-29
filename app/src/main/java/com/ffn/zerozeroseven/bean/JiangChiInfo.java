@@ -80,6 +80,15 @@ public class JiangChiInfo {
             private int issuePrizeId;
             private int jackpotSort;
             private int prizePoint;
+            private int issuePrizeStatus;
+
+            public int getIssuePrizeStatus() {
+                return issuePrizeStatus;
+            }
+
+            public void setIssuePrizeStatus(int issuePrizeStatus) {
+                this.issuePrizeStatus = issuePrizeStatus;
+            }
 
             public int getPrizeIssue() {
                 return prizeIssue;

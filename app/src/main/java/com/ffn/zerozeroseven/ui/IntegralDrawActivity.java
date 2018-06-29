@@ -273,8 +273,13 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
     }
 
     @Override
-    protected void doMain() {
+    protected void onResume() {
+        super.onResume();
         requestData();
+    }
+
+    @Override
+    protected void doMain() {
         checkZhongMa();
         requestDanMu();
     }
