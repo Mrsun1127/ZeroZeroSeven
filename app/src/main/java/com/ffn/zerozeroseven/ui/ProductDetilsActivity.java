@@ -48,8 +48,9 @@ public class ProductDetilsActivity extends BaseActivity {
     private ProductAdapter productAdapter;
     private ProductTitleInfo productTitleInfo;
     public int issuePrizeId;
-    public int clickposition=0;
+    public int clickposition = 0;
     public static WeakReference<ProductDetilsActivity> mInstance;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_productdetils;
@@ -58,7 +59,7 @@ public class ProductDetilsActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        mInstance=new WeakReference<>(this);
+        mInstance = new WeakReference<>(this);
         topView.setTopText("宝贝详情");
         topView.setTvRightText("分享");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
@@ -81,38 +82,40 @@ public class ProductDetilsActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, long itemId) {
                 productAdapter.setClickPosition(position);
-                clickposition=position;
-                ProductDetilsFragment.mInstance.get().requestId(prizeId,productTitleInfo.getData().getIssues().get(position).getId());
+                clickposition = position;
+                ProductDetilsFragment.mInstance.get().requestId(prizeId, productTitleInfo.getData().getIssues().get(position).getId());
             }
         });
     }
-    private  void showShare(Context context) {
+
+    private void showShare(Context context) {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         // title标题，微信、QQ和QQ空间等平台使用
         oks.setTitle("积分抽奖有礼啦");
         // titleUrl QQ和QQ空间跳转链接
-        oks.setTitleUrl(AppConfig.PRODUCTSHAREURL+prizeId);
+        oks.setTitleUrl(AppConfig.PRODUCTSHAREURL + prizeId);
         // text是分享文本，所有平台都需要这个字段
         oks.setText("各种法拉利 兰博基尼等着你来领");
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         oks.setImageUrl(AppConfig.LOGOURL);//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用
-        oks.setUrl(AppConfig.PRODUCTSHAREURL+prizeId);
+        oks.setUrl(AppConfig.PRODUCTSHAREURL + prizeId);
         // 启动分享GUI
         oks.show(context);
     }
+
     @Override
     protected void doMain() {
         prizeId = getIntent().getIntExtra("prizeId", 0);
         issuePrizeId = getIntent().getIntExtra("issuePrizeId", 0);
-        requestTitle();
+        requestTitle(true);
 
 
     }
 
-    private void requestTitle() {
+    public void requestTitle(final boolean isShow) {
         LastInteralInfo lastInteralInfo = new LastInteralInfo();
         lastInteralInfo.setFunctionName("ListPointPrizeIssue");
         LastInteralInfo.ParametersBean parametersBean = new LastInteralInfo.ParametersBean();
@@ -135,9 +138,10 @@ public class ProductDetilsActivity extends BaseActivity {
                     List<ProductTitleInfo.DataBean.IssuesBean> issues = productTitleInfo.getData().getIssues();
                     Collections.reverse(issues);
                     List.add(String.valueOf(issues.get(0).getIssue()));
+                    productAdapter.cleanDates();
                     productAdapter.addAll(titleList);
                     productAdapter.setClickPosition(0);
-                    fragmentList.add(ProductDetilsFragment.newInstance(prizeId,issues.get(0).getId()));
+                    fragmentList.add(ProductDetilsFragment.newInstance(prizeId, issues.get(0).getId()));
                     ShopViewPagerAdapter viewPagerAdapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, List);
                     viewPager.setAdapter(viewPagerAdapter);
                 }

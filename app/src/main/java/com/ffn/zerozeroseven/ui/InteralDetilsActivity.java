@@ -199,6 +199,9 @@ public class InteralDetilsActivity extends BaseActivity {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
                     ToastUtils.showShort("贡献成功");
+                    finish();
+                    ProductDetilsActivity.mInstance.get().requestTitle(false);
+
                 } else {
                     ToastUtils.showShort(errorCodeInfo.getMessage());
                 }

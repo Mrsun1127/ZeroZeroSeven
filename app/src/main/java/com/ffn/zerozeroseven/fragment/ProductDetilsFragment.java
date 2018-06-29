@@ -18,6 +18,7 @@ import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.bean.ProductDetilsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ProductDtilsInfo;
 import com.ffn.zerozeroseven.ui.InteralDetilsActivity;
+import com.ffn.zerozeroseven.ui.ProductDetilsActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
@@ -27,6 +28,7 @@ import java.lang.ref.WeakReference;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.iwgang.countdownview.CountdownView;
 
 public class ProductDetilsFragment extends BaseFragment {
     @Bind(R.id.rc_minegoin)
@@ -39,7 +41,8 @@ public class ProductDetilsFragment extends BaseFragment {
     private int issuePId;
     private ProductDetilsInfo productDetilsInfo;
     private int replaceId;
-    public static ProductDetilsFragment newInstance(int id,int issuePId) {
+
+    public static ProductDetilsFragment newInstance(int id, int issuePId) {
         Bundle args = new Bundle();
         args.putInt("id", id);
         args.putInt("pid", issuePId);
@@ -67,11 +70,17 @@ public class ProductDetilsFragment extends BaseFragment {
         singgerGoInAdapter = new ProductSinggerGoInAdapter(bfCxt);
         rc_minegoin.setAdapter(singgerGoInAdapter);
         rc_allgoin.setAdapter(productGoInAdapter);
+        tv_time.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
+            @Override
+            public void onEnd(CountdownView cv) {
+                ProductDetilsActivity.mInstance.get().requestTitle(false);
+            }
+        });
     }
 
     @Override
     public void initDate() {
-        requestId(id,issuePId);
+        requestId(id, issuePId);
     }
 
     @Bind(R.id.iv_product)
@@ -102,8 +111,20 @@ public class ProductDetilsFragment extends BaseFragment {
     TextView tv_usernumber;
     @Bind(R.id.tv_usertime)
     TextView tv_usertime;
+    @Bind(R.id.iv_mine_no)
+    ImageView iv_mineno;
+    @Bind(R.id.iv_all_no)
+    ImageView iv_allno;
+    @Bind(R.id.rl_top)
+    RelativeLayout rl_top;
+    @Bind(R.id.rl_bottom)
+    RelativeLayout rl_bot;
+    @Bind(R.id.tv_time)
+    CountdownView tv_time;
+    @Bind(R.id.rl_ok)
+    RelativeLayout rl_ok;
 
-    public void requestId(int id,int issueId) {
+    public void requestId(int id, int issueId) {
         ProductDtilsInfo lastInteralInfo = new ProductDtilsInfo();
         lastInteralInfo.setFunctionName("QueryPointIssuePrize");
         ProductDtilsInfo.ParametersBean parametersBean = new ProductDtilsInfo.ParametersBean();
@@ -126,34 +147,56 @@ public class ProductDetilsFragment extends BaseFragment {
                     tv_detils.setText(productDetilsInfo.getData().getPointPrize().getPrizeIntro());
                     productGoInAdapter.cleanDates();
                     singgerGoInAdapter.cleanDates();
-                    productGoInAdapter.addAll(productDetilsInfo.getData().getAllUserContributionList());
-                    singgerGoInAdapter.addAll(productDetilsInfo.getData().getUserContributionList());
+                    if (productDetilsInfo.getData().getAllUserContributionList().size() > 0) {
+                        rc_allgoin.setVisibility(View.VISIBLE);
+                        rl_bot.setVisibility(View.GONE);
+                        productGoInAdapter.addAll(productDetilsInfo.getData().getAllUserContributionList());
+                    } else {
+                        rc_allgoin.setVisibility(View.GONE);
+                        rl_bot.setVisibility(View.VISIBLE);
+                    }
+                    if (productDetilsInfo.getData().getUserContributionList().size() > 0) {
+                        singgerGoInAdapter.addAll(productDetilsInfo.getData().getUserContributionList());
+                        rc_minegoin.setVisibility(View.VISIBLE);
+                        rl_top.setVisibility(View.GONE);
+                    } else {
+                        rc_minegoin.setVisibility(View.GONE);
+                        rl_top.setVisibility(View.VISIBLE);
+                    }
                     switch (productDetilsInfo.getData().getStatus()) {
                         //-1=失效奖品，0=未开奖，1=可开奖，2=已开奖，3=已填配送配送
                         case -1:
+                            rl_ok.setVisibility(View.GONE);
                             rl_close.setVisibility(View.GONE);
                             rl_open.setVisibility(View.GONE);
                             ZeroZeroSevenUtils.showCustonPop(bfCxt, "该奖品已失效", tv_name);
                             break;
                         case 0:
+                            rl_ok.setVisibility(View.GONE);
                             rl_close.setVisibility(View.VISIBLE);
                             rl_open.setVisibility(View.GONE);
                             pb_watch.setMax(productDetilsInfo.getData().getPointPrize().getPrizePoint());
-                            tv_need.setText("总需" + productDetilsInfo.getData().getPointPrize().getPrizePoint()+"积分");
-                            tv_close.setText("还差" + (productDetilsInfo.getData().getPointPrize().getPrizePoint()-productDetilsInfo.getData().getPointPrize().getContributionPoint())+"积分");
+                            tv_need.setText("总需" + productDetilsInfo.getData().getPointPrize().getPrizePoint() + "积分");
+                            tv_close.setText("还差" + (productDetilsInfo.getData().getPointPrize().getPrizePoint() - productDetilsInfo.getData().getPointPrize().getContributionPoint()) + "积分");
                             pb_watch.setProgress(productDetilsInfo.getData().getPointPrize().getContributionPoint());
                             break;
                         case 1:
+                            rl_ok.setVisibility(View.VISIBLE);
+                            rl_close.setVisibility(View.GONE);
+                            rl_open.setVisibility(View.GONE);
+                            tv_time.start(30000);
                             break;
                         case 2:
+                            rl_ok.setVisibility(View.GONE);
                             rl_open.setVisibility(View.VISIBLE);
                             rl_close.setVisibility(View.GONE);
                             tv_username.setText(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone());
-                            tv_usercount.setText(productDetilsInfo.getData().getUserContributionList().size()+"次");
-                            tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getIssuePrizeId()+"");
+                            tv_usercount.setText(productDetilsInfo.getData().getUserContributionList().size() + "次");
+                            tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getIssuePrizeId() + "");
                             tv_usertime.setText(productDetilsInfo.getData().getPointPrizeWinner().getCreateTime());
                             break;
                         case 3:
+                            rl_ok.setVisibility(View.GONE);
                             rl_open.setVisibility(View.VISIBLE);
                             rl_close.setVisibility(View.GONE);
                             break;
@@ -179,10 +222,10 @@ public class ProductDetilsFragment extends BaseFragment {
         switch (v.getId()) {
             case R.id.bt_go:
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("product",productDetilsInfo);
-                bundle.putInt("prizeId",id);
-                bundle.putInt("replaceId",productDetilsInfo.getData().getId());
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, InteralDetilsActivity.class,bundle);
+                bundle.putSerializable("product", productDetilsInfo);
+                bundle.putInt("prizeId", id);
+                bundle.putInt("replaceId", productDetilsInfo.getData().getId());
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, InteralDetilsActivity.class, bundle);
                 break;
         }
     }

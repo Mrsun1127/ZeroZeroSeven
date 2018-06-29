@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -20,6 +21,47 @@
                 android:layout_height="158dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="27dp" />
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/rl_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="45dp">
+
+                <Button
+                    android:id="@+id/bt_ok"
+                    android:layout_width="57dp"
+                    android:layout_height="22dp"
+                    android:background="@drawable/interalred"
+                    android:text="开奖中"
+                    android:textColor="@color/white"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_ok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/bt_ok"
+                    android:text="系统正在开奖中，大概30秒后左右开奖"
+                    android:textColor="@color/text_show_color"
+                    android:textSize="13sp" />
+
+                <cn.iwgang.countdownview.CountdownView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_ok"
+                    android:layout_marginTop="15dp"
+                    app:isHideTimeBackground="true"
+                    app:isShowHour="true"
+                    app:isShowMinute="true"
+                    app:isTimeTextBold="true"
+                    app:timeTextColor="#FE0000"
+                    app:timeTextSize="16sp" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_close"
@@ -278,11 +320,31 @@
                     android:textSize="13sp" />
             </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rc_minegoin"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:descendantFocusability="blocksDescendants" />
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rc_minegoin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:descendantFocusability="blocksDescendants" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iv_mine_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/interal_nodata"
+                        android:visibility="visible" />
+                </RelativeLayout>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -299,15 +361,37 @@
                     android:textSize="13sp" />
             </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rc_allgoin"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:descendantFocusability="blocksDescendants" />
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rc_allgoin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iv_all_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/interal_nodata"
+                        android:visibility="visible" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="37dp" />
+                android:layout_height="45dp" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
@@ -315,7 +399,7 @@
     <Button
         android:id="@+id/bt_go"
         android:layout_width="match_parent"
-        android:layout_height="37dp"
+        android:layout_height="45dp"
         android:layout_gravity="bottom"
         android:background="#FE0000"
         android:text="立即参与"
