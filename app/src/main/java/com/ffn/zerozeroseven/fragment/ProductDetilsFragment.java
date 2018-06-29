@@ -30,6 +30,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.iwgang.countdownview.CountdownView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProductDetilsFragment extends BaseFragment {
     @Bind(R.id.rc_minegoin)
@@ -126,6 +127,8 @@ public class ProductDetilsFragment extends BaseFragment {
     RelativeLayout rl_ok;
     @Bind(R.id.bt_go)
     Button bt_go;
+    @Bind(R.id.iv_user)
+    CircleImageView iv_user;
 
     public void requestId(int id, int issueId) {
         ProductDtilsInfo lastInteralInfo = new ProductDtilsInfo();
@@ -195,9 +198,12 @@ public class ProductDetilsFragment extends BaseFragment {
                             rl_open.setVisibility(View.VISIBLE);
                             rl_close.setVisibility(View.GONE);
                             tv_username.setText(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone());
-                            tv_usercount.setText(productDetilsInfo.getData().getUserContributionList().size() + "次");
+                            tv_usercount.setText(productDetilsInfo.getData().getPointPrizeWinner().getCountPoint() + "次");
                             tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getLuckNum());
                             tv_usertime.setText(productDetilsInfo.getData().getPointPrizeWinner().getCreateTime());
+                            Glide.with(bfCxt)
+                                    .load(productDetilsInfo.getData().getPointPrizeWinner().getUserAvatar())
+                                    .into(iv_user);
                             break;
                         case 3:
                             rl_ok.setVisibility(View.GONE);

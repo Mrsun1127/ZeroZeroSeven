@@ -23,6 +23,9 @@ import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -48,7 +51,8 @@ public class InteralAdapter extends BaseRecyclerAdapter<JiangChiInfo.DataBean.Ja
             case 0:
                 mHolder.progressBar.setMax(item.getPrizePoint());
                 mHolder.progressBar.setProgress(item.getContributionPoint());
-                mHolder.tv_progress.setText("开奖进度 " + (((item.getContributionPoint() / item.getPrizePoint())) * 100) + "%");
+                double f1 = new BigDecimal((float)item.getContributionPoint()/item.getPrizePoint()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                mHolder.tv_progress.setText("开奖进度 " + (f1 * 100) + "%");
                 mHolder.tv_count.setText(String.valueOf(item.getPrizePoint() - item.getContributionPoint()));
                 break;
             case 1:
