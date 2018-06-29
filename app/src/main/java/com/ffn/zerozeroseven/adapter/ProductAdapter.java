@@ -36,7 +36,7 @@ public class ProductAdapter extends BaseRecyclerAdapter<String> {
             mHolder.rl_all.setBackgroundResource(R.color.unselect);
             mHolder.tv_city.setTextColor(mContext.getResources().getColor(R.color.black));
         }
-        mHolder.tv_city.setText(item);
+        mHolder.tv_city.setText("第"+item+"期");
     }
     public void setClickPosition(int position){
         clickPosition=position;
