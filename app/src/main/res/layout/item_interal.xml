@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/iv_product"
-        android:layout_width="57dp"
-        android:layout_height="66dp"
+        android:layout_width="140dp"
+        android:layout_height="90dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="9dp"
          />

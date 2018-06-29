@@ -146,7 +146,11 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
                 if (!TextUtils.isEmpty(name)) {
                     if (!TextUtils.isEmpty(phone)) {
                         if (!TextUtils.isEmpty(adr)) {
-                            lingJiangLa(name, phone, adr);
+                            if(ZeroZeroSevenUtils.isMobileNO(phone)){
+                                lingJiangLa(name, phone, adr);
+                            }else{
+                                ToastUtils.showShort("请输入正确的手机号码");
+                            }
                         } else {
                             ToastUtils.showShort("请填写地址");
                         }
@@ -256,7 +260,13 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
                 if (codeInfo.getCode() == 0) {
                     rl_pop.setVisibility(View.VISIBLE);
                 } else {
-                    ToastUtils.showShort(codeInfo.getMessage());
+                    //分享
+                    rl_pop.setVisibility(View.VISIBLE);
+                    tv_one.setText("您已签过到了");
+                    tv_two.setText("签到获得2积分");
+                    tv_three.setText("分享可获得更多积分");
+                    bt_share.setText("去分享");
+                    jump=0;
                 }
             }
         });

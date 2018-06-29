@@ -44,7 +44,7 @@ public class InteralAdapter extends BaseRecyclerAdapter<JiangChiInfo.DataBean.Ja
         final  MViewHolder mHolder = (MViewHolder) holder;
         mHolder.progressBar.setMax(item.getPrizePoint());
         mHolder.progressBar.setProgress(item.getContributionPoint());
-        mHolder.tv_product_detils.setText(item.getPrizeIntro());
+        mHolder.tv_product_detils.setText("【第"+item.getPrizeIssue()+"期】"+item.getPrizeName());
         mHolder.tv_progress.setText("开奖进度 "+(((item.getContributionPoint()/item.getPrizePoint()))*100)+"%");
         mHolder.tv_count.setText(String.valueOf(item.getPrizePoint()-item.getContributionPoint()));
         Glide.with(mContext).load(item.getPrizePic()).into(mHolder.iv_product);

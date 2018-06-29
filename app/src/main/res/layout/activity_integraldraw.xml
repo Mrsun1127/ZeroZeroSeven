@@ -61,10 +61,10 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:layout_marginTop="350dp"
                             android:id="@+id/tv_pao"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:layout_marginLeft="30dp"
                             android:layout_marginRight="30dp"
@@ -186,10 +186,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/trancelate"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <RelativeLayout
-            android:layout_marginLeft="65dp"
+            android:layout_marginLeft="30dp"
             android:layout_width="321dp"
             android:layout_height="463dp"
             android:layout_centerVertical="true"
@@ -231,7 +231,7 @@
                 android:layout_marginTop="10dp"
                 android:text="OPPO R11S星幕新年版手机"
                 android:textColor="#FFF13D"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -275,6 +275,7 @@
                 android:textSize="13sp" />
 
             <EditText
+                android:inputType="number"
                 android:id="@+id/et_phone"
                 android:layout_width="160dp"
                 android:layout_height="30dp"
