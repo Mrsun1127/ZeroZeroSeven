@@ -27,6 +27,7 @@ import com.ffn.zerozeroseven.view.TopView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -130,10 +131,13 @@ public class ProductDetilsActivity extends BaseActivity {
                     for (int i = 0; i < productTitleInfo.getData().getIssues().size(); i++) {
                         titleList.add(String.valueOf(productTitleInfo.getData().getIssues().get(i).getIssue()));
                     }
-                    List.add(String.valueOf(productTitleInfo.getData().getIssues().get(0).getIssue()));
+                    Collections.reverse(titleList);
+                    List<ProductTitleInfo.DataBean.IssuesBean> issues = productTitleInfo.getData().getIssues();
+                    Collections.reverse(issues);
+                    List.add(String.valueOf(issues.get(0).getIssue()));
                     productAdapter.addAll(titleList);
                     productAdapter.setClickPosition(0);
-                    fragmentList.add(ProductDetilsFragment.newInstance(prizeId,productTitleInfo.getData().getIssues().get(0).getId()));
+                    fragmentList.add(ProductDetilsFragment.newInstance(prizeId,issues.get(0).getId()));
                     ShopViewPagerAdapter viewPagerAdapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, List);
                     viewPager.setAdapter(viewPagerAdapter);
                 }
