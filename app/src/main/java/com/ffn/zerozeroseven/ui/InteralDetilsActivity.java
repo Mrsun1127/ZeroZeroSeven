@@ -49,6 +49,8 @@ public class InteralDetilsActivity extends BaseActivity {
     RelativeLayout rl_pop;
     @Bind(R.id.tv_count)
     TextView tv_count;
+    @Bind(R.id.rl_out)
+    RelativeLayout rl_out;
     private ProductDetilsInfo productDetilsInfo;
     private int prizeId;
     private int replaceId;
@@ -66,9 +68,9 @@ public class InteralDetilsActivity extends BaseActivity {
         productDetilsInfo = (ProductDetilsInfo) getIntent().getSerializableExtra("product");
         Glide.with(InteralDetilsActivity.this)
                 .load(productDetilsInfo.getData().getPointPrize().getPrizePic());
-        tv_needinteral.setText("总需" + productDetilsInfo.getData().getPointPrize().getPrizePoint());
+        tv_needinteral.setText("总需" + productDetilsInfo.getData().getPointPrize().getPrizePoint()+"积分");
         tv_closeinteral.setText("还差" + (productDetilsInfo.getData().getPointPrize().getPrizePoint()-productDetilsInfo.getData().getPointPrize().getContributionPoint())+"积分");
-        et_count.setText("0");
+        et_count.setText("");
         et_count.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -129,14 +131,15 @@ public class InteralDetilsActivity extends BaseActivity {
             case R.id.bt_baowei:
                 isBaowei=1;
                 tv_count.setText("您将消耗" +(productDetilsInfo.getData().getPointPrize().getPrizePoint()-productDetilsInfo.getData().getPointPrize().getContributionPoint()) + "积分");
-                rl_pop.setVisibility(View.VISIBLE);
+                tv_allinteral.setText("共1个宝贝 总计： " + (productDetilsInfo.getData().getPointPrize().getPrizePoint()-productDetilsInfo.getData().getPointPrize().getContributionPoint())  + "积分");
+                rl_out.setVisibility(View.VISIBLE);
                 i=(productDetilsInfo.getData().getPointPrize().getPrizePoint()-productDetilsInfo.getData().getPointPrize().getContributionPoint())+"";
                 break;
             case R.id.tv_back:
-                rl_pop.setVisibility(View.GONE);
+                rl_out.setVisibility(View.GONE);
                 break;
             case R.id.bt_sure:
-                rl_pop.setVisibility(View.GONE);
+                rl_out.setVisibility(View.GONE);
                 goBuy(i,isBaowei);
                 break;
             case R.id.bt_gobuy:
@@ -147,7 +150,7 @@ public class InteralDetilsActivity extends BaseActivity {
                         ToastUtils.showShort("请贡献(>=1)积分");
                     } else {
                         tv_count.setText("您将消耗" + et_count.getText().toString() + "积分");
-                        rl_pop.setVisibility(View.VISIBLE);
+                        rl_out.setVisibility(View.VISIBLE);
                     }
                 } else {
                     ToastUtils.showShort("请贡献(>=1)积分");
