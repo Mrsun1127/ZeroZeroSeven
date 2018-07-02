@@ -128,7 +128,7 @@ public class SelectAdrMannGerActivity extends BaseActivity implements View.OnCli
                                 if (allAdrAdapter != null) {
                                     allAdrAdapter.setList(shouHuoInfo.getData().getAddresses());
                                 } else {
-                                    allAdrAdapter = new AllAdrAdapter(shouHuoInfo.getData().getAddresses(), SelectAdrMannGerActivity.this);
+                                    allAdrAdapter = new AllAdrAdapter(shouHuoInfo.getData().getAddresses(), SelectAdrMannGerActivity.this,true);
                                     msgPullLv.setAdapter(allAdrAdapter);
                                 }
                             }

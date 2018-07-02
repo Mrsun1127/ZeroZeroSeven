@@ -25,6 +25,7 @@ public class AllAdrAdapter extends BaseAdapter {
 
     List<ShouHuoInfo.DataBean.AddressesBean> list;
     final Context context;
+    boolean isShow;
 
     public List<ShouHuoInfo.DataBean.AddressesBean> getList() {
         return list;
@@ -40,7 +41,11 @@ public class AllAdrAdapter extends BaseAdapter {
         this.list = list;
         this.context = context;
     }
-
+    public AllAdrAdapter(List<ShouHuoInfo.DataBean.AddressesBean> list, Context context,boolean isShow) {
+        this.list = list;
+        this.context = context;
+        this.isShow = isShow;
+    }
     @Override
     public int getCount() {
         return list.size();
@@ -70,6 +75,10 @@ public class AllAdrAdapter extends BaseAdapter {
         holder.tv_phone.setText(list.get(position).getContactPhone());
         if (list.get(position).getContactBuilding() == null) {
             list.get(position).setContactBuilding(" ");
+        }
+        if(isShow){
+            holder.tv_edit.setVisibility(View.INVISIBLE);
+            holder.tv_set.setVisibility(View.GONE);
         }
         holder.tv_adr.setText(list.get(position).getContactSchool() + list.get(position).getContactBuilding() + list.get(position).getContactDorm());
         holder.tv_set.setOnClickListener(new View.OnClickListener() {
