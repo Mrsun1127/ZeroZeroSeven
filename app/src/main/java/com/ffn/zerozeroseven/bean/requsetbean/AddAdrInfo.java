@@ -52,6 +52,15 @@ public class AddAdrInfo {
         private String contactBuilding;
         private String contactDorm;
         private int buildingId;
+        private int isDefault;
+
+        public int getIsDefault() {
+            return isDefault;
+        }
+
+        public void setIsDefault(int isDefault) {
+            this.isDefault = isDefault;
+        }
 
         public int getBuildingId() {
             return buildingId;

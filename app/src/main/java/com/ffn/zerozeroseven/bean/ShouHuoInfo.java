@@ -69,6 +69,15 @@ public class ShouHuoInfo implements Serializable {
             private String contactPhone;
             private String contactSchool;
             private String contactDorm;
+            private int isDefault;
+
+            public int getIsDefault() {
+                return isDefault;
+            }
+
+            public void setIsDefault(int isDefault) {
+                this.isDefault = isDefault;
+            }
 
             public String getContactBuilding() {
                 return contactBuilding;

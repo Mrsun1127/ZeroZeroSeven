@@ -36,13 +36,14 @@
                         <ImageView
                             android:id="@+id/iv_bg"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                             />
-                        <com.github.mmin18.widget.RealtimeBlurView
-                            app:realtimeBlurRadius="20dp"
-                            app:realtimeOverlayColor="@color/ee"
-                            android:layout_width="match_parent"
                             android:layout_height="match_parent" />
+
+                        <com.github.mmin18.widget.RealtimeBlurView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:realtimeBlurRadius="20dp"
+                            app:realtimeOverlayColor="@color/ee" />
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -164,6 +165,106 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
                             android:text="土豪排行"
+                            android:textColor="#333"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_numberrical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_six"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/main_four" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_six"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="数码市场"
+                            android:textColor="#333"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_seven"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/main_four" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_seven"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="待开发"
+                            android:textColor="#333"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_eight"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/main_four" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_eight"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="待开发"
+                            android:textColor="#333"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_nine"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/main_four" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_nine"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="待开发"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
@@ -453,8 +554,8 @@
         android:id="@+id/iv_show"
         android:layout_width="59dp"
         android:layout_height="59dp"
-        android:layout_marginBottom="25dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_marginBottom="25dp"
         android:background="@drawable/dmooff" />
 </RelativeLayout>

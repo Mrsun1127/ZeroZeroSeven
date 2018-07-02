@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,7 +39,8 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
     private EditText et_men;
     private TextView et_lou;
     private LinearLayout ll_addLou;
-
+    private CheckBox cb_default;
+    int isDefault=0;
     @Override
     protected int setLayout() {
         return R.layout.activity_addnewadr;
@@ -47,12 +50,23 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
     public void initView() {
         MobclickAgent.onEvent(this, "地址管理");
         et_adr = findViewById(R.id.et_adr);
+        cb_default = findViewById(R.id.cb_default);
         et_name = findViewById(R.id.et_name);
         et_phone = findViewById(R.id.et_phone);
         et_lou = findViewById(R.id.et_lou);
         et_men = findViewById(R.id.et_men);
         findViewById(R.id.ll_addLou).setOnClickListener(this);
         Button bt_sub = findViewById(R.id.bt_sub);
+        cb_default.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    isDefault=1;
+                }else{
+                    isDefault=0;
+                }
+            }
+        });
         bt_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,6 +114,7 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
         parametersBean.setContactPhone(phone);
         parametersBean.setContactBuilding(loudong);
         parametersBean.setContactDorm(sushe);
+        parametersBean.setIsDefault(isDefault);
 //        parametersBean.setBuildingId(id);
         addAdrInfo.setParameters(parametersBean);
         httpPostJSON(addAdrInfo, true);

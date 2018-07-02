@@ -8,7 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.ShouHuoInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.UpDateAdrInfo;
+import com.ffn.zerozeroseven.utlis.JsonUtil;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 
 import java.util.List;
 
@@ -63,10 +68,38 @@ public class AllAdrAdapter extends BaseAdapter {
         }
         holder.tv_name.setText(list.get(position).getContactName());
         holder.tv_phone.setText(list.get(position).getContactPhone());
-        if(list.get(position).getContactBuilding()==null){
+        if (list.get(position).getContactBuilding() == null) {
             list.get(position).setContactBuilding(" ");
         }
-        holder.tv_adr.setText(list.get(position).getContactSchool()+list.get(position).getContactBuilding()+list.get(position).getContactDorm());
+        holder.tv_adr.setText(list.get(position).getContactSchool() + list.get(position).getContactBuilding() + list.get(position).getContactDorm());
+        holder.tv_set.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                UpDateAdrInfo upDateAdrInfo = new UpDateAdrInfo();
+                upDateAdrInfo.setFunctionName("UpdateUserAddress");
+                UpDateAdrInfo.ParametersBean parametersBean = new UpDateAdrInfo.ParametersBean();
+                parametersBean.setId(list.get(position).getId());
+                parametersBean.setContactSchool(list.get(position).getContactSchool());
+                parametersBean.setContactName(list.get(position).getContactName());
+                parametersBean.setContactPhone(list.get(position).getContactPhone());
+                parametersBean.setContactBuilding(list.get(position).getContactBuilding());
+                parametersBean.setContactDorm(list.get(position).getContactDorm());
+                parametersBean.setIsDefault(1);
+                upDateAdrInfo.setParameters(parametersBean);
+                OkGoUtils okGoUtils = new OkGoUtils(context);
+                okGoUtils.httpPostJSON(upDateAdrInfo, true, true);
+                okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+                    @Override
+                    public void onSuccLoad(String response) {
+                        String code = JsonUtil.getFieldValue(response, "code");
+                        if ("0".equals(code)) {
+                            ToastUtils.showShort("设置成功");
+                        }
+                    }
+                });
+            }
+        });
         return convertView;
     }
 
@@ -74,11 +107,15 @@ public class AllAdrAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView tv_name;
         TextView tv_phone;
+        TextView tv_edit;
+        TextView tv_set;
         TextView tv_adr;
 
 
         ViewHolder(View view) {
+            tv_set = view.findViewById(R.id.tv_set);
             tv_name = view.findViewById(R.id.tv_name);
+            tv_edit = view.findViewById(R.id.tv_edit);
             tv_phone = view.findViewById(R.id.tv_phone);
             tv_adr = view.findViewById(R.id.tv_adr);
         }

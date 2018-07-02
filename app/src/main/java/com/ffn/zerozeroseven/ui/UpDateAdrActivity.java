@@ -2,6 +2,8 @@ package com.ffn.zerozeroseven.ui;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -32,7 +34,8 @@ public class UpDateAdrActivity extends BaseActivity {
     private EditText et_men;
     private int upId;
     private int id;
-
+    private int isDefault;
+    private CheckBox cb_default;
 
     @Override
     protected int setLayout() {
@@ -47,6 +50,12 @@ public class UpDateAdrActivity extends BaseActivity {
         et_lou.setText(getIntent().getStringExtra("dong"));
         et_men.setText(getIntent().getStringExtra("men"));
         upId = getIntent().getIntExtra("id",0);
+        isDefault = getIntent().getIntExtra("isDefault",0);
+        if(isDefault==1){
+            cb_default.setChecked(true);
+        }else {
+            cb_default.setChecked(false);
+        }
     }
 
     @Override
@@ -69,6 +78,7 @@ public class UpDateAdrActivity extends BaseActivity {
 
             }
         });
+        cb_default = findViewById(R.id.cb_default);
         et_adr = findViewById(R.id.et_adr);
         et_name = findViewById(R.id.et_name);
         et_phone = findViewById(R.id.et_phone);
@@ -90,6 +100,16 @@ public class UpDateAdrActivity extends BaseActivity {
                 }
             }
         });
+        cb_default.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    isDefault=1;
+                }else{
+                    isDefault=0;
+                }
+            }
+        });
 
     }
 
@@ -105,6 +125,7 @@ public class UpDateAdrActivity extends BaseActivity {
 //        parametersBean.setBuildingId(getIntent().getIntExtra("buildId",0));
         parametersBean.setContactBuilding(et_lou.getText().toString().trim());
         parametersBean.setContactDorm(et_men.getText().toString().trim());
+        parametersBean.setIsDefault(isDefault);
         upDateAdrInfo.setParameters(parametersBean);
         httpPostJSON(upDateAdrInfo,true);
         call.enqueue(new Callback() {

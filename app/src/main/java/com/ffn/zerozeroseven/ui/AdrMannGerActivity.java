@@ -113,9 +113,11 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
                 bundle.putString("phone",shouHuoInfo.getData().getAddresses().get(i).getContactPhone());
                 bundle.putString("dong",shouHuoInfo.getData().getAddresses().get(i).getContactBuilding());
                 bundle.putString("men",shouHuoInfo.getData().getAddresses().get(i).getContactDorm());
+                bundle.putInt("isDefault",shouHuoInfo.getData().getAddresses().get(i).getIsDefault());
                 ZeroZeroSevenUtils.SwitchActivity(AdrMannGerActivity.this,UpDateAdrActivity.class,bundle);
             }
         });
+
     }
 
     private void deleteAdr(int position) {

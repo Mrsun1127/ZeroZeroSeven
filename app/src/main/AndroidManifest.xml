@@ -261,6 +261,7 @@
         <activity android:name=".ui.RencentlyInteralACtivity" />
         <activity android:name=".ui.MySignGoodActivity" />
         <activity android:name=".ui.BestNewActivity" />
+        <activity android:name=".ui.NumberRicalActivity" />
 
         <!-- Required SDK核心功能-->
         <service

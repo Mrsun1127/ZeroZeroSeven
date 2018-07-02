@@ -85,6 +85,7 @@ import com.ffn.zerozeroseven.ui.MessAgeActivity;
 import com.ffn.zerozeroseven.ui.MineRunActivity;
 import com.ffn.zerozeroseven.ui.MrsunWebActivity;
 import com.ffn.zerozeroseven.ui.MyBitisActivity;
+import com.ffn.zerozeroseven.ui.NumberRicalActivity;
 import com.ffn.zerozeroseven.ui.RunDetilsActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
 import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
@@ -1271,9 +1272,12 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Bind(R.id.iv_guanggao)
     ImageView iv_guanggao;
 
-    @OnClick({R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
+    @OnClick({R.id.rl_numberrical,R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.rl_numberrical:
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, NumberRicalActivity.class);
+                break;
             case R.id.iv_show:
                 if (open) {
                     open = false;
