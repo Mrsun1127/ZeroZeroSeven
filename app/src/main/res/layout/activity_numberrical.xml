@@ -56,6 +56,7 @@
                 </RadioGroup>
 
                 <RadioGroup
+                    android:layout_marginTop="1dp"
                     android:layout_width="match_parent"
                     android:layout_height="41dp"
                     android:background="@color/white"
@@ -77,6 +78,9 @@
                         android:textColor="@color/numberrical_text" />
 
                     <RadioButton
+                        android:textColor="@color/numberrical_text"
+                        android:id="@+id/rb_hot"
+                        android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="27dp"
                         android:layout_marginRight="18dp"
@@ -86,6 +90,9 @@
                         android:text="热门品牌" />
 
                     <RadioButton
+                        android:textColor="@color/numberrical_text"
+                        android:id="@+id/rb_price"
+                        android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="27dp"
                         android:layout_marginRight="18dp"
@@ -95,6 +102,9 @@
                         android:text="价格" />
 
                     <RadioButton
+                        android:textColor="@color/numberrical_text"
+                        android:id="@+id/rb_scree"
+                        android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="27dp"
                         android:layout_marginRight="18dp"
@@ -103,6 +113,16 @@
                         android:button="@null"
                         android:text="屏幕尺寸" />
                 </RadioGroup>
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"/>
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
