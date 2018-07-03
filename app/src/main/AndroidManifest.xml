@@ -273,6 +273,7 @@
         <activity android:name=".ui.NumberRicalShopCarActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
+        <activity android:name=".ui.NumberRicalDetilsActivity" />
 
         <!-- Required SDK核心功能-->
         <service
