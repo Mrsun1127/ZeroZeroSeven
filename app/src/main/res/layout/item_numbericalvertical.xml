@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="147dp"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/iv_product"
+        android:layout_width="119dp"
+        android:layout_height="119dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/willdelete" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/iv_product"
+        android:text="联想（Lenovo）天逸510S 带19.5英寸台式电脑商用办公整机Intel i3-7100 4GB 1TB..."
+        android:textColor="@color/black"
+        android:textSize="11sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_sign"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginLeft="18dp"
+        android:layout_toRightOf="@+id/iv_product"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:background="@drawable/numberrical"
+            android:gravity="center"
+            android:text="Intel i3"
+            android:textSize="9sp" />
+
+        <TextView
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:background="@drawable/numberrical"
+            android:gravity="center"
+            android:text="18.5-19.5英寸"
+            android:textSize="9sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_money"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/ll_sign"
+        android:layout_marginLeft="18dp"
+        android:layout_toRightOf="@+id/iv_product"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:paddingTop="5dp"
+            android:gravity="center_vertical"
+            android:textColor="#f0250f"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="￥"
+            android:textSize="9sp" />
+
+        <TextView
+            android:textColor="#f0250f"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:background="@drawable/numberrical"
+            android:gravity="center"
+            android:text="2199.99"
+            android:textSize="13sp" />
+        <TextView
+            android:paddingTop="5dp"
+            android:paddingLeft="15dp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="原价 2400"
+            android:textSize="9sp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_status"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/ll_money"
+        android:layout_marginLeft="18dp"
+        android:layout_toRightOf="@+id/iv_product"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="#f0250f"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:background="@drawable/startsign"
+            android:gravity="center"
+            android:text="有货"
+            android:textSize="9sp" />
+
+        <TextView
+            android:textColor="#f0250f"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:background="@drawable/startsign"
+            android:gravity="center"
+            android:text="支持送货上门验货"
+            android:textSize="9sp" />
+    </LinearLayout>
+    <TextView
+        android:textColor="@color/white"
+        android:text="预约上门"
+        android:gravity="center"
+        android:textSize="11sp"
+        android:background="@drawable/numberverticalbutton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="19dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="63dp"
+        android:layout_height="27dp"
+        />
+</RelativeLayout>
