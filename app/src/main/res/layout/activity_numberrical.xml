@@ -16,6 +16,7 @@
         android:layout_below="@+id/topView">
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -56,9 +57,9 @@
                 </RadioGroup>
 
                 <RadioGroup
-                    android:layout_marginTop="1dp"
                     android:layout_width="match_parent"
                     android:layout_height="41dp"
+                    android:layout_marginTop="1dp"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -78,54 +79,76 @@
                         android:textColor="@color/numberrical_text" />
 
                     <RadioButton
-                        android:textColor="@color/numberrical_text"
                         android:id="@+id/rb_hot"
-                        android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="27dp"
                         android:layout_marginRight="18dp"
                         android:layout_weight="1"
                         android:background="@drawable/numberrical"
                         android:button="@null"
-                        android:text="热门品牌" />
+                        android:gravity="center"
+                        android:text="热门品牌"
+                        android:textColor="@color/numberrical_text" />
 
                     <RadioButton
-                        android:textColor="@color/numberrical_text"
                         android:id="@+id/rb_price"
-                        android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="27dp"
                         android:layout_marginRight="18dp"
                         android:layout_weight="1"
                         android:background="@drawable/numberrical"
                         android:button="@null"
-                        android:text="价格" />
+                        android:gravity="center"
+                        android:text="价格"
+                        android:textColor="@color/numberrical_text" />
 
                     <RadioButton
-                        android:textColor="@color/numberrical_text"
                         android:id="@+id/rb_scree"
-                        android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="27dp"
                         android:layout_marginRight="18dp"
                         android:layout_weight="1"
                         android:background="@drawable/numberrical"
                         android:button="@null"
-                        android:text="屏幕尺寸" />
+                        android:gravity="center"
+                        android:text="屏幕尺寸"
+                        android:textColor="@color/numberrical_text" />
                 </RadioGroup>
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rc_scroll"
-                    android:layout_marginTop="1dp"
-                    android:background="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white" />
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rc_vetical"
-                    android:layout_marginTop="1dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp" />
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <ImageView
+        android:id="@+id/iv_shopcar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/iv_up"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/numberricalshopcar" />
+
+    <ImageView
+        android:id="@+id/iv_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="85dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/number_up" />
 </RelativeLayout>

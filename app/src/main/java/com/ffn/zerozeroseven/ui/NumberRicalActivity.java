@@ -1,8 +1,11 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.NumberRicalScrollAdapter;
@@ -16,6 +19,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class NumberRicalActivity extends BaseActivity {
     @Bind(R.id.topView)
@@ -24,6 +28,13 @@ public class NumberRicalActivity extends BaseActivity {
     RecyclerView scroll;
     @Bind(R.id.rc_vetical)
     RecyclerView vetical;
+    @Bind(R.id.iv_up)
+    ImageView iv_up;
+    @Bind(R.id.iv_shopcar)
+    ImageView iv_shopcar;
+    @Bind(R.id.scrollview)
+    NestedScrollView scrollview;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_numberrical;
@@ -57,7 +68,7 @@ public class NumberRicalActivity extends BaseActivity {
         scroll.setAdapter(scrollAdapter);
         NumberRicalVerticalAdapter verticalAdapter = new NumberRicalVerticalAdapter(NumberRicalActivity.this);
         vetical.setAdapter(verticalAdapter);
-        List<String> s=new ArrayList<>();
+        List<String> s = new ArrayList<>();
         s.add("");
         s.add("");
         s.add("");
@@ -69,5 +80,15 @@ public class NumberRicalActivity extends BaseActivity {
         s.add("");
         scrollAdapter.addAll(s);
         verticalAdapter.addAll(s);
+    }
+
+    @OnClick({R.id.iv_up})
+    void setOnClicks(View v) {
+        switch (v.getId()) {
+            case R.id.iv_up:
+                scrollview.scrollTo(0,0);
+                break;
+
+        }
     }
 }
