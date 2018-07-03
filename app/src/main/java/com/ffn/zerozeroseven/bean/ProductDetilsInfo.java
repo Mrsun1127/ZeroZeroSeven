@@ -327,7 +327,24 @@ public class ProductDetilsInfo implements Serializable {
             private String userPhone;
             private int issuePrizeId;
             private int point;
+            private String startPoint;
+            private String endPoint;
 
+            public String getStartPoint() {
+                return startPoint;
+            }
+
+            public void setStartPoint(String startPoint) {
+                this.startPoint = startPoint;
+            }
+
+            public String getEndPoint() {
+                return endPoint;
+            }
+
+            public void setEndPoint(String endPoint) {
+                this.endPoint = endPoint;
+            }
             public String getCreateTime() {
                 return createTime;
             }
@@ -374,6 +391,24 @@ public class ProductDetilsInfo implements Serializable {
             private String userPhone;
             private String issuePrizeId;
             private String point;
+            private String startPoint;
+            private String endPoint;
+
+            public String getStartPoint() {
+                return startPoint;
+            }
+
+            public void setStartPoint(String startPoint) {
+                this.startPoint = startPoint;
+            }
+
+            public String getEndPoint() {
+                return endPoint;
+            }
+
+            public void setEndPoint(String endPoint) {
+                this.endPoint = endPoint;
+            }
 
             public String getCreateTime() {
                 return createTime;
