@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="121dp">
+        <CheckBox
+            android:id="@+id/cb_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp" />
+
+        <ImageView
+            android:id="@+id/iv_product"
+            android:layout_width="84dp"
+            android:layout_height="71dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/cb_check"
+            android:background="@drawable/willdelete" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/iv_product"
+            android:text="联想(Lenovo)天逸510S 带19.5英寸台式电脑商用办公整机..."
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_configureation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/iv_product"
+            android:text="重量:4.140kg 颜色:FX63 配置:【10..."
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/tv_yuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="13dp"
+            android:layout_marginLeft="17dp"
+            android:layout_toRightOf="@+id/iv_product"
+            android:text="￥"
+            android:textColor="@color/money"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="13dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/tv_yuan"
+            android:text="0.00"
+            android:textColor="@color/money"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_buy"
+            android:layout_width="97dp"
+            android:layout_height="31dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginRight="10dp"
+            android:background="#F3F3F3"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_close"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:src="@drawable/interal_close" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/et_count"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="0"
+                android:inputType="number" />
+
+            <RelativeLayout
+                android:id="@+id/rl_add"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:src="@drawable/interaladd" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

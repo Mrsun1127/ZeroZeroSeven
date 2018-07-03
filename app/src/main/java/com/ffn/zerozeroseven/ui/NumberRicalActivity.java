@@ -11,6 +11,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.NumberRicalScrollAdapter;
 import com.ffn.zerozeroseven.adapter.NumberRicalVerticalAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.TopView;
 
@@ -82,13 +83,15 @@ public class NumberRicalActivity extends BaseActivity {
         verticalAdapter.addAll(s);
     }
 
-    @OnClick({R.id.iv_up})
+    @OnClick({R.id.iv_up, R.id.iv_shopcar})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.iv_up:
-                scrollview.scrollTo(0,0);
+                scrollview.scrollTo(0, 0);
                 break;
-
+            case R.id.iv_shopcar:
+                ZeroZeroSevenUtils.SwitchActivity(NumberRicalActivity.this, NumberRicalShopCarActivity.class);
+                break;
         }
     }
 }
