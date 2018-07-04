@@ -62,6 +62,7 @@ import com.ffn.zerozeroseven.bean.HotInfo;
 import com.ffn.zerozeroseven.bean.LunBoOkInfo;
 import com.ffn.zerozeroseven.bean.QiangDanOkInfo;
 import com.ffn.zerozeroseven.bean.RunListRquestInfo;
+import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
 import com.ffn.zerozeroseven.bean.TongzhiInfo;
 import com.ffn.zerozeroseven.bean.UserLikeInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AppUpdateInfo;
@@ -74,6 +75,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.PoppurlarListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.QiangRunRequsetInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RequeseGoods;
 import com.ffn.zerozeroseven.bean.requsetbean.SearchSchoolInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.TongZhiShowInfo;
 import com.ffn.zerozeroseven.ui.BitisDetils;
 import com.ffn.zerozeroseven.ui.HelpmeRunActivity;
@@ -937,6 +939,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         requestpopularList();
         initHeadView();
         requestBaner();
+        requestShop();
         //    05:00 - 09:00  09:00 - 11:30 11:30 - 14:00 14:00-17:00 17:00-19:00 19:00-24:00 24:00-05:00
         if (ZeroZeroSevenUtils.DateTodate(5, 9)) {
             requestHotBuyList("05:00", "09:00");
@@ -955,6 +958,29 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         }
         requestBothBuyList();
 //        requestRunList();
+    }
+
+    private void requestShop() {
+        final ShangchangInfo shangchangInfo = new ShangchangInfo();
+        shangchangInfo.setFunctionName("QuerySchoolStore");
+        ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
+        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
+        shangchangInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
+        okGoUtils.httpPostJSON(shangchangInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
+                if (shangChangShowInfo.getCode() == 0) {
+                    if (!TextUtils.isEmpty(shangChangShowInfo.getData().getServicePhone())) {
+                        userInfo.setServicePhone(shangChangShowInfo.getData().getServicePhone());
+                        BaseAppApplication.getInstance().setLoginUser(userInfo);
+                        SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
+                    }
+                }
+            }
+        });
     }
 
     List<String> images;

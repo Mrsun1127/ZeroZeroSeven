@@ -21,7 +21,9 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
+import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.ui.AdrMannGerActivity;
 import com.ffn.zerozeroseven.ui.CourierActivity;
 import com.ffn.zerozeroseven.ui.DingDanBobyActivity;
@@ -40,6 +42,7 @@ import com.ffn.zerozeroseven.ui.ToBeAGoodPeople;
 import com.ffn.zerozeroseven.ui.VipActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -122,12 +125,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                         .load(userInfo.getAvatar())
                         .into(iv_usericon);
             }
-            if (!TextUtils.isEmpty(userInfo.getServicePhone())) {
+            if(!TextUtils.isEmpty(userInfo.getServicePhone())){
                 rl_tel.setVisibility(View.VISIBLE);
-                tv_tel.setText("客服电话:"+userInfo.getServicePhone());
-            } else {
+                tv_tel.setText("客服电话: "+userInfo.getServicePhone());
+            }else{
                 rl_tel.setVisibility(View.GONE);
             }
+
             switch (userInfo.getHonerLevel()) {
                 case 1:
                     iv_level.setBackgroundResource(R.drawable.level1);
@@ -151,6 +155,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
 
     }
+
     private final int REQUEST_CODE = 0x1001;
 
     @Override
@@ -160,6 +165,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             ToastUtils.showShort("授权成功,请重新拨打电话");
         }
     }
+
     private void callPhone(String phoneNum) {
         //直接拨号
         Uri uri = Uri.parse("tel:" + phoneNum);
@@ -169,6 +175,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             startActivity(intent);
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -271,7 +278,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    @OnClick({R.id.rl_tel,R.id.rl_vip, R.id.rl_yaoqing, R.id.rl_shouyi, R.id.iv_level})
+    @OnClick({R.id.rl_tel, R.id.rl_vip, R.id.rl_yaoqing, R.id.rl_shouyi, R.id.iv_level})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.rl_tel:

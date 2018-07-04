@@ -17,7 +17,9 @@
 
             <ImageView
                 android:id="@+id/iv_product"
-                android:layout_width="200dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
                 android:layout_height="158dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="27dp" />
@@ -27,8 +29,8 @@
                 android:id="@+id/rl_ok"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="45dp"
-                android:layout_marginRight="45dp">
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp">
 
                 <Button
                     android:id="@+id/bt_ok"
@@ -67,8 +69,8 @@
                 android:id="@+id/rl_close"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="45dp"
-                android:layout_marginRight="45dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
                 android:layout_marginTop="23dp"
                 android:visibility="visible">
 
@@ -125,8 +127,8 @@
                 android:id="@+id/rl_open"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="45dp"
-                android:layout_marginRight="45dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
                 android:layout_marginTop="23dp"
                 android:visibility="gone">
 
@@ -270,8 +272,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="45dp"
-                android:layout_marginRight="45dp">
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp">
 
                 <TextView
                     android:id="@+id/tv_lleft"
