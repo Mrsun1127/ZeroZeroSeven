@@ -19,6 +19,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.FaTieInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.QiangTypeInfo;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
 import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.view.TitleView;
 import com.ffn.zerozeroseven.view.TopView;
@@ -53,6 +54,7 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
     private RadioButton rb_good;
     private RadioButton rb_find;
     private RadioButton rb_friend;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_relaseactivited;
@@ -193,47 +195,29 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
             }
         });
 
-        rb_love=findViewById(R.id.rb_love);
+        rb_love = findViewById(R.id.rb_love);
         rb_love.setOnClickListener(this);
-        rb_good=findViewById(R.id.rb_good);
+        rb_good = findViewById(R.id.rb_good);
         rb_good.setOnClickListener(this);
-        rb_find=findViewById(R.id.rb_find);
+        rb_find = findViewById(R.id.rb_find);
         rb_find.setOnClickListener(this);
-        rb_friend=findViewById(R.id.rb_friend);
+        rb_friend = findViewById(R.id.rb_friend);
         rb_friend.setOnClickListener(this);
 
     }
 
     public void requestDa(FaTieInfo faTieInfo) {
-        showLoadProgress();
-        httpPostJSON(faTieInfo, true);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(MineWantGoQiangActivity.this);
+        okGoUtils.httpPostJSON(faTieInfo,true,true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                disLoadProgress();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                disLoadProgress();
-                String code = JsonUtil.getFieldValue(response.body().string(), "code");
-                if (code.equals("0")) {
-                    BaseAppApplication.mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-//                            ZeroZeroSevenUtils.showCustonPop(MineWantGoQiangActivity.this,"正在审核中，通过之后将会第一时间展示您的帖子",tv_topone);
-                            ToastUtils.showShort("正在审核中，通过之后将会第一时间展示您的帖子");
-                            finish();
-
-                        }
-                    });
-                } else {
-                    BaseAppApplication.mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtils.showShort("发帖失败，请稍后再试");
-                        }
-                    });
+            public void onSuccLoad(String response) {
+                String code = JsonUtil.getFieldValue(response, "code");
+                if("0".equals(code)){
+                    ToastUtils.showShort("审核通过后，会第一时间展示您的帖子");
+                    finish();
+                }else{
+                    ToastUtils.showShort(JsonUtil.getFieldValue(response, "message"));
                 }
             }
         });
@@ -292,30 +276,22 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
     }
 
     public void releaseTalk() {
-        String title = et_top.getText().toString().trim();
         String content = et_content.getText().toString().trim();
         String bottom = et_writer.getText().toString().trim();
-        if (!TextUtils.isEmpty(title)) {
-            if (!TextUtils.isEmpty(content)) {
-
-                faTieInfo = new FaTieInfo();
-                faTieInfo.setFunctionName("UserPosting");
-                parametersBean = new FaTieInfo.ParametersBean();
-                parametersBean.setContent(content);
-                parametersBean.setUserId(Integer.parseInt(userId));
-                parametersBean.setTitle(title);
-                if (!isNiMing) {
-                    parametersBean.setIsAnonymity("1");
-                } else {
-                    parametersBean.setIsAnonymity("0");
-                }
-
+        if (!TextUtils.isEmpty(content)) {
+            faTieInfo = new FaTieInfo();
+            faTieInfo.setFunctionName("UserPosting");
+            parametersBean = new FaTieInfo.ParametersBean();
+            parametersBean.setContent(content);
+            parametersBean.setUserId(Integer.parseInt(userId));
+            if (!isNiMing) {
+                parametersBean.setIsAnonymity("1");
             } else {
-                ToastUtils.showShort("请输入内容");
-                return;
+                parametersBean.setIsAnonymity("0");
             }
+
         } else {
-            ToastUtils.showShort("请输入标题");
+            ToastUtils.showShort("请输入内容");
             return;
         }
 

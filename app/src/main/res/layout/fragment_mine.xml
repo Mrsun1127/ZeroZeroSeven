@@ -13,13 +13,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/title_layout" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_below="@+id/rl_title"
-                android:background="@drawable/mine_bg"></RelativeLayout>
+                android:layout_below="@+id/tv_top"
+                android:background="@drawable/mine_bg"/>
+
+            <TextView
+                android:id="@+id/tv_top"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/tab_color"
+                android:gravity="center"
+                android:text="个人中心"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
 
             <FrameLayout
                 android:id="@+id/fl_content"
@@ -43,12 +51,13 @@
 
             <ImageView
                 android:id="@+id/iv_vip"
-                android:visibility="gone"
-                android:layout_marginTop="80dp"
-                android:layout_toRightOf="@+id/tv_username"
                 android:layout_width="50dp"
                 android:layout_height="15dp"
-                android:background="@drawable/vip_icon"/>
+                android:layout_marginTop="80dp"
+                android:layout_toRightOf="@+id/tv_username"
+                android:background="@drawable/vip_icon"
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
@@ -75,7 +84,7 @@
                 android:layout_width="61dp"
                 android:layout_height="61dp"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="192dp"
+                android:layout_marginTop="182dp"
                 android:background="@drawable/mine_dingdan" />
 
             <ImageView
@@ -83,7 +92,7 @@
                 android:layout_width="61dp"
                 android:layout_height="61dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="192dp"
+                android:layout_marginTop="182dp"
                 android:background="@drawable/mine_adr" />
 
             <ImageView
@@ -92,7 +101,7 @@
                 android:layout_height="61dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50dp"
-                android:layout_marginTop="192dp"
+                android:layout_marginTop="182dp"
                 android:background="@drawable/mine_run" />
 
             <TextView
@@ -130,7 +139,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_below="@+id/tv_center"
-                android:layout_marginTop="11dp"
                 android:background="@color/white"
                 android:visibility="visible">
 
@@ -161,12 +169,12 @@
                 android:background="#EDEDED" />
 
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/rl_kuaidi"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_below="@+id/view_line1"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="19dp"
@@ -258,13 +266,14 @@
                 android:layout_below="@+id/rl_tobe"
                 android:layout_marginRight="11dp"
                 android:background="#EDEDED" />
+
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/rl_shouyi"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_below="@+id/view_line6"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="19dp"
@@ -282,6 +291,7 @@
                     android:textColor="@color/text_show_color"
                     android:textSize="13sp" />
             </RelativeLayout>
+
             <View
                 android:id="@+id/view_line7"
                 android:layout_width="match_parent"
@@ -289,6 +299,7 @@
                 android:layout_below="@+id/rl_shouyi"
                 android:layout_marginRight="11dp"
                 android:background="#EDEDED" />
+
             <RelativeLayout
                 android:id="@+id/rl_yaoqing"
                 android:layout_width="match_parent"
@@ -314,11 +325,29 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_tel"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_below="@+id/rl_yaoqing"
+                android:layout_marginTop="11dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="客服电话: 0731-95599"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/rl_sug"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_below="@+id/rl_yaoqing"
-                android:layout_marginTop="11dp"
+                android:layout_below="@+id/rl_tel"
                 android:background="@color/white">
 
                 <ImageView

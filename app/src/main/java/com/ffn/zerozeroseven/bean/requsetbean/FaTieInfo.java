@@ -50,7 +50,6 @@ public class FaTieInfo {
          */
 
         private int userId;
-        private String title;
         private String content;
         private String postType;
         private String isAnonymity;
@@ -63,13 +62,7 @@ public class FaTieInfo {
             this.userId = userId;
         }
 
-        public String getTitle() {
-            return title;
-        }
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
 
         public String getContent() {
             return content;

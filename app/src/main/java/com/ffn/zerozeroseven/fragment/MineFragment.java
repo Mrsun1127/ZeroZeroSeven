@@ -1,6 +1,14 @@
 package com.ffn.zerozeroseven.fragment;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.PermissionChecker;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +24,7 @@ import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.ui.AdrMannGerActivity;
 import com.ffn.zerozeroseven.ui.CourierActivity;
+import com.ffn.zerozeroseven.ui.DingDanBobyActivity;
 import com.ffn.zerozeroseven.ui.HistoryTalkActivity;
 import com.ffn.zerozeroseven.ui.KuaiDiYuanRenZhengActivity;
 import com.ffn.zerozeroseven.ui.LevelActivity;
@@ -70,13 +79,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         ImageView iv_run = view.findViewById(R.id.iv_run);
         ImageView iv_adr = view.findViewById(R.id.iv_adr);
         RelativeLayout rl_message = view.findViewById(R.id.rl_message);
-        TextView tv_top = view.findViewById(R.id.tv_top);
         tv_username = view.findViewById(R.id.tv_username);
         tv_username.setOnClickListener(this);
-        rl_message.setVisibility(View.VISIBLE);
-        iv_back.setVisibility(View.GONE);
-        tv_top.setText("个人中心");
-        rl_message.setOnClickListener(this);
         iv_dingdan.setOnClickListener(this);
         rl_set.setOnClickListener(this);
         rl_sug.setOnClickListener(this);
@@ -95,13 +99,17 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Bind(R.id.iv_vip)
     ImageView iv_vip;
+    @Bind(R.id.rl_tel)
+    RelativeLayout rl_tel;
+    @Bind(R.id.tv_tel)
+    TextView tv_tel;
 
     @Override
     public void onResume() {
         super.onResume();
-        UserInfo.DataBean userInfo= BaseAppApplication.getInstance().getLoginUser();
+        UserInfo.DataBean userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
-            schoolIId=userInfo.getSchoolId();
+            schoolIId = userInfo.getSchoolId();
             tv_username.setText(userInfo.getRealName());
             if (userInfo.getCollege() != null && userInfo.getClazz() != null) {
                 tv_schoolInfo.setText(userInfo.getCollege() + "  " + userInfo.getClazz());
@@ -113,6 +121,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 Glide.with(bfCxt)
                         .load(userInfo.getAvatar())
                         .into(iv_usericon);
+            }
+            if (!TextUtils.isEmpty(userInfo.getServicePhone())) {
+                rl_tel.setVisibility(View.VISIBLE);
+                tv_tel.setText("客服电话:"+userInfo.getServicePhone());
+            } else {
+                rl_tel.setVisibility(View.GONE);
             }
             switch (userInfo.getHonerLevel()) {
                 case 1:
@@ -137,7 +151,24 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
 
     }
+    private final int REQUEST_CODE = 0x1001;
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE && PermissionChecker.checkSelfPermission(bfCxt, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            ToastUtils.showShort("授权成功,请重新拨打电话");
+        }
+    }
+    private void callPhone(String phoneNum) {
+        //直接拨号
+        Uri uri = Uri.parse("tel:" + phoneNum);
+        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+        //此处不判断就会报错
+        if (ActivityCompat.checkSelfPermission(bfCxt, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            startActivity(intent);
+        }
+    }
     @Override
     public void onStart() {
         super.onStart();
@@ -240,9 +271,26 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    @OnClick({R.id.rl_vip, R.id.rl_yaoqing, R.id.rl_shouyi,R.id.iv_level})
+    @OnClick({R.id.rl_tel,R.id.rl_vip, R.id.rl_yaoqing, R.id.rl_shouyi, R.id.iv_level})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.rl_tel:
+                if (Build.VERSION.SDK_INT >= 23) {
+
+                    //判断有没有拨打电话权限
+                    if (PermissionChecker.checkSelfPermission(bfCxt, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+
+                        //请求拨打电话权限
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CODE);
+
+                    } else {
+                        callPhone(userInfo.getServicePhone());
+                    }
+
+                } else {
+                    callPhone(userInfo.getServicePhone());
+                }
+                break;
             case R.id.rl_vip:
                 if (userInfo != null) {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, VipActivity.class);
@@ -270,7 +318,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 }
                 break;
             case R.id.iv_level:
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt,LevelActivity.class);
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, LevelActivity.class);
                 break;
         }
     }

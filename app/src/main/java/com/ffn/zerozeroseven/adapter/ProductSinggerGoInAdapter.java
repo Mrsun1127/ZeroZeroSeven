@@ -32,16 +32,22 @@ public class ProductSinggerGoInAdapter extends BaseRecyclerAdapter<ProductDetils
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, ProductDetilsInfo.DataBean.UserContributionListBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
-        if(!TextUtils.isEmpty(item.getUserAvatar())){
-            Glide.with(mContext)
-                    .load(item.getUserAvatar())
-                    .into(mHolder.iv_icon);
+       try {
+           if(!TextUtils.isEmpty(item.getUserAvatar())){
+               Glide.with(mContext)
+                       .load(item.getUserAvatar())
+                       .into(mHolder.iv_icon);
 
-        }
-        mHolder.tv_phone.setText(ZeroZeroSevenUtils.phoneClose(item.getUserPhone()));
-        mHolder.tv_time.setText(item.getCreateTime());
-        mHolder.tv_count.setText("贡献了"+item.getPoint()+"积分");
-
+           }
+           mHolder.tv_phone.setText(ZeroZeroSevenUtils.phoneClose(item.getUserPhone()));
+           mHolder.tv_time.setText(item.getCreateTime());
+           mHolder.tv_count.setText("贡献了"+item.getPoint()+"积分");
+           if(item.getStartPoint().equals(item.getEndPoint())){
+               mHolder.tv_number.setText("积分号码 :"+item.getStartPoint());
+           }else{
+               mHolder.tv_number.setText("积分号码 :"+item.getStartPoint()+"--"+item.getEndPoint());
+           }
+       }catch (Exception e){}
     }
 
     private class MViewHolder extends RecyclerView.ViewHolder {
