@@ -36,6 +36,7 @@ public class MySignGoodActivity extends BasePopRefreshActivity {
                     rl_zhong.setVisibility(View.VISIBLE);
                     issueId=mySignGoodAdapter.getItem(position).getIssuePrizeId();
                 }
+                tv_name.setText(mySignGoodAdapter.getItem(position).getPrizeName());
             }
         });
     }

@@ -330,6 +330,7 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
                 if (zhongLeInfo.getCode() == 0) {
                     if (zhongLeInfo.getData().getPointPrizeWinners().isAccept()) {
                         rl_zhong.setVisibility(View.VISIBLE);
+                        tv_name.setText(zhongLeInfo.getData().getPointPrizeWinners().getPrizeName());
                     }
                 }
             }

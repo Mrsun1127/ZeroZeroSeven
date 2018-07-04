@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.bean.UserInfo;
@@ -61,6 +62,8 @@ public abstract class BasePopRefreshActivity extends BaseActivity implements OnR
     private KProgressHUD hud;
     private RgRefreshStatus rgRefreshStatus = RgRefreshStatus.IDLE;
     int pageNo = 0;
+    @Bind(R.id.tv_name)
+    public TextView tv_name;
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

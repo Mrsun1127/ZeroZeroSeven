@@ -60,6 +60,15 @@ public class ZhongLeInfo {
             private boolean accept;
             private int issue;
             private int issuePrizeId;
+            private String prizeName;
+
+            public String getPrizeName() {
+                return prizeName;
+            }
+
+            public void setPrizeName(String prizeName) {
+                this.prizeName = prizeName;
+            }
 
             public boolean isAccept() {
                 return accept;
