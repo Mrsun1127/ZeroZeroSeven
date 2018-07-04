@@ -191,7 +191,7 @@ public class ProductDetilsFragment extends BaseFragment {
                             rl_ok.setVisibility(View.VISIBLE);
                             rl_close.setVisibility(View.GONE);
                             rl_open.setVisibility(View.GONE);
-                            tv_time.start(30000);
+                            tv_time.start(productDetilsInfo.getData().getPointPrize().getLotteryCountdown()*1000);
                             break;
                         case 2:
                             rl_ok.setVisibility(View.GONE);
