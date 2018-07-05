@@ -260,16 +260,15 @@ public class ProductDetilsInfo implements Serializable {
             private String userAvatar;
             private String userPhone;
             private String luckNum;
+            private int participateCount;
 
-            public int getCountPoint() {
-                return countPoint;
+            public int getParticipateCount() {
+                return participateCount;
             }
 
-            public void setCountPoint(int countPoint) {
-                this.countPoint = countPoint;
+            public void setParticipateCount(int participateCount) {
+                this.participateCount = participateCount;
             }
-
-            private int countPoint;
 
             public String getLuckNum() {
                 return luckNum;

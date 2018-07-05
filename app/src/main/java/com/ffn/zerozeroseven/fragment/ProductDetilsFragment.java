@@ -84,7 +84,7 @@ public class ProductDetilsFragment extends BaseFragment {
 
     @Override
     public void initDate() {
-        requestId(id, issuePId);
+        requestId(issuePId);
     }
 
     @Bind(R.id.iv_product)
@@ -132,13 +132,12 @@ public class ProductDetilsFragment extends BaseFragment {
     @Bind(R.id.iv_user)
     CircleImageView iv_user;
 
-    public void requestId(int id, int issueId) {
+    public void requestId(int issueId) {
         ProductDtilsInfo lastInteralInfo = new ProductDtilsInfo();
         lastInteralInfo.setFunctionName("QueryPointIssuePrize");
         ProductDtilsInfo.ParametersBean parametersBean = new ProductDtilsInfo.ParametersBean();
-        parametersBean.setPrizeId(id);
-        parametersBean.setIssuePId(issueId);
         parametersBean.setUserPhone(userInfo.getPhone());
+        parametersBean.setIssuePrizeId(issueId);
         lastInteralInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(lastInteralInfo, true, true);
@@ -200,7 +199,7 @@ public class ProductDetilsFragment extends BaseFragment {
                             rl_open.setVisibility(View.VISIBLE);
                             rl_close.setVisibility(View.GONE);
                             tv_username.setText(ZeroZeroSevenUtils.phoneClose(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone()));
-                            tv_usercount.setText(productDetilsInfo.getData().getPointPrizeWinner().getCountPoint() + "次");
+                            tv_usercount.setText(productDetilsInfo.getData().getPointPrizeWinner().getParticipateCount() + "次");
                             tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getLuckNum());
                             tv_usertime.setText(productDetilsInfo.getData().getPointPrizeWinner().getCreateTime());
                             Glide.with(bfCxt)

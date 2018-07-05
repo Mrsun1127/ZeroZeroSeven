@@ -20,6 +20,7 @@ import com.ffn.zerozeroseven.bean.ShouHuoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AllAdrInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DeleteAdrInfo;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
@@ -106,15 +107,15 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
         msgPullLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Bundle bundle=new Bundle();
-                bundle.putInt("id",shouHuoInfo.getData().getAddresses().get(i).getId());
-                bundle.putString("name",shouHuoInfo.getData().getAddresses().get(i).getContactName());
-                bundle.putString("adr",shouHuoInfo.getData().getAddresses().get(i).getContactSchool());
-                bundle.putString("phone",shouHuoInfo.getData().getAddresses().get(i).getContactPhone());
-                bundle.putString("dong",shouHuoInfo.getData().getAddresses().get(i).getContactBuilding());
-                bundle.putString("men",shouHuoInfo.getData().getAddresses().get(i).getContactDorm());
-                bundle.putInt("isDefault",shouHuoInfo.getData().getAddresses().get(i).getIsDefault());
-                ZeroZeroSevenUtils.SwitchActivity(AdrMannGerActivity.this,UpDateAdrActivity.class,bundle);
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", shouHuoInfo.getData().getAddresses().get(i).getId());
+                bundle.putString("name", shouHuoInfo.getData().getAddresses().get(i).getContactName());
+                bundle.putString("adr", shouHuoInfo.getData().getAddresses().get(i).getContactSchool());
+                bundle.putString("phone", shouHuoInfo.getData().getAddresses().get(i).getContactPhone());
+                bundle.putString("dong", shouHuoInfo.getData().getAddresses().get(i).getContactBuilding());
+                bundle.putString("men", shouHuoInfo.getData().getAddresses().get(i).getContactDorm());
+                bundle.putInt("isDefault", shouHuoInfo.getData().getAddresses().get(i).getIsDefault());
+                ZeroZeroSevenUtils.SwitchActivity(AdrMannGerActivity.this, UpDateAdrActivity.class, bundle);
             }
         });
 
@@ -143,11 +144,11 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
                         @Override
                         public void run() {
                             ToastUtils.showShort("删除成功");
-                            ZeroZeroSevenUtils.SwitchActivity(AdrMannGerActivity.this,AdrMannGerActivity.class);
+                            ZeroZeroSevenUtils.SwitchActivity(AdrMannGerActivity.this, AdrMannGerActivity.class);
                             finish();
                         }
                     });
-                }else{
+                } else {
                     BaseAppApplication.mainHandler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -158,52 +159,40 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
             }
         });
     }
+
     private void showErrorLayout(int errType) {
         commonStateLayout.setVisibility(View.VISIBLE);
         commonStateLayout.showError(errType);
     }
+
     private void GetAllAdr(final boolean refrsh) {
-        showLoadProgress();
         AllAdrInfo allAdrInfo = new AllAdrInfo();
         allAdrInfo.setFunctionName("ListUserAddress");
-        httpPostJSON(allAdrInfo, true);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(AdrMannGerActivity.this);
+        okGoUtils.httpPostJSON(allAdrInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                disLoadProgress();
-                shouHuoInfo = JSON.parseObject(response.body().string(), ShouHuoInfo.class);
+            public void onSuccLoad(String response) {
+                shouHuoInfo = JSON.parseObject(response, ShouHuoInfo.class);
                 if (shouHuoInfo.getCode() == 0) {//成功
                     if (shouHuoInfo.getData().getAddresses().size() > 0) {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                msgPullLv.setVisibility(View.VISIBLE);
-                                commonStateLayout.setVisibility(View.GONE);
-                                if (allAdrAdapter != null) {
-                                    allAdrAdapter.setList(shouHuoInfo.getData().getAddresses());
-                                } else {
-                                    allAdrAdapter = new AllAdrAdapter(shouHuoInfo.getData().getAddresses(), AdrMannGerActivity.this);
-                                    msgPullLv.setAdapter(allAdrAdapter);
-                                }
-                            }
-                        });
-                    }else{
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                msgPullLv.setVisibility(View.GONE);
-                                showErrorLayout(StateLayout.noData);
-                            }
-                        });
+                        msgPullLv.setVisibility(View.VISIBLE);
+                        commonStateLayout.setVisibility(View.GONE);
+                        if (allAdrAdapter != null) {
+                            allAdrAdapter.setList(shouHuoInfo.getData().getAddresses());
+                        } else {
+                            allAdrAdapter = new AllAdrAdapter(shouHuoInfo.getData().getAddresses(), AdrMannGerActivity.this);
+                            msgPullLv.setAdapter(allAdrAdapter);
+                        }
+                    } else {
+                        msgPullLv.setVisibility(View.GONE);
+                        showErrorLayout(StateLayout.noData);
+
                     }
                 }
             }
         });
+
     }
 
     @Override
@@ -218,7 +207,7 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
                     public void run() {
                         GetAllAdr(false);
                     }
-                },500);
+                }, 500);
             }
         });
         msgPullLv = findViewById(R.id.msg_pull_lv);
@@ -254,7 +243,6 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
                 break;
         }
     }
-
 
 
     @Override

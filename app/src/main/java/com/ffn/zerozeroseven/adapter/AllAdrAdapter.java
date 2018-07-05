@@ -63,7 +63,7 @@ public class AllAdrAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_adr, null);
             holder = new ViewHolder(convertView);
@@ -79,6 +79,9 @@ public class AllAdrAdapter extends BaseAdapter {
         if(isShow){
             holder.tv_edit.setVisibility(View.INVISIBLE);
             holder.tv_set.setVisibility(View.GONE);
+        }
+        if(list.get(position).getIsDefault()==1){
+            holder.tv_set.setText("默认地址");
         }
         holder.tv_adr.setText(list.get(position).getContactSchool() + list.get(position).getContactBuilding() + list.get(position).getContactDorm());
         holder.tv_set.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +106,7 @@ public class AllAdrAdapter extends BaseAdapter {
                     public void onSuccLoad(String response) {
                         String code = JsonUtil.getFieldValue(response, "code");
                         if ("0".equals(code)) {
+                            holder.tv_set.setText("默认地址");
                             ToastUtils.showShort("设置成功");
                         }
                     }

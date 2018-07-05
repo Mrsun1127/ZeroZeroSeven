@@ -173,7 +173,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="是否默认："
+            android:text="设置默认地址："
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_gravity="center_vertical"
