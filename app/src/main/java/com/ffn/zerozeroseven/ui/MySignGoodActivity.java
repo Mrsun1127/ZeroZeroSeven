@@ -43,7 +43,7 @@ public class MySignGoodActivity extends BasePopRefreshActivity {
 
     @Override
     protected String setTopTitle() {
-        return "我的中奖记录";
+        return "我的参与记录";
     }
 
     @Override

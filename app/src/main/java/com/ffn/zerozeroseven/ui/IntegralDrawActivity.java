@@ -100,7 +100,7 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
     public void initView() {
         ButterKnife.bind(this);
         topView.setTopText("积分抽奖");
-        topView.setTvRightText("我的中奖");
+        topView.setTvRightText("我的参与");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
             public void Right() {
