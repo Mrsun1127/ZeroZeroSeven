@@ -33,9 +33,26 @@ public class GoInMySignGoodAdapter extends BaseRecyclerAdapter<ZhongJiangListInf
         Glide.with(mContext)
                 .load(item.getPrizePic())
                 .into(mHolder.imageView);
-        mHolder.tv_name.setText("【第"+item.getPrizeIssue()+"期】"+item.getPrizeName());
+        mHolder.tv_name.setText("【第" + item.getPrizeIssue() + "期】" + item.getPrizeName());
 //        mHolder.tv_go.setText("贡献了"+item.getContributionPoint()+"积分");
-        mHolder.tv_go.setText(item.getLotteryTime());
+        //-1=失效奖品，0=未开奖，1=可开奖，2=已开奖，3=已填配送配送
+        switch (item.getIssuePrizeStatus()) {
+            case -1:
+                mHolder.tv_go.setText("失效奖品");
+                break;
+            case 0:
+                mHolder.tv_go.setText("进行中");
+                break;
+            case 1:
+                mHolder.tv_go.setText("可开奖");
+                break;
+            case 2:
+                mHolder.tv_go.setText("已开奖");
+                break;
+            case 3:
+                mHolder.tv_go.setText("已填配送配送");
+                break;
+        }
 
     }
 
