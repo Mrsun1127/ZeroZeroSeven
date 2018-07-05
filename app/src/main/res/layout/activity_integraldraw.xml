@@ -186,10 +186,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/trancelate"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <RelativeLayout
-            android:layout_marginLeft="30dp"
+            android:layout_centerHorizontal="true"
             android:layout_width="321dp"
             android:layout_height="463dp"
             android:layout_centerVertical="true"
@@ -199,12 +199,16 @@
                 android:id="@+id/rl_close"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
-
-            <TextView
-                android:id="@+id/tv_one1"
+            <ImageView
+                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="113dp"
+                android:background="@drawable/cancel_icon"/>
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tv_one1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="145dp"
                 android:text="中奖啦"
                 android:textColor="#FFF13D"
@@ -212,19 +216,20 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:gravity="center"
                 android:id="@+id/tv_one2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_one1"
-                android:layout_marginLeft="118dp"
                 android:layout_marginTop="5dp"
                 android:text="恭喜获得"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
             <TextView
+                android:gravity="center"
                 android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_one2"
                 android:layout_centerHorizontal="true"

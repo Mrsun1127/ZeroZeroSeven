@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.bean.UserInfo;
+import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.UiTipUtil;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.StateLayout;
@@ -233,7 +234,10 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                readRespones(response.body().string());
+                String json=response.body().string();
+                LogUtils.D("response",json);
+                readRespones(json);
+
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {

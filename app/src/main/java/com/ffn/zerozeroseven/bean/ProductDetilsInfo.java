@@ -164,6 +164,16 @@ public class ProductDetilsInfo implements Serializable {
             private int id;
             private int prizePoint;
 
+            public int getCountDownTime() {
+                return countDownTime;
+            }
+
+            public void setCountDownTime(int countDownTime) {
+                this.countDownTime = countDownTime;
+            }
+
+            private int countDownTime;
+
             public int getLotteryCountdown() {
                 return lotteryCountdown;
             }

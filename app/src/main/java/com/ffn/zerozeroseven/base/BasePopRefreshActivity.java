@@ -14,6 +14,7 @@ import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.NaJiangInfo;
 import com.ffn.zerozeroseven.ui.IntegralDrawActivity;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
+import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.UiTipUtil;
@@ -265,7 +266,9 @@ public abstract class BasePopRefreshActivity extends BaseActivity implements OnR
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                readRespones(response.body().string());
+                String json=response.body().string();
+                LogUtils.D("response",json);
+                readRespones(json);
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
