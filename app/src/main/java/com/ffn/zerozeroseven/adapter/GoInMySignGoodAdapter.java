@@ -50,7 +50,7 @@ public class GoInMySignGoodAdapter extends BaseRecyclerAdapter<ZhongJiangListInf
                 mHolder.tv_go.setText("已开奖");
                 break;
             case 3:
-                mHolder.tv_go.setText("已填配送配送");
+                mHolder.tv_go.setText("已填写配送");
                 break;
         }
 

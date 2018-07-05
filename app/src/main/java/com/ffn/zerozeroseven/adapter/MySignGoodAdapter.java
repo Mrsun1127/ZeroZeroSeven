@@ -11,10 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
-import com.ffn.zerozeroseven.bean.BestNewInfo;
 import com.ffn.zerozeroseven.bean.ZhongJiangListInfo;
 
-import cn.iwgang.countdownview.CountdownView;
 
 /**
  * Created by GT on 2017/11/27.
