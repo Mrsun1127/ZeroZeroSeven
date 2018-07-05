@@ -24,6 +24,9 @@ import com.ffn.zerozeroseven.listenner.EndlessRecyclerOnScrollListener;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.view.TopView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -34,13 +37,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
-public class ProductDetilsActivity extends BaseActivity {
+public class ProductDetilsActivity extends BaseActivity implements OnRefreshListener {
     @Bind(R.id.topView)
     TopView topView;
     @Bind(R.id.viewpager)
     ViewPager viewPager;
     @Bind(R.id.recycleview)
     RecyclerView recyclerView;
+    @Bind(R.id.refreshlayout)
+    SmartRefreshLayout refreshlayout;
     private List<String> titleList;
     private List<String> List;
     private List<Fragment> fragmentList;
@@ -85,6 +90,7 @@ public class ProductDetilsActivity extends BaseActivity {
                 ProductDetilsFragment.mInstance.get().requestId(productTitleInfo.getData().getIssues().get(position).getId());
             }
         });
+        refreshlayout.setOnRefreshListener(this);
     }
 
     private void showShare(Context context) {
@@ -124,6 +130,7 @@ public class ProductDetilsActivity extends BaseActivity {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
+                refreshlayout.finishRefresh();
                 productTitleInfo = JSON.parseObject(response, ProductTitleInfo.class);
                 if (productTitleInfo.getCode() == 0 && productTitleInfo.getData().getIssues().size() > 0) {
                     fragmentList = new ArrayList<>();
@@ -147,4 +154,8 @@ public class ProductDetilsActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        requestTitle(true);
+    }
 }

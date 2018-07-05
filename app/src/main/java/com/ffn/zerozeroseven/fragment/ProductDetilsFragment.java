@@ -148,8 +148,8 @@ public class ProductDetilsFragment extends BaseFragment {
                 if (productDetilsInfo.getCode() == 0) {
                     //商品详情
                     Glide.with(bfCxt).load(productDetilsInfo.getData().getPointPrize().getPrizePic()).into(iv_product);
-                    tv_name.setText(productDetilsInfo.getData().getPointPrize().getPrizeName());
-                    tv_name1.setText(productDetilsInfo.getData().getPointPrize().getPrizeName());
+                    tv_name.setText("【第"+productDetilsInfo.getData().getIssue()+"期】"+productDetilsInfo.getData().getPointPrize().getPrizeName());
+                    tv_name1.setText("【第"+productDetilsInfo.getData().getIssue()+"期】"+productDetilsInfo.getData().getPointPrize().getPrizeName());
                     tv_money.setText("￥" + productDetilsInfo.getData().getPointPrize().getPrizePrice());
                     tv_detils.setText(productDetilsInfo.getData().getPointPrize().getPrizeIntro());
                     productGoInAdapter.cleanDates();

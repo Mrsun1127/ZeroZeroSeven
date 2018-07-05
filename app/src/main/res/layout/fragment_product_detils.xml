@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/bt_ok"
-                    android:text="系统正在开奖中，大概30秒后左右开奖"
+                    android:text="系统正在开奖中"
                     android:textColor="@color/text_show_color"
                     android:textSize="13sp" />
 
