@@ -63,15 +63,34 @@ public class BestNewInfo {
              */
 
             private int contributionPoint;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            private int id;
             private int jackpotId;
             private int jackpotSort;
             private int lotteryCountdown;
+            private int countDownTime;
             private String prizeIntro;
             private int prizeIssue;
             private String prizeName;
             private String prizePic;
             private int prizePoint;
             private Double prizePrice;
+
+            public int getCountDownTime() {
+                return countDownTime;
+            }
+
+            public void setCountDownTime(int countDownTime) {
+                this.countDownTime = countDownTime;
+            }
 
             public int getContributionPoint() {
                 return contributionPoint;

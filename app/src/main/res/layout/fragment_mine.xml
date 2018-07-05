@@ -28,7 +28,17 @@
                 android:text="个人中心"
                 android:textColor="@color/white"
                 android:textSize="13sp" />
-
+                <RelativeLayout
+                    android:id="@+id/rl_message"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true">
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/message"/>
+                </RelativeLayout>
             <FrameLayout
                 android:id="@+id/fl_content"
                 android:layout_width="110dp"

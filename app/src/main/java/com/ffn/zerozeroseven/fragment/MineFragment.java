@@ -303,9 +303,16 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    @OnClick({R.id.rl_tel, R.id.rl_vip, R.id.rl_yaoqing, R.id.rl_shouyi, R.id.iv_level})
+    @OnClick({R.id.rl_message,R.id.rl_tel, R.id.rl_vip, R.id.rl_yaoqing, R.id.rl_shouyi, R.id.iv_level})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.rl_message:
+                if(userInfo!=null){
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,MessAgeActivity.class);
+                }else{
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
+                }
+                break;
             case R.id.rl_tel:
                 if (Build.VERSION.SDK_INT >= 23) {
 

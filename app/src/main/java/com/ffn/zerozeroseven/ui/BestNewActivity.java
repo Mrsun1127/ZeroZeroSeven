@@ -29,7 +29,7 @@ public class BestNewActivity extends BaseRefreshActivity {
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
                 try {
-                    bundle.putInt("prizeId",bestNewAdapter.getItem(position).getJackpotId());
+                    bundle.putInt("prizeId",bestNewAdapter.getItem(position).getId());
                 }catch (Exception e){}
                 ZeroZeroSevenUtils.SwitchActivity(BestNewActivity.this, ProductDetilsActivity.class,bundle);
             }

@@ -38,7 +38,7 @@ public class BestNewAdapter extends BaseRecyclerAdapter<BestNewInfo.DataBean.Jac
                 .load(item.getPrizePic())
                 .into(mHolder.imageView);
         mHolder.tv_name.setText(item.getPrizeName());
-        mHolder.tv_time.start(item.getLotteryCountdown()*1000);
+        mHolder.tv_time.start(item.getCountDownTime()*1000);
         mHolder.tv_time.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
             @Override
             public void onEnd(CountdownView cv) {

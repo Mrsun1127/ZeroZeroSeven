@@ -47,7 +47,6 @@ public class ProductDetilsActivity extends BaseActivity {
     private int prizeId;
     private ProductAdapter productAdapter;
     private ProductTitleInfo productTitleInfo;
-    public int issuePrizeId;
     public int clickposition = 0;
     public static WeakReference<ProductDetilsActivity> mInstance;
 
@@ -109,7 +108,6 @@ public class ProductDetilsActivity extends BaseActivity {
     @Override
     protected void doMain() {
         prizeId = getIntent().getIntExtra("prizeId", 0);
-        issuePrizeId = getIntent().getIntExtra("issuePrizeId", 0);
         requestTitle(true);
 
 
