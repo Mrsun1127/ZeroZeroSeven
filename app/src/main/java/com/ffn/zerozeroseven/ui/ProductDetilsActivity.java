@@ -115,8 +115,8 @@ public class ProductDetilsActivity extends BaseActivity implements OnRefreshList
         oks.show(context);
     }
 
-    String type;
-    int issuePrizeId;
+    public String type;
+    public int issuePrizeId;
 
     @Override
     protected void doMain() {

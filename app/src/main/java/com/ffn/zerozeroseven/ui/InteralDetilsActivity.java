@@ -18,6 +18,7 @@ import com.ffn.zerozeroseven.bean.JiInfo;
 import com.ffn.zerozeroseven.bean.ProductDetilsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.GobuyInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.JifenInfo;
+import com.ffn.zerozeroseven.fragment.ProductDetilsFragment;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.view.TopView;
@@ -204,7 +205,11 @@ public class InteralDetilsActivity extends BaseActivity {
                 if (errorCodeInfo.getCode() == 0) {
                     ToastUtils.showShort("贡献成功");
                     finish();
-                    ProductDetilsActivity.mInstance.get().requestTitle(false);
+                    if("sign".equals(ProductDetilsActivity.mInstance.get().type)){
+                        ProductDetilsFragment.mInstance.get().requestId(ProductDetilsActivity.mInstance.get().issuePrizeId);
+                    }else{
+                        ProductDetilsActivity.mInstance.get().requestTitle(false);
+                    }
 
                 } else {
                     ToastUtils.showShort(errorCodeInfo.getMessage());

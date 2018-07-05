@@ -77,7 +77,11 @@ public class ProductDetilsFragment extends BaseFragment {
         tv_time.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
             @Override
             public void onEnd(CountdownView cv) {
-                ProductDetilsActivity.mInstance.get().requestTitle(false);
+                if("sign".equals(ProductDetilsActivity.mInstance.get().type)){
+                    requestId(ProductDetilsActivity.mInstance.get().issuePrizeId);
+                }else{
+                    ProductDetilsActivity.mInstance.get().requestTitle(false);
+                }
             }
         });
     }
@@ -193,7 +197,7 @@ public class ProductDetilsFragment extends BaseFragment {
                             rl_ok.setVisibility(View.VISIBLE);
                             rl_close.setVisibility(View.GONE);
                             rl_open.setVisibility(View.GONE);
-                            tv_time.start(productDetilsInfo.getData().getPointPrize().getCountDownTime()*1000);
+                            tv_time.start(productDetilsInfo.getData().getPointPrize().getCountDownTime()*1000+2000);
                             break;
                         case 2:
                             bt_go.setVisibility(View.GONE);
