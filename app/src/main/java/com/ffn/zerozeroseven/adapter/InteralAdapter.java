@@ -51,8 +51,8 @@ public class InteralAdapter extends BaseRecyclerAdapter<JiangChiInfo.DataBean.Ja
             case 0:
                 mHolder.progressBar.setMax(item.getPrizePoint());
                 mHolder.progressBar.setProgress(item.getContributionPoint());
-                double f1 = new BigDecimal((float)item.getContributionPoint()/item.getPrizePoint()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                mHolder.tv_progress.setText("开奖进度 " + (f1 * 100) + "%");
+                double f1 = (float)item.getContributionPoint()/item.getPrizePoint();
+                mHolder.tv_progress.setText("开奖进度 " + doubleToString(f1*100) + "%");
                 mHolder.tv_count.setText(String.valueOf(item.getPrizePoint() - item.getContributionPoint()));
                 break;
             case 1:
@@ -63,7 +63,10 @@ public class InteralAdapter extends BaseRecyclerAdapter<JiangChiInfo.DataBean.Ja
                 break;
         }
     }
-
+    public  String doubleToString(double num){
+        //使用0.00不足位补0，#.##仅保留有效位
+        return new DecimalFormat("0.00").format(num);
+    }
 
     private class MViewHolder extends RecyclerView.ViewHolder {
         ProgressBar progressBar;
