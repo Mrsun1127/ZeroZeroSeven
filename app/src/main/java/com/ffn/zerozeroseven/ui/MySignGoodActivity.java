@@ -1,6 +1,7 @@
 package com.ffn.zerozeroseven.ui;
 
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -135,6 +136,15 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
                 }
             }
         });
+        goInMySignGoodAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                Bundle bundle = new Bundle();
+                bundle.putString("type","sign");
+                bundle.putInt("issuePrizeId",goInMySignGoodAdapter.getItem(position).getIssuePrizeId());
+                ZeroZeroSevenUtils.SwitchActivity(MySignGoodActivity.this,ProductDetilsActivity.class, bundle);
+            }
+        });
     }
 
     public void vetify(String name, String adr, String phone) {
@@ -201,32 +211,39 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
             public void onSuccLoad(String response) {
                 disLoadState();
                 zhongJiangListInfo = JSON.parseObject(response, ZhongJiangListInfo.class);
-                switch (rgRefreshStatus) {
-                    case IDLE:
-                    case REFRESHING:
-                        goInMySignGoodAdapter.clear();
-                        if (zhongJiangListInfo.getData().getParticipateList().getList().size() == 0) {
-                            goInView.setVisibility(View.GONE);
-                            rl_bot.setVisibility(View.VISIBLE);
-                        } else {
-                            goInView.setVisibility(View.VISIBLE);
-                            rl_bot.setVisibility(View.GONE);
-                            goInMySignGoodAdapter.addAll(zhongJiangListInfo.getData().getParticipateList().getList());
-                        }
-                        break;
-                    case PULL_DOWN:
-                        refreshLayout.finishLoadmore();
-                        if (zhongJiangListInfo.getData().getParticipateList().getList().size() == 0) {
-                            ToastUtils.showShort("没有更多数据了");
-                        } else {
-                            goInMySignGoodAdapter.addAll(zhongJiangListInfo.getData().getParticipateList().getList());
-                        }
-                        break;
-                }
-                if (zhongJiangListInfo.getData().getPointPrizeList().size() > 0) {
-                    mySignGoodAdapter.clear();
-                    mySignGoodAdapter.addAll(zhongJiangListInfo.getData().getPointPrizeList());
-                } else {
+                if(zhongJiangListInfo.getCode()==0){
+                    switch (rgRefreshStatus) {
+                        case IDLE:
+                        case REFRESHING:
+                            goInMySignGoodAdapter.clear();
+                            if (zhongJiangListInfo.getData().getParticipateList().getList().size() == 0) {
+                                goInView.setVisibility(View.GONE);
+                                rl_bot.setVisibility(View.VISIBLE);
+                            } else {
+                                goInView.setVisibility(View.VISIBLE);
+                                rl_bot.setVisibility(View.GONE);
+                                goInMySignGoodAdapter.addAll(zhongJiangListInfo.getData().getParticipateList().getList());
+                            }
+                            break;
+                        case PULL_DOWN:
+                            refreshLayout.finishLoadmore();
+                            if (zhongJiangListInfo.getData().getParticipateList().getList().size() == 0) {
+                                ToastUtils.showShort("没有更多数据了");
+                            } else {
+                                goInMySignGoodAdapter.addAll(zhongJiangListInfo.getData().getParticipateList().getList());
+                            }
+                            break;
+                    }
+                    if (zhongJiangListInfo.getData().getPointPrizeList().size() > 0) {
+                        mySignGoodAdapter.clear();
+                        mySignGoodAdapter.addAll(zhongJiangListInfo.getData().getPointPrizeList());
+                    } else {
+                        rl_top.setVisibility(View.VISIBLE);
+                        mySignView.setVisibility(View.GONE);
+                    }
+                }else{
+                    goInView.setVisibility(View.GONE);
+                    rl_bot.setVisibility(View.VISIBLE);
                     rl_top.setVisibility(View.VISIBLE);
                     mySignView.setVisibility(View.GONE);
                 }

@@ -111,10 +111,24 @@ public class ProductDetilsActivity extends BaseActivity implements OnRefreshList
         oks.show(context);
     }
 
+    String type;
+    int issuePrizeId;
     @Override
     protected void doMain() {
         prizeId = getIntent().getIntExtra("prizeId", 0);
-        requestTitle(true);
+        type = getIntent().getStringExtra("type");
+        if ("sign".equals(type)) {
+            issuePrizeId = getIntent().getIntExtra("issuePrizeId", 0);
+            fragmentList = new ArrayList<>();
+            List = new ArrayList<>();
+            List.add("1");
+            fragmentList.add(ProductDetilsFragment.newInstance(0, issuePrizeId));
+            recyclerView.setVisibility(View.GONE);
+            ShopViewPagerAdapter viewPagerAdapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, List);
+            viewPager.setAdapter(viewPagerAdapter);
+        } else {
+            requestTitle(true);
+        }
 
 
     }
