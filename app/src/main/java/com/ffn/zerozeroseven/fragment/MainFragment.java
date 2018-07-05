@@ -1326,11 +1326,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 break;
             case R.id.rl_integer:
                 if (userInfo != null) {
-                    if ("943478288".equals(schoolIId)) {
-                        ZeroZeroSevenUtils.showCustonPop(bfCxt, "请先选择学校", recyclerView);
-                    } else {
-                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, IntegralDrawActivity.class);
-                    }
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, IntegralDrawActivity.class);
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
                 }

@@ -45,11 +45,11 @@
 
         <ImageView
             android:id="@+id/iv_product"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="49dp"
+            android:layout_height="56dp"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="21dp"
-            android:background="@drawable/willdelete" />
+           />
 
         <TextView
             android:id="@+id/tv_name"
@@ -117,7 +117,7 @@
                     android:layout_height="20dp"
                     android:layout_centerInParent="true"
                     android:layout_weight="1"
-                    android:src="@drawable/interal_close" />
+                    android:src="@drawable/closeone" />
             </RelativeLayout>
 
             <EditText
@@ -141,7 +141,7 @@
                     android:layout_height="20dp"
                     android:layout_centerInParent="true"
                     android:layout_weight="1"
-                    android:src="@drawable/interaladd" />
+                    android:src="@drawable/addone" />
             </RelativeLayout>
 
         </LinearLayout>
