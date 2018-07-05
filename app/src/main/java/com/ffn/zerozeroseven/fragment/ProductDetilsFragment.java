@@ -41,7 +41,7 @@ public class ProductDetilsFragment extends BaseFragment {
     private ProductSinggerGoInAdapter singgerGoInAdapter;
     private int id;
     private int issuePId;
-    private ProductDetilsInfo productDetilsInfo;
+    public  ProductDetilsInfo productDetilsInfo;
     private int replaceId;
 
     public static ProductDetilsFragment newInstance(int id, int issuePId) {

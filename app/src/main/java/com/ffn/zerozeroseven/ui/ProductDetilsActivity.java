@@ -102,11 +102,11 @@ public class ProductDetilsActivity extends BaseActivity implements OnRefreshList
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         // title标题，微信、QQ和QQ空间等平台使用
-        oks.setTitle("积分抽奖有礼啦");
+        oks.setTitle(ProductDetilsFragment.mInstance.get().productDetilsInfo.getData().getPointPrize().getPrizeName());
         // titleUrl QQ和QQ空间跳转链接
         oks.setTitleUrl(AppConfig.PRODUCTSHAREURL + productTitleInfo.getData().getIssues().get(clickposition).getId());
         // text是分享文本，所有平台都需要这个字段
-        oks.setText("各种法拉利 兰博基尼等着你来领");
+        oks.setText(ProductDetilsFragment.mInstance.get().productDetilsInfo.getData().getPointPrize().getPrizeIntro());
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         oks.setImageUrl(AppConfig.LOGOURL);//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用

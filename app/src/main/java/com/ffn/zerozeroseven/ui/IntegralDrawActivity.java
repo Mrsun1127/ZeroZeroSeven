@@ -236,11 +236,11 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         // title标题，微信、QQ和QQ空间等平台使用
-        oks.setTitle("零零7签到领积分啦");
+        oks.setTitle("零零7积分抽奖，以礼相待");
         // titleUrl QQ和QQ空间跳转链接
         oks.setTitleUrl(AppConfig.SHAREURL);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText("零零7签到领积分啦");
+        oks.setText("小积分大用途，签到领积分奔驰宝马任你抽海量奖品送不停");
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         oks.setImageUrl(AppConfig.LOGOURL);//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用
