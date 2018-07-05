@@ -21,13 +21,16 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
+import com.ffn.zerozeroseven.bean.JiInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.JifenInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.ui.AdrMannGerActivity;
 import com.ffn.zerozeroseven.ui.CourierActivity;
 import com.ffn.zerozeroseven.ui.DingDanBobyActivity;
 import com.ffn.zerozeroseven.ui.HistoryTalkActivity;
+import com.ffn.zerozeroseven.ui.InteralDetilsActivity;
 import com.ffn.zerozeroseven.ui.KuaiDiYuanRenZhengActivity;
 import com.ffn.zerozeroseven.ui.LevelActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
@@ -95,9 +98,31 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         view.findViewById(R.id.rl_kuaidi).setOnClickListener(this);
     }
 
+    @Bind(R.id.tv_jifen)
+    TextView tv_jifen;
+
     @Override
     public void initDate() {
+        requestJifen();
+    }
 
+    private void requestJifen() {
+        JifenInfo jifenInfo = new JifenInfo();
+        jifenInfo.setFunctionName("QueryUserHonerPoint");
+        JifenInfo.ParametersBean parametersBean = new JifenInfo.ParametersBean();
+        parametersBean.setUserId(Integer.parseInt(userId));
+        jifenInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
+        okGoUtils.httpPostJSON(jifenInfo, true, false);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                JiInfo jiInfo = JSON.parseObject(response, JiInfo.class);
+                if (jiInfo.getCode() == 0) {
+                    tv_jifen.setText("当前积分："+jiInfo.getData().getHonerPoint());
+                }
+            }
+        });
     }
 
     @Bind(R.id.iv_vip)
@@ -125,10 +150,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                         .load(userInfo.getAvatar())
                         .into(iv_usericon);
             }
-            if(!TextUtils.isEmpty(userInfo.getServicePhone())){
+            if (!TextUtils.isEmpty(userInfo.getServicePhone())) {
                 rl_tel.setVisibility(View.VISIBLE);
-                tv_tel.setText("客服电话: "+userInfo.getServicePhone());
-            }else{
+                tv_tel.setText("客服电话: " + userInfo.getServicePhone());
+            } else {
                 rl_tel.setVisibility(View.GONE);
             }
 

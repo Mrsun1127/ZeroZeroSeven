@@ -44,6 +44,16 @@ public class ProductDtilsInfo {
          */
         private int issuePId;
         private int prizeId;
+
+        public int getIssuePrizeId() {
+            return issuePrizeId;
+        }
+
+        public void setIssuePrizeId(int issuePrizeId) {
+            this.issuePrizeId = issuePrizeId;
+        }
+
+        private int issuePrizeId;
         private String userPhone;
 
         public String getUserPhone() {

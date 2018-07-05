@@ -68,6 +68,8 @@ public class ProductDetilsFragment extends BaseFragment {
         mInstance = new WeakReference<>(this);
         rc_minegoin.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
         rc_allgoin.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
+        rc_allgoin.setNestedScrollingEnabled(false);
+        rc_minegoin.setNestedScrollingEnabled(false);
         productGoInAdapter = new ProductGoInAdapter(bfCxt);
         singgerGoInAdapter = new ProductSinggerGoInAdapter(bfCxt);
         rc_minegoin.setAdapter(singgerGoInAdapter);
@@ -197,7 +199,7 @@ public class ProductDetilsFragment extends BaseFragment {
                             rl_ok.setVisibility(View.GONE);
                             rl_open.setVisibility(View.VISIBLE);
                             rl_close.setVisibility(View.GONE);
-                            tv_username.setText(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone());
+                            tv_username.setText(ZeroZeroSevenUtils.phoneClose(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone()));
                             tv_usercount.setText(productDetilsInfo.getData().getPointPrizeWinner().getCountPoint() + "次");
                             tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getLuckNum());
                             tv_usertime.setText(productDetilsInfo.getData().getPointPrizeWinner().getCreateTime());

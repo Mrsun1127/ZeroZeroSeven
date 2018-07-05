@@ -148,6 +148,16 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
                     android:background="@drawable/vip" />
+                <TextView
+                    android:id="@+id/tv_jifen"
+                    android:textSize="13sp"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:text="当前积分:88"/>
 
                 <TextView
                     android:layout_width="wrap_content"

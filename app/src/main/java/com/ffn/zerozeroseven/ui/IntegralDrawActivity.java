@@ -115,6 +115,8 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         refreshlayout.setOnRefreshListener(this);
         recycleview.setLayoutManager(new GridLayoutManager(this, 2));
         recycleview.addItemDecoration(new GridSpacingItemDecoration(2, 2, false));
+        recycleview.setNestedScrollingEnabled(false);
+
         adapter = new InteralAdapter(this);
         recycleview.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {

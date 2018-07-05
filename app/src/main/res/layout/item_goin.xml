@@ -38,7 +38,7 @@
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_count"
+        android:layout_below="@+id/tv_number"
         android:layout_marginLeft="29dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/iv_icon"
@@ -49,10 +49,10 @@
         android:id="@+id/tv_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_phone"
+        android:layout_below="@+id/tv_count"
         android:layout_marginLeft="29dp"
         android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/tv_count"
+        android:layout_toRightOf="@+id/iv_icon"
         android:text="积分号码：9859-10006"
         android:textSize="11sp" />
     <View

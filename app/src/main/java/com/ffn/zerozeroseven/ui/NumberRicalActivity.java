@@ -61,6 +61,7 @@ public class NumberRicalActivity extends BaseActivity {
         scroll.setLayoutManager(linearLayoutManager);
         vetical.setLayoutManager(new LinearLayoutManager(NumberRicalActivity.this));
         vetical.addItemDecoration(new SpaceItemDecoration(2));
+        vetical.setNestedScrollingEnabled(false);
     }
 
     @Override

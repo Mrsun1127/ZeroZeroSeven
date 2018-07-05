@@ -64,7 +64,7 @@
                             android:layout_marginTop="350dp"
                             android:id="@+id/tv_pao"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="20dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginLeft="30dp"
                             android:layout_marginRight="30dp"
@@ -186,7 +186,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/trancelate"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_centerHorizontal="true"
