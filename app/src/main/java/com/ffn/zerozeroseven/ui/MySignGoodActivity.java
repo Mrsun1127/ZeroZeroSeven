@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -63,6 +64,8 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
     RelativeLayout rl_bot;
     @Bind(R.id.rl_top)
     RelativeLayout rl_top;
+    @Bind(R.id.bt_sub)
+    Button bt_sub;
     private RgRefreshStatus rgRefreshStatus = RgRefreshStatus.IDLE;
     int pageNo = 0;
 
@@ -130,9 +133,15 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
                 curPosition = position;
                 issueId = mySignGoodAdapter.getItem(position).getIssuePrizeId();
                 if (mySignGoodAdapter.getItem(position).isAccept()) {
+                    bt_sub.setVisibility(View.GONE);
                     et_phone.setText(mySignGoodAdapter.getItem(position).getAwardAddress().getContactPhone());
                     et_adr.setText(mySignGoodAdapter.getItem(position).getAwardAddress().getContactAddress());
                     et_name.setText(mySignGoodAdapter.getItem(position).getAwardAddress().getContactName());
+                }else{
+                    bt_sub.setVisibility(View.VISIBLE);
+                    et_phone.setText("");
+                    et_adr.setText("");
+                    et_name.setText("");
                 }
             }
         });
@@ -140,9 +149,9 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
             @Override
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
-                bundle.putString("type","sign");
-                bundle.putInt("issuePrizeId",goInMySignGoodAdapter.getItem(position).getIssuePrizeId());
-                ZeroZeroSevenUtils.SwitchActivity(MySignGoodActivity.this,ProductDetilsActivity.class, bundle);
+                bundle.putString("type", "sign");
+                bundle.putInt("issuePrizeId", goInMySignGoodAdapter.getItem(position).getIssuePrizeId());
+                ZeroZeroSevenUtils.SwitchActivity(MySignGoodActivity.this, ProductDetilsActivity.class, bundle);
             }
         });
     }
@@ -211,7 +220,7 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
             public void onSuccLoad(String response) {
                 disLoadState();
                 zhongJiangListInfo = JSON.parseObject(response, ZhongJiangListInfo.class);
-                if(zhongJiangListInfo.getCode()==0){
+                if (zhongJiangListInfo.getCode() == 0) {
                     switch (rgRefreshStatus) {
                         case IDLE:
                         case REFRESHING:
@@ -241,7 +250,7 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
                         rl_top.setVisibility(View.VISIBLE);
                         mySignView.setVisibility(View.GONE);
                     }
-                }else{
+                } else {
                     goInView.setVisibility(View.GONE);
                     rl_bot.setVisibility(View.VISIBLE);
                     rl_top.setVisibility(View.VISIBLE);
