@@ -515,11 +515,11 @@
             android:textSize="14sp" />
 
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/rl_location"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="20dp"
@@ -559,4 +559,59 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="25dp"
         android:background="@drawable/dmooff" />
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:background="@color/trancelate"
+        android:id="@+id/rl_update"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:background="@drawable/integral_back"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/cancel_icon" />
+
+            <TextView
+                android:id="@+id/tv_up_top"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:text="更新说明"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_up_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_up_top"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/bt_update"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/circle3"
+                android:text="前往更新"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </RelativeLayout>
+
 </RelativeLayout>

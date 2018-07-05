@@ -183,6 +183,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private CustomTwoLevelHeader header;
     private String projectUrl;
     private TongzhiInfo tongzhiInfo;
+    private AppVersionInfo appVersionInfo;
 
     public RunListRquestInfo.DataBean.ListBean getRunlist(int poition) {
         return runListRquestInfo.getData().getList().get(poition);
@@ -573,32 +574,11 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                final AppVersionInfo appVersionInfo = JSON.parseObject(response, AppVersionInfo.class);
+                appVersionInfo = JSON.parseObject(response, AppVersionInfo.class);
                 if (appVersionInfo.getCode() == 0) {
                     if (!ZeroZeroSevenUtils.getAppVersionName(bfCxt).equals(appVersionInfo.getData().getLatestVersion())) {
-                        final ConfirmDialog dialog = new ConfirmDialog(bfCxt);
-                        dialog.setTitles("软件升级");
-                        dialog.setMessages("发现新版本,建议立即更新使用");
-                        dialog.setConfirmButtonText("" +
-                                "");
-                        dialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
-                            @Override
-                            public void doConfirm() {
-                                dialog.dismiss();
-                                requestSomePermission();
-                                downLoadApk(appVersionInfo.getData().getDownloadUrl());
-                            }
-
-                            @Override
-                            public void doCancel() {
-                                if (appVersionInfo.getData().getConstraint() == 1) {
-                                    BaseAppApplication.getInstance().exit();
-                                } else {
-                                    dialog.dismiss();
-                                }
-                            }
-                        });
-
+                        rl_update.setVisibility(View.VISIBLE);
+                        tv_up_content.setText(appVersionInfo.getData().getReleaseNote());
                     }
                 }
             }
@@ -707,7 +687,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     recyclerView.stop();
                 }
             }
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     public void goToDetils(final int position, final MainGoodsAdapter adapter) {
@@ -927,12 +908,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     TextView tv_hot;
     @Bind(R.id.tv_both)
     TextView tv_both;
-
+    @Bind(R.id.rl_update)
+    RelativeLayout rl_update;
 
     public void reQuest() {
         if (userInfo != null) {
             schoolIId = BaseAppApplication.getInstance().getLoginUser().getSchoolId();
-            if(!TextUtils.isEmpty(userInfo.getSchoolName())){
+            if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
                 tv_school.setText(userInfo.getSchoolName());
             }
         }
@@ -1014,6 +996,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     boolean showTwo = false;
     private List<String> urlList;
     private List<String> titleList;
+
     private void requestBaner() {
         LunBoInfo lunBoInfo = new LunBoInfo();
         lunBoInfo.setFunctionName("ListAd");
@@ -1297,10 +1280,24 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     boolean open = true;
     @Bind(R.id.iv_guanggao)
     ImageView iv_guanggao;
+    @Bind(R.id.tv_up_content)
+    TextView tv_up_content;
 
-    @OnClick({R.id.rl_numberrical,R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
+    @OnClick({R.id.bt_update, R.id.tv_up_top, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.bt_update:
+                requestSomePermission();
+                downLoadApk(appVersionInfo.getData().getDownloadUrl());
+                rl_update.setVisibility(View.GONE);
+                break;
+            case R.id.tv_up_top:
+                if (appVersionInfo.getData().getConstraint() == 1) {
+                    BaseAppApplication.getInstance().exit();
+                } else {
+                    rl_update.setVisibility(View.GONE);
+                }
+                break;
             case R.id.rl_numberrical:
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, NumberRicalActivity.class);
                 break;
@@ -1421,29 +1418,30 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         super.onResume();
         userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
-           try {
-               banner.start();//开始轮播
-               if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
-                   scrollTextView.startAutoScroll();
-               }
-               if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
-                   recyclerView.start();
-               }
-               if (haveData == 1) {
-                   new Thread(new Runnable() {
-                       @Override
-                       public void run() {
-                           requestpopularList();
-                       }
-                   }).start();
-               }
-               requestTime();
-               if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
-                   tv_school.setText(userInfo.getSchoolName());
-               } else {
-                   tv_school.setText("请选择学校");
-               }
-           }catch (Exception e){}
+            try {
+                banner.start();//开始轮播
+                if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
+                    scrollTextView.startAutoScroll();
+                }
+                if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
+                    recyclerView.start();
+                }
+                if (haveData == 1) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            requestpopularList();
+                        }
+                    }).start();
+                }
+                requestTime();
+                if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
+                    tv_school.setText(userInfo.getSchoolName());
+                } else {
+                    tv_school.setText("请选择学校");
+                }
+            } catch (Exception e) {
+            }
         } else {
             tv_school.setText("请选择学校");
         }
