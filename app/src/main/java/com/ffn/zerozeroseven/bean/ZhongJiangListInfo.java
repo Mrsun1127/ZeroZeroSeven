@@ -5,7 +5,7 @@ import java.util.List;
 public class ZhongJiangListInfo {
     /**
      * code : 0
-     * data : {"pointPrizeContributionList":[{"accept":false,"contributionPoint":5066,"id":60,"issuePrizeId":144,"issuePrizeStatus":2,"jackpotId":81,"lotteryCountdown":10,"lotteryTime":"2018-07-05 18:04:49","prizeIntro":"夏季冰丝记忆棉坐垫办公室椅垫  40cm*40cm","prizeIssue":2,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png","prizePoint":5066,"prizePrice":49,"prizeType":"PHYSICAL"},{"accept":false,"contributionPoint":5066,"id":60,"issuePrizeId":144,"issuePrizeStatus":2,"jackpotId":81,"lotteryCountdown":10,"lotteryTime":"2018-07-05 18:04:49","prizeIntro":"夏季冰丝记忆棉坐垫办公室椅垫  40cm*40cm","prizeIssue":2,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png","prizePoint":5066,"prizePrice":49,"prizeType":"PHYSICAL"},{"accept":false,"contributionPoint":12,"id":67,"issuePrizeId":130,"issuePrizeStatus":0,"jackpotId":88,"lotteryCountdown":10,"prizeIntro":"碧缇福美牙仪","prizeIssue":1,"prizeName":"碧缇福美牙仪","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780578141.png","prizePoint":18700,"prizePrice":299,"prizeType":"PHYSICAL"},{"accept":false,"contributionPoint":12,"id":67,"issuePrizeId":130,"issuePrizeStatus":0,"jackpotId":88,"lotteryCountdown":10,"prizeIntro":"碧缇福美牙仪","prizeIssue":1,"prizeName":"碧缇福美牙仪","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780578141.png","prizePoint":18700,"prizePrice":299,"prizeType":"PHYSICAL"},{"accept":false,"contributionPoint":0,"id":44,"issuePrizeId":103,"issuePrizeStatus":0,"jackpotId":65,"lotteryCountdown":10,"prizeIntro":"IPAD新款 32G银色","prizeIssue":1,"prizeName":"IPAD新款","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530756832842.png","prizePoint":382500,"prizePrice":2499,"prizeType":"PHYSICAL"},{"accept":false,"contributionPoint":5100,"id":59,"issuePrizeId":122,"issuePrizeStatus":0,"jackpotId":80,"lotteryCountdown":10,"prizeIntro":"米魂牧马人  游戏鼠标","prizeIssue":1,"prizeName":"米魂牧马人","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780238132.png","prizePoint":5100,"prizePrice":49,"prizeType":"PHYSICAL"},{"accept":false,"contributionPoint":5100,"id":59,"issuePrizeId":122,"issuePrizeStatus":0,"jackpotId":80,"lotteryCountdown":10,"prizeIntro":"米魂牧马人  游戏鼠标","prizeIssue":1,"prizeName":"米魂牧马人","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780238132.png","prizePoint":5100,"prizePrice":49,"prizeType":"PHYSICAL"}],"pointPrizeList":[{"accept":true,"awardAddress":{"contactAddress":"火车站","contactName":"dfd","contactPhone":"17388933063","id":43},"contributionPoint":0,"id":43,"issuePrizeId":102,"issuePrizeStatus":0,"jackpotId":64,"lotteryCountdown":10,"prizeIntro":"华硕E203NA3350 N3350 4G 128 粉/白\n华硕E203NA3350(4GB/128GB)性能稳定，散热良好，使用感非常好。它的外观和质量都有一定的保障，且品牌的售后服务也做的很好。流畅的使用体验和稳健的性能给家庭带来更多的可能。","prizeIssue":1,"prizeName":"华硕E203NA3350 ","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530756743069.png","prizePoint":382500,"prizePrice":2599,"prizeType":"PHYSICAL"},{"accept":false,"contributionPoint":6800,"id":61,"issuePrizeId":124,"issuePrizeStatus":2,"jackpotId":82,"lotteryCountdown":10,"lotteryTime":"2018-07-05 17:56:07","prizeIntro":"雷迪凯 七彩机械手感键盘  背光机械手感键盘","prizeIssue":1,"prizeName":"雷迪凯 七彩机械手感键盘","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780336911.jpg","prizePoint":6800,"prizePrice":58,"prizeType":"PHYSICAL"},{"accept":false,"contributionPoint":6800,"id":62,"issuePrizeId":125,"issuePrizeStatus":2,"jackpotId":83,"lotteryCountdown":10,"lotteryTime":"2018-07-05 17:56:15","prizeIntro":"雅韵仕 V7无线蓝牙小音箱 ","prizeIssue":1,"prizeName":"雅韵仕 V7无线蓝牙小音箱","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780376505.jpg","prizePoint":6800,"prizePrice":58,"prizeType":"PHYSICAL"},{"accept":false,"contributionPoint":8330,"id":63,"issuePrizeId":126,"issuePrizeStatus":2,"jackpotId":84,"lotteryCountdown":10,"lotteryTime":"2018-07-05 17:56:24","prizeIntro":"solove素乐 小风扇usb迷你静音学生电风扇  三档可调大风力持久续航方便携带可充电","prizeIssue":1,"prizeName":"solove素乐 小风扇usb迷你静音学生电风扇","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780411377.png","prizePoint":8330,"prizePrice":66,"prizeType":"PHYSICAL"},{"accept":false,"contributionPoint":5066,"id":60,"issuePrizeId":144,"issuePrizeStatus":2,"jackpotId":81,"lotteryCountdown":10,"lotteryTime":"2018-07-05 18:04:49","prizeIntro":"夏季冰丝记忆棉坐垫办公室椅垫  40cm*40cm","prizeIssue":2,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png","prizePoint":5066,"prizePrice":49,"prizeType":"PHYSICAL"}]}
+     * data : {"participateList":{"total":13,"pageIndex":0,"totalPage":3,"pageSize":6,"list":[{"accept":true,"issuePrizeId":144,"issuePrizeStatus":3,"prizeIssue":2,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png"},{"accept":true,"issuePrizeId":126,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"solove素乐 小风扇usb迷你静音学生电风扇","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780411377.png"},{"accept":true,"issuePrizeId":125,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"雅韵仕 V7无线蓝牙小音箱","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780376505.jpg"},{"accept":true,"issuePrizeId":124,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"雷迪凯 七彩机械手感键盘","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780336911.jpg"},{"accept":true,"issuePrizeId":123,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png"},{"accept":true,"issuePrizeId":123,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png"}]},"pointPrizeList":[{"accept":true,"awardAddress":{"contactAddress":"火车站","contactName":"dfd","contactPhone":"17388933063","id":43},"issuePrizeId":102,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"华硕E203NA3350 ","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530756743069.png"},{"accept":true,"awardAddress":{"contactAddress":"只有下午","contactName":"哦哦哦","contactPhone":"17636965856","id":49},"issuePrizeId":124,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"雷迪凯 七彩机械手感键盘","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780336911.jpg"},{"accept":true,"awardAddress":{"contactAddress":"图","contactName":"吧啦","contactPhone":"17389636965","id":50},"issuePrizeId":125,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"雅韵仕 V7无线蓝牙小音箱","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780376505.jpg"},{"accept":true,"awardAddress":{"contactAddress":"兔兔","contactName":"龙","contactPhone":"17388933063","id":47},"issuePrizeId":126,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"solove素乐 小风扇usb迷你静音学生电风扇","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780411377.png"},{"accept":true,"awardAddress":{"contactAddress":"兔兔","contactName":"哦哦哦","contactPhone":"17388933696","id":45},"issuePrizeId":144,"issuePrizeStatus":3,"prizeIssue":2,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png"}]}
      * success : true
      */
 
@@ -38,15 +38,20 @@ public class ZhongJiangListInfo {
     }
 
     public static class DataBean {
-        private List<PointPrizeContributionListBean> pointPrizeContributionList;
+        /**
+         * participateList : {"total":13,"pageIndex":0,"totalPage":3,"pageSize":6,"list":[{"accept":true,"issuePrizeId":144,"issuePrizeStatus":3,"prizeIssue":2,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png"},{"accept":true,"issuePrizeId":126,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"solove素乐 小风扇usb迷你静音学生电风扇","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780411377.png"},{"accept":true,"issuePrizeId":125,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"雅韵仕 V7无线蓝牙小音箱","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780376505.jpg"},{"accept":true,"issuePrizeId":124,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"雷迪凯 七彩机械手感键盘","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780336911.jpg"},{"accept":true,"issuePrizeId":123,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png"},{"accept":true,"issuePrizeId":123,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png"}]}
+         * pointPrizeList : [{"accept":true,"awardAddress":{"contactAddress":"火车站","contactName":"dfd","contactPhone":"17388933063","id":43},"issuePrizeId":102,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"华硕E203NA3350 ","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530756743069.png"},{"accept":true,"awardAddress":{"contactAddress":"只有下午","contactName":"哦哦哦","contactPhone":"17636965856","id":49},"issuePrizeId":124,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"雷迪凯 七彩机械手感键盘","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780336911.jpg"},{"accept":true,"awardAddress":{"contactAddress":"图","contactName":"吧啦","contactPhone":"17389636965","id":50},"issuePrizeId":125,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"雅韵仕 V7无线蓝牙小音箱","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780376505.jpg"},{"accept":true,"awardAddress":{"contactAddress":"兔兔","contactName":"龙","contactPhone":"17388933063","id":47},"issuePrizeId":126,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"solove素乐 小风扇usb迷你静音学生电风扇","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780411377.png"},{"accept":true,"awardAddress":{"contactAddress":"兔兔","contactName":"哦哦哦","contactPhone":"17388933696","id":45},"issuePrizeId":144,"issuePrizeStatus":3,"prizeIssue":2,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png"}]
+         */
+
+        private ParticipateListBean participateList;
         private List<PointPrizeListBean> pointPrizeList;
 
-        public List<PointPrizeContributionListBean> getPointPrizeContributionList() {
-            return pointPrizeContributionList;
+        public ParticipateListBean getParticipateList() {
+            return participateList;
         }
 
-        public void setPointPrizeContributionList(List<PointPrizeContributionListBean> pointPrizeContributionList) {
-            this.pointPrizeContributionList = pointPrizeContributionList;
+        public void setParticipateList(ParticipateListBean participateList) {
+            this.participateList = participateList;
         }
 
         public List<PointPrizeListBean> getPointPrizeList() {
@@ -57,96 +62,157 @@ public class ZhongJiangListInfo {
             this.pointPrizeList = pointPrizeList;
         }
 
-        public static class PointPrizeContributionListBean {
+        public static class ParticipateListBean {
             /**
-             * accept : false
-             * contributionPoint : 5066
-             * id : 60
-             * issuePrizeId : 144
-             * issuePrizeStatus : 2
-             * jackpotId : 81
-             * lotteryCountdown : 10
-             * lotteryTime : 2018-07-05 18:04:49
-             * prizeIntro : 夏季冰丝记忆棉坐垫办公室椅垫  40cm*40cm
-             * prizeIssue : 2
-             * prizeName : 夏季冰丝记忆棉坐垫办公室椅垫
-             * prizePic : http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png
-             * prizePoint : 5066
-             * prizePrice : 49
-             * prizeType : PHYSICAL
+             * total : 13
+             * pageIndex : 0
+             * totalPage : 3
+             * pageSize : 6
+             * list : [{"accept":true,"issuePrizeId":144,"issuePrizeStatus":3,"prizeIssue":2,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png"},{"accept":true,"issuePrizeId":126,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"solove素乐 小风扇usb迷你静音学生电风扇","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780411377.png"},{"accept":true,"issuePrizeId":125,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"雅韵仕 V7无线蓝牙小音箱","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780376505.jpg"},{"accept":true,"issuePrizeId":124,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"雷迪凯 七彩机械手感键盘","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780336911.jpg"},{"accept":true,"issuePrizeId":123,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png"},{"accept":true,"issuePrizeId":123,"issuePrizeStatus":3,"prizeIssue":1,"prizeName":"夏季冰丝记忆棉坐垫办公室椅垫","prizePic":"http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png"}]
+             */
+
+            private int total;
+            private int pageIndex;
+            private int totalPage;
+            private int pageSize;
+            private List<ListBean> list;
+
+            public int getTotal() {
+                return total;
+            }
+
+            public void setTotal(int total) {
+                this.total = total;
+            }
+
+            public int getPageIndex() {
+                return pageIndex;
+            }
+
+            public void setPageIndex(int pageIndex) {
+                this.pageIndex = pageIndex;
+            }
+
+            public int getTotalPage() {
+                return totalPage;
+            }
+
+            public void setTotalPage(int totalPage) {
+                this.totalPage = totalPage;
+            }
+
+            public int getPageSize() {
+                return pageSize;
+            }
+
+            public void setPageSize(int pageSize) {
+                this.pageSize = pageSize;
+            }
+
+            public List<ListBean> getList() {
+                return list;
+            }
+
+            public void setList(List<ListBean> list) {
+                this.list = list;
+            }
+
+            public static class ListBean {
+                /**
+                 * accept : true
+                 * issuePrizeId : 144
+                 * issuePrizeStatus : 3
+                 * prizeIssue : 2
+                 * prizeName : 夏季冰丝记忆棉坐垫办公室椅垫
+                 * prizePic : http://192.168.0.199/lingling7-res/image/20180705/1530780296373.png
+                 */
+
+                private boolean accept;
+                private int issuePrizeId;
+                private int issuePrizeStatus;
+                private int prizeIssue;
+
+                public String getLotteryTime() {
+                    return lotteryTime;
+                }
+
+                public void setLotteryTime(String lotteryTime) {
+                    this.lotteryTime = lotteryTime;
+                }
+
+                private String lotteryTime;
+                private String prizeName;
+                private String prizePic;
+
+                public boolean isAccept() {
+                    return accept;
+                }
+
+                public void setAccept(boolean accept) {
+                    this.accept = accept;
+                }
+
+                public int getIssuePrizeId() {
+                    return issuePrizeId;
+                }
+
+                public void setIssuePrizeId(int issuePrizeId) {
+                    this.issuePrizeId = issuePrizeId;
+                }
+
+                public int getIssuePrizeStatus() {
+                    return issuePrizeStatus;
+                }
+
+                public void setIssuePrizeStatus(int issuePrizeStatus) {
+                    this.issuePrizeStatus = issuePrizeStatus;
+                }
+
+                public int getPrizeIssue() {
+                    return prizeIssue;
+                }
+
+                public void setPrizeIssue(int prizeIssue) {
+                    this.prizeIssue = prizeIssue;
+                }
+
+                public String getPrizeName() {
+                    return prizeName;
+                }
+
+                public void setPrizeName(String prizeName) {
+                    this.prizeName = prizeName;
+                }
+
+                public String getPrizePic() {
+                    return prizePic;
+                }
+
+                public void setPrizePic(String prizePic) {
+                    this.prizePic = prizePic;
+                }
+            }
+        }
+
+        public static class PointPrizeListBean {
+            /**
+             * accept : true
+             * awardAddress : {"contactAddress":"火车站","contactName":"dfd","contactPhone":"17388933063","id":43}
+             * issuePrizeId : 102
+             * issuePrizeStatus : 3
+             * prizeIssue : 1
+             * prizeName : 华硕E203NA3350
+             * prizePic : http://192.168.0.199/lingling7-res/image/20180705/1530756743069.png
              */
 
             private boolean accept;
-            private int contributionPoint;
-            private int id;
+            private AwardAddressBean awardAddress;
             private int issuePrizeId;
             private int issuePrizeStatus;
-            private int jackpotId;
-            private int lotteryCountdown;
-            private String lotteryTime;
-            private String prizeIntro;
             private int prizeIssue;
             private String prizeName;
             private String prizePic;
-            private int prizePoint;
-            private Double prizePrice;
-            private String prizeType;
-
-            public boolean isAccept() {
-                return accept;
-            }
-
-            public void setAccept(boolean accept) {
-                this.accept = accept;
-            }
-
-            public int getContributionPoint() {
-                return contributionPoint;
-            }
-
-            public void setContributionPoint(int contributionPoint) {
-                this.contributionPoint = contributionPoint;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public int getIssuePrizeId() {
-                return issuePrizeId;
-            }
-
-            public void setIssuePrizeId(int issuePrizeId) {
-                this.issuePrizeId = issuePrizeId;
-            }
-
-            public int getIssuePrizeStatus() {
-                return issuePrizeStatus;
-            }
-
-            public void setIssuePrizeStatus(int issuePrizeStatus) {
-                this.issuePrizeStatus = issuePrizeStatus;
-            }
-
-            public int getJackpotId() {
-                return jackpotId;
-            }
-
-            public void setJackpotId(int jackpotId) {
-                this.jackpotId = jackpotId;
-            }
-
-            public int getLotteryCountdown() {
-                return lotteryCountdown;
-            }
-
-            public void setLotteryCountdown(int lotteryCountdown) {
-                this.lotteryCountdown = lotteryCountdown;
-            }
+            private String lotteryTime;
 
             public String getLotteryTime() {
                 return lotteryTime;
@@ -155,101 +221,6 @@ public class ZhongJiangListInfo {
             public void setLotteryTime(String lotteryTime) {
                 this.lotteryTime = lotteryTime;
             }
-
-            public String getPrizeIntro() {
-                return prizeIntro;
-            }
-
-            public void setPrizeIntro(String prizeIntro) {
-                this.prizeIntro = prizeIntro;
-            }
-
-            public int getPrizeIssue() {
-                return prizeIssue;
-            }
-
-            public void setPrizeIssue(int prizeIssue) {
-                this.prizeIssue = prizeIssue;
-            }
-
-            public String getPrizeName() {
-                return prizeName;
-            }
-
-            public void setPrizeName(String prizeName) {
-                this.prizeName = prizeName;
-            }
-
-            public String getPrizePic() {
-                return prizePic;
-            }
-
-            public void setPrizePic(String prizePic) {
-                this.prizePic = prizePic;
-            }
-
-            public int getPrizePoint() {
-                return prizePoint;
-            }
-
-            public void setPrizePoint(int prizePoint) {
-                this.prizePoint = prizePoint;
-            }
-
-            public Double getPrizePrice() {
-                return prizePrice;
-            }
-
-            public void setPrizePrice(Double prizePrice) {
-                this.prizePrice = prizePrice;
-            }
-
-            public String getPrizeType() {
-                return prizeType;
-            }
-
-            public void setPrizeType(String prizeType) {
-                this.prizeType = prizeType;
-            }
-        }
-
-        public static class PointPrizeListBean {
-            /**
-             * accept : true
-             * awardAddress : {"contactAddress":"火车站","contactName":"dfd","contactPhone":"17388933063","id":43}
-             * contributionPoint : 0
-             * id : 43
-             * issuePrizeId : 102
-             * issuePrizeStatus : 0
-             * jackpotId : 64
-             * lotteryCountdown : 10
-             * prizeIntro : 华硕E203NA3350 N3350 4G 128 粉/白
-             华硕E203NA3350(4GB/128GB)性能稳定，散热良好，使用感非常好。它的外观和质量都有一定的保障，且品牌的售后服务也做的很好。流畅的使用体验和稳健的性能给家庭带来更多的可能。
-             * prizeIssue : 1
-             * prizeName : 华硕E203NA3350
-             * prizePic : http://192.168.0.199/lingling7-res/image/20180705/1530756743069.png
-             * prizePoint : 382500
-             * prizePrice : 2599
-             * prizeType : PHYSICAL
-             * lotteryTime : 2018-07-05 17:56:07
-             */
-
-            private boolean accept;
-            private AwardAddressBean awardAddress;
-            private int contributionPoint;
-            private int id;
-            private int issuePrizeId;
-            private int issuePrizeStatus;
-            private int jackpotId;
-            private int lotteryCountdown;
-            private String prizeIntro;
-            private int prizeIssue;
-            private String prizeName;
-            private String prizePic;
-            private int prizePoint;
-            private int prizePrice;
-            private String prizeType;
-            private String lotteryTime;
 
             public boolean isAccept() {
                 return accept;
@@ -267,22 +238,6 @@ public class ZhongJiangListInfo {
                 this.awardAddress = awardAddress;
             }
 
-            public int getContributionPoint() {
-                return contributionPoint;
-            }
-
-            public void setContributionPoint(int contributionPoint) {
-                this.contributionPoint = contributionPoint;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
             public int getIssuePrizeId() {
                 return issuePrizeId;
             }
@@ -297,30 +252,6 @@ public class ZhongJiangListInfo {
 
             public void setIssuePrizeStatus(int issuePrizeStatus) {
                 this.issuePrizeStatus = issuePrizeStatus;
-            }
-
-            public int getJackpotId() {
-                return jackpotId;
-            }
-
-            public void setJackpotId(int jackpotId) {
-                this.jackpotId = jackpotId;
-            }
-
-            public int getLotteryCountdown() {
-                return lotteryCountdown;
-            }
-
-            public void setLotteryCountdown(int lotteryCountdown) {
-                this.lotteryCountdown = lotteryCountdown;
-            }
-
-            public String getPrizeIntro() {
-                return prizeIntro;
-            }
-
-            public void setPrizeIntro(String prizeIntro) {
-                this.prizeIntro = prizeIntro;
             }
 
             public int getPrizeIssue() {
@@ -345,38 +276,6 @@ public class ZhongJiangListInfo {
 
             public void setPrizePic(String prizePic) {
                 this.prizePic = prizePic;
-            }
-
-            public int getPrizePoint() {
-                return prizePoint;
-            }
-
-            public void setPrizePoint(int prizePoint) {
-                this.prizePoint = prizePoint;
-            }
-
-            public int getPrizePrice() {
-                return prizePrice;
-            }
-
-            public void setPrizePrice(int prizePrice) {
-                this.prizePrice = prizePrice;
-            }
-
-            public String getPrizeType() {
-                return prizeType;
-            }
-
-            public void setPrizeType(String prizeType) {
-                this.prizeType = prizeType;
-            }
-
-            public String getLotteryTime() {
-                return lotteryTime;
-            }
-
-            public void setLotteryTime(String lotteryTime) {
-                this.lotteryTime = lotteryTime;
             }
 
             public static class AwardAddressBean {

@@ -32,10 +32,28 @@
                        android:text="我的中奖记录"
                        android:textSize="13sp"
                        android:textColor="@color/black"/>
-                   <android.support.v7.widget.RecyclerView
-                       android:id="@+id/recycleview"
+                   <RelativeLayout
                        android:layout_width="match_parent"
-                       android:layout_height="wrap_content"/>
+                       android:layout_height="wrap_content">
+                       <android.support.v7.widget.RecyclerView
+                           android:id="@+id/recycleview"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"/>
+                       <RelativeLayout
+                           android:id="@+id/rl_top"
+                           android:layout_width="match_parent"
+                           android:layout_height="150dp"
+                           android:visibility="gone">
+
+                           <ImageView
+                               android:id="@+id/iv_mine_no"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_centerInParent="true"
+                               android:background="@drawable/interal_nodata"
+                               android:visibility="visible" />
+                       </RelativeLayout>
+                   </RelativeLayout>
                    <TextView
                        android:gravity="center_vertical"
                        android:paddingLeft="8dp"
@@ -44,10 +62,27 @@
                        android:text="我的参与记录"
                        android:textSize="13sp"
                        android:textColor="@color/black"/>
-                   <android.support.v7.widget.RecyclerView
-                       android:id="@+id/recycleviewgoin"
+                   <RelativeLayout
                        android:layout_width="match_parent"
-                       android:layout_height="wrap_content"/>
+                       android:layout_height="wrap_content">
+                       <android.support.v7.widget.RecyclerView
+                           android:id="@+id/recycleviewgoin"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"/>
+                       <RelativeLayout
+                           android:id="@+id/rl_bot"
+                           android:layout_width="match_parent"
+                           android:layout_height="150dp"
+                           android:visibility="gone">
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_centerInParent="true"
+                               android:background="@drawable/interal_nodata"
+                               android:visibility="visible" />
+                       </RelativeLayout>
+                   </RelativeLayout>
                </LinearLayout>
            </android.support.v4.widget.NestedScrollView>
 

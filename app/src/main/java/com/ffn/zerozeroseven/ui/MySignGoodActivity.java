@@ -15,6 +15,7 @@ import com.ffn.zerozeroseven.adapter.GoInMySignGoodAdapter;
 import com.ffn.zerozeroseven.adapter.MySignGoodAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.base.RgRefreshStatus;
 import com.ffn.zerozeroseven.bean.ZhongJiangListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.MySignGoodInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.NaJiangInfo;
@@ -26,13 +27,14 @@ import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.TopView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MySignGoodActivity extends BaseActivity implements OnRefreshListener {
+public class MySignGoodActivity extends BaseActivity implements OnRefreshListener, OnLoadmoreListener {
     @Bind(R.id.recycleview)
     RecyclerView mySignView;
     @Bind(R.id.recycleviewgoin)
@@ -56,6 +58,37 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
     SmartRefreshLayout refreshLayout;
     @Bind(R.id.tv_name)
     TextView tv_name;
+    @Bind(R.id.rl_bot)
+    RelativeLayout rl_bot;
+    @Bind(R.id.rl_top)
+    RelativeLayout rl_top;
+    private RgRefreshStatus rgRefreshStatus = RgRefreshStatus.IDLE;
+    int pageNo = 0;
+
+    private void setLoadPage() {
+        switch (rgRefreshStatus) {
+            case PULL_DOWN:
+                pageNo = pageNo + 1;
+                break;
+            case IDLE:
+            case REFRESHING:
+                pageNo = 0;
+                break;
+        }
+    }
+
+    private void disLoadState() {
+        switch (rgRefreshStatus) {
+            case IDLE:
+                break;
+            case REFRESHING:
+                refreshLayout.finishRefresh();
+                break;
+            case PULL_DOWN:
+                refreshLayout.finishLoadmore();
+                break;
+        }
+    }
 
     @Override
     protected int setLayout() {
@@ -77,6 +110,7 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
             }
         });
         refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setOnLoadmoreListener(this);
         mySignGoodAdapter = new MySignGoodAdapter(this);
         goInMySignGoodAdapter = new GoInMySignGoodAdapter(this);
         mySignView.setNestedScrollingEnabled(false);
@@ -152,23 +186,49 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
     }
 
     private void requestDate() {
+        setLoadPage();
         OkGoUtils okGoUtils = new OkGoUtils(MySignGoodActivity.this);
         MySignGoodInfo mySignGoodInfo = new MySignGoodInfo();
         mySignGoodInfo.setFunctionName("ListWinningRecord");
         MySignGoodInfo.ParametersBean parametersBean = new MySignGoodInfo.ParametersBean();
         parametersBean.setUserPhone(userInfo.getPhone());
+        parametersBean.setPageIndex(pageNo);
+        parametersBean.setPageSize(10);
         mySignGoodInfo.setParameters(parametersBean);
         okGoUtils.httpPostJSON(mySignGoodInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                refreshLayout.finishRefresh();
-                ZhongJiangListInfo zhongJiangListInfo = JSON.parseObject(response, ZhongJiangListInfo.class);
-                if (zhongJiangListInfo.getData().getPointPrizeList().size() > 0) {
-                    mySignGoodAdapter.addAll(zhongJiangListInfo.getData().getPointPrizeList());
+                disLoadState();
+                zhongJiangListInfo = JSON.parseObject(response, ZhongJiangListInfo.class);
+                switch (rgRefreshStatus) {
+                    case IDLE:
+                    case REFRESHING:
+                        goInMySignGoodAdapter.clear();
+                        if (zhongJiangListInfo.getData().getParticipateList().getList().size() == 0) {
+                            goInView.setVisibility(View.GONE);
+                            rl_bot.setVisibility(View.VISIBLE);
+                        } else {
+                            goInView.setVisibility(View.VISIBLE);
+                            rl_bot.setVisibility(View.GONE);
+                            goInMySignGoodAdapter.addAll(zhongJiangListInfo.getData().getParticipateList().getList());
+                        }
+                        break;
+                    case PULL_DOWN:
+                        refreshLayout.finishLoadmore();
+                        if (zhongJiangListInfo.getData().getParticipateList().getList().size() == 0) {
+                            ToastUtils.showShort("没有更多数据了");
+                        } else {
+                            goInMySignGoodAdapter.addAll(zhongJiangListInfo.getData().getParticipateList().getList());
+                        }
+                        break;
                 }
-                if (zhongJiangListInfo.getData().getPointPrizeContributionList().size() > 0) {
-                    goInMySignGoodAdapter.addAll(zhongJiangListInfo.getData().getPointPrizeContributionList());
+                if (zhongJiangListInfo.getData().getPointPrizeList().size() > 0) {
+                    mySignGoodAdapter.clear();
+                    mySignGoodAdapter.addAll(zhongJiangListInfo.getData().getPointPrizeList());
+                } else {
+                    rl_top.setVisibility(View.VISIBLE);
+                    mySignView.setVisibility(View.GONE);
                 }
             }
         });
@@ -207,6 +267,13 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
+        rgRefreshStatus = RgRefreshStatus.REFRESHING;
+        requestDate();
+    }
+
+    @Override
+    public void onLoadmore(RefreshLayout refreshlayout) {
+        rgRefreshStatus = RgRefreshStatus.PULL_DOWN;
         requestDate();
     }
 }

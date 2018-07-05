@@ -17,7 +17,7 @@ import com.ffn.zerozeroseven.bean.ZhongJiangListInfo;
  * Created by GT on 2017/11/27.
  */
 
-public class GoInMySignGoodAdapter extends BaseRecyclerAdapter<ZhongJiangListInfo.DataBean.PointPrizeContributionListBean> {
+public class GoInMySignGoodAdapter extends BaseRecyclerAdapter<ZhongJiangListInfo.DataBean.ParticipateListBean.ListBean> {
     public GoInMySignGoodAdapter(Context context) {
         super(context);
     }
@@ -28,13 +28,14 @@ public class GoInMySignGoodAdapter extends BaseRecyclerAdapter<ZhongJiangListInf
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, ZhongJiangListInfo.DataBean.PointPrizeContributionListBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, ZhongJiangListInfo.DataBean.ParticipateListBean.ListBean item, int position) {
         final MViewHolder mHolder = (MViewHolder) holder;
         Glide.with(mContext)
                 .load(item.getPrizePic())
                 .into(mHolder.imageView);
         mHolder.tv_name.setText("【第"+item.getPrizeIssue()+"期】"+item.getPrizeName());
-        mHolder.tv_go.setText("贡献了"+item.getContributionPoint()+"积分");
+//        mHolder.tv_go.setText("贡献了"+item.getContributionPoint()+"积分");
+        mHolder.tv_go.setText(item.getLotteryTime());
 
     }
 
