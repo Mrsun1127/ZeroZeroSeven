@@ -20,7 +20,7 @@ import cn.iwgang.countdownview.CountdownView;
  * Created by GT on 2017/11/27.
  */
 
-public class MySignGoodAdapter extends BaseRecyclerAdapter<ZhongJiangListInfo.DataBean.PointPrizeWinnerListBean> {
+public class MySignGoodAdapter extends BaseRecyclerAdapter<ZhongJiangListInfo.DataBean.PointPrizeListBean> {
     public MySignGoodAdapter(Context context) {
         super(context);
     }
@@ -31,17 +31,27 @@ public class MySignGoodAdapter extends BaseRecyclerAdapter<ZhongJiangListInfo.Da
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, ZhongJiangListInfo.DataBean.PointPrizeWinnerListBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, ZhongJiangListInfo.DataBean.PointPrizeListBean item, int position) {
         final MViewHolder mHolder = (MViewHolder) holder;
         Glide.with(mContext)
                 .load(item.getPrizePic())
                 .into(mHolder.imageView);
-        mHolder.tv_name.setText(item.getPrizeName());
-        mHolder.tv_time.setText("开奖时间： " + item.getCreateTime());
-        if (item.isAccept()) {//没有填写信息的
+        mHolder.tv_name.setText("【第" + item.getPrizeIssue() + "期】" + item.getPrizeName());
+        if (!item.isAccept()) {//没有填写信息的
             mHolder.tv_status.setText("去领奖");
         } else {
             mHolder.tv_status.setText("完善信息");
+        }
+        mHolder.tv_time.setText(item.getLotteryTime());
+        switch (item.getIssuePrizeStatus()) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
         }
     }
 
@@ -50,6 +60,7 @@ public class MySignGoodAdapter extends BaseRecyclerAdapter<ZhongJiangListInfo.Da
         TextView tv_name;
         TextView tv_time;
         TextView tv_status;
+        TextView tv_zhong;
 
         MViewHolder(View itemView) {
             super(itemView);
@@ -57,6 +68,7 @@ public class MySignGoodAdapter extends BaseRecyclerAdapter<ZhongJiangListInfo.Da
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_status = itemView.findViewById(R.id.tv_status);
+            tv_zhong = itemView.findViewById(R.id.tv_zhong);
         }
     }
 

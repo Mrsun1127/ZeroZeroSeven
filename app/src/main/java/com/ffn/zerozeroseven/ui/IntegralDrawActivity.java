@@ -211,9 +211,11 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
+                rl_zhong.setVisibility(View.GONE);
                 if (JsonUtil.getFieldValue(response, "code").equals("0")) {
-                    rl_zhong.setVisibility(View.GONE);
                     ToastUtils.showShort("后台将尽快安排配送");
+                }else{
+                    ToastUtils.showShort(JsonUtil.getFieldValue(response, "message"));
                 }
             }
         });

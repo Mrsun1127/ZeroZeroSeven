@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="@color/white">
+    <ImageView
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="49dp"
+        android:id="@+id/iv_product"
+        android:layout_height="56dp" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:textSize="13sp"
+        android:layout_marginLeft="19dp"
+        android:layout_alignTop="@+id/iv_product"
+        android:layout_toRightOf="@+id/iv_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:text="正在加载中"/>
+    <TextView
+        android:layout_marginBottom="8dp"
+        android:id="@+id/tv_go"
+        android:textSize="10sp"
+        android:layout_marginLeft="25dp"
+        android:layout_alignBottom="@+id/iv_product"
+        android:layout_toRightOf="@+id/iv_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="贡献了500积分"/>
+
+</RelativeLayout>

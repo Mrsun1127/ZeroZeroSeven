@@ -1,10 +1,19 @@
 package com.ffn.zerozeroseven.ui;
 
+
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.adapter.GoInMySignGoodAdapter;
 import com.ffn.zerozeroseven.adapter.MySignGoodAdapter;
-import com.ffn.zerozeroseven.base.BasePopRefreshActivity;
+import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.ZhongJiangListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.MySignGoodInfo;
@@ -12,71 +21,160 @@ import com.ffn.zerozeroseven.bean.requsetbean.NaJiangInfo;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
+import com.ffn.zerozeroseven.view.SpaceItemDecoration;
+import com.ffn.zerozeroseven.view.TopView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-public class MySignGoodActivity extends BasePopRefreshActivity {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
+public class MySignGoodActivity extends BaseActivity implements OnRefreshListener {
+    @Bind(R.id.recycleview)
+    RecyclerView mySignView;
+    @Bind(R.id.recycleviewgoin)
+    RecyclerView goInView;
     private ZhongJiangListInfo zhongJiangListInfo;
     private MySignGoodAdapter mySignGoodAdapter;
+    private GoInMySignGoodAdapter goInMySignGoodAdapter;
     int issueId;
+    @Bind(R.id.rl_zhong)
+    RelativeLayout rl_zhong;
+    @Bind(R.id.topView)
+    TopView topView;
+    @Bind(R.id.et_phone)
+    EditText et_phone;
+    @Bind(R.id.et_adr)
+    EditText et_adr;
+    @Bind(R.id.et_name)
+    EditText et_name;
+    int curPosition;
+    @Bind(R.id.refreshlayout)
+    SmartRefreshLayout refreshLayout;
+    @Bind(R.id.tv_name)
+    TextView tv_name;
+
     @Override
-    protected BaseRecyclerAdapter setAdapter() {
-        mySignGoodAdapter = new MySignGoodAdapter(MySignGoodActivity.this);
-        return mySignGoodAdapter;
+    protected int setLayout() {
+        return R.layout.activity_lookpop;
     }
 
     @Override
-    protected void doMain() {
+    public void initView() {
+        ButterKnife.bind(this);
+        topView.setTopText("参与记录");
+        topView.setOnTitleListener(new TopView.OnTitleClickListener() {
+            @Override
+            public void Right() {
+            }
+
+            @Override
+            public void Back() {
+                finish();
+            }
+        });
+        refreshLayout.setOnRefreshListener(this);
+        mySignGoodAdapter = new MySignGoodAdapter(this);
+        goInMySignGoodAdapter = new GoInMySignGoodAdapter(this);
+        mySignView.setNestedScrollingEnabled(false);
+        goInView.setNestedScrollingEnabled(false);
+        mySignView.setLayoutManager(new LinearLayoutManager(this));
+        goInView.setLayoutManager(new LinearLayoutManager(this));
+        mySignView.addItemDecoration(new SpaceItemDecoration(2));
+        goInView.addItemDecoration(new SpaceItemDecoration(2));
+        mySignView.setAdapter(mySignGoodAdapter);
+        goInView.setAdapter(goInMySignGoodAdapter);
         mySignGoodAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                if(mySignGoodAdapter.getItem(position).isAccept()){//去填写信息
-                    rl_zhong.setVisibility(View.VISIBLE);
-                    issueId=mySignGoodAdapter.getItem(position).getIssuePrizeId();
-                }else{
-                    rl_zhong.setVisibility(View.VISIBLE);
-                    issueId=mySignGoodAdapter.getItem(position).getIssuePrizeId();
+                rl_zhong.setVisibility(View.VISIBLE);
+                tv_name.setText("【第" + mySignGoodAdapter.getItem(position).getPrizeIssue() + "期】" + mySignGoodAdapter.getItem(position).getPrizeName());
+                curPosition = position;
+                issueId = mySignGoodAdapter.getItem(position).getIssuePrizeId();
+                if (mySignGoodAdapter.getItem(position).isAccept()) {
+                    et_phone.setText(mySignGoodAdapter.getItem(position).getAwardAddress().getContactPhone());
+                    et_adr.setText(mySignGoodAdapter.getItem(position).getAwardAddress().getContactAddress());
+                    et_name.setText(mySignGoodAdapter.getItem(position).getAwardAddress().getContactName());
                 }
-                tv_name.setText(mySignGoodAdapter.getItem(position).getPrizeName());
             }
         });
     }
 
-    @Override
-    protected String setTopTitle() {
-        return "我的参与记录";
+    public void vetify(String name, String adr, String phone) {
+        if (!TextUtils.isEmpty(name)) {
+            if (!TextUtils.isEmpty(adr)) {
+                if (!TextUtils.isEmpty(phone)) {
+                    if (ZeroZeroSevenUtils.isMobileNO(phone)) {
+                        lingJiangLa(name, phone, adr);
+                    } else {
+                        ToastUtils.showShort("请填写正确的手机号码");
+                    }
+                } else {
+                    ToastUtils.showShort("请填写手机号码");
+                }
+            } else {
+                ToastUtils.showShort("请填写地址");
+            }
+        } else {
+            ToastUtils.showShort("请填写姓名");
+        }
+    }
+
+    @OnClick({R.id.bt_sub, R.id.rl_close})
+    void setOnClicks(View v) {
+        switch (v.getId()) {
+            case R.id.rl_close:
+                et_adr.setText("");
+                et_name.setText("");
+                et_phone.setText("");
+                rl_zhong.setVisibility(View.GONE);
+                break;
+            case R.id.bt_sub:
+                String name = et_name.getText().toString().trim();
+                String adr = et_adr.getText().toString().trim();
+                String phone = et_phone.getText().toString().trim();
+                if (!mySignGoodAdapter.getItem(curPosition).isAccept()) {
+                    vetify(name, adr, phone);
+                } else {
+                    vetify(name, adr, phone);
+                }
+                break;
+
+        }
     }
 
     @Override
-    protected void readRespones(String response) {
-        zhongJiangListInfo = JSON.parseObject(response,ZhongJiangListInfo.class);
+    protected void doMain() {
+        requestDate();
     }
 
-    @Override
-    protected int setFlag() {
-        return zhongJiangListInfo.getCode();
-    }
-
-    @Override
-    protected int setSize() {
-        return zhongJiangListInfo.getData().getPointPrizeWinnerList().size();
-    }
-
-    @Override
-    protected void addAll(BaseRecyclerAdapter adapter) {
-        adapter.addAll(zhongJiangListInfo.getData().getPointPrizeWinnerList());
-    }
-
-    @Override
-    protected Object setObj(int pageNo) {
+    private void requestDate() {
+        OkGoUtils okGoUtils = new OkGoUtils(MySignGoodActivity.this);
         MySignGoodInfo mySignGoodInfo = new MySignGoodInfo();
         mySignGoodInfo.setFunctionName("ListWinningRecord");
         MySignGoodInfo.ParametersBean parametersBean = new MySignGoodInfo.ParametersBean();
         parametersBean.setUserPhone(userInfo.getPhone());
         mySignGoodInfo.setParameters(parametersBean);
-        return mySignGoodInfo;
+        okGoUtils.httpPostJSON(mySignGoodInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                refreshLayout.finishRefresh();
+                ZhongJiangListInfo zhongJiangListInfo = JSON.parseObject(response, ZhongJiangListInfo.class);
+                if (zhongJiangListInfo.getData().getPointPrizeList().size() > 0) {
+                    mySignGoodAdapter.addAll(zhongJiangListInfo.getData().getPointPrizeList());
+                }
+                if (zhongJiangListInfo.getData().getPointPrizeContributionList().size() > 0) {
+                    goInMySignGoodAdapter.addAll(zhongJiangListInfo.getData().getPointPrizeContributionList());
+                }
+            }
+        });
     }
 
-    @Override
+
     protected void lingJiangLa(String name, String phone, String adr) {
         NaJiangInfo naJiangInfo = new NaJiangInfo();
         naJiangInfo.setFunctionName("AddPrizeAwardAddress");
@@ -88,18 +186,27 @@ public class MySignGoodActivity extends BasePopRefreshActivity {
         parametersBean.setUserPhone(userInfo.getPhone());
         naJiangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(MySignGoodActivity.this);
-        okGoUtils.httpPostJSON(naJiangInfo,true,true);
+        okGoUtils.httpPostJSON(naJiangInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                if(JsonUtil.getFieldValue(response,"code").equals("0")){
-                    rl_zhong.setVisibility(View.GONE);
+                rl_zhong.setVisibility(View.GONE);
+                et_adr.setText("");
+                et_name.setText("");
+                et_phone.setText("");
+                if (JsonUtil.getFieldValue(response, "code").equals("0")) {
                     ToastUtils.showShort("后台将尽快安排配送");
-                }else{
-                    rl_zhong.setVisibility(View.GONE);
-                    ToastUtils.showShort(JsonUtil.getFieldValue(response,"message"));
+                    requestDate();
+                } else {
+                    ToastUtils.showShort(JsonUtil.getFieldValue(response, "message"));
                 }
             }
         });
+    }
+
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        requestDate();
     }
 }
