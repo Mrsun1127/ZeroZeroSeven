@@ -38,7 +38,7 @@ public class MySignGoodAdapter extends BaseRecyclerAdapter<ZhongJiangListInfo.Da
         if (!item.isAccept()) {//没有填写信息的
             mHolder.tv_status.setText("去领奖");
         } else {
-            mHolder.tv_status.setText("完善信息");
+            mHolder.tv_status.setText("查看地址");
         }
         mHolder.tv_time.setText(item.getLotteryTime());
         switch (item.getIssuePrizeStatus()) {

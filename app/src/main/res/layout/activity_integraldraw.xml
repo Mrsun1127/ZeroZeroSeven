@@ -335,7 +335,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_b2"
                 android:layout_marginLeft="39dp"
-                android:text="填写视为自动放弃奖励。奖励有效期：5个工作日"
+                android:text="填写视为自动放弃奖励。奖励有效期：5个工作日（客服电话：0731-8535177）"
                 android:textColor="@color/white"
                 android:textSize="9sp" />
 

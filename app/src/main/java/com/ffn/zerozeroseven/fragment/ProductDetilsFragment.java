@@ -213,9 +213,17 @@ public class ProductDetilsFragment extends BaseFragment {
                                     .into(iv_user);
                             break;
                         case 3:
+                            bt_go.setVisibility(View.GONE);
                             rl_ok.setVisibility(View.GONE);
                             rl_open.setVisibility(View.VISIBLE);
                             rl_close.setVisibility(View.GONE);
+                            tv_username.setText(ZeroZeroSevenUtils.phoneClose(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone()));
+                            tv_usercount.setText(productDetilsInfo.getData().getPointPrizeWinner().getParticipateCount() + "次");
+                            tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getLuckNum());
+                            tv_usertime.setText(productDetilsInfo.getData().getPointPrizeWinner().getCreateTime());
+                            Glide.with(bfCxt)
+                                    .load(productDetilsInfo.getData().getPointPrizeWinner().getUserAvatar())
+                                    .into(iv_user);
                             break;
 
                     }

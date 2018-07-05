@@ -177,6 +177,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
                 jsonObject.put("userId", userId);
                 jsonObject.put("goodsName", carShopInfo.getShopInfos().get(i).getShopName());
                 jsonObject.put("goodsType", "03");
+                jsonObject.put("goodsPrice", carShopInfo.getShopInfos().get(i).getShopMoney());
                 json.put(jsonObject);
             }
             String s = json.toString();
