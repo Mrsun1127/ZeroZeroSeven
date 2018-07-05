@@ -189,12 +189,14 @@ public class ProductDetilsFragment extends BaseFragment {
                             pb_watch.setProgress(productDetilsInfo.getData().getPointPrize().getContributionPoint());
                             break;
                         case 1:
+                            bt_go.setVisibility(View.GONE);
                             rl_ok.setVisibility(View.VISIBLE);
                             rl_close.setVisibility(View.GONE);
                             rl_open.setVisibility(View.GONE);
                             tv_time.start(productDetilsInfo.getData().getPointPrize().getCountDownTime()*1000);
                             break;
                         case 2:
+                            bt_go.setVisibility(View.GONE);
                             rl_ok.setVisibility(View.GONE);
                             rl_open.setVisibility(View.VISIBLE);
                             rl_close.setVisibility(View.GONE);

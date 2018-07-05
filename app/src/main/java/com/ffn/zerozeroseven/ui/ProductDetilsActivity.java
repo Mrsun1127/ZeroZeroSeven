@@ -64,8 +64,12 @@ public class ProductDetilsActivity extends BaseActivity implements OnRefreshList
     public void initView() {
         ButterKnife.bind(this);
         mInstance = new WeakReference<>(this);
+        prizeId = getIntent().getIntExtra("prizeId", 0);
+        type = getIntent().getStringExtra("type");
         topView.setTopText("宝贝详情");
-        topView.setTvRightText("分享");
+        if (!"sign".equals(type)) {
+            topView.setTvRightText("分享");
+        }
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
             public void Right() {
@@ -113,10 +117,10 @@ public class ProductDetilsActivity extends BaseActivity implements OnRefreshList
 
     String type;
     int issuePrizeId;
+
     @Override
     protected void doMain() {
-        prizeId = getIntent().getIntExtra("prizeId", 0);
-        type = getIntent().getStringExtra("type");
+
         if ("sign".equals(type)) {
             issuePrizeId = getIntent().getIntExtra("issuePrizeId", 0);
             fragmentList = new ArrayList<>();
