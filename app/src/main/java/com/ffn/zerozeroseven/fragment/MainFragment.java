@@ -129,7 +129,7 @@ import okhttp3.Response;
  * Created by GT on 2017/11/15.
  */
 
-public class MainFragment extends BaseFragment implements View.OnClickListener, OnGetPoiSearchResultListener {
+public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultListener {
 
     //    private RelativeLayout et_select;
     private UserLikeAdapter userLikeAdapter;
@@ -151,21 +151,15 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private boolean loginStaus;
     public static WeakReference<MainFragment> mInstance;
     private TextView tv_time;
-    @Bind(R.id.ll_helpme)
-    LinearLayout ll_helpme;
-    @Bind(R.id.rl_runlist)
-    LinearLayout rl_runlist;
-    @Bind(R.id.rl_minerun)
-    RelativeLayout rl_minerun;
-    @Bind(R.id.rc_runlist)
-    RecyclerView rc_runlist;
-    @Bind(R.id.rl_lookmore)
-    RelativeLayout rl_lookmore;
+
+
+
+
+
     @Bind(R.id.scrollTextView)
     VerticalTextview scrollTextView;
     @Bind(R.id.refreshlayout)
     public TwoLevelSmoothRefreshLayout mRefreshLayout;
-    private RunListAdapter runListAdapter;
     public RunListRquestInfo runListRquestInfo;
     private UserLikeInfo userLikeInfo;
     private String[] stringss;
@@ -325,8 +319,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
             }
         });
-        view.findViewById(R.id.bt_release).setOnClickListener(this);
-        view.findViewById(R.id.rl_minerun).setOnClickListener(this);
         tv_time = view.findViewById(R.id.tv_time);
         ll_both = view.findViewById(R.id.ll_both);
         ll_hot = view.findViewById(R.id.ll_hot);
@@ -394,64 +386,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onItemClick(int position, long itemId) {
                 goToDetils(position, hotGoodsAdapter);
-            }
-        });
-        rc_runlist.setLayoutManager(new LinearLayoutManager(bfCxt));
-        rc_runlist.addItemDecoration(new SpaceItemDecoration(10));
-        runListAdapter = new RunListAdapter(bfCxt);
-        rc_runlist.setAdapter(runListAdapter);
-        runListAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, long itemId) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("position", position);
-                bundle.putString("type", "main");
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, RunDetilsActivity.class, bundle);
-            }
-        });
-        runListAdapter.setOnItemImgViewClick(new RunListAdapter.OnItemImgClick() {
-            @Override
-            public void onClick(View view, int position) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        showLoadProgress();
-                    }
-                });
-                QiangRunRequsetInfo qiangRunRequsetInfo = new QiangRunRequsetInfo();
-                qiangRunRequsetInfo.setFunctionName("GrabErrandOrder");
-                QiangRunRequsetInfo.ParametersBean parametersBean = new QiangRunRequsetInfo.ParametersBean();
-                parametersBean.setId(String.valueOf(runListAdapter.getItem(position).getId()));
-                qiangRunRequsetInfo.setParameters(parametersBean);
-                httpPostJSON(qiangRunRequsetInfo, true);
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                disLoadProgress();
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        final QiangDanOkInfo qiangDanOkInfo = JSON.parseObject(response.body().string(), QiangDanOkInfo.class);
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                disLoadProgress();
-                                if (qiangDanOkInfo.getCode() == 0) {
-                                    ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance.get(), "抢单成功", recyclerView);
-                                } else {
-                                    ZeroZeroSevenUtils.showCustonPop(HomeActivity.mInstance.get(), qiangDanOkInfo.getMessage(), recyclerView);
-                                }
-                            }
-                        });
-
-                    }
-                });
             }
         });
         header = new CustomTwoLevelHeader(bfCxt);
@@ -1058,48 +992,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     }
 
 
-//    private void requestRunList() {
-//        RunListInfo runListInfo = new RunListInfo();
-//        runListInfo.setFunctionName("ListSchoolErrandOrder");
-//        RunListInfo.ParametersBean parametersBean = new RunListInfo.ParametersBean();
-//        parametersBean.setPageIndex(0);
-//        parametersBean.setPageSize(3);
-//        if (!TextUtils.isEmpty(MrsunAppCacheUtils.get(bfCxt).getAsString("schoolId"))) {
-//            parametersBean.setSchoolId(Integer.parseInt(MrsunAppCacheUtils.get(bfCxt).getAsString("schoolId")));
-//        }
-//        runListInfo.setParameters(parametersBean);
-//        httpPostJSON(runListInfo, true);
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                BaseAppApplication.mainHandler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        rc_runlist.setVisibility(View.GONE);
-//                        rl_minerun.setVisibility(View.VISIBLE);
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                runListRquestInfo = JSON.parseObject(response.body().string(), RunListRquestInfo.class);
-//                BaseAppApplication.mainHandler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (runListRquestInfo.getCode() == 0 && runListRquestInfo.getData().getList().size() > 0) {
-//                            rc_runlist.setVisibility(View.VISIBLE);
-//                            rl_minerun.setVisibility(View.GONE);
-//                            runListAdapter.addAll(runListRquestInfo.getData().getList());
-//                        } else {
-//                            rc_runlist.setVisibility(View.GONE);
-//                            rl_minerun.setVisibility(View.VISIBLE);
-//                        }
-//                    }
-//                });
-//            }
-//        });
-//    }
+
 
     //    05:00 - 09:00  09:00 - 11:30 11:30 - 14:00 14:00-17:00 17:00-19:00 19:00-24:00 24:00-05:00
     private void requestHotBuyList(String beforeTime, String afterTime) {
@@ -1259,25 +1152,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.bt_release:
-                Bundle bundle = new Bundle();
-                bundle.putString("type", "其他");
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, HelpmeRunActivity.class, bundle);
-                break;
-            case R.id.rl_minerun:
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, MineRunActivity.class);
-                break;
 
-        }
-    }
 
-    @Bind(R.id.bt_helpme)
-    Button helpme;
-    @Bind(R.id.bt_helpother)
-    Button helpother;
+
+
     @Bind(R.id.tv_school)
     TextView tv_school;
     boolean open = true;
@@ -1286,7 +1164,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Bind(R.id.tv_up_content)
     TextView tv_up_content;
 
-    @OnClick({R.id.bt_update, R.id.tv_up_top, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.bt_helpother, R.id.bt_helpme, R.id.rl_kuaidi, R.id.rl_file, R.id.rl_other, R.id.rl_lookmore, R.id.rl_location, R.id.tv_school})
+    @OnClick({R.id.bt_update, R.id.tv_up_top, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao,   R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_update:
@@ -1367,47 +1245,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class, null);
                 }
                 break;
-            case R.id.bt_helpother:
-                helpother.setBackgroundResource(R.drawable.selected);
-                helpother.setTextColor(bfCxt.getResources().getColor(R.color.white));
-                helpme.setTextColor(bfCxt.getResources().getColor(R.color.tab_color));
-                helpme.setBackgroundResource(R.drawable.unselected);
-                if (runListRquestInfo.getData().getList().size() > 0) {
-                    rl_runlist.setVisibility(View.VISIBLE);
-                    rl_minerun.setVisibility(View.GONE);
-                } else {
-                    rl_runlist.setVisibility(View.GONE);
-                    rl_minerun.setVisibility(View.VISIBLE);
-                }
-                ll_helpme.setVisibility(View.GONE);
-                break;
-            case R.id.bt_helpme:
-                helpme.setTextColor(bfCxt.getResources().getColor(R.color.white));
-                helpother.setTextColor(bfCxt.getResources().getColor(R.color.tab_color));
-                helpme.setBackgroundResource(R.drawable.selected);
-                helpother.setBackgroundResource(R.drawable.unselected);
-                rl_runlist.setVisibility(View.GONE);
-                rl_minerun.setVisibility(View.GONE);
-                ll_helpme.setVisibility(View.VISIBLE);
-                break;
-            case R.id.rl_kuaidi:
-                Bundle bundle = new Bundle();
-                bundle.putString("type", "快递");
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, HelpmeRunActivity.class, bundle);
-                break;
-            case R.id.rl_file:
-                Bundle bundle1 = new Bundle();
-                bundle1.putString("type", "文件");
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, HelpmeRunActivity.class, bundle1);
-                break;
-            case R.id.rl_other:
-                Bundle bundle2 = new Bundle();
-                bundle2.putString("type", "其他");
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, HelpmeRunActivity.class, bundle2);
-                break;
-            case R.id.rl_lookmore:
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, LookMoreRunActivity.class);
-                break;
+
+
+
+
 
         }
     }
