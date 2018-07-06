@@ -576,7 +576,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             public void onSuccLoad(String response) {
                 appVersionInfo = JSON.parseObject(response, AppVersionInfo.class);
                 if (appVersionInfo.getCode() == 0) {
-                    if (!ZeroZeroSevenUtils.getAppVersionName(bfCxt).equals(appVersionInfo.getData().getLatestVersion())) {
+                    int curVersion=Integer.parseInt(ZeroZeroSevenUtils.getAppVersionName(bfCxt).replace(".",""));
+                    int lastVersion=Integer.parseInt(appVersionInfo.getData().getLatestVersion().replace(".",""));
+                    LogUtils.D("curVersion",curVersion+":::::"+lastVersion);
+                    if (lastVersion>curVersion) {
                         rl_update.setVisibility(View.VISIBLE);
                         tv_up_content.setText(appVersionInfo.getData().getReleaseNote());
                     }
