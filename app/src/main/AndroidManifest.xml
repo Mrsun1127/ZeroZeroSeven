@@ -207,8 +207,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.CourierActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.SlideActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".ui.CommitSuccessActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.LouDongActivity"

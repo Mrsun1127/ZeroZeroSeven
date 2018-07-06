@@ -78,17 +78,13 @@ import com.ffn.zerozeroseven.bean.requsetbean.SearchSchoolInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.TongZhiShowInfo;
 import com.ffn.zerozeroseven.ui.BitisDetils;
-import com.ffn.zerozeroseven.ui.HelpmeRunActivity;
 import com.ffn.zerozeroseven.ui.HomeActivity;
 import com.ffn.zerozeroseven.ui.IntegralDrawActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
-import com.ffn.zerozeroseven.ui.LookMoreRunActivity;
 import com.ffn.zerozeroseven.ui.MessAgeActivity;
-import com.ffn.zerozeroseven.ui.MineRunActivity;
 import com.ffn.zerozeroseven.ui.MrsunWebActivity;
 import com.ffn.zerozeroseven.ui.MyBitisActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalActivity;
-import com.ffn.zerozeroseven.ui.RunDetilsActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
 import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
 import com.ffn.zerozeroseven.ui.WebViewActivity;
@@ -98,7 +94,6 @@ import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
-import com.ffn.zerozeroseven.view.ConfirmDialog;
 import com.ffn.zerozeroseven.view.ScroolRecyleView;
 import com.ffn.zerozeroseven.view.SmartScrollView;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
@@ -112,7 +107,6 @@ import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -120,9 +114,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 
 /**
