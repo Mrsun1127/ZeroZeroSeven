@@ -8,6 +8,7 @@ import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.MessAgeSinggerInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.MessAgeDetilsInfo;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.view.TitleView;
 
@@ -70,42 +71,28 @@ public class MessAgeBodyActivity extends BaseActivity {
     }
 
     private void requestData() {
-        showLoadProgress();
         MessAgeDetilsInfo info = new MessAgeDetilsInfo();
         info.setFunctionName("QueryPushNews");
         MessAgeDetilsInfo.ParametersBean parametersBean = new MessAgeDetilsInfo.ParametersBean();
         parametersBean.setId(id + "");
         info.setParameters(parametersBean);
-        httpPostJSON(info);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(MessAgeBodyActivity.this);
+        okGoUtils.httpPostJSON(info, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        ToastUtils.showShort("网络异常");
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final MessAgeSinggerInfo singgerInfo = JSON.parseObject(response.body().string(), MessAgeSinggerInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        if (singgerInfo.getCode() == 0) {
-                            tv_title.setText(singgerInfo.getData().getSummary());
-                            tv_body.setText(singgerInfo.getData().getLink());
-                            tv_content.setText(singgerInfo.getData().getContent());
-                        }else{
-                            ToastUtils.showShort("网络异常");
-                        }
-                    }
-                });
+            public void onSuccLoad(String response) {
+                MessAgeSinggerInfo singgerInfo = JSON.parseObject(response, MessAgeSinggerInfo.class);
+                if (singgerInfo.getCode() == 0) {
+                    tv_title.setText(singgerInfo.getData().getTitle());
+                    tv_body.setText(singgerInfo.getData().getContent());
+                    tv_content.setText(singgerInfo.getData().getSummary());
+                    tv_time.setText(singgerInfo.getData().getCreateTime());
+                } else {
+                    ToastUtils.showShort("网络异常");
+                }
             }
         });
+
+
     }
 }

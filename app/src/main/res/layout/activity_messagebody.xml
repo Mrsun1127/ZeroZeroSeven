@@ -8,52 +8,62 @@
     <com.ffn.zerozeroseven.view.TitleView
         android:id="@+id/titleview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></com.ffn.zerozeroseven.view.TitleView>
-    <RelativeLayout
+        android:layout_height="wrap_content" />
+
+    <com.ffn.zerozeroseven.view.UserDefineScrollView
         android:layout_width="match_parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginRight="21dp"
-        android:layout_marginBottom="21dp"
-        android:background="@color/white"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_marginTop="22dp"
-            android:layout_marginLeft="34dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/text_show_color"
-            android:text=" "/>
-        <TextView
-            android:id="@+id/tv_body"
-            android:textSize="13sp"
-            android:layout_marginTop="13dp"
-            android:layout_marginLeft="34dp"
-            android:layout_marginRight="34dp"
-            android:layout_below="@+id/tv_title"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:id="@+id/tv_content"
-            android:textSize="13sp"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="34dp"
-            android:layout_marginRight="34dp"
-            android:layout_below="@+id/tv_body"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_marginTop="51dp"
-            android:layout_marginLeft="35dp"
-            android:layout_width="wrap_content"
-            android:textSize="13sp"
-            android:layout_below="@+id/tv_body"
-            android:text=""
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="21dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_marginRight="34dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="34dp"
+                android:layout_marginTop="22dp"
+                android:text=" "
+                android:textColor="@color/text_show_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp"
+                android:layout_marginTop="13dp"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_body"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp"
+                android:layout_marginTop="8dp"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_marginBottom="15dp"
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_body"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="51dp"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </com.ffn.zerozeroseven.view.UserDefineScrollView>
 </LinearLayout>

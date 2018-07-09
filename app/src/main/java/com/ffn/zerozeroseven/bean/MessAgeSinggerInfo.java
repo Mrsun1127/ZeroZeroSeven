@@ -53,11 +53,21 @@ public class MessAgeSinggerInfo implements Serializable {
          */
 
         private String summary;
+        private String createTime;
         private String link;
         private int id;
         private String title;
         private String type;
         private String content;
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
         private int status;
 
         public String getSummary() {
