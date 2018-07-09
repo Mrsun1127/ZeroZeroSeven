@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <com.ffn.zerozeroseven.view.TopView
@@ -79,40 +80,87 @@
         android:layout_height="11dp"
         android:background="#CCCCCC" />
 
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_product"
         android:layout_width="match_parent"
-        android:layout_height="81dp"
-        android:background="@color/white">
-
-        <RelativeLayout
-            android:id="@+id/rl_product"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/juxing">
-
-            <ImageView
-                android:id="@+id/iv_product"
-                android:layout_width="48dp"
-                android:layout_height="40dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/willdelete" />
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/rl_product"
-            android:layout_marginLeft="12dp"
-            android:layout_toRightOf="@+id/rl_product"
-            android:text="联想(Lenovo)天逸510S 带19.5英寸台式电脑8GB运..."
-            android:textColor="@color/text_color"
-            android:textSize="13sp" />
-    </RelativeLayout>
+        android:layout_height="wrap_content" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/numberical_default_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="预约备注："
+            android:textColor="@color/text_color"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/et_remark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:background="@color/white"
+            android:hint="请输入备注(限15字)"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/numberical_default_bg" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/numberical_default_bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="53dp">
+
+        <TextView
+            android:id="@+id/tv_qian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="115dp"
+            android:text="实付金额："
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_paymoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_qian"
+            android:text="￥6699.00"
+            android:textColor="@color/money"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/bt_pay"
+            android:layout_width="127dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/tab_under_line"
+            android:text="提交订单"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
 </LinearLayout>

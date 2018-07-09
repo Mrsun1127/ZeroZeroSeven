@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rl_product"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/juxing">
+
+            <ImageView
+                android:id="@+id/iv_product"
+                android:layout_width="48dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/willdelete" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="12dp"
+            android:id="@+id/tv_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/rl_product"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@+id/rl_product"
+            android:text="联想(Lenovo)天逸510S 带19.5英寸台式电脑8GB运..."
+            android:textColor="@color/text_color"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_product_detils"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_product_name"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@+id/rl_product"
+            android:text="重量:4.140kg 颜色:FX63 配置:【10..."
+            android:textColor="#999999"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_marginBottom="12dp"
+            android:id="@+id/tv_product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_product_detils"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@+id/rl_product"
+            android:text="￥6699.00"
+            android:textColor="#f45b43"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</LinearLayout>
