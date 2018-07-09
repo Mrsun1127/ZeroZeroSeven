@@ -273,6 +273,7 @@
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
         <activity android:name=".ui.NumberRicalDetilsActivity" />
         <activity android:name=".ui.NumberRicalCommitDingDanActivity" />
+        <activity android:name=".ui.NumberDrawBackActivity" />
 
         <!-- Required SDK核心功能-->
         <service
