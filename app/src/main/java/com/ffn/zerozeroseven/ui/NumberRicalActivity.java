@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.NumberRicalScrollAdapter;
@@ -35,6 +36,8 @@ public class NumberRicalActivity extends BaseActivity {
     ImageView iv_shopcar;
     @Bind(R.id.scrollview)
     NestedScrollView scrollview;
+    @Bind(R.id.ll_select_pop)
+    LinearLayout ll_select_pop;
 
     @Override
     protected int setLayout() {
