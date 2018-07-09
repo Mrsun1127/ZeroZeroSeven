@@ -49,10 +49,7 @@ public class SinggerSchoolTalkActivity extends BaseActivity {
     TextView tv_likecount;
     @Bind(R.id.ll_share)
     LinearLayout ll_share;
-    @Bind(R.id.iv_like)
-    ImageView iv_like;
-    @Bind(R.id.slide_like)
-    ImageView slide_like;
+
     @Bind(R.id.iv_type)
     ImageView iv_type;
     private int id;
@@ -129,11 +126,7 @@ public class SinggerSchoolTalkActivity extends BaseActivity {
                             tv_content.setText(data.getContent());
                             tv_time.setText(data.getCreateTime());
                             tv_likecount.setText(data.getLikeCount() + "");
-                            if (data.getIsLike() == 1) {
-                                Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.heart_solid).into(iv_like);
-                            } else {
-                                Glide.with(SinggerSchoolTalkActivity.this).load(R.drawable.heart_hollow).into(iv_like);
-                            }
+
                             switch (data.getPostType()) {
                                 case "01":
                                     titleView.setTopText("表白帖");
@@ -163,82 +156,7 @@ public class SinggerSchoolTalkActivity extends BaseActivity {
     boolean close = false;
     boolean add = false;
 
-    @OnClick({R.id.ll_share, R.id.iv_dislike, R.id.slide_like})
-    void setOnClicks(View v) {
-        switch (v.getId()) {
-            case R.id.ll_share:
-                showShare(singgerDetilsInfo.getData().getTitle(), singgerDetilsInfo.getData().getContent());
-                break;
-            case R.id.slide_like:
-                if (singgerDetilsInfo.getData().getIsLike() == 1) {
-                    ZeroZeroSevenUtils.showCustonPop(SinggerSchoolTalkActivity.this, "您已经点过赞", slide_like);
-                    return;
-                }
-                if (add) {
-                    return;
-                }
-                DafenInfo dafenInfo1 = new DafenInfo();
-                dafenInfo1.setFunctionName("UpdatePostLike");
-                DafenInfo.ParametersBean parametersBean1 = new DafenInfo.ParametersBean();
-                parametersBean1.setPostId("" + id);
-                parametersBean1.setEvent("ADD");
-                dafenInfo1.setParameters(parametersBean1);
-                httpPostJSON(dafenInfo1, true);
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
 
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        LogUtils.E("Singger", response.body().string());
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                add = true;
-                                tv_likecount.setText((Integer.parseInt(tv_likecount.getText().toString()) + 1) + "");
-                                iv_like.setBackgroundResource(R.drawable.heart_solid);
-                                singgerDetilsInfo.getData().setIsLike(1);
-                            }
-                        });
-
-                    }
-                });
-                break;
-            case R.id.iv_dislike:
-                if (close) {
-                    return;
-                }
-                DafenInfo dafenInfo = new DafenInfo();
-                dafenInfo.setFunctionName("UpdatePostLike");
-                DafenInfo.ParametersBean parametersBean = new DafenInfo.ParametersBean();
-                parametersBean.setPostId("" + id);
-                parametersBean.setEvent("DELETE");
-                dafenInfo.setParameters(parametersBean);
-                httpPostJSON(dafenInfo, true);
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        close = true;
-                        if (singgerDetilsInfo.getData().getLikeCount() != 0) {
-                            BaseAppApplication.mainHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    tv_likecount.setText((Integer.parseInt(tv_likecount.getText().toString()) - 1) + "");
-                                }
-                            });
-                        }
-                    }
-                });
-                break;
-        }
-    }
 
     private void showShare(String title, String content) {
         OnekeyShare oks = new OnekeyShare();

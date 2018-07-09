@@ -15,20 +15,9 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="134dp">
-        <ImageView
-            android:id="@+id/iv_dislike"
-            android:layout_marginLeft="30dp"
-            android:background="@drawable/dislike"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
 
-        <ImageView
-            android:id="@+id/slide_like"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/like"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+
+
 
     </RelativeLayout>
 </LinearLayout>

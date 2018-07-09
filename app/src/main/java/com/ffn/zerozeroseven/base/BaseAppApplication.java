@@ -144,12 +144,14 @@ public class BaseAppApplication extends MultiDexApplication {
 
     // 遍历所有Activity并finish
     public void exit() {
-        for (int i = 0, size = activityList.size(); i < size; i++) {
-            if (null != activityList.get(i)) {
-                activityList.get(i).finish();
+        if (activityList != null) {
+            for (int i = 0, size = activityList.size(); i < size; i++) {
+                if (null != activityList.get(i)) {
+                    activityList.get(i).finish();
+                }
             }
+            activityList.clear();
         }
-        activityList.clear();
     }
 
 
