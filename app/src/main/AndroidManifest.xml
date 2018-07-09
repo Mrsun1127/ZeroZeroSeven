@@ -272,6 +272,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
         <activity android:name=".ui.NumberRicalDetilsActivity" />
+        <activity android:name=".ui.NumberRicalCommitDingDanActivity" />
 
         <!-- Required SDK核心功能-->
         <service
