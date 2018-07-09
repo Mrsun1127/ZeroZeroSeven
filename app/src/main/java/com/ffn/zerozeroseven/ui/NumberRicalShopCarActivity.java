@@ -2,10 +2,12 @@ package com.ffn.zerozeroseven.ui;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.NumberRicalCarAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.TopView;
 
@@ -14,6 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class NumberRicalShopCarActivity extends BaseActivity {
     @Bind(R.id.topView)
@@ -61,5 +64,14 @@ public class NumberRicalShopCarActivity extends BaseActivity {
         s.add("");
         carAdapter.addAll(s);
 
+    }
+    @OnClick({R.id.bt_buy})
+    void setOnClicks(View v) {
+        switch (v.getId()) {
+            case R.id.bt_buy:
+                ZeroZeroSevenUtils.SwitchActivity(NumberRicalShopCarActivity.this,NumberRicalCommitDingDanActivity.class);
+            break;
+
+        }
     }
 }

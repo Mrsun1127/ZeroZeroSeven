@@ -22,6 +22,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import q.rorbin.badgeview.QBadgeView;
 
 public class NumberRicalActivity extends BaseActivity {
     @Bind(R.id.topView)
@@ -38,7 +39,7 @@ public class NumberRicalActivity extends BaseActivity {
     NestedScrollView scrollview;
     @Bind(R.id.ll_select_pop)
     LinearLayout ll_select_pop;
-
+    private QBadgeView badgeView;
     @Override
     protected int setLayout() {
         return R.layout.activity_numberrical;
@@ -47,6 +48,9 @@ public class NumberRicalActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        badgeView = new QBadgeView(this);
+        badgeView.bindTarget(iv_shopcar);
+        badgeView.setBadgeNumber(9);
         topView.setTopText("数码市场");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
