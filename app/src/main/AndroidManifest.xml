@@ -86,11 +86,11 @@
         <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -196,8 +196,6 @@
             android:name=".ui.SeachSchoolListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
-        <activity android:name=".ui.SchoolnewCardActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".ui.SelectAdrMannGerActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.ZhiJieCommitDingDanActivity"
@@ -232,8 +230,6 @@
                 <category android:name="com.ffn.zerozeroseven" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LookMoreRunActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".ui.VipActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.ShouyiActivity"
@@ -273,7 +269,13 @@
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
         <activity android:name=".ui.NumberRicalDetilsActivity" />
         <activity android:name=".ui.NumberRicalCommitDingDanActivity" />
-        <activity android:name=".ui.NumberDrawBackActivity" />
+        <activity android:name=".ui.NumberDrawBackActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <!-- Required SDK核心功能-->
         <service
