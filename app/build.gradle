@@ -131,6 +131,8 @@ dependencies {
 //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.3'
 //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.3'
     //    implementation 'com.android.support:cardview-v7:27.0.2'
+//     debugCompile 'com.github.markzhai:blockcanary-android:1.5.0'
+//     releaseCompile 'com.github.markzhai:blockcanary-no-op:1.5.0'
     compile 'com.github.pinguo-zhouwei:MZBannerView:v2.0.1'
     compile 'com.just.agentweb:agentweb:1.2.2'
     compile 'com.umeng.sdk:common:latest.integration'

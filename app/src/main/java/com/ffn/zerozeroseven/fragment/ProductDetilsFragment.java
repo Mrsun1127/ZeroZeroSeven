@@ -21,6 +21,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.ProductDtilsInfo;
 import com.ffn.zerozeroseven.ui.InteralDetilsActivity;
 import com.ffn.zerozeroseven.ui.ProductDetilsActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 
@@ -41,7 +42,7 @@ public class ProductDetilsFragment extends BaseFragment {
     private ProductSinggerGoInAdapter singgerGoInAdapter;
     private int id;
     private int issuePId;
-    public  ProductDetilsInfo productDetilsInfo;
+    public ProductDetilsInfo productDetilsInfo;
     private int replaceId;
 
     public static ProductDetilsFragment newInstance(int id, int issuePId) {
@@ -77,9 +78,9 @@ public class ProductDetilsFragment extends BaseFragment {
         tv_time.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
             @Override
             public void onEnd(CountdownView cv) {
-                if("sign".equals(ProductDetilsActivity.mInstance.get().type)){
+                if ("sign".equals(ProductDetilsActivity.mInstance.get().type)) {
                     requestId(ProductDetilsActivity.mInstance.get().issuePrizeId);
-                }else{
+                } else {
                     ProductDetilsActivity.mInstance.get().requestTitle(false);
                 }
             }
@@ -140,7 +141,11 @@ public class ProductDetilsFragment extends BaseFragment {
         ProductDtilsInfo lastInteralInfo = new ProductDtilsInfo();
         lastInteralInfo.setFunctionName("QueryPointIssuePrize");
         ProductDtilsInfo.ParametersBean parametersBean = new ProductDtilsInfo.ParametersBean();
-        parametersBean.setUserPhone(userInfo.getPhone());
+        try {
+            parametersBean.setUserPhone(userInfo.getPhone());
+        } catch (Exception e) {
+            ToastUtils.showShort("app出现了点小问题，请重新登录零零7");
+        }
         parametersBean.setIssuePrizeId(issueId);
         lastInteralInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
@@ -152,8 +157,8 @@ public class ProductDetilsFragment extends BaseFragment {
                 if (productDetilsInfo.getCode() == 0) {
                     //商品详情
                     Glide.with(bfCxt).load(productDetilsInfo.getData().getPointPrize().getPrizePic()).into(iv_product);
-                    tv_name.setText("【第"+productDetilsInfo.getData().getIssue()+"期】"+productDetilsInfo.getData().getPointPrize().getPrizeName());
-                    tv_name1.setText("【第"+productDetilsInfo.getData().getIssue()+"期】"+productDetilsInfo.getData().getPointPrize().getPrizeName());
+                    tv_name.setText("【第" + productDetilsInfo.getData().getIssue() + "期】" + productDetilsInfo.getData().getPointPrize().getPrizeName());
+                    tv_name1.setText("【第" + productDetilsInfo.getData().getIssue() + "期】" + productDetilsInfo.getData().getPointPrize().getPrizeName());
                     tv_money.setText("￥" + productDetilsInfo.getData().getPointPrize().getPrizePrice());
                     tv_detils.setText(productDetilsInfo.getData().getPointPrize().getPrizeIntro());
                     productGoInAdapter.cleanDates();
@@ -197,7 +202,7 @@ public class ProductDetilsFragment extends BaseFragment {
                             rl_ok.setVisibility(View.VISIBLE);
                             rl_close.setVisibility(View.GONE);
                             rl_open.setVisibility(View.GONE);
-                            tv_time.start(productDetilsInfo.getData().getPointPrize().getCountDownTime()*1000+2000);
+                            tv_time.start(productDetilsInfo.getData().getPointPrize().getCountDownTime() * 1000 + 2000);
                             break;
                         case 2:
                             bt_go.setVisibility(View.GONE);

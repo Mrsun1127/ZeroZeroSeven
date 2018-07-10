@@ -110,7 +110,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         JifenInfo jifenInfo = new JifenInfo();
         jifenInfo.setFunctionName("QueryUserHonerPoint");
         JifenInfo.ParametersBean parametersBean = new JifenInfo.ParametersBean();
-        parametersBean.setUserId(Integer.parseInt(userId));
+        try {
+            parametersBean.setUserId(Integer.parseInt(userId));
+        } catch (Exception e) {
+        }
         jifenInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(jifenInfo, true, false);
@@ -119,7 +122,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             public void onSuccLoad(String response) {
                 JiInfo jiInfo = JSON.parseObject(response, JiInfo.class);
                 if (jiInfo.getCode() == 0) {
-                    tv_jifen.setText("当前积分："+jiInfo.getData().getHonerPoint());
+                    tv_jifen.setText("当前积分：" + jiInfo.getData().getHonerPoint());
                 }
             }
         });
@@ -303,13 +306,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    @OnClick({R.id.rl_message,R.id.rl_tel, R.id.rl_vip, R.id.rl_yaoqing, R.id.rl_shouyi, R.id.iv_level})
+    @OnClick({R.id.rl_message, R.id.rl_tel, R.id.rl_vip, R.id.rl_yaoqing, R.id.rl_shouyi, R.id.iv_level})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.rl_message:
-                if(userInfo!=null){
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt,MessAgeActivity.class);
-                }else{
+                if (userInfo != null) {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MessAgeActivity.class);
+                } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
                 }
                 break;

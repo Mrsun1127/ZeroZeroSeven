@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    android:text="当前积分:88"/>
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"

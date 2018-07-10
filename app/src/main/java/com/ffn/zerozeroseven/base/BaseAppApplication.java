@@ -106,7 +106,6 @@ public class BaseAppApplication extends MultiDexApplication {
         MobSDK.init(this);
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "5a9a40568f4a9d688300016c");
         UMConfigure.setLogEnabled(true);
-
     }
 
     public static BaseAppApplication getInstance() {

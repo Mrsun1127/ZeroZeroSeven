@@ -19,6 +19,8 @@ import com.ffn.zerozeroseven.fragment.QiangDanFragment;
 import com.ffn.zerozeroseven.fragment.YiChangFragment;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TitleView;
 
 import java.util.ArrayList;
@@ -50,6 +52,11 @@ public class CourierActivity extends BaseActivity {
     @Override
     public void initView() {
         json = userInfo.getCurisInfoJson();
+        if(TextUtils.isEmpty(json)){
+            ToastUtils.showShort("请重新登陆");
+            ZeroZeroSevenUtils.SwitchActivity(this,LoginActivity.class);
+            return;
+        }
         curiousInfo = JSON.parseObject(json, CuriousInfo.class);
         tv_place = findViewById(R.id.tv_place);
         tv_name = findViewById(R.id.tv_name);
