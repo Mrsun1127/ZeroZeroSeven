@@ -41,8 +41,6 @@ public class BaseAppApplication extends MultiDexApplication {
     public static UserInfo.DataBean userInfo;
     private static ArrayList<Integer> readList;
     //判断是否被回收
-    public static int flag = -1;
-    public static int newsNoread = 0;
 
     static {
         //设置全局的Header构建器
