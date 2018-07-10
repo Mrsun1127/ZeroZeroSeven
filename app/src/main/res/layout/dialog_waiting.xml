@@ -23,7 +23,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
-        android:text="正在加载中..."
+        android:text="@string/loading"
         android:textColor="@android:color/white" />
 
 </LinearLayout>
