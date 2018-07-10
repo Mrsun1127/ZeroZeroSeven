@@ -28,7 +28,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
-        setContentView(R.layout.activity_splash);
         BaseAppApplication.flag=66;//设置出-1以外的数字
         BaseAppApplication.getInstance().addActivity(this);
         tv_version=findViewById(R.id.tv_version);
