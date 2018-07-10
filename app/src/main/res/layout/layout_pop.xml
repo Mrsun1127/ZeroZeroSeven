@@ -30,7 +30,7 @@
         android:layout_marginBottom="37dp"
         android:text="正在搜索附近的校园贴"
         android:textColor="@color/white"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
 
 </RelativeLayout>

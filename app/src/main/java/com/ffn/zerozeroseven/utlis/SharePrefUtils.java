@@ -24,14 +24,14 @@ public class SharePrefUtils {
     }
     public static void setBoolean(Context context, String key, boolean Value){
         SharedPreferences sp = context.getSharedPreferences("config", context.MODE_PRIVATE);
-       sp.edit().putBoolean(key,Value).commit();
+       sp.edit().putBoolean(key,Value).apply();
     }
 
 
 
     public static void setString(Context context, String key, String Value){
         SharedPreferences sp = context.getSharedPreferences("config", context.MODE_PRIVATE);
-        sp.edit().putString(key,Value).commit();
+        sp.edit().putString(key,Value).apply();
     }
     public static String getString(Context context, String key, String defaultValue){
         SharedPreferences sp = context.getSharedPreferences("config", context.MODE_PRIVATE);
@@ -42,7 +42,7 @@ public class SharePrefUtils {
 
     public static void setInt(Context context, String key, int Value){
         SharedPreferences sp = context.getSharedPreferences("config", context.MODE_PRIVATE);
-        sp.edit().putInt(key,Value).commit();
+        sp.edit().putInt(key,Value).apply();
     }
     public static int getInt(Context context, String key, int defaultValue){
         SharedPreferences sp = context.getSharedPreferences("config", context.MODE_PRIVATE);
@@ -78,7 +78,7 @@ public class SharePrefUtils {
     //删除
     public static void clearData(Context context) {
         mSp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
-        mSp.edit().clear().commit();
+        mSp.edit().clear().apply();
     }
     /**
      * desc:获取保存的Object对象

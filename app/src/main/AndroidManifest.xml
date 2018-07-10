@@ -270,6 +270,7 @@
         <activity android:name=".ui.NumberRicalDetilsActivity" />
         <activity android:name=".ui.NumberRicalCommitDingDanActivity" />
         <activity android:name=".ui.NumberDrawBackActivity" />
+        <activity android:name=".ui.UpdatePayPassWordActivity" />
 
         <!-- Required SDK核心功能-->
         <service

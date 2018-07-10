@@ -18,6 +18,6 @@ public class SharedConfig {
     }
 
     public void ClearConfig() {
-        shared.edit().clear().commit();
+        shared.edit().clear().apply();
     }
 }

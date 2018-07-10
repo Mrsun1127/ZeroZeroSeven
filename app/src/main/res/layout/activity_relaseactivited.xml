@@ -168,7 +168,7 @@
                     android:layout_marginLeft="2dp"
                     android:gravity="center_vertical"
                     android:text="匿名发布"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
                 <CheckBox
                     android:id="@+id/cb_niming"

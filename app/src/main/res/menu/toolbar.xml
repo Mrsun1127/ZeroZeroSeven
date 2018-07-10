@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/more"
-        android:title="签到"
+        android:title="@string/sign"
         app:showAsAction="ifRoom">
         <!-- item包含menu表示该menu是item下的子菜单 -->
         <menu>
@@ -11,15 +11,15 @@
             <group>
                 <item
                     android:id="@+id/qiandao"
-                    android:title="签到"
+                    android:title="@string/sign"
                     app:showAsAction="ifRoom" />
                 <item
                     android:id="@+id/rencently"
-                    android:title="最新揭晓"
+                    android:title="@string/best_bew"
                     app:showAsAction="ifRoom" />
                 <item
                     android:id="@+id/minesigh"
-                    android:title="我的中奖"
+                    android:title="@string/mysign"
                     app:showAsAction="ifRoom" />
 
             </group>

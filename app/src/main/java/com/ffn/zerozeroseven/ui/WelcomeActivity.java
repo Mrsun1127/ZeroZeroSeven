@@ -58,7 +58,7 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
                 SharedPreferences shared = getSharedPreferences("lead", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = shared.edit();
                 editor.putBoolean("First", false);
-                editor.commit();
+                editor.apply();
                 ZeroZeroSevenUtils.SwitchActivity(WelcomeActivity.this,LoginActivity.class);
                 finish();
             }

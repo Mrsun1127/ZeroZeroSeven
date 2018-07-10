@@ -7,4 +7,9 @@
     <string name="check_phone_net">请检查本机网络是否打开！</string>
     <string name="send_again">重新发送</string>
     <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+    <string name="sign">签到</string>
+    <string name="best_bew">最新揭晓</string>
+    <string name="mysign">我的中奖</string>
+    <string name="mysignvalue">我的中奖记录</string>
+    <string name="mysigngoinvalue">我的参与记录</string>
 </resources>
