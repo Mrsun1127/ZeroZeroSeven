@@ -21,7 +21,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
-            android:text="支付金额：23RMB"
             android:textColor="@color/text_show_color"
             android:textSize="16sp" />
 
@@ -37,7 +36,7 @@
             android:background="#EDEDED" />
 
         <Button
-            android:text="选择下面支付方式"
+            android:text="@string/select_pay"
             android:layout_width="128dp"
             android:layout_height="39dp"
             android:layout_below="@+id/view_line3"
@@ -57,6 +56,6 @@
         android:layout_width="match_parent"
         android:layout_height="61dp"
         android:textColor="@color/white"
-        android:text="支付"
+        android:text="@string/pay"
         android:background="@drawable/bg"/>
 </LinearLayout>

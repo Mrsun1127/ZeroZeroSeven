@@ -35,7 +35,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="跑腿事项:"
                     android:textColor="@color/text_show_color"
                     android:textSize="16sp" />
 
@@ -46,7 +45,6 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/tv1"
                     android:background="@null"
-                    android:hint="快递"
                     android:paddingLeft="10dp" />
             </RelativeLayout>
             <RelativeLayout
@@ -59,7 +57,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="取件地址:"
                     android:textColor="@color/text_show_color"
                     android:textSize="16sp" />
 
@@ -87,7 +84,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="送达地址:"
                     android:textColor="@color/text_show_color"
                     android:textSize="16sp" />
 
@@ -115,7 +111,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="物品重量:"
                     android:textColor="@color/text_show_color"
                     android:textSize="16sp" />
 
@@ -143,7 +138,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="物品价值:"
                     android:textColor="@color/text_show_color"
                     android:textSize="16sp" />
 
@@ -171,7 +165,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="取件时间:"
                     android:textColor="@color/text_show_color"
                     android:textSize="16sp" />
 
@@ -199,7 +192,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="快递公司:"
                     android:textColor="@color/text_show_color"
                     android:textSize="16sp" />
 
@@ -227,7 +219,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="快递员电话:"
                     android:textColor="@color/text_show_color"
                     android:textSize="16sp" />
 
@@ -255,7 +246,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="          其他:"
                     android:textColor="@color/text_show_color"
                     android:textSize="16sp" />
 
@@ -283,7 +273,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="          小费:"
                     android:textColor="@color/text_show_color"
                     android:textSize="16sp" />
 
@@ -312,7 +301,6 @@
             android:layout_marginLeft="32dp"
             android:textSize="16sp"
             android:textColor="@color/text_show_color"
-            android:text="跑腿费:"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -321,7 +309,6 @@
             android:layout_toRightOf="@+id/tv_bottom"
             android:textSize="16sp"
             android:textColor="@color/tab_under_line"
-            android:text="  ¥:"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -330,14 +317,12 @@
             android:layout_toRightOf="@+id/tv_bottom1"
             android:textSize="16sp"
             android:textColor="@color/tab_under_line"
-            android:text="2"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/bt_sub"
             android:layout_marginRight="13dp"
-            android:text="发布跑腿任务"
             android:textColor="@color/white"
             android:layout_width="221dp"
             android:layout_height="50dp"
