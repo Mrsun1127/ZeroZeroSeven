@@ -19,8 +19,8 @@ android {
 }
 
 dependencies {
-    provided 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    provided 'com.android.support:recyclerview-v7:25.4.0'
+    compile 'com.android.support:appcompat-v7:25.4.0'
     compile 'com.facebook.rebound:rebound:0.3.8'
 }
 

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="14dp"
             android:layout_marginTop="32dp"
-            android:text="去选择学校"
+            android:text="@string/select_school"
             android:textColor="@color/white"
             android:textSize="16sp" />
 

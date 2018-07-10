@@ -31,7 +31,7 @@
                     android:layout_marginLeft="20dp"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="支付宝支付"
+                    android:text="@string/alipay"
                     android:textColor="@color/text_color"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -60,7 +60,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:gravity="center_vertical"
-                    android:text="微信支付"
+                    android:text="@string/wechatpay"
                     android:textColor="@color/text_color"
                     android:textSize="15sp" />
             </LinearLayout>

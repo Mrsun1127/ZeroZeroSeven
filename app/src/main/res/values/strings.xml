@@ -12,4 +12,24 @@
     <string name="mysign">我的中奖</string>
     <string name="mysignvalue">我的中奖记录</string>
     <string name="mysigngoinvalue">我的参与记录</string>
+    <string name="zhongjiangla">中奖啦</string>
+    <string name="gongxihuode">恭喜获得</string>
+    <string name="writesign">请填写您的领奖信息</string>
+    <string name="name">姓名</string>
+    <string name="phone">电话</string>
+    <string name="adr">地址</string>
+    <string name="kefu1">客服将在24小时内与您联系，请保持电话畅通。请在</string>
+    <string name="kefu2">奖品有效期内填写信息并确认填写内容无误，过期未</string>
+    <string name="kefu3">填写视为自动放弃奖励。奖励有效期：5个工作日</string>
+    <string name="commit">提交</string>
+    <string name="select_school">去选择学校</string>
+    <string name="alipay">支付宝支付</string>
+    <string name="wechatpay">微信支付</string>
+    <string name="inputadr">请输入详细的地址</string>
+    <string name="loudonghao">楼栋号</string>
+    <string name="sushehao">宿舍号/教室/其他</string>
+    <string name="inputname">请输入联系人姓名</string>
+    <string name="inputphone">请输入联系人电话号码</string>
+    <string name="setadr">设置默认地址：</string>
+    <string name="finish">完成</string>
 </resources>
