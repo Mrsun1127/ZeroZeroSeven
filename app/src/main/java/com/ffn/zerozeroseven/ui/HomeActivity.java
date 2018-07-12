@@ -30,6 +30,7 @@ import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.fragment.MineFragment;
 import com.ffn.zerozeroseven.fragment.ShopFragment;
 import com.ffn.zerozeroseven.service.LocalService;
+import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.NXHooldeView;
@@ -74,6 +75,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
+        LogUtils.D("logString","onSaveInstanceState");
         savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -81,17 +83,22 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo"));
+        LogUtils.D("logString","onRestoreInstanceState");
+        if(savedInstanceState!=null){
+            BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo"));
+        }
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(savedInstanceState!=null){
+            LogUtils.D("logString","savedInstanceState!=null");
             BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo"));
-            fm=getSupportFragmentManager();
-            fm.popBackStackImmediate(null,1);
+//            fm=getSupportFragmentManager();
+//            fm.popBackStackImmediate(null,1);
         }
+        LogUtils.D("logString","savedInstanceState==null");
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
         BaseAppApplication.getInstance().addActivity(this);
@@ -99,7 +106,7 @@ public class HomeActivity extends AppCompatActivity {
         initRadio();
         initFragments();
         showFragment(0);
-        openAliveService();
+//        openAliveService();
         txst();
     }
 
@@ -247,6 +254,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        LogUtils.D("logString","onDestroy");
         BaseAppApplication.getInstance().finishActivity(this);
     }
 

@@ -219,7 +219,7 @@
                             android:layout_below="@+id/iv_seven"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
-                            android:text="待开发"
+                            android:text="跳蚤市场"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
@@ -242,7 +242,7 @@
                             android:layout_below="@+id/iv_eight"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
-                            android:text="待开发"
+                            android:text="学校跑腿"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
@@ -265,7 +265,7 @@
                             android:layout_below="@+id/iv_nine"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
-                            android:text="待开发"
+                            android:text="课程表"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>

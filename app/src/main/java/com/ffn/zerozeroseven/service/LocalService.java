@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 import com.ffn.zerozeroseven.IMyAidlInterface;
 import com.ffn.zerozeroseven.base.AppManger;
@@ -46,6 +47,7 @@ public class LocalService extends Service {
 
         }
     }
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {

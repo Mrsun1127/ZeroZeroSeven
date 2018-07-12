@@ -19,9 +19,9 @@ android {
 }
 
 dependencies {
-    provided 'com.android.support:recyclerview-v7:25.4.0'
-    compile 'com.android.support:appcompat-v7:25.4.0'
-    compile 'com.facebook.rebound:rebound:0.3.8'
+    compileOnly 'com.android.support:recyclerview-v7:25.4.0'
+    api 'com.android.support:appcompat-v7:25.4.0'
+    api 'com.facebook.rebound:rebound:0.3.8'
 }
 
 // gradle uploadArchives
