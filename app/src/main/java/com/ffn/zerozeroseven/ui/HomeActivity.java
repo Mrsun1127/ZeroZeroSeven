@@ -262,13 +262,13 @@ public class HomeActivity extends AppCompatActivity {
         startService(new Intent(HomeActivity.this, LocalService.class));
     }
     public void showpop(){
-        BaseAppApplication.mainHandler.post(new Runnable() {
+        rl_main.post(new Runnable() {
             @Override
             public void run() {
-
                 ZeroZeroSevenUtils.showSleepPop(HomeActivity.this,rl_mine);
             }
         });
+
     }
     public void addAction(View startView) {
         NXHooldeView nxHooldeView = new NXHooldeView(HomeActivity.this);

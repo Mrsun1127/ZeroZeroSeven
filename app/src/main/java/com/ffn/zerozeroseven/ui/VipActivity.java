@@ -21,6 +21,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.ChanpinInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.HuoChanpinInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.TixianInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.VipUserInfo;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZFBPayUtil;
@@ -71,6 +72,7 @@ public class VipActivity extends BaseActivity {
     ImageView iv_vip;
     @Bind(R.id.tv_tixian)
     TextView tv_tixian;
+    private OkGoUtils okGoUtils;
 
     @Override
     protected int setLayout() {
@@ -126,34 +128,20 @@ public class VipActivity extends BaseActivity {
     TextView tv_name2;
 
     private void requestChanpin() {
-        showLoadProgress();
         HuoChanpinInfo huoChanpinInfo = new HuoChanpinInfo();
         huoChanpinInfo.setFunctionName("ListUserProduct");
         HuoChanpinInfo.ParametersBean parametersBean = new HuoChanpinInfo.ParametersBean();
         parametersBean.setProductType("VIP");
         huoChanpinInfo.setParameters(parametersBean);
-        httpPostJSON(huoChanpinInfo, true);
-        call.enqueue(new Callback() {
+        okGoUtils = new OkGoUtils(VipActivity.this);
+        okGoUtils.httpPostJSON(huoChanpinInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+            public void onSuccLoad(String response) {
+                chanpinInfo = JSON.parseObject(response, ChanpinInfo.class);
+                tv_name2.post(new Runnable() {
                     @Override
                     public void run() {
-                        disLoadProgress();
-                        ToastUtils.showShort("获取产品信息列表失败");
-                        rl_one.setVisibility(View.GONE);
-                        rl_two.setVisibility(View.GONE);
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                chanpinInfo = JSON.parseObject(response.body().string(), ChanpinInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
                         if (chanpinInfo.getCode() == 0) {
                             tv_level1.setText(chanpinInfo.getData().getProducts().get(0).getPrice() + "元");
                             tv_level2.setText(chanpinInfo.getData().getProducts().get(1).getPrice() + "元");
@@ -170,6 +158,8 @@ public class VipActivity extends BaseActivity {
                 });
             }
         });
+
+
     }
 
     int level = 0;
@@ -251,32 +241,19 @@ public class VipActivity extends BaseActivity {
     }
 
     private void Tixian() {
-        showLoadProgress();
         TixianInfo tixianInfo = new TixianInfo();
         tixianInfo.setFunctionName("AlipayWithdrawalToAccount");
         TixianInfo.ParametersBean parametersBean = new TixianInfo.ParametersBean();
         parametersBean.setAmount(et_tixian.getText().toString().trim());
         tixianInfo.setParameters(parametersBean);
-        httpPostJSON(tixianInfo, true);
-        call.enqueue(new Callback() {
+        okGoUtils.httpPostJSON(tixianInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+            public void onSuccLoad(String response) {
+                final ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                tv_name2.post(new Runnable() {
                     @Override
                     public void run() {
-                        disLoadProgress();
-                        ToastUtils.showShort("提现失败");
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final ErrorCodeInfo errorCodeInfo = JSON.parseObject(response.body().string(), ErrorCodeInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
                         if (errorCodeInfo.getCode() == 0) {
                             ToastUtils.showShort("提现成功");
                             refreshUserInfo();
@@ -319,7 +296,6 @@ public class VipActivity extends BaseActivity {
     }
 
     private void zfbPay() {
-        showLoadProgress();
         CallNewDingDanInfo callNewDingDanInfo = new CallNewDingDanInfo();
         callNewDingDanInfo.setFunctionName("PayRechargeOrder");
         CallNewDingDanInfo.ParametersBean parametersBean = new CallNewDingDanInfo.ParametersBean();
@@ -327,33 +303,21 @@ public class VipActivity extends BaseActivity {
         parametersBean.setPayment("AliPay");
         parametersBean.setTradeType("APP");
         callNewDingDanInfo.setParameters(parametersBean);
-        httpPostJSON(callNewDingDanInfo, true);
-        call.enqueue(new Callback() {
+        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        ToastUtils.showShort("支付异常，请稍后再试！！");
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response.body().string(), CommitDingDanInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        if (commitDingDanInfo.getCode() == 0) {
-                            mZFbutils.pay(commitDingDanInfo.getData().getBody(), "");
-                        } else {
-                            ZeroZeroSevenUtils.showCustonPop(VipActivity.this, commitDingDanInfo.getMessage(), et_money);
-                        }
-                    }
-                });
+            public void onSuccLoad(String response) {
+                final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response, CommitDingDanInfo.class);
+               tv_name2.post(new Runnable() {
+                   @Override
+                   public void run() {
+                       if (commitDingDanInfo.getCode() == 0) {
+                           mZFbutils.pay(commitDingDanInfo.getData().getBody(), "");
+                       } else {
+                           ZeroZeroSevenUtils.showCustonPop(VipActivity.this, commitDingDanInfo.getMessage(), et_money);
+                       }
+                   }
+               });
             }
         });
     }
@@ -362,7 +326,6 @@ public class VipActivity extends BaseActivity {
     private static IWXAPI api;
 
     private void wechatPay() {
-        showLoadProgress();
         CallNewDingDanInfo callNewDingDanInfo = new CallNewDingDanInfo();
         callNewDingDanInfo.setFunctionName("PayRechargeOrder");
         CallNewDingDanInfo.ParametersBean parametersBean = new CallNewDingDanInfo.ParametersBean();
@@ -370,26 +333,14 @@ public class VipActivity extends BaseActivity {
         parametersBean.setPayment("WechatPay");
         parametersBean.setTradeType("APP");
         callNewDingDanInfo.setParameters(parametersBean);
-        httpPostJSON(callNewDingDanInfo, true);
-        call.enqueue(new Callback() {
+        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+            public void onSuccLoad(String response) {
+                final ChongZhiInfo chongZhiInfo = JSON.parseObject(response, ChongZhiInfo.class);
+                tv_name2.post(new Runnable() {
                     @Override
                     public void run() {
-                        disLoadProgress();
-                        ToastUtils.showShort("支付异常，请稍后再试！！");
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final ChongZhiInfo chongZhiInfo = JSON.parseObject(response.body().string(), ChongZhiInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
                         if (chongZhiInfo.getCode() == 0) {
                             PayReq req = new PayReq();
                             req.appId = chongZhiInfo.getData().getAppid();
@@ -426,7 +377,6 @@ public class VipActivity extends BaseActivity {
     }
 
     private void AliPayVip(int i) {
-        showLoadProgress();
         CallNewDingDanInfo callNewDingDanInfo = new CallNewDingDanInfo();
         callNewDingDanInfo.setFunctionName("PayMemberOrder");
         CallNewDingDanInfo.ParametersBean parametersBean = new CallNewDingDanInfo.ParametersBean();
@@ -438,39 +388,26 @@ public class VipActivity extends BaseActivity {
         parametersBean.setPayment("AliPay");
         parametersBean.setTradeType("APP");
         callNewDingDanInfo.setParameters(parametersBean);
-        httpPostJSON(callNewDingDanInfo, true);
-        call.enqueue(new Callback() {
+        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        ToastUtils.showShort("支付异常，请稍后再试！！");
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response.body().string(), CommitDingDanInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        if (commitDingDanInfo.getCode() == 0) {
-                            mZFbutils.pay(commitDingDanInfo.getData().getBody(), "");
-                        } else {
-                            ZeroZeroSevenUtils.showCustonPop(VipActivity.this, commitDingDanInfo.getMessage(), et_money);
-                        }
-                    }
-                });
+            public void onSuccLoad(String response) {
+                final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response, CommitDingDanInfo.class);
+               tv_name2.post(new Runnable() {
+                   @Override
+                   public void run() {
+                       if (commitDingDanInfo.getCode() == 0) {
+                           mZFbutils.pay(commitDingDanInfo.getData().getBody(), "");
+                       } else {
+                           ZeroZeroSevenUtils.showCustonPop(VipActivity.this, commitDingDanInfo.getMessage(), et_money);
+                       }
+                   }
+               });
             }
         });
     }
 
     private void WechatpayVip(int i) {
-        showLoadProgress();
         CallNewDingDanInfo callNewDingDanInfo = new CallNewDingDanInfo();
         callNewDingDanInfo.setFunctionName("PayMemberOrder");
         CallNewDingDanInfo.ParametersBean parametersBean = new CallNewDingDanInfo.ParametersBean();
@@ -482,43 +419,33 @@ public class VipActivity extends BaseActivity {
         parametersBean.setPayment("WechatPay");
         parametersBean.setTradeType("APP");
         callNewDingDanInfo.setParameters(parametersBean);
-        httpPostJSON(callNewDingDanInfo, true);
-        call.enqueue(new Callback() {
+        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        ToastUtils.showShort("支付异常，请稍后再试！！");
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final ChongZhiInfo chongZhiInfo = JSON.parseObject(response.body().string(), ChongZhiInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        if (chongZhiInfo.getCode() == 0) {
-                            PayReq req = new PayReq();
-                            req.appId = chongZhiInfo.getData().getAppid();
-                            req.partnerId = chongZhiInfo.getData().getPartnerid();
-                            req.prepayId = chongZhiInfo.getData().getPrepayid();
-                            req.nonceStr = chongZhiInfo.getData().getNoncestr();
-                            req.timeStamp = chongZhiInfo.getData().getTimestamp();
-                            req.packageValue = "Sign=WXPay";
-                            req.sign = chongZhiInfo.getData().getSign();
-                            api.sendReq(req);
-                        } else {
-                            ToastUtils.showShort(chongZhiInfo.getMessage());
-                        }
-                    }
-                });
+            public void onSuccLoad(String response) {
+                final ChongZhiInfo chongZhiInfo = JSON.parseObject(response, ChongZhiInfo.class);
+               tv_name2.post(new Runnable() {
+                   @Override
+                   public void run() {
+                       if (chongZhiInfo.getCode() == 0) {
+                           PayReq req = new PayReq();
+                           req.appId = chongZhiInfo.getData().getAppid();
+                           req.partnerId = chongZhiInfo.getData().getPartnerid();
+                           req.prepayId = chongZhiInfo.getData().getPrepayid();
+                           req.nonceStr = chongZhiInfo.getData().getNoncestr();
+                           req.timeStamp = chongZhiInfo.getData().getTimestamp();
+                           req.packageValue = "Sign=WXPay";
+                           req.sign = chongZhiInfo.getData().getSign();
+                           api.sendReq(req);
+                       } else {
+                           ToastUtils.showShort(chongZhiInfo.getMessage());
+                       }
+                   }
+               });
             }
         });
+
+
     }
 
 
@@ -529,31 +456,19 @@ public class VipActivity extends BaseActivity {
     }
 
     public void refreshUserInfo() {
-        showLoadProgress();
         VipUserInfo vipUserInfo = new VipUserInfo();
         vipUserInfo.setFunctionName("QueryAppUser");
         VipUserInfo.ParametersBean parametersBean = new VipUserInfo.ParametersBean();
         vipUserInfo.setParameters(parametersBean);
-        httpPostJSON(vipUserInfo, true);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(VipActivity.this);
+        okGoUtils.httpPostJSON(vipUserInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+            public void onSuccLoad(String response) {
+                final ReFreShUserInfo reFreShUserInfo = JSON.parseObject(response, ReFreShUserInfo.class);
+                tv_phone.post(new Runnable() {
                     @Override
                     public void run() {
-                        disLoadProgress();
-                        finish();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final ReFreShUserInfo reFreShUserInfo = JSON.parseObject(response.body().string(), ReFreShUserInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
                         if (reFreShUserInfo.getCode() == 0) {
                             ReFreShUserInfo.DataBean.UserBean user = reFreShUserInfo.getData().getUser();
                             if (!TextUtils.isEmpty(user.getAvatar())) {
@@ -575,8 +490,11 @@ public class VipActivity extends BaseActivity {
                         }
                     }
                 });
+
             }
         });
+
+
     }
 
     @Override

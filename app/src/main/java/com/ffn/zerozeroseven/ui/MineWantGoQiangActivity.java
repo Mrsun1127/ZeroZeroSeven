@@ -122,36 +122,14 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
     }
 
     private void requestRype() {
-        BaseAppApplication.mainHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                showLoadProgress();
-            }
-        });
-
         QiangTypeInfo typeInfo = new QiangTypeInfo();
         typeInfo.setFunctionName("ListPostType");
-        httpPostJSON(typeInfo);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(MineWantGoQiangActivity.this);
+        okGoUtils.httpPostJSON(typeInfo,true,true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                    }
-                });
-                TypeInfo info = JSON.parseObject(response.body().string(), TypeInfo.class);
+            public void onSuccLoad(String response) {
+                TypeInfo info = JSON.parseObject(response, TypeInfo.class);
                 if (info.getCode() == 0) {
                     MrsunAppCacheUtils.get(MineWantGoQiangActivity.this).put("cache", JSON.toJSONString(info));
                     type = new String[info.getData().getItems().size()];
@@ -211,14 +189,19 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
         okGoUtils.httpPostJSON(faTieInfo,true,true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onSuccLoad(String response) {
-                String code = JsonUtil.getFieldValue(response, "code");
-                if("0".equals(code)){
-                    ToastUtils.showShort("审核通过后，会第一时间展示您的帖子");
-                    finish();
-                }else{
-                    ToastUtils.showShort(JsonUtil.getFieldValue(response, "message"));
-                }
+            public void onSuccLoad(final String response) {
+                final String code = JsonUtil.getFieldValue(response, "code");
+                et_content.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if("0".equals(code)){
+                            ToastUtils.showShort("审核通过后，会第一时间展示您的帖子");
+                            finish();
+                        }else{
+                            ToastUtils.showShort(JsonUtil.getFieldValue(response, "message"));
+                        }
+                    }
+                });
             }
         });
     }

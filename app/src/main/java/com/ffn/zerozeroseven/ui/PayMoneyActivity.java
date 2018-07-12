@@ -15,6 +15,7 @@ import com.ffn.zerozeroseven.bean.WeChatInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CallNewDingDanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.OrderJsonInfo;
 import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZFBPayUtil;
@@ -143,7 +144,6 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
 
 
     private void PayMoney(final String str) {
-        showLoadProgress();
         CallNewDingDanInfo callNewDingDanInfo = new CallNewDingDanInfo();
         callNewDingDanInfo.setFunctionName("PayGoodsOrder");
         CallNewDingDanInfo.ParametersBean parametersBean1 = new CallNewDingDanInfo.ParametersBean();
@@ -157,11 +157,11 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         orderJsonInfo.setReceiverAddress(getIntent().getStringExtra("adr"));
         orderJsonInfo.setReceiverName(getIntent().getStringExtra("name"));
         orderJsonInfo.setReceiverPhone(getIntent().getStringExtra("phone"));
-        if(!TextUtils.isEmpty(carShopInfo.getShopInfos().get(0).getShopId())){
+        if (!TextUtils.isEmpty(carShopInfo.getShopInfos().get(0).getShopId())) {
             orderJsonInfo.setStoreId(Integer.parseInt(carShopInfo.getShopInfos().get(0).getShopId()));
         }
         orderJsonInfo.setSchoolId(schoolIId);
-        if(TextUtils.isEmpty(userId)){
+        if (TextUtils.isEmpty(userId)) {
             ToastUtils.showShort("请重新登陆");
             return;
         }
@@ -188,57 +188,26 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
 
         }
         callNewDingDanInfo.setParameters(parametersBean1);
-        httpPostJSON(callNewDingDanInfo, true);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(PayMoneyActivity.this);
+        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+            public void onSuccLoad(final String response) {
+                ll_all.post(new Runnable() {
                     @Override
                     public void run() {
-                        disLoadProgress();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                    }
-                });
-                if (str.equals("AliPay")) {//支付宝支付
-                    final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response.body().string(), CommitDingDanInfo.class);
-                    if (commitDingDanInfo.getCode() == 0) {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
+                        if (str.equals("AliPay")) {//支付宝支付
+                            final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response, CommitDingDanInfo.class);
+                            if (commitDingDanInfo.getCode() == 0) {
                                 mZFbutils.pay(commitDingDanInfo.getData().getBody(), payType);
-
-                            }
-                        });
-                    }else if(commitDingDanInfo.getCode() == -101){
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ZeroZeroSevenUtils.showSleepPop(PayMoneyActivity.this,ll_all);
-                            }
-                        });
-                    } else {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
+                            } else if (commitDingDanInfo.getCode() == -101) {
+                                ZeroZeroSevenUtils.showSleepPop(PayMoneyActivity.this, ll_all);
+                            } else {
                                 ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, commitDingDanInfo.getMessage(), ll_all);
                             }
-                        });
-                    }
-                } else {
-                    final WeChatInfo wxPayInfo = JSON.parseObject(response.body().string(), WeChatInfo.class);
-                    if (wxPayInfo.getCode() == 0) {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
+                        } else {
+                            final WeChatInfo wxPayInfo = JSON.parseObject(response, WeChatInfo.class);
+                            if (wxPayInfo.getCode() == 0) {
                                 PayReq req = new PayReq();
                                 req.appId = wxPayInfo.getData().getAppid();
                                 req.partnerId = wxPayInfo.getData().getPartnerid();
@@ -248,27 +217,18 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
                                 req.packageValue = "Sign=WXPay";
                                 req.sign = wxPayInfo.getData().getSign();
                                 api.sendReq(req);
-                            }
-                        });
-                    }else if(wxPayInfo.getCode() == -101){
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ZeroZeroSevenUtils.showSleepPop(PayMoneyActivity.this,ll_all);
-                            }
-                        });
-                    } else {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
+                            } else if (wxPayInfo.getCode() == -101) {
+                                ZeroZeroSevenUtils.showSleepPop(PayMoneyActivity.this, ll_all);
+                            } else {
                                 ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, wxPayInfo.getMessage(), ll_all);
-                            }
-                        });
-                    }
-                }
 
+                            }
+                        }
+                    }
+                });
             }
         });
+
 
     }
 

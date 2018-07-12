@@ -12,6 +12,7 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.SugAppInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.SugInfo;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
@@ -38,7 +39,7 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void doMain() {
         findViewById(R.id.iv_back).setOnClickListener(this);
-        TextView textView=findViewById(R.id.tv_top);
+        TextView textView = findViewById(R.id.tv_top);
         textView.setText("意见反馈");
         findViewById(R.id.bt_sub).setOnClickListener(this);
         et_body = findViewById(R.id.et_body);
@@ -52,17 +53,17 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.bt_sub:
-                if(TextUtils.isEmpty(et_body.getText().toString().trim())){
-                    ZeroZeroSevenUtils.showCustonPop(SugActivity.this,"请输入投诉建议的内容",et_body);
-                }else{
-                    if("people".equals(sugType)){
-                        String phone=getIntent().getStringExtra("phone");
-                        if(!TextUtils.isEmpty(phone)){
+                if (TextUtils.isEmpty(et_body.getText().toString().trim())) {
+                    ZeroZeroSevenUtils.showCustonPop(SugActivity.this, "请输入投诉建议的内容", et_body);
+                } else {
+                    if ("people".equals(sugType)) {
+                        String phone = getIntent().getStringExtra("phone");
+                        if (!TextUtils.isEmpty(phone)) {
                             sugPeople(phone);
-                        }else{
+                        } else {
                             ToastUtils.showShort("服务器异常，请稍后再试！");
                         }
-                    }else{
+                    } else {
                         sugApp();
                     }
                 }
@@ -71,79 +72,61 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void sugApp() {
-        showLoadProgress();
-        SugAppInfo sugAppInfo=new SugAppInfo();
+        SugAppInfo sugAppInfo = new SugAppInfo();
         sugAppInfo.setFunctionName("AddUserFeedback");
-        SugAppInfo.ParametersBean parametersBean=new SugAppInfo.ParametersBean();
+        SugAppInfo.ParametersBean parametersBean = new SugAppInfo.ParametersBean();
         parametersBean.setContent(et_body.getText().toString());
         sugAppInfo.setParameters(parametersBean);
-        httpPostJSON(sugAppInfo,true);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(SugActivity.this);
+        okGoUtils.httpPostJSON(sugAppInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+            public void onSuccLoad(String response) {
+                final ErrorCodeInfo info = JSON.parseObject(response, ErrorCodeInfo.class);
+                et_body.post(new Runnable() {
                     @Override
                     public void run() {
-                        disLoadProgress();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final ErrorCodeInfo info= JSON.parseObject(response.body().string(),ErrorCodeInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        if(info.getCode()==0){
+                        if (info.getCode() == 0) {
                             ToastUtils.showShort("提交成功");
                             finish();
-                        }else{
+                        } else {
                             ToastUtils.showShort(info.getMessage());
                         }
                     }
                 });
+
             }
         });
+
+
     }
 
     private void sugPeople(String phone) {
-        showLoadProgress();
-        SugInfo sugInfo=new SugInfo();
+        SugInfo sugInfo = new SugInfo();
         sugInfo.setFunctionName("AddCourierComplaint");
-        SugInfo.ParametersBean parametersBean=new SugInfo.ParametersBean();
+        SugInfo.ParametersBean parametersBean = new SugInfo.ParametersBean();
         parametersBean.setContent(et_body.getText().toString().trim());
         parametersBean.setCourierPhone(phone);
         sugInfo.setParameters(parametersBean);
-        httpPostJSON(sugInfo,true);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils1 = new OkGoUtils(SugActivity.this);
+        okGoUtils1.httpPostJSON(sugInfo, true, true);
+        okGoUtils1.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+            public void onSuccLoad(String response) {
+                final ErrorCodeInfo info = JSON.parseObject(response, ErrorCodeInfo.class);
+                et_body.post(new Runnable() {
                     @Override
                     public void run() {
-                        disLoadProgress();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final ErrorCodeInfo info= JSON.parseObject(response.body().string(),ErrorCodeInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        if(info.getCode()==0){
+                        if (info.getCode() == 0) {
                             ToastUtils.showShort("提交成功");
                             finish();
-                        }else{
+                        } else {
                             ToastUtils.showShort(info.getMessage());
                         }
                     }
                 });
             }
         });
+
     }
 }

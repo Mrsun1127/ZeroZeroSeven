@@ -38,6 +38,7 @@ import com.ffn.zerozeroseven.utlis.Constant;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -106,12 +107,12 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
             if (TextUtils.isEmpty(userInfo.getClazz())) {
                 clazz = "";
             }
-            if(!TextUtils.isEmpty(MrsunAppCacheUtils.get(PeopleMessAgeActivity.this).getAsString("iconUrl"))){
+            if (!TextUtils.isEmpty(MrsunAppCacheUtils.get(PeopleMessAgeActivity.this).getAsString("iconUrl"))) {
                 Glide.with(PeopleMessAgeActivity.this)
                         .load(MrsunAppCacheUtils.get(PeopleMessAgeActivity.this).getAsString("iconUrl"))
                         .into(iv_photo);
-            }else{
-                if(!TextUtils.isEmpty(userInfo.getAvatar())){
+            } else {
+                if (!TextUtils.isEmpty(userInfo.getAvatar())) {
                     Glide.with(PeopleMessAgeActivity.this)
                             .load(userInfo.getAvatar())
                             .into(iv_photo);
@@ -217,7 +218,6 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
     }
 
     public void saveAndMessAge(String iconUrl, boolean needIcon) {
-        showLoadProgress();
         String postName = tv_username.getText().toString();
         String postBri = tv_userbri.getText().toString();
         String postSchool = tv_userschool.getText().toString();
@@ -238,38 +238,29 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
             userInfo.setAvatar(iconUrl);
         }
         updateInfo.setParameters(parametersBean);
-        httpPostJSON(updateInfo, true);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(PeopleMessAgeActivity.this);
+        okGoUtils.httpPostJSON(updateInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+            public void onSuccLoad(String response) {
+                final String code = JsonUtil.getFieldValue(response, "code");
+                tv_userbri.post(new Runnable() {
                     @Override
                     public void run() {
-                        disLoadProgress();
+                        if (code.equals("0")) {
+                            BaseAppApplication.getInstance().setLoginUser(userInfo);
+                            SharePrefUtils.saveObject(PeopleMessAgeActivity.this, "userInfo", userInfo);
+                            SharePrefUtils.setBoolean(PeopleMessAgeActivity.this, "bri", true);
+                            Toast.makeText(PeopleMessAgeActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            ToastUtils.showShort("服务器正忙 请稍后再试");
+                        }
                     }
                 });
             }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                disLoadProgress();
-                String code = JsonUtil.getFieldValue(response.body().string(), "code");
-                if (code.equals("0")) {
-                    BaseAppApplication.getInstance().setLoginUser(userInfo);
-                    SharePrefUtils.saveObject(PeopleMessAgeActivity.this,"userInfo",userInfo);
-                    SharePrefUtils.setBoolean(PeopleMessAgeActivity.this,"bri",true);
-                    BaseAppApplication.mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(PeopleMessAgeActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                } else {
-                    ToastUtils.showShort("服务器正忙 请稍后再试");
-                }
-            }
         });
+
+
     }
 
     private void showPop(final TextView view) {
@@ -338,7 +329,8 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
-    private void setBri(){
+
+    private void setBri() {
         TimePickerView pvTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
@@ -445,7 +437,8 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
                             Constant.tempSelectBitmap.add(takePhoto);
                         }
                     }
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
                 break;
             default:
                 break;

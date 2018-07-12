@@ -379,8 +379,14 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
     @Override
     public void onRefreshing(BGARefreshLayout refreshLayout) {
         if (!NetUtil.hasNetConnect(bfCxt)) {
-            UiTipUtil.showToast(bfCxt, R.string.check_phone_net);
-            refreshLayout.endRefreshing();
+            commonRecyclerView.post(new Runnable() {
+                @Override
+                public void run() {
+                    UiTipUtil.showToast(bfCxt, R.string.check_phone_net);
+                    commonRefreshLayout.endRefreshing();
+                }
+            });
+
         } else {
             rgRefreshStatus = RgRefreshStatus.REFRESHING;
             requestShop();
@@ -390,11 +396,9 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
     @Override
     public boolean onLoadingMore(BGARefreshLayout refreshLayout) {
         if (!NetUtil.hasNetConnect(bfCxt)) {
-            UiTipUtil.showToast(bfCxt, R.string.check_phone_net);
-            BaseAppApplication.mainHandler.post(new Runnable() {
+            commonRecyclerView.post(new Runnable() {
                 @Override
                 public void run() {
-//                    handler.sendEmptyMessageDelayed(RgConstants.load_error_net, 500);
                     ToastUtils.showShort(R.string.check_phone_net + "");
                     commonRefreshLayout.endLoadingMore();
                 }
