@@ -134,7 +134,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
     @Override
     public void initDate() {
         setRefreshLayoutVis();
-        userInfo=BaseAppApplication.getInstance().getLoginUser();
+        userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
             schoolIId = userInfo.getSchoolId();
         }
@@ -167,7 +167,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         showErrorLayout(StateLayout.netError);
@@ -179,7 +179,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 contentShowInfo = JSON.parseObject(response.body().string(), GoodsContentShowInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         disLoadState();
@@ -194,67 +194,6 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
                                     } else {
                                         adapter.addAll(products);
                                         adapter.setRunMoneyAndStoreId(runMoney, storeId);
-                                    }
-                                    break;
-                                case PULL_DOWN:
-                                    if (products.size() == 0) {
-                                        UiTipUtil.showToast(bfCxt, R.string.no_more_data);
-                                    } else {
-                                        adapter.addAll(products);
-                                    }
-
-                                    break;
-                            }
-                        } else {
-                            showErrorLayout(StateLayout.noData);
-                        }
-                    }
-                });
-            }
-        });
-    }
-
-
-    public void requestShopOnUp(String name) {
-        setLoadPage();
-        GoodsListInfo listInfo = new GoodsListInfo();
-        listInfo.setFunctionName("ListSchoolGoods");
-        GoodsListInfo.ParametersBean parametersBean = new GoodsListInfo.ParametersBean();
-        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        parametersBean.setGoodsName(name);
-        listInfo.setParameters(parametersBean);
-        httpPostJSON(listInfo, true);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        showErrorLayout(StateLayout.netError);
-                        disLoadState();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                contentShowInfo = JSON.parseObject(response.body().string(), GoodsContentShowInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadState();
-                        if (contentShowInfo.getCode() == 0) {
-                            List<GoodsContentShowInfo.DataBean.ProductsBean> products = contentShowInfo.getData().getProducts();
-                            switch (rgRefreshStatus) {
-                                case IDLE:
-                                case REFRESHING:
-                                    adapter.clear();
-                                    if (products.size() == 0) {
-                                        showErrorLayout(StateLayout.noData);
-                                    } else {
-                                        adapter.addAll(products);
-                                        adapter.setRunMoneyAndStoreId(runMoney, storeId);
-                                        adapter.setLastCarShopInfo(SharePrefUtils.readObject(getContext(), "carShopInfo"));
                                     }
                                     break;
                                 case PULL_DOWN:
@@ -286,34 +225,34 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         disLoadProgress();
                         showErrorLayout(StateLayout.netError);
                     }
                 });
+
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response.body().string(), ShangChangShowInfo.class);
+                commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         disLoadProgress();
-                    }
-                });
-                final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response.body().string(), ShangChangShowInfo.class);
-                if (shangChangShowInfo.getCode() == 0) {
-                    BaseAppApplication.mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                        if (shangChangShowInfo.getCode() == 0) {
+
                             runMoney = shangChangShowInfo.getData().getExtraFee();
                             storeId = shangChangShowInfo.getData().getId() + "";
                             requestShop();
+
                         }
-                    });
-                }
+                    }
+                });
+
             }
         });
     }
@@ -370,8 +309,14 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
     @Override
     public void onRefreshing(BGARefreshLayout refreshLayout) {
         if (!NetUtil.hasNetConnect(bfCxt)) {
-            UiTipUtil.showToast(bfCxt, R.string.check_phone_net);
-            refreshLayout.endRefreshing();
+            commonRecyclerView.post(new Runnable() {
+                @Override
+                public void run() {
+                    UiTipUtil.showToast(bfCxt, R.string.check_phone_net);
+                    commonRefreshLayout.endRefreshing();
+                }
+            });
+
         } else {
             rgRefreshStatus = RgRefreshStatus.REFRESHING;
             requestShop();
@@ -381,11 +326,9 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
     @Override
     public boolean onLoadingMore(BGARefreshLayout refreshLayout) {
         if (!NetUtil.hasNetConnect(bfCxt)) {
-            UiTipUtil.showToast(bfCxt, R.string.check_phone_net);
-            BaseAppApplication.mainHandler.post(new Runnable() {
+            commonRecyclerView.post(new Runnable() {
                 @Override
                 public void run() {
-//                    handler.sendEmptyMessageDelayed(RgConstants.load_error_net, 500);
                     ToastUtils.showShort(R.string.check_phone_net + "");
                     commonRefreshLayout.endLoadingMore();
                 }

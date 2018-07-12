@@ -114,6 +114,7 @@ public class DingDanBobyActivity extends BaseActivity {
     TextView tv_phone;
     @Bind(R.id.tv_finish)
     TextView tv_finish;
+
     private void getShangChangInfo() {
         final ShangchangInfo shangchangInfo = new ShangchangInfo();
         shangchangInfo.setFunctionName("QuerySchoolStore");
@@ -121,17 +122,18 @@ public class DingDanBobyActivity extends BaseActivity {
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         shangchangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(DingDanBobyActivity.this);
-        okGoUtils.httpPostJSON(shangchangInfo,true,false);
+        okGoUtils.httpPostJSON(shangchangInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
-                if(shangChangShowInfo.getCode()==0){
-                    tv_endTime.setText("联系客服:"+ shangChangShowInfo.getData().getServicePhone());
+                if (shangChangShowInfo.getCode() == 0) {
+                    tv_endTime.setText("联系客服:" + shangChangShowInfo.getData().getServicePhone());
                 }
             }
         });
     }
+
     private void requestDetils(int orderId) {
         showLoadProgress();
         GoodsDetilsInfo detilsInfo = new GoodsDetilsInfo();
@@ -152,7 +154,7 @@ public class DingDanBobyActivity extends BaseActivity {
                 disLoadProgress();
                 final DingDanDetlsInfo info = JSON.parseObject(response.body().string(), DingDanDetlsInfo.class);
                 LogUtils.E("dingdan", JSON.toJSONString(info));
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                tv_allmoney.post(new Runnable() {
                     @Override
                     public void run() {
                         if (info.getCode() == 0) {
@@ -161,9 +163,9 @@ public class DingDanBobyActivity extends BaseActivity {
                             tv_staus.setText(info.getData().getOrder().getStatus() + "");
                             tv_allmoney.setText("共" + info.getData().getOrder().getTotalCount() + "个商品，合计¥：" + (info.getData().getOrder().getTotalPrice() + info.getData().getOrder().getExtraPrice()) + "（含跑腿费）¥" + info.getData().getOrder().getExtraPrice());
                             adapter.addAll(info.getData().getOrder().getDetails());
-                            if(!TextUtils.isEmpty(info.getData().getOrder().getRemark())){
+                            if (!TextUtils.isEmpty(info.getData().getOrder().getRemark())) {
                                 tv_remark.setVisibility(View.VISIBLE);
-                                tv_remark.setText("备注:"+info.getData().getOrder().getRemark());
+                                tv_remark.setText("备注:" + info.getData().getOrder().getRemark());
                             }
                             try {
                                 if (!TextUtils.isEmpty(info.getData().getCourier().getCourierName())) {
@@ -174,12 +176,9 @@ public class DingDanBobyActivity extends BaseActivity {
                                     rl_peple.setVisibility(View.GONE);
                                 }
                             } catch (Exception e) {
-                                BaseAppApplication.mainHandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        rl_peple.setVisibility(View.GONE);
-                                    }
-                                });
+
+                                rl_peple.setVisibility(View.GONE);
+
                             }
                             String s;
                             int i = 0;
@@ -245,8 +244,10 @@ public class DingDanBobyActivity extends BaseActivity {
                         }
                     }
                 });
+
             }
         });
+
     }
 
     @OnClick({R.id.tv_phone, R.id.tv_sug, R.id.tv_endTime})

@@ -26,6 +26,7 @@ import com.ffn.zerozeroseven.ui.CommitDingDanActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -120,41 +121,16 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void initTabs() {
-        BaseAppApplication.mainHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    showLoadProgress();
-                } catch (Exception e) {
-                }
-            }
-        });
         GoodTabsInfo goodTabsInfo = new GoodTabsInfo();
         goodTabsInfo.setFunctionName("ListGoodsType");
-        httpPostJSON(goodTabsInfo);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
+        okGoUtils.httpPostJSON(goodTabsInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                    }
-                });
-                GoodTabsShowInfo showInfo = JSON.parseObject(response.body().string(), GoodTabsShowInfo.class);
-                LogUtils.D("logcat1","1");
+            public void onSuccLoad(String response) {
+                GoodTabsShowInfo showInfo = JSON.parseObject(response, GoodTabsShowInfo.class);
                 if (showInfo.getCode() == 0) {
-                    LogUtils.D("logcat1","2");
+                    LogUtils.D("logcat1", "2");
                     list_title = new ArrayList<>();
                     list_title.add("全部");
                     list_fragment = new ArrayList<>();
@@ -163,9 +139,9 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                         list_title.add(showInfo.getData().getItems().get(i).getDicValue());
                         mineFragment = ShopViewPagerFragment.newInstance(showInfo.getData().getItems().get(i).getDicValue(), showInfo.getData().getItems().get(i).getDicKey());
                         list_fragment.add(mineFragment);
-                        LogUtils.D("logcat1","3");
+                        LogUtils.D("logcat1", "3");
                     }
-                    BaseAppApplication.mainHandler.post(new Runnable() {
+                    tabLayout.post(new Runnable() {
                         @Override
                         public void run() {
                             try {
@@ -173,15 +149,16 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                                 fAdapter = new ShopViewPagerAdapter(getActivity().getSupportFragmentManager(), list_fragment, list_title);
                                 viewPager.setAdapter(fAdapter);
                                 tabLayout.setupWithViewPager(viewPager);
-                                LogUtils.D("logcat1","4");
+                                LogUtils.D("logcat1", "4");
                             } catch (Exception e) {
                             }
                         }
                     });
-
                 }
             }
         });
+
+
     }
 
     @Override
@@ -233,7 +210,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         focus.requestFocus();
 //        String schoolName = MrsunAppCacheUtils.get(getActivity()).getAsString("schoolName");
         userInfo = BaseAppApplication.getInstance().getLoginUser();
-        if(userInfo!=null){
+        if (userInfo != null) {
             if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
                 if (userInfo.getSchoolName().length() > 7) {
                     tv_school_name.setText(userInfo.getSchoolName().substring(0, 6) + "...");

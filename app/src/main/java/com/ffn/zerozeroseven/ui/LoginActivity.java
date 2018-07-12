@@ -211,15 +211,15 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                    CodeInfo info = JSON.parseObject(response, CodeInfo.class);
-                    if (info.getCode() == 0) {
-                        timer.start();
-                        loginCode = info.getData().getAuthcode();
-                        ToastUtils.showShort("发送成功!");
-                        LogUtils.D("LoginActivity", loginCode);
-                    } else {
-                        ToastUtils.showShort(info.getMessage());
-                    }
+                CodeInfo info = JSON.parseObject(response, CodeInfo.class);
+                if (info.getCode() == 0) {
+                    timer.start();
+                    loginCode = info.getData().getAuthcode();
+                    ToastUtils.showShort("发送成功!");
+                    LogUtils.D("LoginActivity", loginCode);
+                } else {
+                    ToastUtils.showShort(info.getMessage());
+                }
             }
         });
     }
@@ -285,35 +285,32 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
             parametersBean.setInviteCode(et_yaoqing.getText().toString().trim());
         }
         codeLoginInfo.setParameters(parametersBean);
-        OkGoUtils okGoUtils3=new OkGoUtils(LoginActivity.this);
-        okGoUtils3.httpPostJSON(codeLoginInfo,false,true);
+        OkGoUtils okGoUtils3 = new OkGoUtils(LoginActivity.this);
+        okGoUtils3.httpPostJSON(codeLoginInfo, false, true);
         okGoUtils3.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onSuccLoad(String response) {
-                try {
-                    final UserInfo userInfo1 = JSON.parseObject(response, UserInfo.class);
-                    if (userInfo1.getCode() == 0) {
-                        UserInfoUtils.saveUserInfo(LoginActivity.this, et_phoneNumber.getText().toString().trim(), "nopwd");
-                        BaseAppApplication.getInstance().setLoginUser(userInfo1.getData());
-                        SharePrefUtils.saveObject(LoginActivity.this, "userInfo", userInfo1.getData());
-                        bindJiGuang(userInfo1.getData().getId());
-                    } else {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
+            public void onSuccLoad(final String response) {
+                et_phoneNumber.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            final UserInfo userInfo1 = JSON.parseObject(response, UserInfo.class);
+                            if (userInfo1.getCode() == 0) {
+                                UserInfoUtils.saveUserInfo(LoginActivity.this, et_phoneNumber.getText().toString().trim(), "nopwd");
+                                BaseAppApplication.getInstance().setLoginUser(userInfo1.getData());
+                                SharePrefUtils.saveObject(LoginActivity.this, "userInfo", userInfo1.getData());
+                                bindJiGuang(userInfo1.getData().getId());
+                            } else {
                                 ToastUtils.showShort(userInfo1.getMessage());
-                            }
-                        });
-                    }
 
-                } catch (Exception e) {
-                    BaseAppApplication.mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                            }
+
+                        } catch (Exception e) {
                             ToastUtils.showShort("服务器异常，请稍后再试");
+
                         }
-                    });
-                }
+                    }
+                });
             }
         });
     }
@@ -346,8 +343,8 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         parametersBean.setUserId(String.valueOf(userId));
         parametersBean.setClientId(registId);
         bindJiGuangInfo.setParameters(parametersBean);
-        OkGoUtils okGoUtils4=new OkGoUtils(LoginActivity.this);
-        okGoUtils4.httpPostJSON(bindJiGuangInfo,false,true);
+        OkGoUtils okGoUtils4 = new OkGoUtils(LoginActivity.this);
+        okGoUtils4.httpPostJSON(bindJiGuangInfo, false, true);
         okGoUtils4.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {

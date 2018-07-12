@@ -122,7 +122,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
     @Override
     public void initDate() {
         setRefreshLayoutVis();
-        userInfo=BaseAppApplication.getInstance().getLoginUser();
+        userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
             schoolIId = userInfo.getSchoolId();
         }
@@ -155,7 +155,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         showErrorLayout(StateLayout.netError);
@@ -167,7 +167,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 contentShowInfo = JSON.parseObject(response.body().string(), GoodsContentShowInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         disLoadState();
@@ -223,19 +223,20 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         showErrorLayout(StateLayout.netError);
                         disLoadState();
                     }
                 });
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 contentShowInfo = JSON.parseObject(response.body().string(), GoodsContentShowInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         disLoadState();
@@ -268,6 +269,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                         }
                     }
                 });
+
             }
         });
     }
@@ -283,7 +285,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         disLoadProgress();
@@ -294,24 +296,19 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response.body().string(), ShangChangShowInfo.class);
+                commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         disLoadProgress();
-                    }
-                });
-                final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response.body().string(), ShangChangShowInfo.class);
-                if (shangChangShowInfo.getCode() == 0) {
-                    BaseAppApplication.mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                        if (shangChangShowInfo.getCode() == 0) {
                             userInfo.setServicePhone(shangChangShowInfo.getData().getServicePhone());
                             BaseAppApplication.getInstance().setLoginUser(userInfo);
                             SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
                             runMoney = shangChangShowInfo.getData().getExtraFee();
                             storeId = shangChangShowInfo.getData().getId() + "";
                             userInfo.setSmallRmb(shangChangShowInfo.getData().getDeliveryPrice());
-                            SharePrefUtils.saveObject(bfCxt,"userInfo",userInfo);
+                            SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
                             requestShop();
                             if (shangChangShowInfo.getData().isIsClosing()) {
                                 if (shangChangShowInfo.getData().getOpeningTime().equals(shangChangShowInfo.getData().getClosingTime()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime2()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime())) {
@@ -321,9 +318,11 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                                 }
                             }
 
+
                         }
-                    });
-                }
+                    }
+                });
+
             }
         });
     }
