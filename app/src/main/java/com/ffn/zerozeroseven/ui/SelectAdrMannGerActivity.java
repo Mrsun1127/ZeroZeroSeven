@@ -66,44 +66,7 @@ public class SelectAdrMannGerActivity extends BaseActivity implements View.OnCli
         }
 
     }
-    private void deleteAdr(int position) {
-        showLoadProgress();
-        DeleteAdrInfo deleteAdrInfo = new DeleteAdrInfo();
-        deleteAdrInfo.setFunctionName("DeleteUserAddress");
-        DeleteAdrInfo.ParametersBean parametersBean = new DeleteAdrInfo.ParametersBean();
-        parametersBean.setId(shouHuoInfo.getData().getAddresses().get(position).getId());
-        deleteAdrInfo.setParameters(parametersBean);
-        httpPostJSON(deleteAdrInfo, true);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
 
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                disLoadProgress();
-                String code = JsonUtil.getFieldValue(response.body().string(), "code");
-                if ("0".equals(code)) {
-                    BaseAppApplication.mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtils.showShort("删除成功");
-                            ZeroZeroSevenUtils.SwitchActivity(SelectAdrMannGerActivity.this,SelectAdrMannGerActivity.class);
-                            finish();
-                        }
-                    });
-                }else{
-                    BaseAppApplication.mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtils.showShort("服务器正忙，请稍后再试");
-                        }
-                    });
-                }
-            }
-        });
-    }
 
     private void GetAllAdr(final boolean refrsh) {
         showLoadProgress();
@@ -122,7 +85,7 @@ public class SelectAdrMannGerActivity extends BaseActivity implements View.OnCli
                 shouHuoInfo = JSON.parseObject(response.body().string(), ShouHuoInfo.class);
                 if (shouHuoInfo.getCode() == 0) {//成功
                     if (shouHuoInfo.getData().getAddresses().size() > 0) {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
+                        msgPullLv.post(new Runnable() {
                             @Override
                             public void run() {
                                 if (allAdrAdapter != null) {
@@ -133,6 +96,8 @@ public class SelectAdrMannGerActivity extends BaseActivity implements View.OnCli
                                 }
                             }
                         });
+
+
                     }
                 }
             }

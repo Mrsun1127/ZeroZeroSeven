@@ -40,7 +40,8 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
     private TextView et_lou;
     private LinearLayout ll_addLou;
     private CheckBox cb_default;
-    int isDefault=0;
+    int isDefault = 0;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_addnewadr;
@@ -60,10 +61,10 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
         cb_default.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    isDefault=1;
-                }else{
-                    isDefault=0;
+                if (b) {
+                    isDefault = 1;
+                } else {
+                    isDefault = 0;
                 }
             }
         });
@@ -131,10 +132,11 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
                 if ("0".equals(code)) {
                     finish();
                 } else {
-                    BaseAppApplication.mainHandler.post(new Runnable() {
+                    et_phone.post(new Runnable() {
                         @Override
                         public void run() {
                             ToastUtils.showShort("服务器正忙，请稍后再试");
+
                         }
                     });
                 }

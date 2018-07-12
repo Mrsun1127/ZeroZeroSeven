@@ -81,7 +81,7 @@ public class KuaiDiYuanRenZhengActivity extends BaseActivity implements View.OnC
             public void onResponse(Call call, Response response) throws IOException {
                 disLoadProgress();
                 final CuriousInfo info = JSON.parseObject(response.body().string(), CuriousInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                et_phone.post(new Runnable() {
                     @Override
                     public void run() {
                         if (info.getCode() == 0) {
@@ -95,7 +95,6 @@ public class KuaiDiYuanRenZhengActivity extends BaseActivity implements View.OnC
                         }
                     }
                 });
-
             }
         });
     }

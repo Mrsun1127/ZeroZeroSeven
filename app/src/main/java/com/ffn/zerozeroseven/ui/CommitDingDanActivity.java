@@ -307,29 +307,26 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
             public void onResponse(Call call, Response response) throws IOException {
                 disLoadProgress();
                 shouHuoInfo = JSON.parseObject(response.body().string(), ShouHuoInfo.class);
-                if (shouHuoInfo.getCode() == 0) {
-                    if (shouHuoInfo.getData().getAddresses().size() > 0) {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
+                rc_shop.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (shouHuoInfo.getCode() == 0) {
+                            if (shouHuoInfo.getData().getAddresses().size() > 0) {
+
                                 rl_addadr.setVisibility(View.GONE);
                                 rl_selectadr.setVisibility(View.VISIBLE);
                                 tv_location.setText(shouHuoInfo.getData().getAddresses().get(0).getContactSchool() + shouHuoInfo.getData().getAddresses().get(0).getContactBuilding() + shouHuoInfo.getData().getAddresses().get(0).getContactDorm());
                                 tv_username.setText(shouHuoInfo.getData().getAddresses().get(0).getContactName());
                                 tv_phone.setText(shouHuoInfo.getData().getAddresses().get(0).getContactPhone());
                                 dormId = shouHuoInfo.getData().getAddresses().get(0).getContactBuilding();
-                            }
-                        });
-                    } else {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
+                            } else {
                                 rl_addadr.setVisibility(View.VISIBLE);
                                 rl_selectadr.setVisibility(View.GONE);
                             }
-                        });
+                        }
                     }
-                }
+                });
+
             }
         });
     }
@@ -350,27 +347,26 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                 disLoadProgress();
                 shouHuoInfo = JSON.parseObject(response.body().string(), ShouHuoInfo.class);
                 if (shouHuoInfo.getCode() == 0) {
-                    if (shouHuoInfo.getData().getAddresses().size() > 0) {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
+                    rc_shop.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (shouHuoInfo.getData().getAddresses().size() > 0) {
+
                                 rl_addadr.setVisibility(View.GONE);
                                 rl_selectadr.setVisibility(View.VISIBLE);
                                 tv_location.setText(shouHuoInfo.getData().getAddresses().get(position).getContactSchool() + shouHuoInfo.getData().getAddresses().get(position).getContactBuilding() + shouHuoInfo.getData().getAddresses().get(position).getContactDorm());
                                 tv_username.setText(shouHuoInfo.getData().getAddresses().get(position).getContactName());
                                 tv_phone.setText(shouHuoInfo.getData().getAddresses().get(position).getContactPhone());
                                 dormId = shouHuoInfo.getData().getAddresses().get(position).getContactBuilding();
-                            }
-                        });
-                    } else {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
+
+                            } else {
+
                                 rl_addadr.setVisibility(View.VISIBLE);
                                 rl_selectadr.setVisibility(View.GONE);
+
                             }
-                        });
-                    }
+                        }
+                    });
                 }
             }
         });

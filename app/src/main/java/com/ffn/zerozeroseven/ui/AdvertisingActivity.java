@@ -46,7 +46,7 @@ public class AdvertisingActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                BaseAppApplication.mainHandler.post(new Runnable() {
+                jump.post(new Runnable() {
                     @Override
                     public void run() {
                         jump.setText("跳过（"+time+"S）");

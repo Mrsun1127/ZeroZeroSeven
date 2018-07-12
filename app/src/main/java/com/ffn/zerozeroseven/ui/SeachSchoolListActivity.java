@@ -75,12 +75,13 @@ public class SeachSchoolListActivity extends BaseActivity {
                 if (info.getCode() == 0 && info.getData() != null) {
                     final SchoolLikeListInfo.DataBean data = info.getData();
                     MrsunAppCacheUtils.get(SeachSchoolListActivity.this).put("allSchoolList", JSON.toJSONString(data));
-                    BaseAppApplication.mainHandler.post(new Runnable() {
+                    rl_back.post(new Runnable() {
                         @Override
                         public void run() {
                             adapter.addAll(data.getSchools());
                         }
                     });
+
                 }
             }
         });

@@ -120,7 +120,7 @@ import butterknife.OnClick;
  * Created by GT on 2017/11/15.
  */
 
-public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultListener {
+public class MainFragment extends BaseFragment implements OnGetPoiSearchResultListener {
 
     //    private RelativeLayout et_select;
     private UserLikeAdapter userLikeAdapter;
@@ -142,9 +142,6 @@ public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultL
     private boolean loginStaus;
     public static WeakReference<MainFragment> mInstance;
     private TextView tv_time;
-
-
-
 
 
     @Bind(R.id.scrollTextView)
@@ -185,32 +182,37 @@ public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultL
             @Override
             public void onSuccLoad(String response) {
                 tongzhiInfo = JSON.parseObject(response, TongzhiInfo.class);
-                if (tongzhiInfo.getCode() == 0) {
-                    if (tongzhiInfo.getData().getList().size() > 0) {
-                        titles = new ArrayList<>();
-                        for (int i = 0; i < tongzhiInfo.getData().getList().size(); i++) {
-                            if (tongzhiInfo.getData().getList().get(i).getTitle().length() > 30) {
-                                titles.add(tongzhiInfo.getData().getList().get(i).getTitle().substring(0, 29) + "...");
+                rl_top_bg.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (tongzhiInfo.getCode() == 0) {
+                            if (tongzhiInfo.getData().getList().size() > 0) {
+                                titles = new ArrayList<>();
+                                for (int i = 0; i < tongzhiInfo.getData().getList().size(); i++) {
+                                    if (tongzhiInfo.getData().getList().get(i).getTitle().length() > 30) {
+                                        titles.add(tongzhiInfo.getData().getList().get(i).getTitle().substring(0, 29) + "...");
+                                    } else {
+                                        titles.add(tongzhiInfo.getData().getList().get(i).getTitle());
+                                    }
+                                }
+                                scrollTextView.setTextList(titles);
+                                scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
+                                scrollTextView.setTextStillTime(3000);//设置停留时长间隔
+                                scrollTextView.setAnimTime(300);
+                                scrollTextView.startAutoScroll();
                             } else {
-                                titles.add(tongzhiInfo.getData().getList().get(i).getTitle());
+                                titles = new ArrayList<>();
+                                titles.add("欢迎使用零零7");
+                                scrollTextView.setTextList(titles);
+                                scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
+                                scrollTextView.setTextStillTime(3000);//设置停留时长间隔
+                                scrollTextView.setAnimTime(300);
+                                scrollTextView.startAutoScroll();
                             }
-                        }
-                        scrollTextView.setTextList(titles);
-                        scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
-                        scrollTextView.setTextStillTime(3000);//设置停留时长间隔
-                        scrollTextView.setAnimTime(300);
-                        scrollTextView.startAutoScroll();
-                    } else {
-                        titles = new ArrayList<>();
-                        titles.add("欢迎使用零零7");
-                        scrollTextView.setTextList(titles);
-                        scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
-                        scrollTextView.setTextStillTime(3000);//设置停留时长间隔
-                        scrollTextView.setAnimTime(300);
-                        scrollTextView.startAutoScroll();
-                    }
 
-                }
+                        }
+                    }
+                });
             }
         });
 
@@ -500,15 +502,20 @@ public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultL
             @Override
             public void onSuccLoad(String response) {
                 appVersionInfo = JSON.parseObject(response, AppVersionInfo.class);
-                if (appVersionInfo.getCode() == 0) {
-                    int curVersion=Integer.parseInt(ZeroZeroSevenUtils.getAppVersionName(bfCxt).replace(".",""));
-                    int lastVersion=Integer.parseInt(appVersionInfo.getData().getLatestVersion().replace(".",""));
-                    LogUtils.D("curVersion",curVersion+":::::"+lastVersion);
-                    if (lastVersion>curVersion) {
-                        rl_update.setVisibility(View.VISIBLE);
-                        tv_up_content.setText(appVersionInfo.getData().getReleaseNote());
+                rl_top_bg.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (appVersionInfo.getCode() == 0) {
+                            int curVersion = Integer.parseInt(ZeroZeroSevenUtils.getAppVersionName(bfCxt).replace(".", ""));
+                            int lastVersion = Integer.parseInt(appVersionInfo.getData().getLatestVersion().replace(".", ""));
+                            LogUtils.D("curVersion", curVersion + ":::::" + lastVersion);
+                            if (lastVersion > curVersion) {
+                                rl_update.setVisibility(View.VISIBLE);
+                                tv_up_content.setText(appVersionInfo.getData().getReleaseNote());
+                            }
+                        }
                     }
-                }
+                });
             }
         });
 
@@ -735,18 +742,19 @@ public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultL
                         poi.substring(0, poi.lastIndexOf("学"));
                         FindSchoolId(poi.substring(0, poi.indexOf("学") + 1));
                     } else {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
+                        tv_school.post(new Runnable() {
                             @Override
                             public void run() {
                                 tv_school.setText("去选择学校");
                             }
                         });
+
                     }
 
                 }
             }
         } catch (Exception e) {
-            BaseAppApplication.mainHandler.post(new Runnable() {
+            tv_school.post(new Runnable() {
                 @Override
                 public void run() {
                     tv_school.setText("去选择学校");
@@ -767,25 +775,30 @@ public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultL
             @Override
             public void onSuccLoad(String response) {
                 final FindSchoolInfo findSchoolInfo = JSON.parseObject(response, FindSchoolInfo.class);
-                if (findSchoolInfo.getCode() == 0) {
-                    if (findSchoolInfo.getData() != null) {
-                        if (TextUtils.isEmpty(findSchoolInfo.getData().getName())) {
-                            tv_school.setText("去选择学校");
+                rl_top_bg.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (findSchoolInfo.getCode() == 0) {
+                            if (findSchoolInfo.getData() != null) {
+                                if (TextUtils.isEmpty(findSchoolInfo.getData().getName())) {
+                                    tv_school.setText("去选择学校");
+                                } else {
+                                    tv_school.setText(findSchoolInfo.getData().getName());
+                                    BaseAppApplication.userInfo.setSchoolName(name);
+                                    BaseAppApplication.userInfo.setSchoolId(findSchoolInfo.getData().getId() + "");
+                                    SharePrefUtils.saveObject(bfCxt, "userInfo", BaseAppApplication.getInstance().getLoginUser());
+                                    SharePrefUtils.setInt(bfCxt, "isLocation", 1);
+                                }
+                                reQuest();
+                            } else {
+                                tv_school.setText("去选择学校");
+                                reQuest();
+                            }
                         } else {
-                            tv_school.setText(findSchoolInfo.getData().getName());
-                            BaseAppApplication.userInfo.setSchoolName(name);
-                            BaseAppApplication.userInfo.setSchoolId(findSchoolInfo.getData().getId() + "");
-                            SharePrefUtils.saveObject(bfCxt, "userInfo", BaseAppApplication.getInstance().getLoginUser());
-                            SharePrefUtils.setInt(bfCxt, "isLocation", 1);
+                            reQuest();
                         }
-                        reQuest();
-                    } else {
-                        tv_school.setText("去选择学校");
-                        reQuest();
                     }
-                } else {
-                    reQuest();
-                }
+                });
             }
         });
 
@@ -938,51 +951,54 @@ public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultL
             @Override
             public void onSuccLoad(String response) {
                 bannerInfo = JSON.parseObject(response, BannerInfo.class);
-                if (bannerInfo.getCode() == 0) {
-                    mRefreshLayout.refreshComplete();
-                    if (bannerInfo.getData().getList().size() > 0) {
-                        images = new ArrayList<>();
-                        urlList = new ArrayList<>();
-                        titleList = new ArrayList<>();
-                        for (int i = 0; i < bannerInfo.getData().getList().size(); i++) {
-                            if (bannerInfo.getData().getList().get(i).getType().equals("横幅广告")) {//横幅
-                                images.add(bannerInfo.getData().getList().get(i).getPicUrl());
-                                urlList.add(bannerInfo.getData().getList().get(i).getLink());
-                                titleList.add(bannerInfo.getData().getList().get(i).getTitle());
-                            } else if (bannerInfo.getData().getList().get(i).getType().equals("下拉广告")) {//下拉
-                                showTwo = true;
-                                header.loadImage(bannerInfo.getData().getList().get(i).getPicUrl());
-                                upUrl = bannerInfo.getData().getList().get(i).getLink();
-                            } else if (bannerInfo.getData().getList().get(i).getType().equals("启动广告")) {//启动
-                                userInfo.setDowmPoster(bannerInfo.getData().getList().get(i).getPicUrl());
-                                SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
-                            } else if (bannerInfo.getData().getList().get(i).getType().equals("专题广告")) {
-                                iv_guanggao.setVisibility(View.VISIBLE);
-                                projectUrl = bannerInfo.getData().getList().get(i).getLink();
-                                Glide.with(bfCxt).load(bannerInfo.getData().getList().get(i).getPicUrl()).into(iv_guanggao);
+                rl_top_bg.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (bannerInfo.getCode() == 0) {
+                            mRefreshLayout.refreshComplete();
+                            if (bannerInfo.getData().getList().size() > 0) {
+                                images = new ArrayList<>();
+                                urlList = new ArrayList<>();
+                                titleList = new ArrayList<>();
+                                for (int i = 0; i < bannerInfo.getData().getList().size(); i++) {
+                                    if (bannerInfo.getData().getList().get(i).getType().equals("横幅广告")) {//横幅
+                                        images.add(bannerInfo.getData().getList().get(i).getPicUrl());
+                                        urlList.add(bannerInfo.getData().getList().get(i).getLink());
+                                        titleList.add(bannerInfo.getData().getList().get(i).getTitle());
+                                    } else if (bannerInfo.getData().getList().get(i).getType().equals("下拉广告")) {//下拉
+                                        showTwo = true;
+                                        header.loadImage(bannerInfo.getData().getList().get(i).getPicUrl());
+                                        upUrl = bannerInfo.getData().getList().get(i).getLink();
+                                    } else if (bannerInfo.getData().getList().get(i).getType().equals("启动广告")) {//启动
+                                        userInfo.setDowmPoster(bannerInfo.getData().getList().get(i).getPicUrl());
+                                        SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
+                                    } else if (bannerInfo.getData().getList().get(i).getType().equals("专题广告")) {
+                                        iv_guanggao.setVisibility(View.VISIBLE);
+                                        projectUrl = bannerInfo.getData().getList().get(i).getLink();
+                                        Glide.with(bfCxt).load(bannerInfo.getData().getList().get(i).getPicUrl()).into(iv_guanggao);
+                                    }
+                                }
+                                if (!showTwo) {
+                                    mRefreshLayout.setResistance(3f);
+                                }
+                                Glide.with(bfCxt)
+                                        .load(images.get(0))
+                                        .into(iv_bg);
+                                banner.setPages(images, new MZHolderCreator() {
+                                    @Override
+                                    public BannerViewHolder createViewHolder() {
+                                        return new BannerViewHolder();
+                                    }
+                                });
+                                banner.start();
                             }
                         }
-                        if (!showTwo) {
-                            mRefreshLayout.setResistance(3f);
-                        }
-                        Glide.with(bfCxt)
-                                .load(images.get(0))
-                                .into(iv_bg);
-                        banner.setPages(images, new MZHolderCreator() {
-                            @Override
-                            public BannerViewHolder createViewHolder() {
-                                return new BannerViewHolder();
-                            }
-                        });
-                        banner.start();
                     }
-                }
+                });
             }
         });
 
     }
-
-
 
 
     //    05:00 - 09:00  09:00 - 11:30 11:30 - 14:00 14:00-17:00 17:00-19:00 19:00-24:00 24:00-05:00
@@ -1002,36 +1018,41 @@ public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultL
             @Override
             public void onSuccLoad(String response) {
                 showHotInfo = JSON.parseObject(response, HotInfo.class);
-                if (showHotInfo.getCode() == 0) {
-                    if (!showHotInfo.getData().getStores().isIsClosing()) {
-                        if (showHotInfo.getData().getProducts().size() > 0) {
+                rl_top_bg.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (showHotInfo.getCode() == 0) {
+                            if (!showHotInfo.getData().getStores().isIsClosing()) {
+                                if (showHotInfo.getData().getProducts().size() > 0) {
+                                    hotGoodsAdapter.cleanDates();
+                                    hotGoodsAdapter.addAll(showHotInfo.getData().getProducts());
+                                    ll_hot.setVisibility(View.GONE);
+                                    rc_hot.setVisibility(View.VISIBLE);
+                                } else {
+                                    hotGoodsAdapter.cleanDates();
+                                    ll_hot.setVisibility(View.VISIBLE);
+                                    tv_hot.setText("暂无商品");
+                                    rc_hot.setVisibility(View.GONE);
+                                }
+                            } else {
+                                rc_hot.setVisibility(View.GONE);
+                                hotGoodsAdapter.cleanDates();
+                                ll_hot.setVisibility(View.VISIBLE);
+                                tv_hot.setText("小七打烊中");
+                            }
+
+
+                        } else if (showHotInfo.getCode() == -102) {
+                            rc_hot.setVisibility(View.GONE);
                             hotGoodsAdapter.cleanDates();
-                            hotGoodsAdapter.addAll(showHotInfo.getData().getProducts());
-                            ll_hot.setVisibility(View.GONE);
-                            rc_hot.setVisibility(View.VISIBLE);
+                            ll_hot.setVisibility(View.VISIBLE);
+                            tv_hot.setText("暂无商铺信息");
                         } else {
                             hotGoodsAdapter.cleanDates();
                             ll_hot.setVisibility(View.VISIBLE);
-                            tv_hot.setText("暂无商品");
-                            rc_hot.setVisibility(View.GONE);
                         }
-                    } else {
-                        rc_hot.setVisibility(View.GONE);
-                        hotGoodsAdapter.cleanDates();
-                        ll_hot.setVisibility(View.VISIBLE);
-                        tv_hot.setText("小七打烊中");
                     }
-
-
-                } else if (showHotInfo.getCode() == -102) {
-                    rc_hot.setVisibility(View.GONE);
-                    hotGoodsAdapter.cleanDates();
-                    ll_hot.setVisibility(View.VISIBLE);
-                    tv_hot.setText("暂无商铺信息");
-                } else {
-                    hotGoodsAdapter.cleanDates();
-                    ll_hot.setVisibility(View.VISIBLE);
-                }
+                });
             }
         });
 
@@ -1052,34 +1073,39 @@ public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultL
             @Override
             public void onSuccLoad(String response) {
                 showBothInfo = JSON.parseObject(response, BestNewShowInfo.class);
-                if (showBothInfo.getCode() == 0) {
-                    if (showBothInfo.getData().getStores().isIsClosing()) {
-                        bothGoodsAdapter.cleanDates();
-                        ll_both.setVisibility(View.VISIBLE);
-                        tv_both.setText("小七打烊中");
-                        rc_all.setVisibility(View.GONE);
-                    } else {
-                        if (showBothInfo.getData().getLatestGoods().size() > 0) {
+                rl_top_bg.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (showBothInfo.getCode() == 0) {
+                            if (showBothInfo.getData().getStores().isIsClosing()) {
+                                bothGoodsAdapter.cleanDates();
+                                ll_both.setVisibility(View.VISIBLE);
+                                tv_both.setText("小七打烊中");
+                                rc_all.setVisibility(View.GONE);
+                            } else {
+                                if (showBothInfo.getData().getLatestGoods().size() > 0) {
+                                    bothGoodsAdapter.cleanDates();
+                                    bothGoodsAdapter.addAll(showBothInfo.getData().getLatestGoods());
+                                    ll_both.setVisibility(View.GONE);
+                                    rc_all.setVisibility(View.VISIBLE);
+                                } else {
+                                    bothGoodsAdapter.cleanDates();
+                                    ll_both.setVisibility(View.VISIBLE);
+                                    tv_both.setText("暂无商品");
+                                    rc_all.setVisibility(View.GONE);
+                                }
+                            }
+                        } else if (showBothInfo.getCode() == -102) {
                             bothGoodsAdapter.cleanDates();
-                            bothGoodsAdapter.addAll(showBothInfo.getData().getLatestGoods());
-                            ll_both.setVisibility(View.GONE);
-                            rc_all.setVisibility(View.VISIBLE);
+                            ll_both.setVisibility(View.VISIBLE);
+                            tv_both.setText("暂无商铺信息");
+                            rc_all.setVisibility(View.GONE);
                         } else {
                             bothGoodsAdapter.cleanDates();
                             ll_both.setVisibility(View.VISIBLE);
-                            tv_both.setText("暂无商品");
-                            rc_all.setVisibility(View.GONE);
                         }
                     }
-                } else if (showBothInfo.getCode() == -102) {
-                    bothGoodsAdapter.cleanDates();
-                    ll_both.setVisibility(View.VISIBLE);
-                    tv_both.setText("暂无商铺信息");
-                    rc_all.setVisibility(View.GONE);
-                } else {
-                    bothGoodsAdapter.cleanDates();
-                    ll_both.setVisibility(View.VISIBLE);
-                }
+                });
             }
         });
     }
@@ -1102,49 +1128,42 @@ public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultL
         okGoUtils.httpPostJSON(poppurlarListInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onSuccLoad(String response) {
-                try {
-                    userLikeInfo = JSON.parseObject(response, UserLikeInfo.class);
-//                    refreshLayout.finishRefresh(1000);
-                    if (userLikeInfo.getCode() == 0) {
-                        if (userLikeInfo.getData().getPosts().size() > 0) {
-                            haveData = 2;
-                            userLikeAdapter.addAll(userLikeInfo.getData().getPosts());
+            public void onSuccLoad(final String response) {
+                userLikeInfo = JSON.parseObject(response, UserLikeInfo.class);
+                rl_top_bg.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (userLikeInfo.getCode() == 0) {
+                                if (userLikeInfo.getData().getPosts().size() > 0) {
+                                    haveData = 2;
+                                    userLikeAdapter.addAll(userLikeInfo.getData().getPosts());
 
-                        } else {
-                            haveData = 1;
-                            if (pageNo == 0) {
+                                } else {
+                                    haveData = 1;
+                                    if (pageNo == 0) {
+                                    } else {
+                                        pageNo = 0;
+                                        requestpopularList();
+                                    }
+
+                                }
+
                             } else {
-                                pageNo = 0;
-                                new Thread(new MyRunnable()).start();
+                                haveData = 1;
+                                LogUtils.D("MainFragment", "nodate");
                             }
 
+                        } catch (Exception e) {
+                            haveData = 1;
                         }
-
-                    } else {
-                        haveData = 1;
-                        LogUtils.D("MainFragment", "nodate");
                     }
-
-                } catch (Exception e) {
-                    haveData = 1;
-                }
+                });
             }
         });
 
 
     }
-
-    private class MyRunnable implements Runnable {
-
-        @Override
-        public void run() {
-            requestpopularList();
-        }
-    }
-
-
-
 
 
     @Bind(R.id.tv_school)
@@ -1155,7 +1174,7 @@ public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultL
     @Bind(R.id.tv_up_content)
     TextView tv_up_content;
 
-    @OnClick({R.id.bt_update, R.id.tv_up_top, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao,   R.id.rl_location, R.id.tv_school})
+    @OnClick({R.id.bt_update, R.id.tv_up_top, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_update:
@@ -1238,9 +1257,6 @@ public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultL
                 break;
 
 
-
-
-
         }
     }
 
@@ -1258,12 +1274,9 @@ public class MainFragment extends BaseFragment implements  OnGetPoiSearchResultL
                     recyclerView.start();
                 }
                 if (haveData == 1) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            requestpopularList();
-                        }
-                    }).start();
+
+                    requestpopularList();
+
                 }
                 requestTime();
                 if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
