@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -177,7 +178,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         TongZhiShowInfo lunXunInfo = new TongZhiShowInfo();
         lunXunInfo.setFunctionName("ListPushLetters");
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(lunXunInfo, true, false,rl_top_bg);
+        okGoUtils.httpPostJSON(lunXunInfo, true, false, rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -225,7 +226,8 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
     ImageView iv_show;
     @Bind(R.id.scrollview)
     SmartScrollView scrollview;
-
+    @Bind(R.id.rl_top)
+    RelativeLayout rl_top;
 
     @Override
     protected void initView(View view) {
@@ -246,6 +248,25 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         if (SharePrefUtils.getInt(bfCxt, "isLocation", 0) != 1) {
             mLocationClient.start();
         }
+
+            scrollview.setScrollViewListener(new SmartScrollView.ScrollViewListener() {
+                @Override
+                public void onScrollChanged(SmartScrollView scrollView,  int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    float offsetY = getResources().getDimension(R.dimen.main_top) - getResources().getDimension(R.dimen.img_top);
+                    //计算滑动距离的偏移量
+                    float offset = 1 - Math.max((offsetY - scrollY) / offsetY, 0f);
+                    float absOffset = Math.abs(offset);
+                    //如果滑动距离大于1就设置完全不透明
+                    if (absOffset >= 1) {
+                        absOffset = 1;
+                        rl_top.setBackgroundColor(getResources().getColor(R.color.white));
+                        tv_school.setTextColor(getResources().getColor(R.color.black));
+                    } else {
+                        rl_top.setBackgroundColor(Color.argb((int) (absOffset * 255), 255, 255, 255));
+                    }
+                }
+            });
+
 
         scrollview.setScanScrollChangedListener(new SmartScrollView.ISmartScrollChangedListener() {
             @Override
@@ -498,7 +519,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         AppUpdateInfo updateInfo = new AppUpdateInfo();
         updateInfo.setFunctionName("QueryLatestAppVersion");
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(updateInfo, true, false,rl_top_bg);
+        okGoUtils.httpPostJSON(updateInfo, true, false, rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -628,7 +649,6 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
     }
 
 
-
     public void goToDetils(final int position, final BestNewGoodsAdapter adapter) {
         RequeseGoods requeseGoods = new RequeseGoods();
         requeseGoods.setFunctionName("QueryGoods");
@@ -636,7 +656,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setGoodsId(adapter.getItem(position).getId());
         requeseGoods.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(requeseGoods, true, true,scrollTextView);
+        okGoUtils.httpPostJSON(requeseGoods, true, true, scrollTextView);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -673,7 +693,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setGoodsId(adapter.getItem(position).getId());
         requeseGoods.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(requeseGoods, true, true,scrollTextView);
+        okGoUtils.httpPostJSON(requeseGoods, true, true, scrollTextView);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -752,7 +772,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         schoolInfo.setParameters(parametersBean);
 
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(schoolInfo, true, false,rl_top_bg);
+        okGoUtils.httpPostJSON(schoolInfo, true, false, rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -872,7 +892,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         shangchangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(shangchangInfo, true, false,scrollTextView);
+        okGoUtils.httpPostJSON(shangchangInfo, true, false, scrollTextView);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -933,7 +953,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setType("00");
         lunBoInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(lunBoInfo, true, false,rl_top_bg);
+        okGoUtils.httpPostJSON(lunBoInfo, true, false, rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -1112,7 +1132,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setPageIndex(pageNo);
         poppurlarListInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(poppurlarListInfo, true, false,rl_top_bg);
+        okGoUtils.httpPostJSON(poppurlarListInfo, true, false, rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {

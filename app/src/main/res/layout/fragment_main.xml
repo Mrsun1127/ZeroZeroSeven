@@ -202,6 +202,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rl_jump_shop"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
@@ -327,7 +328,7 @@
             android:layout_height="17dp"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/main_location" />
+            android:background="@mipmap/shoplocation" />
 
         <TextView
             android:id="@+id/tv_school"

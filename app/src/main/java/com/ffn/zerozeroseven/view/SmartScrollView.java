@@ -51,6 +51,9 @@ public class SmartScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
+        if (scrollViewListener != null) {
+            scrollViewListener.onScrollChanged(this, l, t, oldl, oldt);
+        }
         if (android.os.Build.VERSION.SDK_INT < 9) {  // API 9及之后走onOverScrolled方法监听
             if (getScrollY() == 0) {    // 小心踩坑1: 这里不能是getScrollY() <= 0
                 isScrolledToTop = true;
@@ -93,4 +96,13 @@ public class SmartScrollView extends ScrollView {
         return isScrolledToBottom;
     }
 
+    private ScrollViewListener scrollViewListener = null;
+
+    public interface ScrollViewListener {
+        void onScrollChanged(SmartScrollView scrollView, int x, int y, int oldx, int oldy);
+    }
+
+    public void setScrollViewListener(ScrollViewListener scrollViewListener) {
+        this.scrollViewListener = scrollViewListener;
+    }
 }
