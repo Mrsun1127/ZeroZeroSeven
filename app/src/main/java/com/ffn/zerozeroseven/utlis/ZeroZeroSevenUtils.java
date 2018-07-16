@@ -15,6 +15,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -49,6 +50,13 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  */
 
 public class ZeroZeroSevenUtils {
+    /**
+     * 判断是否在当前主线程
+     * @return
+     */
+    public static boolean isOnMainThread(){
+        return Looper.myLooper() == Looper.getMainLooper();
+    }
     /**
      * 对手机号码中间四位加密
      *

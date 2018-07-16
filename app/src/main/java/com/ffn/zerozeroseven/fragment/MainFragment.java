@@ -246,6 +246,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         if (SharePrefUtils.getInt(bfCxt, "isLocation", 0) != 1) {
             mLocationClient.start();
         }
+
         scrollview.setScanScrollChangedListener(new SmartScrollView.ISmartScrollChangedListener() {
             @Override
             public void onScrolledToBottom() {
@@ -1111,7 +1112,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setPageIndex(pageNo);
         poppurlarListInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(poppurlarListInfo, true, false);
+        okGoUtils.httpPostJSON(poppurlarListInfo, true, false,rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {

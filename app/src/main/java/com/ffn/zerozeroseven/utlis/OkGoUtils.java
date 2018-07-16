@@ -36,17 +36,13 @@ public class OkGoUtils {
 
     public OkGoUtils(final Context context) {
         this.context = context;
-        BaseAppApplication.mainHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                hud = KProgressHUD.create(context)
-                        .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                        .setCancellable(true)
-                        .setWindowColor(context.getResources().getColor(R.color.text_secondary_color))
-                        .setAnimationSpeed(2)
-                        .setDimAmount(0.5f);
-            }
-        });
+        hud = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(true)
+                .setWindowColor(context.getResources().getColor(R.color.text_secondary_color))
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
+
 
     }
 
@@ -64,6 +60,7 @@ public class OkGoUtils {
 
         }
     }
+
     public void httpPostJSON(Object obj, boolean isToken, final boolean showLoad) {
         if (showLoad) {
             showLoadProgress();
@@ -186,12 +183,12 @@ public class OkGoUtils {
                 if (showLoad) {
                     disLoadProgress();
                 }
-               view.post(new Runnable() {
-                   @Override
-                   public void run() {
-                       ToastUtils.showShort("网络异常，请稍后再试！");
-                   }
-               });
+                view.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtils.showShort("网络异常，请稍后再试！");
+                    }
+                });
 
             }
 
