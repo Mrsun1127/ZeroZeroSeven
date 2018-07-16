@@ -100,15 +100,20 @@ public class AllAdrAdapter extends BaseAdapter {
                 parametersBean.setIsDefault(1);
                 upDateAdrInfo.setParameters(parametersBean);
                 OkGoUtils okGoUtils = new OkGoUtils(context);
-                okGoUtils.httpPostJSON(upDateAdrInfo, true, true);
+                okGoUtils.httpPostJSON(upDateAdrInfo, true, true,holder.tv_set);
                 okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
                     @Override
                     public void onSuccLoad(String response) {
-                        String code = JsonUtil.getFieldValue(response, "code");
-                        if ("0".equals(code)) {
-                            holder.tv_set.setText("默认地址");
-                            ToastUtils.showShort("设置成功");
-                        }
+                        final String code = JsonUtil.getFieldValue(response, "code");
+                        holder.tv_set.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if ("0".equals(code)) {
+                                    holder.tv_set.setText("默认地址");
+                                    ToastUtils.showShort("设置成功");
+                                }
+                            }
+                        });
                     }
                 });
             }

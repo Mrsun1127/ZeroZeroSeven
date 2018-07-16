@@ -134,7 +134,7 @@ public class VipActivity extends BaseActivity {
         parametersBean.setProductType("VIP");
         huoChanpinInfo.setParameters(parametersBean);
         okGoUtils = new OkGoUtils(VipActivity.this);
-        okGoUtils.httpPostJSON(huoChanpinInfo, true, true);
+        okGoUtils.httpPostJSON(huoChanpinInfo, true, true,tv_name2);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -246,7 +246,7 @@ public class VipActivity extends BaseActivity {
         TixianInfo.ParametersBean parametersBean = new TixianInfo.ParametersBean();
         parametersBean.setAmount(et_tixian.getText().toString().trim());
         tixianInfo.setParameters(parametersBean);
-        okGoUtils.httpPostJSON(tixianInfo, true, true);
+        okGoUtils.httpPostJSON(tixianInfo, true, true,tv_name2);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -303,7 +303,7 @@ public class VipActivity extends BaseActivity {
         parametersBean.setPayment("AliPay");
         parametersBean.setTradeType("APP");
         callNewDingDanInfo.setParameters(parametersBean);
-        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true);
+        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true,tv_name2);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -333,7 +333,7 @@ public class VipActivity extends BaseActivity {
         parametersBean.setPayment("WechatPay");
         parametersBean.setTradeType("APP");
         callNewDingDanInfo.setParameters(parametersBean);
-        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true);
+        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true,tv_name2);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -388,7 +388,7 @@ public class VipActivity extends BaseActivity {
         parametersBean.setPayment("AliPay");
         parametersBean.setTradeType("APP");
         callNewDingDanInfo.setParameters(parametersBean);
-        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true);
+        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true,tv_name2);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -419,7 +419,7 @@ public class VipActivity extends BaseActivity {
         parametersBean.setPayment("WechatPay");
         parametersBean.setTradeType("APP");
         callNewDingDanInfo.setParameters(parametersBean);
-        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true);
+        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true,tv_name2);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -461,7 +461,7 @@ public class VipActivity extends BaseActivity {
         VipUserInfo.ParametersBean parametersBean = new VipUserInfo.ParametersBean();
         vipUserInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(VipActivity.this);
-        okGoUtils.httpPostJSON(vipUserInfo, true, true);
+        okGoUtils.httpPostJSON(vipUserInfo, true, true,tv_phone);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {

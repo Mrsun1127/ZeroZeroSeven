@@ -149,91 +149,96 @@ public class ProductDetilsFragment extends BaseFragment {
         parametersBean.setIssuePrizeId(issueId);
         lastInteralInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(lastInteralInfo, true, true);
+        okGoUtils.httpPostJSON(lastInteralInfo, true, true,tv_name);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 productDetilsInfo = JSON.parseObject(response, ProductDetilsInfo.class);
-                if (productDetilsInfo.getCode() == 0) {
-                    //商品详情
-                    Glide.with(bfCxt).load(productDetilsInfo.getData().getPointPrize().getPrizePic()).into(iv_product);
-                    tv_name.setText("【第" + productDetilsInfo.getData().getIssue() + "期】" + productDetilsInfo.getData().getPointPrize().getPrizeName());
-                    tv_name1.setText("【第" + productDetilsInfo.getData().getIssue() + "期】" + productDetilsInfo.getData().getPointPrize().getPrizeName());
-                    tv_money.setText("￥" + productDetilsInfo.getData().getPointPrize().getPrizePrice());
-                    tv_detils.setText(productDetilsInfo.getData().getPointPrize().getPrizeIntro());
-                    productGoInAdapter.cleanDates();
-                    singgerGoInAdapter.cleanDates();
-                    if (productDetilsInfo.getData().getAllUserContributionList().size() > 0) {
-                        rc_allgoin.setVisibility(View.VISIBLE);
-                        rl_bot.setVisibility(View.GONE);
-                        productGoInAdapter.addAll(productDetilsInfo.getData().getAllUserContributionList());
-                    } else {
-                        rc_allgoin.setVisibility(View.GONE);
-                        rl_bot.setVisibility(View.VISIBLE);
-                    }
-                    if (productDetilsInfo.getData().getUserContributionList().size() > 0) {
-                        singgerGoInAdapter.addAll(productDetilsInfo.getData().getUserContributionList());
-                        rc_minegoin.setVisibility(View.VISIBLE);
-                        rl_top.setVisibility(View.GONE);
-                    } else {
-                        rc_minegoin.setVisibility(View.GONE);
-                        rl_top.setVisibility(View.VISIBLE);
-                    }
-                    switch (productDetilsInfo.getData().getStatus()) {
-                        //-1=失效奖品，0=未开奖，1=可开奖，2=已开奖，3=已填配送配送
-                        case -1:
-                            rl_ok.setVisibility(View.GONE);
-                            rl_close.setVisibility(View.GONE);
-                            rl_open.setVisibility(View.GONE);
-                            ZeroZeroSevenUtils.showCustonPop(bfCxt, "该奖品已失效", tv_name);
-                            break;
-                        case 0:
-                            bt_go.setVisibility(View.VISIBLE);
-                            rl_ok.setVisibility(View.GONE);
-                            rl_close.setVisibility(View.VISIBLE);
-                            rl_open.setVisibility(View.GONE);
-                            pb_watch.setMax(productDetilsInfo.getData().getPointPrize().getPrizePoint());
-                            tv_need.setText("总需" + productDetilsInfo.getData().getPointPrize().getPrizePoint() + "积分");
-                            tv_close.setText("还差" + (productDetilsInfo.getData().getPointPrize().getPrizePoint() - productDetilsInfo.getData().getPointPrize().getContributionPoint()) + "积分");
-                            pb_watch.setProgress(productDetilsInfo.getData().getPointPrize().getContributionPoint());
-                            break;
-                        case 1:
-                            bt_go.setVisibility(View.GONE);
-                            rl_ok.setVisibility(View.VISIBLE);
-                            rl_close.setVisibility(View.GONE);
-                            rl_open.setVisibility(View.GONE);
-                            tv_time.start(productDetilsInfo.getData().getPointPrize().getCountDownTime() * 1000 + 2000);
-                            break;
-                        case 2:
-                            bt_go.setVisibility(View.GONE);
-                            rl_ok.setVisibility(View.GONE);
-                            rl_open.setVisibility(View.VISIBLE);
-                            rl_close.setVisibility(View.GONE);
-                            tv_username.setText(ZeroZeroSevenUtils.phoneClose(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone()));
-                            tv_usercount.setText(productDetilsInfo.getData().getPointPrizeWinner().getParticipateCount() + "次");
-                            tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getLuckNum());
-                            tv_usertime.setText(productDetilsInfo.getData().getPointPrizeWinner().getCreateTime());
-                            Glide.with(bfCxt)
-                                    .load(productDetilsInfo.getData().getPointPrizeWinner().getUserAvatar())
-                                    .into(iv_user);
-                            break;
-                        case 3:
-                            bt_go.setVisibility(View.GONE);
-                            rl_ok.setVisibility(View.GONE);
-                            rl_open.setVisibility(View.VISIBLE);
-                            rl_close.setVisibility(View.GONE);
-                            tv_username.setText(ZeroZeroSevenUtils.phoneClose(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone()));
-                            tv_usercount.setText(productDetilsInfo.getData().getPointPrizeWinner().getParticipateCount() + "次");
-                            tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getLuckNum());
-                            tv_usertime.setText(productDetilsInfo.getData().getPointPrizeWinner().getCreateTime());
-                            Glide.with(bfCxt)
-                                    .load(productDetilsInfo.getData().getPointPrizeWinner().getUserAvatar())
-                                    .into(iv_user);
-                            break;
+                tv_name.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (productDetilsInfo.getCode() == 0) {
+                            //商品详情
+                            Glide.with(bfCxt).load(productDetilsInfo.getData().getPointPrize().getPrizePic()).into(iv_product);
+                            tv_name.setText("【第" + productDetilsInfo.getData().getIssue() + "期】" + productDetilsInfo.getData().getPointPrize().getPrizeName());
+                            tv_name1.setText("【第" + productDetilsInfo.getData().getIssue() + "期】" + productDetilsInfo.getData().getPointPrize().getPrizeName());
+                            tv_money.setText("￥" + productDetilsInfo.getData().getPointPrize().getPrizePrice());
+                            tv_detils.setText(productDetilsInfo.getData().getPointPrize().getPrizeIntro());
+                            productGoInAdapter.cleanDates();
+                            singgerGoInAdapter.cleanDates();
+                            if (productDetilsInfo.getData().getAllUserContributionList().size() > 0) {
+                                rc_allgoin.setVisibility(View.VISIBLE);
+                                rl_bot.setVisibility(View.GONE);
+                                productGoInAdapter.addAll(productDetilsInfo.getData().getAllUserContributionList());
+                            } else {
+                                rc_allgoin.setVisibility(View.GONE);
+                                rl_bot.setVisibility(View.VISIBLE);
+                            }
+                            if (productDetilsInfo.getData().getUserContributionList().size() > 0) {
+                                singgerGoInAdapter.addAll(productDetilsInfo.getData().getUserContributionList());
+                                rc_minegoin.setVisibility(View.VISIBLE);
+                                rl_top.setVisibility(View.GONE);
+                            } else {
+                                rc_minegoin.setVisibility(View.GONE);
+                                rl_top.setVisibility(View.VISIBLE);
+                            }
+                            switch (productDetilsInfo.getData().getStatus()) {
+                                //-1=失效奖品，0=未开奖，1=可开奖，2=已开奖，3=已填配送配送
+                                case -1:
+                                    rl_ok.setVisibility(View.GONE);
+                                    rl_close.setVisibility(View.GONE);
+                                    rl_open.setVisibility(View.GONE);
+                                    ZeroZeroSevenUtils.showCustonPop(bfCxt, "该奖品已失效", tv_name);
+                                    break;
+                                case 0:
+                                    bt_go.setVisibility(View.VISIBLE);
+                                    rl_ok.setVisibility(View.GONE);
+                                    rl_close.setVisibility(View.VISIBLE);
+                                    rl_open.setVisibility(View.GONE);
+                                    pb_watch.setMax(productDetilsInfo.getData().getPointPrize().getPrizePoint());
+                                    tv_need.setText("总需" + productDetilsInfo.getData().getPointPrize().getPrizePoint() + "积分");
+                                    tv_close.setText("还差" + (productDetilsInfo.getData().getPointPrize().getPrizePoint() - productDetilsInfo.getData().getPointPrize().getContributionPoint()) + "积分");
+                                    pb_watch.setProgress(productDetilsInfo.getData().getPointPrize().getContributionPoint());
+                                    break;
+                                case 1:
+                                    bt_go.setVisibility(View.GONE);
+                                    rl_ok.setVisibility(View.VISIBLE);
+                                    rl_close.setVisibility(View.GONE);
+                                    rl_open.setVisibility(View.GONE);
+                                    tv_time.start(productDetilsInfo.getData().getPointPrize().getCountDownTime() * 1000 + 2000);
+                                    break;
+                                case 2:
+                                    bt_go.setVisibility(View.GONE);
+                                    rl_ok.setVisibility(View.GONE);
+                                    rl_open.setVisibility(View.VISIBLE);
+                                    rl_close.setVisibility(View.GONE);
+                                    tv_username.setText(ZeroZeroSevenUtils.phoneClose(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone()));
+                                    tv_usercount.setText(productDetilsInfo.getData().getPointPrizeWinner().getParticipateCount() + "次");
+                                    tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getLuckNum());
+                                    tv_usertime.setText(productDetilsInfo.getData().getPointPrizeWinner().getCreateTime());
+                                    Glide.with(bfCxt)
+                                            .load(productDetilsInfo.getData().getPointPrizeWinner().getUserAvatar())
+                                            .into(iv_user);
+                                    break;
+                                case 3:
+                                    bt_go.setVisibility(View.GONE);
+                                    rl_ok.setVisibility(View.GONE);
+                                    rl_open.setVisibility(View.VISIBLE);
+                                    rl_close.setVisibility(View.GONE);
+                                    tv_username.setText(ZeroZeroSevenUtils.phoneClose(productDetilsInfo.getData().getPointPrizeWinner().getUserPhone()));
+                                    tv_usercount.setText(productDetilsInfo.getData().getPointPrizeWinner().getParticipateCount() + "次");
+                                    tv_usernumber.setText(productDetilsInfo.getData().getPointPrizeWinner().getLuckNum());
+                                    tv_usertime.setText(productDetilsInfo.getData().getPointPrizeWinner().getCreateTime());
+                                    Glide.with(bfCxt)
+                                            .load(productDetilsInfo.getData().getPointPrizeWinner().getUserAvatar())
+                                            .into(iv_user);
+                                    break;
 
-                    }
+                            }
 
-                }
+                        }
+                    }
+                });
             }
         });
     }

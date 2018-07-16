@@ -128,7 +128,7 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
         parametersBean.setId(shouHuoInfo.getData().getAddresses().get(position).getId());
         deleteAdrInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(AdrMannGerActivity.this);
-        okGoUtils.httpPostJSON(deleteAdrInfo, true, true);
+        okGoUtils.httpPostJSON(deleteAdrInfo, true, true,msgPullLv);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -159,7 +159,7 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
         AllAdrInfo allAdrInfo = new AllAdrInfo();
         allAdrInfo.setFunctionName("ListUserAddress");
         OkGoUtils okGoUtils = new OkGoUtils(AdrMannGerActivity.this);
-        okGoUtils.httpPostJSON(allAdrInfo, true, true);
+        okGoUtils.httpPostJSON(allAdrInfo, true, true,msgPullLv);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {

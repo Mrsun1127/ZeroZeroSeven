@@ -189,7 +189,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         }
         callNewDingDanInfo.setParameters(parametersBean1);
         OkGoUtils okGoUtils = new OkGoUtils(PayMoneyActivity.this);
-        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true);
+        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true,ll_all);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {

@@ -77,19 +77,24 @@ public class MessAgeBodyActivity extends BaseActivity {
         parametersBean.setId(id + "");
         info.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(MessAgeBodyActivity.this);
-        okGoUtils.httpPostJSON(info, true, true);
+        okGoUtils.httpPostJSON(info, true, true,tv_time);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                MessAgeSinggerInfo singgerInfo = JSON.parseObject(response, MessAgeSinggerInfo.class);
-                if (singgerInfo.getCode() == 0) {
-                    tv_title.setText(singgerInfo.getData().getTitle());
-                    tv_body.setText(singgerInfo.getData().getContent());
-                    tv_content.setText(singgerInfo.getData().getSummary());
-                    tv_time.setText(singgerInfo.getData().getCreateTime());
-                } else {
-                    ToastUtils.showShort("网络异常");
-                }
+                final MessAgeSinggerInfo singgerInfo = JSON.parseObject(response, MessAgeSinggerInfo.class);
+                tv_time.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (singgerInfo.getCode() == 0) {
+                            tv_title.setText(singgerInfo.getData().getTitle());
+                            tv_body.setText(singgerInfo.getData().getContent());
+                            tv_content.setText(singgerInfo.getData().getSummary());
+                            tv_time.setText(singgerInfo.getData().getCreateTime());
+                        } else {
+                            ToastUtils.showShort("网络异常");
+                        }
+                    }
+                });
             }
         });
 

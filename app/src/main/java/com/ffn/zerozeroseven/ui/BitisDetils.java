@@ -64,15 +64,20 @@ public class BitisDetils extends BaseActivity {
         parametersBean.setId(cardId);
         singgerTieziInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils=new OkGoUtils(BitisDetils.this);
-        okGoUtils.httpPostJSON(singgerTieziInfo,true,true);
+        okGoUtils.httpPostJSON(singgerTieziInfo,true,true,tv_content);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 singgerDetilsInfo = JSON.parseObject(response, SinggerDetilsInfo.class);
-                if(singgerDetilsInfo.getCode()==0){
-                    tv_user.setText(TextUtils.isEmpty(singgerDetilsInfo.getData().getUserName()) ? "该用户很懒，名字还没有取好" : singgerDetilsInfo.getData().getUserName());
-                    tv_content.setText(TextUtils.isEmpty(singgerDetilsInfo.getData().getContent()) ? "加载失败" : singgerDetilsInfo.getData().getContent());
-                }
+                tv_content.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(singgerDetilsInfo.getCode()==0){
+                            tv_user.setText(TextUtils.isEmpty(singgerDetilsInfo.getData().getUserName()) ? "该用户很懒，名字还没有取好" : singgerDetilsInfo.getData().getUserName());
+                            tv_content.setText(TextUtils.isEmpty(singgerDetilsInfo.getData().getContent()) ? "加载失败" : singgerDetilsInfo.getData().getContent());
+                        }
+                    }
+                });
             }
         });
     }

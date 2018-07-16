@@ -3,6 +3,7 @@ package com.ffn.zerozeroseven.utlis;
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppConfig;
@@ -50,30 +51,21 @@ public class OkGoUtils {
     }
 
     protected void showLoadProgress() {
-        BaseAppApplication.mainHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                hud.setDetailsLabel("正在加载中")
-                        .show();
-            }
-        });
+        hud.setDetailsLabel("正在加载中")
+                .show();
     }
 
     protected void disLoadProgress() {
-        BaseAppApplication.mainHandler.post(new Runnable() {
-            @Override
-            public void run() {
-               try {
-                   if (hud != null) {
-                       hud.dismiss();
-                   }
-               }catch (Exception e){}
+        try {
+            if (hud != null) {
+                hud.dismiss();
             }
-        });
-    }
+        } catch (Exception e) {
 
+        }
+    }
     public void httpPostJSON(Object obj, boolean isToken, final boolean showLoad) {
-        if(showLoad){
+        if (showLoad) {
             showLoadProgress();
         }
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -81,11 +73,11 @@ public class OkGoUtils {
         String url = AppConfig.BaseUrl;
         OkHttpClient client = new OkHttpClient();//创建okhttp实例
         RequestBody body = RequestBody.create(JSON, JsonUtil.parseBeanToJson(obj));
-        LogUtils.D("response",JsonUtil.parseBeanToJson(obj));
+        LogUtils.D("response", JsonUtil.parseBeanToJson(obj));
         if (isToken) {
-            String token="";
-            if(BaseAppApplication.getInstance().getLoginUser()!=null){
-                token=BaseAppApplication.getInstance().getLoginUser().getToken();
+            String token = "";
+            if (BaseAppApplication.getInstance().getLoginUser() != null) {
+                token = BaseAppApplication.getInstance().getLoginUser().getToken();
             }
 //            if(TextUtils.isEmpty(token)){
 //                gotoLogin();
@@ -110,7 +102,7 @@ public class OkGoUtils {
             //请求失败时调用
             @Override
             public void onFailure(Call call, IOException e) {
-                if(showLoad){
+                if (showLoad) {
                     disLoadProgress();
                 }
                 BaseAppApplication.mainHandler.post(new Runnable() {
@@ -127,7 +119,7 @@ public class OkGoUtils {
             //请求成功时调用
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(showLoad){
+                if (showLoad) {
                     disLoadProgress();
                 }
                 json = response.body().string();
@@ -135,20 +127,98 @@ public class OkGoUtils {
                 if ("401".equals(code)) {
                     gotoLogin();
                 }
-                if("-101".equals(code)){
+                if ("-101".equals(code)) {
                     HomeActivity.getmInstance().get().showpop();
                 }
                 LogUtils.E("response", json);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                            try {
-                                loadSuccess.onSuccLoad(json);
-                            }catch (Exception e){
-                            }
+                try {
+                    loadSuccess.onSuccLoad(json);
+                } catch (Exception e) {
+                }
+            }
+        });
 
-                    }
-                });
+    }
+
+    public void httpPostJSON(Object obj, boolean isToken, final boolean showLoad, final View view) {
+        if (showLoad) {
+            view.post(new Runnable() {
+                @Override
+                public void run() {
+                    showLoadProgress();
+                }
+            });
+        }
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        //换成自己的ip就行
+        String url = AppConfig.BaseUrl;
+        OkHttpClient client = new OkHttpClient();//创建okhttp实例
+        RequestBody body = RequestBody.create(JSON, JsonUtil.parseBeanToJson(obj));
+        LogUtils.D("response", JsonUtil.parseBeanToJson(obj));
+        if (isToken) {
+            String token = "";
+            if (BaseAppApplication.getInstance().getLoginUser() != null) {
+                token = BaseAppApplication.getInstance().getLoginUser().getToken();
+            }
+//            if(TextUtils.isEmpty(token)){
+//                gotoLogin();
+//                return;
+//            }
+            Request request = new Request.Builder()
+                    .addHeader("platform", "android")
+                    .addHeader("Authorization", "Bearer " + token)
+                    .url(url)
+                    .post(body)
+                    .build();
+            call = client.newCall(request);
+        } else {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+            call = client.newCall(request);
+        }
+
+        call.enqueue(new Callback() {
+            //请求失败时调用
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (showLoad) {
+                    disLoadProgress();
+                }
+               view.post(new Runnable() {
+                   @Override
+                   public void run() {
+                       ToastUtils.showShort("网络异常，请稍后再试！");
+                   }
+               });
+
+            }
+
+            //请求成功时调用
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (showLoad) {
+                    view.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            disLoadProgress();
+                        }
+                    });
+                }
+                json = response.body().string();
+                String code = JsonUtil.getFieldValue(json, "code");
+                if ("401".equals(code)) {
+                    gotoLogin();
+                }
+                if ("-101".equals(code)) {
+                    HomeActivity.getmInstance().get().showpop();
+                }
+                LogUtils.E("response", json);
+                try {
+                    loadSuccess.onSuccLoad(json);
+                } catch (Exception e) {
+                }
             }
         });
 

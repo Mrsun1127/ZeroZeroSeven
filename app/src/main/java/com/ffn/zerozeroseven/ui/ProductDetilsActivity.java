@@ -144,30 +144,35 @@ public class ProductDetilsActivity extends BaseActivity implements OnRefreshList
         parametersBean.setPrizeId(prizeId);
         lastInteralInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(ProductDetilsActivity.this);
-        okGoUtils.httpPostJSON(lastInteralInfo, true, true);
+        okGoUtils.httpPostJSON(lastInteralInfo, true, true,recyclerView);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                refreshlayout.finishRefresh();
                 productTitleInfo = JSON.parseObject(response, ProductTitleInfo.class);
-                if (productTitleInfo.getCode() == 0 && productTitleInfo.getData().getIssues().size() > 0) {
-                    fragmentList = new ArrayList<>();
-                    titleList = new ArrayList<>();
-                    List = new ArrayList<>();
-                    for (int i = 0; i < productTitleInfo.getData().getIssues().size(); i++) {
-                        titleList.add(String.valueOf(productTitleInfo.getData().getIssues().get(i).getIssue()));
+                recyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshlayout.finishRefresh();
+                        if (productTitleInfo.getCode() == 0 && productTitleInfo.getData().getIssues().size() > 0) {
+                            fragmentList = new ArrayList<>();
+                            titleList = new ArrayList<>();
+                            List = new ArrayList<>();
+                            for (int i = 0; i < productTitleInfo.getData().getIssues().size(); i++) {
+                                titleList.add(String.valueOf(productTitleInfo.getData().getIssues().get(i).getIssue()));
+                            }
+                            Collections.reverse(titleList);
+                            List<ProductTitleInfo.DataBean.IssuesBean> issues = productTitleInfo.getData().getIssues();
+                            Collections.reverse(issues);
+                            List.add(String.valueOf(issues.get(0).getIssue()));
+                            productAdapter.cleanDates();
+                            productAdapter.addAll(titleList);
+                            productAdapter.setClickPosition(0);
+                            fragmentList.add(ProductDetilsFragment.newInstance(prizeId, issues.get(0).getId()));
+                            ShopViewPagerAdapter viewPagerAdapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, List);
+                            viewPager.setAdapter(viewPagerAdapter);
+                        }
                     }
-                    Collections.reverse(titleList);
-                    List<ProductTitleInfo.DataBean.IssuesBean> issues = productTitleInfo.getData().getIssues();
-                    Collections.reverse(issues);
-                    List.add(String.valueOf(issues.get(0).getIssue()));
-                    productAdapter.cleanDates();
-                    productAdapter.addAll(titleList);
-                    productAdapter.setClickPosition(0);
-                    fragmentList.add(ProductDetilsFragment.newInstance(prizeId, issues.get(0).getId()));
-                    ShopViewPagerAdapter viewPagerAdapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, List);
-                    viewPager.setAdapter(viewPagerAdapter);
-                }
+                });
             }
         });
     }

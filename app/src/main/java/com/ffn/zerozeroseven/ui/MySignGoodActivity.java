@@ -137,7 +137,7 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
                     et_phone.setText(mySignGoodAdapter.getItem(position).getAwardAddress().getContactPhone());
                     et_adr.setText(mySignGoodAdapter.getItem(position).getAwardAddress().getContactAddress());
                     et_name.setText(mySignGoodAdapter.getItem(position).getAwardAddress().getContactName());
-                }else{
+                } else {
                     bt_sub.setVisibility(View.VISIBLE);
                     et_phone.setText("");
                     et_adr.setText("");
@@ -214,48 +214,54 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
         parametersBean.setPageIndex(pageNo);
         parametersBean.setPageSize(10);
         mySignGoodInfo.setParameters(parametersBean);
-        okGoUtils.httpPostJSON(mySignGoodInfo, true, true);
+        okGoUtils.httpPostJSON(mySignGoodInfo, true, true,rl_top);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                disLoadState();
                 zhongJiangListInfo = JSON.parseObject(response, ZhongJiangListInfo.class);
-                if (zhongJiangListInfo.getCode() == 0) {
-                    switch (rgRefreshStatus) {
-                        case IDLE:
-                        case REFRESHING:
-                            goInMySignGoodAdapter.clear();
-                            if (zhongJiangListInfo.getData().getParticipateList().getList().size() == 0) {
-                                goInView.setVisibility(View.GONE);
-                                rl_bot.setVisibility(View.VISIBLE);
-                            } else {
-                                goInView.setVisibility(View.VISIBLE);
-                                rl_bot.setVisibility(View.GONE);
-                                goInMySignGoodAdapter.addAll(zhongJiangListInfo.getData().getParticipateList().getList());
+                rl_top.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        disLoadState();
+                        if (zhongJiangListInfo.getCode() == 0) {
+                            switch (rgRefreshStatus) {
+                                case IDLE:
+                                case REFRESHING:
+                                    goInMySignGoodAdapter.clear();
+                                    if (zhongJiangListInfo.getData().getParticipateList().getList().size() == 0) {
+                                        goInView.setVisibility(View.GONE);
+                                        rl_bot.setVisibility(View.VISIBLE);
+                                    } else {
+                                        goInView.setVisibility(View.VISIBLE);
+                                        rl_bot.setVisibility(View.GONE);
+                                        goInMySignGoodAdapter.addAll(zhongJiangListInfo.getData().getParticipateList().getList());
+                                    }
+                                    break;
+                                case PULL_DOWN:
+                                    refreshLayout.finishLoadmore();
+                                    if (zhongJiangListInfo.getData().getParticipateList().getList().size() == 0) {
+                                        ToastUtils.showShort("没有更多数据了");
+                                    } else {
+                                        goInMySignGoodAdapter.addAll(zhongJiangListInfo.getData().getParticipateList().getList());
+                                    }
+                                    break;
                             }
-                            break;
-                        case PULL_DOWN:
-                            refreshLayout.finishLoadmore();
-                            if (zhongJiangListInfo.getData().getParticipateList().getList().size() == 0) {
-                                ToastUtils.showShort("没有更多数据了");
+                            if (zhongJiangListInfo.getData().getPointPrizeList().size() > 0) {
+                                mySignGoodAdapter.clear();
+                                mySignGoodAdapter.addAll(zhongJiangListInfo.getData().getPointPrizeList());
                             } else {
-                                goInMySignGoodAdapter.addAll(zhongJiangListInfo.getData().getParticipateList().getList());
+                                rl_top.setVisibility(View.VISIBLE);
+                                mySignView.setVisibility(View.GONE);
                             }
-                            break;
+                        } else {
+                            goInView.setVisibility(View.GONE);
+                            rl_bot.setVisibility(View.VISIBLE);
+                            rl_top.setVisibility(View.VISIBLE);
+                            mySignView.setVisibility(View.GONE);
+                        }
                     }
-                    if (zhongJiangListInfo.getData().getPointPrizeList().size() > 0) {
-                        mySignGoodAdapter.clear();
-                        mySignGoodAdapter.addAll(zhongJiangListInfo.getData().getPointPrizeList());
-                    } else {
-                        rl_top.setVisibility(View.VISIBLE);
-                        mySignView.setVisibility(View.GONE);
-                    }
-                } else {
-                    goInView.setVisibility(View.GONE);
-                    rl_bot.setVisibility(View.VISIBLE);
-                    rl_top.setVisibility(View.VISIBLE);
-                    mySignView.setVisibility(View.GONE);
-                }
+                });
+
             }
         });
     }
@@ -272,20 +278,25 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
         parametersBean.setUserPhone(userInfo.getPhone());
         naJiangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(MySignGoodActivity.this);
-        okGoUtils.httpPostJSON(naJiangInfo, true, true);
+        okGoUtils.httpPostJSON(naJiangInfo, true, true,rl_top);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onSuccLoad(String response) {
-                rl_zhong.setVisibility(View.GONE);
-                et_adr.setText("");
-                et_name.setText("");
-                et_phone.setText("");
-                if (JsonUtil.getFieldValue(response, "code").equals("0")) {
-                    ToastUtils.showShort("后台将尽快安排配送");
-                    requestDate();
-                } else {
-                    ToastUtils.showShort(JsonUtil.getFieldValue(response, "message"));
-                }
+            public void onSuccLoad(final String response) {
+                rl_top.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        rl_zhong.setVisibility(View.GONE);
+                        et_adr.setText("");
+                        et_name.setText("");
+                        et_phone.setText("");
+                        if (JsonUtil.getFieldValue(response, "code").equals("0")) {
+                            ToastUtils.showShort("后台将尽快安排配送");
+                            requestDate();
+                        } else {
+                            ToastUtils.showShort(JsonUtil.getFieldValue(response, "message"));
+                        }
+                    }
+                });
             }
         });
     }

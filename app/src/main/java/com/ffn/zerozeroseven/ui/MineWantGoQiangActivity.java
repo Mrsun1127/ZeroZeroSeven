@@ -186,7 +186,7 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
 
     public void requestDa(FaTieInfo faTieInfo) {
         OkGoUtils okGoUtils = new OkGoUtils(MineWantGoQiangActivity.this);
-        okGoUtils.httpPostJSON(faTieInfo,true,true);
+        okGoUtils.httpPostJSON(faTieInfo,true,true,et_content);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {

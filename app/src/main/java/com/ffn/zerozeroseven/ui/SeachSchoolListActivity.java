@@ -67,7 +67,7 @@ public class SeachSchoolListActivity extends BaseActivity {
         IdSearchInfo searchInfo = new IdSearchInfo();
         searchInfo.setFunctionName("ListSchool");
         OkGoUtils okGoUtils=new OkGoUtils(SeachSchoolListActivity.this);
-        okGoUtils.httpPostJSON(searchInfo,true,true);
+        okGoUtils.httpPostJSON(searchInfo,true,true,rl_back);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {

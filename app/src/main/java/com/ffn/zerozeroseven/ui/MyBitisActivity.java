@@ -173,39 +173,45 @@ public class MyBitisActivity extends BaseActivity implements OnRefreshListener, 
         parametersBean.setPostType(type);
         qiangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(MyBitisActivity.this);
-        okGoUtils.httpPostJSON(qiangInfo, true, false);
+        okGoUtils.httpPostJSON(qiangInfo, true, false,topView);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                disLoadState();
-                QiangShowInfo showInfo = JSON.parseObject(response, QiangShowInfo.class);
-                if (showInfo.getCode() == 0) {
-                    bitisAdapter.addAll(showInfo.getData().getItems());
-                    switch (rgRefreshStatus) {
-                        case IDLE:
-                        case REFRESHING:
-                            commonRefreshLayout.finishRefresh();
-                            bitisAdapter.clear();
-                            if (showInfo.getData().getItems().size() == 0) {
-                                showErrorLayout(StateLayout.noData);
-                            } else {
-                                commonRefreshLayout.setVisibility(View.VISIBLE);
-                                commonStateLayout.setVisibility(View.GONE);
-                                bitisAdapter.addAll(showInfo.getData().getItems());
+                final QiangShowInfo showInfo = JSON.parseObject(response, QiangShowInfo.class);
+
+                topView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        disLoadState();
+                        if (showInfo.getCode() == 0) {
+                            bitisAdapter.addAll(showInfo.getData().getItems());
+                            switch (rgRefreshStatus) {
+                                case IDLE:
+                                case REFRESHING:
+                                    commonRefreshLayout.finishRefresh();
+                                    bitisAdapter.clear();
+                                    if (showInfo.getData().getItems().size() == 0) {
+                                        showErrorLayout(StateLayout.noData);
+                                    } else {
+                                        commonRefreshLayout.setVisibility(View.VISIBLE);
+                                        commonStateLayout.setVisibility(View.GONE);
+                                        bitisAdapter.addAll(showInfo.getData().getItems());
+                                    }
+                                    break;
+                                case PULL_DOWN:
+                                    commonRefreshLayout.finishLoadmore();
+                                    if (showInfo.getData().getItems().size() == 0) {
+                                        UiTipUtil.showToast(MyBitisActivity.this, R.string.no_more_data);
+                                    } else {
+                                        bitisAdapter.addAll(showInfo.getData().getItems());
+                                    }
+                                    break;
                             }
-                            break;
-                        case PULL_DOWN:
-                            commonRefreshLayout.finishLoadmore();
-                            if (showInfo.getData().getItems().size() == 0) {
-                                UiTipUtil.showToast(MyBitisActivity.this, R.string.no_more_data);
-                            } else {
-                                bitisAdapter.addAll(showInfo.getData().getItems());
-                            }
-                            break;
+                        }else {
+                            showErrorLayout(StateLayout.noData);
+                        }
                     }
-                }else {
-                    showErrorLayout(StateLayout.noData);
-                }
+                });
             }
         });
     }

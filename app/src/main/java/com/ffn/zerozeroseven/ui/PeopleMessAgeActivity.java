@@ -239,7 +239,7 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
         }
         updateInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(PeopleMessAgeActivity.this);
-        okGoUtils.httpPostJSON(updateInfo, true, true);
+        okGoUtils.httpPostJSON(updateInfo, true, true,tv_userbri);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {

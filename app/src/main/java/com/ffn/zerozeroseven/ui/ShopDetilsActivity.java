@@ -94,22 +94,26 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         shangchangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(ShopDetilsActivity.this);
-        okGoUtils.httpPostJSON(shangchangInfo, true, true);
+        okGoUtils.httpPostJSON(shangchangInfo, true, true,tv_smallmoney);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
-                if (shangChangShowInfo.getCode() == 0) {
-                    rmb=shangChangShowInfo.getData().getDeliveryPrice();
-                    storeId = shangChangShowInfo.getData().getId() + "";//商家Id
-//                    tv_phone.setText("商家电话：" + shangChangShowInfo.getData().getServicePhone());
-                    if (shangChangShowInfo.getData().getExtraFee() != null) {
-                        runMoney = shangChangShowInfo.getData().getExtraFee();
-                    } else {
-                        runMoney = 1.0;
+                tv_smallmoney.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (shangChangShowInfo.getCode() == 0) {
+                            rmb=shangChangShowInfo.getData().getDeliveryPrice();
+                            storeId = shangChangShowInfo.getData().getId() + "";//商家Id
+                            if (shangChangShowInfo.getData().getExtraFee() != null) {
+                                runMoney = shangChangShowInfo.getData().getExtraFee();
+                            } else {
+                                runMoney = 1.0;
+                            }
+                            tv_smallmoney.setText("另需007跑腿费 " + runMoney);
+                        }
                     }
-                    tv_smallmoney.setText("另需007跑腿费 " + runMoney);
-                }
+                });
             }
         });
 

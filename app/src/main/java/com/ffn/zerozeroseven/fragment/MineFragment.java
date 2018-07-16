@@ -116,14 +116,19 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
         jifenInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(jifenInfo, true, false);
+        okGoUtils.httpPostJSON(jifenInfo, true, false,tv_jifen);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                JiInfo jiInfo = JSON.parseObject(response, JiInfo.class);
-                if (jiInfo.getCode() == 0) {
-                    tv_jifen.setText("当前积分：" + jiInfo.getData().getHonerPoint());
-                }
+                final JiInfo jiInfo = JSON.parseObject(response, JiInfo.class);
+                tv_jifen.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (jiInfo.getCode() == 0) {
+                            tv_jifen.setText("当前积分：" + jiInfo.getData().getHonerPoint());
+                        }
+                    }
+                });
             }
         });
     }

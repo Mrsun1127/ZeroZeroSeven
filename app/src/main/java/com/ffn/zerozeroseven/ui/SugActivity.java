@@ -78,7 +78,7 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
         parametersBean.setContent(et_body.getText().toString());
         sugAppInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(SugActivity.this);
-        okGoUtils.httpPostJSON(sugAppInfo, true, true);
+        okGoUtils.httpPostJSON(sugAppInfo, true, true,et_body);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -109,7 +109,7 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
         parametersBean.setCourierPhone(phone);
         sugInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils1 = new OkGoUtils(SugActivity.this);
-        okGoUtils1.httpPostJSON(sugInfo, true, true);
+        okGoUtils1.httpPostJSON(sugInfo, true, true,et_body);
         okGoUtils1.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {

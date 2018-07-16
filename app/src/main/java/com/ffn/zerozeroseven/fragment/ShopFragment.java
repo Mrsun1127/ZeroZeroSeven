@@ -124,7 +124,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         GoodTabsInfo goodTabsInfo = new GoodTabsInfo();
         goodTabsInfo.setFunctionName("ListGoodsType");
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(goodTabsInfo, true, true);
+        okGoUtils.httpPostJSON(goodTabsInfo, true, true,tabLayout);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {

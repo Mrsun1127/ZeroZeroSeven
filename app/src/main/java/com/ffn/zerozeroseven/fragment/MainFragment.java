@@ -177,7 +177,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         TongZhiShowInfo lunXunInfo = new TongZhiShowInfo();
         lunXunInfo.setFunctionName("ListPushLetters");
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(lunXunInfo, true, false);
+        okGoUtils.httpPostJSON(lunXunInfo, true, false,rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -497,7 +497,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         AppUpdateInfo updateInfo = new AppUpdateInfo();
         updateInfo.setFunctionName("QueryLatestAppVersion");
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(updateInfo, true, false);
+        okGoUtils.httpPostJSON(updateInfo, true, false,rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -626,37 +626,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         }
     }
 
-    public void goToDetils(final int position, final MainGoodsAdapter adapter) {
-        RequeseGoods requeseGoods = new RequeseGoods();
-        requeseGoods.setFunctionName("QueryGoods");
-        RequeseGoods.ParametersBean parametersBean = new RequeseGoods.ParametersBean();
-        parametersBean.setGoodsId(adapter.getItem(position).getId());
-        requeseGoods.setParameters(parametersBean);
-        OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(requeseGoods, true, true);
-        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
-            @Override
-            public void onSuccLoad(String response) {
-                final GoodsDetilsInfo goodsDetilsInfo = JSON.parseObject(response, GoodsDetilsInfo.class);
-                if (goodsDetilsInfo.getCode() == 0) {
-                    HomeActivity.getmInstance().get().go2Fragment(1);
-                    GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
-                    goodsInfo.setId(adapter.getItem(position).getId());
-                    goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
-                    goodsInfo.setThumbnail(adapter.getItem(position).getThumbnail());
-                    goodsInfo.setStockNum(goodsDetilsInfo.getData().getStockNum());
-                    goodsInfo.setPrice(goodsDetilsInfo.getData().getPrice());
-//                          goodsInfo.setPromotionPrice(goodsDetilsInfo.getData().getPromotionPrice());
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("shopInfo", goodsInfo);
-                    bundle.putString("back", "main");
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
-                } else {
-                    ToastUtils.showShort(goodsDetilsInfo.getMessage());
-                }
-            }
-        });
-    }
+
 
     public void goToDetils(final int position, final BestNewGoodsAdapter adapter) {
         RequeseGoods requeseGoods = new RequeseGoods();
@@ -665,27 +635,32 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setGoodsId(adapter.getItem(position).getId());
         requeseGoods.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(requeseGoods, true, true);
+        okGoUtils.httpPostJSON(requeseGoods, true, true,scrollTextView);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final GoodsDetilsInfo goodsDetilsInfo = JSON.parseObject(response, GoodsDetilsInfo.class);
-                if (goodsDetilsInfo.getCode() == 0) {
-                    HomeActivity.getmInstance().get().go2Fragment(1);
-                    GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
-                    goodsInfo.setId(adapter.getItem(position).getId());
-                    goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
-                    goodsInfo.setThumbnail(adapter.getItem(position).getThumbnail());
-                    goodsInfo.setStockNum(goodsDetilsInfo.getData().getStockNum());
-                    goodsInfo.setPrice(goodsDetilsInfo.getData().getPrice());
+                scrollTextView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (goodsDetilsInfo.getCode() == 0) {
+                            HomeActivity.getmInstance().get().go2Fragment(1);
+                            GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
+                            goodsInfo.setId(adapter.getItem(position).getId());
+                            goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
+                            goodsInfo.setThumbnail(adapter.getItem(position).getThumbnail());
+                            goodsInfo.setStockNum(goodsDetilsInfo.getData().getStockNum());
+                            goodsInfo.setPrice(goodsDetilsInfo.getData().getPrice());
 //                          goodsInfo.setPromotionPrice(goodsDetilsInfo.getData().getPromotionPrice());
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("shopInfo", goodsInfo);
-                    bundle.putString("back", "main");
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
-                } else {
-                    ToastUtils.showShort(goodsDetilsInfo.getMessage());
-                }
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable("shopInfo", goodsInfo);
+                            bundle.putString("back", "main");
+                            ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
+                        } else {
+                            ToastUtils.showShort(goodsDetilsInfo.getMessage());
+                        }
+                    }
+                });
             }
         });
     }
@@ -697,27 +672,32 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setGoodsId(adapter.getItem(position).getId());
         requeseGoods.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(requeseGoods, true, true);
+        okGoUtils.httpPostJSON(requeseGoods, true, true,scrollTextView);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final GoodsDetilsInfo goodsDetilsInfo = JSON.parseObject(response, GoodsDetilsInfo.class);
-                if (goodsDetilsInfo.getCode() == 0) {
-                    HomeActivity.getmInstance().get().go2Fragment(1);
-                    GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
-                    goodsInfo.setId(adapter.getItem(position).getId());
-                    goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
-                    goodsInfo.setThumbnail(adapter.getItem(position).getThumbnail());
-                    goodsInfo.setStockNum(goodsDetilsInfo.getData().getStockNum());
-                    goodsInfo.setPrice(goodsDetilsInfo.getData().getPrice());
+                scrollTextView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (goodsDetilsInfo.getCode() == 0) {
+                            HomeActivity.getmInstance().get().go2Fragment(1);
+                            GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
+                            goodsInfo.setId(adapter.getItem(position).getId());
+                            goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
+                            goodsInfo.setThumbnail(adapter.getItem(position).getThumbnail());
+                            goodsInfo.setStockNum(goodsDetilsInfo.getData().getStockNum());
+                            goodsInfo.setPrice(goodsDetilsInfo.getData().getPrice());
 //                          goodsInfo.setPromotionPrice(goodsDetilsInfo.getData().getPromotionPrice());
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("shopInfo", goodsInfo);
-                    bundle.putString("back", "main");
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
-                } else {
-                    ToastUtils.showShort(goodsDetilsInfo.getMessage());
-                }
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable("shopInfo", goodsInfo);
+                            bundle.putString("back", "main");
+                            ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
+                        } else {
+                            ToastUtils.showShort(goodsDetilsInfo.getMessage());
+                        }
+                    }
+                });
             }
         });
     }
@@ -769,8 +749,9 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         SearchSchoolInfo.ParametersBean parametersBean = new SearchSchoolInfo.ParametersBean();
         parametersBean.setSchoolName(name);
         schoolInfo.setParameters(parametersBean);
+
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(schoolInfo, true, true);
+        okGoUtils.httpPostJSON(schoolInfo, true, false,rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -890,14 +871,19 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         shangchangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(shangchangInfo, true, true);
+        okGoUtils.httpPostJSON(shangchangInfo, true, false,scrollTextView);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
                 if (shangChangShowInfo.getCode() == 0) {
                     if (!TextUtils.isEmpty(shangChangShowInfo.getData().getServicePhone())) {
-                        userInfo.setServicePhone(shangChangShowInfo.getData().getServicePhone());
+                        scrollTextView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                userInfo.setServicePhone(shangChangShowInfo.getData().getServicePhone());
+                            }
+                        });
                         BaseAppApplication.getInstance().setLoginUser(userInfo);
                         SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
                     }
@@ -946,7 +932,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setType("00");
         lunBoInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(lunBoInfo, true, false);
+        okGoUtils.httpPostJSON(lunBoInfo, true, false,rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {

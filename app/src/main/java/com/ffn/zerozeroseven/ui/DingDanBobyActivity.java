@@ -122,14 +122,20 @@ public class DingDanBobyActivity extends BaseActivity {
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         shangchangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(DingDanBobyActivity.this);
-        okGoUtils.httpPostJSON(shangchangInfo, true, false);
+        okGoUtils.httpPostJSON(shangchangInfo, true, false,tv_finish);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
-                if (shangChangShowInfo.getCode() == 0) {
-                    tv_endTime.setText("联系客服:" + shangChangShowInfo.getData().getServicePhone());
-                }
+                tv_finish.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (shangChangShowInfo.getCode() == 0) {
+                            tv_endTime.setText("联系客服:" + shangChangShowInfo.getData().getServicePhone());
+                        }
+                    }
+                });
+
             }
         });
     }

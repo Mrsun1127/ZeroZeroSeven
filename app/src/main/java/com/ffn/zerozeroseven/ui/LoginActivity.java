@@ -207,19 +207,24 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         parametersBean.setPhone(et_phoneNumber.getText().toString().trim());
         codeInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(LoginActivity.this);
-        okGoUtils.httpPostJSON(codeInfo, false, true);
+        okGoUtils.httpPostJSON(codeInfo, false, true,bt_send);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                CodeInfo info = JSON.parseObject(response, CodeInfo.class);
-                if (info.getCode() == 0) {
-                    timer.start();
-                    loginCode = info.getData().getAuthcode();
-                    ToastUtils.showShort("发送成功!");
-                    LogUtils.D("LoginActivity", loginCode);
-                } else {
-                    ToastUtils.showShort(info.getMessage());
-                }
+                final CodeInfo info = JSON.parseObject(response, CodeInfo.class);
+                bt_send.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (info.getCode() == 0) {
+                            timer.start();
+                            loginCode = info.getData().getAuthcode();
+                            ToastUtils.showShort("发送成功!");
+                            LogUtils.D("LoginActivity", loginCode);
+                        } else {
+                            ToastUtils.showShort(info.getMessage());
+                        }
+                    }
+                });
             }
         });
     }
@@ -286,7 +291,7 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         }
         codeLoginInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils3 = new OkGoUtils(LoginActivity.this);
-        okGoUtils3.httpPostJSON(codeLoginInfo, false, true);
+        okGoUtils3.httpPostJSON(codeLoginInfo, false, true,et_phoneNumber);
         okGoUtils3.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {

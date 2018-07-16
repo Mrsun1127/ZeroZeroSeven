@@ -115,14 +115,19 @@ public class InteralDetilsActivity extends BaseActivity {
         parametersBean.setUserId(Integer.parseInt(userId));
         jifenInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(InteralDetilsActivity.this);
-        okGoUtils.httpPostJSON(jifenInfo, true, true);
+        okGoUtils.httpPostJSON(jifenInfo, true, true,rl_out);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                JiInfo jiInfo = JSON.parseObject(response, JiInfo.class);
-                if (jiInfo.getCode() == 0) {
-                    topView.setTvRightText("当前积分：" + jiInfo.getData().getHonerPoint());
-                }
+                final JiInfo jiInfo = JSON.parseObject(response, JiInfo.class);
+                rl_out.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (jiInfo.getCode() == 0) {
+                            topView.setTvRightText("当前积分：" + jiInfo.getData().getHonerPoint());
+                        }
+                    }
+                });
             }
         });
     }
@@ -197,23 +202,28 @@ public class InteralDetilsActivity extends BaseActivity {
         parametersBean.setIssuePrizeId(replaceId);
         parametersBean.setIsRest(baowei);
         gobuyInfo.setParameters(parametersBean);
-        okGoUtils.httpPostJSON(gobuyInfo, true, true);
+        okGoUtils.httpPostJSON(gobuyInfo, true, true,rl_out);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
-                if (errorCodeInfo.getCode() == 0) {
-                    ToastUtils.showShort("贡献成功");
-                    finish();
-                    if("sign".equals(ProductDetilsActivity.mInstance.get().type)){
-                        ProductDetilsFragment.mInstance.get().requestId(ProductDetilsActivity.mInstance.get().issuePrizeId);
-                    }else{
-                        ProductDetilsActivity.mInstance.get().requestTitle(false);
-                    }
+                final ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                rl_out.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (errorCodeInfo.getCode() == 0) {
+                            ToastUtils.showShort("贡献成功");
+                            finish();
+                            if("sign".equals(ProductDetilsActivity.mInstance.get().type)){
+                                ProductDetilsFragment.mInstance.get().requestId(ProductDetilsActivity.mInstance.get().issuePrizeId);
+                            }else{
+                                ProductDetilsActivity.mInstance.get().requestTitle(false);
+                            }
 
-                } else {
-                    ToastUtils.showShort(errorCodeInfo.getMessage());
-                }
+                        } else {
+                            ToastUtils.showShort(errorCodeInfo.getMessage());
+                        }
+                    }
+                });
             }
         });
     }

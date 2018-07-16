@@ -207,16 +207,21 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         parametersBean.setUserPhone(userInfo.getPhone());
         naJiangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(naJiangInfo, true, true);
+        okGoUtils.httpPostJSON(naJiangInfo, true, true,tv_pao);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onSuccLoad(String response) {
-                rl_zhong.setVisibility(View.GONE);
-                if (JsonUtil.getFieldValue(response, "code").equals("0")) {
-                    ToastUtils.showShort("后台将尽快安排配送");
-                }else{
-                    ToastUtils.showShort(JsonUtil.getFieldValue(response, "message"));
-                }
+            public void onSuccLoad(final String response) {
+                tv_pao.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        rl_zhong.setVisibility(View.GONE);
+                        if (JsonUtil.getFieldValue(response, "code").equals("0")) {
+                            ToastUtils.showShort("后台将尽快安排配送");
+                        }else{
+                            ToastUtils.showShort(JsonUtil.getFieldValue(response, "message"));
+                        }
+                    }
+                });
             }
         });
     }
@@ -256,22 +261,27 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         parametersBean.setUserId(userId);
         signInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(signInfo, true, true);
+        okGoUtils.httpPostJSON(signInfo, true, true,tv_pao);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                ErrorCodeInfo codeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
-                if (codeInfo.getCode() == 0) {
-                    rl_pop.setVisibility(View.VISIBLE);
-                } else {
-                    //分享
-                    rl_pop.setVisibility(View.VISIBLE);
-                    tv_one.setText("您已签过到了");
-                    tv_two.setText("签到获得2积分");
-                    tv_three.setText("分享可获得更多积分");
-                    bt_share.setText("去分享");
-                    jump=0;
-                }
+                final ErrorCodeInfo codeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                tv_pao.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (codeInfo.getCode() == 0) {
+                            rl_pop.setVisibility(View.VISIBLE);
+                        } else {
+                            //分享
+                            rl_pop.setVisibility(View.VISIBLE);
+                            tv_one.setText("您已签过到了");
+                            tv_two.setText("签到获得2积分");
+                            tv_three.setText("分享可获得更多积分");
+                            bt_share.setText("去分享");
+                            jump=0;
+                        }
+                    }
+                });
             }
         });
     }
@@ -294,27 +304,32 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         TongyongInfo tongyongInfo = new TongyongInfo();
         tongyongInfo.setFunctionName("ListPointPrizeWinner");
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(tongyongInfo, true, true);
+        okGoUtils.httpPostJSON(tongyongInfo, true, true,tv_pao);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                WinnerDanmu winnerDanmu = JSON.parseObject(response, WinnerDanmu.class);
-                if (winnerDanmu.getCode() == 0) {
-                    if (winnerDanmu.getData().getPointPrizeWinner() != null) {
-                        if (winnerDanmu.getData().getPointPrizeWinner().size() > 0) {
-                            for (int i = 0; i < winnerDanmu.getData().getPointPrizeWinner().size(); i++) {
-                                sb=sb+"恭喜"+ ZeroZeroSevenUtils.phoneClose(winnerDanmu.getData().getPointPrizeWinner().get(i).getUserPhone())+"获得了"+
-                                        winnerDanmu.getData().getPointPrizeWinner().get(i).getPrizeName()+"    ";
-                            }
-                            if(!TextUtils.isEmpty(sb)){
-                                tv_pao.setText(sb);
-                            }else{
-                                tv_pao.setText("暂无中奖信息");
-                            }
+                final WinnerDanmu winnerDanmu = JSON.parseObject(response, WinnerDanmu.class);
+                tv_pao.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (winnerDanmu.getCode() == 0) {
+                            if (winnerDanmu.getData().getPointPrizeWinner() != null) {
+                                if (winnerDanmu.getData().getPointPrizeWinner().size() > 0) {
+                                    for (int i = 0; i < winnerDanmu.getData().getPointPrizeWinner().size(); i++) {
+                                        sb=sb+"恭喜"+ ZeroZeroSevenUtils.phoneClose(winnerDanmu.getData().getPointPrizeWinner().get(i).getUserPhone())+"获得了"+
+                                                winnerDanmu.getData().getPointPrizeWinner().get(i).getPrizeName()+"    ";
+                                    }
+                                    if(!TextUtils.isEmpty(sb)){
+                                        tv_pao.setText(sb);
+                                    }else{
+                                        tv_pao.setText("暂无中奖信息");
+                                    }
 
+                                }
+                            }
                         }
                     }
-                }
+                });
             }
         });
     }
@@ -326,17 +341,22 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         parametersBean.setUserPhone(userInfo.getPhone());
         zhongMaInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(zhongMaInfo, true, true);
+        okGoUtils.httpPostJSON(zhongMaInfo, true, true,tv_pao);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 zhongLeInfo = JSON.parseObject(response, ZhongLeInfo.class);
-                if (zhongLeInfo.getCode() == 0) {
-                    if (zhongLeInfo.getData().getPointPrizeWinners().isAccept()) {
-                        rl_zhong.setVisibility(View.VISIBLE);
-                        tv_name.setText(zhongLeInfo.getData().getPointPrizeWinners().getPrizeName());
+                tv_pao.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (zhongLeInfo.getCode() == 0) {
+                            if (zhongLeInfo.getData().getPointPrizeWinners().isAccept()) {
+                                rl_zhong.setVisibility(View.VISIBLE);
+                                tv_name.setText(zhongLeInfo.getData().getPointPrizeWinners().getPrizeName());
+                            }
+                        }
                     }
-                }
+                });
             }
         });
     }
@@ -346,25 +366,30 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         InteraglSignInfo interaglSignInfo = new InteraglSignInfo();
         interaglSignInfo.setFunctionName("ListPointJackpotPrize");
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(interaglSignInfo, true, true);
+        okGoUtils.httpPostJSON(interaglSignInfo, true, true,tv_pao);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                JiangChiInfo jiangChiInfo = JSON.parseObject(response, JiangChiInfo.class);
-                refreshlayout.finishRefresh();
-                if (jiangChiInfo.getCode() == 0) {
-                    if(jiangChiInfo.getData().getJackpotPrizes().size()>0){
-                        if(jiangChiInfo.getData().getJackpotPrizes().size()>=4){
-                            view_bot.setVisibility(View.VISIBLE);
-                        }else{
-                            view_bot.setVisibility(View.GONE);
-                        }
-                        adapter.cleanDates();
-                        adapter.addAll(jiangChiInfo.getData().getJackpotPrizes());
-                    }
-                } else {
-                    ToastUtils.showShort("奖池暂无信息");
-                }
+                final JiangChiInfo jiangChiInfo = JSON.parseObject(response, JiangChiInfo.class);
+               tv_pao.post(new Runnable() {
+                   @Override
+                   public void run() {
+                       refreshlayout.finishRefresh();
+                       if (jiangChiInfo.getCode() == 0) {
+                           if(jiangChiInfo.getData().getJackpotPrizes().size()>0){
+                               if(jiangChiInfo.getData().getJackpotPrizes().size()>=4){
+                                   view_bot.setVisibility(View.VISIBLE);
+                               }else{
+                                   view_bot.setVisibility(View.GONE);
+                               }
+                               adapter.cleanDates();
+                               adapter.addAll(jiangChiInfo.getData().getJackpotPrizes());
+                           }
+                       } else {
+                           ToastUtils.showShort("奖池暂无信息");
+                       }
+                   }
+               });
             }
         });
     }
