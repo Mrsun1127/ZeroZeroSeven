@@ -328,7 +328,7 @@
             android:layout_height="17dp"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="15dp"
-            android:background="@mipmap/shoplocation" />
+            android:background="@drawable/main_location" />
 
         <TextView
             android:id="@+id/tv_school"

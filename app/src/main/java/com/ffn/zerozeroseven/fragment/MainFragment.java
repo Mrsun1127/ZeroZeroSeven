@@ -81,6 +81,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.TongZhiShowInfo;
 import com.ffn.zerozeroseven.ui.BitisDetils;
 import com.ffn.zerozeroseven.ui.HomeActivity;
 import com.ffn.zerozeroseven.ui.IntegralDrawActivity;
+import com.ffn.zerozeroseven.ui.JumpShopActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
 import com.ffn.zerozeroseven.ui.MessAgeActivity;
 import com.ffn.zerozeroseven.ui.MrsunWebActivity;
@@ -199,7 +200,6 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
                                 scrollTextView.setTextList(titles);
                                 scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
                                 scrollTextView.setTextStillTime(3000);//设置停留时长间隔
-                                scrollTextView.setAnimTime(300);
                                 scrollTextView.startAutoScroll();
                             } else {
                                 titles = new ArrayList<>();
@@ -207,7 +207,6 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
                                 scrollTextView.setTextList(titles);
                                 scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
                                 scrollTextView.setTextStillTime(3000);//设置停留时长间隔
-                                scrollTextView.setAnimTime(300);
                                 scrollTextView.startAutoScroll();
                             }
 
@@ -228,7 +227,8 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
     SmartScrollView scrollview;
     @Bind(R.id.rl_top)
     RelativeLayout rl_top;
-
+    @Bind(R.id.iv_location)
+    ImageView iv_location;
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
@@ -248,24 +248,27 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         if (SharePrefUtils.getInt(bfCxt, "isLocation", 0) != 1) {
             mLocationClient.start();
         }
-
-            scrollview.setScrollViewListener(new SmartScrollView.ScrollViewListener() {
-                @Override
-                public void onScrollChanged(SmartScrollView scrollView,  int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    float offsetY = getResources().getDimension(R.dimen.main_top) - getResources().getDimension(R.dimen.img_top);
-                    //计算滑动距离的偏移量
-                    float offset = 1 - Math.max((offsetY - scrollY) / offsetY, 0f);
-                    float absOffset = Math.abs(offset);
-                    //如果滑动距离大于1就设置完全不透明
-                    if (absOffset >= 1) {
-                        absOffset = 1;
-                        rl_top.setBackgroundColor(getResources().getColor(R.color.white));
-                        tv_school.setTextColor(getResources().getColor(R.color.black));
-                    } else {
-                        rl_top.setBackgroundColor(Color.argb((int) (absOffset * 255), 255, 255, 255));
-                    }
+        scrollTextView.setAnimTime(300);
+        scrollview.setScrollViewListener(new SmartScrollView.ScrollViewListener() {
+            @Override
+            public void onScrollChanged(SmartScrollView scrollView, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                float offsetY = getResources().getDimension(R.dimen.main_top) - getResources().getDimension(R.dimen.img_top);
+                //计算滑动距离的偏移量
+                float offset = 1 - Math.max((offsetY - scrollY) / offsetY, 0f);
+                float absOffset = Math.abs(offset);
+                //如果滑动距离大于1就设置完全不透明
+                if (absOffset >= 1) {
+                    absOffset = 1;
+                    rl_top.setBackgroundColor(getResources().getColor(R.color.white));
+                    tv_school.setTextColor(getResources().getColor(R.color.black));
+                    Glide.with(bfCxt).load(R.mipmap.shoplocation).into(iv_location);
+                } else {
+                    rl_top.setBackgroundColor(Color.argb((int) (absOffset * 255), 255, 255, 255));
+                    tv_school.setTextColor(getResources().getColor(R.color.white));
+                    Glide.with(bfCxt).load(R.drawable.main_location).into(iv_location);
                 }
-            });
+            }
+        });
 
 
         scrollview.setScanScrollChangedListener(new SmartScrollView.ISmartScrollChangedListener() {
@@ -1181,9 +1184,20 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
     @Bind(R.id.tv_up_content)
     TextView tv_up_content;
 
-    @OnClick({R.id.bt_update, R.id.tv_up_top, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
+    @OnClick({R.id.rl_jump_shop, R.id.bt_update, R.id.tv_up_top, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.rl_jump_shop:
+                if (userInfo != null) {
+                    if ("943478288".equals(schoolIId)) {
+                        ZeroZeroSevenUtils.showCustonPop(bfCxt, "请先选择学校", recyclerView);
+                    } else {
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, JumpShopActivity.class);
+                    }
+                } else {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
+                }
+                break;
             case R.id.bt_update:
                 requestSomePermission();
                 downLoadApk(appVersionInfo.getData().getDownloadUrl());
