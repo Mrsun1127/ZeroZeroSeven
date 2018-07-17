@@ -78,60 +78,35 @@
                     android:background="@drawable/jump_shop_seachbutton" />
 
                 <ImageView
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="169dp"
                     android:layout_below="@+id/iv_seach"
-                    android:background="@drawable/interal_zhong" />
+                    android:background="@drawable/apply_banner" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:background="@color/white">
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical">
 
-            <TextView
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/magic_indicator4"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="28dp"
-                android:layout_toLeftOf="@+id/view_center"
-                android:gravity="center"
-                android:text="看最新"
-                android:textColor="@color/money" />
+                android:layout_height="58dp"
+                android:layout_gravity="center_horizontal" />
 
-            <View
-                android:layout_width="60dp"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="20dp"
-                android:layout_toLeftOf="@+id/view_center"
-                android:background="@color/money" />
+        </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="28dp"
-                android:layout_toRightOf="@+id/view_center"
-                android:gravity="center"
-                android:text="光热门"
-                android:textColor="@color/black" />
 
-            <View
-                android:id="@+id/view_center"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true" />
-        </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
-   <android.support.v4.widget.NestedScrollView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       app:layout_behavior="@string/appbar_scrolling_view_behavior">
-       <ImageView
-           android:layout_width="match_parent"
-           android:layout_height="1000dp"
-           android:background="@drawable/splash"/>
-   </android.support.v4.widget.NestedScrollView>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 
 </android.support.design.widget.CoordinatorLayout>

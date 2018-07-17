@@ -141,4 +141,5 @@ dependencies {
     api 'com.github.mmin18:realtimeblurview:1.1.0'
     //倒计时
     api 'com.github.iwgang:countdownview:2.1.6'
+    api 'com.github.hackware1993:MagicIndicator:1.5.0'
 }
