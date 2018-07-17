@@ -229,6 +229,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
     RelativeLayout rl_top;
     @Bind(R.id.iv_location)
     ImageView iv_location;
+
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
@@ -902,12 +903,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
                 final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
                 if (shangChangShowInfo.getCode() == 0) {
                     if (!TextUtils.isEmpty(shangChangShowInfo.getData().getServicePhone())) {
-                        scrollTextView.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                userInfo.setServicePhone(shangChangShowInfo.getData().getServicePhone());
-                            }
-                        });
+                        userInfo.setServicePhone(shangChangShowInfo.getData().getServicePhone());
                         BaseAppApplication.getInstance().setLoginUser(userInfo);
                         SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
                     }
@@ -1023,7 +1019,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setHotEndTime(afterTime);
         oftenInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(oftenInfo, true, false);
+        okGoUtils.httpPostJSON(oftenInfo, true, false, rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -1078,7 +1074,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         oftenInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(oftenInfo, true, false);
+        okGoUtils.httpPostJSON(oftenInfo, true, false,rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {

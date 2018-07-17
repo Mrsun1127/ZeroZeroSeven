@@ -125,7 +125,7 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
         QiangTypeInfo typeInfo = new QiangTypeInfo();
         typeInfo.setFunctionName("ListPostType");
         OkGoUtils okGoUtils = new OkGoUtils(MineWantGoQiangActivity.this);
-        okGoUtils.httpPostJSON(typeInfo,true,true);
+        okGoUtils.httpPostJSON(typeInfo,true,true,et_content);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
