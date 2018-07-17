@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ExamplePagerAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
-import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -111,7 +111,7 @@ public class JumpShopActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rl_post:
-                ToastUtils.showShort("发表");
+                ZeroZeroSevenUtils.SwitchActivity(JumpShopActivity.this,ReleaseJumpShopActivity.class);
                 break;
         }
     }
