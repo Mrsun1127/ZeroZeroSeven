@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="main_top">47dp</dimen>
     <dimen name="img_top">200dp</dimen>
+    <dimen name="short_top">40dp</dimen>
+    <dimen name="long_top">60dp</dimen>
 </resources>

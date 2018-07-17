@@ -62,9 +62,6 @@ public class OkGoUtils {
     }
 
     public void httpPostJSON(Object obj, boolean isToken, final boolean showLoad) {
-        if (showLoad) {
-            showLoadProgress();
-        }
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         //换成自己的ip就行
         String url = AppConfig.BaseUrl;
@@ -76,10 +73,7 @@ public class OkGoUtils {
             if (BaseAppApplication.getInstance().getLoginUser() != null) {
                 token = BaseAppApplication.getInstance().getLoginUser().getToken();
             }
-//            if(TextUtils.isEmpty(token)){
-//                gotoLogin();
-//                return;
-//            }
+
             Request request = new Request.Builder()
                     .addHeader("platform", "android")
                     .addHeader("Authorization", "Bearer " + token)
@@ -99,15 +93,10 @@ public class OkGoUtils {
             //请求失败时调用
             @Override
             public void onFailure(Call call, IOException e) {
-                if (showLoad) {
-                    disLoadProgress();
-                }
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         ToastUtils.showShort("网络异常，请稍后再试！");
-//                        loadError.onErrorLoad();
-//                        ZeroZeroSevenUtils.openSetting((Activity) context);
                     }
                 });
 
