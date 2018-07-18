@@ -31,6 +31,7 @@ import com.ffn.zerozeroseven.fragment.MineFragment;
 import com.ffn.zerozeroseven.fragment.ShopFragment;
 import com.ffn.zerozeroseven.service.LocalService;
 import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.NXHooldeView;
@@ -75,31 +76,31 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        LogUtils.D("logString","onSaveInstanceState");
-        savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+        LogUtils.D("logString", "onSaveInstanceState");
+        savedInstanceState.putSerializable("userInfo", BaseAppApplication.getInstance().getLoginUser());
         super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        LogUtils.D("logString","onRestoreInstanceState");
-        if(savedInstanceState!=null){
-            BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo"));
+        LogUtils.D("logString", "onRestoreInstanceState");
+        if (savedInstanceState != null) {
+            BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
         }
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState!=null){
-            LogUtils.D("logString","savedInstanceState!=null");
-            BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo"));
-            fm=getSupportFragmentManager();
-            fm.popBackStackImmediate(null,1);
+        if (savedInstanceState != null) {
+            LogUtils.D("logString", "savedInstanceState!=null");
+            BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
+            fm = getSupportFragmentManager();
+            fm.popBackStackImmediate(null, 1);
         }
-        LogUtils.D("logString","savedInstanceState==null");
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        LogUtils.D("logString", "savedInstanceState==null");
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
         BaseAppApplication.getInstance().addActivity(this);
         mInstance = new WeakReference<>(this);
@@ -111,10 +112,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void txst() {
-        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.M){
-            int i=checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            if(i!= PackageManager.PERMISSION_GRANTED){
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},101);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            int i = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (i != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
             }
         }
     }
@@ -122,10 +123,10 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode==101){
-            if(permissions[0].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)&& grantResults[0]==PackageManager.PERMISSION_GRANTED){
+        if (requestCode == 101) {
+            if (permissions[0].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-            }else{
+            } else {
                 ToastUtils.showShort("亲爱的用户你好，如果不打开权限下次将无法更新App");
                 txst();
             }
@@ -158,10 +159,11 @@ public class HomeActivity extends AppCompatActivity {
         fragments.add(ShopFragment.newInstance());
         fragments.add(MineFragment.newInstance());
     }
-    public void ll_Show(boolean s){
-        if(s){
+
+    public void ll_Show(boolean s) {
+        if (s) {
             Ll_bot.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             Ll_bot.setVisibility(View.GONE);
         }
     }
@@ -229,7 +231,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
     private static boolean mBackKeyPressed = false;//记录是否有首次按键
 
     @Override
@@ -245,7 +246,7 @@ public class HomeActivity extends AppCompatActivity {
             }, 2000);
         } else {//退出程序
 //            BaseAppApplication.getInstance().clearActivityList();
-            Intent intent = new Intent(this,HomeActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra(HomeActivity.TAG_EXIT, true);
             startActivity(intent);
         }
@@ -254,22 +255,26 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtils.D("logString","onDestroy");
+        LogUtils.D("logString", "onDestroy");
+        LogUtils.D("carShopInfo","我在HomeActivity存了购物车");
+        SharePrefUtils.saveObject(HomeActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
         BaseAppApplication.getInstance().finishActivity(this);
     }
 
     public void openAliveService() {
         startService(new Intent(HomeActivity.this, LocalService.class));
     }
-    public void showpop(){
+
+    public void showpop() {
         rl_main.post(new Runnable() {
             @Override
             public void run() {
-                ZeroZeroSevenUtils.showSleepPop(HomeActivity.this,rl_mine);
+                ZeroZeroSevenUtils.showSleepPop(HomeActivity.this, rl_mine);
             }
         });
 
     }
+
     public void addAction(View startView) {
         NXHooldeView nxHooldeView = new NXHooldeView(HomeActivity.this);
         int position[] = new int[2];
@@ -282,4 +287,11 @@ public class HomeActivity extends AppCompatActivity {
         nxHooldeView.setEndPosition(new Point(endPosition[0], endPosition[1]));
         nxHooldeView.startBeizerAnimation();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+    }
+
 }

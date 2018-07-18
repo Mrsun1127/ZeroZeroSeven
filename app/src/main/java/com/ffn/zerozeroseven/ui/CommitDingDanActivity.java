@@ -82,6 +82,11 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                 .show();//显示引导层
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharePrefUtils.saveObject(CommitDingDanActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
+    }
 
     @Override
     public void initView() {
@@ -89,7 +94,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
         badgeView.setBadgePadding(10, true);
         badgeView.setGravityOffset(-5, true);
         et_beizhu = findViewById(R.id.et_beizhu);
-        carShopInfo = (CarShopInfo) SharePrefUtils.readObject(CommitDingDanActivity.this, "carShopInfo");
+        carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
         rl_selectadr = findViewById(R.id.rl_selectadr);
         rl_addadr = findViewById(R.id.rl_addadr);
         rl_selectadr.setOnClickListener(this);
@@ -108,7 +113,9 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onDragStateChanged(int dragState, Badge badge, View targetView) {
                 if (dragState == 5) {
-                    SharePrefUtils.saveObject(CommitDingDanActivity.this, "carShopInfo", null);
+                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                    carShopInfo.getShopInfos().clear();
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     ShopViewPagerAllFragment.mInstance.get().notifyShop();
                     ShopViewPagerFragment.mInstance.get().notifyShop();
                     adapter.cleanDates();
@@ -126,7 +133,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                 carShopInfo.getShopInfos().get(position).setBuyCount(carShopInfo.getShopInfos().get(position).getBuyCount() + 1);
                 adapter.cleanDates();
                 adapter.addAll(carShopInfo.getShopInfos());
-                SharePrefUtils.saveObject(CommitDingDanActivity.this, "carShopInfo", carShopInfo);
+                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                 notifyCar();
             }
         });
@@ -145,7 +152,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                         carShopInfo.getShopInfos().remove(position);
                         adapter.cleanDates();
                         adapter.addAll(carShopInfo.getShopInfos());
-                        SharePrefUtils.saveObject(CommitDingDanActivity.this, "carShopInfo", carShopInfo);
+                        BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                         notifyCar();
                     }
 
@@ -165,14 +172,14 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                     carShopInfo.getShopInfos().remove(position);
                     adapter.cleanDates();
                     adapter.addAll(carShopInfo.getShopInfos());
-                    SharePrefUtils.saveObject(CommitDingDanActivity.this, "carShopInfo", carShopInfo);
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     notifyCar();
                     return;
                 }
                 carShopInfo.getShopInfos().get(position).setBuyCount(carShopInfo.getShopInfos().get(position).getBuyCount() - 1);
                 adapter.cleanDates();
                 adapter.addAll(carShopInfo.getShopInfos());
-                SharePrefUtils.saveObject(CommitDingDanActivity.this, "carShopInfo", carShopInfo);
+                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                 notifyCar();
             }
         });
@@ -232,7 +239,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
     }
 
     public double reactMoney() {
-        carShopInfo = (CarShopInfo) SharePrefUtils.readObject(CommitDingDanActivity.this, "carShopInfo");
+        carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
         double a = 0.0;
         if (carShopInfo == null) {
             return 0.0;
@@ -268,7 +275,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                         adapter.addAll(carShopInfo.getShopInfos());
                     }
                 }, 500);
-                SharePrefUtils.saveObject(CommitDingDanActivity.this, "carShopInfo", carShopInfo);
+                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                 notifyCar();
             }
 
@@ -281,7 +288,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
     }
 
     public void notifyCar() {
-        CarShopInfo carShopInfo = (CarShopInfo) SharePrefUtils.readObject(CommitDingDanActivity.this, "carShopInfo");
+        CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
         if (carShopInfo == null || carShopInfo.getShopInfos().size() == 0) {
             badgeView.setBadgeNumber(0);
         } else {
@@ -388,7 +395,9 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
 //                    return;
 //                }
                 if ("跑腿费：¥null".equals(tv_runMoney.getText().toString())) {
-                    SharePrefUtils.saveObject(CommitDingDanActivity.this, "carShopInfo", null);
+                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                    carShopInfo.getShopInfos().clear();
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     ShopViewPagerAllFragment.mInstance.get().notifyShop();
                     ShopViewPagerFragment.mInstance.get().notifyShop();
                     adapter.cleanDates();
@@ -411,7 +420,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                 }
 
 
-                carShopInfo = (CarShopInfo) SharePrefUtils.readObject(CommitDingDanActivity.this, "carShopInfo");
+                carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                 if (shouHuoInfo.getData().getAddresses() != null && shouHuoInfo.getData().getAddresses().size() > 0) {
                     if (carShopInfo != null && carShopInfo.getShopInfos().size() > 0) {
                         String reMark = et_beizhu.getText().toString().trim();

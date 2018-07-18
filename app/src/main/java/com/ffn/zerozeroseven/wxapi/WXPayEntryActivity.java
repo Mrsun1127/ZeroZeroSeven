@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
+import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CancelOrderInfo;
 import com.ffn.zerozeroseven.ui.PayMoneyActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
@@ -102,7 +103,10 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                         tv_bottom.setText("零零七正带着您的宝贝，火速赶往您身边！");
                         bt_sub.setText("完成");
                         iv_success.setBackgroundResource(R.drawable.success);
-                        SharePrefUtils.saveObject(WXPayEntryActivity.this, "carShopInfo", null);
+                        CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                        carShopInfo.getShopInfos().clear();
+                        BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                        SharePrefUtils.saveObject(WXPayEntryActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
                         PayMoneyActivity.mInstance.get().finish();
                     } else {
                         tv_bottom.setText("支付异常，请稍后再试");
@@ -121,11 +125,12 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             }
         });
     }
+
     private void cancelPay() {
-        CancelOrderInfo cancelOrderInfo=new CancelOrderInfo();
+        CancelOrderInfo cancelOrderInfo = new CancelOrderInfo();
         cancelOrderInfo.setFunctionName("CancelOrderPay");
-        OkGoUtils okGoUtils=new OkGoUtils(WXPayEntryActivity.this);
-        okGoUtils.httpPostJSON(cancelOrderInfo,true,false);
+        OkGoUtils okGoUtils = new OkGoUtils(WXPayEntryActivity.this);
+        okGoUtils.httpPostJSON(cancelOrderInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {

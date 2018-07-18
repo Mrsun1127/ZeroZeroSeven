@@ -71,7 +71,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         reMark = getIntent().getStringExtra("beizhu");
         if ("carpay".equals(payType)) {
             MobclickAgent.onEvent(this, "购物车结算");
-            carShopInfo = (CarShopInfo) SharePrefUtils.readObject(PayMoneyActivity.this, "carShopInfo");
+            carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
             if (carShopInfo == null) {
                 ToastUtils.showShort("支付异常 请稍后再试！");
                 finish();

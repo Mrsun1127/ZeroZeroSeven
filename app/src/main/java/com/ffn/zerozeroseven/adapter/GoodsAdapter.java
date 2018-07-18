@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
@@ -148,7 +149,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
     private void closeCarInfo(GoodsContentShowInfo.DataBean.ProductsBean goodsInfo, TextView tv_count) {
         //减少的时候购物车里面是一定有东西的
        try {
-           lastCarShopInfo=(CarShopInfo)SharePrefUtils.readObject(mContext, "carShopInfo");
+           lastCarShopInfo= BaseAppApplication.getInstance().getCarShopInfo();
            List<CarShopInfo.ShopInfo> list = lastCarShopInfo.getShopInfos();
            for (int i = 0; i < list.size(); i++) {
                if (list.get(i).getGoodsId() == goodsInfo.getId()) {
@@ -157,17 +158,17 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                if(lastCarShopInfo.getShopInfos().get(i).getBuyCount()==0){
                    lastCarShopInfo.getShopInfos().remove(i);
                }
-               SharePrefUtils.saveObject(mContext, "carShopInfo", lastCarShopInfo);
+               BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
                ShopFragment.mInstance.get().notifyCar();
            }
        }catch (Exception e){
            try {
-               lastCarShopInfo=(CarShopInfo)SharePrefUtils.readObject(mContext, "carShopInfo");
+               lastCarShopInfo=BaseAppApplication.getInstance().getCarShopInfo();
                List<CarShopInfo.ShopInfo> list = lastCarShopInfo.getShopInfos();
                for (int i = 0; i < list.size(); i++) {
                    if (list.get(i).getGoodsId() == goodsInfo.getId()) {
                        lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() - 1);
-                       SharePrefUtils.saveObject(mContext, "carShopInfo", lastCarShopInfo);
+                       BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
                        ShopFragment.mInstance.get().notifyCar();
                        return;
                    }
@@ -181,13 +182,13 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
 
     private void AddCarInfo(GoodsContentShowInfo.DataBean.ProductsBean goodsInfo, TextView tv_count) {
         try {
-            lastCarShopInfo=(CarShopInfo)SharePrefUtils.readObject(mContext, "carShopInfo");
+            lastCarShopInfo=BaseAppApplication.getInstance().getCarShopInfo();
             if (lastCarShopInfo.getShopInfos().size() > 0) {//说明购物车里面有东西
                 List<CarShopInfo.ShopInfo> list = lastCarShopInfo.getShopInfos();
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).getGoodsId() == goodsInfo.getId()) {
                         lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() + 1);
-                        SharePrefUtils.saveObject(mContext, "carShopInfo", lastCarShopInfo);
+                        BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
                         ShopFragment.mInstance.get().notifyCar();
                         return;
                     }
@@ -202,7 +203,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 shopInfo.setShopMoney(goodsInfo.getPrice());
                 list.add(shopInfo);
                 lastCarShopInfo.setShopInfos(list);
-                SharePrefUtils.saveObject(mContext, "carShopInfo", lastCarShopInfo);
+                BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
                 ShopFragment.mInstance.get().notifyCar();
             } else {//购物车里面的东西是空的
                 List<CarShopInfo.ShopInfo> list = new ArrayList<>();
@@ -217,7 +218,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 shopInfo.setShopMoney(goodsInfo.getPrice());
                 list.add(shopInfo);
                 carShopInfo.setShopInfos(list);
-                SharePrefUtils.saveObject(mContext, "carShopInfo", carShopInfo);
+                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                 ShopFragment.mInstance.get().notifyCar();
             }
         } catch (Exception e) {
@@ -233,7 +234,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
             shopInfo.setShopMoney(goodsInfo.getPrice());
             list.add(shopInfo);
             carShopInfo.setShopInfos(list);
-            SharePrefUtils.saveObject(mContext, "carShopInfo", carShopInfo);
+            BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
             ShopFragment.mInstance.get().notifyCar();
         }
 

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.HotInfo;
@@ -75,13 +76,13 @@ public class HotTimeAdapter extends BaseRecyclerAdapter<HotInfo.DataBean.Product
     }
     private void AddCar(HotInfo.DataBean.ProductsBean goodsInfo) {
         try {//
-            lastCarShopInfo=(CarShopInfo) SharePrefUtils.readObject(mContext, "carShopInfo");
+            lastCarShopInfo= BaseAppApplication.getInstance().getCarShopInfo();
             if (lastCarShopInfo.getShopInfos().size() > 0) {//说明购物车里面有东西
                 List<CarShopInfo.ShopInfo> list = lastCarShopInfo.getShopInfos();
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).getGoodsId() == goodsInfo.getId()) {
                         lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() + 1);
-                        SharePrefUtils.saveObject(mContext, "carShopInfo", lastCarShopInfo);
+                        BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
                         return;
                     }
                 }
@@ -95,7 +96,7 @@ public class HotTimeAdapter extends BaseRecyclerAdapter<HotInfo.DataBean.Product
                 shopInfo.setShopMoney(goodsInfo.getPrice());
                 list.add(shopInfo);
                 lastCarShopInfo.setShopInfos(list);
-                SharePrefUtils.saveObject(mContext, "carShopInfo", lastCarShopInfo);
+                BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
             } else {//购物车里面的东西是空的
                 List<CarShopInfo.ShopInfo> list = new ArrayList<>();
                 CarShopInfo carShopInfo = new CarShopInfo();
@@ -109,7 +110,7 @@ public class HotTimeAdapter extends BaseRecyclerAdapter<HotInfo.DataBean.Product
                 shopInfo.setShopMoney(goodsInfo.getPrice());
                 list.add(shopInfo);
                 carShopInfo.setShopInfos(list);
-                SharePrefUtils.saveObject(mContext, "carShopInfo", carShopInfo);
+                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
             }
         } catch (Exception e) {
             List<CarShopInfo.ShopInfo> list = new ArrayList<>();
@@ -124,7 +125,7 @@ public class HotTimeAdapter extends BaseRecyclerAdapter<HotInfo.DataBean.Product
             shopInfo.setShopMoney(goodsInfo.getPrice());
             list.add(shopInfo);
             carShopInfo.setShopInfos(list);
-            SharePrefUtils.saveObject(mContext, "carShopInfo", carShopInfo);
+            BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
         }
     }
 }

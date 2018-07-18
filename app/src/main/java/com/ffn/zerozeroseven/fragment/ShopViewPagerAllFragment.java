@@ -251,7 +251,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                                     } else {
                                         adapter.addAll(products);
                                         adapter.setRunMoneyAndStoreId(runMoney, storeId);
-                                        adapter.setLastCarShopInfo(SharePrefUtils.readObject(getContext(), "carShopInfo"));
+                                        adapter.setLastCarShopInfo(BaseAppApplication.getInstance().getCarShopInfo());
                                     }
                                     break;
                                 case PULL_DOWN:

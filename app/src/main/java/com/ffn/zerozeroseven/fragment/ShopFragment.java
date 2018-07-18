@@ -61,9 +61,11 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     private SearchView etSearch;
     private QBadgeView badgeView;
     private RelativeLayout focus;
+
     public static ShopFragment newInstance() {
         return new ShopFragment();
     }
+
     @Override
     protected void initView(View view) {
         badgeView = new QBadgeView(bfCxt);
@@ -82,7 +84,9 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
             public void onDragStateChanged(int dragState, Badge badge, View targetView) {
                 LogUtils.D("state", "" + dragState);
                 if (dragState == 5) {
-                    SharePrefUtils.saveObject(bfCxt, "carShopInfo", null);
+                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                    carShopInfo.getShopInfos().clear();
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     ShopViewPagerAllFragment.mInstance.get().notifyShop();
                     ShopViewPagerFragment.mInstance.get().notifyShop();
                 }
@@ -126,7 +130,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         GoodTabsInfo goodTabsInfo = new GoodTabsInfo();
         goodTabsInfo.setFunctionName("ListGoodsType");
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(goodTabsInfo, true, true,tabLayout);
+        okGoUtils.httpPostJSON(goodTabsInfo, true, true, tabLayout);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -227,27 +231,22 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void notifyCar() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final CarShopInfo carShopInfo = (CarShopInfo) SharePrefUtils.readObject(bfCxt, "carShopInfo");
-                if (carShopInfo == null || carShopInfo.getShopInfos().size() == 0) {
-                    BaseAppApplication.mainHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            badgeView.setBadgeNumber(0);
-                        }
-                    }, 500);
-                } else {
-                    BaseAppApplication.mainHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            badgeView.setBadgeNumber(carShopInfo.getShopInfos().size());
-                        }
-                    }, 500);
+        final CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+        if (carShopInfo == null || carShopInfo.getShopInfos().size() == 0) {
+            BaseAppApplication.mainHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    badgeView.setBadgeNumber(0);
                 }
-            }
-        }).start();
+            }, 500);
+        } else {
+            BaseAppApplication.mainHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    badgeView.setBadgeNumber(carShopInfo.getShopInfos().size());
+                }
+            }, 500);
+        }
 
     }
 
@@ -263,4 +262,5 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         nxHooldeView.setEndPosition(new Point(endPosition[0], endPosition[1]));
         nxHooldeView.startBeizerAnimation();
     }
+
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppManger;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
+import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -22,6 +23,7 @@ public class SplashActivity extends AppCompatActivity {
     private TextView tv_version;
     private SharedPreferences sharedLogin;
     private UserInfo.DataBean userInfo;
+    private CarShopInfo carShopInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,9 @@ public class SplashActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
         BaseAppApplication.getInstance().addActivity(this);
-        tv_version=findViewById(R.id.tv_version);
-        userInfo = (UserInfo.DataBean) SharePrefUtils.readObject(SplashActivity.this,"userInfo");
+        tv_version = findViewById(R.id.tv_version);
+        userInfo = (UserInfo.DataBean) SharePrefUtils.readObject(SplashActivity.this, "userInfo");
+        carShopInfo = (CarShopInfo) SharePrefUtils.readObject(SplashActivity.this, "carShopInfo");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -46,13 +49,14 @@ public class SplashActivity extends AppCompatActivity {
                     ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, WelcomeActivity.class);
                     finish();
                 } else {
-                    if (userInfo !=null) {
+                    if (userInfo != null) {
                         BaseAppApplication.getInstance().setLoginUser(userInfo);
-                        if(!TextUtils.isEmpty(userInfo.getDowmPoster())){
-                            Bundle bundle=new Bundle();
-                            bundle.putString("imgurl",userInfo.getDowmPoster());
+                        BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                        if (!TextUtils.isEmpty(userInfo.getDowmPoster())) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("imgurl", userInfo.getDowmPoster());
                             ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, AdvertisingActivity.class, bundle);
-                        }else{
+                        } else {
                             ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, HomeActivity.class, null);
                         }
                         finish();

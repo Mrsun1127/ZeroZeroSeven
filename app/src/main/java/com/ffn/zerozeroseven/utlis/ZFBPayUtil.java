@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
+import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CancelOrderInfo;
 import com.ffn.zerozeroseven.ui.CommitSuccessActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyActivity;
@@ -49,7 +50,10 @@ public class ZFBPayUtil {
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
                         PayMoneyActivity.mInstance.get().finish();
-                        SharePrefUtils.saveObject(mContext, "carShopInfo", null);
+                        CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                        carShopInfo.getShopInfos().clear();
+                        BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                        SharePrefUtils.saveObject(mContext, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
                         ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class);
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败

@@ -56,6 +56,7 @@ import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.base.BaseRecyclerTallAniAdapter;
 import com.ffn.zerozeroseven.bean.AppVersionInfo;
 import com.ffn.zerozeroseven.bean.BannerInfo;
+import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.FindSchoolInfo;
 import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
 import com.ffn.zerozeroseven.bean.GoodsDetilsInfo;
@@ -237,8 +238,6 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
-
-
         mInstance = new WeakReference<>(this);
         mLocationClient = new LocationClient(BaseAppApplication.context);
         //声明LocationClient类

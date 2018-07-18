@@ -10,6 +10,7 @@ import android.support.multidex.MultiDexApplication;
 import com.aitangba.swipeback.ActivityLifecycleHelper;
 import com.baidu.mapapi.SDKInitializer;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.mob.MobSDK;
@@ -40,6 +41,7 @@ public class BaseAppApplication extends MultiDexApplication {
     public static Handler mainHandler;//主线程的handler
     public static UserInfo.DataBean userInfo;
     private static ArrayList<Integer> readList;
+    private static CarShopInfo carShopInfo= new CarShopInfo();
     //判断是否被回收
 
     static {
@@ -60,7 +62,14 @@ public class BaseAppApplication extends MultiDexApplication {
             }
         });
     }
-
+    public  CarShopInfo getCarShopInfo(){
+        return carShopInfo;
+    }
+    public  void setCarShopInfo(CarShopInfo carShopInfo1){
+        if(carShopInfo1!=null){
+            carShopInfo=carShopInfo1;
+        }
+    }
     public ArrayList<Integer> getReadList() {
         if (null == readList) {
             readList = new ArrayList<>();
