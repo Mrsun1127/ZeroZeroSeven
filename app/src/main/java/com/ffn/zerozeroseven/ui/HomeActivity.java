@@ -48,6 +48,7 @@ import java.util.TimerTask;
  */
 
 public class HomeActivity extends AppCompatActivity {
+    static final String FRAGMENTS_TAG = "android:support:fragments";
     private static final String TAG_EXIT = "exit";
     RelativeLayout rl_main;
     RelativeLayout rl_shop;
@@ -62,17 +63,6 @@ public class HomeActivity extends AppCompatActivity {
 
     public static WeakReference<HomeActivity> getmInstance() {
         return mInstance;
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        if (intent != null) {
-            boolean isExit = intent.getBooleanExtra(TAG_EXIT, false);
-            if (isExit) {
-                this.finish();
-            }
-        }
     }
 
     @Override
@@ -100,8 +90,7 @@ public class HomeActivity extends AppCompatActivity {
             LogUtils.D("logString", "savedInstanceState!=null");
             BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
             BaseAppApplication.getInstance().setCarShopInfo((CarShopInfo) savedInstanceState.getSerializable("carShopInfo"));
-            fm = getSupportFragmentManager();
-            fm.popBackStackImmediate(null, 1);
+            savedInstanceState.putParcelable(FRAGMENTS_TAG, null);
         }
         LogUtils.D("logString", "savedInstanceState==null");
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -249,10 +238,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }, 2000);
         } else {//退出程序
-//            BaseAppApplication.getInstance().clearActivityList();
-            Intent intent = new Intent(this, HomeActivity.class);
-            intent.putExtra(HomeActivity.TAG_EXIT, true);
-            startActivity(intent);
+            BaseAppApplication.getInstance().clearActivityList();
         }
     }
 
