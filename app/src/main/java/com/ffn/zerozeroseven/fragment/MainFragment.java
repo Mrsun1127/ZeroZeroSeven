@@ -169,6 +169,10 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
     private TongzhiInfo tongzhiInfo;
     private AppVersionInfo appVersionInfo;
 
+    public static MainFragment newInstance() {
+        return new MainFragment();
+    }
+
     public RunListRquestInfo.DataBean.ListBean getRunlist(int poition) {
         return runListRquestInfo.getData().getList().get(poition);
     }
@@ -1074,7 +1078,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         oftenInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(oftenInfo, true, false,rl_top_bg);
+        okGoUtils.httpPostJSON(oftenInfo, true, false, rl_top_bg);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {

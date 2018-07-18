@@ -67,7 +67,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private ImageView iv_usericon;
     @Bind(R.id.iv_level)
     ImageView iv_level;
-
+    public static MineFragment newInstance() {
+        return new MineFragment();
+    }
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);

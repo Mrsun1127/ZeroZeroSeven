@@ -95,8 +95,8 @@ public class HomeActivity extends AppCompatActivity {
         if(savedInstanceState!=null){
             LogUtils.D("logString","savedInstanceState!=null");
             BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo"));
-//            fm=getSupportFragmentManager();
-//            fm.popBackStackImmediate(null,1);
+            fm=getSupportFragmentManager();
+            fm.popBackStackImmediate(null,1);
         }
         LogUtils.D("logString","savedInstanceState==null");
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -154,9 +154,9 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initFragments() {
         fm = getSupportFragmentManager();
-        fragments.add(new MainFragment());
-        fragments.add(new ShopFragment());
-        fragments.add(new MineFragment());
+        fragments.add(MainFragment.newInstance());
+        fragments.add(ShopFragment.newInstance());
+        fragments.add(MineFragment.newInstance());
     }
     public void ll_Show(boolean s){
         if(s){

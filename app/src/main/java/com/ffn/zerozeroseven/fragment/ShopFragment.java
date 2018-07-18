@@ -61,7 +61,9 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     private SearchView etSearch;
     private QBadgeView badgeView;
     private RelativeLayout focus;
-
+    public static ShopFragment newInstance() {
+        return new ShopFragment();
+    }
     @Override
     protected void initView(View view) {
         badgeView = new QBadgeView(bfCxt);
