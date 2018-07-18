@@ -98,6 +98,10 @@
                 <data android:scheme="wx189141e4085fa0d1" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:configChanges="orientation|screenSize"
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
         <activity
             android:name=".ui.BindZFbPayActivity"
             android:screenOrientation="portrait"
