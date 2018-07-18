@@ -232,21 +232,23 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
 
     public void notifyCar() {
         final CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
-        if (carShopInfo == null || carShopInfo.getShopInfos().size() == 0) {
-            BaseAppApplication.mainHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    badgeView.setBadgeNumber(0);
-                }
-            }, 500);
-        } else {
-            BaseAppApplication.mainHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    badgeView.setBadgeNumber(carShopInfo.getShopInfos().size());
-                }
-            }, 500);
-        }
+        try {
+            if (carShopInfo == null || carShopInfo.getShopInfos().size() == 0) {
+                BaseAppApplication.mainHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        badgeView.setBadgeNumber(0);
+                    }
+                }, 500);
+            } else {
+                BaseAppApplication.mainHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        badgeView.setBadgeNumber(carShopInfo.getShopInfos().size());
+                    }
+                }, 500);
+            }
+        }catch (Exception e){}
 
     }
 
