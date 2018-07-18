@@ -341,7 +341,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         staggeredGridLayoutManager.setOrientation(StaggeredGridLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         userLikeAdapter = new UserLikeAdapter(bfCxt);
-        userLikeAdapter.setOnItemClickListener(new BaseRecyclerTallAniAdapter.OnItemClickListener() {
+        userLikeAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
                 //修改跳转 单个帖子界面

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.base.BaseRecyclerTallAniAdapter;
 import com.ffn.zerozeroseven.bean.UserLikeInfo;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -16,7 +17,7 @@ import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
  * Created by GT on 2017/11/27.
  */
 
-public class UserLikeAdapter extends BaseRecyclerTallAniAdapter<UserLikeInfo.DataBean.PostsBean> {
+public class UserLikeAdapter extends BaseRecyclerAdapter<UserLikeInfo.DataBean.PostsBean> {
     public UserLikeAdapter(Context context) {
         super(context);
     }
