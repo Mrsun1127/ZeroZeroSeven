@@ -277,6 +277,7 @@
         <activity android:name=".ui.UpdatePayPassWordActivity" />
         <activity android:name=".ui.JumpShopActivity" />
         <activity android:name=".ui.ReleaseJumpShopActivity" />
+        <activity android:name=".ui.PhotoActivity" />
 
         <!-- Required SDK核心功能-->
         <service

@@ -76,22 +76,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
         return holder;
     }
 
-    public void setAnimation(final View convertView) {
-        ViewHelper.setScaleX(convertView, 0.5f);
-        ViewHelper.setScaleY(convertView, 0.5f);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ViewPropertyAnimator.animate(convertView).scaleX(1f).setDuration(500).setInterpolator(new OvershootInterpolator());
-                ViewPropertyAnimator.animate(convertView).scaleY(1f).setDuration(500).setInterpolator(new OvershootInterpolator());
-            }
-        }, 50);
 
-    }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         onBindDefaultViewHolder(holder, getItems().get(position), position);
-        setAnimation(holder.itemView);
     }
 
 

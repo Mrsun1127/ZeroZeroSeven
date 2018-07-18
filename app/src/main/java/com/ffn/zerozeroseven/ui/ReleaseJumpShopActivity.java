@@ -4,16 +4,24 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.adapter.JumpotoScrollAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
+import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
+import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.TopView;
 
 
@@ -28,8 +36,46 @@ import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 public class ReleaseJumpShopActivity extends BaseActivity {
     @Bind(R.id.topView)
     TopView topView;
+    @Bind(R.id.recycleview)
+    RecyclerView recycleview;
     private ArrayList<String> imgList = new ArrayList<>();
     private static final int REQUEST_IMAGE = 2;
+    private JumpotoScrollAdapter scrollAdapter;
+
+    @Override
+    public void initView() {
+        ButterKnife.bind(this);
+        topView.setTopText("发布宝贝");
+        topView.setOnTitleListener(new TopView.OnTitleClickListener() {
+            @Override
+            public void Right() {
+
+            }
+
+            @Override
+            public void Back() {
+                finish();
+            }
+        });
+        FullyLinearLayoutManager fullyLinearLayoutManager = new FullyLinearLayoutManager(this);
+        fullyLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recycleview.setLayoutManager(fullyLinearLayoutManager);
+        recycleview.addItemDecoration(new SpaceItemDecoration(15));
+    }
+
+    @Override
+    protected void doMain() {
+        scrollAdapter = new JumpotoScrollAdapter(this);
+        recycleview.setAdapter(scrollAdapter);
+        scrollAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                Bundle bundle = new Bundle();
+                bundle.putString("imgurl", scrollAdapter.getItem(position));
+                ZeroZeroSevenUtils.SwitchActivity(ReleaseJumpShopActivity.this,PhotoActivity.class,bundle );
+            }
+        });
+    }
 
     @OnClick({R.id.tv_take_photo})
     void setOnClicks(View v) {
@@ -41,7 +87,7 @@ public class ReleaseJumpShopActivity extends BaseActivity {
                     ActivityCompat.requestPermissions(ReleaseJumpShopActivity.this, new String[]{Manifest.permission.CAMERA},
                             0x11);
                 } else {
-                    showTypeDialog();
+                    pickImage();
                 }
                 break;
 
@@ -82,7 +128,12 @@ public class ReleaseJumpShopActivity extends BaseActivity {
                     if (data != null) {
                         imgList = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
                         for (int i = 0; i < imgList.size(); i++) {
-                            LogUtils.D("imgpath",imgList.get(i));
+//                            LogUtils.D("imgpath", imgList.get(i));
+                            if (i > 5) {
+                                imgList.remove(i - 1);
+                            }
+                            scrollAdapter.cleanDates();
+                            scrollAdapter.addAll(imgList);
                         }
                     }
                 }
@@ -103,55 +154,11 @@ public class ReleaseJumpShopActivity extends BaseActivity {
         }
     }
 
-    private void showTypeDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final AlertDialog dialog = builder.create();
-        View view = View.inflate(this, R.layout.dialog_select_photo, null);
-        TextView tv_select_gallery = view.findViewById(R.id.tv_select_gallery);
-        TextView tv_select_camera = view.findViewById(R.id.tv_select_camera);
-        tv_select_gallery.setOnClickListener(new View.OnClickListener() {// 在相册中选取
-            @Override
-            public void onClick(View v) {
-                pickImage();
-                dialog.dismiss();
-            }
-        });
-        tv_select_camera.setOnClickListener(new View.OnClickListener() {// 调用照相机
-            @Override
-            public void onClick(View v) {
-                pickCamera();
-                dialog.dismiss();
-            }
-        });
-        dialog.setView(view);
-        dialog.show();
-    }
 
     @Override
     protected int setLayout() {
         return R.layout.activity_rlease_jump_shop;
     }
 
-    @Override
-    public void initView() {
-        ButterKnife.bind(this);
-        topView.setTopText("发布宝贝");
-        topView.setOnTitleListener(new TopView.OnTitleClickListener() {
-            @Override
-            public void Right() {
 
-            }
-
-            @Override
-            public void Back() {
-                finish();
-            }
-        });
-    }
-
-    @Override
-    protected void doMain() {
-
-
-    }
 }
