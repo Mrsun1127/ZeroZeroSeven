@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppManger;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
+import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.fragment.MineFragment;
@@ -78,6 +79,7 @@ public class HomeActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         LogUtils.D("logString", "onSaveInstanceState");
         savedInstanceState.putSerializable("userInfo", BaseAppApplication.getInstance().getLoginUser());
+        savedInstanceState.putSerializable("carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -87,6 +89,7 @@ public class HomeActivity extends AppCompatActivity {
         LogUtils.D("logString", "onRestoreInstanceState");
         if (savedInstanceState != null) {
             BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
+            BaseAppApplication.getInstance().setCarShopInfo((CarShopInfo) savedInstanceState.getSerializable("carShopInfo"));
         }
     }
 
@@ -96,6 +99,7 @@ public class HomeActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             LogUtils.D("logString", "savedInstanceState!=null");
             BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
+            BaseAppApplication.getInstance().setCarShopInfo((CarShopInfo) savedInstanceState.getSerializable("carShopInfo"));
             fm = getSupportFragmentManager();
             fm.popBackStackImmediate(null, 1);
         }
