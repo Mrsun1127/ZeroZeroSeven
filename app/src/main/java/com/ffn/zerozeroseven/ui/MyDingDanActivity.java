@@ -307,7 +307,6 @@ public class MyDingDanActivity extends BaseActivity implements View.OnClickListe
             public void onResponse(Call call, final Response response) throws IOException {
 //                LogUtils.E("goodsId","到底有没有Id"+response.body().string());
                 myDingDanShowInfo = JSON.parseObject(response.body().string(), MyDingDanShowInfo.class);
-                LogUtils.E("myDingDanShowInfo",JSON.toJSONString(myDingDanShowInfo));
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {

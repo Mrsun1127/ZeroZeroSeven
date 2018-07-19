@@ -27,6 +27,7 @@ import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.JifenInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.ui.AdrMannGerActivity;
+import com.ffn.zerozeroseven.ui.AllDingDanActivity;
 import com.ffn.zerozeroseven.ui.CourierActivity;
 import com.ffn.zerozeroseven.ui.DingDanBobyActivity;
 import com.ffn.zerozeroseven.ui.HistoryTalkActivity;
@@ -242,7 +243,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.iv_dingdan:
                 if (userInfo != null) {
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MyDingDanActivity.class, null);
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, AllDingDanActivity.class, null);
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class, null);
                 }

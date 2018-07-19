@@ -109,8 +109,8 @@ public class BaseAppApplication extends MultiDexApplication {
         SDKInitializer.initialize(this);
 
         //初始化极光
-        JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);
+//        JPushInterface.setDebugMode(true);
+//        JPushInterface.init(this);
 
         MobSDK.init(this);
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "5a9a40568f4a9d688300016c");
