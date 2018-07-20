@@ -8,14 +8,19 @@ import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.adapter.LevelAttrAdapter;
+import com.ffn.zerozeroseven.adapter.LevelBrandAdapter;
 import com.ffn.zerozeroseven.adapter.LevelOneAdapter;
+import com.ffn.zerozeroseven.adapter.LevelPriceAdapter;
 import com.ffn.zerozeroseven.adapter.LevelTwoAdapter;
 import com.ffn.zerozeroseven.adapter.LevelThreeAdapter;
 import com.ffn.zerozeroseven.adapter.NumberRicalVerticalAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.NumberLevelInfo;
+import com.ffn.zerozeroseven.bean.NumberListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.NumberHomeInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.VerticalReInfo;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -64,6 +69,15 @@ public class NumberRicalActivity extends BaseActivity {
     private LevelTwoAdapter twoAdapter;
     private LevelThreeAdapter threeAdapter;
     private NumberRicalVerticalAdapter verticalAdapter;
+    int levelId = -1;
+    int specId = -1;
+    int brandId = -1;
+    String attrValue = "";
+    int pageIndex = 0;
+    private LevelAttrAdapter attrAdapter;
+    private LevelBrandAdapter brandAdapter;
+    private LevelPriceAdapter priceAdapter;
+    private NumberListInfo numberListInfo;
 
     @Override
     protected int setLayout() {
@@ -110,10 +124,10 @@ public class NumberRicalActivity extends BaseActivity {
         vetical.addItemDecoration(new SpaceItemDecoration(2));
         oneAdapter = new LevelOneAdapter(this);
         twoAdapter = new LevelTwoAdapter(this);
-        threeAdapter = new LevelThreeAdapter(this);
+
+
         rl_levelone.setAdapter(oneAdapter);
         rc_leveltwo.setAdapter(twoAdapter);
-        rc_levelthree.setAdapter(threeAdapter);
         oneAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
@@ -134,6 +148,23 @@ public class NumberRicalActivity extends BaseActivity {
                 twoAdapter.setClickPosition(position);
             }
         });
+
+        verticalAdapter = new NumberRicalVerticalAdapter(this);
+        vetical.setAdapter(verticalAdapter);
+
+
+        attrAdapter = new LevelAttrAdapter(this);
+        rc_levelattr.setAdapter(attrAdapter);
+        attrAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+
+            }
+        });
+
+
+        threeAdapter = new LevelThreeAdapter(this);
+        rc_levelthree.setAdapter(threeAdapter);
         threeAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
@@ -142,8 +173,30 @@ public class NumberRicalActivity extends BaseActivity {
 
             }
         });
-        verticalAdapter = new NumberRicalVerticalAdapter(this);
-        vetical.setAdapter(verticalAdapter);
+
+        brandAdapter = new LevelBrandAdapter(this);
+        rc_levelbrand.setAdapter(brandAdapter);
+        brandAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                brandAdapter.setClickPosition(position);
+            }
+        });
+
+        priceAdapter = new LevelPriceAdapter(this);
+        rc_levelprice.setAdapter(priceAdapter);
+        priceAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                priceAdapter.setClickPosition(position);
+            }
+        });
+        ArrayList<String> listOne = new ArrayList<>();
+        listOne.add("品牌");
+        ArrayList<String> listTwo = new ArrayList<>();
+        listTwo.add("价格");
+        brandAdapter.addAll(listOne);
+        priceAdapter.addAll(listTwo);
 
     }
 
@@ -184,10 +237,51 @@ public class NumberRicalActivity extends BaseActivity {
                     }
                     oneAdapter.addAll(level1List);
                     twoAdapter.addAll(level2BottomList);
-
+                    levelId = level1List.get(0).getId();
+                    findVerticalData(levelId, specId, brandId, attrValue, pageIndex, false);
                 }
             }
         });
+    }
+
+    private void findVerticalData(int levelId, int specId, int brandId, String attrValue, int pageIndex, final boolean isRre) {
+        VerticalReInfo verticalReInfo = new VerticalReInfo();
+        verticalReInfo.setFunctionName("ListDigitalGoods");
+        VerticalReInfo.ParametersBean parametersBean = new VerticalReInfo.ParametersBean();
+        parametersBean.setCategoryId(levelId);
+        if (specId != -1) {
+            parametersBean.setSpecId(specId);
+        }
+        if (brandId != -1) {
+            parametersBean.setBrandId(brandId);
+        }
+        parametersBean.setAttrValue(attrValue);
+        parametersBean.setPageSize(6);
+        parametersBean.setPageIndex(pageIndex);
+        verticalReInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(NumberRicalActivity.this);
+        okGoUtils.httpPostJSON(verticalReInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                numberListInfo = JSON.parseObject(response, NumberListInfo.class);
+                if (numberListInfo.getCode() == 0) {
+                    if (!isRre) {
+                        if (numberListInfo.getData().getFilter_attr().size() > 0) {
+                            attrAdapter.addAll(numberListInfo.getData().getFilter_attr());
+                        }
+                        if (numberListInfo.getData().getFilter_spec().size() > 0) {
+                            threeAdapter.addAll(numberListInfo.getData().getFilter_spec());
+                        }
+                    }
+
+                    if (numberListInfo.getData().getGoods_list().getList().size() > 0) {
+                        verticalAdapter.addAll(numberListInfo.getData().getGoods_list().getList());
+                    }
+                }
+            }
+        });
+
     }
 
     @OnClick({R.id.iv_up, R.id.iv_shopcar, R.id.bt_close, R.id.bt_sure})
