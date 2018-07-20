@@ -58,27 +58,57 @@
                             android:layout_height="37dp"
                             android:background="@color/white" />
 
+
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rc_leveltwo"
                             android:layout_width="match_parent"
-                            android:layout_height="41dp"
+                            android:layout_height="wrap_content"
                             android:layout_below="@+id/rl_levelone"
                             android:layout_marginTop="1dp"
                             android:background="@color/white" />
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rc_levelthree"
+                        <HorizontalScrollView
+                            android:id="@+id/view"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="41dp"
                             android:layout_below="@+id/rc_leveltwo"
                             android:layout_marginTop="1dp"
-                            android:background="@color/white" />
+                            android:background="@color/white"
+                            android:scrollbars="none">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rc_levelattr"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="41dp" />
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rc_levelthree"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="41dp" />
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rc_levelbrand"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="41dp" />
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rc_levelprice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="41dp" />
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
 
                         <LinearLayout
                             android:id="@+id/ll_select_pop"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/rc_leveltwo"
+                            android:layout_below="@+id/view"
                             android:background="@color/white"
                             android:orientation="vertical"
                             android:visibility="gone">
@@ -86,7 +116,7 @@
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/rc_select"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="140dp" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -94,6 +124,7 @@
                                 android:orientation="horizontal">
 
                                 <Button
+                                    android:id="@+id/bt_close"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -103,6 +134,7 @@
                                     android:textSize="13sp" />
 
                                 <Button
+                                    android:id="@+id/bt_sure"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"

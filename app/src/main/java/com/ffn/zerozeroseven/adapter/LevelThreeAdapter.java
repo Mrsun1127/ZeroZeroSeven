@@ -2,27 +2,22 @@ package com.ffn.zerozeroseven.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.NumberLevelInfo;
-import com.ffn.zerozeroseven.bean.ProductDetilsInfo;
-import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
-
-import de.hdodenhof.circleimageview.CircleImageView;
+import com.ffn.zerozeroseven.bean.NumberListInfo;
 
 /**
  * Created by GT on 2017/11/27.
  */
 
-public class NumberRicalScrollAdapter extends BaseRecyclerAdapter<NumberLevelInfo.DataBean.CategoriesBean> {
-    public NumberRicalScrollAdapter(Context context) {
+public class LevelThreeAdapter extends BaseRecyclerAdapter<NumberListInfo.DataBean.FilterSpecBean> {
+    public LevelThreeAdapter(Context context) {
         super(context);
     }
 
@@ -30,11 +25,12 @@ public class NumberRicalScrollAdapter extends BaseRecyclerAdapter<NumberLevelInf
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        return new NumberRicalScrollAdapter.MViewHolder(mInflater.inflate(R.layout.item_scroll, null));
+        return new LevelThreeAdapter.MViewHolder(mInflater.inflate(R.layout.item_level2, null));
     }
 
     public void setClickPosition(int i) {
         clickPosition = i;
+        notifyDataSetChanged();
     }
 
     public int getClickPosition() {
@@ -42,21 +38,24 @@ public class NumberRicalScrollAdapter extends BaseRecyclerAdapter<NumberLevelInf
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberLevelInfo.DataBean.CategoriesBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberListInfo.DataBean.FilterSpecBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
-        mHolder.tv_type.setText(item.getName());
-    }
-
-    private class MViewHolder extends RecyclerView.ViewHolder {
-        ImageView iv_product;
-        TextView tv_type;
-
-        MViewHolder(View itemView) {
-            super(itemView);
-            iv_product = itemView.findViewById(R.id.iv_product);
-            tv_type = itemView.findViewById(R.id.tv_type);
+        mHolder.tv_level2.setText(item.getName());
+        if (clickPosition == position) {
+            mHolder.tv_level2.setTextColor(getResource().getColor(R.color.money));
+        } else {
+            mHolder.tv_level2.setTextColor(getResource().getColor(R.color.black));
         }
     }
 
+
+    private class MViewHolder extends RecyclerView.ViewHolder {
+        TextView tv_level2;
+
+        MViewHolder(View itemView) {
+            super(itemView);
+            tv_level2 = itemView.findViewById(R.id.tv_level2);
+        }
+    }
 
 }
