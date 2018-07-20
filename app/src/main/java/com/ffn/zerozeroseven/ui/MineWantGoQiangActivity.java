@@ -125,7 +125,7 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
         QiangTypeInfo typeInfo = new QiangTypeInfo();
         typeInfo.setFunctionName("ListPostType");
         OkGoUtils okGoUtils = new OkGoUtils(MineWantGoQiangActivity.this);
-        okGoUtils.httpPostJSON(typeInfo,true,true,et_content);
+        okGoUtils.httpPostJSON(typeInfo,true,true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -186,14 +186,12 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
 
     public void requestDa(FaTieInfo faTieInfo) {
         OkGoUtils okGoUtils = new OkGoUtils(MineWantGoQiangActivity.this);
-        okGoUtils.httpPostJSON(faTieInfo,true,true,et_content);
+        okGoUtils.httpPostJSON(faTieInfo,true,true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {
                 final String code = JsonUtil.getFieldValue(response, "code");
-                et_content.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if("0".equals(code)){
                             ToastUtils.showShort("审核通过后，会第一时间展示您的帖子");
                             finish();
@@ -202,8 +200,7 @@ public class MineWantGoQiangActivity extends BaseActivity implements View.OnClic
                         }
                     }
                 });
-            }
-        });
+
     }
 
     @Override

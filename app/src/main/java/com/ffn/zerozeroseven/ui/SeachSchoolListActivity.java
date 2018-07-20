@@ -67,7 +67,7 @@ public class SeachSchoolListActivity extends BaseActivity {
         IdSearchInfo searchInfo = new IdSearchInfo();
         searchInfo.setFunctionName("ListSchool");
         OkGoUtils okGoUtils=new OkGoUtils(SeachSchoolListActivity.this);
-        okGoUtils.httpPostJSON(searchInfo,true,true,rl_back);
+        okGoUtils.httpPostJSON(searchInfo,true,true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -75,12 +75,9 @@ public class SeachSchoolListActivity extends BaseActivity {
                 if (info.getCode() == 0 && info.getData() != null) {
                     final SchoolLikeListInfo.DataBean data = info.getData();
                     MrsunAppCacheUtils.get(SeachSchoolListActivity.this).put("allSchoolList", JSON.toJSONString(data));
-                    rl_back.post(new Runnable() {
-                        @Override
-                        public void run() {
+
                             adapter.addAll(data.getSchools());
-                        }
-                    });
+
 
                 }
             }

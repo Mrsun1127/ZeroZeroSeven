@@ -189,13 +189,11 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         }
         callNewDingDanInfo.setParameters(parametersBean1);
         OkGoUtils okGoUtils = new OkGoUtils(PayMoneyActivity.this);
-        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true,ll_all);
+        okGoUtils.httpPostJSON(callNewDingDanInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {
-                ll_all.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if (str.equals("AliPay")) {//支付宝支付
                             final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response, CommitDingDanInfo.class);
                             if (commitDingDanInfo.getCode() == 0) {
@@ -226,8 +224,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
                         }
                     }
                 });
-            }
-        });
+
 
 
     }

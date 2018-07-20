@@ -207,14 +207,12 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         parametersBean.setPhone(et_phoneNumber.getText().toString().trim());
         codeInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(LoginActivity.this);
-        okGoUtils.httpPostJSON(codeInfo, false, true, bt_send);
+        okGoUtils.httpPostJSON(codeInfo, false, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final CodeInfo info = JSON.parseObject(response, CodeInfo.class);
-                bt_send.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if (info.getCode() == 0) {
                             timer.start();
                             loginCode = info.getData().getAuthcode();
@@ -225,8 +223,7 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
                         }
                     }
                 });
-            }
-        });
+
     }
 
     //账号密码登录
@@ -250,14 +247,11 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         }
         userLoginInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils2 = new OkGoUtils(LoginActivity.this);
-        okGoUtils2.httpPostJSON(userLoginInfo, false, true, et_code);
+        okGoUtils2.httpPostJSON(userLoginInfo, false, true);
         okGoUtils2.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final UserInfo userInfo = JsonUtil.parseJsonToBean(response, UserInfo.class);
-                et_code.post(new Runnable() {
-                    @Override
-                    public void run() {
                         if (userInfo.getCode() == 0) {
                             UserInfoUtils.saveUserInfo(LoginActivity.this, et_username.getText().toString().trim(), et_userpassWord.getText().toString().trim());
                             BaseAppApplication.getInstance().setLoginUser(userInfo.getData());
@@ -269,8 +263,7 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
                     }
                 });
 
-            }
-        });
+
     }
 
     //验证码登录
@@ -297,13 +290,11 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         }
         codeLoginInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils3 = new OkGoUtils(LoginActivity.this);
-        okGoUtils3.httpPostJSON(codeLoginInfo, false, true, et_phoneNumber);
+        okGoUtils3.httpPostJSON(codeLoginInfo, false, true);
         okGoUtils3.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {
-                et_phoneNumber.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         try {
                             final UserInfo userInfo1 = JSON.parseObject(response, UserInfo.class);
                             if (userInfo1.getCode() == 0) {
@@ -322,8 +313,7 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
                         }
                     }
                 });
-            }
-        });
+
     }
 
 
@@ -355,7 +345,7 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         parametersBean.setClientId(registId);
         bindJiGuangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils4 = new OkGoUtils(LoginActivity.this);
-        okGoUtils4.httpPostJSON(bindJiGuangInfo, false, true, et_code);
+        okGoUtils4.httpPostJSON(bindJiGuangInfo, false, true);
         okGoUtils4.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {

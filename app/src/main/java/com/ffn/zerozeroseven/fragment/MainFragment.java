@@ -175,40 +175,36 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         TongZhiShowInfo lunXunInfo = new TongZhiShowInfo();
         lunXunInfo.setFunctionName("ListPushLetters");
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(lunXunInfo, true, false, rl_top_bg);
+        okGoUtils.httpPostJSON(lunXunInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 tongzhiInfo = JSON.parseObject(response, TongzhiInfo.class);
-                rl_top_bg.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (tongzhiInfo.getCode() == 0) {
-                            if (tongzhiInfo.getData().getList().size() > 0) {
-                                titles = new ArrayList<>();
-                                for (int i = 0; i < tongzhiInfo.getData().getList().size(); i++) {
-                                    if (tongzhiInfo.getData().getList().get(i).getTitle().length() > 30) {
-                                        titles.add(tongzhiInfo.getData().getList().get(i).getTitle().substring(0, 29) + "...");
-                                    } else {
-                                        titles.add(tongzhiInfo.getData().getList().get(i).getTitle());
-                                    }
-                                }
-                                scrollTextView.setTextList(titles);
-                                scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
-                                scrollTextView.setTextStillTime(3000);//设置停留时长间隔
-                                scrollTextView.startAutoScroll();
-                            } else {
-                                titles = new ArrayList<>();
-                                titles.add("欢迎使用零零7");
-                                scrollTextView.setTextList(titles);
-                                scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
-                                scrollTextView.setTextStillTime(3000);//设置停留时长间隔
-                                scrollTextView.startAutoScroll();
-                            }
 
+                if (tongzhiInfo.getCode() == 0) {
+                    if (tongzhiInfo.getData().getList().size() > 0) {
+                        titles = new ArrayList<>();
+                        for (int i = 0; i < tongzhiInfo.getData().getList().size(); i++) {
+                            if (tongzhiInfo.getData().getList().get(i).getTitle().length() > 30) {
+                                titles.add(tongzhiInfo.getData().getList().get(i).getTitle().substring(0, 29) + "...");
+                            } else {
+                                titles.add(tongzhiInfo.getData().getList().get(i).getTitle());
+                            }
                         }
+                        scrollTextView.setTextList(titles);
+                        scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
+                        scrollTextView.setTextStillTime(3000);//设置停留时长间隔
+                        scrollTextView.startAutoScroll();
+                    } else {
+                        titles = new ArrayList<>();
+                        titles.add("欢迎使用零零7");
+                        scrollTextView.setTextList(titles);
+                        scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
+                        scrollTextView.setTextStillTime(3000);//设置停留时长间隔
+                        scrollTextView.startAutoScroll();
                     }
-                });
+
+                }
             }
         });
 
@@ -517,25 +513,21 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         AppUpdateInfo updateInfo = new AppUpdateInfo();
         updateInfo.setFunctionName("QueryLatestAppVersion");
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(updateInfo, true, false, rl_top_bg);
+        okGoUtils.httpPostJSON(updateInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 appVersionInfo = JSON.parseObject(response, AppVersionInfo.class);
-                rl_top_bg.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (appVersionInfo.getCode() == 0) {
-                            int curVersion = Integer.parseInt(ZeroZeroSevenUtils.getAppVersionName(bfCxt).replace(".", ""));
-                            int lastVersion = Integer.parseInt(appVersionInfo.getData().getLatestVersion().replace(".", ""));
-                            LogUtils.D("curVersion", curVersion + ":::::" + lastVersion);
-                            if (lastVersion > curVersion) {
-                                rl_update.setVisibility(View.VISIBLE);
-                                tv_up_content.setText(appVersionInfo.getData().getReleaseNote());
-                            }
-                        }
+                if (appVersionInfo.getCode() == 0) {
+                    int curVersion = Integer.parseInt(ZeroZeroSevenUtils.getAppVersionName(bfCxt).replace(".", ""));
+                    int lastVersion = Integer.parseInt(appVersionInfo.getData().getLatestVersion().replace(".", ""));
+                    LogUtils.D("curVersion", curVersion + ":::::" + lastVersion);
+                    if (lastVersion > curVersion) {
+                        rl_update.setVisibility(View.VISIBLE);
+                        tv_up_content.setText(appVersionInfo.getData().getReleaseNote());
                     }
-                });
+                }
+
             }
         });
 
@@ -654,32 +646,28 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setGoodsId(adapter.getItem(position).getId());
         requeseGoods.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(requeseGoods, true, true, scrollTextView);
+        okGoUtils.httpPostJSON(requeseGoods, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final GoodsDetilsInfo goodsDetilsInfo = JSON.parseObject(response, GoodsDetilsInfo.class);
-                scrollTextView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (goodsDetilsInfo.getCode() == 0) {
-                            HomeActivity.getmInstance().get().go2Fragment(1);
-                            GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
-                            goodsInfo.setId(adapter.getItem(position).getId());
-                            goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
-                            goodsInfo.setThumbnail(adapter.getItem(position).getThumbnail());
-                            goodsInfo.setStockNum(goodsDetilsInfo.getData().getStockNum());
-                            goodsInfo.setPrice(goodsDetilsInfo.getData().getPrice());
+                if (goodsDetilsInfo.getCode() == 0) {
+                    HomeActivity.getmInstance().get().go2Fragment(1);
+                    GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
+                    goodsInfo.setId(adapter.getItem(position).getId());
+                    goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
+                    goodsInfo.setThumbnail(adapter.getItem(position).getThumbnail());
+                    goodsInfo.setStockNum(goodsDetilsInfo.getData().getStockNum());
+                    goodsInfo.setPrice(goodsDetilsInfo.getData().getPrice());
 //                          goodsInfo.setPromotionPrice(goodsDetilsInfo.getData().getPromotionPrice());
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable("shopInfo", goodsInfo);
-                            bundle.putString("back", "main");
-                            ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
-                        } else {
-                            ToastUtils.showShort(goodsDetilsInfo.getMessage());
-                        }
-                    }
-                });
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("shopInfo", goodsInfo);
+                    bundle.putString("back", "main");
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
+                } else {
+                    ToastUtils.showShort(goodsDetilsInfo.getMessage());
+                }
+
             }
         });
     }
@@ -691,32 +679,28 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setGoodsId(adapter.getItem(position).getId());
         requeseGoods.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(requeseGoods, true, true, scrollTextView);
+        okGoUtils.httpPostJSON(requeseGoods, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final GoodsDetilsInfo goodsDetilsInfo = JSON.parseObject(response, GoodsDetilsInfo.class);
-                scrollTextView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (goodsDetilsInfo.getCode() == 0) {
-                            HomeActivity.getmInstance().get().go2Fragment(1);
-                            GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
-                            goodsInfo.setId(adapter.getItem(position).getId());
-                            goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
-                            goodsInfo.setThumbnail(adapter.getItem(position).getThumbnail());
-                            goodsInfo.setStockNum(goodsDetilsInfo.getData().getStockNum());
-                            goodsInfo.setPrice(goodsDetilsInfo.getData().getPrice());
+                if (goodsDetilsInfo.getCode() == 0) {
+                    HomeActivity.getmInstance().get().go2Fragment(1);
+                    GoodsContentShowInfo.DataBean.ProductsBean goodsInfo = new GoodsContentShowInfo.DataBean.ProductsBean();
+                    goodsInfo.setId(adapter.getItem(position).getId());
+                    goodsInfo.setGoodsName(adapter.getItem(position).getGoodsName());
+                    goodsInfo.setThumbnail(adapter.getItem(position).getThumbnail());
+                    goodsInfo.setStockNum(goodsDetilsInfo.getData().getStockNum());
+                    goodsInfo.setPrice(goodsDetilsInfo.getData().getPrice());
 //                          goodsInfo.setPromotionPrice(goodsDetilsInfo.getData().getPromotionPrice());
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable("shopInfo", goodsInfo);
-                            bundle.putString("back", "main");
-                            ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
-                        } else {
-                            ToastUtils.showShort(goodsDetilsInfo.getMessage());
-                        }
-                    }
-                });
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("shopInfo", goodsInfo);
+                    bundle.putString("back", "main");
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
+                } else {
+                    ToastUtils.showShort(goodsDetilsInfo.getMessage());
+                }
+
             }
         });
     }
@@ -770,35 +754,31 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         schoolInfo.setParameters(parametersBean);
 
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(schoolInfo, true, false, rl_top_bg);
+        okGoUtils.httpPostJSON(schoolInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final FindSchoolInfo findSchoolInfo = JSON.parseObject(response, FindSchoolInfo.class);
-                rl_top_bg.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (findSchoolInfo.getCode() == 0) {
-                            if (findSchoolInfo.getData() != null) {
-                                if (TextUtils.isEmpty(findSchoolInfo.getData().getName())) {
-                                    tv_school.setText("去选择学校");
-                                } else {
-                                    tv_school.setText(findSchoolInfo.getData().getName());
-                                    BaseAppApplication.userInfo.setSchoolName(name);
-                                    BaseAppApplication.userInfo.setSchoolId(findSchoolInfo.getData().getId() + "");
-                                    SharePrefUtils.saveObject(bfCxt, "userInfo", BaseAppApplication.getInstance().getLoginUser());
-                                    SharePrefUtils.setInt(bfCxt, "isLocation", 1);
-                                }
-                                reQuest();
-                            } else {
-                                tv_school.setText("去选择学校");
-                                reQuest();
-                            }
+                if (findSchoolInfo.getCode() == 0) {
+                    if (findSchoolInfo.getData() != null) {
+                        if (TextUtils.isEmpty(findSchoolInfo.getData().getName())) {
+                            tv_school.setText("去选择学校");
                         } else {
-                            reQuest();
+                            tv_school.setText(findSchoolInfo.getData().getName());
+                            BaseAppApplication.userInfo.setSchoolName(name);
+                            BaseAppApplication.userInfo.setSchoolId(findSchoolInfo.getData().getId() + "");
+                            SharePrefUtils.saveObject(bfCxt, "userInfo", BaseAppApplication.getInstance().getLoginUser());
+                            SharePrefUtils.setInt(bfCxt, "isLocation", 1);
                         }
+                        reQuest();
+                    } else {
+                        tv_school.setText("去选择学校");
+                        reQuest();
                     }
-                });
+                } else {
+                    reQuest();
+                }
+
             }
         });
 
@@ -890,7 +870,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         shangchangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(shangchangInfo, true, false, scrollTextView);
+        okGoUtils.httpPostJSON(shangchangInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -946,7 +926,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setType("00");
         lunBoInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(lunBoInfo, true, false, rl_top_bg);
+        okGoUtils.httpPostJSON(lunBoInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -1013,46 +993,42 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setHotEndTime(afterTime);
         oftenInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(oftenInfo, true, false, rl_top_bg);
+        okGoUtils.httpPostJSON(oftenInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 showHotInfo = JSON.parseObject(response, HotInfo.class);
-                rl_top_bg.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (showHotInfo.getCode() == 0) {
-                            if (!showHotInfo.getData().getStores().isIsClosing()) {
-                                if (showHotInfo.getData().getProducts().size() > 0) {
-                                    hotGoodsAdapter.cleanDates();
-                                    hotGoodsAdapter.addAll(showHotInfo.getData().getProducts());
-                                    ll_hot.setVisibility(View.GONE);
-                                    rc_hot.setVisibility(View.VISIBLE);
-                                } else {
-                                    hotGoodsAdapter.cleanDates();
-                                    ll_hot.setVisibility(View.VISIBLE);
-                                    tv_hot.setText("暂无商品");
-                                    rc_hot.setVisibility(View.GONE);
-                                }
-                            } else {
-                                rc_hot.setVisibility(View.GONE);
-                                hotGoodsAdapter.cleanDates();
-                                ll_hot.setVisibility(View.VISIBLE);
-                                tv_hot.setText("小七打烊中");
-                            }
-
-
-                        } else if (showHotInfo.getCode() == -102) {
-                            rc_hot.setVisibility(View.GONE);
+                if (showHotInfo.getCode() == 0) {
+                    if (!showHotInfo.getData().getStores().isIsClosing()) {
+                        if (showHotInfo.getData().getProducts().size() > 0) {
                             hotGoodsAdapter.cleanDates();
-                            ll_hot.setVisibility(View.VISIBLE);
-                            tv_hot.setText("暂无商铺信息");
+                            hotGoodsAdapter.addAll(showHotInfo.getData().getProducts());
+                            ll_hot.setVisibility(View.GONE);
+                            rc_hot.setVisibility(View.VISIBLE);
                         } else {
                             hotGoodsAdapter.cleanDates();
                             ll_hot.setVisibility(View.VISIBLE);
+                            tv_hot.setText("暂无商品");
+                            rc_hot.setVisibility(View.GONE);
                         }
+                    } else {
+                        rc_hot.setVisibility(View.GONE);
+                        hotGoodsAdapter.cleanDates();
+                        ll_hot.setVisibility(View.VISIBLE);
+                        tv_hot.setText("小七打烊中");
                     }
-                });
+
+
+                } else if (showHotInfo.getCode() == -102) {
+                    rc_hot.setVisibility(View.GONE);
+                    hotGoodsAdapter.cleanDates();
+                    ll_hot.setVisibility(View.VISIBLE);
+                    tv_hot.setText("暂无商铺信息");
+                } else {
+                    hotGoodsAdapter.cleanDates();
+                    ll_hot.setVisibility(View.VISIBLE);
+                }
+
             }
         });
 
@@ -1068,44 +1044,40 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         oftenInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(oftenInfo, true, false, rl_top_bg);
+        okGoUtils.httpPostJSON(oftenInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 showBothInfo = JSON.parseObject(response, BestNewShowInfo.class);
-                rl_top_bg.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (showBothInfo.getCode() == 0) {
-                            if (showBothInfo.getData().getStores().isIsClosing()) {
-                                bothGoodsAdapter.cleanDates();
-                                ll_both.setVisibility(View.VISIBLE);
-                                tv_both.setText("小七打烊中");
-                                rc_all.setVisibility(View.GONE);
-                            } else {
-                                if (showBothInfo.getData().getLatestGoods().size() > 0) {
-                                    bothGoodsAdapter.cleanDates();
-                                    bothGoodsAdapter.addAll(showBothInfo.getData().getLatestGoods());
-                                    ll_both.setVisibility(View.GONE);
-                                    rc_all.setVisibility(View.VISIBLE);
-                                } else {
-                                    bothGoodsAdapter.cleanDates();
-                                    ll_both.setVisibility(View.VISIBLE);
-                                    tv_both.setText("暂无商品");
-                                    rc_all.setVisibility(View.GONE);
-                                }
-                            }
-                        } else if (showBothInfo.getCode() == -102) {
+                if (showBothInfo.getCode() == 0) {
+                    if (showBothInfo.getData().getStores().isIsClosing()) {
+                        bothGoodsAdapter.cleanDates();
+                        ll_both.setVisibility(View.VISIBLE);
+                        tv_both.setText("小七打烊中");
+                        rc_all.setVisibility(View.GONE);
+                    } else {
+                        if (showBothInfo.getData().getLatestGoods().size() > 0) {
                             bothGoodsAdapter.cleanDates();
-                            ll_both.setVisibility(View.VISIBLE);
-                            tv_both.setText("暂无商铺信息");
-                            rc_all.setVisibility(View.GONE);
+                            bothGoodsAdapter.addAll(showBothInfo.getData().getLatestGoods());
+                            ll_both.setVisibility(View.GONE);
+                            rc_all.setVisibility(View.VISIBLE);
                         } else {
                             bothGoodsAdapter.cleanDates();
                             ll_both.setVisibility(View.VISIBLE);
+                            tv_both.setText("暂无商品");
+                            rc_all.setVisibility(View.GONE);
                         }
                     }
-                });
+                } else if (showBothInfo.getCode() == -102) {
+                    bothGoodsAdapter.cleanDates();
+                    ll_both.setVisibility(View.VISIBLE);
+                    tv_both.setText("暂无商铺信息");
+                    rc_all.setVisibility(View.GONE);
+                } else {
+                    bothGoodsAdapter.cleanDates();
+                    ll_both.setVisibility(View.VISIBLE);
+                }
+
             }
         });
     }
@@ -1125,40 +1097,35 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setPageIndex(pageNo);
         poppurlarListInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(poppurlarListInfo, true, false, rl_top_bg);
+        okGoUtils.httpPostJSON(poppurlarListInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {
                 userLikeInfo = JSON.parseObject(response, UserLikeInfo.class);
-                rl_top_bg.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (userLikeInfo.getCode() == 0) {
-                                if (userLikeInfo.getData().getPosts().size() > 0) {
-                                    haveData = 2;
-                                    userLikeAdapter.addAll(userLikeInfo.getData().getPosts());
-
-                                } else {
-                                    haveData = 1;
-                                    if (pageNo == 0) {
-                                    } else {
-                                        pageNo = 0;
-                                        requestpopularList();
-                                    }
-
-                                }
-
+                try {
+                    if (userLikeInfo.getCode() == 0) {
+                        if (userLikeInfo.getData().getPosts().size() > 0) {
+                            haveData = 2;
+                            userLikeAdapter.addAll(userLikeInfo.getData().getPosts());
+                        } else {
+                            haveData = 1;
+                            if (pageNo == 0) {
                             } else {
-                                haveData = 1;
-                                LogUtils.D("MainFragment", "nodate");
+                                pageNo = 0;
+                                requestpopularList();
                             }
 
-                        } catch (Exception e) {
-                            haveData = 1;
                         }
+
+                    } else {
+                        haveData = 1;
+                        LogUtils.D("MainFragment", "nodate");
                     }
-                });
+
+                } catch (Exception e) {
+                    haveData = 1;
+                }
+
             }
         });
 

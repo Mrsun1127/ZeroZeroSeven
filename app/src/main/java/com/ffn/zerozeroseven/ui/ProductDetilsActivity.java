@@ -144,14 +144,12 @@ public class ProductDetilsActivity extends BaseActivity implements OnRefreshList
         parametersBean.setPrizeId(prizeId);
         lastInteralInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(ProductDetilsActivity.this);
-        okGoUtils.httpPostJSON(lastInteralInfo, true, true,recyclerView);
+        okGoUtils.httpPostJSON(lastInteralInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 productTitleInfo = JSON.parseObject(response, ProductTitleInfo.class);
-                recyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         refreshlayout.finishRefresh();
                         if (productTitleInfo.getCode() == 0 && productTitleInfo.getData().getIssues().size() > 0) {
                             fragmentList = new ArrayList<>();
@@ -173,8 +171,7 @@ public class ProductDetilsActivity extends BaseActivity implements OnRefreshList
                         }
                     }
                 });
-            }
-        });
+
     }
 
     @Override

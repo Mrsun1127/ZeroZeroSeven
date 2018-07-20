@@ -82,19 +82,15 @@ public class BitisAdapter extends BaseRecyclerAdapter<QiangShowInfo.DataBean.Ite
         parametersBean1.setEvent("ADD");
         dafenInfo1.setParameters(parametersBean1);
         OkGoUtils okGoUtils=new OkGoUtils(mContext);
-        okGoUtils.httpPostJSON(dafenInfo1,true,false,tv);
+        okGoUtils.httpPostJSON(dafenInfo1,true,false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                tv.post(new Runnable() {
-                    @Override
-                    public void run() {
                         item.setIsLike(1);
                         tv.setText(String.valueOf(Integer.parseInt(item.getLikeCount())+1));
                     }
                 });
-            }
-        });
+
     }
 
     private void selectType(TextView view,String type){

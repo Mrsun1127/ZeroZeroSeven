@@ -149,14 +149,12 @@ public class ProductDetilsFragment extends BaseFragment {
         parametersBean.setIssuePrizeId(issueId);
         lastInteralInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(lastInteralInfo, true, true,tv_name);
+        okGoUtils.httpPostJSON(lastInteralInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 productDetilsInfo = JSON.parseObject(response, ProductDetilsInfo.class);
-                tv_name.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if (productDetilsInfo.getCode() == 0) {
                             //商品详情
                             Glide.with(bfCxt).load(productDetilsInfo.getData().getPointPrize().getPrizePic()).into(iv_product);
@@ -239,8 +237,7 @@ public class ProductDetilsFragment extends BaseFragment {
                         }
                     }
                 });
-            }
-        });
+
     }
 
     @Override

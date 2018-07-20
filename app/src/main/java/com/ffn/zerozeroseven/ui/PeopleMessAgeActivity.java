@@ -239,14 +239,12 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
         }
         updateInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(PeopleMessAgeActivity.this);
-        okGoUtils.httpPostJSON(updateInfo, true, true,tv_userbri);
+        okGoUtils.httpPostJSON(updateInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final String code = JsonUtil.getFieldValue(response, "code");
-                tv_userbri.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if (code.equals("0")) {
                             BaseAppApplication.getInstance().setLoginUser(userInfo);
                             SharePrefUtils.saveObject(PeopleMessAgeActivity.this, "userInfo", userInfo);
@@ -257,8 +255,7 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
                         }
                     }
                 });
-            }
-        });
+
 
 
     }

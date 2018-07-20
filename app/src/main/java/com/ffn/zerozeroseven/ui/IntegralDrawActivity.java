@@ -207,13 +207,11 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         parametersBean.setUserPhone(userInfo.getPhone());
         naJiangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(naJiangInfo, true, true,tv_pao);
+        okGoUtils.httpPostJSON(naJiangInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {
-                tv_pao.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         rl_zhong.setVisibility(View.GONE);
                         if (JsonUtil.getFieldValue(response, "code").equals("0")) {
                             ToastUtils.showShort("后台将尽快安排配送");
@@ -222,8 +220,7 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
                         }
                     }
                 });
-            }
-        });
+
     }
 
     private void shareSuccess() {
@@ -261,14 +258,12 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         parametersBean.setUserId(userId);
         signInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(signInfo, true, true,tv_pao);
+        okGoUtils.httpPostJSON(signInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final ErrorCodeInfo codeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
-                tv_pao.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if (codeInfo.getCode() == 0) {
                             rl_pop.setVisibility(View.VISIBLE);
                         } else {
@@ -282,8 +277,7 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
                         }
                     }
                 });
-            }
-        });
+
     }
 
     @Override
@@ -304,14 +298,12 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         TongyongInfo tongyongInfo = new TongyongInfo();
         tongyongInfo.setFunctionName("ListPointPrizeWinner");
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(tongyongInfo, true, true,tv_pao);
+        okGoUtils.httpPostJSON(tongyongInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final WinnerDanmu winnerDanmu = JSON.parseObject(response, WinnerDanmu.class);
-                tv_pao.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if (winnerDanmu.getCode() == 0) {
                             if (winnerDanmu.getData().getPointPrizeWinner() != null) {
                                 if (winnerDanmu.getData().getPointPrizeWinner().size() > 0) {
@@ -330,8 +322,7 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
                         }
                     }
                 });
-            }
-        });
+
     }
 
     private void checkZhongMa() {
@@ -341,14 +332,12 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         parametersBean.setUserPhone(userInfo.getPhone());
         zhongMaInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(zhongMaInfo, true, true,tv_pao);
+        okGoUtils.httpPostJSON(zhongMaInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 zhongLeInfo = JSON.parseObject(response, ZhongLeInfo.class);
-                tv_pao.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if (zhongLeInfo.getCode() == 0) {
                             if (zhongLeInfo.getData().getPointPrizeWinners().isAccept()) {
                                 rl_zhong.setVisibility(View.VISIBLE);
@@ -357,8 +346,7 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
                         }
                     }
                 });
-            }
-        });
+
     }
 
 
@@ -366,14 +354,12 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         InteraglSignInfo interaglSignInfo = new InteraglSignInfo();
         interaglSignInfo.setFunctionName("ListPointJackpotPrize");
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
-        okGoUtils.httpPostJSON(interaglSignInfo, true, true,tv_pao);
+        okGoUtils.httpPostJSON(interaglSignInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final JiangChiInfo jiangChiInfo = JSON.parseObject(response, JiangChiInfo.class);
-               tv_pao.post(new Runnable() {
-                   @Override
-                   public void run() {
+
                        refreshlayout.finishRefresh();
                        if (jiangChiInfo.getCode() == 0) {
                            if(jiangChiInfo.getData().getJackpotPrizes().size()>0){
@@ -390,8 +376,7 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
                        }
                    }
                });
-            }
-        });
+
     }
 
     @Override

@@ -214,14 +214,12 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
         parametersBean.setPageIndex(pageNo);
         parametersBean.setPageSize(10);
         mySignGoodInfo.setParameters(parametersBean);
-        okGoUtils.httpPostJSON(mySignGoodInfo, true, true,rl_top);
+        okGoUtils.httpPostJSON(mySignGoodInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 zhongJiangListInfo = JSON.parseObject(response, ZhongJiangListInfo.class);
-                rl_top.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         disLoadState();
                         if (zhongJiangListInfo.getCode() == 0) {
                             switch (rgRefreshStatus) {
@@ -262,8 +260,7 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
                     }
                 });
 
-            }
-        });
+
     }
 
 
@@ -278,13 +275,11 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
         parametersBean.setUserPhone(userInfo.getPhone());
         naJiangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(MySignGoodActivity.this);
-        okGoUtils.httpPostJSON(naJiangInfo, true, true,rl_top);
+        okGoUtils.httpPostJSON(naJiangInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {
-                rl_top.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         rl_zhong.setVisibility(View.GONE);
                         et_adr.setText("");
                         et_name.setText("");
@@ -297,8 +292,7 @@ public class MySignGoodActivity extends BaseActivity implements OnRefreshListene
                         }
                     }
                 });
-            }
-        });
+
     }
 
 

@@ -94,14 +94,12 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         shangchangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(ShopDetilsActivity.this);
-        okGoUtils.httpPostJSON(shangchangInfo, true, true,tv_smallmoney);
+        okGoUtils.httpPostJSON(shangchangInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
-                tv_smallmoney.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if (shangChangShowInfo.getCode() == 0) {
                             rmb=shangChangShowInfo.getData().getDeliveryPrice();
                             storeId = shangChangShowInfo.getData().getId() + "";//商家Id
@@ -114,8 +112,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                         }
                     }
                 });
-            }
-        });
+
 
     }
 

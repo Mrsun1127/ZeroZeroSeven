@@ -78,14 +78,12 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
         parametersBean.setContent(et_body.getText().toString());
         sugAppInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(SugActivity.this);
-        okGoUtils.httpPostJSON(sugAppInfo, true, true,et_body);
+        okGoUtils.httpPostJSON(sugAppInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final ErrorCodeInfo info = JSON.parseObject(response, ErrorCodeInfo.class);
-                et_body.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if (info.getCode() == 0) {
                             ToastUtils.showShort("提交成功");
                             finish();
@@ -95,8 +93,6 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
                     }
                 });
 
-            }
-        });
 
 
     }
@@ -109,14 +105,12 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
         parametersBean.setCourierPhone(phone);
         sugInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils1 = new OkGoUtils(SugActivity.this);
-        okGoUtils1.httpPostJSON(sugInfo, true, true,et_body);
+        okGoUtils1.httpPostJSON(sugInfo, true, true);
         okGoUtils1.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final ErrorCodeInfo info = JSON.parseObject(response, ErrorCodeInfo.class);
-                et_body.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if (info.getCode() == 0) {
                             ToastUtils.showShort("提交成功");
                             finish();
@@ -125,8 +119,6 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
                         }
                     }
                 });
-            }
-        });
 
     }
 }

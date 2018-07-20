@@ -173,15 +173,13 @@ public class MyBitisActivity extends BaseActivity implements OnRefreshListener, 
         parametersBean.setPostType(type);
         qiangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(MyBitisActivity.this);
-        okGoUtils.httpPostJSON(qiangInfo, true, false,topView);
+        okGoUtils.httpPostJSON(qiangInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final QiangShowInfo showInfo = JSON.parseObject(response, QiangShowInfo.class);
 
-                topView.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         disLoadState();
                         if (showInfo.getCode() == 0) {
                             bitisAdapter.addAll(showInfo.getData().getItems());
@@ -212,8 +210,7 @@ public class MyBitisActivity extends BaseActivity implements OnRefreshListener, 
                         }
                     }
                 });
-            }
-        });
+
     }
 
     @Override

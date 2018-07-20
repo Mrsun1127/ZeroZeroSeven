@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/nobg">
@@ -16,121 +17,126 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/topView">
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/scrollview"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <android.support.design.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="149dp"
-                    android:background="@drawable/delete_one" />
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="37dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_computer"
-                        android:layout_width="120dp"
-                        android:layout_height="match_parent"
-                        android:button="@null"
-                        android:checked="true"
-                        android:gravity="center"
-                        android:text="电脑"
-                        android:textColor="@color/numberrical_text" />
-
-                    <RadioButton
-                        android:id="@+id/rb_phone"
-                        android:layout_width="120dp"
-                        android:layout_height="match_parent"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="手机"
-                        android:textColor="@color/numberrical_text" />
-                </RadioGroup>
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="41dp"
-                    android:layout_marginTop="1dp"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_quick"
-                        android:layout_width="0dp"
-                        android:layout_height="27dp"
-                        android:layout_marginLeft="18dp"
-                        android:layout_marginRight="18dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/numberrical"
-                        android:button="@null"
-                        android:checked="true"
-                        android:gravity="center"
-                        android:text="促销"
-                        android:textColor="@color/numberrical_text" />
-
-                    <RadioButton
-                        android:id="@+id/rb_hot"
-                        android:layout_width="0dp"
-                        android:layout_height="27dp"
-                        android:layout_marginRight="18dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/numberrical"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="热门品牌"
-                        android:textColor="@color/numberrical_text" />
-
-                    <RadioButton
-                        android:id="@+id/rb_price"
-                        android:layout_width="0dp"
-                        android:layout_height="27dp"
-                        android:layout_marginRight="18dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/numberrical"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="价格"
-                        android:textColor="@color/numberrical_text" />
-
-                    <RadioButton
-                        android:id="@+id/rb_scree"
-                        android:layout_width="0dp"
-                        android:layout_height="27dp"
-                        android:layout_marginRight="18dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/numberrical"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="屏幕尺寸"
-                        android:textColor="@color/numberrical_text" />
-                </RadioGroup>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rc_scroll"
+                <android.support.design.widget.AppBarLayout
+                    android:id="@+id/appbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:background="@color/white" />
+                    android:background="#FAFAFA">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rc_vetical"
+                    <android.support.v7.widget.Toolbar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FAFAFA"
+                        android:contentInsetStart="0dp"
+                        app:contentInsetStart="0dp"
+                        app:layout_scrollFlags="scroll|enterAlways"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                        <ImageView
+                            android:id="@+id/iv_top"
+                            android:layout_width="match_parent"
+                            android:layout_height="149dp"
+                            android:background="@drawable/delete_one" />
+                    </android.support.v7.widget.Toolbar>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rl_levelone"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:background="@color/white" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rc_leveltwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="41dp"
+                            android:layout_below="@+id/rl_levelone"
+                            android:layout_marginTop="1dp"
+                            android:background="@color/white" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rc_levelthree"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/rc_leveltwo"
+                            android:layout_marginTop="1dp"
+                            android:background="@color/white" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_select_pop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/rc_leveltwo"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rc_select"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="53dp"
+                                android:orientation="horizontal">
+
+                                <Button
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:background="#E9C2A6"
+                                    android:text="收起"
+                                    android:textColor="#FF2400"
+                                    android:textSize="13sp" />
+
+                                <Button
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:background="@color/money"
+                                    android:text="确认"
+                                    android:textColor="@color/white"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+                </android.support.design.widget.AppBarLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="1dp" />
-            </LinearLayout>
+                    android:layout_marginTop="1dp"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        </android.support.v4.widget.NestedScrollView>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rc_vetical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_nodate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/iv_nodata" />
+                </RelativeLayout>
+
+            </android.support.design.widget.CoordinatorLayout>
+        </RelativeLayout>
+
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <ImageView
@@ -153,42 +159,5 @@
         android:layout_marginRight="15dp"
         android:background="@drawable/number_up" />
 
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/ll_select_pop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="282dp"
-        android:background="@color/white"
-        android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rc_select"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#E9C2A6"
-                android:text="收起"
-                android:textColor="#FF2400"
-                android:textSize="13sp" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/money"
-                android:text="确认"
-                android:textColor="@color/white"
-                android:textSize="13sp" />
-        </LinearLayout>
-    </LinearLayout>
 </RelativeLayout>

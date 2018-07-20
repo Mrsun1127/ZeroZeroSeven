@@ -115,21 +115,18 @@ public class InteralDetilsActivity extends BaseActivity {
         parametersBean.setUserId(Integer.parseInt(userId));
         jifenInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(InteralDetilsActivity.this);
-        okGoUtils.httpPostJSON(jifenInfo, true, true,rl_out);
+        okGoUtils.httpPostJSON(jifenInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final JiInfo jiInfo = JSON.parseObject(response, JiInfo.class);
-                rl_out.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if (jiInfo.getCode() == 0) {
                             topView.setTvRightText("当前积分：" + jiInfo.getData().getHonerPoint());
                         }
                     }
                 });
-            }
-        });
+
     }
 
     int isBaowei = 0;
@@ -202,14 +199,12 @@ public class InteralDetilsActivity extends BaseActivity {
         parametersBean.setIssuePrizeId(replaceId);
         parametersBean.setIsRest(baowei);
         gobuyInfo.setParameters(parametersBean);
-        okGoUtils.httpPostJSON(gobuyInfo, true, true,rl_out);
+        okGoUtils.httpPostJSON(gobuyInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
-                rl_out.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if (errorCodeInfo.getCode() == 0) {
                             ToastUtils.showShort("贡献成功");
                             finish();
@@ -224,7 +219,6 @@ public class InteralDetilsActivity extends BaseActivity {
                         }
                     }
                 });
-            }
-        });
+
     }
 }

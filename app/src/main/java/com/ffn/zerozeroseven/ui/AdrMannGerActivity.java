@@ -128,14 +128,12 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
         parametersBean.setId(shouHuoInfo.getData().getAddresses().get(position).getId());
         deleteAdrInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(AdrMannGerActivity.this);
-        okGoUtils.httpPostJSON(deleteAdrInfo, true, true,msgPullLv);
+        okGoUtils.httpPostJSON(deleteAdrInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 final String code = JsonUtil.getFieldValue(response, "code");
-                msgPullLv.post(new Runnable() {
-                    @Override
-                    public void run() {
+
                         if ("0".equals(code)) {
                             ToastUtils.showShort("删除成功");
                             ZeroZeroSevenUtils.SwitchActivity(AdrMannGerActivity.this, AdrMannGerActivity.class);
@@ -146,8 +144,7 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
                         }
                     }
                 });
-            }
-        });
+
     }
 
     private void showErrorLayout(int errType) {
@@ -159,14 +156,11 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
         AllAdrInfo allAdrInfo = new AllAdrInfo();
         allAdrInfo.setFunctionName("ListUserAddress");
         OkGoUtils okGoUtils = new OkGoUtils(AdrMannGerActivity.this);
-        okGoUtils.httpPostJSON(allAdrInfo, true, true,msgPullLv);
+        okGoUtils.httpPostJSON(allAdrInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 shouHuoInfo = JSON.parseObject(response, ShouHuoInfo.class);
-                msgPullLv.post(new Runnable() {
-                    @Override
-                    public void run() {
                         if (shouHuoInfo.getCode() == 0) {//成功
                             if (shouHuoInfo.getData().getAddresses().size() > 0) {
                                 msgPullLv.setVisibility(View.VISIBLE);
@@ -183,8 +177,7 @@ public class AdrMannGerActivity extends BaseActivity implements View.OnClickList
 
                             }
                         }
-                    }
-                });
+
             }
         });
 

@@ -130,7 +130,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         GoodTabsInfo goodTabsInfo = new GoodTabsInfo();
         goodTabsInfo.setFunctionName("ListGoodsType");
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(goodTabsInfo, true, true, tabLayout);
+        okGoUtils.httpPostJSON(goodTabsInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -147,9 +147,6 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                         list_fragment.add(mineFragment);
                         LogUtils.D("logcat1", "3");
                     }
-                    tabLayout.post(new Runnable() {
-                        @Override
-                        public void run() {
                             try {
                                 viewPager.setOffscreenPageLimit(list_title.size());
                                 fAdapter = new ShopViewPagerAdapter(getActivity().getSupportFragmentManager(), list_fragment, list_title);
@@ -158,8 +155,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                                 LogUtils.D("logcat1", "4");
                             } catch (Exception e) {
                             }
-                        }
-                    });
+
                 }
             }
         });

@@ -41,11 +41,13 @@ public class AllAdrAdapter extends BaseAdapter {
         this.list = list;
         this.context = context;
     }
-    public AllAdrAdapter(List<ShouHuoInfo.DataBean.AddressesBean> list, Context context,boolean isShow) {
+
+    public AllAdrAdapter(List<ShouHuoInfo.DataBean.AddressesBean> list, Context context, boolean isShow) {
         this.list = list;
         this.context = context;
         this.isShow = isShow;
     }
+
     @Override
     public int getCount() {
         return list.size();
@@ -76,11 +78,11 @@ public class AllAdrAdapter extends BaseAdapter {
         if (list.get(position).getContactBuilding() == null) {
             list.get(position).setContactBuilding(" ");
         }
-        if(isShow){
+        if (isShow) {
             holder.tv_edit.setVisibility(View.INVISIBLE);
             holder.tv_set.setVisibility(View.GONE);
         }
-        if(list.get(position).getIsDefault()==1){
+        if (list.get(position).getIsDefault() == 1) {
             holder.tv_set.setText("默认地址");
         }
         holder.tv_adr.setText(list.get(position).getContactSchool() + list.get(position).getContactBuilding() + list.get(position).getContactDorm());
@@ -100,20 +102,16 @@ public class AllAdrAdapter extends BaseAdapter {
                 parametersBean.setIsDefault(1);
                 upDateAdrInfo.setParameters(parametersBean);
                 OkGoUtils okGoUtils = new OkGoUtils(context);
-                okGoUtils.httpPostJSON(upDateAdrInfo, true, true,holder.tv_set);
+                okGoUtils.httpPostJSON(upDateAdrInfo, true, true);
                 okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
                     @Override
                     public void onSuccLoad(String response) {
                         final String code = JsonUtil.getFieldValue(response, "code");
-                        holder.tv_set.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if ("0".equals(code)) {
-                                    holder.tv_set.setText("默认地址");
-                                    ToastUtils.showShort("设置成功");
-                                }
-                            }
-                        });
+                        if ("0".equals(code)) {
+                            holder.tv_set.setText("默认地址");
+                            ToastUtils.showShort("设置成功");
+                        }
+
                     }
                 });
             }
