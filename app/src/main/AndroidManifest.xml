@@ -125,6 +125,7 @@
         <activity
             android:name=".ui.HomeActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
         <activity
             android:name=".ui.SugActivity"

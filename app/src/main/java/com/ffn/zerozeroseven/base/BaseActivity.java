@@ -7,8 +7,10 @@ import android.view.WindowManager;
 
 import com.aitangba.swipeback.SwipeBackActivity;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
+import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
@@ -32,17 +34,26 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+        savedInstanceState.putSerializable("carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
         super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        LogUtils.D("logString", "onRestoreInstanceState");
         BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo"));
+        BaseAppApplication.getInstance().setCarShopInfo((CarShopInfo) savedInstanceState.getSerializable("carShopInfo"));
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            LogUtils.D("logString", "savedInstanceState!=null");
+            BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
+            BaseAppApplication.getInstance().setCarShopInfo((CarShopInfo) savedInstanceState.getSerializable("carShopInfo"));
+        }
+        LogUtils.D("logString", "savedInstanceState==null");
         setContentView(setLayout());
         BaseAppApplication.getInstance().addActivity(this);
         ImmersionBar.with(this).init();

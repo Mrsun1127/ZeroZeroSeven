@@ -48,8 +48,6 @@ import java.util.TimerTask;
  */
 
 public class HomeActivity extends AppCompatActivity {
-    static final String FRAGMENTS_TAG = "android:support:fragments";
-    private static final String TAG_EXIT = "exit";
     RelativeLayout rl_main;
     RelativeLayout rl_shop;
     RelativeLayout rl_mine;
@@ -77,10 +75,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         LogUtils.D("logString", "onRestoreInstanceState");
-        if (savedInstanceState != null) {
-            BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
-            BaseAppApplication.getInstance().setCarShopInfo((CarShopInfo) savedInstanceState.getSerializable("carShopInfo"));
-        }
+        BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
+        BaseAppApplication.getInstance().setCarShopInfo((CarShopInfo) savedInstanceState.getSerializable("carShopInfo"));
     }
 
     @Override
@@ -90,7 +86,6 @@ public class HomeActivity extends AppCompatActivity {
             LogUtils.D("logString", "savedInstanceState!=null");
             BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
             BaseAppApplication.getInstance().setCarShopInfo((CarShopInfo) savedInstanceState.getSerializable("carShopInfo"));
-            savedInstanceState.putParcelable(FRAGMENTS_TAG, null);
         }
         LogUtils.D("logString", "savedInstanceState==null");
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -246,7 +241,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         LogUtils.D("logString", "onDestroy");
-        LogUtils.D("carShopInfo","我在HomeActivity存了购物车");
+        LogUtils.D("carShopInfo", "我在HomeActivity存了购物车");
         SharePrefUtils.saveObject(HomeActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
         BaseAppApplication.getInstance().finishActivity(this);
     }
