@@ -129,7 +129,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:background="#E9C2A6"
-                                    android:text="收起"
+                                    android:text="重置"
                                     android:textColor="#FF2400"
                                     android:textSize="13sp" />
 
