@@ -91,6 +91,8 @@ public class NumberRicalActivity extends BaseActivity {
     private PopSpecAdapter popSpecAdapter;
     private PopBrandAdapter popBrandAdapter;
     private PopPriceAdapter popPriceAdapter;
+    private ArrayList<String> listOne;
+    private ArrayList<String> listTwo;
 
     @Override
     protected int setLayout() {
@@ -144,6 +146,7 @@ public class NumberRicalActivity extends BaseActivity {
         oneAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
+                ll_select_pop.setVisibility(View.GONE);
                 oneAdapter.setClickPosition(position);
                 level2BottomList.clear();
                 for (int i = 0; i < level2List.size(); i++) {
@@ -153,12 +156,15 @@ public class NumberRicalActivity extends BaseActivity {
                 }
                 twoAdapter.cleanDates();
                 twoAdapter.addAll(level2BottomList);
+                findVerticalData(oneAdapter.getItem(position).getId(), 0, 0, "", 0);
             }
         });
         twoAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
                 twoAdapter.setClickPosition(position);
+                ll_select_pop.setVisibility(View.GONE);
+                findVerticalData(twoAdapter.getItem(position).getId(), 0, 0, "", 0);
             }
         });
 
@@ -223,9 +229,9 @@ public class NumberRicalActivity extends BaseActivity {
                 popPriceAdapter.addAll(numberListInfo.getData().getFilter_price());
             }
         });
-        ArrayList<String> listOne = new ArrayList<>();
+        listOne = new ArrayList<>();
         listOne.add("品牌");
-        ArrayList<String> listTwo = new ArrayList<>();
+        listTwo = new ArrayList<>();
         listTwo.add("价格");
         brandAdapter.addAll(listOne);
         priceAdapter.addAll(listTwo);
@@ -302,13 +308,13 @@ public class NumberRicalActivity extends BaseActivity {
                     oneAdapter.addAll(level1List);
                     twoAdapter.addAll(level2BottomList);
                     levelId = level1List.get(0).getId();
-                    findVerticalData(levelId, specId, brandId, attrValue, pageIndex, false);
+                    findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
                 }
             }
         });
     }
 
-    private void findVerticalData(int levelId, int specId, int brandId, final String attrValue, int pageIndex, final boolean isRre) {
+    private void findVerticalData(int levelId, int specId, int brandId, final String attrValue, int pageIndex) {
         VerticalReInfo verticalReInfo = new VerticalReInfo();
         verticalReInfo.setFunctionName("ListDigitalGoods");
         VerticalReInfo.ParametersBean parametersBean = new VerticalReInfo.ParametersBean();
@@ -330,19 +336,30 @@ public class NumberRicalActivity extends BaseActivity {
             public void onSuccLoad(String response) {
                 numberListInfo = JSON.parseObject(response, NumberListInfo.class);
                 if (numberListInfo.getCode() == 0) {
-                        if (numberListInfo.getData().getFilter_attr().size() > 0) {
-                            attrAdapter.cleanDates();
-                            attrAdapter.addAll(numberListInfo.getData().getFilter_attr());
-                        }else{
-                            attrAdapter.cleanDates();
-                        }
-                        if (numberListInfo.getData().getFilter_spec().size() > 0) {
-                            threeAdapter.cleanDates();
-                            threeAdapter.addAll(numberListInfo.getData().getFilter_spec());
-                        }else{
-                            threeAdapter.cleanDates();
-                        }
-
+                    if (numberListInfo.getData().getFilter_attr().size() > 0) {
+                        attrAdapter.cleanDates();
+                        attrAdapter.addAll(numberListInfo.getData().getFilter_attr());
+                    } else {
+                        attrAdapter.cleanDates();
+                    }
+                    if (numberListInfo.getData().getFilter_spec().size() > 0) {
+                        threeAdapter.cleanDates();
+                        threeAdapter.addAll(numberListInfo.getData().getFilter_spec());
+                    } else {
+                        threeAdapter.cleanDates();
+                    }
+                    if (numberListInfo.getData().getFilter_price().size() == 0) {
+                        priceAdapter.cleanDates();
+                    }else{
+                        priceAdapter.cleanDates();
+                        priceAdapter.addAll(listTwo);
+                    }
+                    if (numberListInfo.getData().getFilter_brand().size() == 0) {
+                        brandAdapter.cleanDates();
+                    }else{
+                        brandAdapter.cleanDates();
+                        brandAdapter.addAll(listOne);
+                    }
                     verticalAdapter.cleanDates();
                     if (numberListInfo.getData().getGoods_list().getList().size() > 0) {
                         iv_nodate.setVisibility(View.GONE);
@@ -368,7 +385,7 @@ public class NumberRicalActivity extends BaseActivity {
                 } else {
                     levelId = oneAdapter.getItem(oneAdapter.getClickPosition()).getId();
                 }
-                findVerticalData(levelId, 0, 0, "", 0, false);
+                findVerticalData(levelId, 0, 0, "", 0);
                 break;
             case R.id.bt_sure:
                 pageIndex = 0;
@@ -388,7 +405,7 @@ public class NumberRicalActivity extends BaseActivity {
                         }
                         if (popAttrAdapter.getClickPosition() != -1) {
                             attrValue = numberListInfo.getData().getFilter_attr().get(attrAdapter.getClickPosition()).getItems().get(popAttrAdapter.getClickPosition()).getAttrId() + "_" + numberListInfo.getData().getFilter_attr().get(attrAdapter.getClickPosition()).getItems().get(popAttrAdapter.getClickPosition()).getAttrValue();
-                            findVerticalData(levelId, specId, brandId, attrValue, pageIndex, false);
+                            findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
                         }
 
                         break;
@@ -401,7 +418,7 @@ public class NumberRicalActivity extends BaseActivity {
                         }
                         if (popSpecAdapter.getClickPosition() != -1) {
                             specId = numberListInfo.getData().getFilter_spec().get(threeAdapter.getClickPosition()).getItems().get(popSpecAdapter.getClickPosition()).getSpecId();
-                            findVerticalData(levelId, specId, brandId, attrValue, pageIndex, false);
+                            findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
                         }
                         break;
                     case "brand":
@@ -414,7 +431,7 @@ public class NumberRicalActivity extends BaseActivity {
                         }
                         if (popBrandAdapter.getClickPosition() != -1) {
                             brandId = numberListInfo.getData().getFilter_brand().get(popBrandAdapter.getClickPosition()).getId();
-                            findVerticalData(levelId, specId, brandId, attrValue, pageIndex, false);
+                            findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
                         }
                         break;
                     case "price":
