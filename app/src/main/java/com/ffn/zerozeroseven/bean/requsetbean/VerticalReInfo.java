@@ -43,7 +43,7 @@ public class VerticalReInfo {
         /**
          */
         private int categoryId;
-        private int specId;
+        private int specItemId;
         private int brandId;
         private String attrValue;
         private int pageIndex;
@@ -57,12 +57,12 @@ public class VerticalReInfo {
             this.categoryId = categoryId;
         }
 
-        public int getSpecId() {
-            return specId;
+        public int getSpecItemId() {
+            return specItemId;
         }
 
-        public void setSpecId(int specId) {
-            this.specId = specId;
+        public void setSpecItemId(int specItemId) {
+            this.specItemId = specItemId;
         }
 
         public int getBrandId() {

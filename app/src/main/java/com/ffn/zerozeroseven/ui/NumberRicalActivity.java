@@ -363,7 +363,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         VerticalReInfo.ParametersBean parametersBean = new VerticalReInfo.ParametersBean();
         parametersBean.setCategoryId(levelId);
         if (specId != -1) {
-            parametersBean.setSpecId(specId);
+            parametersBean.setSpecItemId(specId);
         }
         if (brandId != -1) {
             parametersBean.setBrandId(brandId);
