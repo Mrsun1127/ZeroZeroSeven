@@ -16,7 +16,7 @@ import com.ffn.zerozeroseven.bean.NumberListInfo;
  * Created by GT on 2017/11/27.
  */
 
-public class LevelThreeAdapter extends BaseRecyclerAdapter<NumberListInfo.DataBean.FilterSpecBean> {
+public class LevelThreeAdapter extends BaseRecyclerAdapter<NumberLevelInfo.DataBean.CategoriesBean.FilterSpecListBean> {
     public LevelThreeAdapter(Context context) {
         super(context);
     }
@@ -38,7 +38,7 @@ public class LevelThreeAdapter extends BaseRecyclerAdapter<NumberListInfo.DataBe
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberListInfo.DataBean.FilterSpecBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberLevelInfo.DataBean.CategoriesBean.FilterSpecListBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_level2.setText(item.getName());
         if (clickPosition == position) {

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.NumberLevelInfo;
 
 /**
  * Created by GT on 2017/11/27.
@@ -37,7 +38,7 @@ public class LevelBrandAdapter extends BaseRecyclerAdapter<String> {
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, String item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
-        mHolder.tv_level2.setText("品牌");
+        mHolder.tv_level2.setText(item);
         if (clickPosition == position) {
             mHolder.tv_level2.setTextColor(getResource().getColor(R.color.money));
         } else {

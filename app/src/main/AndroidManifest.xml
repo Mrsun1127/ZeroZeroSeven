@@ -47,7 +47,7 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon">
+        tools:replace="android:name">
 
         <meta-data
             android:name="UMENG_APPKEY"

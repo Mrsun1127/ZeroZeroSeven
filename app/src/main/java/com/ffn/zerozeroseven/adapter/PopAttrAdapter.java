@@ -14,7 +14,7 @@ import com.ffn.zerozeroseven.bean.NumberListInfo;
  * Created by GT on 2017/11/27.
  */
 
-public class PopAttrAdapter extends BaseRecyclerAdapter<NumberListInfo.DataBean.FilterAttrBean.ItemsBean> {
+public class PopAttrAdapter extends BaseRecyclerAdapter<String> {
     public PopAttrAdapter(Context context) {
         super(context);
     }
@@ -36,9 +36,9 @@ public class PopAttrAdapter extends BaseRecyclerAdapter<NumberListInfo.DataBean.
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberListInfo.DataBean.FilterAttrBean.ItemsBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, String item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
-        mHolder.tv_level2.setText(item.getAttrValue());
+        mHolder.tv_level2.setText(item);
         if (clickPosition == position) {
             mHolder.tv_level2.setTextColor(getResource().getColor(R.color.money));
         } else {

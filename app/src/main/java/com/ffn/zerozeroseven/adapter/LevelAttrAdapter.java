@@ -8,13 +8,14 @@ import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.NumberLevelInfo;
 import com.ffn.zerozeroseven.bean.NumberListInfo;
 
 /**
  * Created by GT on 2017/11/27.
  */
 
-public class LevelAttrAdapter extends BaseRecyclerAdapter<NumberListInfo.DataBean.FilterAttrBean> {
+public class LevelAttrAdapter extends BaseRecyclerAdapter<NumberLevelInfo.DataBean.CategoriesBean.FilterAttrListBean> {
     public LevelAttrAdapter(Context context) {
         super(context);
     }
@@ -36,7 +37,7 @@ public class LevelAttrAdapter extends BaseRecyclerAdapter<NumberListInfo.DataBea
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberListInfo.DataBean.FilterAttrBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberLevelInfo.DataBean.CategoriesBean.FilterAttrListBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_level2.setText(item.getAttrName());
         if (clickPosition == position) {

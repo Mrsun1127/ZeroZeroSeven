@@ -32,7 +32,14 @@ public class NumberHomeInfo {
     public static class ParametersBean {
         /**
          */
+        private int isFilter;
 
+        public int getIsFilter() {
+            return isFilter;
+        }
 
+        public void setIsFilter(int isFilter) {
+            this.isFilter = isFilter;
+        }
     }
 }

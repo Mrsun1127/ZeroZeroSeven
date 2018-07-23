@@ -12,25 +12,20 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.LevelAttrAdapter;
 import com.ffn.zerozeroseven.adapter.LevelBrandAdapter;
 import com.ffn.zerozeroseven.adapter.LevelOneAdapter;
-import com.ffn.zerozeroseven.adapter.LevelPriceAdapter;
 import com.ffn.zerozeroseven.adapter.LevelTwoAdapter;
 import com.ffn.zerozeroseven.adapter.LevelThreeAdapter;
 import com.ffn.zerozeroseven.adapter.NumberRicalVerticalAdapter;
 import com.ffn.zerozeroseven.adapter.PopAttrAdapter;
 import com.ffn.zerozeroseven.adapter.PopBrandAdapter;
-import com.ffn.zerozeroseven.adapter.PopPriceAdapter;
 import com.ffn.zerozeroseven.adapter.PopSpecAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
-import com.ffn.zerozeroseven.base.BaseRefreshActivity;
 import com.ffn.zerozeroseven.base.RgRefreshStatus;
 import com.ffn.zerozeroseven.bean.NumberLevelInfo;
 import com.ffn.zerozeroseven.bean.NumberListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.NumberHomeInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.VerticalReInfo;
-import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
-import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.UiTipUtil;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
@@ -41,6 +36,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -75,8 +71,6 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
     RecyclerView rc_levelattr;
     @Bind(R.id.rc_levelbrand)
     RecyclerView rc_levelbrand;
-    @Bind(R.id.rc_levelprice)
-    RecyclerView rc_levelprice;
     private ArrayList<NumberLevelInfo.DataBean.CategoriesBean> level1List;
     private ArrayList<NumberLevelInfo.DataBean.CategoriesBean> level2List;
     private LevelOneAdapter oneAdapter;
@@ -90,7 +84,6 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
     int pageIndex = 0;
     private LevelAttrAdapter attrAdapter;
     private LevelBrandAdapter brandAdapter;
-    private LevelPriceAdapter priceAdapter;
     private NumberListInfo numberListInfo;
     @Bind(R.id.rc_select)
     RecyclerView rc_select;
@@ -98,10 +91,8 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
     private PopAttrAdapter popAttrAdapter;
     private PopSpecAdapter popSpecAdapter;
     private PopBrandAdapter popBrandAdapter;
-    private PopPriceAdapter popPriceAdapter;
-    private ArrayList<String> listOne;
-    private ArrayList<String> listTwo;
     private int oneClickPositon = 0;
+    private NumberLevelInfo levelInfo;
 
     @Override
     protected int setLayout() {
@@ -138,11 +129,9 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         linearLayoutManager3.setOrientation(LinearLayoutManager.HORIZONTAL);
         LinearLayoutManager linearLayoutManager4 = new LinearLayoutManager(NumberRicalActivity.this);
         linearLayoutManager4.setOrientation(LinearLayoutManager.HORIZONTAL);
-        LinearLayoutManager linearLayoutManager5 = new LinearLayoutManager(NumberRicalActivity.this);
-        linearLayoutManager5.setOrientation(LinearLayoutManager.HORIZONTAL);
+
         rc_levelattr.setLayoutManager(linearLayoutManager3);
         rc_levelbrand.setLayoutManager(linearLayoutManager4);
-        rc_levelprice.setLayoutManager(linearLayoutManager5);
         rc_levelthree.setLayoutManager(linearLayoutManager);
         rc_leveltwo.setLayoutManager(linearLayoutManager1);
         rl_levelone.setLayoutManager(linearLayoutManager2);
@@ -169,10 +158,24 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                 twoAdapter.setClickPosition(-1);
                 popAttrAdapter.setClickPosition(-1);
                 popBrandAdapter.setClickPosition(-1);
-                popPriceAdapter.setClickPosition(-1);
                 popSpecAdapter.setClickPosition(-1);
                 twoAdapter.cleanDates();
                 twoAdapter.addAll(level2BottomList);
+                attrAdapter.setClickPosition(-1);
+                threeAdapter.setClickPosition(-1);
+                brandAdapter.setClickPosition(-1);
+                if (levelInfo.getData().getCategories().get(position).getFilterAttrList().size() > 0) {
+                    attrAdapter.cleanDates();
+                    attrAdapter.addAll(levelInfo.getData().getCategories().get(position).getFilterAttrList());
+                } else {
+                    attrAdapter.cleanDates();
+                }
+                if (levelInfo.getData().getCategories().get(position).getFilterSpecList().size() > 0) {
+                    threeAdapter.cleanDates();
+                    threeAdapter.addAll(levelInfo.getData().getCategories().get(position).getFilterSpecList());
+                } else {
+                    threeAdapter.cleanDates();
+                }
                 rgRefreshStatus = RgRefreshStatus.IDLE;
                 pageIndex = 0;
                 findVerticalData(oneAdapter.getItem(position).getId(), 0, 0, "", 0);
@@ -183,9 +186,11 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
             public void onItemClick(int position, long itemId) {
                 twoAdapter.setClickPosition(position);
                 ll_select_pop.setVisibility(View.GONE);
+                attrAdapter.setClickPosition(-1);
+                threeAdapter.setClickPosition(-1);
+                brandAdapter.setClickPosition(-1);
                 popAttrAdapter.setClickPosition(-1);
                 popBrandAdapter.setClickPosition(-1);
-                popPriceAdapter.setClickPosition(-1);
                 popSpecAdapter.setClickPosition(-1);
                 rgRefreshStatus = RgRefreshStatus.IDLE;
                 pageIndex = 0;
@@ -199,6 +204,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
 
         attrAdapter = new LevelAttrAdapter(this);
         rc_levelattr.setAdapter(attrAdapter);
+        final List<String> attrList = new ArrayList<>();
         attrAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
@@ -207,7 +213,14 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                 clickType = "attr";
                 rc_select.setAdapter(popAttrAdapter);
                 popAttrAdapter.cleanDates();
-                popAttrAdapter.addAll(numberListInfo.getData().getFilter_attr().get(position).getItems());
+                String attrValues = levelInfo.getData().getCategories().get(oneClickPositon).getFilterAttrList().get(position).getAttrValues();
+                String[] split = attrValues.split(",");
+                attrList.clear();
+                for (int i = 0; i < split.length; i++) {
+                    attrList.add(split[i]);
+                }
+                popAttrAdapter.cleanDates();
+                popAttrAdapter.addAll(attrList);
             }
         });
 
@@ -222,7 +235,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                 clickType = "spec";
                 rc_select.setAdapter(popSpecAdapter);
                 popSpecAdapter.cleanDates();
-                popSpecAdapter.addAll(numberListInfo.getData().getFilter_spec().get(position).getItems());
+                popSpecAdapter.addAll(levelInfo.getData().getCategories().get(oneClickPositon).getFilterSpecList().get(position).getItems());
 
             }
         });
@@ -236,30 +249,11 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                 ll_select_pop.setVisibility(View.VISIBLE);
                 clickType = "brand";
                 rc_select.setAdapter(popBrandAdapter);
-                popBrandAdapter.cleanDates();
-                popBrandAdapter.addAll(numberListInfo.getData().getFilter_brand());
-            }
-        });
 
-        priceAdapter = new LevelPriceAdapter(this);
-        rc_levelprice.setAdapter(priceAdapter);
-        priceAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, long itemId) {
-                priceAdapter.setClickPosition(position);
-                ll_select_pop.setVisibility(View.VISIBLE);
-                clickType = "price";
-                rc_select.setAdapter(popPriceAdapter);
-                popPriceAdapter.cleanDates();
-                popPriceAdapter.addAll(numberListInfo.getData().getFilter_price());
+                popBrandAdapter.cleanDates();
+                popBrandAdapter.addAll(levelInfo.getData().getCategories().get(oneClickPositon).getFilterBrandList());
             }
         });
-        listOne = new ArrayList<>();
-        listOne.add("品牌");
-        listTwo = new ArrayList<>();
-        listTwo.add("价格");
-        brandAdapter.addAll(listOne);
-        priceAdapter.addAll(listTwo);
 
 
         rc_select.setLayoutManager(new GridLayoutManager(this, 3));
@@ -267,7 +261,6 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         popAttrAdapter = new PopAttrAdapter(this);
         popSpecAdapter = new PopSpecAdapter(this);
         popBrandAdapter = new PopBrandAdapter(this);
-        popPriceAdapter = new PopPriceAdapter(this);
         popAttrAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
@@ -298,17 +291,6 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                 popBrandAdapter.setClickPosition(position);
             }
         });
-        popPriceAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, long itemId) {
-                if (popPriceAdapter.getClickPosition() == position) {
-                    popPriceAdapter.setClickPosition(-1);
-                    return;
-                }
-                popPriceAdapter.setClickPosition(position);
-            }
-        });
-
     }
 
     @Override
@@ -321,12 +303,15 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
     private void FindLevel() {
         NumberHomeInfo homeInfo = new NumberHomeInfo();
         homeInfo.setFunctionName("ListDigitalCategory");
+        NumberHomeInfo.ParametersBean parametersBean = new NumberHomeInfo.ParametersBean();
+        parametersBean.setIsFilter(1);
+        homeInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(NumberRicalActivity.this);
         okGoUtils.httpPostJSON(homeInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                NumberLevelInfo levelInfo = JSON.parseObject(response, NumberLevelInfo.class);
+                levelInfo = JSON.parseObject(response, NumberLevelInfo.class);
                 if (levelInfo.getCode() == 0) {
                     level1List = new ArrayList<>();
                     level2List = new ArrayList<>();
@@ -349,6 +334,23 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                     oneAdapter.addAll(level1List);
                     twoAdapter.addAll(level2BottomList);
                     levelId = level1List.get(0).getId();
+
+                    if (levelInfo.getData().getCategories().get(0).getFilterAttrList().size() > 0) {
+                        attrAdapter.cleanDates();
+                        attrAdapter.addAll(levelInfo.getData().getCategories().get(0).getFilterAttrList());
+                    } else {
+                        attrAdapter.cleanDates();
+                    }
+                    if (levelInfo.getData().getCategories().get(0).getFilterSpecList().size() > 0) {
+                        threeAdapter.cleanDates();
+                        threeAdapter.addAll(levelInfo.getData().getCategories().get(0).getFilterSpecList());
+                    } else {
+                        threeAdapter.cleanDates();
+                    }
+                    List<String> strings = new ArrayList<>();
+                    strings.add("品牌");
+                    brandAdapter.cleanDates();
+                    brandAdapter.addAll(strings);
                     findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
                 }
             }
@@ -378,31 +380,6 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                 disLoadState();
                 numberListInfo = JSON.parseObject(response, NumberListInfo.class);
                 if (numberListInfo.getCode() == 0) {
-                    if (numberListInfo.getData().getFilter_attr().size() > 0) {
-                        attrAdapter.cleanDates();
-                        attrAdapter.addAll(numberListInfo.getData().getFilter_attr());
-                    } else {
-                        attrAdapter.cleanDates();
-                    }
-                    if (numberListInfo.getData().getFilter_spec().size() > 0) {
-                        threeAdapter.cleanDates();
-                        threeAdapter.addAll(numberListInfo.getData().getFilter_spec());
-                    } else {
-                        threeAdapter.cleanDates();
-                    }
-                    if (numberListInfo.getData().getFilter_price().size() == 0) {
-                        priceAdapter.cleanDates();
-                    } else {
-                        priceAdapter.cleanDates();
-                        priceAdapter.addAll(listTwo);
-                    }
-                    if (numberListInfo.getData().getFilter_brand().size() == 0) {
-                        brandAdapter.cleanDates();
-                    } else {
-                        brandAdapter.cleanDates();
-                        brandAdapter.addAll(listOne);
-                    }
-
                     switch (rgRefreshStatus) {
                         case IDLE:
                         case REFRESHING:
@@ -441,7 +418,6 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                 ll_select_pop.setVisibility(View.GONE);
                 popAttrAdapter.setClickPosition(-1);
                 popBrandAdapter.setClickPosition(-1);
-                popPriceAdapter.setClickPosition(-1);
                 popSpecAdapter.setClickPosition(-1);
                 if (twoAdapter.getClickPosition() != -1) {
                     levelId = twoAdapter.getItem(twoAdapter.getClickPosition()).getId();
@@ -460,104 +436,37 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                     levelId = oneAdapter.getItem(oneAdapter.getClickPosition()).getId();
                 }
                 rgRefreshStatus = RgRefreshStatus.IDLE;
-                switch (clickType) {
-                    case "attr":
-                        try {
-                            if (popSpecAdapter.getClickPosition() != -1) {
-                                specId = numberListInfo.getData().getFilter_spec().get(threeAdapter.getClickPosition()).getItems().get(popSpecAdapter.getClickPosition()).getSpecId();
-                            } else {
-                                specId = 0;
-                            }
-                        } catch (Exception e) {
-                            specId = 0;
-                        }
-                        try {
-                            if (popBrandAdapter.getClickPosition() != -1) {
-                                brandId = numberListInfo.getData().getFilter_brand().get(popBrandAdapter.getClickPosition()).getId();
-                            } else {
-                                brandId = 0;
-                            }
-                        } catch (Exception e) {
-                            brandId = 0;
-                        }
-
-                        try {
-                            if (popAttrAdapter.getClickPosition() != -1) {
-                                attrValue = numberListInfo.getData().getFilter_attr().get(attrAdapter.getClickPosition()).getItems().get(popAttrAdapter.getClickPosition()).getAttrId() + "_" + numberListInfo.getData().getFilter_attr().get(attrAdapter.getClickPosition()).getItems().get(popAttrAdapter.getClickPosition()).getAttrValue();
-                            } else {
-                                attrValue = "";
-                            }
-                        }catch (Exception e){
-                            attrValue = "";
-                        }
-                        findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
-                        break;
-                    case "spec":
-                        try {
-                            if (popBrandAdapter.getClickPosition() != -1) {
-                                brandId = numberListInfo.getData().getFilter_brand().get(popBrandAdapter.getClickPosition()).getId();
-                            }
-                            {
-                                brandId = 0;
-                            }
-                        } catch (Exception e) {
-                            brandId = 0;
-                        }
-                        try {
-                            if (popAttrAdapter.getClickPosition() != -1) {
-                                attrValue = numberListInfo.getData().getFilter_attr().get(attrAdapter.getClickPosition()).getItems().get(popAttrAdapter.getClickPosition()).getAttrId() + "_" + numberListInfo.getData().getFilter_attr().get(attrAdapter.getClickPosition()).getItems().get(popAttrAdapter.getClickPosition()).getAttrValue();
-                            } else {
-                                attrValue = "";
-                            }
-                        } catch (Exception e) {
-                            attrValue = "";
-                        }
-
-                        try {
-                            if (popSpecAdapter.getClickPosition() != -1) {
-                                specId = numberListInfo.getData().getFilter_spec().get(threeAdapter.getClickPosition()).getItems().get(popSpecAdapter.getClickPosition()).getSpecId();
-                            } else {
-                                specId = 0;
-                            }
-                        }catch (Exception e){
-                            specId = 0;
-                        }
-                        findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
-                        break;
-                    case "brand":
-                        try {
-                            if (popAttrAdapter.getClickPosition() != -1) {
-                                attrValue = numberListInfo.getData().getFilter_attr().get(attrAdapter.getClickPosition()).getItems().get(popAttrAdapter.getClickPosition()).getAttrId() + "_" + numberListInfo.getData().getFilter_attr().get(attrAdapter.getClickPosition()).getItems().get(popAttrAdapter.getClickPosition()).getAttrValue();
-                            } else {
-                                attrValue = "";
-                            }
-                        } catch (Exception e) {
-                            attrValue = "";
-                        }
-                        try {
-                            if (popSpecAdapter.getClickPosition() != -1) {
-                                specId = numberListInfo.getData().getFilter_spec().get(threeAdapter.getClickPosition()).getItems().get(popSpecAdapter.getClickPosition()).getSpecId();
-                            } else {
-                                specId = 0;
-                            }
-                        } catch (Exception e) {
-                            specId = 0;
-                        }
-
-                        try {
-                            if (popBrandAdapter.getClickPosition() != -1) {
-                                brandId = numberListInfo.getData().getFilter_brand().get(popBrandAdapter.getClickPosition()).getId();
-                            } else {
-                                brandId = 0;
-                            }
-                        }catch (Exception e){
-                            brandId = 0;
-                        }
-                        findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
-                        break;
-                    case "price":
-                        break;
+                try {
+                    if (popSpecAdapter.getClickPosition() != -1) {
+                        specId = levelInfo.getData().getCategories().get(oneClickPositon).getFilterSpecList().get(threeAdapter.getClickPosition()).getItems().get(popSpecAdapter.getClickPosition()).getId();
+                    } else {
+                        specId = 0;
+                    }
+                } catch (Exception e) {
+                    specId = 0;
                 }
+                try {
+                    if (popBrandAdapter.getClickPosition() != -1) {
+                        brandId = levelInfo.getData().getCategories().get(oneClickPositon).getFilterBrandList().get(popBrandAdapter.getClickPosition()).getId();
+                    } else {
+                        brandId = 0;
+                    }
+                } catch (Exception e) {
+                    brandId = 0;
+                }
+
+                try {
+                    if (popAttrAdapter.getClickPosition() != -1) {
+                        String s = levelInfo.getData().getCategories().get(oneClickPositon).getFilterAttrList().get(attrAdapter.getClickPosition()).getAttrValues();
+                        String[] split = s.split(",");
+                        attrValue = levelInfo.getData().getCategories().get(oneClickPositon).getFilterAttrList().get(attrAdapter.getClickPosition()).getId() + "_" + split[popAttrAdapter.getClickPosition()];
+                    } else {
+                        attrValue = "";
+                    }
+                } catch (Exception e) {
+                    attrValue = "";
+                }
+                findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
                 break;
             case R.id.iv_up:
 //                scrollview.scrollTo(0, 0);
@@ -591,7 +500,6 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         twoAdapter.setClickPosition(-1);
         popAttrAdapter.setClickPosition(-1);
         popBrandAdapter.setClickPosition(-1);
-        popPriceAdapter.setClickPosition(-1);
         popSpecAdapter.setClickPosition(-1);
         findVerticalData(oneAdapter.getItem(oneClickPositon).getId(), 0, 0, "", pageIndex);
     }

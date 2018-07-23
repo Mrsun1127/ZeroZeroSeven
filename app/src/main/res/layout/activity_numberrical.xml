@@ -118,18 +118,8 @@
                                     android:id="@+id/rc_levelbrand"
                                     android:layout_width="wrap_content"
                                     android:layout_height="41dp" />
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp"
-                                    android:text="价格"
-                                    android:textColor="@color/black"/>
-                                <android.support.v7.widget.RecyclerView
-                                    android:id="@+id/rc_levelprice"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="41dp" />
+
+
                             </LinearLayout>
                         </HorizontalScrollView>
 
