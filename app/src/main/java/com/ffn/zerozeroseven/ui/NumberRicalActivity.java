@@ -481,9 +481,13 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                             brandId = 0;
                         }
 
-                        if (popAttrAdapter.getClickPosition() != -1) {
-                            attrValue = numberListInfo.getData().getFilter_attr().get(attrAdapter.getClickPosition()).getItems().get(popAttrAdapter.getClickPosition()).getAttrId() + "_" + numberListInfo.getData().getFilter_attr().get(attrAdapter.getClickPosition()).getItems().get(popAttrAdapter.getClickPosition()).getAttrValue();
-                        } else {
+                        try {
+                            if (popAttrAdapter.getClickPosition() != -1) {
+                                attrValue = numberListInfo.getData().getFilter_attr().get(attrAdapter.getClickPosition()).getItems().get(popAttrAdapter.getClickPosition()).getAttrId() + "_" + numberListInfo.getData().getFilter_attr().get(attrAdapter.getClickPosition()).getItems().get(popAttrAdapter.getClickPosition()).getAttrValue();
+                            } else {
+                                attrValue = "";
+                            }
+                        }catch (Exception e){
                             attrValue = "";
                         }
                         findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
@@ -509,9 +513,13 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                             attrValue = "";
                         }
 
-                        if (popSpecAdapter.getClickPosition() != -1) {
-                            specId = numberListInfo.getData().getFilter_spec().get(threeAdapter.getClickPosition()).getItems().get(popSpecAdapter.getClickPosition()).getSpecId();
-                        } else {
+                        try {
+                            if (popSpecAdapter.getClickPosition() != -1) {
+                                specId = numberListInfo.getData().getFilter_spec().get(threeAdapter.getClickPosition()).getItems().get(popSpecAdapter.getClickPosition()).getSpecId();
+                            } else {
+                                specId = 0;
+                            }
+                        }catch (Exception e){
                             specId = 0;
                         }
                         findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
@@ -536,9 +544,13 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                             specId = 0;
                         }
 
-                        if (popBrandAdapter.getClickPosition() != -1) {
-                            brandId = numberListInfo.getData().getFilter_brand().get(popBrandAdapter.getClickPosition()).getId();
-                        } else {
+                        try {
+                            if (popBrandAdapter.getClickPosition() != -1) {
+                                brandId = numberListInfo.getData().getFilter_brand().get(popBrandAdapter.getClickPosition()).getId();
+                            } else {
+                                brandId = 0;
+                            }
+                        }catch (Exception e){
                             brandId = 0;
                         }
                         findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
