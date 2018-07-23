@@ -31,6 +31,11 @@ public class LevelTwoAdapter extends BaseRecyclerAdapter<NumberLevelInfo.DataBea
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberLevelInfo.DataBean.CategoriesBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_type.setText(item.getName());
+        if (clickPosition == position) {
+            mHolder.tv_type.setTextColor(getResource().getColor(R.color.money));
+        } else {
+            mHolder.tv_type.setTextColor(getResource().getColor(R.color.black));
+        }
     }
 
     public void setClickPosition(int i) {
