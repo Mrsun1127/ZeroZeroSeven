@@ -58,11 +58,20 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<RelativeLayout> rlArrayList = new ArrayList<>();
     private ArrayList<Fragment> fragments = new ArrayList<>();
     public static WeakReference<HomeActivity> mInstance;
-
+    private static final String TAG_EXIT = "exit";
     public static WeakReference<HomeActivity> getmInstance() {
         return mInstance;
     }
-
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null) {
+            boolean isExit = intent.getBooleanExtra(TAG_EXIT, false);
+            if (isExit) {
+                this.finish();
+            }
+        }
+    }
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         LogUtils.D("logString", "onSaveInstanceState");
@@ -77,6 +86,7 @@ public class HomeActivity extends AppCompatActivity {
         LogUtils.D("logString", "onRestoreInstanceState");
         BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
         BaseAppApplication.getInstance().setCarShopInfo((CarShopInfo) savedInstanceState.getSerializable("carShopInfo"));
+
     }
 
     @Override
@@ -233,7 +243,9 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }, 2000);
         } else {//退出程序
-            BaseAppApplication.getInstance().clearActivityList();
+            Intent intent = new Intent(this,HomeActivity.class);
+            intent.putExtra(HomeActivity.TAG_EXIT, true);
+            startActivity(intent);
         }
     }
 

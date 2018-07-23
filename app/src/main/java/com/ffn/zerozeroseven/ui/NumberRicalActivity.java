@@ -589,6 +589,10 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         rgRefreshStatus = RgRefreshStatus.REFRESHING;
         pageIndex = 0;
         twoAdapter.setClickPosition(-1);
+        popAttrAdapter.setClickPosition(-1);
+        popBrandAdapter.setClickPosition(-1);
+        popPriceAdapter.setClickPosition(-1);
+        popSpecAdapter.setClickPosition(-1);
         findVerticalData(oneAdapter.getItem(oneClickPositon).getId(), 0, 0, "", pageIndex);
     }
 
