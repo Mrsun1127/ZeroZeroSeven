@@ -22,43 +22,21 @@
         android:textColor="@color/black"
         android:textSize="11sp" />
 
-    <LinearLayout
-        android:id="@+id/ll_sign"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_top"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:layout_below="@+id/tv_name"
         android:layout_marginLeft="18dp"
-        android:layout_toRightOf="@+id/iv_product"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_toRightOf="@+id/iv_product" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:background="@drawable/numberrical"
-            android:gravity="center"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="Intel i3"
-            android:textSize="9sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/numberrical"
-            android:gravity="center"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="18.5-19.5英寸"
-            android:textSize="9sp" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_money"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_below="@+id/ll_sign"
+        android:layout_below="@+id/rc_top"
         android:layout_marginLeft="18dp"
         android:layout_toRightOf="@+id/iv_product"
         android:gravity="center_vertical"
@@ -95,46 +73,20 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_status"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_bot"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:layout_below="@+id/ll_money"
         android:layout_marginLeft="18dp"
-        android:layout_toRightOf="@+id/iv_product"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:background="@drawable/startsign"
-            android:gravity="center"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="有货"
-            android:textColor="#f0250f"
-            android:textSize="9sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/startsign"
-            android:gravity="center"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="支持送货上门验货"
-            android:textColor="#f0250f"
-            android:textSize="9sp" />
-    </LinearLayout>
+        android:layout_toRightOf="@+id/iv_product" />
 
     <TextView
+        android:layout_alignBottom="@+id/iv_product"
         android:layout_width="63dp"
         android:layout_height="27dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="15dp"
         android:layout_marginRight="19dp"
         android:background="@drawable/numberverticalbutton"
         android:gravity="center"
