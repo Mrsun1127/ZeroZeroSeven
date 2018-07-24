@@ -80,10 +80,10 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
         LogUtils.D("logString", "onSaveInstanceState");
         savedInstanceState.putSerializable("userInfo", BaseAppApplication.getInstance().getLoginUser());
         savedInstanceState.putSerializable("carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
-        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
