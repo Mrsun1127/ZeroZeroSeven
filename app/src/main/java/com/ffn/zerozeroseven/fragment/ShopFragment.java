@@ -149,7 +149,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                     }
                             try {
                                 viewPager.setOffscreenPageLimit(list_title.size());
-                                fAdapter = new ShopViewPagerAdapter(getActivity().getSupportFragmentManager(), list_fragment, list_title);
+                                fAdapter = new ShopViewPagerAdapter(getChildFragmentManager(), list_fragment, list_title);
                                 viewPager.setAdapter(fAdapter);
                                 tabLayout.setupWithViewPager(viewPager);
                                 LogUtils.D("logcat1", "4");
