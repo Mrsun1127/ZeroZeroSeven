@@ -59,9 +59,14 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<Fragment> fragments = new ArrayList<>();
     public static WeakReference<HomeActivity> mInstance;
     private static final String TAG_EXIT = "exit";
+    private MainFragment mainFragment;
+    private ShopFragment shopFragment;
+    private MineFragment mineFragment;
+
     public static WeakReference<HomeActivity> getmInstance() {
         return mInstance;
     }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -72,6 +77,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         LogUtils.D("logString", "onSaveInstanceState");
@@ -87,6 +93,21 @@ public class HomeActivity extends AppCompatActivity {
         BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
         BaseAppApplication.getInstance().setCarShopInfo((CarShopInfo) savedInstanceState.getSerializable("carShopInfo"));
 
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        if (mainFragment == null && fragment instanceof MainFragment) {
+            mainFragment = (MainFragment) fragment;
+            getSupportFragmentManager().beginTransaction().hide(mainFragment).commit();
+        } else if (shopFragment == null && fragment instanceof ShopFragment) {
+            shopFragment = (ShopFragment) fragment;
+            getSupportFragmentManager().beginTransaction().hide(shopFragment).commit();
+        } else if (mineFragment == null && fragment instanceof MineFragment) {
+            mineFragment = (MineFragment) fragment;
+            getSupportFragmentManager().beginTransaction().hide(mineFragment).commit();
+        }
     }
 
     @Override
@@ -153,9 +174,12 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initFragments() {
         fm = getSupportFragmentManager();
-        fragments.add(MainFragment.newInstance());
-        fragments.add(ShopFragment.newInstance());
-        fragments.add(MineFragment.newInstance());
+        mainFragment = MainFragment.newInstance();
+        shopFragment = ShopFragment.newInstance();
+        mineFragment = MineFragment.newInstance();
+        fragments.add(mainFragment);
+        fragments.add(shopFragment);
+        fragments.add(mineFragment);
     }
 
     public void ll_Show(boolean s) {
@@ -243,7 +267,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }, 2000);
         } else {//退出程序
-            Intent intent = new Intent(this,HomeActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra(HomeActivity.TAG_EXIT, true);
             startActivity(intent);
         }
