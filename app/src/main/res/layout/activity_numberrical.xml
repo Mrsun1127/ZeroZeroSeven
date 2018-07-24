@@ -87,33 +87,37 @@
                                     android:gravity="center"
                                     android:paddingLeft="10dp"
                                     android:paddingRight="10dp"
-                                    android:text="属性"
-                                    android:textColor="@color/black"/>
+                                    android:text="属性:"
+                                    android:textColor="@color/black" />
 
                                 <android.support.v7.widget.RecyclerView
                                     android:id="@+id/rc_levelattr"
                                     android:layout_width="wrap_content"
                                     android:layout_height="41dp" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:gravity="center"
                                     android:paddingLeft="10dp"
                                     android:paddingRight="10dp"
-                                    android:text="规格"
-                                    android:textColor="@color/black"/>
+                                    android:text="规格:"
+                                    android:textColor="@color/black" />
+
                                 <android.support.v7.widget.RecyclerView
                                     android:id="@+id/rc_levelthree"
                                     android:layout_width="wrap_content"
                                     android:layout_height="41dp" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:gravity="center"
                                     android:paddingLeft="10dp"
                                     android:paddingRight="10dp"
-                                    android:text="品牌"
-                                    android:textColor="@color/black"/>
+                                    android:text="品牌:"
+                                    android:textColor="@color/black" />
+
                                 <android.support.v7.widget.RecyclerView
                                     android:id="@+id/rc_levelbrand"
                                     android:layout_width="wrap_content"
@@ -195,21 +199,9 @@
         android:id="@+id/iv_shopcar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/iv_up"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/numberricalshopcar" />
-
-    <ImageView
-        android:id="@+id/iv_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="85dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/number_up" />
-
-
+        android:background="@drawable/numberricalshopcar" />
 </RelativeLayout>

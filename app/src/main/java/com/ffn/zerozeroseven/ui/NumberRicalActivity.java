@@ -28,6 +28,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.VerticalReInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.UiTipUtil;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
+import com.ffn.zerozeroseven.view.FullyGridLayoutManager;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.TopView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -50,8 +51,6 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
     SmartRefreshLayout refreshlayout;
     @Bind(R.id.rc_vetical)
     RecyclerView vetical;
-    @Bind(R.id.iv_up)
-    ImageView iv_up;
     @Bind(R.id.iv_shopcar)
     ImageView iv_shopcar;
     //    @Bind(R.id.scrollview)
@@ -256,8 +255,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         });
 
 
-        rc_select.setLayoutManager(new GridLayoutManager(this, 3));
-        rc_select.addItemDecoration(new SpaceItemDecoration(25));
+        rc_select.setLayoutManager(new FullyGridLayoutManager(this, 3));
         popAttrAdapter = new PopAttrAdapter(this);
         popSpecAdapter = new PopSpecAdapter(this);
         popBrandAdapter = new PopBrandAdapter(this);
@@ -411,7 +409,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         //breakl;
     }
 
-    @OnClick({R.id.iv_up, R.id.iv_shopcar, R.id.bt_close, R.id.bt_sure})
+    @OnClick({R.id.iv_shopcar, R.id.bt_close, R.id.bt_sure})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_close:
@@ -467,9 +465,6 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                     attrValue = "";
                 }
                 findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
-                break;
-            case R.id.iv_up:
-//                scrollview.scrollTo(0, 0);
                 break;
             case R.id.iv_shopcar:
                 ZeroZeroSevenUtils.SwitchActivity(NumberRicalActivity.this, NumberRicalShopCarActivity.class);
