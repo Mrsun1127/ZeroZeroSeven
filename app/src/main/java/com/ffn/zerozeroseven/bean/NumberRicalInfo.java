@@ -14,6 +14,7 @@ public class NumberRicalInfo implements Serializable {
         this.numberRicalListInfo = numberRicalListInfo;
     }
 
+
     public static class RicalInfo implements Serializable {
         private int id;
         private int type;//1 电脑  2 手机  3 其他
@@ -24,6 +25,25 @@ public class NumberRicalInfo implements Serializable {
         private boolean isChecked;//是否选中
         private Double needsMoney;//需要人民币
         private String configuration;
+
+        public String getSpecKey() {
+            return specKey;
+        }
+
+        public void setSpecKey(String specKey) {
+            this.specKey = specKey;
+        }
+
+        public String getSpecKeyName() {
+            return specKeyName;
+        }
+
+        public void setSpecKeyName(String specKeyName) {
+            this.specKeyName = specKeyName;
+        }
+
+        private String specKey;
+        private String specKeyName;
 
         public int getId() {
             return id;

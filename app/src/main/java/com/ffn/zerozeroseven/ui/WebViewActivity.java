@@ -18,6 +18,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
+import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.WebInfo;
 import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.view.TopView;
@@ -64,7 +65,7 @@ public class WebViewActivity extends BaseActivity {
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(getIntent().getStringExtra("url"));
-        webView.setWebChromeClient(new WebChromeClient(){
+        webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {
@@ -210,6 +211,16 @@ public class WebViewActivity extends BaseActivity {
                 }
             }, 500);
 
+        }
+
+        @JavascriptInterface
+        public NumberRicalInfo getNumbericalCarInfo() {
+            return BaseAppApplication.getInstance().getNumberRicalInfo();
+        }
+
+        @JavascriptInterface
+        public void setNumbericalCarInfo(NumberRicalInfo numbericalCarInfo) {
+            BaseAppApplication.getInstance().setNumberRicalInfo(numbericalCarInfo);
         }
     }
 

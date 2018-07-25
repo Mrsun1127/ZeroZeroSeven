@@ -12,6 +12,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppManger;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
+import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -24,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
     private SharedPreferences sharedLogin;
     private UserInfo.DataBean userInfo;
     private CarShopInfo carShopInfo;
+    private NumberRicalInfo numberRicalInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class SplashActivity extends AppCompatActivity {
         tv_version = findViewById(R.id.tv_version);
         userInfo = (UserInfo.DataBean) SharePrefUtils.readObject(SplashActivity.this, "userInfo");
         carShopInfo = (CarShopInfo) SharePrefUtils.readObject(SplashActivity.this, "carShopInfo");
+        numberRicalInfo = (NumberRicalInfo) SharePrefUtils.readObject(SplashActivity.this, "numberRicalInfo");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -52,6 +55,7 @@ public class SplashActivity extends AppCompatActivity {
                     if (userInfo != null) {
                         BaseAppApplication.getInstance().setLoginUser(userInfo);
                         BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                        BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
                         if (!TextUtils.isEmpty(userInfo.getDowmPoster())) {
                             Bundle bundle = new Bundle();
                             bundle.putString("imgurl", userInfo.getDowmPoster());

@@ -279,6 +279,7 @@ public class HomeActivity extends AppCompatActivity {
         LogUtils.D("logString", "onDestroy");
         LogUtils.D("carShopInfo", "我在HomeActivity存了购物车");
         SharePrefUtils.saveObject(HomeActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
+        SharePrefUtils.saveObject(HomeActivity.this, "numberRicalInfo", BaseAppApplication.getInstance().getNumberRicalInfo());
         BaseAppApplication.getInstance().finishActivity(this);
     }
 
