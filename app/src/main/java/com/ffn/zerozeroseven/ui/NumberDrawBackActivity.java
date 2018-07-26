@@ -4,14 +4,23 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.adapter.ItemNumberDingDanAdapter;
 import com.ffn.zerozeroseven.adapter.NumberTuiKuanAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
+import com.ffn.zerozeroseven.bean.NumberDingDanInfo;
 import com.ffn.zerozeroseven.bean.SelectBean;
+import com.ffn.zerozeroseven.bean.requsetbean.TuiKuanInfo;
+import com.ffn.zerozeroseven.fragment.NumberRicalFragment;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
 import java.util.ArrayList;
@@ -30,8 +39,12 @@ public class NumberDrawBackActivity extends BaseActivity {
     TextView tv_select_reason;
     @Bind(R.id.rc_reason)
     RecyclerView rc_reason;
+    @Bind(R.id.rc_product)
+    RecyclerView rc_product;
     private List<SelectBean> list;
     private NumberTuiKuanAdapter adapter;
+    private NumberDingDanInfo.DataBean.ListBean numberDingDanInfo;
+    private ItemNumberDingDanAdapter itemNumberDingDanAdapter;
 
     @Override
     protected int setLayout() {
@@ -53,13 +66,27 @@ public class NumberDrawBackActivity extends BaseActivity {
                 finish();
             }
         });
+        rc_product.setLayoutManager(new LinearLayoutManager(this));
+        itemNumberDingDanAdapter = new ItemNumberDingDanAdapter(this);
+        rc_product.setAdapter(itemNumberDingDanAdapter);
     }
 
     String showReason = "";
 
-    @OnClick({R.id.rl_drawback_reason, R.id.tv_close, R.id.bt_sure})
+    @OnClick({R.id.bt_sub, R.id.rl_drawback_reason, R.id.tv_close, R.id.bt_sure})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.bt_sub:
+                if (!TextUtils.isEmpty(showReason)) {
+                    if (!TextUtils.isEmpty(et_remark.getText().toString())) {
+                        tuiKuan();
+                    } else {
+                        ToastUtils.showShort("请填写退款说明");
+                    }
+                } else {
+                    ToastUtils.showShort("请选择退款原因");
+                }
+                break;
             case R.id.rl_drawback_reason:
                 rl_pop.setVisibility(View.VISIBLE);
                 break;
@@ -74,12 +101,40 @@ public class NumberDrawBackActivity extends BaseActivity {
                     }
                 }
                 if (!TextUtils.isEmpty(showReason)) {
-                    tv_select_reason.setText(showReason+">");
+                    tv_select_reason.setText(showReason + ">");
                 } else {
                     tv_select_reason.setText("please checked >");
                 }
                 break;
         }
+    }
+
+    @Bind(R.id.et_remark)
+    EditText et_remark;
+
+    private void tuiKuan() {
+        TuiKuanInfo tuiKuanInfo = new TuiKuanInfo();
+        tuiKuanInfo.setFunctionName("AddDigitalGoodsRefundApply");
+        TuiKuanInfo.ParametersBean parametersBean = new TuiKuanInfo.ParametersBean();
+        parametersBean.setOrderId(String.valueOf(numberDingDanInfo.getId()));
+        parametersBean.setReason(showReason);
+        parametersBean.setRemark(et_remark.getText().toString().trim());
+        tuiKuanInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(NumberDrawBackActivity.this);
+        okGoUtils.httpPostJSON(tuiKuanInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    ToastUtils.showShort("工作人员正在审核，请耐心等待");
+                    NumberRicalFragment.mInstance.get().request();
+                    finish();
+                } else {
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
+                }
+            }
+        });
     }
 
     private List<String> reasonList = new ArrayList<>();
@@ -105,7 +160,7 @@ public class NumberDrawBackActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, long itemId) {
                 curPosition = position;
-                showReason="";
+                showReason = "";
                 if (list.get(position).isCheck()) {
                     list.get(position).setCheck(false);
                     if (!TextUtils.isEmpty(showReason)) {
@@ -117,6 +172,8 @@ public class NumberDrawBackActivity extends BaseActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+        numberDingDanInfo = (NumberDingDanInfo.DataBean.ListBean) getIntent().getSerializableExtra("info");
+        itemNumberDingDanAdapter.addAll(numberDingDanInfo.getOrderGoodsList());
     }
 
 

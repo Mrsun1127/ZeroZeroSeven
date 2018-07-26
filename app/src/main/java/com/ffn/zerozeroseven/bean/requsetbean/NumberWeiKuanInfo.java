@@ -1,8 +1,6 @@
-package com.ffn.zerozeroseven.bean;
+package com.ffn.zerozeroseven.bean.requsetbean;
 
-
-
-public class A {
+public class NumberWeiKuanInfo {
 
     /**
      * id : 1
@@ -41,7 +39,34 @@ public class A {
     public static class ParametersBean {
         /**
          */
+        private String userId;
+        private String payment;
+        private String parentOrderNo;
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
 
 
+
+        public String getPayment() {
+            return payment;
+        }
+
+        public void setPayment(String payment) {
+            this.payment = payment;
+        }
+
+        public String getParentOrderNo() {
+            return parentOrderNo;
+        }
+
+        public void setParentOrderNo(String parentOrderNo) {
+            this.parentOrderNo = parentOrderNo;
+        }
     }
 }

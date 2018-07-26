@@ -1,8 +1,7 @@
 package com.ffn.zerozeroseven.bean;
 
 
-
-public class A {
+public class NumberDelete {
 
     /**
      * id : 1
@@ -41,7 +40,24 @@ public class A {
     public static class ParametersBean {
         /**
          */
+        private String userId;
+        private int orderId;
 
+        public int getOrderId() {
+            return orderId;
+        }
 
+        public void setOrderId(int orderId) {
+            this.orderId = orderId;
+        }
+
+        public String getUserId() {
+
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
     }
 }

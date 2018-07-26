@@ -11,8 +11,11 @@ import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.CommitDingDanInfo;
+import com.ffn.zerozeroseven.bean.NumberAliPayInfo;
+import com.ffn.zerozeroseven.bean.NumberPayInfo;
 import com.ffn.zerozeroseven.bean.WeChatInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CallNewDingDanInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.NumberWeiKuanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.OrderJsonInfo;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
@@ -52,6 +55,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
     private boolean isPaySupported;//判断是否支持微信支付
     private static IWXAPI api;
     private String reMark;
+    private String orderNO;
 
     @Override
     protected int setLayout() {
@@ -65,28 +69,32 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         api.registerApp("wx189141e4085fa0d1");
         isPaySupported = api.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
         mZFbutils = new ZFBPayUtil(this);
-        double allMoney = getIntent().getDoubleExtra("allMoney", 0);
-        payType = getIntent().getStringExtra("pay");
-        dormId = getIntent().getStringExtra("dormId");
-        reMark = getIntent().getStringExtra("beizhu");
-        if ("carpay".equals(payType)) {
-            MobclickAgent.onEvent(this, "购物车结算");
-            carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
-            if (carShopInfo == null) {
-                ToastUtils.showShort("支付异常 请稍后再试！");
-                finish();
-            }
-            tv_money.setText("支付金额：" + allMoney + "RMB");
+        orderNO = getIntent().getStringExtra("parentOrderNo");
+        if (!TextUtils.isEmpty(orderNO)) {
+            tv_money.setText("支付金额：" + "2000" + "RMB");
         } else {
-            MobclickAgent.onEvent(this, "立即购买");
-            carShopInfo = (CarShopInfo) SharePrefUtils.readObject(PayMoneyActivity.this, "zhijiecarShopInfo");
-            if (carShopInfo == null) {
-                ToastUtils.showShort("支付异常 请稍后再试！");
-                finish();
+            double allMoney = getIntent().getDoubleExtra("allMoney", 0);
+            payType = getIntent().getStringExtra("pay");
+            dormId = getIntent().getStringExtra("dormId");
+            reMark = getIntent().getStringExtra("beizhu");
+            if ("carpay".equals(payType)) {
+                MobclickAgent.onEvent(this, "购物车结算");
+                carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                if (carShopInfo == null) {
+                    ToastUtils.showShort("支付异常 请稍后再试！");
+                    finish();
+                }
+                tv_money.setText("支付金额：" + allMoney + "RMB");
+            } else {
+                MobclickAgent.onEvent(this, "立即购买");
+                carShopInfo = (CarShopInfo) SharePrefUtils.readObject(PayMoneyActivity.this, "zhijiecarShopInfo");
+                if (carShopInfo == null) {
+                    ToastUtils.showShort("支付异常 请稍后再试！");
+                    finish();
+                }
+                tv_money.setText("支付金额：" + allMoney + "RMB");
             }
-            tv_money.setText("支付金额：" + allMoney + "RMB");
         }
-
     }
 
     @Override
@@ -144,6 +152,58 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
 
 
     private void PayMoney(final String str) {
+        if(!TextUtils.isEmpty(orderNO)){
+            NumberWeiKuanPay(str);
+        }else{
+            lingshiBuy(str);
+        }
+
+
+
+    }
+
+    private void NumberWeiKuanPay(final String str) {
+        NumberWeiKuanInfo numberWeiKuanInfo = new NumberWeiKuanInfo();
+        numberWeiKuanInfo.setFunctionName("AddDigitalGoodsBalanceOrder");
+        NumberWeiKuanInfo.ParametersBean parametersBean = new NumberWeiKuanInfo.ParametersBean();
+        parametersBean.setParentOrderNo(orderNO);
+        parametersBean.setUserId(userId);
+        parametersBean.setPayment(str);
+        numberWeiKuanInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(PayMoneyActivity.this);
+        okGoUtils.httpPostJSON(numberWeiKuanInfo,true,true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                if(str.equals("WechatPay")){
+                    NumberPayInfo numberPayInfo = JSON.parseObject(response,NumberPayInfo.class);
+                    if(numberPayInfo.getCode()==0){
+                        PayReq req = new PayReq();
+                        req.appId = numberPayInfo.getData().getAppid();
+                        req.partnerId = numberPayInfo.getData().getPartnerid();
+                        req.prepayId = numberPayInfo.getData().getPrepayid();
+                        req.nonceStr = numberPayInfo.getData().getNoncestr();
+                        req.timeStamp = numberPayInfo.getData().getTimestamp();
+                        req.packageValue = "Sign=WXPay";
+                        req.sign = numberPayInfo.getData().getSign();
+                        api.sendReq(req);
+                    }else{
+                        ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, numberPayInfo.getMessage(), ll_all);
+                    }
+                }else{
+                    NumberAliPayInfo aliPayInfo = JSON.parseObject(response,NumberAliPayInfo.class);
+                    if(aliPayInfo.getCode()==0){
+                        mZFbutils.pay(aliPayInfo.getData().getBody(), "00");
+                    }else{
+                        ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, aliPayInfo.getMessage(), ll_all);
+                    }
+                }
+
+            }
+        });
+    }
+
+    private void lingshiBuy(final String str) {
         CallNewDingDanInfo callNewDingDanInfo = new CallNewDingDanInfo();
         callNewDingDanInfo.setFunctionName("PayGoodsOrder");
         CallNewDingDanInfo.ParametersBean parametersBean1 = new CallNewDingDanInfo.ParametersBean();
@@ -194,39 +254,36 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onSuccLoad(final String response) {
 
-                        if (str.equals("AliPay")) {//支付宝支付
-                            final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response, CommitDingDanInfo.class);
-                            if (commitDingDanInfo.getCode() == 0) {
-                                mZFbutils.pay(commitDingDanInfo.getData().getBody(), payType);
-                            } else if (commitDingDanInfo.getCode() == -101) {
-                                ZeroZeroSevenUtils.showSleepPop(PayMoneyActivity.this, ll_all);
-                            } else {
-                                ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, commitDingDanInfo.getMessage(), ll_all);
-                            }
-                        } else {
-                            final WeChatInfo wxPayInfo = JSON.parseObject(response, WeChatInfo.class);
-                            if (wxPayInfo.getCode() == 0) {
-                                PayReq req = new PayReq();
-                                req.appId = wxPayInfo.getData().getAppid();
-                                req.partnerId = wxPayInfo.getData().getPartnerid();
-                                req.prepayId = wxPayInfo.getData().getPrepayid();
-                                req.nonceStr = wxPayInfo.getData().getNoncestr();
-                                req.timeStamp = wxPayInfo.getData().getTimestamp();
-                                req.packageValue = "Sign=WXPay";
-                                req.sign = wxPayInfo.getData().getSign();
-                                api.sendReq(req);
-                            } else if (wxPayInfo.getCode() == -101) {
-                                ZeroZeroSevenUtils.showSleepPop(PayMoneyActivity.this, ll_all);
-                            } else {
-                                ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, wxPayInfo.getMessage(), ll_all);
-
-                            }
-                        }
+                if (str.equals("AliPay")) {//支付宝支付
+                    final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response, CommitDingDanInfo.class);
+                    if (commitDingDanInfo.getCode() == 0) {
+                        mZFbutils.pay(commitDingDanInfo.getData().getBody(), payType);
+                    } else if (commitDingDanInfo.getCode() == -101) {
+                        ZeroZeroSevenUtils.showSleepPop(PayMoneyActivity.this, ll_all);
+                    } else {
+                        ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, commitDingDanInfo.getMessage(), ll_all);
                     }
-                });
+                } else {
+                    final WeChatInfo wxPayInfo = JSON.parseObject(response, WeChatInfo.class);
+                    if (wxPayInfo.getCode() == 0) {
+                        PayReq req = new PayReq();
+                        req.appId = wxPayInfo.getData().getAppid();
+                        req.partnerId = wxPayInfo.getData().getPartnerid();
+                        req.prepayId = wxPayInfo.getData().getPrepayid();
+                        req.nonceStr = wxPayInfo.getData().getNoncestr();
+                        req.timeStamp = wxPayInfo.getData().getTimestamp();
+                        req.packageValue = "Sign=WXPay";
+                        req.sign = wxPayInfo.getData().getSign();
+                        api.sendReq(req);
+                    } else if (wxPayInfo.getCode() == -101) {
+                        ZeroZeroSevenUtils.showSleepPop(PayMoneyActivity.this, ll_all);
+                    } else {
+                        ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, wxPayInfo.getMessage(), ll_all);
 
-
-
+                    }
+                }
+            }
+        });
     }
 
     @Override
