@@ -53,10 +53,8 @@ public class AllDingDanActivity extends BaseActivity {
     protected void doMain() {
         titleList.add("零食日用");
         titleList.add("电子数码");
-        titleList.add("跳蚤市场");
         fragmentList.add(new SnacksFragment());
         fragmentList.add(new NumberRicalFragment());
-        fragmentList.add(new SnacksFragment());
         viewPager.setOffscreenPageLimit(titleList.size());
         ShopViewPagerAdapter adapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, titleList);
         viewPager.setAdapter(adapter);

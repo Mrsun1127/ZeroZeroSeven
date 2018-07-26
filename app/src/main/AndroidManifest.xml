@@ -280,6 +280,7 @@
         <activity android:name=".ui.ReleaseJumpShopActivity" />
         <activity android:name=".ui.PhotoActivity" />
         <activity android:name=".ui.AllDingDanActivity" />
+        <activity android:name=".ui.NumberTuiKuanDetilsActivity" />
 
         <!-- Required SDK核心功能-->
         <service

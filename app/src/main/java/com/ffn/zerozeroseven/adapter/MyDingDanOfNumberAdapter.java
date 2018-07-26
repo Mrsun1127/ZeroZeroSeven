@@ -16,6 +16,7 @@ import com.ffn.zerozeroseven.bean.MyDingDanShowInfo;
 import com.ffn.zerozeroseven.bean.NumberDingDanInfo;
 import com.ffn.zerozeroseven.ui.DingDanBobyActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalDetilsActivity;
+import com.ffn.zerozeroseven.ui.NumberTuiKuanDetilsActivity;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
@@ -89,11 +90,11 @@ public class MyDingDanOfNumberAdapter extends BaseRecyclerAdapter<NumberDingDanI
         itemNumberDingDanAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                if (info.getOrderStatus() == 4) {
-                    ToastUtils.showShort("进入退款详情");
+                Bundle bundle = new Bundle();
+                bundle.putInt("orderId", info.getId());
+                if (info.isIsApplyRefund()) {
+                    ZeroZeroSevenUtils.SwitchActivity(mContext, NumberTuiKuanDetilsActivity.class, bundle);
                 } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("orderId", info.getId());
                     ZeroZeroSevenUtils.SwitchActivity(mContext, NumberRicalDetilsActivity.class, bundle);
                 }
             }

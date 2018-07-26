@@ -12,6 +12,7 @@ import com.ffn.zerozeroseven.bean.NumberDingDanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.NumberDingDAnInfo;
 import com.ffn.zerozeroseven.ui.NumberDrawBackActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalDetilsActivity;
+import com.ffn.zerozeroseven.ui.NumberTuiKuanDetilsActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
@@ -59,11 +60,11 @@ public class NumberRicalFragment extends BaseReFreshFragment {
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                if(adapter.getItem(position).getOrderStatus()==4){
-                    ToastUtils.showShort("进入退款详情");
+                Bundle bundle = new Bundle();
+                bundle.putInt("orderId", adapter.getItem(position).getId());
+                if(adapter.getItem(position).isIsApplyRefund()){
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, NumberTuiKuanDetilsActivity.class, bundle);
                 }else {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("orderId", adapter.getItem(position).getId());
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, NumberRicalDetilsActivity.class, bundle);
                 }
 
