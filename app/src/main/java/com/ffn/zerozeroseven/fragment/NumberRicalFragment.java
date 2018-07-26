@@ -14,6 +14,7 @@ import com.ffn.zerozeroseven.ui.NumberDrawBackActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalDetilsActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 import java.lang.ref.WeakReference;
@@ -32,28 +33,45 @@ public class NumberRicalFragment extends BaseReFreshFragment {
 
     @Override
     public void doMain() {
-//        deleteDingDan(0);
         mInstance = new WeakReference<>(this);
         adapter.setOnItemDeleteClick(new MyDingDanOfNumberAdapter.OnItemDeleteClick() {
             @Override
             public void onClick(View view, int position) {
-                TuiKuan(position);
+                //1=已预约,2=已取消,3=确认收获,4=退货
+                //0=未发货,1=已发货,2=已收货,4=退货
+                if (adapter.getItem(position).getOrderStatus() == 1) {
+                    TuiKuan(position);
+                } else if (adapter.getItem(position).getOrderStatus() == 3) {
+                    deleteDingDan(0);
+                }
             }
         });
         adapter.setOnItemAgainClick(new MyDingDanOfNumberAdapter.OnItemAgainClick() {
             @Override
             public void onClick(View view, int position) {
-                gotoPayWeiKuan(0);
+                if (adapter.getItem(position).getOrderStatus() == 1) {
+                    gotoPayWeiKuan(position);
+                } else if (adapter.getItem(position).getOrderStatus() == 3) {
+                    buyAgain(position);
+                }
             }
         });
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("orderId", adapter.getItem(position).getId());
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, NumberRicalDetilsActivity.class, bundle);
+                if(adapter.getItem(position).getOrderStatus()==4){
+                    ToastUtils.showShort("进入退款详情");
+                }else {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("orderId", adapter.getItem(position).getId());
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, NumberRicalDetilsActivity.class, bundle);
+                }
+
             }
         });
+    }
+
+    private void buyAgain(int position) {
     }
 
     public void request() {
