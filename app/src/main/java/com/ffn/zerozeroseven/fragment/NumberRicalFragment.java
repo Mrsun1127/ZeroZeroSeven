@@ -11,6 +11,7 @@ import com.ffn.zerozeroseven.bean.NumberDelete;
 import com.ffn.zerozeroseven.bean.NumberDingDanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.NumberDingDAnInfo;
 import com.ffn.zerozeroseven.ui.NumberDrawBackActivity;
+import com.ffn.zerozeroseven.ui.NumberRicalDetilsActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -32,7 +33,7 @@ public class NumberRicalFragment extends BaseReFreshFragment {
     @Override
     public void doMain() {
 //        deleteDingDan(0);
-        mInstance=new WeakReference<>(this);
+        mInstance = new WeakReference<>(this);
         adapter.setOnItemDeleteClick(new MyDingDanOfNumberAdapter.OnItemDeleteClick() {
             @Override
             public void onClick(View view, int position) {
@@ -43,6 +44,14 @@ public class NumberRicalFragment extends BaseReFreshFragment {
             @Override
             public void onClick(View view, int position) {
                 gotoPayWeiKuan(0);
+            }
+        });
+        adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("orderId", adapter.getItem(position).getId());
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, NumberRicalDetilsActivity.class, bundle);
             }
         });
     }

@@ -50,7 +50,7 @@ public class MyDingDanOfNumberAdapter extends BaseRecyclerAdapter<NumberDingDanI
                 mHolder.bt_right.setText("支付尾款");
                 break;
             case 3:
-                mHolder.tv_status.setText("确认收获");
+                mHolder.tv_status.setText("确认收货");
                 mHolder.bt_left.setText("退款");
                 mHolder.bt_right.setText("支付尾款");
                 break;

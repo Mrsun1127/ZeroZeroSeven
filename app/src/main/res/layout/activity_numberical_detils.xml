@@ -26,6 +26,7 @@
                 android:background="#f9f9f7">
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -43,6 +44,7 @@
                     android:background="@drawable/progress_number_sure" />
 
                 <TextView
+                    android:id="@+id/tv_sure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -54,37 +56,39 @@
                     android:textSize="11sp" />
 
                 <View
+                    android:id="@+id/view_line1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/iv_walk"
                     android:layout_toRightOf="@+id/iv_sure"
-                    android:background="@color/money" />
+                    android:background="@color/numberical_default_bg" />
 
                 <ImageView
                     android:id="@+id/iv_walk"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/progress_number_walk" />
+                    android:background="@drawable/progress_number_unsure" />
 
                 <TextView
+                    android:id="@+id/tv_walk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/iv_walk"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
                     android:text="配送中"
-                    android:textColor="@color/money"
                     android:textSize="11sp" />
 
                 <View
+                    android:id="@+id/view_line2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/iv_let"
                     android:layout_toRightOf="@+id/iv_walk"
-                    android:background="@color/money" />
+                    android:background="@color/numberical_default_bg" />
 
                 <ImageView
                     android:id="@+id/iv_let"
@@ -93,9 +97,10 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="30dp"
-                    android:background="@drawable/progress_number_let" />
+                    android:background="@drawable/progress_number_ulet" />
 
                 <TextView
+                    android:id="@+id/tv_let"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -103,13 +108,12 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="8dp"
                     android:text="已收货"
-                    android:textColor="@color/money"
                     android:textSize="11sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/white">
 
@@ -119,84 +123,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="13dp"
-                    android:text="下单时间：2018-06-16 18:24:06"
+                    android:text="@string/loading"
                     android:textSize="11sp" />
 
-                <View
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rc_product"
                     android:layout_width="match_parent"
-                    android:layout_height="103dp"
-                    android:layout_below="@+id/tv_time"
-                    android:layout_marginTop="13dp"
-                    android:background="#f9f9f7" />
-
-                <ImageView
-                    android:id="@+id/iv_product"
-                    android:layout_width="69dp"
-                    android:layout_height="57dp"
-                    android:layout_below="@+id/tv_time"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginTop="36dp"
-                    android:background="@drawable/willdelete" />
-
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="183dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/iv_product"
-                    android:layout_marginLeft="11dp"
-                    android:layout_toRightOf="@+id/iv_product"
-                    android:text="联想(Lenovo)天逸510S带19.5英寸台式电脑商..."
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
+                    android:layout_below="@+id/tv_time" />
+
 
                 <TextView
-                    android:layout_width="183dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_name"
-                    android:layout_marginLeft="11dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_toRightOf="@+id/iv_product"
-                    android:text="重量:4.140kg 颜色:FX63 配置：【10GB内存+256GB..."
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/tv_money"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignTop="@+id/iv_product"
-                    android:layout_marginRight="9dp"
-                    android:text="￥6599.00"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/tv_oldmoney"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_money"
-                    android:layout_marginRight="9dp"
-                    android:layout_marginTop="8dp"
-                    android:text="￥7599.00"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/tv_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_oldmoney"
-                    android:layout_marginRight="9dp"
-                    android:layout_marginTop="8dp"
-                    android:text="x 1"
-                    android:textSize="13sp" />
-
-                <TextView
+                    android:id="@+id/tv_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
+                    android:layout_below="@+id/rc_product"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="12dp"
                     android:text="共1件商品  合计：￥6599.00 (运费￥0.00)"
@@ -205,6 +148,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/ll_run_people"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:layout_marginTop="6dp"
@@ -218,16 +162,19 @@
                     android:layout_marginLeft="10dp"
                     android:text="配送服务："
                     android:textSize="11sp" />
+
                 <TextView
                     android:id="@+id/tv_people"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="零零7跑腿小哥（null）为您服务"
+                    android:textColor="@color/black"
                     android:textSize="11sp" />
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/ll_number"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:layout_marginTop="2dp"
@@ -241,39 +188,20 @@
                     android:layout_marginLeft="10dp"
                     android:text="联系电话："
                     android:textSize="11sp" />
+
                 <TextView
                     android:id="@+id/tv_phone"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="186****4826"
-                    android:textSize="11sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="34dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="订单时间："
-                    android:textSize="11sp" />
-                <TextView
-                    android:id="@+id/tv_starttime"
                     android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="2018-06-12 18:16:26"
                     android:textSize="11sp" />
             </LinearLayout>
+
+
             <LinearLayout
+                android:id="@+id/ll_gettime"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:layout_marginTop="2dp"
@@ -287,15 +215,17 @@
                     android:layout_marginLeft="10dp"
                     android:text="收货时间："
                     android:textSize="11sp" />
+
                 <TextView
                     android:id="@+id/tv_lettime"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="2018-06-12 18:16:26"
+                    android:textColor="@color/black"
                     android:textSize="11sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
@@ -310,19 +240,21 @@
                     android:layout_marginLeft="10dp"
                     android:text="客服电话："
                     android:textSize="11sp" />
+
                 <TextView
                     android:id="@+id/tv_tel"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="0731-8888888"
+                    android:textColor="@color/black"
                     android:textSize="11sp" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"/>
+                android:background="@color/white" />
         </LinearLayout>
     </com.ffn.zerozeroseven.view.UserDefineScrollView>
 </LinearLayout>
