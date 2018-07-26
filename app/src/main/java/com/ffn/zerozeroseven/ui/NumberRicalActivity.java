@@ -105,17 +105,17 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         badgeView.bindTarget(iv_shopcar);
         badgeView.setBadgeNumber(9);
         topView.setTopText("数码市场");
-//        topView.setOnTitleListener(new TopView.OnTitleClickListener() {
-//            @Override
-//            public void Right() {
-//
-//            }
-//
-//            @Override
-//            public void Back() {
-//                finish();
-//            }
-//        });
+        topView.setOnTitleListener(new TopView.OnTitleClickListener() {
+            @Override
+            public void Right() {
+
+            }
+
+            @Override
+            public void Back() {
+                finish();
+            }
+        });
         refreshlayout.setOnRefreshListener(this);
         refreshlayout.setOnLoadmoreListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NumberRicalActivity.this);
