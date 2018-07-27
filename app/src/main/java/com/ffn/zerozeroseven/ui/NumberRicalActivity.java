@@ -1,5 +1,6 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.ffn.zerozeroseven.adapter.NumberRicalVerticalAdapter;
 import com.ffn.zerozeroseven.adapter.PopAttrAdapter;
 import com.ffn.zerozeroseven.adapter.PopBrandAdapter;
 import com.ffn.zerozeroseven.adapter.PopSpecAdapter;
+import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.base.RgRefreshStatus;
@@ -287,6 +289,15 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                     return;
                 }
                 popBrandAdapter.setClickPosition(position);
+            }
+        });
+        verticalAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                Bundle bundle = new Bundle();
+                bundle.putString("url", AppConfig.NUMBERICALURL+verticalAdapter.getItem(position).getId());
+                bundle.putString("title", "商品详情");
+                ZeroZeroSevenUtils.SwitchActivity(NumberRicalActivity.this,WebViewActivity.class,bundle);
             }
         });
     }

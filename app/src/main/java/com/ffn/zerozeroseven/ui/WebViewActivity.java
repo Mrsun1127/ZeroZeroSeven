@@ -24,6 +24,8 @@ import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.sharesdk.framework.Platform;
@@ -212,15 +214,22 @@ public class WebViewActivity extends BaseActivity {
             }, 500);
 
         }
-
         @JavascriptInterface
-        public NumberRicalInfo getNumbericalCarInfo() {
-            return BaseAppApplication.getInstance().getNumberRicalInfo();
+        public int requestData() {//获取购物车的数量
+            List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
+            if(numberRicalListInfo==null){
+                return 0;
+            }
+            return numberRicalListInfo.size();
+        }
+        @JavascriptInterface
+        public void addNumbericalCarInfo(int id,int count) {//加 购物车
+
         }
 
         @JavascriptInterface
-        public void setNumbericalCarInfo(NumberRicalInfo numbericalCarInfo) {
-            BaseAppApplication.getInstance().setNumberRicalInfo(numbericalCarInfo);
+        public void closeNumbericalCarInfo(int id,int count) {//减 购物车
+
         }
     }
 

@@ -9,12 +9,13 @@ import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 
 /**
  * Created by GT on 2017/11/27.
  */
 
-public class NumberRicalCarAdapter extends BaseRecyclerAdapter<String> {
+public class NumberRicalCarAdapter extends BaseRecyclerAdapter<NumberRicalInfo.RicalInfo> {
     public NumberRicalCarAdapter(Context context) {
         super(context);
     }
@@ -25,7 +26,7 @@ public class NumberRicalCarAdapter extends BaseRecyclerAdapter<String> {
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, String item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberRicalInfo.RicalInfo item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
 
     }
