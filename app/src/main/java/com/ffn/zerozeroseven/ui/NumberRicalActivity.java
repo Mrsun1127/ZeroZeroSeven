@@ -520,7 +520,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
     @Override
     protected void onResume() {
         super.onResume();
-        if (BaseAppApplication.getInstance().getNumberRicalInfo() != null) {
+        if (BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo() != null) {
             if (BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo().size() > 0) {
                 badgeView.setBadgeNumber(BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo().size());
             }
