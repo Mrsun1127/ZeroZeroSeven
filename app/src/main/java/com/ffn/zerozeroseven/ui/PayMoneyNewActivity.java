@@ -28,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -43,7 +44,7 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
     private LinearLayout ll_all;
     private String dormId;
     ZFBPayUtil mZFbutils;
-    public static PayMoneyNewActivity mInstance;
+    public static WeakReference<PayMoneyNewActivity> mInstance;
     private String payType;
     private boolean isPaySupported;//判断是否支持微信支付
     private static IWXAPI api;
@@ -55,7 +56,7 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void doMain() {
-        mInstance = this;
+        mInstance = new WeakReference<>(this);
         api = WXAPIFactory.createWXAPI(this, "wx189141e4085fa0d1", false);
         api.registerApp("wx189141e4085fa0d1");
         isPaySupported = api.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
@@ -63,22 +64,7 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
         double allMoney = getIntent().getDoubleExtra("allMoney", 0);
         payType = getIntent().getStringExtra("pay");
         dormId = getIntent().getStringExtra("dormId");
-        if ("carpay".equals(payType)) {
-            carShopInfo = (CarShopInfo) SharePrefUtils.readObject(PayMoneyNewActivity.this, "carShopInfo");
-            if (carShopInfo == null) {
-                ToastUtils.showShort("支付异常 请稍后再试！");
-                finish();
-            }
-            tv_money.setText("支付金额：" + allMoney + "RMB");
-        } else {
-            carShopInfo = (CarShopInfo) SharePrefUtils.readObject(PayMoneyNewActivity.this, "zhijiecarShopInfo");
-            if (carShopInfo == null) {
-                ToastUtils.showShort("支付异常 请稍后再试！");
-                finish();
-            }
-            tv_money.setText("支付金额：" + allMoney + "RMB");
-        }
-
+        tv_money.setText("支付金额：" + 2000 + "RMB");
     }
 
     @Override
@@ -136,108 +122,6 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
 
 
     private void PayMoney(final String str) {
-        showLoadProgress();
-        CallNewDingDanInfo callNewDingDanInfo = new CallNewDingDanInfo();
-        callNewDingDanInfo.setFunctionName("CallOrderPay");
-        CallNewDingDanInfo.ParametersBean parametersBean1 = new CallNewDingDanInfo.ParametersBean();
-        parametersBean1.setPayment(str);
-        parametersBean1.setTradeType("APP");
-        parametersBean1.setOrderType("GOODS");
-        OrderJsonInfo orderJsonInfo = new OrderJsonInfo();
-        orderJsonInfo.setBuildingName(dormId);
-        orderJsonInfo.setReceiverAddress(getIntent().getStringExtra("adr"));
-        orderJsonInfo.setReceiverName(getIntent().getStringExtra("name"));
-        orderJsonInfo.setReceiverPhone(getIntent().getStringExtra("phone"));
-        orderJsonInfo.setStoreId(Integer.parseInt(carShopInfo.getShopInfos().get(0).getShopId()));
-        orderJsonInfo.setUserId(Integer.parseInt(userId));
-        String orderJson = JSON.toJSONString(orderJsonInfo);
-        parametersBean1.setOrderJsonStr(orderJson);
-        try {
-            JSONArray json = new JSONArray();
-            for (int i = 0; i < carShopInfo.getShopInfos().size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("goodsCount", carShopInfo.getShopInfos().get(i).getBuyCount());
-                jsonObject.put("goodsId", carShopInfo.getShopInfos().get(i).getGoodsId());
-                jsonObject.put("userId", userId);
-                jsonObject.put("goodsName", carShopInfo.getShopInfos().get(i).getShopName());
-                jsonObject.put("goodsType", "03");
-                json.put(jsonObject);
-            }
-            String s = json.toString();
-            LogUtils.D("PayMoneyActivity", s);
-            parametersBean1.setOrderDetailJsonStr(s);
-
-        } catch (Exception e) {
-
-        }
-        callNewDingDanInfo.setParameters(parametersBean1);
-        httpPostJSON(callNewDingDanInfo, true);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                    }
-                });
-                if (str.equals("AliPay")) {//支付宝支付
-                    final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response.body().string(), CommitDingDanInfo.class);
-                    if (commitDingDanInfo.getCode() == 0) {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                mZFbutils.pay(commitDingDanInfo.getData().getBody(), payType);
-
-                            }
-                        });
-                    } else {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ZeroZeroSevenUtils.showCustonPop(PayMoneyNewActivity.this, commitDingDanInfo.getMessage(), ll_all);
-                            }
-                        });
-                    }
-                } else {
-                    final WeChatInfo wxPayInfo = JSON.parseObject(response.body().string(), WeChatInfo.class);
-                    if (wxPayInfo.getCode() == 0) {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                PayReq req = new PayReq();
-                                req.appId = wxPayInfo.getData().getAppid();
-                                req.partnerId = wxPayInfo.getData().getPartnerid();
-                                req.prepayId = wxPayInfo.getData().getPrepayid();
-                                req.nonceStr = wxPayInfo.getData().getNoncestr();
-                                req.timeStamp = wxPayInfo.getData().getTimestamp();
-                                req.packageValue = "Sign=WXPay";
-                                req.sign = wxPayInfo.getData().getSign();
-                                api.sendReq(req);
-                            }
-                        });
-                    } else {
-                        BaseAppApplication.mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ZeroZeroSevenUtils.showCustonPop(PayMoneyNewActivity.this, wxPayInfo.getMessage(), ll_all);
-                            }
-                        });
-                    }
-                }
-
-            }
-        });
 
     }
 }

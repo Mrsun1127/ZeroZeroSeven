@@ -99,7 +99,7 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_pay:
-
+                ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this,PayMoneyNewActivity.class);
                 break;
             case R.id.rl_select_adr:
                 ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this, SelectAdrMannGerActivity.class, null, 2);

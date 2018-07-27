@@ -21,6 +21,7 @@ import com.ffn.zerozeroseven.adapter.PopBrandAdapter;
 import com.ffn.zerozeroseven.adapter.PopSpecAdapter;
 import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.base.RgRefreshStatus;
 import com.ffn.zerozeroseven.bean.NumberLevelInfo;
@@ -105,7 +106,6 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         ButterKnife.bind(this);
         badgeView = new QBadgeView(this);
         badgeView.bindTarget(iv_shopcar);
-        badgeView.setBadgeNumber(9);
         topView.setTopText("数码市场");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
@@ -295,9 +295,9 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
             @Override
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
-                bundle.putString("url", AppConfig.NUMBERICALURL+verticalAdapter.getItem(position).getId());
+                bundle.putString("url", AppConfig.NUMBERICALURL + verticalAdapter.getItem(position).getId());
                 bundle.putString("title", "商品详情");
-                ZeroZeroSevenUtils.SwitchActivity(NumberRicalActivity.this,WebViewActivity.class,bundle);
+                ZeroZeroSevenUtils.SwitchActivity(NumberRicalActivity.this, WebViewActivity.class, bundle);
             }
         });
     }
@@ -515,5 +515,15 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         rgRefreshStatus = RgRefreshStatus.PULL_DOWN;
         pageIndex = pageIndex + 1;
         findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BaseAppApplication.getInstance().getNumberRicalInfo() != null) {
+            if (BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo().size() > 0) {
+                badgeView.setBadgeNumber(BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo().size());
+            }
+        }
     }
 }

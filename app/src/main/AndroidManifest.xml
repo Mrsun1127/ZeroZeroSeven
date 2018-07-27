@@ -281,6 +281,7 @@
         <activity android:name=".ui.PhotoActivity" />
         <activity android:name=".ui.AllDingDanActivity" />
         <activity android:name=".ui.NumberTuiKuanDetilsActivity" />
+        <activity android:name=".ui.PayMoneyNewActivity" />
 
         <!-- Required SDK核心功能-->
         <service
