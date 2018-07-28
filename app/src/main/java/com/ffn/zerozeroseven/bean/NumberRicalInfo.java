@@ -17,6 +17,16 @@ public class NumberRicalInfo implements Serializable {
 
     public static class RicalInfo implements Serializable {
         private int id;
+
+        public int getSpecId() {
+            return specId;
+        }
+
+        public void setSpecId(int specId) {
+            this.specId = specId;
+        }
+
+        private int specId;
         private int type;//1 电脑  2 手机  3 其他
         private String imgUrl;//图片路径1
         private String name;//名字

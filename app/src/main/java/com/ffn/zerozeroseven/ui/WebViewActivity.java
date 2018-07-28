@@ -226,8 +226,18 @@ public class WebViewActivity extends BaseActivity {
             return numberRicalListInfo.size();
         }
 
+        /**
+         *
+         * @param id 商品Id
+         * @param specId 规格Id
+         * @param count 商品数量
+         * @param price 商品价格
+         * @param name  商品名称
+         * @param imgUrl 商品图片地址
+         * @param specDesc 商品规格描述
+         */
         @JavascriptInterface
-        public void addNumbericalCarInfo(int id, int specId, int count, double price) {//加 购物车
+        public void addNumbericalCarInfo(int id, int specId, int count, double price,String name,String imgUrl,String specDesc) {//加 购物车
             NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
             List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
             if (numberRicalListInfo != null) {//说明购物车不是空的
@@ -258,7 +268,7 @@ public class WebViewActivity extends BaseActivity {
             List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
             for (int i = 0; i < numberRicalListInfo.size(); i++) {
                 if (numberRicalListInfo.get(i).getId() == id && numberRicalListInfo.get(i).getSpecId() == specId) {
-                    if (numberRicalListInfo.get(i).getCount() == 1) {
+                    if (numberRicalListInfo.get(i).getCount() == 0) {
                         numberRicalListInfo.remove(i);
                     } else {
                         numberRicalListInfo.get(i).setCount(numberRicalListInfo.get(i).getCount() - 1);

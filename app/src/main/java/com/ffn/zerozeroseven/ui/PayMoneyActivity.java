@@ -193,7 +193,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
                 }else{
                     NumberAliPayInfo aliPayInfo = JSON.parseObject(response,NumberAliPayInfo.class);
                     if(aliPayInfo.getCode()==0){
-                        mZFbutils.pay(aliPayInfo.getData().getBody(), "00");
+                        mZFbutils.pay(aliPayInfo.getData().getBody(), "支付尾款");
                     }else{
                         ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, aliPayInfo.getMessage(), ll_all);
                     }
@@ -257,7 +257,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
                 if (str.equals("AliPay")) {//支付宝支付
                     final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response, CommitDingDanInfo.class);
                     if (commitDingDanInfo.getCode() == 0) {
-                        mZFbutils.pay(commitDingDanInfo.getData().getBody(), payType);
+                        mZFbutils.pay(commitDingDanInfo.getData().getBody(), "支付零食");
                     } else if (commitDingDanInfo.getCode() == -101) {
                         ZeroZeroSevenUtils.showSleepPop(PayMoneyActivity.this, ll_all);
                     } else {

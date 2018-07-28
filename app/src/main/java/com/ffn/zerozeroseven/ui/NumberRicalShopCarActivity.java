@@ -31,6 +31,8 @@ public class NumberRicalShopCarActivity extends BaseActivity {
     @Bind(R.id.cb_all_click)
     CheckBox cb_all_click;
     private NumberRicalCarAdapter carAdapter;
+    private List<NumberRicalInfo.RicalInfo> numberRicalListInfo;
+    private NumberRicalInfo numberRicalInfo;
 
     @Override
     protected int setLayout() {
@@ -61,20 +63,64 @@ public class NumberRicalShopCarActivity extends BaseActivity {
     protected void doMain() {
         carAdapter = new NumberRicalCarAdapter(NumberRicalShopCarActivity.this);
         rc_car.setAdapter(carAdapter);
-        final List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
-        if(numberRicalListInfo!=null){
+        numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
+        if (numberRicalListInfo != null) {
             if (numberRicalListInfo.size() > 0) {
                 carAdapter.addAll(numberRicalListInfo);
             } else {
                 ToastUtils.showShort("购物车暂无商品");
             }
-        }else{
+        } else {
             ToastUtils.showShort("购物车暂无商品");
         }
+        numberRicalInfo = new NumberRicalInfo();
+        carAdapter.setOnItemAddViewClick(new NumberRicalCarAdapter.OnItemAddClick() {
+            @Override
+            public void onClick(View view, int position) {
+                numberRicalListInfo.get(position).setCount(numberRicalListInfo.get(position).getCount() + 1);
+                carAdapter.cleanDates();
+                carAdapter.addAll(numberRicalListInfo);
+                numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
+                BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+            }
+        });
+        carAdapter.setOnItemCloseViewClick(new NumberRicalCarAdapter.OnItemCloseClick() {
+            @Override
+            public void onClick(View view, int position) {
+                numberRicalListInfo.get(position).setCount(numberRicalListInfo.get(position).getCount() + 1);
+                if (numberRicalListInfo.get(position).getCount() < 2) {
+                    numberRicalListInfo.remove(position);
+                    carAdapter.cleanDates();
+                    carAdapter.addAll(numberRicalListInfo);
+                    numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
+                    BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+                    return;
+                }
+                numberRicalListInfo.get(position).setCount(numberRicalListInfo.get(position).getCount() - 1);
+                carAdapter.cleanDates();
+                carAdapter.addAll(numberRicalListInfo);
+                numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
+                BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+            }
+        });
+        carAdapter.setOnItemImgViewClick(new NumberRicalCarAdapter.OnItemImgClick() {
+            @Override
+            public void onClick(View view, int position) {
+                if (numberRicalListInfo.get(position).isChecked()) {//选中状态
+                    numberRicalListInfo.get(position).setChecked(false);
+                } else {
+                    numberRicalListInfo.get(position).setChecked(true);
+                }
+                carAdapter.cleanDates();
+                carAdapter.addAll(numberRicalListInfo);
+                numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
+                BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+            }
+        });
         cb_all_click.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(numberRicalListInfo!=null){
+                if (numberRicalListInfo != null) {
                     if (numberRicalListInfo.size() > 0) {
                         if (b) {
                             for (int i = 0; i < numberRicalListInfo.size(); i++) {

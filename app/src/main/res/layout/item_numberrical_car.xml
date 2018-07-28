@@ -3,9 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="121dp">
+
         <CheckBox
             android:id="@+id/cb_check"
             android:layout_width="wrap_content"
@@ -96,15 +98,13 @@
                     android:src="@drawable/interal_close" />
             </RelativeLayout>
 
-            <EditText
-                android:id="@+id/et_count"
+            <TextView
+                android:id="@+id/tv_count"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"
                 android:background="@color/white"
-                android:gravity="center"
-                android:hint="0"
-                android:inputType="number" />
+                android:gravity="center" />
 
             <RelativeLayout
                 android:id="@+id/rl_add"

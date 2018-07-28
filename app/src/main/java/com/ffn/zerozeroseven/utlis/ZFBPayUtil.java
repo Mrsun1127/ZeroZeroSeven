@@ -49,12 +49,15 @@ public class ZFBPayUtil {
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        PayMoneyActivity.mInstance.get().finish();
-                        CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
-                        carShopInfo.getShopInfos().clear();
-                        BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
-                        SharePrefUtils.saveObject(mContext, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
-                        ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class);
+                        if ("支付零食".equals(type)) {
+                            PayMoneyActivity.mInstance.get().finish();
+                            CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                            carShopInfo.getShopInfos().clear();
+                            BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                            SharePrefUtils.saveObject(mContext, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
+                            ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class);
+                        }
+
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
                         // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
@@ -64,12 +67,7 @@ public class ZFBPayUtil {
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             Toast.makeText(mContext, "支付失败", Toast.LENGTH_SHORT).show();
-                            BaseAppApplication.mainHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    cancelPay();
-                                }
-                            });
+                            cancelPay();
                         }
                     }
                     break;
@@ -82,10 +80,10 @@ public class ZFBPayUtil {
     };
 
     private void cancelPay() {
-        CancelOrderInfo cancelOrderInfo=new CancelOrderInfo();
+        CancelOrderInfo cancelOrderInfo = new CancelOrderInfo();
         cancelOrderInfo.setFunctionName("CancelOrderPay");
-        OkGoUtils okGoUtils=new OkGoUtils(mContext);
-        okGoUtils.httpPostJSON(cancelOrderInfo,true,false);
+        OkGoUtils okGoUtils = new OkGoUtils(mContext);
+        okGoUtils.httpPostJSON(cancelOrderInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
@@ -94,7 +92,7 @@ public class ZFBPayUtil {
     }
 
 
-    public void pay(String body,String payType) {
+    public void pay(String body, String payType) {
         type = payType;
         final String payInfo = body;
 
@@ -122,13 +120,14 @@ public class ZFBPayUtil {
 
     /**
      * 创建订单信息
+     *
      * @param subject 商品名称
-     * @param body 商品详情
-     * @param price 商品金额
-     * @param tradeno  商户网站唯一订单号
+     * @param body    商品详情
+     * @param price   商品金额
+     * @param tradeno 商户网站唯一订单号
      * @return
      */
-    private String getOrderInfo(String subject, String body, String price,String tradeno,String notify_url) {
+    private String getOrderInfo(String subject, String body, String price, String tradeno, String notify_url) {
 
         // 签约合作者身份ID
         String orderInfo = "partner=" + "\"" + PARTNER + "\"";
