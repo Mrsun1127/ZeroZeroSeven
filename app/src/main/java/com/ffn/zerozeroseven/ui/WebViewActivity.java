@@ -21,6 +21,7 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.WebInfo;
 import com.ffn.zerozeroseven.utlis.ScreenUtils;
+import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
 
@@ -251,14 +252,53 @@ public class WebViewActivity extends BaseActivity {
         }
 
         @JavascriptInterface
-        public void closeNumbericalCarInfo(int id, int specId, int count,int price) {//减 购物车
-
+        public void closeNumbericalCarInfo(int id, int specId, double price) {//减 购物车
+            NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
+            //说明购物车里面一定有东西
+            List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
+            for (int i = 0; i < numberRicalListInfo.size(); i++) {
+                if (numberRicalListInfo.get(i).getId() == id && numberRicalListInfo.get(i).getSpecId() == specId) {
+                    if (numberRicalListInfo.get(i).getCount() == 1) {
+                        numberRicalListInfo.remove(i);
+                    } else {
+                        numberRicalListInfo.get(i).setCount(numberRicalListInfo.get(i).getCount() - 1);
+                        numberRicalListInfo.get(i).setNeedsMoney(price);
+                    }
+                }
+            }
+            numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
+            BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
         }
+        @JavascriptInterface
+        public void shareproductDetils(int id){
+            shareProduct(AppConfig.NUMBERICALSHAREURL+id);
+        }
+    }
+
+    private void shareProduct(String url) {
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        // title标题，微信、QQ和QQ空间等平台使用
+        oks.setTitle("商品详情");
+        // titleUrl QQ和QQ空间跳转链接
+        oks.setTitleUrl(url);
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("商品详情");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        oks.setImageUrl(AppConfig.LOGOURL);//确保SDcard下面存在此张图片
+        // url在微信、微博，Facebook等平台中使用
+        oks.setUrl(url);
+        // 启动分享GUI
+        oks.show(WebViewActivity.this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if ("商品详情".equals(getIntent().getStringExtra("title"))) {
+            SharePrefUtils.saveObject(this, "numberRicalInfo", BaseAppApplication.getInstance().getNumberRicalInfo());
+        }
         if (bit != null && !bit.isRecycled()) {
             bit.recycle();
         }
