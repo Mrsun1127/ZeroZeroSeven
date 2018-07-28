@@ -46,6 +46,7 @@
             android:textColor="@color/numberical_default_text" />
 
         <TextView
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -56,6 +57,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:layout_centerVertical="true"
             android:id="@+id/tv_yuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,6 +68,7 @@
             android:textSize="16sp" />
 
         <TextView
+            android:layout_centerVertical="true"
             android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,41 +78,5 @@
             android:text="0.00"
             android:textColor="@color/money"
             android:textSize="16sp" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_money"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_toLeftOf="@+id/tv_runyuan"
-            android:text="运费："
-            android:textColor="@color/black"
-            android:textSize="13sp" />
-
-        <TextView
-            android:id="@+id/tv_runyuan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_money"
-            android:layout_marginTop="5dp"
-            android:layout_toLeftOf="@+id/tv_runmoney"
-            android:text="￥"
-            android:textColor="@color/black"
-            android:textSize="13sp" />
-
-        <TextView
-            android:id="@+id/tv_runmoney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_money"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_toLeftOf="@+id/bt_buy"
-            android:text="0.00"
-            android:textColor="@color/black"
-            android:textSize="13sp" />
-
     </RelativeLayout>
 </LinearLayout>

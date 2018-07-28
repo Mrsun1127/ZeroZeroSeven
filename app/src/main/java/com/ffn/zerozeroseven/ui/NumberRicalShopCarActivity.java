@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.NumberRicalCarAdapter;
@@ -33,6 +34,8 @@ public class NumberRicalShopCarActivity extends BaseActivity {
     private NumberRicalCarAdapter carAdapter;
     private List<NumberRicalInfo.RicalInfo> numberRicalListInfo;
     private NumberRicalInfo numberRicalInfo;
+    @Bind(R.id.tv_money)
+    TextView tv_money;
 
     @Override
     protected int setLayout() {
@@ -59,6 +62,27 @@ public class NumberRicalShopCarActivity extends BaseActivity {
 
     }
 
+    private void notifyBottom(int position) {
+        if (numberRicalListInfo.get(position).isChecked()) {
+            tv_money.setText(String.valueOf(ZeroZeroSevenUtils.reactMoney(reactMoney())));
+        }
+    }
+
+    private double reactMoney() {
+        double a=0.0;
+        if(numberRicalListInfo==null){
+            a=0.0;
+        }else{
+            if(numberRicalListInfo.size()>0){
+                for (int i = 0; i < numberRicalListInfo.size(); i++) {
+                    a=a+numberRicalListInfo.get(i).getCount()*numberRicalListInfo.get(i).getNeedsMoney();
+                }
+                return  a;
+            }
+        }
+        return 0.0;
+    }
+
     @Override
     protected void doMain() {
         carAdapter = new NumberRicalCarAdapter(NumberRicalShopCarActivity.this);
@@ -82,6 +106,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                 carAdapter.addAll(numberRicalListInfo);
                 numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
                 BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+                notifyBottom(position);
             }
         });
         carAdapter.setOnItemCloseViewClick(new NumberRicalCarAdapter.OnItemCloseClick() {
@@ -101,6 +126,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                 carAdapter.addAll(numberRicalListInfo);
                 numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
                 BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+                notifyBottom(position);
             }
         });
         carAdapter.setOnItemImgViewClick(new NumberRicalCarAdapter.OnItemImgClick() {
@@ -115,6 +141,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                 carAdapter.addAll(numberRicalListInfo);
                 numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
                 BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+                notifyBottom(position);
             }
         });
         cb_all_click.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -144,6 +171,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
             }
         });
     }
+
 
     @OnClick({R.id.bt_buy})
     void setOnClicks(View v) {
