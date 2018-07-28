@@ -24,6 +24,7 @@ import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -214,21 +215,43 @@ public class WebViewActivity extends BaseActivity {
             }, 500);
 
         }
+
         @JavascriptInterface
         public int requestData() {//获取购物车的数量
             List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
-            if(numberRicalListInfo==null){
+            if (numberRicalListInfo == null) {
                 return 0;
             }
             return numberRicalListInfo.size();
         }
-        @JavascriptInterface
-        public void addNumbericalCarInfo(int id,int count) {//加 购物车
 
+        @JavascriptInterface
+        public void addNumbericalCarInfo(int id, int specId, int count, double price) {//加 购物车
+            NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
+            List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
+            if (numberRicalListInfo != null) {//说明购物车不是空的
+                for (int i = 0; i < numberRicalListInfo.size(); i++) {
+                    if (numberRicalListInfo.get(i).getId() == id && numberRicalListInfo.get(i).getSpecId() == specId) {
+                        numberRicalListInfo.get(i).setCount(numberRicalListInfo.get(i).getCount() + count);
+                        numberRicalListInfo.get(i).setNeedsMoney(price);
+                    }
+                }
+                numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
+                BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+            } else {//购物车是空的
+                numberRicalListInfo = new ArrayList<>();
+                NumberRicalInfo.RicalInfo ricalInfo = new NumberRicalInfo.RicalInfo();
+                ricalInfo.setNeedsMoney(price);
+                ricalInfo.setId(id);
+                ricalInfo.setCount(count);
+                ricalInfo.setSpecId(specId);
+                numberRicalListInfo.add(ricalInfo);
+                BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+            }
         }
 
         @JavascriptInterface
-        public void closeNumbericalCarInfo(int id,int count) {//减 购物车
+        public void closeNumbericalCarInfo(int id, int specId, int count,int price) {//减 购物车
 
         }
     }
