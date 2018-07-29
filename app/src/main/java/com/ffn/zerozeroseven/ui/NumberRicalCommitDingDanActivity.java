@@ -1,6 +1,7 @@
 package com.ffn.zerozeroseven.ui;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -26,6 +27,8 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
     TextView tv_getname;
     @Bind(R.id.tv_getadr)
     TextView tv_getadr;
+    private ShouHuoInfo shouHuoInfo;
+    private int position=0;
 
     @Override
     protected int setLayout() {
@@ -71,7 +74,7 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                ShouHuoInfo shouHuoInfo = JSON.parseObject(response, ShouHuoInfo.class);
+                shouHuoInfo = JSON.parseObject(response, ShouHuoInfo.class);
                 if (shouHuoInfo.getCode() == 0) {
                     if (shouHuoInfo.getData().getAddresses().size() > 0) {
                         addCar.setVisibility(View.GONE);
@@ -99,7 +102,10 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_pay:
-                ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this,PayMoneyNewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("adrInfo",shouHuoInfo.getData().getAddresses().get(position));
+                bundle.putString("money",getIntent().getStringExtra("money"));
+                ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this,PayMoneyNewActivity.class,bundle);
                 break;
             case R.id.rl_select_adr:
                 ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this, SelectAdrMannGerActivity.class, null, 2);
@@ -116,7 +122,7 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
         switch (requestCode) {
             case 2:
                 try {
-                    int position = Integer.parseInt(data.getStringExtra("position"));
+                    position = Integer.parseInt(data.getStringExtra("position"));
                     initAdr(position);
                 } catch (Exception e) {
                 }

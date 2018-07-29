@@ -10,10 +10,15 @@ import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.CommitDingDanInfo;
+import com.ffn.zerozeroseven.bean.NumberCommiDingDanInfo;
+import com.ffn.zerozeroseven.bean.NumberOrderJsonInfo;
+import com.ffn.zerozeroseven.bean.NumberRicalInfo;
+import com.ffn.zerozeroseven.bean.ShouHuoInfo;
 import com.ffn.zerozeroseven.bean.WeChatInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CallNewDingDanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.OrderJsonInfo;
 import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZFBPayUtil;
@@ -48,6 +53,8 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
     private String payType;
     private boolean isPaySupported;//判断是否支持微信支付
     private static IWXAPI api;
+    private ShouHuoInfo.DataBean.AddressesBean addressesBean;
+    private NumberRicalInfo numberRicalInfo;
 
     @Override
     protected int setLayout() {
@@ -61,10 +68,12 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
         api.registerApp("wx189141e4085fa0d1");
         isPaySupported = api.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
         mZFbutils = new ZFBPayUtil(this);
+        numberRicalInfo = BaseAppApplication.getInstance().getNumberRicalInfo();
+        addressesBean = (ShouHuoInfo.DataBean.AddressesBean) getIntent().getSerializableExtra("adrInfo");
         double allMoney = getIntent().getDoubleExtra("allMoney", 0);
         payType = getIntent().getStringExtra("pay");
         dormId = getIntent().getStringExtra("dormId");
-        tv_money.setText("支付金额：" + 2000 + "RMB");
+        tv_money.setText("支付金额：" + getIntent().getStringExtra("money") + "RMB");
     }
 
     @Override
@@ -122,6 +131,46 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
 
 
     private void PayMoney(final String str) {
+        NumberCommiDingDanInfo numberCommiDingDanInfo = new NumberCommiDingDanInfo();
+        numberCommiDingDanInfo.setFunctionName("AddDigitalGoodsOrder");
+        NumberCommiDingDanInfo.ParametersBean parametersBean = new NumberCommiDingDanInfo.ParametersBean();
+        parametersBean.setPayment(str);
+        parametersBean.setPayType("FULL");
+        parametersBean.setUserId(Integer.parseInt(userId));
+        NumberOrderJsonInfo orderJsonInfo = new NumberOrderJsonInfo();
+        orderJsonInfo.setReceiver_address(addressesBean.getContactSchool() + addressesBean.getContactBuilding() + addressesBean.getContactDorm());
+        orderJsonInfo.setReceiver_name(addressesBean.getContactName());
+        orderJsonInfo.setReceiver_phone(addressesBean.getContactPhone());
+        parametersBean.setOrderInfoJson(JSON.toJSONString(orderJsonInfo));
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < numberRicalInfo.getNumberRicalListInfo().size(); i++) {
+            try {
+                if (numberRicalInfo.getNumberRicalListInfo().get(i).isChecked()) {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("goodsId", numberRicalInfo.getNumberRicalListInfo().get(i).getId());
+                    jsonObject.put("goods_name", numberRicalInfo.getNumberRicalListInfo().get(i).getName());
+                    jsonObject.put("goods_count", numberRicalInfo.getNumberRicalListInfo().get(i).getCount());
+                    jsonObject.put("specKey", numberRicalInfo.getNumberRicalListInfo().get(i).getSpecKey());
+                    jsonObject.put("specKeyName", numberRicalInfo.getNumberRicalListInfo().get(i).getSpecKeyName());
+                    jsonArray.put(jsonObject);
+                }
+            } catch (Exception e) {
+            }
+        }
+        parametersBean.setOrderGoodsJson(jsonArray.toString());
+        numberCommiDingDanInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(PayMoneyNewActivity.this);
+        okGoUtils.httpPostJSON(numberCommiDingDanInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                if (str.equals("AliPay")) {
+
+                } else {
+
+                }
+            }
+        });
 
     }
 }

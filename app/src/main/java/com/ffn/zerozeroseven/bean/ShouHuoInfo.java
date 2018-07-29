@@ -53,7 +53,7 @@ public class ShouHuoInfo implements Serializable {
             this.addresses = addresses;
         }
 
-        public static class AddressesBean {
+        public static class AddressesBean implements Serializable{
             /**
              * contactBuilding : 东湖3栋
              * contactName : 哈哈

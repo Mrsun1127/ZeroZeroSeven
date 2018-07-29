@@ -1,5 +1,6 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -69,15 +70,15 @@ public class NumberRicalShopCarActivity extends BaseActivity {
     }
 
     private double reactMoney() {
-        double a=0.0;
-        if(numberRicalListInfo==null){
-            a=0.0;
-        }else{
-            if(numberRicalListInfo.size()>0){
+        double a = 0.0;
+        if (numberRicalListInfo == null) {
+            a = 0.0;
+        } else {
+            if (numberRicalListInfo.size() > 0) {
                 for (int i = 0; i < numberRicalListInfo.size(); i++) {
-                    a=a+numberRicalListInfo.get(i).getCount()*numberRicalListInfo.get(i).getNeedsMoney();
+                    a = a + numberRicalListInfo.get(i).getCount() * numberRicalListInfo.get(i).getNeedsMoney();
                 }
-                return  a;
+                return a;
             }
         }
         return 0.0;
@@ -177,7 +178,9 @@ public class NumberRicalShopCarActivity extends BaseActivity {
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_buy:
-                ZeroZeroSevenUtils.SwitchActivity(NumberRicalShopCarActivity.this, NumberRicalCommitDingDanActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("money", tv_money.getText().toString());
+                ZeroZeroSevenUtils.SwitchActivity(NumberRicalShopCarActivity.this, NumberRicalCommitDingDanActivity.class,bundle);
                 break;
 
         }
