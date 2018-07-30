@@ -222,7 +222,7 @@ public class WebViewActivity extends BaseActivity {
         }
 
         @JavascriptInterface
-        public int requestData() {//获取购物车的数量
+        public int requestCount() {//获取购物车的数量
             List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
             if (numberRicalListInfo == null) {
                 return 0;
