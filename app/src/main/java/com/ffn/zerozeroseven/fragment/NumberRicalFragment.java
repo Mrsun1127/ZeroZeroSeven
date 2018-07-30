@@ -38,12 +38,11 @@ public class NumberRicalFragment extends BaseReFreshFragment {
         adapter.setOnItemDeleteClick(new MyDingDanOfNumberAdapter.OnItemDeleteClick() {
             @Override
             public void onClick(View view, int position) {
-                //1=已预约,2=已取消,3=确认收获,4=退货
-                //0=未发货,1=已发货,2=已收货,4=退货
+                //订单的状态：1=已预约,2=已取消,3=确认收获,4=退货
                 if (adapter.getItem(position).getOrderStatus() == 1) {
                     TuiKuan(position);
                 } else if (adapter.getItem(position).getOrderStatus() == 3) {
-                    deleteDingDan(0);
+                    deleteDingDan(position);
                 }
             }
         });
@@ -52,8 +51,13 @@ public class NumberRicalFragment extends BaseReFreshFragment {
             public void onClick(View view, int position) {
                 if (adapter.getItem(position).getOrderStatus() == 1) {
                     gotoPayWeiKuan(position);
-                } else if (adapter.getItem(position).getOrderStatus() == 3) {
+                }else if (adapter.getItem(position).getOrderStatus() == 2) {
+                    deleteDingDan(position);
+                }
+                else if (adapter.getItem(position).getOrderStatus() == 3) {
                     buyAgain(position);
+                }else if (adapter.getItem(position).getOrderStatus() == 4) {
+                    deleteDingDan(position);
                 }
             }
         });

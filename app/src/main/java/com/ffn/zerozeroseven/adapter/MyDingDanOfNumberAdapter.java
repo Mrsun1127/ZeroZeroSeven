@@ -41,7 +41,8 @@ public class MyDingDanOfNumberAdapter extends BaseRecyclerAdapter<NumberDingDanI
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final NumberDingDanInfo.DataBean.ListBean info, final int position) {
         final MViewHolder mHolder = (MViewHolder) holder;
-        //1=已预约,2=已取消,3=确认收获,4=退货
+        //订单的状态：1=已预约,2=已取消,3=确认收获,4=退货
+        //商品配送状态：0=未发货,1=已发货,2=已收货,4=退货
         switch (info.getOrderStatus()) {
             case 1:
                 mHolder.tv_status.setText("已预约");
@@ -50,38 +51,21 @@ public class MyDingDanOfNumberAdapter extends BaseRecyclerAdapter<NumberDingDanI
                 break;
             case 2:
                 mHolder.tv_status.setText("已取消");
-                mHolder.rl_status.setVisibility(View.GONE);
+                mHolder.bt_right.setText("删除订单");
+                mHolder.bt_left.setVisibility(View.GONE);
                 break;
             case 3:
-                mHolder.tv_status.setText("确认收货");
+                mHolder.tv_status.setText("已收货");
                 mHolder.bt_left.setText("删除订单");
-                mHolder.bt_right.setText("再次购买");
+                mHolder.bt_right.setText("再来一单");
                 break;
             case 4:
                 mHolder.tv_status.setText("退货");
-                mHolder.rl_status.setVisibility(View.GONE);
+                mHolder.bt_right.setText("删除订单");
+                mHolder.bt_left.setVisibility(View.GONE);
                 break;
         }
-//         商品配送状态：0=未发货,1=已发货,2=已收货,4=退货
-        switch (info.getShippingStatus()) {
-            case 0:
-                mHolder.bt_left.setText("退款");
-                mHolder.bt_right.setText("支付尾款");
-                break;
-            case 1:
-                mHolder.bt_left.setText("查看订单");
-                mHolder.bt_right.setText("确认收货");
-                break;
-            case 2:
-                mHolder.tv_status.setText("确认收货");
-                mHolder.bt_left.setText("删除订单");
-                mHolder.bt_right.setText("再次购买");
-                break;
-            case 4:
-                mHolder.tv_status.setText("退货");
-                mHolder.rl_status.setVisibility(View.GONE);
-                break;
-        }
+
         mHolder.tv_desc.setText("共" + info.getGoodsCount() + "件商品 合计：￥" + info.getOrderPrice() + "(含运费￥" + (info.getFreightPrice() == null ? 0.00 : info.getFreightPrice()) + ")");
         mHolder.tv_time.setText(info.getCreateTime());
         ItemNumberDingDanAdapter itemNumberDingDanAdapter = new ItemNumberDingDanAdapter(mContext);
