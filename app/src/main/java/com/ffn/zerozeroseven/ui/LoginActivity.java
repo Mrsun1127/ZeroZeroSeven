@@ -110,23 +110,23 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         initClickListener();
         timer = new MyCountTimer(bt_send);
         verifyStoragePermissions(this);
-//        Map<String, String> txtFileInfo = UserInfoUtils.getTxtFileInfo(LoginActivity.this);
-//        try {
-//            String username = txtFileInfo.get("username");
-//            String password = txtFileInfo.get("password");
-//            if (!TextUtils.isEmpty(username)) {
-//                et_username.setText(username);
-//                et_phoneNumber.setText(username);
-//            }
-//            if (!TextUtils.isEmpty(password) && !"nopwd".equals(password)) {
-//                et_userpassWord.setText(password);
+        Map<String, String> txtFileInfo = UserInfoUtils.getTxtFileInfo(LoginActivity.this);
+        try {
+            String username = txtFileInfo.get("username");
+            String password = txtFileInfo.get("password");
+            if (!TextUtils.isEmpty(username)) {
+                et_username.setText(username);
+                et_phoneNumber.setText(username);
+            }
+            if (!TextUtils.isEmpty(password) && !"nopwd".equals(password)) {
+                et_userpassWord.setText(password);
 //                if (!"set".equals(getIntent().getStringExtra("exit"))) {
 //                    LoginByPwd();
 //                }
-//            }
-//
-//        } catch (Exception e) {
-//        }
+            }
+
+        } catch (Exception e) {
+        }
 
     }
 
