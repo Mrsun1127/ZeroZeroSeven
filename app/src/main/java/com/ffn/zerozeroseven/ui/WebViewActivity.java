@@ -21,6 +21,7 @@ import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.WebInfo;
 import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
 
@@ -86,7 +87,7 @@ public class WebViewActivity extends BaseActivity {
         if (!TextUtils.isEmpty(title)) {
             if ("商品详情".equals(title)) {
                 topView.setVisibility(View.GONE);
-            }else{
+            } else {
                 topView.setTopText(title);
             }
         }
@@ -285,6 +286,11 @@ public class WebViewActivity extends BaseActivity {
         @JavascriptInterface
         public void shareproductDetils(String id) {
             shareProduct(AppConfig.NUMBERICALSHAREURL + id);
+        }
+
+        @JavascriptInterface
+        public void webToNumberRicalShopCar() {
+            ZeroZeroSevenUtils.SwitchActivity(WebViewActivity.this, NumberRicalShopCarActivity.class);
         }
     }
 
