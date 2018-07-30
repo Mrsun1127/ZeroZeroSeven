@@ -478,8 +478,11 @@ public class VipActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        api.unregisterApp();
-        api = null;
+        if(api!=null){
+            api.unregisterApp();
+            api = null;
+        }
+
 
     }
 }

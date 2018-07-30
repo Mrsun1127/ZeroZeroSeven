@@ -264,27 +264,27 @@ public class WebViewActivity extends BaseActivity {
             }
         }
 
-        @JavascriptInterface
-        public void closeNumbericalCarInfo(int id, int specId, double price) {//减 购物车
-            NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
-            //说明购物车里面一定有东西
-            List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
-            for (int i = 0; i < numberRicalListInfo.size(); i++) {
-                if (numberRicalListInfo.get(i).getId() == id && numberRicalListInfo.get(i).getSpecId() == specId) {
-                    if (numberRicalListInfo.get(i).getCount() == 0) {
-                        numberRicalListInfo.remove(i);
-                    } else {
-                        numberRicalListInfo.get(i).setCount(numberRicalListInfo.get(i).getCount() - 1);
-                        numberRicalListInfo.get(i).setNeedsMoney(price);
-                    }
-                }
-            }
-            numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
-            BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
-        }
+//        @JavascriptInterface
+//        public void closeNumbericalCarInfo(int id, int specId, double price) {//减 购物车
+//            NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
+//            //说明购物车里面一定有东西
+//            List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
+//            for (int i = 0; i < numberRicalListInfo.size(); i++) {
+//                if (numberRicalListInfo.get(i).getId() == id && numberRicalListInfo.get(i).getSpecId() == specId) {
+//                    if (numberRicalListInfo.get(i).getCount() == 0) {
+//                        numberRicalListInfo.remove(i);
+//                    } else {
+//                        numberRicalListInfo.get(i).setCount(numberRicalListInfo.get(i).getCount() - 1);
+//                        numberRicalListInfo.get(i).setNeedsMoney(price);
+//                    }
+//                }
+//            }
+//            numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
+//            BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+//        }
 
         @JavascriptInterface
-        public void shareproductDetils(int id) {
+        public void shareproductDetils(String id) {
             shareProduct(AppConfig.NUMBERICALSHAREURL + id);
         }
     }

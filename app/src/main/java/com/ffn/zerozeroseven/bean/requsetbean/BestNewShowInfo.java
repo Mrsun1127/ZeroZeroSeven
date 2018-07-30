@@ -1,12 +1,15 @@
 package com.ffn.zerozeroseven.bean.requsetbean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by GT on 2017/12/6.
  */
 
-public class BestNewShowInfo {
+public class BestNewShowInfo implements Parcelable{
     /**
      * code : 0
      * data : {"total":2,"LatestGoods":[{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180601/thumbnail1527839848496.jpg","price":23,"id":2453,"storeId":14,"goodsName":"手机","extraFee":0,"goodsType":"07"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180505/thumbnail1525498574652.jpg","price":3.78,"id":1863,"storeId":14,"goodsName":"统一来一桶桶装农家小炒肉面","extraFee":0,"goodsType":"01"}],"pageIndex":0,"totalPage":1,"stores":{"closingTime2":"00:00:00","closingTime":"10:00:00","openingTime":"10:00:00","isClosing":true,"openingTime2":"00:00:00"},"pageSize":3}
@@ -16,6 +19,26 @@ public class BestNewShowInfo {
     private int code;
     private DataBean data;
     private String message;
+
+    protected BestNewShowInfo(Parcel in) {
+        code = in.readInt();
+        message = in.readString();
+    }
+
+    public static final Creator<BestNewShowInfo> CREATOR = new Creator<BestNewShowInfo>() {
+        @Override
+        public BestNewShowInfo createFromParcel(Parcel in) {
+            return new BestNewShowInfo(in);
+        }
+
+        @Override
+        public BestNewShowInfo[] newArray(int size) {
+            return new BestNewShowInfo[size];
+        }
+    };
+
+    public BestNewShowInfo() {
+    }
 
     public int getCode() {
         return code;
@@ -41,7 +64,18 @@ public class BestNewShowInfo {
         this.message = message;
     }
 
-    public static class DataBean {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(code);
+        parcel.writeString(message);
+    }
+
+    public static class DataBean implements Parcelable{
         /**
          * total : 2
          * LatestGoods : [{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180601/thumbnail1527839848496.jpg","price":23,"id":2453,"storeId":14,"goodsName":"手机","extraFee":0,"goodsType":"07"},{"thumbnail":"http://www.lingling7.com/lingling7-res/image/20180505/thumbnail1525498574652.jpg","price":3.78,"id":1863,"storeId":14,"goodsName":"统一来一桶桶装农家小炒肉面","extraFee":0,"goodsType":"01"}]
@@ -57,6 +91,28 @@ public class BestNewShowInfo {
         private StoresBean stores;
         private int pageSize;
         private List<LatestGoodsBean> LatestGoods;
+
+        protected DataBean(Parcel in) {
+            total = in.readInt();
+            pageIndex = in.readInt();
+            totalPage = in.readInt();
+            pageSize = in.readInt();
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
+
+        public DataBean() {
+        }
 
         public int getTotal() {
             return total;
@@ -106,7 +162,20 @@ public class BestNewShowInfo {
             this.LatestGoods = LatestGoods;
         }
 
-        public static class StoresBean {
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeInt(total);
+            parcel.writeInt(pageIndex);
+            parcel.writeInt(totalPage);
+            parcel.writeInt(pageSize);
+        }
+
+        public static class StoresBean implements Parcelable{
             /**
              * closingTime2 : 00:00:00
              * closingTime : 10:00:00
@@ -120,6 +189,29 @@ public class BestNewShowInfo {
             private String openingTime;
             private boolean isClosing;
             private String openingTime2;
+
+            protected StoresBean(Parcel in) {
+                closingTime2 = in.readString();
+                closingTime = in.readString();
+                openingTime = in.readString();
+                isClosing = in.readByte() != 0;
+                openingTime2 = in.readString();
+            }
+
+            public static final Creator<StoresBean> CREATOR = new Creator<StoresBean>() {
+                @Override
+                public StoresBean createFromParcel(Parcel in) {
+                    return new StoresBean(in);
+                }
+
+                @Override
+                public StoresBean[] newArray(int size) {
+                    return new StoresBean[size];
+                }
+            };
+
+            public StoresBean() {
+            }
 
             public String getClosingTime2() {
                 return closingTime2;
@@ -160,9 +252,23 @@ public class BestNewShowInfo {
             public void setOpeningTime2(String openingTime2) {
                 this.openingTime2 = openingTime2;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel parcel, int i) {
+                parcel.writeString(closingTime2);
+                parcel.writeString(closingTime);
+                parcel.writeString(openingTime);
+                parcel.writeByte((byte) (isClosing ? 1 : 0));
+                parcel.writeString(openingTime2);
+            }
         }
 
-        public static class LatestGoodsBean {
+        public static class LatestGoodsBean implements Parcelable{
             /**
              * thumbnail : http://www.lingling7.com/lingling7-res/image/20180601/thumbnail1527839848496.jpg
              * price : 23
@@ -180,6 +286,39 @@ public class BestNewShowInfo {
             private String goodsName;
             private Double extraFee;
             private String goodsType;
+
+            protected LatestGoodsBean(Parcel in) {
+                thumbnail = in.readString();
+                if (in.readByte() == 0) {
+                    price = null;
+                } else {
+                    price = in.readDouble();
+                }
+                id = in.readInt();
+                storeId = in.readInt();
+                goodsName = in.readString();
+                if (in.readByte() == 0) {
+                    extraFee = null;
+                } else {
+                    extraFee = in.readDouble();
+                }
+                goodsType = in.readString();
+            }
+
+            public static final Creator<LatestGoodsBean> CREATOR = new Creator<LatestGoodsBean>() {
+                @Override
+                public LatestGoodsBean createFromParcel(Parcel in) {
+                    return new LatestGoodsBean(in);
+                }
+
+                @Override
+                public LatestGoodsBean[] newArray(int size) {
+                    return new LatestGoodsBean[size];
+                }
+            };
+
+            public LatestGoodsBean() {
+            }
 
             public String getThumbnail() {
                 return thumbnail;
@@ -235,6 +374,32 @@ public class BestNewShowInfo {
 
             public void setGoodsType(String goodsType) {
                 this.goodsType = goodsType;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel parcel, int i) {
+                parcel.writeString(thumbnail);
+                if (price == null) {
+                    parcel.writeByte((byte) 0);
+                } else {
+                    parcel.writeByte((byte) 1);
+                    parcel.writeDouble(price);
+                }
+                parcel.writeInt(id);
+                parcel.writeInt(storeId);
+                parcel.writeString(goodsName);
+                if (extraFee == null) {
+                    parcel.writeByte((byte) 0);
+                } else {
+                    parcel.writeByte((byte) 1);
+                    parcel.writeDouble(extraFee);
+                }
+                parcel.writeString(goodsType);
             }
         }
     }

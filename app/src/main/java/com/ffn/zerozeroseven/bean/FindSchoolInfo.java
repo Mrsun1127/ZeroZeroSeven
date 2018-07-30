@@ -1,12 +1,14 @@
 package com.ffn.zerozeroseven.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 
 /**
  * Created by GT on 2017/12/8.
  */
 
-public class FindSchoolInfo implements Serializable {
+public class FindSchoolInfo implements Parcelable {
     /**
      * code : 0
      * data : {"isRecommend":0,"province":"110000","city":"430100","name":"湖南信息职业技术学院","fullName":"湖南信息职业技术学院","id":1756}
@@ -16,6 +18,26 @@ public class FindSchoolInfo implements Serializable {
     private int code;
     private DataBean data;
     private String message;
+
+    protected FindSchoolInfo(Parcel in) {
+        code = in.readInt();
+        message = in.readString();
+    }
+
+    public static final Creator<FindSchoolInfo> CREATOR = new Creator<FindSchoolInfo>() {
+        @Override
+        public FindSchoolInfo createFromParcel(Parcel in) {
+            return new FindSchoolInfo(in);
+        }
+
+        @Override
+        public FindSchoolInfo[] newArray(int size) {
+            return new FindSchoolInfo[size];
+        }
+    };
+
+    public FindSchoolInfo() {
+    }
 
     public int getCode() {
         return code;
@@ -41,7 +63,18 @@ public class FindSchoolInfo implements Serializable {
         this.message = message;
     }
 
-    public static class DataBean implements Serializable{
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(code);
+        parcel.writeString(message);
+    }
+
+    public static class DataBean implements Parcelable{
         /**
          * isRecommend : 0
          * province : 110000
@@ -57,6 +90,30 @@ public class FindSchoolInfo implements Serializable {
         private String name;
         private String fullName;
         private int id;
+
+        protected DataBean(Parcel in) {
+            isRecommend = in.readString();
+            province = in.readString();
+            city = in.readString();
+            name = in.readString();
+            fullName = in.readString();
+            id = in.readInt();
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
+
+        public DataBean() {
+        }
 
         public String getIsRecommend() {
             return isRecommend;
@@ -104,6 +161,21 @@ public class FindSchoolInfo implements Serializable {
 
         public void setId(int id) {
             this.id = id;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeString(isRecommend);
+            parcel.writeString(province);
+            parcel.writeString(city);
+            parcel.writeString(name);
+            parcel.writeString(fullName);
+            parcel.writeInt(id);
         }
     }
 }

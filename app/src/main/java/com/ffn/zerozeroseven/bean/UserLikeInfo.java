@@ -1,5 +1,8 @@
 package com.ffn.zerozeroseven.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,15 +10,9 @@ import java.util.List;
  * Created by GT on 2017/11/30.
  */
 
-public class UserLikeInfo implements Serializable {
+public class UserLikeInfo implements Parcelable {
+
     public UserLikeInfo() {
-
-    }
-
-    public UserLikeInfo(int code, DataBean data, String message) {
-        this.code = code;
-        this.data = data;
-        this.message = message;
     }
 
     /**
@@ -27,6 +24,23 @@ public class UserLikeInfo implements Serializable {
     private int code;
     private DataBean data;
     private String message;
+
+    protected UserLikeInfo(Parcel in) {
+        code = in.readInt();
+        message = in.readString();
+    }
+
+    public static final Creator<UserLikeInfo> CREATOR = new Creator<UserLikeInfo>() {
+        @Override
+        public UserLikeInfo createFromParcel(Parcel in) {
+            return new UserLikeInfo(in);
+        }
+
+        @Override
+        public UserLikeInfo[] newArray(int size) {
+            return new UserLikeInfo[size];
+        }
+    };
 
     public int getCode() {
         return code;
@@ -52,16 +66,37 @@ public class UserLikeInfo implements Serializable {
         this.message = message;
     }
 
-    public static class DataBean implements Serializable{
-        public DataBean() {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-        }
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(code);
+        parcel.writeString(message);
+    }
 
-        public DataBean(List<PostsBean> posts) {
-            this.posts = posts;
-        }
-
+    public static class DataBean implements Parcelable{
         private List<PostsBean> posts;
+
+        public DataBean() {
+        }
+
+        protected DataBean(Parcel in) {
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
 
         public List<PostsBean> getPosts() {
             return posts;
@@ -71,18 +106,17 @@ public class UserLikeInfo implements Serializable {
             this.posts = posts;
         }
 
-        public static class PostsBean implements Serializable{
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+        }
+
+        public static class PostsBean implements Parcelable{
             public PostsBean() {
-
-            }
-
-            public PostsBean(String userClazz, int isAnonymity, boolean like, String userCollege, String title,String content) {
-                this.userClazz = userClazz;
-                this.isAnonymity = isAnonymity;
-                this.like = like;
-                this.userCollege = userCollege;
-                this.title = title;
-                this.content = content;
             }
 
             /**
@@ -100,6 +134,28 @@ public class UserLikeInfo implements Serializable {
             private String title;
             private int id;
             private String content;
+
+            protected PostsBean(Parcel in) {
+                userClazz = in.readString();
+                isAnonymity = in.readInt();
+                like = in.readByte() != 0;
+                userCollege = in.readString();
+                title = in.readString();
+                id = in.readInt();
+                content = in.readString();
+            }
+
+            public static final Creator<PostsBean> CREATOR = new Creator<PostsBean>() {
+                @Override
+                public PostsBean createFromParcel(Parcel in) {
+                    return new PostsBean(in);
+                }
+
+                @Override
+                public PostsBean[] newArray(int size) {
+                    return new PostsBean[size];
+                }
+            };
 
             public String getContent() {
                 return content;
@@ -155,6 +211,22 @@ public class UserLikeInfo implements Serializable {
 
             public void setTitle(String title) {
                 this.title = title;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel parcel, int i) {
+                parcel.writeString(userClazz);
+                parcel.writeInt(isAnonymity);
+                parcel.writeByte((byte) (like ? 1 : 0));
+                parcel.writeString(userCollege);
+                parcel.writeString(title);
+                parcel.writeInt(id);
+                parcel.writeString(content);
             }
         }
     }
