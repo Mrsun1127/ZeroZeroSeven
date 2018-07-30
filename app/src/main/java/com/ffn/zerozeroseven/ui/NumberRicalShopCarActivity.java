@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -78,9 +79,13 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                 for (int i = 0; i < numberRicalListInfo.size(); i++) {
                     a = a + numberRicalListInfo.get(i).getCount() * numberRicalListInfo.get(i).getNeedsMoney();
                 }
+                bt_buy.setBackgroundColor(getResources().getColor(R.color.tab_under_line));
+                bt_buy.setTextColor(getResources().getColor(R.color.white));
                 return a;
             }
         }
+        bt_buy.setBackgroundColor(getResources().getColor(R.color.numberical_default_bg));
+        bt_buy.setTextColor(getResources().getColor(R.color.numberical_default_text));
         return 0.0;
     }
 
@@ -173,14 +178,19 @@ public class NumberRicalShopCarActivity extends BaseActivity {
         });
     }
 
+    @Bind(R.id.bt_buy)
+    Button bt_buy;
 
     @OnClick({R.id.bt_buy})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_buy:
+                if ("0.00".equals(tv_money.getText().toString())) {
+                    return;
+                }
                 Bundle bundle = new Bundle();
                 bundle.putString("money", tv_money.getText().toString());
-                ZeroZeroSevenUtils.SwitchActivity(NumberRicalShopCarActivity.this, NumberRicalCommitDingDanActivity.class,bundle);
+                ZeroZeroSevenUtils.SwitchActivity(NumberRicalShopCarActivity.this, NumberRicalCommitDingDanActivity.class, bundle);
                 break;
 
         }

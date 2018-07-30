@@ -103,7 +103,7 @@ public class SeachSchoolListActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, long itemId) {
                 userInfo.setSchoolName(adapter.getItem(position).getName());
-                userInfo.setSchoolId(adapter.getItem(position).getId() + "");
+                userInfo.setLocationSchoolId(adapter.getItem(position).getId() + "");
                 BaseAppApplication.getInstance().setLoginUser(userInfo);
                 SharePrefUtils.saveObject(SeachSchoolListActivity.this,"userInfo",userInfo);
                 SharePrefUtils.setInt(SeachSchoolListActivity.this, "isLocation", 1);

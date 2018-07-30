@@ -766,7 +766,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
                         } else {
                             tv_school.setText(findSchoolInfo.getData().getName());
                             BaseAppApplication.userInfo.setSchoolName(name);
-                            BaseAppApplication.userInfo.setSchoolId(findSchoolInfo.getData().getId() + "");
+                            BaseAppApplication.userInfo.setLocationSchoolId(findSchoolInfo.getData().getId() + "");
                             SharePrefUtils.saveObject(bfCxt, "userInfo", BaseAppApplication.getInstance().getLoginUser());
                             SharePrefUtils.setInt(bfCxt, "isLocation", 1);
                         }
@@ -834,7 +834,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
 
     public void reQuest() {
         if (userInfo != null) {
-            schoolIId = BaseAppApplication.getInstance().getLoginUser().getSchoolId();
+            schoolIId = BaseAppApplication.getInstance().getLoginUser().getLocationSchoolId();
             if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
                 tv_school.setText(userInfo.getSchoolName());
             }

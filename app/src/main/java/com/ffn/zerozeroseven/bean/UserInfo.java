@@ -76,7 +76,7 @@ public class UserInfo implements Serializable{
         private int id;
         private String clazz;
         private String schoolName;
-        private String schoolId="943478288";
+        private String locationSchoolId="943478288";
         private String dowmPoster;
         private String servicePhone="0731-85315177";
         private boolean isLoginCouris;
@@ -123,12 +123,12 @@ public class UserInfo implements Serializable{
             this.dowmPoster = dowmPoster;
         }
 
-        public String getSchoolId() {
-            return schoolId;
+        public String getLocationSchoolId() {
+            return locationSchoolId;
         }
 
-        public void setSchoolId(String schoolId) {
-            this.schoolId = schoolId;
+        public void setLocationSchoolId(String locationSchoolId) {
+            this.locationSchoolId = locationSchoolId;
         }
 
         public String getSchoolName() {

@@ -244,7 +244,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                 schoolListAdapter.setClickPosition(position);
                 if(schools.size()>0){
                     userInfo.setSchoolName(schoolListAdapter.getItem(position).getName());
-                    userInfo.setSchoolId(schoolListAdapter.getItem(position).getId()+"");
+                    userInfo.setLocationSchoolId(schoolListAdapter.getItem(position).getId()+"");
                     BaseAppApplication.getInstance().setLoginUser(userInfo);
                     tv_name.setText(schoolListAdapter.getItem(position).getName());
                     SharePrefUtils.saveObject(SearchSchoolActivity.this,"userInfo",userInfo);
