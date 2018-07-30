@@ -1,6 +1,7 @@
 package com.ffn.zerozeroseven.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +13,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.NumberLevelInfo;
 import com.ffn.zerozeroseven.bean.NumberListInfo;
+import com.ffn.zerozeroseven.ui.NumberRicalActivity;
+import com.ffn.zerozeroseven.ui.WebViewActivity;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 
@@ -38,7 +43,7 @@ public class NumberRicalVerticalAdapter extends BaseRecyclerAdapter<NumberListIn
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberListInfo.DataBean.GoodsListBean.ListBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final NumberListInfo.DataBean.GoodsListBean.ListBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_name.setText(item.getGoodsName());
         Glide.with(mContext)
@@ -56,13 +61,39 @@ public class NumberRicalVerticalAdapter extends BaseRecyclerAdapter<NumberListIn
         stringList.add("2GB 独显");
         stringList.add("256G固态");
         topAdapter.addAll(stringList);
-
+        topAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                Bundle bundle = new Bundle();
+                bundle.putString("url", AppConfig.NUMBERICALURL + item.getId());
+                bundle.putString("title", "商品详情");
+                ZeroZeroSevenUtils.SwitchActivity(mContext, WebViewActivity.class, bundle);
+            }
+        });
         FullyLinearLayoutManager linearLayoutManager1 = new FullyLinearLayoutManager(mContext);
         linearLayoutManager1.setOrientation(LinearLayout.HORIZONTAL);
         mHolder.rc_bot.setLayoutManager(linearLayoutManager1);
         VerticalItemBotAdapter botAdapter = new VerticalItemBotAdapter(mContext);
         mHolder.rc_bot.setAdapter(botAdapter);
         botAdapter.addAll(stringList);
+        botAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                Bundle bundle = new Bundle();
+                bundle.putString("url", AppConfig.NUMBERICALURL + item.getId());
+                bundle.putString("title", "商品详情");
+                ZeroZeroSevenUtils.SwitchActivity(mContext, WebViewActivity.class, bundle);
+            }
+        });
+        mHolder.tv_go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("url", AppConfig.NUMBERICALURL + item.getId());
+                bundle.putString("title", "商品详情");
+                ZeroZeroSevenUtils.SwitchActivity(mContext, WebViewActivity.class, bundle);
+            }
+        });
     }
 
     private class MViewHolder extends RecyclerView.ViewHolder {
@@ -70,6 +101,7 @@ public class NumberRicalVerticalAdapter extends BaseRecyclerAdapter<NumberListIn
         TextView tv_name;
         TextView tv_oldmoney;
         TextView tv_shopmoney;
+        TextView tv_go;
         RecyclerView rc_bot;
         RecyclerView rc_top;
 
@@ -78,6 +110,7 @@ public class NumberRicalVerticalAdapter extends BaseRecyclerAdapter<NumberListIn
             iv_product = itemView.findViewById(R.id.iv_product);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_oldmoney = itemView.findViewById(R.id.tv_oldmoney);
+            tv_go = itemView.findViewById(R.id.tv_go);
             tv_shopmoney = itemView.findViewById(R.id.tv_shopmoney);
             rc_top = itemView.findViewById(R.id.rc_top);
             rc_bot = itemView.findViewById(R.id.rc_bot);

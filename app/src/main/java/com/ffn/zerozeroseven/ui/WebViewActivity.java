@@ -85,7 +85,11 @@ public class WebViewActivity extends BaseActivity {
         });
         String title = getIntent().getStringExtra("title");
         if (!TextUtils.isEmpty(title)) {
-            topView.setTopText(title);
+            if ("商品详情".equals(title)) {
+                topView.setVisibility(View.GONE);
+            }else{
+                topView.setTopText(title);
+            }
         }
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
@@ -227,17 +231,16 @@ public class WebViewActivity extends BaseActivity {
         }
 
         /**
-         *
-         * @param id 商品Id
-         * @param specId 规格Id
-         * @param count 商品数量
-         * @param price 商品价格
-         * @param name  商品名称
-         * @param imgUrl 商品图片地址
+         * @param id       商品Id
+         * @param specId   规格Id
+         * @param count    商品数量
+         * @param price    商品价格
+         * @param name     商品名称
+         * @param imgUrl   商品图片地址
          * @param specDesc 商品规格描述
          */
         @JavascriptInterface
-        public void addNumbericalCarInfo(int id, int specId, int count, double price,String name,String imgUrl,String specDesc) {//加 购物车
+        public void addNumbericalCarInfo(int id, int specId, int count, double price, String name, String imgUrl, String specDesc) {//加 购物车
             NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
             List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
             if (numberRicalListInfo != null) {//说明购物车不是空的
@@ -279,9 +282,10 @@ public class WebViewActivity extends BaseActivity {
             numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
             BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
         }
+
         @JavascriptInterface
-        public void shareproductDetils(int id){
-            shareProduct(AppConfig.NUMBERICALSHAREURL+id);
+        public void shareproductDetils(int id) {
+            shareProduct(AppConfig.NUMBERICALSHAREURL + id);
         }
     }
 

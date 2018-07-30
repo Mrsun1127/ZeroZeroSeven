@@ -165,21 +165,22 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                 attrAdapter.setClickPosition(-1);
                 threeAdapter.setClickPosition(-1);
                 brandAdapter.setClickPosition(-1);
-                if (levelInfo.getData().getCategories().get(position).getFilterAttrList().size() > 0) {
-                    attrAdapter.cleanDates();
-                    attrAdapter.addAll(levelInfo.getData().getCategories().get(position).getFilterAttrList());
-                } else {
-                    attrAdapter.cleanDates();
-                }
-                if (levelInfo.getData().getCategories().get(position).getFilterSpecList().size() > 0) {
-                    threeAdapter.cleanDates();
-                    threeAdapter.addAll(levelInfo.getData().getCategories().get(position).getFilterSpecList());
-                } else {
-                    threeAdapter.cleanDates();
-                }
+//                if (levelInfo.getData().getCategories().get(position).getFilterAttrList().size() > 0) {
+//                    attrAdapter.cleanDates();
+//                    attrAdapter.addAll(levelInfo.getData().getCategories().get(position).getFilterAttrList());
+//                } else {
+//                    attrAdapter.cleanDates();
+//                }
+//                if (levelInfo.getData().getCategories().get(position).getFilterSpecList().size() > 0) {
+//                    threeAdapter.cleanDates();
+//                    threeAdapter.addAll(levelInfo.getData().getCategories().get(position).getFilterSpecList());
+//                } else {
+//                    threeAdapter.cleanDates();
+//                }
                 rgRefreshStatus = RgRefreshStatus.IDLE;
                 pageIndex = 0;
-                findVerticalData(oneAdapter.getItem(position).getId(), 0, 0, "", 0);
+//                findVerticalData(oneAdapter.getItem(position).getId(), 0, 0, "", 0);
+                findVerticalData(oneAdapter.getItem(position).getId(), 0);
             }
         });
         twoAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
@@ -195,7 +196,8 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                 popSpecAdapter.setClickPosition(-1);
                 rgRefreshStatus = RgRefreshStatus.IDLE;
                 pageIndex = 0;
-                findVerticalData(twoAdapter.getItem(position).getId(), 0, 0, "", 0);
+//                findVerticalData(twoAdapter.getItem(position).getId(), 0, 0, "", 0);
+                findVerticalData(twoAdapter.getItem(position).getId(), 0);
             }
         });
 
@@ -313,7 +315,6 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         NumberHomeInfo homeInfo = new NumberHomeInfo();
         homeInfo.setFunctionName("ListDigitalCategory");
         NumberHomeInfo.ParametersBean parametersBean = new NumberHomeInfo.ParametersBean();
-        parametersBean.setIsFilter(1);
         homeInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(NumberRicalActivity.this);
         okGoUtils.httpPostJSON(homeInfo, true, true);
@@ -344,40 +345,41 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                     twoAdapter.addAll(level2BottomList);
                     levelId = level1List.get(0).getId();
 
-                    if (levelInfo.getData().getCategories().get(0).getFilterAttrList().size() > 0) {
-                        attrAdapter.cleanDates();
-                        attrAdapter.addAll(levelInfo.getData().getCategories().get(0).getFilterAttrList());
-                    } else {
-                        attrAdapter.cleanDates();
-                    }
-                    if (levelInfo.getData().getCategories().get(0).getFilterSpecList().size() > 0) {
-                        threeAdapter.cleanDates();
-                        threeAdapter.addAll(levelInfo.getData().getCategories().get(0).getFilterSpecList());
-                    } else {
-                        threeAdapter.cleanDates();
-                    }
-                    List<String> strings = new ArrayList<>();
-                    strings.add("品牌");
-                    brandAdapter.cleanDates();
-                    brandAdapter.addAll(strings);
-                    findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
+//                    if (levelInfo.getData().getCategories().get(0).getFilterAttrList().size() > 0) {
+//                        attrAdapter.cleanDates();
+//                        attrAdapter.addAll(levelInfo.getData().getCategories().get(0).getFilterAttrList());
+//                    } else {
+//                        attrAdapter.cleanDates();
+//                    }
+//                    if (levelInfo.getData().getCategories().get(0).getFilterSpecList().size() > 0) {
+//                        threeAdapter.cleanDates();
+//                        threeAdapter.addAll(levelInfo.getData().getCategories().get(0).getFilterSpecList());
+//                    } else {
+//                        threeAdapter.cleanDates();
+//                    }
+//                    List<String> strings = new ArrayList<>();
+//                    strings.add("品牌");
+//                    brandAdapter.cleanDates();
+//                    brandAdapter.addAll(strings);
+                    findVerticalData(levelId, pageIndex);
                 }
             }
         });
     }
 
-    private void findVerticalData(int levelId, int specId, int brandId, final String attrValue, int pageIndex) {
+//    private void findVerticalData(int levelId, int specId, int brandId, final String attrValue, int pageIndex) {
+    private void findVerticalData(int levelId, int pageIndex) {
         VerticalReInfo verticalReInfo = new VerticalReInfo();
         verticalReInfo.setFunctionName("ListDigitalGoods");
         VerticalReInfo.ParametersBean parametersBean = new VerticalReInfo.ParametersBean();
         parametersBean.setCategoryId(levelId);
-        if (specId != -1) {
-            parametersBean.setSpecItemId(specId);
-        }
-        if (brandId != -1) {
-            parametersBean.setBrandId(brandId);
-        }
-        parametersBean.setAttrValue(attrValue);
+//        if (specId != -1) {
+//            parametersBean.setSpecItemId(specId);
+//        }
+//        if (brandId != -1) {
+//            parametersBean.setBrandId(brandId);
+//        }
+//        parametersBean.setAttrValue(attrValue);
         parametersBean.setPageSize(6);
         parametersBean.setPageIndex(pageIndex);
         verticalReInfo.setParameters(parametersBean);
@@ -434,7 +436,8 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                     levelId = oneAdapter.getItem(oneAdapter.getClickPosition()).getId();
                 }
                 rgRefreshStatus = RgRefreshStatus.IDLE;
-                findVerticalData(levelId, 0, 0, "", 0);
+//                findVerticalData(levelId, 0, 0, "", 0);
+                findVerticalData(levelId, 0);
                 break;
             case R.id.bt_sure:
                 pageIndex = 0;
@@ -475,7 +478,8 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                 } catch (Exception e) {
                     attrValue = "";
                 }
-                findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
+//                findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
+                findVerticalData(levelId, pageIndex);
                 break;
             case R.id.iv_shopcar:
                 ZeroZeroSevenUtils.SwitchActivity(NumberRicalActivity.this, NumberRicalShopCarActivity.class);
@@ -507,14 +511,16 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         popAttrAdapter.setClickPosition(-1);
         popBrandAdapter.setClickPosition(-1);
         popSpecAdapter.setClickPosition(-1);
-        findVerticalData(oneAdapter.getItem(oneClickPositon).getId(), 0, 0, "", pageIndex);
+//        findVerticalData(oneAdapter.getItem(oneClickPositon).getId(), 0, 0, "", pageIndex);
+        findVerticalData(oneAdapter.getItem(oneClickPositon).getId(),  pageIndex);
     }
 
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
         rgRefreshStatus = RgRefreshStatus.PULL_DOWN;
         pageIndex = pageIndex + 1;
-        findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
+//        findVerticalData(levelId, specId, brandId, attrValue, pageIndex);
+        findVerticalData(levelId, pageIndex);
     }
 
     @Override

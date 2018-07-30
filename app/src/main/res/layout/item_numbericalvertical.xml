@@ -83,6 +83,7 @@
         android:layout_toRightOf="@+id/iv_product" />
 
     <TextView
+        android:id="@+id/tv_go"
         android:layout_alignBottom="@+id/iv_product"
         android:layout_width="63dp"
         android:layout_height="27dp"
