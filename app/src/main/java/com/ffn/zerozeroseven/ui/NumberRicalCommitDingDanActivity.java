@@ -2,6 +2,7 @@ package com.ffn.zerozeroseven.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -29,7 +30,7 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
     @Bind(R.id.tv_getadr)
     TextView tv_getadr;
     private ShouHuoInfo shouHuoInfo;
-    private int position=0;
+    private int position = 0;
     private NumberRicalInfo.RicalInfo ricalInfo;
 
     @Override
@@ -56,9 +57,14 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        tv_paymoney.setText(getIntent().getStringExtra("money"));
-        initAdr(0);
         ricalInfo = (NumberRicalInfo.RicalInfo) getIntent().getSerializableExtra("ricalInfo");
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("money"))) {
+            tv_paymoney.setText(getIntent().getStringExtra("money"));
+        } else {
+            tv_paymoney.setText(String.valueOf(ricalInfo.getNeedsMoney()));
+        }
+
+        initAdr(0);
     }
 
     @Bind(R.id.tv_paymoney)
@@ -107,10 +113,10 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.bt_pay:
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("adrInfo",shouHuoInfo.getData().getAddresses().get(position));
-                bundle.putString("money",getIntent().getStringExtra("money"));
-                bundle.putSerializable("ricalInfo",ricalInfo);
-                ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this,PayMoneyNewActivity.class,bundle);
+                bundle.putSerializable("adrInfo", shouHuoInfo.getData().getAddresses().get(position));
+                bundle.putString("money", tv_paymoney.getText().toString());
+                bundle.putSerializable("ricalInfo", ricalInfo);
+                ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this, PayMoneyNewActivity.class, bundle);
                 break;
             case R.id.rl_select_adr:
                 ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this, SelectAdrMannGerActivity.class, null, 2);

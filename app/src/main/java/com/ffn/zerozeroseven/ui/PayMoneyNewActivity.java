@@ -155,8 +155,8 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
                     jsonObject.put("goodsId", numberRicalInfo.getNumberRicalListInfo().get(i).getId());
                     jsonObject.put("goods_name", numberRicalInfo.getNumberRicalListInfo().get(i).getName());
                     jsonObject.put("goods_count", numberRicalInfo.getNumberRicalListInfo().get(i).getCount());
-                    jsonObject.put("specKey", numberRicalInfo.getNumberRicalListInfo().get(i).getSpecKey());
-                    jsonObject.put("specKeyName", numberRicalInfo.getNumberRicalListInfo().get(i).getSpecKeyName());
+                    jsonObject.put("specKey", numberRicalInfo.getNumberRicalListInfo().get(i).getSpecId());
+                    jsonObject.put("specKeyName", numberRicalInfo.getNumberRicalListInfo().get(i).getConfiguration());
                     jsonArray.put(jsonObject);
                 }
             } catch (Exception e) {
