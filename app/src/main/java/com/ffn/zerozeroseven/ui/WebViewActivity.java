@@ -19,6 +19,7 @@ import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.WebInfo;
+import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -241,6 +242,7 @@ public class WebViewActivity extends BaseActivity {
          */
         @JavascriptInterface
         public void addNumbericalCarInfo(int id, int specId, int count, double price, String name, String imgUrl, String specDesc) {//加 购物车
+            LogUtils.D("numberCar", "Id=" + id + "specId=" + specId + "count=" + count + "price=" + price + "name=" + name + "img=" + imgUrl + "specDesc=" + specDesc);
             NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
             List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
             if (numberRicalListInfo != null) {//说明购物车不是空的
@@ -248,8 +250,20 @@ public class WebViewActivity extends BaseActivity {
                     if (numberRicalListInfo.get(i).getId() == id && numberRicalListInfo.get(i).getSpecId() == specId) {
                         numberRicalListInfo.get(i).setCount(numberRicalListInfo.get(i).getCount() + count);
                         numberRicalListInfo.get(i).setNeedsMoney(price);
+                        numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
+                        BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+                        return;
                     }
                 }
+                NumberRicalInfo.RicalInfo ricalInfo = new NumberRicalInfo.RicalInfo();
+                ricalInfo.setNeedsMoney(price);
+                ricalInfo.setId(id);
+                ricalInfo.setImgUrl(imgUrl);
+                ricalInfo.setName(name);
+                ricalInfo.setCount(count);
+                ricalInfo.setSpecId(specId);
+                ricalInfo.setSpecKey(specDesc);
+                numberRicalListInfo.add(ricalInfo);
                 numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
                 BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
             } else {//购物车是空的
@@ -257,9 +271,13 @@ public class WebViewActivity extends BaseActivity {
                 NumberRicalInfo.RicalInfo ricalInfo = new NumberRicalInfo.RicalInfo();
                 ricalInfo.setNeedsMoney(price);
                 ricalInfo.setId(id);
+                ricalInfo.setImgUrl(imgUrl);
+                ricalInfo.setName(name);
                 ricalInfo.setCount(count);
                 ricalInfo.setSpecId(specId);
+                ricalInfo.setSpecKey(specDesc);
                 numberRicalListInfo.add(ricalInfo);
+                numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
                 BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
             }
         }

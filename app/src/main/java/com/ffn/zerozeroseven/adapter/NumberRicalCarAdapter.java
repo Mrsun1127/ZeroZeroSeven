@@ -32,9 +32,10 @@ public class NumberRicalCarAdapter extends BaseRecyclerAdapter<NumberRicalInfo.R
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberRicalInfo.RicalInfo item, final int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         Glide.with(mContext).load(item.getImgUrl()).into(mHolder.iv_product);
-        mHolder.tv_name.setText(item.getName());
-        mHolder.tv_configureation.setText(item.getConfiguration());
-        mHolder.tv_count.setText(item.getCount());
+        mHolder.tv_name.setText(item.getName()!=null?item.getName():"加载失败");
+        mHolder.tv_configureation.setText(item.getConfiguration()!=null?item.getConfiguration():"加载失败");
+        mHolder.tv_count.setText(String.valueOf(item.getCount()));
+        mHolder.tv_money.setText(String.valueOf(item.getNeedsMoney()));
 
         if (item.isChecked()) {
             mHolder.cb_check.setChecked(true);
