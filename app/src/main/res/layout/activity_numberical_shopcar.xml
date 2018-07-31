@@ -21,6 +21,7 @@
         android:background="@color/white">
 
         <CheckBox
+            android:clickable="false"
             android:id="@+id/cb_all_click"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +36,10 @@
             android:layout_toRightOf="@+id/cb_all_click"
             android:text="全选"
             android:textColor="@color/black" />
-
+        <View
+            android:id="@+id/view_select"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"/>
         <Button
             android:id="@+id/bt_buy"
             android:layout_width="133dp"

@@ -529,6 +529,8 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         if (BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo() != null) {
             if (BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo().size() > 0) {
                 badgeView.setBadgeNumber(BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo().size());
+            }else{
+                badgeView.setBadgeNumber(0);
             }
         }
     }

@@ -72,6 +72,8 @@ public class NumberRicalShopCarActivity extends BaseActivity {
         double a = 0.0;
         if (numberRicalListInfo == null) {
             a = 0.0;
+            bt_buy.setBackgroundColor(getResources().getColor(R.color.numberical_default_bg));
+            bt_buy.setTextColor(getResources().getColor(R.color.numberical_default_text));
         } else {
             if (numberRicalListInfo.size() > 0) {
                 for (int i = 0; i < numberRicalListInfo.size(); i++) {
@@ -93,6 +95,10 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                     bt_buy.setBackgroundColor(getResources().getColor(R.color.numberical_default_bg));
                     bt_buy.setTextColor(getResources().getColor(R.color.numberical_default_text));
                 }
+            }else{
+                a = 0.0;
+                bt_buy.setBackgroundColor(getResources().getColor(R.color.numberical_default_bg));
+                bt_buy.setTextColor(getResources().getColor(R.color.numberical_default_text));
             }
         }
         return a;
@@ -128,13 +134,13 @@ public class NumberRicalShopCarActivity extends BaseActivity {
         carAdapter.setOnItemCloseViewClick(new NumberRicalCarAdapter.OnItemCloseClick() {
             @Override
             public void onClick(View view, int position) {
-                numberRicalListInfo.get(position).setCount(numberRicalListInfo.get(position).getCount() + 1);
-                if (numberRicalListInfo.get(position).getCount() < 2) {
+                if (numberRicalListInfo.get(position).getCount() <= 1) {
                     numberRicalListInfo.remove(position);
                     carAdapter.cleanDates();
                     carAdapter.addAll(numberRicalListInfo);
                     numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
                     BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+                    notifyBottom();
                     return;
                 }
                 numberRicalListInfo.get(position).setCount(numberRicalListInfo.get(position).getCount() - 1);
@@ -160,35 +166,32 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                 notifyBottom();
             }
         });
-        cb_all_click.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        findViewById(R.id.view_select).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            public void onClick(View view) {
                 if (numberRicalListInfo != null) {
                     if (numberRicalListInfo.size() > 0) {
-                        if (b) {
-                            for (int i = 0; i < numberRicalListInfo.size(); i++) {
-                                if (!numberRicalListInfo.get(i).isChecked()) {
-                                    numberRicalListInfo.get(i).setChecked(true);
-                                }
-                                carAdapter.cleanDates();
-                                carAdapter.addAll(numberRicalListInfo);
-                                notifyBottom();
-                            }
+                        if (cb_all_click.isChecked()) {
+                            changeCheck(false);
                         } else {
-                            for (int i = 0; i < numberRicalListInfo.size(); i++) {
-                                if (numberRicalListInfo.get(i).isChecked()) {
-                                    numberRicalListInfo.get(i).setChecked(false);
-                                }
-                                carAdapter.cleanDates();
-                                carAdapter.addAll(numberRicalListInfo);
-                                notifyBottom();
-                            }
+                            changeCheck(true);
                         }
                     }
                 }
             }
         });
     }
+
+    public void changeCheck(boolean a) {
+        for (int i = 0; i < numberRicalListInfo.size(); i++) {
+            numberRicalListInfo.get(i).setChecked(a);
+            carAdapter.cleanDates();
+            carAdapter.addAll(numberRicalListInfo);
+            notifyBottom();
+        }
+    }
+
 
     @Bind(R.id.bt_buy)
     Button bt_buy;
