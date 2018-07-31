@@ -12,8 +12,10 @@ import android.widget.TextView;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
+import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CancelOrderInfo;
 import com.ffn.zerozeroseven.ui.PayMoneyActivity;
+import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
@@ -99,15 +101,37 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                             }
                         });
                     } else if (errCode == 0) {
+                        // 零食购物车 “carpay” 零食直接购买 “zhijie” 数码付尾款 “numberweikuan” 数码购物车 “numbercar” 数码直接预约或者直接购买 “numberzhijie”
                         titleView.setTopText("支付成功");
                         tv_bottom.setText("零零七正带着您的宝贝，火速赶往您身边！");
                         bt_sub.setText("完成");
                         iv_success.setBackgroundResource(R.drawable.success);
-                        CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
-                        carShopInfo.getShopInfos().clear();
-                        BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
-                        SharePrefUtils.saveObject(WXPayEntryActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
-                        PayMoneyActivity.mInstance.get().finish();
+
+                        String pay = BaseAppApplication.clearType;
+                        if("carpay".equals(pay)){
+                            CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                            carShopInfo.getShopInfos().clear();
+                            BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                            SharePrefUtils.saveObject(WXPayEntryActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
+                            PayMoneyActivity.mInstance.get().finish();
+                        }else if ("zhijie".equals(pay)) {
+                            PayMoneyActivity.mInstance.get().finish();
+                        }else if ("numberweikuan".equals(pay)) {
+                            PayMoneyActivity.mInstance.get().finish();
+                        }else if ("numbercar".equals(pay)) {
+                            PayMoneyNewActivity.mInstance.get().finish();
+                            NumberRicalInfo numberRicalInfo = BaseAppApplication.getInstance().getNumberRicalInfo();
+                            for (int i = 0; i < numberRicalInfo.getNumberRicalListInfo().size(); i++) {
+                                if (numberRicalInfo.getNumberRicalListInfo().get(i).isChecked()) {
+                                    numberRicalInfo.getNumberRicalListInfo().remove(i);
+                                }
+                            }
+                            BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+                            SharePrefUtils.saveObject(WXPayEntryActivity.this, "numberRicalInfo", numberRicalInfo);
+                        }else if ("numberzhijie".equals(pay)) {
+                            PayMoneyNewActivity.mInstance.get().finish();
+                        }
+
                     } else {
                         tv_bottom.setText("支付异常，请稍后再试");
                         titleView.setTopText("支付异常");
