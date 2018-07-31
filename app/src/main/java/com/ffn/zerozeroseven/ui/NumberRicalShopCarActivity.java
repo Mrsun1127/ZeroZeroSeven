@@ -19,7 +19,6 @@ import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.TopView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -64,29 +63,39 @@ public class NumberRicalShopCarActivity extends BaseActivity {
 
     }
 
-    private void notifyBottom(int position) {
-        if (numberRicalListInfo.get(position).isChecked()) {
-            tv_money.setText(String.valueOf(ZeroZeroSevenUtils.reactMoney(reactMoney())));
-        }
+    private void notifyBottom() {
+        tv_money.setText(String.valueOf(ZeroZeroSevenUtils.reactMoney(reactMoney())));
     }
 
     private double reactMoney() {
+        boolean b = false;
         double a = 0.0;
         if (numberRicalListInfo == null) {
             a = 0.0;
         } else {
             if (numberRicalListInfo.size() > 0) {
                 for (int i = 0; i < numberRicalListInfo.size(); i++) {
-                    a = a + numberRicalListInfo.get(i).getCount() * numberRicalListInfo.get(i).getNeedsMoney();
+                    if (numberRicalListInfo.get(i).isChecked()) {
+                        a = a + numberRicalListInfo.get(i).getCount() * numberRicalListInfo.get(i).getNeedsMoney();
+                    } else {
+                        b = true;
+                    }
                 }
-                bt_buy.setBackgroundColor(getResources().getColor(R.color.tab_under_line));
-                bt_buy.setTextColor(getResources().getColor(R.color.white));
-                return a;
+                if (b) {
+                    cb_all_click.setChecked(false);
+                } else {
+                    cb_all_click.setChecked(true);
+                }
+                if (a > 0.0) {
+                    bt_buy.setBackgroundColor(getResources().getColor(R.color.tab_under_line));
+                    bt_buy.setTextColor(getResources().getColor(R.color.white));
+                } else {
+                    bt_buy.setBackgroundColor(getResources().getColor(R.color.numberical_default_bg));
+                    bt_buy.setTextColor(getResources().getColor(R.color.numberical_default_text));
+                }
             }
         }
-        bt_buy.setBackgroundColor(getResources().getColor(R.color.numberical_default_bg));
-        bt_buy.setTextColor(getResources().getColor(R.color.numberical_default_text));
-        return 0.0;
+        return a;
     }
 
     @Override
@@ -97,6 +106,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
         if (numberRicalListInfo != null) {
             if (numberRicalListInfo.size() > 0) {
                 carAdapter.addAll(numberRicalListInfo);
+                notifyBottom();
             } else {
                 ToastUtils.showShort("购物车暂无商品");
             }
@@ -112,7 +122,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                 carAdapter.addAll(numberRicalListInfo);
                 numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
                 BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
-                notifyBottom(position);
+                notifyBottom();
             }
         });
         carAdapter.setOnItemCloseViewClick(new NumberRicalCarAdapter.OnItemCloseClick() {
@@ -132,7 +142,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                 carAdapter.addAll(numberRicalListInfo);
                 numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
                 BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
-                notifyBottom(position);
+                notifyBottom();
             }
         });
         carAdapter.setOnItemImgViewClick(new NumberRicalCarAdapter.OnItemImgClick() {
@@ -147,7 +157,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                 carAdapter.addAll(numberRicalListInfo);
                 numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
                 BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
-                notifyBottom(position);
+                notifyBottom();
             }
         });
         cb_all_click.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -162,6 +172,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                                 }
                                 carAdapter.cleanDates();
                                 carAdapter.addAll(numberRicalListInfo);
+                                notifyBottom();
                             }
                         } else {
                             for (int i = 0; i < numberRicalListInfo.size(); i++) {
@@ -170,6 +181,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                                 }
                                 carAdapter.cleanDates();
                                 carAdapter.addAll(numberRicalListInfo);
+                                notifyBottom();
                             }
                         }
                     }
@@ -185,7 +197,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_buy:
-                if ("0.00".equals(tv_money.getText().toString())) {
+                if ("0.0".equals(tv_money.getText().toString())) {
                     return;
                 }
                 Bundle bundle = new Bundle();

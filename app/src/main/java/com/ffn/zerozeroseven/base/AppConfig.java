@@ -16,8 +16,10 @@ public  class AppConfig {
 
     public static final String SHAREURL="http://www.lingling7.com/share/t1.html";
     public static final String PRODUCTSHAREURL="https://www.lingling7.com/lingling7-res/app/productDetails.html?id=";
-    public static final String NUMBERICALURL="https://www.lingling7.com/lingling7-res/app/digital/digitalInformation.html?type=app&id=";
-    public static final String NUMBERICALSHAREURL="https://www.lingling7.com/lingling7-res/app/digital/digitalInformation.html?id=";
+//    public static final String NUMBERICALURL="https://www.lingling7.com/lingling7-res/app/digital/digitalInformation.html?type=app&id=";
+    public static final String NUMBERICALURL="http://192.168.0.199/lingling7-res/appHtml/digitalInformation.html?type=app&id=";
+//    public static final String NUMBERICALSHAREURL="https://www.lingling7.com/lingling7-res/app/digital/digitalInformation.html?id=";
+    public static final String NUMBERICALSHAREURL="http://192.168.0.199/lingling7-res/appHtml/digitalInformation.html?id=";
     //logo链接
     public static final String LOGOURL="http://a1.qpic.cn/psb?/V11aBxEr3o07IR/aPTWUpzy03lS2WgXGXHDY6eDqhjVcIY*w8Azpuz32ts!/m/dEQBAAAAAAAAnull&bo=bABsAAAAAAADByI!&rf=photolist&t=5";
 

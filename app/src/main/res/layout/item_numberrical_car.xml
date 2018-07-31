@@ -21,8 +21,7 @@
             android:layout_height="71dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/cb_check"
-            android:background="@drawable/willdelete" />
+            android:layout_toRightOf="@+id/cb_check" />
 
         <TextView
             android:id="@+id/tv_name"

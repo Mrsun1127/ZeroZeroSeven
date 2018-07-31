@@ -3,6 +3,7 @@ package com.ffn.zerozeroseven.ui;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -262,7 +263,7 @@ public class WebViewActivity extends BaseActivity {
                 ricalInfo.setName(name);
                 ricalInfo.setCount(count);
                 ricalInfo.setSpecId(specId);
-                ricalInfo.setSpecKey(specDesc);
+                ricalInfo.setConfiguration(specDesc);
                 numberRicalListInfo.add(ricalInfo);
                 numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
                 BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
@@ -275,7 +276,7 @@ public class WebViewActivity extends BaseActivity {
                 ricalInfo.setName(name);
                 ricalInfo.setCount(count);
                 ricalInfo.setSpecId(specId);
-                ricalInfo.setSpecKey(specDesc);
+                ricalInfo.setConfiguration(specDesc);
                 numberRicalListInfo.add(ricalInfo);
                 numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
                 BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
@@ -309,6 +310,31 @@ public class WebViewActivity extends BaseActivity {
         @JavascriptInterface
         public void webToNumberRicalShopCar() {
             ZeroZeroSevenUtils.SwitchActivity(WebViewActivity.this, NumberRicalShopCarActivity.class);
+        }
+        /**
+         * @param type     购买类型 0 预约上门 1 立即购买
+         * @param id       商品Id
+         * @param specId   规格Id
+         * @param count    商品数量
+         * @param price    商品价格
+         * @param name     商品名称
+         * @param imgUrl   商品图片地址
+         * @param specDesc 商品规格描述
+         */
+        @JavascriptInterface
+        public void webToNumberRicalCommit(int type, int id, int specId, int count, double price, String name, String imgUrl, String specDesc) {
+            NumberRicalInfo.RicalInfo ricalInfo = new NumberRicalInfo.RicalInfo();
+            ricalInfo.setId(id);
+            ricalInfo.setSpecId(specId);
+            ricalInfo.setCount(count);
+            ricalInfo.setNeedsMoney(price);
+            ricalInfo.setName(name);
+            ricalInfo.setImgUrl(imgUrl);
+            ricalInfo.setConfiguration(specDesc);
+            ricalInfo.setType(type);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("ricalInfo", ricalInfo);
+            ZeroZeroSevenUtils.SwitchActivity(WebViewActivity.this, NumberRicalCommitDingDanActivity.class, bundle);
         }
     }
 

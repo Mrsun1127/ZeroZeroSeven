@@ -44,17 +44,15 @@ import okhttp3.Response;
  */
 
 public class PayMoneyNewActivity extends BaseActivity implements View.OnClickListener {
-    private CarShopInfo carShopInfo;
     private TextView tv_money;
     private LinearLayout ll_all;
-    private String dormId;
     ZFBPayUtil mZFbutils;
     public static WeakReference<PayMoneyNewActivity> mInstance;
-    private String payType;
     private boolean isPaySupported;//判断是否支持微信支付
     private static IWXAPI api;
     private ShouHuoInfo.DataBean.AddressesBean addressesBean;
     private NumberRicalInfo numberRicalInfo;
+    private NumberRicalInfo.RicalInfo ricalInfo;
 
     @Override
     protected int setLayout() {
@@ -70,10 +68,9 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
         mZFbutils = new ZFBPayUtil(this);
         numberRicalInfo = BaseAppApplication.getInstance().getNumberRicalInfo();
         addressesBean = (ShouHuoInfo.DataBean.AddressesBean) getIntent().getSerializableExtra("adrInfo");
-        double allMoney = getIntent().getDoubleExtra("allMoney", 0);
-        payType = getIntent().getStringExtra("pay");
-        dormId = getIntent().getStringExtra("dormId");
+        ricalInfo = (NumberRicalInfo.RicalInfo) getIntent().getSerializableExtra("ricalInfo");
         tv_money.setText("支付金额：" + getIntent().getStringExtra("money") + "RMB");
+
     }
 
     @Override
@@ -135,7 +132,15 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
         numberCommiDingDanInfo.setFunctionName("AddDigitalGoodsOrder");
         NumberCommiDingDanInfo.ParametersBean parametersBean = new NumberCommiDingDanInfo.ParametersBean();
         parametersBean.setPayment(str);
-        parametersBean.setPayType("FULL");
+        if(ricalInfo!=null){
+            if(ricalInfo.getType()==0){
+                parametersBean.setPayType("DEPOSIT");
+            }else{
+                parametersBean.setPayType("FULL");
+            }
+        }else{
+            parametersBean.setPayType("FULL");
+        }
         parametersBean.setUserId(Integer.parseInt(userId));
         NumberOrderJsonInfo orderJsonInfo = new NumberOrderJsonInfo();
         orderJsonInfo.setReceiver_address(addressesBean.getContactSchool() + addressesBean.getContactBuilding() + addressesBean.getContactDorm());

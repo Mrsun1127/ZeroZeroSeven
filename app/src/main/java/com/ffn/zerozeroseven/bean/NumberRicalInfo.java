@@ -27,7 +27,7 @@ public class NumberRicalInfo implements Serializable {
         }
 
         private int specId;
-        private int type;//1 电脑  2 手机  3 其他
+        private int type;
         private String imgUrl;//图片路径1
         private String name;//名字
         private boolean subScribe;//是否预约
@@ -35,7 +35,6 @@ public class NumberRicalInfo implements Serializable {
         private boolean isChecked;//是否选中
         private Double needsMoney;//需要人民币
         private String configuration;
-
         public String getSpecKey() {
             return specKey;
         }

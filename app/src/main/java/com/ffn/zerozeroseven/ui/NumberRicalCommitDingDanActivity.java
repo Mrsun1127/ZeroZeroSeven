@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.ShouHuoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AllAdrInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
@@ -29,6 +30,7 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
     TextView tv_getadr;
     private ShouHuoInfo shouHuoInfo;
     private int position=0;
+    private NumberRicalInfo.RicalInfo ricalInfo;
 
     @Override
     protected int setLayout() {
@@ -54,7 +56,9 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
+        tv_paymoney.setText(getIntent().getStringExtra("money"));
         initAdr(0);
+        ricalInfo = (NumberRicalInfo.RicalInfo) getIntent().getSerializableExtra("ricalInfo");
     }
 
     @Bind(R.id.tv_paymoney)
@@ -105,6 +109,7 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("adrInfo",shouHuoInfo.getData().getAddresses().get(position));
                 bundle.putString("money",getIntent().getStringExtra("money"));
+                bundle.putSerializable("ricalInfo",ricalInfo);
                 ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this,PayMoneyNewActivity.class,bundle);
                 break;
             case R.id.rl_select_adr:
