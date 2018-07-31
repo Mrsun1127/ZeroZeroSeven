@@ -10,8 +10,10 @@ import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.CommitDingDanInfo;
+import com.ffn.zerozeroseven.bean.NumberAliPayInfo;
 import com.ffn.zerozeroseven.bean.NumberCommiDingDanInfo;
 import com.ffn.zerozeroseven.bean.NumberOrderJsonInfo;
+import com.ffn.zerozeroseven.bean.NumberPayInfo;
 import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.ShouHuoInfo;
 import com.ffn.zerozeroseven.bean.WeChatInfo;
@@ -171,9 +173,27 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
             public void onSuccLoad(String response) {
                 BaseAppApplication.clearType = getIntent().getStringExtra("pay");
                 if (str.equals("AliPay")) {
-
+                    NumberAliPayInfo aliPayInfo = JSON.parseObject(response, NumberAliPayInfo.class);
+                    if (aliPayInfo.getCode() == 0) {
+                        mZFbutils.pay(aliPayInfo.getData().getBody(), "支付尾款");
+                    } else {
+                        ZeroZeroSevenUtils.showCustonPop(PayMoneyNewActivity.this, aliPayInfo.getMessage(), ll_all);
+                    }
                 } else {
-
+                    NumberPayInfo numberPayInfo = JSON.parseObject(response, NumberPayInfo.class);
+                    if (numberPayInfo.getCode() == 0) {
+                        PayReq req = new PayReq();
+                        req.appId = numberPayInfo.getData().getAppid();
+                        req.partnerId = numberPayInfo.getData().getPartnerid();
+                        req.prepayId = numberPayInfo.getData().getPrepayid();
+                        req.nonceStr = numberPayInfo.getData().getNoncestr();
+                        req.timeStamp = numberPayInfo.getData().getTimestamp();
+                        req.packageValue = "Sign=WXPay";
+                        req.sign = numberPayInfo.getData().getSign();
+                        api.sendReq(req);
+                    } else {
+                        ZeroZeroSevenUtils.showCustonPop(PayMoneyNewActivity.this, numberPayInfo.getMessage(), ll_all);
+                    }
                 }
             }
         });
