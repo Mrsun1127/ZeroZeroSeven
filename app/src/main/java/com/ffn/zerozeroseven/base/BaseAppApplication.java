@@ -45,7 +45,7 @@ public class BaseAppApplication extends MultiDexApplication {
     private static CarShopInfo carShopInfo = new CarShopInfo();
     private static NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
     //判断是否被回收
-
+    public static String clearType;
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {

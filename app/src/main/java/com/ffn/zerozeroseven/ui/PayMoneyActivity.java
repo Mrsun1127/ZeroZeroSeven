@@ -85,7 +85,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
                     finish();
                 }
                 tv_money.setText("支付金额：" + allMoney + "RMB");
-            } else {
+            } else if ("zhijie".equals(payType)) {
                 MobclickAgent.onEvent(this, "立即购买");
                 carShopInfo = (CarShopInfo) SharePrefUtils.readObject(PayMoneyActivity.this, "zhijiecarShopInfo");
                 if (carShopInfo == null) {
@@ -152,12 +152,11 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
 
 
     private void PayMoney(final String str) {
-        if(!TextUtils.isEmpty(orderNO)){
+        if (!TextUtils.isEmpty(orderNO)) {
             NumberWeiKuanPay(str);
-        }else{
+        } else {
             lingshiBuy(str);
         }
-
 
 
     }
@@ -171,13 +170,14 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         parametersBean.setPayment(str);
         numberWeiKuanInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(PayMoneyActivity.this);
-        okGoUtils.httpPostJSON(numberWeiKuanInfo,true,true);
+        okGoUtils.httpPostJSON(numberWeiKuanInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                if(str.equals("WechatPay")){
-                    NumberPayInfo numberPayInfo = JSON.parseObject(response,NumberPayInfo.class);
-                    if(numberPayInfo.getCode()==0){
+                BaseAppApplication.clearType = getIntent().getStringExtra("pay");
+                if (str.equals("WechatPay")) {
+                    NumberPayInfo numberPayInfo = JSON.parseObject(response, NumberPayInfo.class);
+                    if (numberPayInfo.getCode() == 0) {
                         PayReq req = new PayReq();
                         req.appId = numberPayInfo.getData().getAppid();
                         req.partnerId = numberPayInfo.getData().getPartnerid();
@@ -187,14 +187,14 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
                         req.packageValue = "Sign=WXPay";
                         req.sign = numberPayInfo.getData().getSign();
                         api.sendReq(req);
-                    }else{
+                    } else {
                         ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, numberPayInfo.getMessage(), ll_all);
                     }
-                }else{
-                    NumberAliPayInfo aliPayInfo = JSON.parseObject(response,NumberAliPayInfo.class);
-                    if(aliPayInfo.getCode()==0){
+                } else {
+                    NumberAliPayInfo aliPayInfo = JSON.parseObject(response, NumberAliPayInfo.class);
+                    if (aliPayInfo.getCode() == 0) {
                         mZFbutils.pay(aliPayInfo.getData().getBody(), "支付尾款");
-                    }else{
+                    } else {
                         ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, aliPayInfo.getMessage(), ll_all);
                     }
                 }
@@ -253,7 +253,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {
-
+                BaseAppApplication.clearType = getIntent().getStringExtra("pay");
                 if (str.equals("AliPay")) {//支付宝支付
                     final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response, CommitDingDanInfo.class);
                     if (commitDingDanInfo.getCode() == 0) {

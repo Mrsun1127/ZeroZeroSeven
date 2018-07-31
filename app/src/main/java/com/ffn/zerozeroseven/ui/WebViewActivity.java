@@ -334,6 +334,7 @@ public class WebViewActivity extends BaseActivity {
             ricalInfo.setType(type);
             Bundle bundle = new Bundle();
             bundle.putSerializable("ricalInfo", ricalInfo);
+            bundle.putString("pay","numberzhijie");
             ZeroZeroSevenUtils.SwitchActivity(WebViewActivity.this, NumberRicalCommitDingDanActivity.class, bundle);
         }
     }

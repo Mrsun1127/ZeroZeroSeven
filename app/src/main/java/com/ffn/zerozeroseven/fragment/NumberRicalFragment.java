@@ -92,6 +92,7 @@ public class NumberRicalFragment extends BaseReFreshFragment {
     private void gotoPayWeiKuan(int position) {
         Bundle bundle = new Bundle();
         bundle.putString("parentOrderNo", adapter.getItem(position).getOrderNo());
+        bundle.putString("pay","numberweikuan");
         ZeroZeroSevenUtils.SwitchActivity(bfCxt, PayMoneyActivity.class, bundle);
     }
 

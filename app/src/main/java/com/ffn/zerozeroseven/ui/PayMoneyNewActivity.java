@@ -169,6 +169,7 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
+                BaseAppApplication.clearType = getIntent().getStringExtra("pay");
                 if (str.equals("AliPay")) {
 
                 } else {

@@ -205,6 +205,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                 }
                 Bundle bundle = new Bundle();
                 bundle.putString("money", tv_money.getText().toString());
+                bundle.putString("pay", "numbercar");
                 ZeroZeroSevenUtils.SwitchActivity(NumberRicalShopCarActivity.this, NumberRicalCommitDingDanActivity.class, bundle);
                 break;
 

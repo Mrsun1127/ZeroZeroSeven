@@ -11,9 +11,11 @@ import android.widget.Toast;
 import com.alipay.sdk.app.PayTask;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
+import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CancelOrderInfo;
 import com.ffn.zerozeroseven.ui.CommitSuccessActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyActivity;
+import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
 
 public class ZFBPayUtil {
     private Context mContext;
@@ -49,15 +51,32 @@ public class ZFBPayUtil {
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        if ("支付零食".equals(type)) {
+                        // 零食购物车 “carpay” 零食直接购买 “zhijie” 数码付尾款 “numberweikuan” 数码购物车 “numbercar” 数码直接预约或者直接购买 “numberzhijie”
+                        String pay = BaseAppApplication.clearType;
+                        if ("carpay".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
                             CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                             carShopInfo.getShopInfos().clear();
                             BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                             SharePrefUtils.saveObject(mContext, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
-                            ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class);
+                        } else if ("numbercar".equals(pay)) {
+                            PayMoneyNewActivity.mInstance.get().finish();
+                            NumberRicalInfo numberRicalInfo = BaseAppApplication.getInstance().getNumberRicalInfo();
+                            for (int i = 0; i < numberRicalInfo.getNumberRicalListInfo().size(); i++) {
+                                if (numberRicalInfo.getNumberRicalListInfo().get(i).isChecked()) {
+                                    numberRicalInfo.getNumberRicalListInfo().remove(i);
+                                }
+                            }
+                            BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+                            SharePrefUtils.saveObject(mContext, "numberRicalInfo", numberRicalInfo);
+                        } else if ("zhijie".equals(pay)) {
+                            PayMoneyActivity.mInstance.get().finish();
+                        } else if ("numberweikuan".equals(pay)) {
+                            PayMoneyActivity.mInstance.get().finish();
+                        } else if ("numberzhijie".equals(pay)) {
+                            PayMoneyNewActivity.mInstance.get().finish();
                         }
-
+                        ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class);
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
                         // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）

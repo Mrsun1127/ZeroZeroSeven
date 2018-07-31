@@ -115,6 +115,7 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("adrInfo", shouHuoInfo.getData().getAddresses().get(position));
                 bundle.putString("money", tv_paymoney.getText().toString());
+                bundle.putString("pay", getIntent().getStringExtra("pay"));
                 bundle.putSerializable("ricalInfo", ricalInfo);
                 ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this, PayMoneyNewActivity.class, bundle);
                 break;
