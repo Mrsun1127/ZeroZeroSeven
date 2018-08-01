@@ -1,12 +1,15 @@
 package com.ffn.zerozeroseven.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
  * Created by GT on 2017/12/5.
  */
 
-public class CommitDingDanInfo implements Serializable {
+public class CommitDingDanInfo implements Parcelable {
     /**
      * code : 0
      * data : {"orderNo":"151315784887716","payment":"AliPay","body":"alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2017120700422311&biz_content=%7B%22body%22%3A%22%E9%9B%B6%E9%9B%B67%E5%95%86%E5%93%81%22%2C%22out_trade_no%22%3A%22151315784887716%22%2C%22passback_params%22%3A%22%7B%5C%22orderType%5C%22%3A%5C%22GOODS%5C%22%7D%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22quit_url%22%3A%22%22%2C%22subject%22%3A%22%E9%9B%B6%E9%9B%B67%E5%95%86%E5%93%81%22%2C%22timeout_express%22%3A%2215d%22%2C%22total_amount%22%3A%220.01%22%7D&charset=UTF-8&format=json&method=alipay.trade.app.pay&notify_url=http%3A%2F%2F218.76.7.150%3A8080%2Fxz-007-server%2Fcallback%2Falipay&sign=GsrtpRZK0GkRmkc%2Bhc4JxtaXLr4AzqOemDTsz8W9wCf%2Fw%2BfXHneQ%2BNigxGKGfg9p2mnWj11dnZ8vpfbkYGjqJQYxBGKbn%2B0%2Bm16vWld%2F7UxuIBA6W8X9nPAQMkFeTXZNLoWOqfwDLM%2BJqSk3TBP8zD0GkiPIOlMe%2Fc5%2Bp4pHrYGEvHtuLkDbFGRXZDtTvR3QRqGxVqFKb5BWeGOVC8d8e%2F1DOput%2FXNjx0Vx%2FchJDkjsaq6K7ZOcBiSn6dEZAqpJr49ifzmiGshJ6GlowNKoMQN4IU873N13eXNAGMCeXJzn83GON3B6mvEZ20%2Bza5w7jgVxtbS7sIBwDZl36efXAQ%3D%3D&sign_type=RSA2&timestamp=2017-12-13+17%3A37%3A28&version=1.0"}
@@ -16,6 +19,26 @@ public class CommitDingDanInfo implements Serializable {
     private int code;
     private DataBean data;
     private String message;
+
+    protected CommitDingDanInfo(Parcel in) {
+        code = in.readInt();
+        message = in.readString();
+    }
+
+    public static final Creator<CommitDingDanInfo> CREATOR = new Creator<CommitDingDanInfo>() {
+        @Override
+        public CommitDingDanInfo createFromParcel(Parcel in) {
+            return new CommitDingDanInfo(in);
+        }
+
+        @Override
+        public CommitDingDanInfo[] newArray(int size) {
+            return new CommitDingDanInfo[size];
+        }
+    };
+
+    public CommitDingDanInfo() {
+    }
 
     public int getCode() {
         return code;
@@ -41,7 +64,18 @@ public class CommitDingDanInfo implements Serializable {
         this.message = message;
     }
 
-    public static class DataBean {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(code);
+        parcel.writeString(message);
+    }
+
+    public static class DataBean implements Parcelable{
         /**
          * orderNo : 151315784887716
          * payment : AliPay
@@ -51,6 +85,27 @@ public class CommitDingDanInfo implements Serializable {
         private String orderNo;
         private String payment;
         private String body;
+
+        protected DataBean(Parcel in) {
+            orderNo = in.readString();
+            payment = in.readString();
+            body = in.readString();
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
+
+        public DataBean() {
+        }
 
         public String getOrderNo() {
             return orderNo;
@@ -74,6 +129,18 @@ public class CommitDingDanInfo implements Serializable {
 
         public void setBody(String body) {
             this.body = body;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeString(orderNo);
+            parcel.writeString(payment);
+            parcel.writeString(body);
         }
     }
 }

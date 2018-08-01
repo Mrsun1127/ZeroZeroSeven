@@ -9,6 +9,7 @@ import android.os.Parcelable;
  */
 
 public class FindSchoolInfo implements Parcelable {
+
     /**
      * code : 0
      * data : {"isRecommend":0,"province":"110000","city":"430100","name":"湖南信息职业技术学院","fullName":"湖南信息职业技术学院","id":1756}
@@ -83,6 +84,7 @@ public class FindSchoolInfo implements Parcelable {
          * fullName : 湖南信息职业技术学院
          * id : 1756
          */
+
 
         private String isRecommend;
         private String province;

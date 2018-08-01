@@ -1,5 +1,8 @@
 package com.ffn.zerozeroseven.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,7 +10,7 @@ import java.util.List;
  * Created by GT on 2017/12/6.
  */
 
-public class DingDanDetlsInfo implements Serializable {
+public class DingDanDetlsInfo implements Parcelable {
     /**
      * code : 0
      * data : {"courier":{"city":"430100","courierName":"陈魄","courierNo":"007152030716212806","createTime":"2018-03-06 11:32:42","id":23,"idCard":"431102199501166371","phone":"15616460898","province":"430000","schoolId":1719,"status":2},"order":{"createTime":"2018-03-10 13:01:58","details":[{"goodsCount":1,"goodsId":45,"goodsImage":"http://www.lingling7.com/lingling7-res/image/20180306/1520311575405.jpg","goodsName":"任性王子大辣片","goodsPrice":5,"goodsType":"03"}],"extraPrice":0,"id":102,"orderNo":"152065811068148","receiverAddress":"湖南农业大学芷兰12栋666","receiverName":"网友","receiverPhone":"888","status":1,"storeId":14,"storeName":"湖南农业大学","totalCount":1,"totalPrice":5,"updateTime":"2018-03-10 13:01:58","userId":90}}
@@ -17,6 +20,26 @@ public class DingDanDetlsInfo implements Serializable {
     private int code;
     private DataBean data;
     private String message;
+
+    protected DingDanDetlsInfo(Parcel in) {
+        code = in.readInt();
+        message = in.readString();
+    }
+
+    public static final Creator<DingDanDetlsInfo> CREATOR = new Creator<DingDanDetlsInfo>() {
+        @Override
+        public DingDanDetlsInfo createFromParcel(Parcel in) {
+            return new DingDanDetlsInfo(in);
+        }
+
+        @Override
+        public DingDanDetlsInfo[] newArray(int size) {
+            return new DingDanDetlsInfo[size];
+        }
+    };
+
+    public DingDanDetlsInfo() {
+    }
 
     public int getCode() {
         return code;
@@ -42,7 +65,18 @@ public class DingDanDetlsInfo implements Serializable {
         this.message = message;
     }
 
-    public static class DataBean implements Serializable{
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(code);
+        parcel.writeString(message);
+    }
+
+    public static class DataBean implements Parcelable{
         /**
          * courier : {"city":"430100","courierName":"陈魄","courierNo":"007152030716212806","createTime":"2018-03-06 11:32:42","id":23,"idCard":"431102199501166371","phone":"15616460898","province":"430000","schoolId":1719,"status":2}
          * order : {"createTime":"2018-03-10 13:01:58","details":[{"goodsCount":1,"goodsId":45,"goodsImage":"http://www.lingling7.com/lingling7-res/image/20180306/1520311575405.jpg","goodsName":"任性王子大辣片","goodsPrice":5,"goodsType":"03"}],"extraPrice":0,"id":102,"orderNo":"152065811068148","receiverAddress":"湖南农业大学芷兰12栋666","receiverName":"网友","receiverPhone":"888","status":1,"storeId":14,"storeName":"湖南农业大学","totalCount":1,"totalPrice":5,"updateTime":"2018-03-10 13:01:58","userId":90}
@@ -50,6 +84,24 @@ public class DingDanDetlsInfo implements Serializable {
 
         private CourierBean courier;
         private OrderBean order;
+
+        protected DataBean(Parcel in) {
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
+
+        public DataBean() {
+        }
 
         public CourierBean getCourier() {
             return courier;
@@ -67,7 +119,16 @@ public class DingDanDetlsInfo implements Serializable {
             this.order = order;
         }
 
-        public static class CourierBean {
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+        }
+
+        public static class CourierBean implements Parcelable{
             /**
              * city : 430100
              * courierName : 陈魄
@@ -91,6 +152,34 @@ public class DingDanDetlsInfo implements Serializable {
             private String province;
             private int schoolId;
             private int status;
+
+            protected CourierBean(Parcel in) {
+                city = in.readString();
+                courierName = in.readString();
+                courierNo = in.readString();
+                createTime = in.readString();
+                id = in.readInt();
+                idCard = in.readString();
+                phone = in.readString();
+                province = in.readString();
+                schoolId = in.readInt();
+                status = in.readInt();
+            }
+
+            public static final Creator<CourierBean> CREATOR = new Creator<CourierBean>() {
+                @Override
+                public CourierBean createFromParcel(Parcel in) {
+                    return new CourierBean(in);
+                }
+
+                @Override
+                public CourierBean[] newArray(int size) {
+                    return new CourierBean[size];
+                }
+            };
+
+            public CourierBean() {
+            }
 
             public String getCity() {
                 return city;
@@ -171,9 +260,28 @@ public class DingDanDetlsInfo implements Serializable {
             public void setStatus(int status) {
                 this.status = status;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel parcel, int i) {
+                parcel.writeString(city);
+                parcel.writeString(courierName);
+                parcel.writeString(courierNo);
+                parcel.writeString(createTime);
+                parcel.writeInt(id);
+                parcel.writeString(idCard);
+                parcel.writeString(phone);
+                parcel.writeString(province);
+                parcel.writeInt(schoolId);
+                parcel.writeInt(status);
+            }
         }
 
-        public static class OrderBean implements Serializable{
+        public static class OrderBean implements Parcelable{
             /**
              * createTime : 2018-03-10 13:01:58
              * details : [{"goodsCount":1,"goodsId":45,"goodsImage":"http://www.lingling7.com/lingling7-res/image/20180306/1520311575405.jpg","goodsName":"任性王子大辣片","goodsPrice":5,"goodsType":"03"}]
@@ -208,6 +316,47 @@ public class DingDanDetlsInfo implements Serializable {
             private int userId;
             private List<DetailsBean> details;
             private String remark;
+
+            protected OrderBean(Parcel in) {
+                createTime = in.readString();
+                if (in.readByte() == 0) {
+                    extraPrice = null;
+                } else {
+                    extraPrice = in.readDouble();
+                }
+                id = in.readInt();
+                orderNo = in.readString();
+                receiverAddress = in.readString();
+                receiverName = in.readString();
+                receiverPhone = in.readString();
+                status = in.readInt();
+                storeId = in.readInt();
+                storeName = in.readString();
+                totalCount = in.readInt();
+                if (in.readByte() == 0) {
+                    totalPrice = null;
+                } else {
+                    totalPrice = in.readDouble();
+                }
+                updateTime = in.readString();
+                userId = in.readInt();
+                remark = in.readString();
+            }
+
+            public static final Creator<OrderBean> CREATOR = new Creator<OrderBean>() {
+                @Override
+                public OrderBean createFromParcel(Parcel in) {
+                    return new OrderBean(in);
+                }
+
+                @Override
+                public OrderBean[] newArray(int size) {
+                    return new OrderBean[size];
+                }
+            };
+
+            public OrderBean() {
+            }
 
             public String getRemark() {
                 return remark;
@@ -335,6 +484,40 @@ public class DingDanDetlsInfo implements Serializable {
 
             public void setDetails(List<DetailsBean> details) {
                 this.details = details;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel parcel, int i) {
+                parcel.writeString(createTime);
+                if (extraPrice == null) {
+                    parcel.writeByte((byte) 0);
+                } else {
+                    parcel.writeByte((byte) 1);
+                    parcel.writeDouble(extraPrice);
+                }
+                parcel.writeInt(id);
+                parcel.writeString(orderNo);
+                parcel.writeString(receiverAddress);
+                parcel.writeString(receiverName);
+                parcel.writeString(receiverPhone);
+                parcel.writeInt(status);
+                parcel.writeInt(storeId);
+                parcel.writeString(storeName);
+                parcel.writeInt(totalCount);
+                if (totalPrice == null) {
+                    parcel.writeByte((byte) 0);
+                } else {
+                    parcel.writeByte((byte) 1);
+                    parcel.writeDouble(totalPrice);
+                }
+                parcel.writeString(updateTime);
+                parcel.writeInt(userId);
+                parcel.writeString(remark);
             }
 
             public static class DetailsBean {
