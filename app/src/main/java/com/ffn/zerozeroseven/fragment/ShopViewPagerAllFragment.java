@@ -275,7 +275,6 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
     }
 
     private void getShangChangInfo() {
-        showLoadProgress();
         final ShangchangInfo shangchangInfo = new ShangchangInfo();
         shangchangInfo.setFunctionName("QuerySchoolStore");
         ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
@@ -288,7 +287,6 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                 commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        disLoadProgress();
                         showErrorLayout(StateLayout.netError);
                     }
                 });
@@ -300,7 +298,6 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                 commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        disLoadProgress();
                         if (shangChangShowInfo.getCode() == 0) {
                             userInfo.setServicePhone(shangChangShowInfo.getData().getServicePhone());
                             BaseAppApplication.getInstance().setLoginUser(userInfo);
