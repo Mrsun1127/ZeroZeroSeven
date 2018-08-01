@@ -99,6 +99,7 @@ import com.yanzhenjie.permission.AndPermission;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -160,6 +161,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
     private String projectUrl;
     private TongzhiInfo tongzhiInfo;
     private AppVersionInfo appVersionInfo;
+    private OkGoUtils okGoUtilspop;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -839,7 +841,6 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
                 tv_school.setText(userInfo.getSchoolName());
             }
         }
-        requestpopularList();
         initHeadView();
         requestBaner();
         requestShop();
@@ -1096,15 +1097,16 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         parametersBean.setPageSize(20);
         parametersBean.setPageIndex(pageNo);
         poppurlarListInfo.setParameters(parametersBean);
-        OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(poppurlarListInfo, true, false);
-        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+        okGoUtilspop = new OkGoUtils(getActivity());
+        okGoUtilspop.httpPostJSON(poppurlarListInfo, true, false);
+        okGoUtilspop.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {
                 userLikeInfo = JSON.parseObject(response, UserLikeInfo.class);
                 try {
                     if (userLikeInfo.getCode() == 0) {
                         if (userLikeInfo.getData().getPosts().size() > 0) {
+                            recyclerView.start();
                             haveData = 2;
                             userLikeAdapter.addAll(userLikeInfo.getData().getPosts());
                         } else {
@@ -1173,12 +1175,13 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
             case R.id.iv_show:
                 if (open) {
                     open = false;
-                    recyclerView.start();
                     Glide.with(bfCxt).load(R.drawable.dmopen).into(iv_show);
                     recyclerView.setVisibility(View.VISIBLE);
+                    requestpopularList();
                 } else {
                     open = true;
                     Glide.with(bfCxt).load(R.drawable.dmooff).into(iv_show);
+                    okGoUtilspop.cancel();
                     recyclerView.stop();
                     recyclerView.setVisibility(View.GONE);
                 }
@@ -1248,14 +1251,14 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
                 if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
                     scrollTextView.startAutoScroll();
                 }
-                if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
-                    recyclerView.start();
-                }
-                if (haveData == 1) {
-
-                    requestpopularList();
-
-                }
+//                if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
+//                    recyclerView.start();
+//                }
+//                if (haveData == 1) {
+//
+//                    requestpopularList();
+//
+//                }
                 requestTime();
                 if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
                     tv_school.setText(userInfo.getSchoolName());

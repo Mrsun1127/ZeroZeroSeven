@@ -78,7 +78,9 @@ public class OkGoUtils {
         });
 
     }
-
+    public void cancel(){
+        call.cancel();
+    }
     public void httpPostJSON(Object obj, boolean isToken, final boolean showLoad) {
         if(showLoad){
             showLoadProgress();
