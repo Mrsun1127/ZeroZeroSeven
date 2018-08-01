@@ -200,7 +200,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_buy:
-                if ("0.0".equals(tv_money.getText().toString())) {
+                if ("0.0".equals(tv_money.getText().toString()) || "0.00".equals(tv_money.getText().toString())) {
                     return;
                 }
                 Bundle bundle = new Bundle();
