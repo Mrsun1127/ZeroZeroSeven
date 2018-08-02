@@ -1,7 +1,6 @@
 package com.ffn.zerozeroseven.base;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.WindowManager;
@@ -9,11 +8,8 @@ import android.view.WindowManager;
 import com.aitangba.swipeback.SwipeBackActivity;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.bean.UserInfo;
-import com.ffn.zerozeroseven.ui.SplashActivity;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
-import com.gyf.barlibrary.ImmersionBar;
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.squareup.leakcanary.RefWatcher;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
