@@ -23,6 +23,7 @@ import com.ffn.zerozeroseven.bean.ShouHuoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AllAdrInfo;
 import com.ffn.zerozeroseven.fragment.ShopViewPagerAllFragment;
 import com.ffn.zerozeroseven.fragment.ShopViewPagerFragment;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -62,6 +63,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
     private CarShopGoodsAdapter adapter;
     private TextView money;
     private EditText et_beizhu;
+    private OkGoUtils okGoUtils;
 
     @Override
     protected int setLayout() {
@@ -300,80 +302,60 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
     }
 
     private void initAdr() {
-        showLoadProgress();
+        okGoUtils = new OkGoUtils(CommitDingDanActivity.this);
         AllAdrInfo allAdrInfo = new AllAdrInfo();
         allAdrInfo.setFunctionName("ListUserAddress");
-        httpPostJSON(allAdrInfo, true);
-        call.enqueue(new Callback() {
+        okGoUtils.httpPostJSON(allAdrInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                disLoadProgress();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                disLoadProgress();
-                shouHuoInfo = JSON.parseObject(response.body().string(), ShouHuoInfo.class);
-                rc_shop.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (shouHuoInfo.getCode() == 0) {
-                            if (shouHuoInfo.getData().getAddresses().size() > 0) {
-
-                                rl_addadr.setVisibility(View.GONE);
-                                rl_selectadr.setVisibility(View.VISIBLE);
-                                tv_location.setText(shouHuoInfo.getData().getAddresses().get(0).getContactSchool() + shouHuoInfo.getData().getAddresses().get(0).getContactBuilding() + shouHuoInfo.getData().getAddresses().get(0).getContactDorm());
-                                tv_username.setText(shouHuoInfo.getData().getAddresses().get(0).getContactName());
-                                tv_phone.setText(shouHuoInfo.getData().getAddresses().get(0).getContactPhone());
-                                dormId = shouHuoInfo.getData().getAddresses().get(0).getContactBuilding();
-                            } else {
-                                rl_addadr.setVisibility(View.VISIBLE);
-                                rl_selectadr.setVisibility(View.GONE);
-                            }
-                        }
+            public void onSuccLoad(String response) {
+                shouHuoInfo = JSON.parseObject(response, ShouHuoInfo.class);
+                if (shouHuoInfo.getCode() == 0) {
+                    if (shouHuoInfo.getData().getAddresses().size() > 0) {
+                        rl_addadr.setVisibility(View.GONE);
+                        rl_selectadr.setVisibility(View.VISIBLE);
+                        tv_location.setText(shouHuoInfo.getData().getAddresses().get(0).getContactSchool() + shouHuoInfo.getData().getAddresses().get(0).getContactBuilding() + shouHuoInfo.getData().getAddresses().get(0).getContactDorm());
+                        tv_username.setText(shouHuoInfo.getData().getAddresses().get(0).getContactName());
+                        tv_phone.setText(shouHuoInfo.getData().getAddresses().get(0).getContactPhone());
+                        dormId = shouHuoInfo.getData().getAddresses().get(0).getContactBuilding();
+                    } else {
+                        rl_addadr.setVisibility(View.VISIBLE);
+                        rl_selectadr.setVisibility(View.GONE);
                     }
-                });
+                }
 
             }
         });
+
     }
 
     private void initAdrone(final int position) {
-        showLoadProgress();
+        OkGoUtils okGoUtils = new OkGoUtils(CommitDingDanActivity.this);
         AllAdrInfo allAdrInfo = new AllAdrInfo();
         allAdrInfo.setFunctionName("ListUserAddress");
-        httpPostJSON(allAdrInfo, true);
-        call.enqueue(new Callback() {
+        okGoUtils.httpPostJSON(allAdrInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                disLoadProgress();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                disLoadProgress();
-                shouHuoInfo = JSON.parseObject(response.body().string(), ShouHuoInfo.class);
+            public void onSuccLoad(String response) {
+                shouHuoInfo = JSON.parseObject(response, ShouHuoInfo.class);
                 if (shouHuoInfo.getCode() == 0) {
-                    rc_shop.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (shouHuoInfo.getData().getAddresses().size() > 0) {
 
-                                rl_addadr.setVisibility(View.GONE);
-                                rl_selectadr.setVisibility(View.VISIBLE);
-                                tv_location.setText(shouHuoInfo.getData().getAddresses().get(position).getContactSchool() + shouHuoInfo.getData().getAddresses().get(position).getContactBuilding() + shouHuoInfo.getData().getAddresses().get(position).getContactDorm());
-                                tv_username.setText(shouHuoInfo.getData().getAddresses().get(position).getContactName());
-                                tv_phone.setText(shouHuoInfo.getData().getAddresses().get(position).getContactPhone());
-                                dormId = shouHuoInfo.getData().getAddresses().get(position).getContactBuilding();
+                    if (shouHuoInfo.getData().getAddresses().size() > 0) {
 
-                            } else {
+                        rl_addadr.setVisibility(View.GONE);
+                        rl_selectadr.setVisibility(View.VISIBLE);
+                        tv_location.setText(shouHuoInfo.getData().getAddresses().get(position).getContactSchool() + shouHuoInfo.getData().getAddresses().get(position).getContactBuilding() + shouHuoInfo.getData().getAddresses().get(position).getContactDorm());
+                        tv_username.setText(shouHuoInfo.getData().getAddresses().get(position).getContactName());
+                        tv_phone.setText(shouHuoInfo.getData().getAddresses().get(position).getContactPhone());
+                        dormId = shouHuoInfo.getData().getAddresses().get(position).getContactBuilding();
 
-                                rl_addadr.setVisibility(View.VISIBLE);
-                                rl_selectadr.setVisibility(View.GONE);
+                    } else {
 
-                            }
-                        }
-                    });
+                        rl_addadr.setVisibility(View.VISIBLE);
+                        rl_selectadr.setVisibility(View.GONE);
+
+                    }
+
                 }
             }
         });

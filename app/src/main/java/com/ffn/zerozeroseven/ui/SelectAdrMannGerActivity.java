@@ -15,6 +15,7 @@ import com.ffn.zerozeroseven.bean.ShouHuoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AllAdrInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DeleteAdrInfo;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.PullSwipeMenuListView;
@@ -46,22 +47,23 @@ public class SelectAdrMannGerActivity extends BaseActivity implements View.OnCli
         msgPullLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent=new Intent();
-                intent.putExtra("position",""+i);
-                setResult(2,intent);
+                Intent intent = new Intent();
+                intent.putExtra("position", "" + i);
+                setResult(2, intent);
                 finish();
             }
         });
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            Intent intent=new Intent();
-            intent.putExtra("position","0");
-            setResult(4,intent);
+            Intent intent = new Intent();
+            intent.putExtra("position", "0");
+            setResult(4, intent);
             finish();
             return false;
-        }else {
+        } else {
             return super.onKeyDown(keyCode, event);
         }
 
@@ -69,39 +71,27 @@ public class SelectAdrMannGerActivity extends BaseActivity implements View.OnCli
 
 
     private void GetAllAdr(final boolean refrsh) {
-        showLoadProgress();
+        OkGoUtils okGoUtils = new OkGoUtils(SelectAdrMannGerActivity.this);
         AllAdrInfo allAdrInfo = new AllAdrInfo();
         allAdrInfo.setFunctionName("ListUserAddress");
-        httpPostJSON(allAdrInfo, true);
-        call.enqueue(new Callback() {
+        okGoUtils.httpPostJSON(allAdrInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                disLoadProgress();
-                shouHuoInfo = JSON.parseObject(response.body().string(), ShouHuoInfo.class);
+            public void onSuccLoad(String response) {
+                shouHuoInfo = JSON.parseObject(response, ShouHuoInfo.class);
                 if (shouHuoInfo.getCode() == 0) {//成功
                     if (shouHuoInfo.getData().getAddresses().size() > 0) {
-                        msgPullLv.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (allAdrAdapter != null) {
-                                    allAdrAdapter.setList(shouHuoInfo.getData().getAddresses());
-                                } else {
-                                    allAdrAdapter = new AllAdrAdapter(shouHuoInfo.getData().getAddresses(), SelectAdrMannGerActivity.this,true);
-                                    msgPullLv.setAdapter(allAdrAdapter);
-                                }
-                            }
-                        });
-
-
+                        if (allAdrAdapter != null) {
+                            allAdrAdapter.setList(shouHuoInfo.getData().getAddresses());
+                        } else {
+                            allAdrAdapter = new AllAdrAdapter(shouHuoInfo.getData().getAddresses(), SelectAdrMannGerActivity.this, true);
+                            msgPullLv.setAdapter(allAdrAdapter);
+                        }
                     }
                 }
             }
         });
+
     }
 
     @Override
@@ -114,9 +104,9 @@ public class SelectAdrMannGerActivity extends BaseActivity implements View.OnCli
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {
             @Override
             public void ivBack() {
-                Intent intent=new Intent();
-                intent.putExtra("position","0");
-                setResult(3,intent);
+                Intent intent = new Intent();
+                intent.putExtra("position", "0");
+                setResult(3, intent);
                 finish();
             }
 
@@ -143,7 +133,6 @@ public class SelectAdrMannGerActivity extends BaseActivity implements View.OnCli
                 break;
         }
     }
-
 
 
     @Override
