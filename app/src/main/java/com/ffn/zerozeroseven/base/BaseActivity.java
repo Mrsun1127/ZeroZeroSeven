@@ -194,7 +194,5 @@ public abstract class BaseActivity extends SwipeBackActivity {
         super.onDestroy();
         BaseAppApplication.getInstance().finishActivity(this);
         ImmersionBar.with(this).destroy();
-        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(this);//1
-        refWatcher.watch(this);
     }
 }

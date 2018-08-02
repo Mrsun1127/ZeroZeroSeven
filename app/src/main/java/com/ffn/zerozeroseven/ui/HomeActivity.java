@@ -280,8 +280,6 @@ public class HomeActivity extends AppCompatActivity {
         SharePrefUtils.saveObject(HomeActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
         SharePrefUtils.saveObject(HomeActivity.this, "numberRicalInfo", BaseAppApplication.getInstance().getNumberRicalInfo());
         BaseAppApplication.getInstance().finishActivity(this);
-        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(this);//1
-        refWatcher.watch(this);
     }
 
     public void openAliveService() {

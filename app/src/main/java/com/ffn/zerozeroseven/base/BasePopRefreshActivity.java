@@ -335,7 +335,7 @@ public abstract class BasePopRefreshActivity extends BaseActivity implements OnR
 
     @Override
     protected void onDestroy() {
-        BaseAppApplication.getInstance().finishActivity(this);
         super.onDestroy();
+        BaseAppApplication.getInstance().finishActivity(this);
     }
 }

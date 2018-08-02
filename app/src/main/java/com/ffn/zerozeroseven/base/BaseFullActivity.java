@@ -184,7 +184,5 @@ public abstract class BaseFullActivity extends SwipeBackActivity {
     protected void onDestroy() {
         super.onDestroy();
         BaseAppApplication.getInstance().finishActivity(this);
-        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(this);//1
-        refWatcher.watch(this);
     }
 }
