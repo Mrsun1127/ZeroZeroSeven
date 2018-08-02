@@ -125,8 +125,6 @@ dependencies {
     api 'com.contrarywind:Android-PickerView:3.2.7'
     //自动滚动的TextView
     api 'com.github.paradoxie:AutoVerticalTextview:0.1'
-    debugApi 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseApi 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //时间选择器
     //    compile 'com.stone.vega.library:VegaLayoutManager:1.0.6'//RecycleView的设置
     //    compile 'com.youth.banner:banner:1.4.10'  //最新版本
