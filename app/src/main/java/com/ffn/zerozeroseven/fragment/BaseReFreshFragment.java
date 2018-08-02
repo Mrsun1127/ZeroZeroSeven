@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.io.IOException;
 
@@ -86,7 +87,8 @@ public abstract class BaseReFreshFragment extends BaseFragment implements OnRefr
         requestData();
         doMain();
     }
-    public void doMain(){
+
+    public void doMain() {
 
     }
 
@@ -145,6 +147,7 @@ public abstract class BaseReFreshFragment extends BaseFragment implements OnRefr
                 break;
         }
     }
+
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         rgRefreshStatus = RgRefreshStatus.REFRESHING;
@@ -156,6 +159,7 @@ public abstract class BaseReFreshFragment extends BaseFragment implements OnRefr
         rgRefreshStatus = RgRefreshStatus.PULL_DOWN;
         requestData();
     }
+
     protected abstract BaseRecyclerAdapter setAdapter();
 
 
@@ -190,7 +194,7 @@ public abstract class BaseReFreshFragment extends BaseFragment implements OnRefr
                     @Override
                     public void run() {
                         disLoadState();
-                        if (setFlag()==0) {
+                        if (setFlag() == 0) {
                             switch (rgRefreshStatus) {
                                 case IDLE:
                                 case REFRESHING:
@@ -220,5 +224,12 @@ public abstract class BaseReFreshFragment extends BaseFragment implements OnRefr
                 });
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(bfCxt);//1
+        refWatcher.watch(this);
     }
 }

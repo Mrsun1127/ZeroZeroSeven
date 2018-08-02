@@ -26,6 +26,7 @@ import com.ffn.zerozeroseven.view.WaitingDialog;
 import com.gyf.barlibrary.ImmersionBar;
 import com.gyf.barlibrary.ImmersionFragment;
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.squareup.leakcanary.RefWatcher;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -145,7 +146,8 @@ public abstract class BaseFragment extends ImmersionFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(bfCxt);//1
+        refWatcher.watch(this);
     }
 
     @Override
@@ -295,5 +297,4 @@ public abstract class BaseFragment extends ImmersionFragment {
 
 
     }
-
 }

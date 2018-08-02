@@ -83,7 +83,7 @@
                             android:layout_below="@+id/iv_one"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
-                            android:text="零食日用"
+                            android:text="零食外卖"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>

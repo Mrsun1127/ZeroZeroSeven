@@ -36,6 +36,7 @@ import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.NXHooldeView;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -276,11 +277,11 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtils.D("logString", "onDestroy");
-        LogUtils.D("carShopInfo", "我在HomeActivity存了购物车");
         SharePrefUtils.saveObject(HomeActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
         SharePrefUtils.saveObject(HomeActivity.this, "numberRicalInfo", BaseAppApplication.getInstance().getNumberRicalInfo());
         BaseAppApplication.getInstance().finishActivity(this);
+        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(this);//1
+        refWatcher.watch(this);
     }
 
     public void openAliveService() {

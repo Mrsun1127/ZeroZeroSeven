@@ -18,6 +18,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.io.IOException;
 
@@ -276,7 +277,9 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
 
     @Override
     protected void onDestroy() {
-        BaseAppApplication.getInstance().finishActivity(this);
         super.onDestroy();
+        BaseAppApplication.getInstance().finishActivity(this);
+        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(this);//1
+        refWatcher.watch(this);
     }
 }

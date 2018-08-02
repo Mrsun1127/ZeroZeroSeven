@@ -9,6 +9,7 @@ import com.aitangba.swipeback.SwipeBackActivity;
 import com.ffn.zerozeroseven.R;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.squareup.leakcanary.RefWatcher;
 
 
 /**
@@ -91,5 +92,7 @@ public abstract class BaseLoginActivity extends SwipeBackActivity {
         super.onDestroy();
         BaseAppApplication.getInstance().finishActivity(this);
         ImmersionBar.with(this).destroy();
+        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(this);//1
+        refWatcher.watch(this);
     }
 }

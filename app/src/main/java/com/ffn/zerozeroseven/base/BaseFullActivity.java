@@ -13,6 +13,7 @@ import com.ffn.zerozeroseven.ui.SplashActivity;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.squareup.leakcanary.RefWatcher;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -181,7 +182,9 @@ public abstract class BaseFullActivity extends SwipeBackActivity {
 
     @Override
     protected void onDestroy() {
-        BaseAppApplication.getInstance().finishActivity(this);
         super.onDestroy();
+        BaseAppApplication.getInstance().finishActivity(this);
+        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(this);//1
+        refWatcher.watch(this);
     }
 }
