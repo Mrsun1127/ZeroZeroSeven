@@ -22,7 +22,6 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.squareup.leakcanary.RefWatcher;
 import com.umeng.commonsdk.UMConfigure;
 
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ import cn.jpush.android.api.JPushInterface;
  */
 
 public class BaseAppApplication extends MultiDexApplication {
-    private RefWatcher refWatcher;
     public static Context context;
     private static BaseAppApplication instance;
     private Stack<Activity> activityList;

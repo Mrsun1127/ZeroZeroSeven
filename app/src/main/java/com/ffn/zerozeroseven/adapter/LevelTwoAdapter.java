@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.NumberLevelInfo;
@@ -36,6 +37,7 @@ public class LevelTwoAdapter extends BaseRecyclerAdapter<NumberLevelInfo.DataBea
         } else {
             mHolder.tv_type.setTextColor(getResource().getColor(R.color.black));
         }
+        Glide.with(mContext).load(item.getImage()).into(mHolder.iv_product);
     }
 
     public void setClickPosition(int i) {

@@ -64,6 +64,15 @@ public class NumberLevelInfo {
              * sortOrder : 0
              * typeId : 2
              */
+            private String image;
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
+            }
 
             private int id;
             private int isHot;

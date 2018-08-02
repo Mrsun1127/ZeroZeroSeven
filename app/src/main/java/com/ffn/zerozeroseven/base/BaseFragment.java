@@ -14,19 +14,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.bean.UserInfo;
-import com.ffn.zerozeroseven.ui.LoginActivity;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
-import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
-import com.ffn.zerozeroseven.utlis.SharePrefUtils;
-import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.WaitingDialog;
 import com.gyf.barlibrary.ImmersionBar;
 import com.gyf.barlibrary.ImmersionFragment;
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.squareup.leakcanary.RefWatcher;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
