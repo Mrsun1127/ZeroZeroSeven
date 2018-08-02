@@ -34,9 +34,9 @@ public abstract class BaseActivity extends SwipeBackActivity {
     private KProgressHUD hud;
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
         savedInstanceState.putSerializable("carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
-        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
