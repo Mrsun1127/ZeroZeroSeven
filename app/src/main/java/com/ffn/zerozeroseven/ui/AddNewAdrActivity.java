@@ -16,6 +16,7 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.requsetbean.AddAdrInfo;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
 import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TitleView;
@@ -106,7 +107,7 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void AddAdr(String adr, String name, String phone, String loudong, String sushe) {
-        showLoadProgress();
+        OkGoUtils okGoUtils = new OkGoUtils(AddNewAdrActivity.this);
         AddAdrInfo addAdrInfo = new AddAdrInfo();
         addAdrInfo.setFunctionName("AddUserAddress");
         AddAdrInfo.ParametersBean parametersBean = new AddAdrInfo.ParametersBean();
@@ -118,29 +119,16 @@ public class AddNewAdrActivity extends BaseActivity implements View.OnClickListe
         parametersBean.setIsDefault(isDefault);
 //        parametersBean.setBuildingId(id);
         addAdrInfo.setParameters(parametersBean);
-        httpPostJSON(addAdrInfo, true);
-        call.enqueue(new Callback() {
+        okGoUtils.httpPostJSON(addAdrInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                disLoadProgress();
-                String code = JsonUtil.getFieldValue(response.body().string(), "code");
+            public void onSuccLoad(String response) {
+                String code = JsonUtil.getFieldValue(response, "code");
                 if ("0".equals(code)) {
                     finish();
                 } else {
-                    et_phone.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtils.showShort("服务器正忙，请稍后再试");
-
-                        }
-                    });
+                    ToastUtils.showShort("服务器正忙，请稍后再试");
                 }
-
             }
         });
     }

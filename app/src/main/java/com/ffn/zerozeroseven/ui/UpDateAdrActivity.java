@@ -12,6 +12,7 @@ import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.requsetbean.UpDateAdrInfo;
 import com.ffn.zerozeroseven.utlis.JsonUtil;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TitleView;
@@ -49,18 +50,18 @@ public class UpDateAdrActivity extends BaseActivity {
         et_phone.setText(getIntent().getStringExtra("phone"));
         et_lou.setText(getIntent().getStringExtra("dong"));
         et_men.setText(getIntent().getStringExtra("men"));
-        upId = getIntent().getIntExtra("id",0);
-        isDefault = getIntent().getIntExtra("isDefault",0);
-        if(isDefault==1){
+        upId = getIntent().getIntExtra("id", 0);
+        isDefault = getIntent().getIntExtra("isDefault", 0);
+        if (isDefault == 1) {
             cb_default.setChecked(true);
-        }else {
+        } else {
             cb_default.setChecked(false);
         }
     }
 
     @Override
     public void initView() {
-        TitleView titleView=findViewById(R.id.titleview);
+        TitleView titleView = findViewById(R.id.titleview);
         titleView.setTopText("修改地址");
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {
             @Override
@@ -93,9 +94,9 @@ public class UpDateAdrActivity extends BaseActivity {
         findViewById(R.id.bt_sub).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ZeroZeroSevenUtils.isMobileNO(et_phone.getText().toString().trim())){
+                if (ZeroZeroSevenUtils.isMobileNO(et_phone.getText().toString().trim())) {
                     saveInfo();
-                }else{
+                } else {
                     ToastUtils.showShort("请输入正确的手机号码");
                 }
             }
@@ -103,10 +104,10 @@ public class UpDateAdrActivity extends BaseActivity {
         cb_default.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    isDefault=1;
-                }else{
-                    isDefault=0;
+                if (b) {
+                    isDefault = 1;
+                } else {
+                    isDefault = 0;
                 }
             }
         });
@@ -114,10 +115,9 @@ public class UpDateAdrActivity extends BaseActivity {
     }
 
     private void saveInfo() {
-        showLoadProgress();
-        UpDateAdrInfo upDateAdrInfo=new UpDateAdrInfo();
+        UpDateAdrInfo upDateAdrInfo = new UpDateAdrInfo();
         upDateAdrInfo.setFunctionName("UpdateUserAddress");
-        UpDateAdrInfo.ParametersBean parametersBean=new UpDateAdrInfo.ParametersBean();
+        UpDateAdrInfo.ParametersBean parametersBean = new UpDateAdrInfo.ParametersBean();
         parametersBean.setId(upId);
         parametersBean.setContactSchool(et_adr.getText().toString().trim());
         parametersBean.setContactName(et_name.getText().toString().trim());
@@ -127,38 +127,30 @@ public class UpDateAdrActivity extends BaseActivity {
         parametersBean.setContactDorm(et_men.getText().toString().trim());
         parametersBean.setIsDefault(isDefault);
         upDateAdrInfo.setParameters(parametersBean);
-        httpPostJSON(upDateAdrInfo,true);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(UpDateAdrActivity.this);
+        okGoUtils.httpPostJSON(upDateAdrInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                disLoadProgress();
-                String code= JsonUtil.getFieldValue(response.body().string(),"code");
-                if("0".equals(code)){
+            public void onSuccLoad(String response) {
+                String code = JsonUtil.getFieldValue(response, "code");
+                if ("0".equals(code)) {
                     finish();
-                }else{
-                    BaseAppApplication.mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtils.showShort("请将信息填写完整");
-                        }
-                    });
+                } else {
+                    ToastUtils.showShort("请将信息填写完整");
                 }
-
             }
         });
+
+
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 0:
-                String lou= data.getStringExtra("loudong");
-                id = data.getIntExtra("id",0);
+                String lou = data.getStringExtra("loudong");
+                id = data.getIntExtra("id", 0);
                 et_lou.setText(lou);
                 break;
             default:
