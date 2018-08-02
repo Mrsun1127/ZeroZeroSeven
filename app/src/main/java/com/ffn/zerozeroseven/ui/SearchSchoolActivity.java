@@ -2,6 +2,7 @@ package com.ffn.zerozeroseven.ui;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -72,7 +73,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
     private SchoolListAdapter schoolListAdapter;
     private LoadingView loadingView;
     public LocationClient mLocationClient = null;
-//    private MyLocationListener myListener = new MyLocationListener();
+    //    private MyLocationListener myListener = new MyLocationListener();
 //    private double latitude;
 //    private double longitude;
 //    private PoiSearch mPoiSearch;
@@ -81,6 +82,8 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
     TextView tv_relocate;
     private List<SchoolListInfo.DataBean.SchoolsBean> schools;
     public static WeakReference<SearchSchoolActivity> inStance;
+    private Spinner spCity;
+    private ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected int setLayout() {
@@ -90,7 +93,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void doMain() {
         MobclickAgent.onEvent(this, "选择学校");
-        inStance=new WeakReference<SearchSchoolActivity>(this);
+        inStance = new WeakReference<SearchSchoolActivity>(this);
         initDate();
     }
 
@@ -114,81 +117,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
 //        doGoLocation();
 
     }
-//    public void doGoLocation(){
-//        mLocationClient = new LocationClient(BaseAppApplication.context);
-//        //声明LocationClient类
-//        mLocationClient.registerLocationListener(myListener);
-//        LocationClientOption option = new LocationClientOption();
-//        option.setIsNeedLocationPoiList(true);
-//        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-//        option.setCoorType("bd09ll");
-//        mPoiSearch = PoiSearch.newInstance();
-//        mPoiSearch.setOnGetPoiSearchResultListener(this);
-//        //可选，是否需要周边POI信息，默认为不需要，即参数为false
-//        //如果开发者需要获得周边POI信息，此处必须为true
-//        mLocationClient.setLocOption(option);
-//        mLocationClient.start();
-//    }
-//    @Override
-//    public void onGetPoiResult(final PoiResult poiResult) {
-//        if (poiResult != null) {
-//            if (poiResult.getAllPoi() != null && poiResult.getAllPoi().size() > 0) {
-////                FindSchoolId(poiResult.getAllPoi().get(0).name);
-//                for (int i = 0; i < poiResult.getAllPoi().size(); i++) {
-//                    LogUtils.D("SearCherName",poiResult.getAllPoi().get(i).name+":::"+poiResult.getAllPoi().get(i).describeContents());
-//
-//                }
-//                BaseAppApplication.mainHandler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-////                        waitingDialog1.dismiss();
-//                        tv_name.setText(poiResult.getAllPoi().get(0).name.substring(0,poiResult.getAllPoi().get(0).name.indexOf("学")+1));
-//                    }
-//                });
-//
-//            } else {
-//                BaseAppApplication.mainHandler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        tv_name.setText("请手动定位");
-////                        waitingDialog1.dismiss();
-//                    }
-//                });
-//            }
-//        }
-//    }
 
-//    @Override
-//    public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
-//
-//    }
-//
-//    @Override
-//    public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
-//
-//    }
-//
-//    public class MyLocationListener extends BDAbstractLocationListener {
-//        @Override
-//        public void onReceiveLocation(BDLocation location) {
-//            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
-//            //以下只列举部分获取周边POI信息相关的结果
-//            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
-//            latitude = location.getLatitude();
-//            longitude = location.getLongitude();
-//            searchNeayBy(latitude, longitude);
-//        }
-//    }
-
-//    private void searchNeayBy(double latitude1, double longitude1) {
-////        waitingDialog1.showInfo("正在获取学校定位中...");
-//        PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
-//        nearbySearchOption.location(new LatLng(latitude1, longitude1));
-//        nearbySearchOption.keyword("大学");
-//        nearbySearchOption.radius(3000);
-//        nearbySearchOption.sortType(PoiSortType.distance_from_near_to_far);
-//        mPoiSearch.searchNearby(nearbySearchOption);
-//    }
 
     @Override
     public void onClick(View view) {
@@ -200,7 +129,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                 ZeroZeroSevenUtils.SwitchActivity(SearchSchoolActivity.this, SeachSchoolListActivity.class);
                 break;
             case R.id.tv_relocate:
-                LogUtils.D("SearchSchoolActivity","我走了点击方法");
+                LogUtils.D("SearchSchoolActivity", "我走了点击方法");
 //                doGoLocation();
                 break;
         }
@@ -212,7 +141,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
         et_top = findViewById(R.id.et_top);
         et_top.setOnClickListener(this);
         findViewById(R.id.rl_back).setOnClickListener(this);
-        Spinner spCity = findViewById(R.id.sp_city);
+        spCity = findViewById(R.id.sp_city);
         tv_select_shen = findViewById(R.id.tv_select_shen);
         tv_name = findViewById(R.id.tv_name);
         tv_relocate = findViewById(R.id.tv_relocate);
@@ -242,42 +171,32 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onItemClick(int position, long itemId) {
                 schoolListAdapter.setClickPosition(position);
-                if(schools.size()>0){
+                if (schools.size() > 0) {
                     userInfo.setSchoolName(schoolListAdapter.getItem(position).getName());
-                    userInfo.setLocationSchoolId(schoolListAdapter.getItem(position).getId()+"");
+                    userInfo.setLocationSchoolId(schoolListAdapter.getItem(position).getId() + "");
                     BaseAppApplication.getInstance().setLoginUser(userInfo);
                     tv_name.setText(schoolListAdapter.getItem(position).getName());
-                    SharePrefUtils.saveObject(SearchSchoolActivity.this,"userInfo",userInfo);
-                    SharePrefUtils.setInt(SearchSchoolActivity.this,"isLocation",1);
-                    SharePrefUtils.saveObject(SearchSchoolActivity.this, "carShopInfo",null);
+                    SharePrefUtils.saveObject(SearchSchoolActivity.this, "userInfo", userInfo);
+                    SharePrefUtils.setInt(SearchSchoolActivity.this, "isLocation", 1);
+                    SharePrefUtils.saveObject(SearchSchoolActivity.this, "carShopInfo", null);
                     finish();
                     MainFragment.mInstance.get().reQuest();
                     try {
                         ShopFragment.mInstance.get().initTabs();
-                    }catch (Exception e){
+                    } catch (Exception e) {
 
                     }
                 }
             }
         });
-        jsonInfo = JSON.parseObject(Util.getTextFromAssets(SearchSchoolActivity.this, "cityone.json"), SchoolJsonInfo.class);
-        mItems = new String[jsonInfo.getPlaces().size()];
-        for (int i = 0; i < jsonInfo.getPlaces().size(); i++) {
-            mItems[i] = jsonInfo.getPlaces().get(i).getName();
-        }
+        MyFristTask myFristTask = new MyFristTask();
+        myFristTask.execute("");
+
         // 建立Adapter并且绑定数据源
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mItems);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //绑定 Adapter到控件
-        spCity.setAdapter(adapter);
-//        tv_select_shen.setText(mItems[17]);
-//        List<SchoolJsonInfo.PlacesBean.ChildrenBeanX> children = jsonInfo.getPlaces().get(17).getChildren();
-//        cityAdapter.cleanDates();
-//        cityAdapter.addAll(children);
-//        if (children.size() > 0) {
-//            cityAdapter.setClickPosition(0);
-//            showSchoolList(children.get(0).getId());
-//        }
+        spCity.setAdapter(arrayAdapter);
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -296,11 +215,34 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        spCity.setSelection(17);
-//        cityAdapter.setClickPosition(17);
-//        rl_nodata.setVisibility(View.GONE);
-//        rc_school.setVisibility(View.GONE);
-//        showSchoolList(430100+"");
+
+    }
+
+    private class MyFristTask extends AsyncTask<String, Object, Object> {
+
+        @Override
+        protected Object doInBackground(String... strings) {
+            jsonInfo = JSON.parseObject(Util.getTextFromAssets(BaseAppApplication.context, "cityone.json"), SchoolJsonInfo.class);
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showLoadProgress();
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            disLoadProgress();
+            mItems = new String[jsonInfo.getPlaces().size()];
+            for (int i = 0; i < jsonInfo.getPlaces().size(); i++) {
+                mItems[i] = jsonInfo.getPlaces().get(i).getName();
+            }
+            arrayAdapter.addAll(mItems);
+            spCity.setSelection(17);
+        }
     }
 
     private void showSchoolList(String id) {
@@ -356,7 +298,6 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        myListener=null;
     }
 
     @Override
