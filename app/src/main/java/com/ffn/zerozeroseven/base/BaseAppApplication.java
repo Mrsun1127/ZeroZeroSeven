@@ -170,6 +170,7 @@ public class BaseAppApplication extends MultiDexApplication {
             }
             activityList.clear();
         }
+        System.exit(0);
     }
 
 
@@ -180,9 +181,9 @@ public class BaseAppApplication extends MultiDexApplication {
                     activityList.get(i).finish();
                 }
             }
+            activityList.clear();
         }
-        activityList.clear();
-        System.exit(0);
+//        System.exit(0);
     }
 
     public UserInfo.DataBean getLoginUser() {
