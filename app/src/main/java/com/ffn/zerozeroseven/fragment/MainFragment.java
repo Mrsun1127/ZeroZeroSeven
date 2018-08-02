@@ -932,9 +932,6 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
             @Override
             public void onSuccLoad(String response) {
                 bannerInfo = JSON.parseObject(response, BannerInfo.class);
-                rl_top_bg.post(new Runnable() {
-                    @Override
-                    public void run() {
                         if (bannerInfo.getCode() == 0) {
                             mRefreshLayout.refreshComplete();
                             if (bannerInfo.getData().getList().size() > 0) {
@@ -976,8 +973,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
                         }
                     }
                 });
-            }
-        });
+
 
     }
 
