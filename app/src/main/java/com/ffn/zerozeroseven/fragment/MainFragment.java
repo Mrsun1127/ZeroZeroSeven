@@ -320,9 +320,11 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
 
             @Override
             public void onPageSelected(int position) {
-                Glide.with(bfCxt)
-                        .load(images.get(position))
-                        .into(iv_bg);
+                try {
+                    Glide.with(bfCxt)
+                            .load(images.get(position))
+                            .into(iv_bg);
+                }catch (Exception e){}
             }
 
             @Override
