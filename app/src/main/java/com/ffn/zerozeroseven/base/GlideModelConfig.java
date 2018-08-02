@@ -38,9 +38,6 @@ public class GlideModelConfig implements GlideModule {
         builder.setMemoryCache(new LruResourceCache(memorySize));
         builder.setBitmapPool(new LruBitmapPool(memorySize));
 
-        // 定义图片格式
-        builder.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
-        builder.setDecodeFormat(DecodeFormat.PREFER_RGB_565); // 默认
     }
 
     @Override
