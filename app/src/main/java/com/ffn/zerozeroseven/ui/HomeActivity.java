@@ -124,7 +124,7 @@ public class HomeActivity extends AppCompatActivity {
         initRadio();
         initFragments();
         showFragment(0);
-//        openAliveService();
+        openAliveService();
         txst();
     }
 
@@ -265,17 +265,20 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }, 2000);
         } else {//退出程序
-            Intent intent = new Intent(this, HomeActivity.class);
-            intent.putExtra(HomeActivity.TAG_EXIT, true);
-            startActivity(intent);
-
+            exitApp();
         }
+    }
+
+    public void exitApp() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra(HomeActivity.TAG_EXIT, true);
+        startActivity(intent);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtils.D("logss","onDestroy");
+        LogUtils.D("logss", "onDestroy");
         SharePrefUtils.saveObject(HomeActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
         SharePrefUtils.saveObject(HomeActivity.this, "numberRicalInfo", BaseAppApplication.getInstance().getNumberRicalInfo());
         BaseAppApplication.getInstance().finishActivity(this);
