@@ -49,16 +49,6 @@ public class BaseAppApplication extends MultiDexApplication {
     private static NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
     //判断是否被回收
     public static String clearType;
-    public static RefWatcher getRefWatcher(Context context) {
-        BaseAppApplication leakApplication = (BaseAppApplication) context.getApplicationContext();
-        return leakApplication.refWatcher;
-    }
-    private RefWatcher setupLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return RefWatcher.DISABLED;
-        }
-        return LeakCanary.install(this);
-    }
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
@@ -135,7 +125,6 @@ public class BaseAppApplication extends MultiDexApplication {
         registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());
         //初始化百度地图
         SDKInitializer.initialize(this);
-        refWatcher=setupLeakCanary();
         //初始化极光
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
