@@ -13,6 +13,7 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.LouDongInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AddNewAdrInfo;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TitleView;
 
@@ -83,42 +84,26 @@ public class LouDongActivity extends BaseActivity {
     }
 
     private void requestData() {
-        showLoadProgress();
+        OkGoUtils okGoUtils = new OkGoUtils(LouDongActivity.this);
         AddNewAdrInfo adrInfo = new AddNewAdrInfo();
         adrInfo.setFunctionName("ListSchoolBuilding");
         AddNewAdrInfo.ParametersBean parametersBean = new AddNewAdrInfo.ParametersBean();
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         adrInfo.setParameters(parametersBean);
-        httpPostJSON(adrInfo, true);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                louDongInfo = JSON.parseObject(response.body().string(), LouDongInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        if (louDongInfo.getCode() == 0) {
-                            if (louDongInfo.getData() != null && louDongInfo.getData().getBuildingNames().size() > 0) {
-                                adapter.addAll(louDongInfo.getData().getBuildingNames());
-                            }
-                        } else {
-                            ZeroZeroSevenUtils.showCustonPop(LouDongActivity.this, louDongInfo.getMessage(), rc_lou);
-                        }
-                    }
-                });
-            }
-        });
+       okGoUtils.httpPostJSON(adrInfo,true,true);
+       okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+           @Override
+           public void onSuccLoad(String response) {
+               louDongInfo = JSON.parseObject(response, LouDongInfo.class);
+               if (louDongInfo.getCode() == 0) {
+                   if (louDongInfo.getData() != null && louDongInfo.getData().getBuildingNames().size() > 0) {
+                       adapter.addAll(louDongInfo.getData().getBuildingNames());
+                   }
+               } else {
+                   ZeroZeroSevenUtils.showCustonPop(LouDongActivity.this, louDongInfo.getMessage(), rc_lou);
+               }
+           }
+       });
     }
 
 
