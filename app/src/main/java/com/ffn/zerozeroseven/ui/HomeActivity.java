@@ -268,12 +268,14 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra(HomeActivity.TAG_EXIT, true);
             startActivity(intent);
+
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        LogUtils.D("logss","onDestroy");
         SharePrefUtils.saveObject(HomeActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
         SharePrefUtils.saveObject(HomeActivity.this, "numberRicalInfo", BaseAppApplication.getInstance().getNumberRicalInfo());
         BaseAppApplication.getInstance().finishActivity(this);
