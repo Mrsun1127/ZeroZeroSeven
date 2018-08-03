@@ -8,6 +8,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ExamplePagerAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.fragment.ErrandHelpMineRunFragment;
 import com.ffn.zerozeroseven.fragment.ErrandMineRunFragment;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.view.TopView;
@@ -53,7 +54,7 @@ public class ErrandHomeActivity extends BaseActivity {
             }
         });
         fragmentList.add(ErrandMineRunFragment.newInstance());
-        fragmentList.add(ErrandMineRunFragment.newInstance());
+        fragmentList.add(ErrandHelpMineRunFragment.newInstance());
         ShopViewPagerAdapter shopViewPagerAdapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, mDataList);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(shopViewPagerAdapter);
