@@ -282,7 +282,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                     for (int i = 0; i < list.size(); i++) {
                         if (list.get(i).getGoodsId() == goodsInfo.getId()) {
                             lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() + Integer.parseInt(tv_count.getText().toString()));
-                            SharePrefUtils.saveObject(ShopDetilsActivity.this, "carShopInfo", lastCarShopInfo);
+                            BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
                             ToastUtils.showShort("添加成功");
                             return;
                         }
@@ -297,7 +297,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                     shopInfo.setShopMoney(goodsInfo.getPrice());
                     list.add(shopInfo);
                     lastCarShopInfo.setShopInfos(list);
-                    SharePrefUtils.saveObject(ShopDetilsActivity.this, "carShopInfo", lastCarShopInfo);
+                    BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
                     ToastUtils.showShort("添加成功");
                 } else {//购物车里面的东西是空的
                     List<CarShopInfo.ShopInfo> list = new ArrayList<>();
@@ -312,7 +312,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                     shopInfo.setShopMoney(goodsInfo.getPrice());
                     list.add(shopInfo);
                     carShopInfo.setShopInfos(list);
-                    SharePrefUtils.saveObject(ShopDetilsActivity.this, "carShopInfo", carShopInfo);
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     ToastUtils.showShort("添加成功");
                 }
             } catch (Exception e) {
@@ -328,7 +328,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 shopInfo.setShopMoney(goodsInfo.getPrice());
                 list.add(shopInfo);
                 carShopInfo.setShopInfos(list);
-                SharePrefUtils.saveObject(ShopDetilsActivity.this, "carShopInfo", carShopInfo);
+                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                 ToastUtils.showShort("添加成功");
             }
             isAdd = true;
