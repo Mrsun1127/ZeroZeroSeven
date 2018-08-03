@@ -16,7 +16,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/clv_img"
@@ -24,18 +24,19 @@
                 android:layout_height="37dp"
                 android:layout_marginLeft="10dp" />
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+
 
             <ImageView
-                android:layout_width="200dp"
+                android:id="@+id/iv_audit"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/apply_banner"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp" />
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_verifile"
             android:layout_width="match_parent"
             android:layout_height="47dp"
@@ -101,7 +102,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="2dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -126,8 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
                 android:layout_marginTop="5dp"
-                app:srb_clickable="true"
-                app:srb_minimumStars="1"
+                app:srb_clickable="false"
                 app:srb_starHeight="8dp"
                 app:srb_starPadding="2dp"
                 app:srb_starWidth="8dp" />
@@ -193,7 +193,10 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/numberical_default_bg" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -203,7 +206,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleview"
             android:layout_width="match_parent"

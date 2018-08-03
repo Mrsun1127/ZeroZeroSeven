@@ -1,14 +1,18 @@
 package com.ffn.zerozeroseven.ui;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ExamplePagerAdapter;
+import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.fragment.ErrandMineRunFragment;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,7 +28,7 @@ public class ErrandHomeActivity extends BaseActivity {
     TabLayout tabLayout;
     private static final String[] CHANNELS = new String[]{"我来跑腿", "帮我跑腿"};
     private List<String> mDataList = Arrays.asList(CHANNELS);
-    private ExamplePagerAdapter mExamplePagerAdapter = new ExamplePagerAdapter(mDataList);
+    private List<Fragment> fragmentList = new ArrayList<>();
 
     @Override
     protected int setLayout() {
@@ -48,8 +52,11 @@ public class ErrandHomeActivity extends BaseActivity {
                 finish();
             }
         });
+        fragmentList.add(ErrandMineRunFragment.newInstance());
+        fragmentList.add(ErrandMineRunFragment.newInstance());
+        ShopViewPagerAdapter shopViewPagerAdapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, mDataList);
         viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(mExamplePagerAdapter);
+        viewPager.setAdapter(shopViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
 

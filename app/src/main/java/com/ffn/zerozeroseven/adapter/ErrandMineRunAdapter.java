@@ -22,7 +22,7 @@ public class ErrandMineRunAdapter extends BaseRecyclerAdapter<String> {
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        return new ErrandMineRunAdapter.MViewHolder(mInflater.inflate(R.layout.errand_item_minerun, null));
+        return new ErrandMineRunAdapter.MViewHolder(mInflater.inflate(R.layout.errand_item_minerun, parent, false));
     }
 
 
