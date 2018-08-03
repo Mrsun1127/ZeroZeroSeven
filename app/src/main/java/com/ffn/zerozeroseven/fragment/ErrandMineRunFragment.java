@@ -7,6 +7,8 @@ import android.view.View;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ErrandMineRunAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
+import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class ErrandMineRunFragment extends BaseFragment {
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.iv_audit:
-
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt,ErrandAuitActivity.class);
                 break;
 
         }

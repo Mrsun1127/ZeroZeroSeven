@@ -60,33 +60,33 @@
             android:value="GlideModule" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="KUL2VBxakGB9twyZrUUmBVTMPSOyw1eC"/>
+            android:value="KUL2VBxakGB9twyZrUUmBVTMPSOyw1eC" />
 
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"/>
+            android:process=":remote" />
 
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".ui.MrsunTestActivity">
 
         </activity>
         <activity
             android:name=".ui.SplashActivity"
-            android:theme="@style/SplashTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -100,12 +100,12 @@
         </activity>
 
         <activity
-            android:configChanges="orientation|screenSize"
-            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name=".ui.BindZFbPayActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".ui.LoginActivity"
             android:launchMode="singleInstance"
@@ -124,13 +124,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.HomeActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".ui.SugActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".ui.MyDingDanActivity"
             android:screenOrientation="portrait" />
@@ -182,44 +182,58 @@
             android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".ui.CommitDingDanActivity"
+        <activity
+            android:name=".ui.CommitDingDanActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
-        <activity android:name=".ui.AdrMannGerActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.AddNewAdrActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.PayMoneyActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.PaySuccessActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.SetPassWordActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.UpDateAdrActivity"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.AdrMannGerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.AddNewAdrActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.PayMoneyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.PaySuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.SetPassWordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.UpDateAdrActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.SeachSchoolListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
-        <activity android:name=".ui.SelectAdrMannGerActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.ZhiJieCommitDingDanActivity"
+        <activity
+            android:name=".ui.SelectAdrMannGerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ZhiJieCommitDingDanActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
-        <activity android:name=".ui.KuaiDiYuanRenZhengActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.CourierActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.CommitSuccessActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.LouDongActivity"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.KuaiDiYuanRenZhengActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.CourierActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.CommitSuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.LouDongActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.WelcomeActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.WelcomeActivity"
+            android:screenOrientation="portrait" />
 
 
         <!-- Required SDK核心功能-->
@@ -235,60 +249,103 @@
                 <category android:name="com.ffn.zerozeroseven" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.VipActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.ShouyiActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.SinggerSchoolTalkActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.MrsunWebActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.AdvertisingActivity"
+        <activity
+            android:name=".ui.VipActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ShouyiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.SinggerSchoolTalkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MrsunWebActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.AdvertisingActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.LevelActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.MyBitisActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.BitisDetils"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.LevelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MyBitisActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.BitisDetils"
             android:exported="true"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.WebViewActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.IntegralDrawActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.InteralDetilsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.ProductDetilsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.RencentlyInteralACtivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.MySignGoodActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.BestNewActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.NumberRicalActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.NumberRicalShopCarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.IntegralDrawActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.InteralDetilsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ProductDetilsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.RencentlyInteralACtivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MySignGoodActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.BestNewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.NumberRicalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.NumberRicalShopCarActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
-        <activity android:name=".ui.NumberRicalDetilsActivity" />
-        <activity android:name=".ui.NumberRicalCommitDingDanActivity" />
-        <activity android:name=".ui.NumberDrawBackActivity" />
-        <activity android:name=".ui.UpdatePayPassWordActivity" />
-        <activity android:name=".ui.JumpShopActivity" />
-        <activity android:name=".ui.ReleaseJumpShopActivity" />
-        <activity android:name=".ui.PhotoActivity" />
-        <activity android:name=".ui.AllDingDanActivity" />
-        <activity android:name=".ui.NumberTuiKuanDetilsActivity" />
-        <activity android:name=".ui.PayMoneyNewActivity" />
-        <activity android:name=".ui.ErrandHomeActivity" />
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.NumberRicalDetilsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.NumberRicalCommitDingDanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.NumberDrawBackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.UpdatePayPassWordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.JumpShopActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ReleaseJumpShopActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.PhotoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.AllDingDanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.NumberTuiKuanDetilsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.PayMoneyNewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ErrandHomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ErrandAuitActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
 
         <!-- Required SDK核心功能-->
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
@@ -364,12 +421,12 @@
             android:value="3d153cc9910debf7b76eec10" />
 
 
-        <receiver
-            android:name="com.ffn.zerozeroseven.listenner.TimeRecever">
+        <receiver android:name="com.ffn.zerozeroseven.listenner.TimeRecever">
             <intent-filter>
                 <action android:name="com.mrsun.time.go" />
             </intent-filter>
         </receiver>
+
         <service android:name="com.ffn.zerozeroseven.listenner.TimeCheckService" />
 
         <service
@@ -378,9 +435,9 @@
             android:exported="true" />
         <service
             android:name=".service.RomoteService"
-            android:process=":romoteservice"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true"
+            android:process=":romoteservice" />
     </application>
 
 </manifest>
