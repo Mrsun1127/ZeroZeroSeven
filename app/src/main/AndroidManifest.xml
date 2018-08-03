@@ -282,6 +282,7 @@
         <activity android:name=".ui.AllDingDanActivity" />
         <activity android:name=".ui.NumberTuiKuanDetilsActivity" />
         <activity android:name=".ui.PayMoneyNewActivity" />
+        <activity android:name=".ui.ErrandHomeActivity" />
 
         <!-- Required SDK核心功能-->
         <service

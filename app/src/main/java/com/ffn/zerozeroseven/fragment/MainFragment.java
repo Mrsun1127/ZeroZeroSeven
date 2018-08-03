@@ -71,6 +71,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.SearchSchoolInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.TongZhiShowInfo;
 import com.ffn.zerozeroseven.ui.BitisDetils;
+import com.ffn.zerozeroseven.ui.ErrandHomeActivity;
 import com.ffn.zerozeroseven.ui.HomeActivity;
 import com.ffn.zerozeroseven.ui.IntegralDrawActivity;
 import com.ffn.zerozeroseven.ui.JumpShopActivity;
@@ -324,7 +325,8 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
                     Glide.with(bfCxt)
                             .load(images.get(position))
                             .into(iv_bg);
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
 
             @Override
@@ -934,47 +936,47 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
             @Override
             public void onSuccLoad(String response) {
                 bannerInfo = JSON.parseObject(response, BannerInfo.class);
-                        if (bannerInfo.getCode() == 0) {
-                            mRefreshLayout.refreshComplete();
-                            if (bannerInfo.getData().getList().size() > 0) {
-                                images = new ArrayList<>();
-                                urlList = new ArrayList<>();
-                                titleList = new ArrayList<>();
-                                for (int i = 0; i < bannerInfo.getData().getList().size(); i++) {
-                                    if (bannerInfo.getData().getList().get(i).getType().equals("横幅广告")) {//横幅
-                                        images.add(bannerInfo.getData().getList().get(i).getPicUrl());
-                                        urlList.add(bannerInfo.getData().getList().get(i).getLink());
-                                        titleList.add(bannerInfo.getData().getList().get(i).getTitle());
-                                    } else if (bannerInfo.getData().getList().get(i).getType().equals("下拉广告")) {//下拉
-                                        showTwo = true;
-                                        header.loadImage(bannerInfo.getData().getList().get(i).getPicUrl());
-                                        upUrl = bannerInfo.getData().getList().get(i).getLink();
-                                    } else if (bannerInfo.getData().getList().get(i).getType().equals("启动广告")) {//启动
-                                        userInfo.setDowmPoster(bannerInfo.getData().getList().get(i).getPicUrl());
-                                        SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
-                                    } else if (bannerInfo.getData().getList().get(i).getType().equals("专题广告")) {
-                                        iv_guanggao.setVisibility(View.VISIBLE);
-                                        projectUrl = bannerInfo.getData().getList().get(i).getLink();
-                                        Glide.with(bfCxt).load(bannerInfo.getData().getList().get(i).getPicUrl()).into(iv_guanggao);
-                                    }
-                                }
-                                if (!showTwo) {
-                                    mRefreshLayout.setResistance(3f);
-                                }
-                                Glide.with(bfCxt)
-                                        .load(images.get(0))
-                                        .into(iv_bg);
-                                banner.setPages(images, new MZHolderCreator() {
-                                    @Override
-                                    public BannerViewHolder createViewHolder() {
-                                        return new BannerViewHolder();
-                                    }
-                                });
-                                banner.start();
+                if (bannerInfo.getCode() == 0) {
+                    mRefreshLayout.refreshComplete();
+                    if (bannerInfo.getData().getList().size() > 0) {
+                        images = new ArrayList<>();
+                        urlList = new ArrayList<>();
+                        titleList = new ArrayList<>();
+                        for (int i = 0; i < bannerInfo.getData().getList().size(); i++) {
+                            if (bannerInfo.getData().getList().get(i).getType().equals("横幅广告")) {//横幅
+                                images.add(bannerInfo.getData().getList().get(i).getPicUrl());
+                                urlList.add(bannerInfo.getData().getList().get(i).getLink());
+                                titleList.add(bannerInfo.getData().getList().get(i).getTitle());
+                            } else if (bannerInfo.getData().getList().get(i).getType().equals("下拉广告")) {//下拉
+                                showTwo = true;
+                                header.loadImage(bannerInfo.getData().getList().get(i).getPicUrl());
+                                upUrl = bannerInfo.getData().getList().get(i).getLink();
+                            } else if (bannerInfo.getData().getList().get(i).getType().equals("启动广告")) {//启动
+                                userInfo.setDowmPoster(bannerInfo.getData().getList().get(i).getPicUrl());
+                                SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
+                            } else if (bannerInfo.getData().getList().get(i).getType().equals("专题广告")) {
+                                iv_guanggao.setVisibility(View.VISIBLE);
+                                projectUrl = bannerInfo.getData().getList().get(i).getLink();
+                                Glide.with(bfCxt).load(bannerInfo.getData().getList().get(i).getPicUrl()).into(iv_guanggao);
                             }
                         }
+                        if (!showTwo) {
+                            mRefreshLayout.setResistance(3f);
+                        }
+                        Glide.with(bfCxt)
+                                .load(images.get(0))
+                                .into(iv_bg);
+                        banner.setPages(images, new MZHolderCreator() {
+                            @Override
+                            public BannerViewHolder createViewHolder() {
+                                return new BannerViewHolder();
+                            }
+                        });
+                        banner.start();
                     }
-                });
+                }
+            }
+        });
 
 
     }
@@ -1141,9 +1143,20 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
     @Bind(R.id.tv_up_content)
     TextView tv_up_content;
 
-    @OnClick({R.id.rl_jump_shop, R.id.bt_update, R.id.tv_up_top, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
+    @OnClick({R.id.rl_errand, R.id.rl_jump_shop, R.id.bt_update, R.id.tv_up_top, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.rl_errand:
+                if (userInfo != null) {
+                    if ("943478288".equals(schoolIId)) {
+                        ZeroZeroSevenUtils.showCustonPop(bfCxt, "请先选择学校", recyclerView);
+                    } else {
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandHomeActivity.class);
+                    }
+                } else {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
+                }
+                break;
             case R.id.rl_jump_shop:
                 if (userInfo != null) {
                     if ("943478288".equals(schoolIId)) {
