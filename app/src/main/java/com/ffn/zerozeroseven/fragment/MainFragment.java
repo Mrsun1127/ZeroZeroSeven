@@ -41,6 +41,9 @@ import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.mapapi.search.poi.PoiSortType;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.BestNewGoodsAdapter;
 import com.ffn.zerozeroseven.adapter.HotTimeAdapter;
@@ -224,10 +227,62 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
     RelativeLayout rl_top;
     @Bind(R.id.iv_location)
     ImageView iv_location;
+    @Bind(R.id.iv_sjx)
+    ImageView iv_sjx;
+    @Bind(R.id.iv_one)
+    ImageView iv_one;
+    @Bind(R.id.iv_two)
+    ImageView iv_two;
+    @Bind(R.id.iv_four)
+    ImageView iv_four;
+    @Bind(R.id.iv_five)
+    ImageView iv_five;
+    @Bind(R.id.iv_six)
+    ImageView iv_six;
+    @Bind(R.id.iv_seven)
+    ImageView iv_seven;
+    @Bind(R.id.iv_eight)
+    ImageView iv_eight;
+    @Bind(R.id.iv_nine)
+    ImageView iv_nine;
+    @Bind(R.id.iv_in)
+    ImageView iv_in;
+    @Bind(R.id.iv_left)
+    ImageView iv_left;
+    @Bind(R.id.iv_time_left)
+    ImageView iv_time_left;
+    @Bind(R.id.iv_time_right)
+    ImageView iv_time_right;
+    @Bind(R.id.iv_xinpin)
+    ImageView iv_xinpin;
+    @Bind(R.id.iv_up_all)
+    ImageView iv_up_all;
+    @Bind(R.id.iv_cancer)
+    ImageView iv_cancer;
+    @Bind(R.id.bt_update)
+    Button bt_update;
+
 
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
+        tv_time = view.findViewById(R.id.tv_time);
+
+        Glide.with(this).load(R.drawable.sjx).into(iv_sjx);
+        Glide.with(this).load(R.drawable.main_one).into(iv_one);
+        Glide.with(this).load(R.drawable.main_two).into(iv_two);
+        Glide.with(this).load(R.drawable.main_three).into(iv_four);
+        Glide.with(this).load(R.drawable.main_four).into(iv_five);
+        Glide.with(this).load(R.drawable.main_four).into(iv_six);
+        Glide.with(this).load(R.drawable.main_four).into(iv_seven);
+        Glide.with(this).load(R.drawable.main_four).into(iv_eight);
+        Glide.with(this).load(R.drawable.main_four).into(iv_nine);
+        Glide.with(this).load(R.drawable.main_notify).into(iv_in);
+        Glide.with(this).load(R.drawable.main_laba).into(iv_left);
+        Glide.with(this).load(R.drawable.xinpin).into(iv_xinpin);
+        Glide.with(this).load(R.drawable.integral_back).into(iv_up_all);
+        Glide.with(this).load(R.drawable.cancel_icon).into(iv_cancer);
+        Glide.with(this).load(R.drawable.cancel_icon).into(iv_cancer);
         mInstance = new WeakReference<>(this);
         mLocationClient = new LocationClient(BaseAppApplication.context);
         //声明LocationClient类
@@ -334,7 +389,6 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
 
             }
         });
-        tv_time = view.findViewById(R.id.tv_time);
         ll_both = view.findViewById(R.id.ll_both);
         ll_hot = view.findViewById(R.id.ll_hot);
         recyclerView = view.findViewById(R.id.rc_activityview);

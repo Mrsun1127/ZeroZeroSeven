@@ -40,11 +40,11 @@
                         app:realtimeBlurRadius="20dp"
                         app:realtimeOverlayColor="@color/ee" />
 
-                    <RelativeLayout
+                    <ImageView
+                        android:id="@+id/iv_sjx"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/sjx" />
+                        android:layout_alignParentBottom="true" />
 
                     <com.zhouwei.mzbanner.MZBannerView
                         android:id="@+id/banner"
@@ -75,8 +75,7 @@
                             android:id="@+id/iv_one"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:layout_centerHorizontal="true"
-                            android:background="@drawable/main_one" />
+                            android:layout_centerHorizontal="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -99,8 +98,7 @@
                             android:id="@+id/iv_two"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:layout_centerHorizontal="true"
-                            android:background="@drawable/main_two" />
+                            android:layout_centerHorizontal="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -125,8 +123,7 @@
                             android:id="@+id/iv_four"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:layout_centerHorizontal="true"
-                            android:background="@drawable/main_three" />
+                            android:layout_centerHorizontal="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -149,8 +146,7 @@
                             android:id="@+id/iv_five"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:layout_centerHorizontal="true"
-                            android:background="@drawable/main_four" />
+                            android:layout_centerHorizontal="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -181,8 +177,7 @@
                             android:id="@+id/iv_six"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:layout_centerHorizontal="true"
-                            android:background="@drawable/main_four" />
+                            android:layout_centerHorizontal="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -205,8 +200,7 @@
                             android:id="@+id/iv_seven"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:layout_centerHorizontal="true"
-                            android:background="@drawable/main_four" />
+                            android:layout_centerHorizontal="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -229,8 +223,7 @@
                             android:id="@+id/iv_eight"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:layout_centerHorizontal="true"
-                            android:background="@drawable/main_four" />
+                            android:layout_centerHorizontal="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -252,8 +245,7 @@
                             android:id="@+id/iv_nine"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:layout_centerHorizontal="true"
-                            android:background="@drawable/main_four" />
+                            android:layout_centerHorizontal="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -267,35 +259,41 @@
                     </RelativeLayout>
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="17dp"
                     android:layout_marginRight="17dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/main_notify"
-                    android:gravity="bottom"
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/iv_in"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_left"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
+                        android:layout_alignParentBottom="true"
                         android:layout_marginBottom="5dp"
-                        android:padding="5dp"
-                        android:src="@drawable/main_laba" />
+                        android:padding="5dp" />
 
                     <com.paradoxie.autoscrolltextview.VerticalTextview
                         android:id="@+id/scrollTextView"
+                        android:background="@drawable/rectangle"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
-                        android:layout_marginBottom="4dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="8dp"
                         android:layout_marginRight="15dp"
-                        android:background="@drawable/rectangle"
+                        android:layout_toRightOf="@+id/iv_left"
                         android:paddingLeft="10dp"
                         android:paddingTop="3dp" />
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <ImageView
                     android:id="@+id/iv_guanggao"
@@ -395,14 +393,18 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="45dp"
             android:layout_marginRight="45dp"
-            android:background="@drawable/integral_back"
             android:visibility="visible">
 
             <ImageView
+                android:id="@+id/iv_up_all"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/iv_cancer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/cancel_icon" />
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/tv_up_top"
@@ -424,13 +426,13 @@
                 android:textColor="@color/white" />
 
             <Button
+                android:background="@drawable/circle3"
                 android:id="@+id/bt_update"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/circle3"
                 android:text="前往更新"
                 android:textColor="@color/white" />
         </RelativeLayout>
