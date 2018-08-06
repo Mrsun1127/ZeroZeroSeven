@@ -22,7 +22,7 @@ public class ErrandLevelAdapter extends BaseRecyclerAdapter<String> {
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        return new ErrandLevelAdapter.MViewHolder(mInflater.inflate(R.layout.item_errand_level, null));
+        return new ErrandLevelAdapter.MViewHolder(mInflater.inflate(R.layout.item_errand_level,parent, false));
     }
 
     @Override

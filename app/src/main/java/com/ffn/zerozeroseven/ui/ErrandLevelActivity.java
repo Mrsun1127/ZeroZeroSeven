@@ -7,6 +7,7 @@ import com.ffn.zerozeroseven.adapter.ErrandLevelAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 import com.ffn.zerozeroseven.view.TopView;
+import com.willy.ratingbar.ScaleRatingBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,8 @@ public class ErrandLevelActivity extends BaseActivity {
     TopView topView;
     @Bind(R.id.recycleview)
     RecyclerView recyclerView;
+    @Bind(R.id.simpleRatingBar)
+    ScaleRatingBar simpleRatingBar;
 
     @Override
     protected int setLayout() {

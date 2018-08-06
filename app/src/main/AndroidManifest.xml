@@ -342,6 +342,7 @@
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
         <activity android:name=".ui.ErrandDingDanDetilsActivity" />
         <activity android:name=".ui.ErrandLevelActivity" />
+        <activity android:name=".ui.ErrandDingdanActivity" />
 
         <!-- Required SDK核心功能-->
         <service

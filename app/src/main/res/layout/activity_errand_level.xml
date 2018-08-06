@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <com.ffn.zerozeroseven.view.TopView
@@ -58,13 +60,15 @@
                 android:textSize="11sp" />
 
             <com.willy.ratingbar.ScaleRatingBar
+                android:id="@+id/simpleRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 app:srb_clickable="false"
                 app:srb_starHeight="8dp"
                 app:srb_starPadding="2dp"
-                app:srb_starWidth="8dp" />
+                app:srb_starWidth="8dp"
+                />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycleview"
