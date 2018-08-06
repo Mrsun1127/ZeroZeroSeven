@@ -2,6 +2,7 @@ package com.ffn.zerozeroseven.ui;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,7 +16,9 @@ import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseLoginActivity;
+import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.CodeInfo;
+import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.BindJiGuangInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CodeLoginInfo;
@@ -66,7 +69,9 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
     private MyCountTimer timer;
     @Bind(R.id.et_yaoqing)
     EditText et_yaoqing;
-
+    private UserInfo.DataBean userInfo;
+    private CarShopInfo carShopInfo;
+    private NumberRicalInfo numberRicalInfo;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             "android.permission.READ_EXTERNAL_STORAGE",
@@ -120,16 +125,47 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
             }
             if (!TextUtils.isEmpty(password) && !"nopwd".equals(password)) {
                 et_userpassWord.setText(password);
-//                if (!"set".equals(getIntent().getStringExtra("exit"))) {
-//                    LoginByPwd();
-//                }
             }
-
         } catch (Exception e) {
         }
+        LoginTask loginTask = new LoginTask();
+        loginTask.execute("");
 
     }
 
+    private class LoginTask extends AsyncTask<Object, Object, Object> {
+
+        @Override
+        protected Object doInBackground(Object... objects) {
+            userInfo = (UserInfo.DataBean) SharePrefUtils.readObject(LoginActivity.this, "userInfo");
+            carShopInfo = (CarShopInfo) SharePrefUtils.readObject(LoginActivity.this, "carShopInfo");
+            numberRicalInfo = (NumberRicalInfo) SharePrefUtils.readObject(LoginActivity.this, "numberRicalInfo");
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showLoadProgress();
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            disLoadProgress();
+            if (userInfo != null) {
+                BaseAppApplication.getInstance().setLoginUser(userInfo);
+                if (carShopInfo != null) {
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                }
+                if (numberRicalInfo != null) {
+                    BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+                }
+                ZeroZeroSevenUtils.SwitchActivity(LoginActivity.this, HomeActivity.class);
+                finish();
+            }
+        }
+    }
 
     private void initClickListener() {
         bt_send.setOnClickListener(this);
@@ -213,16 +249,16 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
             public void onSuccLoad(String response) {
                 final CodeInfo info = JSON.parseObject(response, CodeInfo.class);
 
-                        if (info.getCode() == 0) {
-                            timer.start();
-                            loginCode = info.getData().getAuthcode();
-                            ToastUtils.showShort("发送成功!");
-                            LogUtils.D("LoginActivity", loginCode);
-                        } else {
-                            ToastUtils.showShort(info.getMessage());
-                        }
-                    }
-                });
+                if (info.getCode() == 0) {
+                    timer.start();
+                    loginCode = info.getData().getAuthcode();
+                    ToastUtils.showShort("发送成功!");
+                    LogUtils.D("LoginActivity", loginCode);
+                } else {
+                    ToastUtils.showShort(info.getMessage());
+                }
+            }
+        });
 
     }
 
@@ -252,16 +288,16 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
             @Override
             public void onSuccLoad(String response) {
                 final UserInfo userInfo = JsonUtil.parseJsonToBean(response, UserInfo.class);
-                        if (userInfo.getCode() == 0) {
-                            UserInfoUtils.saveUserInfo(LoginActivity.this, et_username.getText().toString().trim(), et_userpassWord.getText().toString().trim());
-                            BaseAppApplication.getInstance().setLoginUser(userInfo.getData());
-                            SharePrefUtils.saveObject(LoginActivity.this, "userInfo", userInfo.getData());
-                            bindJiGuang(userInfo.getData().getId());
-                        } else {
-                            ToastUtils.showShort(userInfo.getMessage());
-                        }
-                    }
-                });
+                if (userInfo.getCode() == 0) {
+                    UserInfoUtils.saveUserInfo(LoginActivity.this, et_username.getText().toString().trim(), et_userpassWord.getText().toString().trim());
+                    BaseAppApplication.getInstance().setLoginUser(userInfo.getData());
+                    SharePrefUtils.saveObject(LoginActivity.this, "userInfo", userInfo.getData());
+                    bindJiGuang(userInfo.getData().getId());
+                } else {
+                    ToastUtils.showShort(userInfo.getMessage());
+                }
+            }
+        });
 
 
     }
@@ -295,24 +331,24 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
             @Override
             public void onSuccLoad(final String response) {
 
-                        try {
-                            final UserInfo userInfo1 = JSON.parseObject(response, UserInfo.class);
-                            if (userInfo1.getCode() == 0) {
-                                UserInfoUtils.saveUserInfo(LoginActivity.this, et_phoneNumber.getText().toString().trim(), "nopwd");
-                                BaseAppApplication.getInstance().setLoginUser(userInfo1.getData());
-                                SharePrefUtils.saveObject(LoginActivity.this, "userInfo", userInfo1.getData());
-                                bindJiGuang(userInfo1.getData().getId());
-                            } else {
-                                ToastUtils.showShort(userInfo1.getMessage());
+                try {
+                    final UserInfo userInfo1 = JSON.parseObject(response, UserInfo.class);
+                    if (userInfo1.getCode() == 0) {
+                        UserInfoUtils.saveUserInfo(LoginActivity.this, et_phoneNumber.getText().toString().trim(), "nopwd");
+                        BaseAppApplication.getInstance().setLoginUser(userInfo1.getData());
+                        SharePrefUtils.saveObject(LoginActivity.this, "userInfo", userInfo1.getData());
+                        bindJiGuang(userInfo1.getData().getId());
+                    } else {
+                        ToastUtils.showShort(userInfo1.getMessage());
 
-                            }
-
-                        } catch (Exception e) {
-                            ToastUtils.showShort("服务器异常，请稍后再试");
-
-                        }
                     }
-                });
+
+                } catch (Exception e) {
+                    ToastUtils.showShort("服务器异常，请稍后再试");
+
+                }
+            }
+        });
 
     }
 
