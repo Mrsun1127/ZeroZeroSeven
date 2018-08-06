@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="78dp">
+
+    <ImageView
+        android:id="@+id/iv_jiedan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@+id/view_left"
+        android:background="@drawable/run_shopstatus_jiedan" />
+
+    <TextView
+        android:id="@+id/tv_jiedan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_peisong"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@+id/view_left"
+        android:text="接单成功"
+        android:textColor="@color/money"
+        android:textSize="13sp" />
+
+    <View
+        android:id="@+id/view_left"
+        android:layout_width="24dp"
+        android:layout_height="2dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/iv_quhuo"
+        android:background="@color/line_color" />
+
+    <ImageView
+        android:id="@+id/iv_quhuo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@+id/view_center"
+        android:background="@drawable/run_shopstatus_quhuo_nor" />
+
+    <TextView
+        android:id="@+id/tv_quhuo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_peisong"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@+id/view_center"
+        android:text="配送中"
+        android:textSize="13sp" />
+
+    <View
+        android:id="@+id/view_center"
+        android:layout_width="24dp"
+        android:layout_height="2dp"
+        android:layout_centerInParent="true"
+        android:background="@color/line_color" />
+
+    <ImageView
+        android:id="@+id/iv_peisong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/view_center"
+        android:background="@drawable/run_shopstatus_peisong_nor" />
+
+    <TextView
+        android:id="@+id/tv_peisong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_peisong"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/view_center"
+        android:text="配送中"
+        android:textSize="13sp" />
+
+    <View
+        android:id="@+id/view_right"
+        android:layout_width="24dp"
+        android:layout_height="2dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/iv_peisong"
+        android:background="@color/line_color" />
+
+    <ImageView
+        android:id="@+id/iv_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/view_right"
+        android:background="@drawable/run_shopstatus_finish_nor" />
+
+    <TextView
+        android:id="@+id/tv_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_peisong"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/view_right"
+        android:text="已完成"
+        android:textSize="13sp" />
+</RelativeLayout>
