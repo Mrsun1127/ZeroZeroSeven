@@ -340,6 +340,7 @@
             android:name=".ui.ErrandAuitActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity android:name=".ui.ErrandDingDanDetilsActivity" />
 
         <!-- Required SDK核心功能-->
         <service
