@@ -345,8 +345,8 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final AlertDialog dialog = builder.create();
         View view = View.inflate(this, R.layout.dialog_select_photo, null);
-        TextView tv_select_gallery = (TextView) view.findViewById(R.id.tv_select_gallery);
-        TextView tv_select_camera = (TextView) view.findViewById(R.id.tv_select_camera);
+        TextView tv_select_gallery =  view.findViewById(R.id.tv_select_gallery);
+        TextView tv_select_camera =  view.findViewById(R.id.tv_select_camera);
         tv_select_gallery.setOnClickListener(new View.OnClickListener() {// 在相册中选取
             @Override
             public void onClick(View v) {

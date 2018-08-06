@@ -189,16 +189,17 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
+    <TextView
         android:id="@+id/bt_qiang"
         android:layout_width="70dp"
         android:layout_height="25dp"
         android:layout_gravity="center_horizontal"
+        android:gravity="center"
         android:layout_marginTop="12dp"
         android:background="@drawable/qiangdan"
         android:text="抢单"
         android:textColor="@color/white"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
 
     <View
         android:layout_width="match_parent"
