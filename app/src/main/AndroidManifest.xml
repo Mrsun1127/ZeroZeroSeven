@@ -341,6 +341,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
         <activity android:name=".ui.ErrandDingDanDetilsActivity" />
+        <activity android:name=".ui.ErrandLevelActivity" />
 
         <!-- Required SDK核心功能-->
         <service

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.ffn.zerozeroseven.view.TopView
+        android:id="@+id/topView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="10dp"
+                android:text="等级说明"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="押金也是金钱质的一种，具体讲是质押担保的一种特殊形式。即，押金是为了担保债务的履行，债务人或第三人将一定数额的金钱移交债权人占有，在债务人不履行合同时，债权人可以债务人所交押金优先受偿；如债务人依约履行了债务，则其所交押金可以抵作价款或者收回。目前，我国现行法律对于押金尚无明确的法律规定，依据法律没有强制性规定即为合法的法律原则，应当允许当事人在经济活动中采取约定给付一定数额的押金这种担保方式。为更明确地解释押金的法律属性，结合其与定金的法律特征的异同，简述如下：\n1、定金担保的是债权，不具有物权效力；而押金应属于担保物权的范畴；\n2、定金是法定的担保方式，而押金只是民间交易过程中习惯上采用的方式，我国法律既未明确承认也不禁止押金这种担保方式；\n3、定金的设定仅限于被担保合同的当事人，而押金的给付可以是主合同的债务人，也可以是债务人以外的第三人。\n4、定金的数额不得超过主合同标的额的百分之二十，而押金的数额可由当事人自由约定，其数额可以高于或者低于主合同的标的额；\n5、定金具有惩罚违约方的功能，而押金仅具有担保合同义务人履行合同的作用，其对违约方的制裁仅以所交的押金为限。即，给付押金的一方当事人不履行合同义务的，无权收回押金；而接受押金的一方当事人不履行合同义务的，并不承担双倍返还押金的义务。"
+                android:textSize="11sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/line_color" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="我的等级"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="满意度96%"
+                android:textSize="11sp" />
+
+            <com.willy.ratingbar.ScaleRatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:srb_clickable="false"
+                app:srb_starHeight="8dp"
+                app:srb_starPadding="2dp"
+                app:srb_starWidth="8dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
