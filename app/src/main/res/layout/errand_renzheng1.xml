@@ -18,6 +18,7 @@
                 android:id="@+id/iv_icon"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
+                android:background="@drawable/paizhaoo"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp" />
 

@@ -343,6 +343,7 @@
         <activity android:name=".ui.ErrandDingDanDetilsActivity" />
         <activity android:name=".ui.ErrandLevelActivity" />
         <activity android:name=".ui.ErrandDingdanActivity" />
+        <activity android:name=".ui.RenzhengStatusActivity" />
 
         <!-- Required SDK核心功能-->
         <service
