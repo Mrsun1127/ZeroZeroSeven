@@ -29,7 +29,8 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
     private CarShopInfo lastCarShopInfo;
     private Double runMoney;
     private String storeId;
-    private boolean isClear=false;
+    private boolean isClear = false;
+
     public GoodsAdapter(Context context) {
         super(context);
 
@@ -53,16 +54,17 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final GoodsContentShowInfo.DataBean.ProductsBean info, final int position) {
         final MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_name.setText(info.getGoodsName());
-        if(!TextUtils.isEmpty(info.getPrice()+"")){
+        if (!TextUtils.isEmpty(info.getPrice() + "")) {
             mHolder.tv_price.setText("¥" + info.getPrice());
-        }else{
+        } else {
             mHolder.tv_price.setText("网络异常请刷新");
         }
         Glide.with(mContext)
                 .load(info.getThumbnail())
+                .skipMemoryCache(true)
                 .error(R.drawable.oops)
                 .into(mHolder.iv_icon);
-        if(isClear){
+        if (isClear) {
             mHolder.tv_count.setText("0");
         }
         mHolder.rl_close.setTag(mHolder);
@@ -97,22 +99,24 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 }
             }
         });
-        if(info.getStockNum()==0){
+        if (info.getStockNum() == 0) {
             mHolder.rl_add.setVisibility(View.INVISIBLE);
             mHolder.rl_close.setVisibility(View.INVISIBLE);
             mHolder.tv_count.setVisibility(View.INVISIBLE);
             mHolder.rl_none.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             mHolder.rl_add.setVisibility(View.VISIBLE);
             mHolder.rl_close.setVisibility(View.VISIBLE);
             mHolder.tv_count.setVisibility(View.VISIBLE);
             mHolder.rl_none.setVisibility(View.GONE);
         }
     }
-    public void clearCount(){
-        isClear=true;
+
+    public void clearCount() {
+        isClear = true;
         notifyDataSetChanged();
     }
+
     private class MViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_icon;
         TextView tv_name;
@@ -148,41 +152,41 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
 
     private void closeCarInfo(GoodsContentShowInfo.DataBean.ProductsBean goodsInfo, TextView tv_count) {
         //减少的时候购物车里面是一定有东西的
-       try {
-           lastCarShopInfo= BaseAppApplication.getInstance().getCarShopInfo();
-           List<CarShopInfo.ShopInfo> list = lastCarShopInfo.getShopInfos();
-           for (int i = 0; i < list.size(); i++) {
-               if (list.get(i).getGoodsId() == goodsInfo.getId()) {
-                   lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() - 1);
-               }
-               if(lastCarShopInfo.getShopInfos().get(i).getBuyCount()==0){
-                   lastCarShopInfo.getShopInfos().remove(i);
-               }
-               BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
-               ShopFragment.mInstance.get().notifyCar();
-           }
-       }catch (Exception e){
-           try {
-               lastCarShopInfo=BaseAppApplication.getInstance().getCarShopInfo();
-               List<CarShopInfo.ShopInfo> list = lastCarShopInfo.getShopInfos();
-               for (int i = 0; i < list.size(); i++) {
-                   if (list.get(i).getGoodsId() == goodsInfo.getId()) {
-                       lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() - 1);
-                       BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
-                       ShopFragment.mInstance.get().notifyCar();
-                       return;
-                   }
-               }
-           }catch (Exception e1){
-               clearCount();
-           }
+        try {
+            lastCarShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+            List<CarShopInfo.ShopInfo> list = lastCarShopInfo.getShopInfos();
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getGoodsId() == goodsInfo.getId()) {
+                    lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() - 1);
+                }
+                if (lastCarShopInfo.getShopInfos().get(i).getBuyCount() == 0) {
+                    lastCarShopInfo.getShopInfos().remove(i);
+                }
+                BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
+                ShopFragment.mInstance.get().notifyCar();
+            }
+        } catch (Exception e) {
+            try {
+                lastCarShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                List<CarShopInfo.ShopInfo> list = lastCarShopInfo.getShopInfos();
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getGoodsId() == goodsInfo.getId()) {
+                        lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() - 1);
+                        BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
+                        ShopFragment.mInstance.get().notifyCar();
+                        return;
+                    }
+                }
+            } catch (Exception e1) {
+                clearCount();
+            }
 
-       }
+        }
     }
 
     private void AddCarInfo(GoodsContentShowInfo.DataBean.ProductsBean goodsInfo, TextView tv_count) {
         try {
-            lastCarShopInfo=BaseAppApplication.getInstance().getCarShopInfo();
+            lastCarShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
             if (lastCarShopInfo.getShopInfos().size() > 0) {//说明购物车里面有东西
                 List<CarShopInfo.ShopInfo> list = lastCarShopInfo.getShopInfos();
                 for (int i = 0; i < list.size(); i++) {

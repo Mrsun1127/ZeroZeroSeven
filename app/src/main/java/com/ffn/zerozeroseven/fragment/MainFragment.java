@@ -961,7 +961,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         @Override
         public void onBind(Context context, int position, String data) {
             // 数据绑定
-            Glide.with(context).load(data).into(mImageView);
+            Glide.with(context).load(data).skipMemoryCache(true).into(mImageView);
         }
     }
 
@@ -1019,6 +1019,7 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
                         }
                         Glide.with(bfCxt)
                                 .load(images.get(0))
+                                .skipMemoryCache(true)
                                 .into(iv_bg);
                         banner.setPages(images, new MZHolderCreator() {
                             @Override

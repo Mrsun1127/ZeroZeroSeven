@@ -41,6 +41,7 @@ public class BestNewGoodsAdapter extends BaseRecyclerAdapter<BestNewShowInfo.Dat
         final MViewHolder mHolder = (MViewHolder) holder;
         Glide.with(mContext)
                 .load(info.getThumbnail())
+                .skipMemoryCache(true)
                 .error(R.drawable.oops)
                 .into(mHolder.imageView);
         mHolder.tv_name.setText(info.getGoodsName());
