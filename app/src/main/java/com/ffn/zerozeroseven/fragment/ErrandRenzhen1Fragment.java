@@ -4,16 +4,21 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.ReleaseJumpShopActivity;
+import com.ffn.zerozeroseven.ui.SeachSchoolListActivity;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 import java.util.ArrayList;
 
@@ -27,12 +32,17 @@ import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import static android.app.Activity.RESULT_OK;
 
 public class ErrandRenzhen1Fragment extends BaseFragment {
+
+    private String school;
+    private String id;
+
     public static ErrandRenzhen1Fragment newInstance() {
         return new ErrandRenzhen1Fragment();
     }
-
     private ErrandRenzhen1Fragment fragment;
     private ArrayList<String> imgList = new ArrayList<>();
+    @Bind(R.id.tv_school)
+    TextView tv_school;
 
     @Override
     protected void initView(View view) {
@@ -48,9 +58,14 @@ public class ErrandRenzhen1Fragment extends BaseFragment {
     @Bind(R.id.iv_icon)
     CircleImageView iv_icon;
 
-    @OnClick({R.id.iv_icon, R.id.bt_next})
+    @OnClick({R.id.iv_icon, R.id.bt_next, R.id.ll_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.ll_school:
+                Bundle bundle = new Bundle();
+                bundle.putString("errand", "yes");
+                ZeroZeroSevenUtils.FragmentSwitchActivity(bfCxt, SeachSchoolListActivity.class, fragment,bundle, 3);
+                break;
             case R.id.bt_next:
                 ErrandAuitActivity.mInstance.get().goVp(1);
                 break;
@@ -68,6 +83,7 @@ public class ErrandRenzhen1Fragment extends BaseFragment {
     }
 
     private static final int REQUEST_IMAGE = 2;
+    private static final int REQUEST_SCHOOL = 3;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -81,6 +97,15 @@ public class ErrandRenzhen1Fragment extends BaseFragment {
 //                            LogUtils.D("imgpath", imgList.get(i));
                             Glide.with(bfCxt).load(imgList.get(i)).into(iv_icon);
                         }
+                    }
+                }
+                break;
+            case REQUEST_SCHOOL:
+                if (data != null) {
+                    school = data.getStringExtra("school");
+                    id = data.getStringExtra("id");
+                    if (!TextUtils.isEmpty(school)) {
+                        tv_school.setText(school);
                     }
                 }
                 break;

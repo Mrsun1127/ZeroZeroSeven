@@ -1,5 +1,6 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -102,20 +103,29 @@ public class SeachSchoolListActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                userInfo.setSchoolName(adapter.getItem(position).getName());
-                userInfo.setLocationSchoolId(adapter.getItem(position).getId() + "");
-                BaseAppApplication.getInstance().setLoginUser(userInfo);
-                SharePrefUtils.saveObject(SeachSchoolListActivity.this,"userInfo",userInfo);
-                SharePrefUtils.setInt(SeachSchoolListActivity.this, "isLocation", 1);
-                SharePrefUtils.saveObject(SeachSchoolListActivity.this, "carShopInfo",null);
-                SearchSchoolActivity.inStance.get().finish();
-                finish();
-                MainFragment.mInstance.get().reQuest();
-                try {
-                    ShopFragment.mInstance.get().initTabs();
-                } catch (Exception e) {
+                if(!TextUtils.isEmpty(getIntent().getStringExtra("errand"))){
+                    Intent intent = new Intent();
+                    intent.putExtra("school", "" + adapter.getItem(position).getName());
+                    intent.putExtra("id", "" + adapter.getItem(position).getId());
+                    setResult(3, intent);
+                    finish();
+                }else{
+                    userInfo.setSchoolName(adapter.getItem(position).getName());
+                    userInfo.setLocationSchoolId(adapter.getItem(position).getId() + "");
+                    BaseAppApplication.getInstance().setLoginUser(userInfo);
+                    SharePrefUtils.saveObject(SeachSchoolListActivity.this,"userInfo",userInfo);
+                    SharePrefUtils.setInt(SeachSchoolListActivity.this, "isLocation", 1);
+                    SharePrefUtils.saveObject(SeachSchoolListActivity.this, "carShopInfo",null);
+                    SearchSchoolActivity.inStance.get().finish();
+                    finish();
+                    MainFragment.mInstance.get().reQuest();
+                    try {
+                        ShopFragment.mInstance.get().initTabs();
+                    } catch (Exception e) {
 
+                    }
                 }
+
             }
         });
         ct_school = findViewById(R.id.ct_school);

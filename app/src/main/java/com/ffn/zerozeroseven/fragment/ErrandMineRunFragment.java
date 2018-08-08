@@ -11,14 +11,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ErrandMineRunAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.RequestRunnerInfo;
+import com.ffn.zerozeroseven.bean.RunnerInfo;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.PeopleMessAgeActivity;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 
@@ -28,10 +35,25 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ErrandMineRunFragment extends BaseFragment {
     @Bind(R.id.recycleview)
     RecyclerView recycleview;
+    @Bind(R.id.ll_audit)
+    LinearLayout ll_audit;
+    @Bind(R.id.ll_verifile)
+    LinearLayout ll_verifile;
+    @Bind(R.id.clv_icon)
+    CircleImageView clv_icon;
+    @Bind(R.id.tv_name)
+    TextView tv_name;
+    @Bind(R.id.tv_phone)
+    TextView tv_phone;
+    @Bind(R.id.tv_school)
+    TextView tv_school;
+    @Bind(R.id.tv_satisficing)
+    TextView tv_satisficing;
 
     public static ErrandMineRunFragment newInstance() {
         return new ErrandMineRunFragment();
@@ -54,6 +76,47 @@ public class ErrandMineRunFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, long itemId) {
                 showTypeDialog();
+            }
+        });
+    }
+
+    @Override
+    public void initDate() {
+        requestData();
+    }
+
+    private void requestData() {
+        RequestRunnerInfo requestRunnerInfo = new RequestRunnerInfo();
+        requestRunnerInfo.setFunctionName("QueryErrandUser");
+        RequestRunnerInfo.ParametersBean parametersBean = new RequestRunnerInfo.ParametersBean();
+        parametersBean.setUserPhone(userInfo.getPhone());
+        requestRunnerInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
+        okGoUtils.httpPostJSON(requestRunnerInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                RunnerInfo runnerInfo = JSON.parseObject(response, RunnerInfo.class);
+                if (runnerInfo.getCode() == 0) {
+                    if (runnerInfo.getData() != null) {
+                        if (runnerInfo.getData().getItem() != null) {
+                            ll_audit.setVisibility(View.GONE);
+                            ll_verifile.setVisibility(View.VISIBLE);
+//                            Glide.with(bfCxt).load(runnerInfo.getData().getItem().getSex())
+                            tv_name.setText(runnerInfo.getData().getItem().getRealName());
+                            tv_phone.setText(runnerInfo.getData().getItem().getPhone());
+                            tv_satisficing.setText(runnerInfo.getData().getItem().getStarLevel() + "星级");
+                        } else {
+                            ll_audit.setVisibility(View.VISIBLE);
+                            ll_verifile.setVisibility(View.GONE);
+                        }
+                    } else {
+                        ll_audit.setVisibility(View.VISIBLE);
+                        ll_verifile.setVisibility(View.GONE);
+                    }
+                } else {
+                    ToastUtils.showShort(runnerInfo.getMessage());
+                }
             }
         });
     }

@@ -2,6 +2,7 @@ package com.ffn.zerozeroseven.utlis;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -358,7 +359,15 @@ public class ZeroZeroSevenUtils {
         ((Activity) context).overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
 
     }
+    public static void FragmentSwitchActivity(Context context, Class<?> contextClass, android.support.v4.app.Fragment fragment, Bundle bundle, int code) {
+        Intent intent = new Intent(context, contextClass);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        fragment.startActivityForResult(intent, code);
+        ((Activity) context).overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
 
+    }
     /**
      * 判断网络是否连接
      *

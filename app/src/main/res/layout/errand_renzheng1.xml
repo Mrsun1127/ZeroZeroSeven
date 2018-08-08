@@ -18,9 +18,9 @@
                 android:id="@+id/iv_icon"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:background="@drawable/paizhaoo"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="15dp"
+                android:background="@drawable/paizhaoo" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -29,6 +29,7 @@
                 android:text="上传头像" />
 
             <LinearLayout
+                android:id="@+id/ll_school"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
@@ -48,6 +49,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/tv_school"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"

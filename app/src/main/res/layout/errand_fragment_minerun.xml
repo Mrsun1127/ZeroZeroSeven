@@ -16,33 +16,36 @@
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="gone">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <Button
+                android:textSize="11sp"
+                android:textColor="@color/white"
+                android:text="未认证"
+                android:background="@drawable/bg_button"
                 android:id="@+id/clv_img"
-                android:layout_width="37dp"
-                android:layout_height="37dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="10dp" />
-
 
 
             <ImageView
                 android:id="@+id/iv_audit"
-                android:layout_marginLeft="100dp"
-                android:background="@drawable/run_become"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp" />
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/run_become" />
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/ll_verifile"
             android:layout_width="match_parent"
             android:layout_height="47dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/clv_icon"
@@ -193,10 +196,12 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@color/numberical_default_bg" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -206,6 +211,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleview"
             android:layout_width="match_parent"
