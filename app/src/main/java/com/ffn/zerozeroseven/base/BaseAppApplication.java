@@ -118,7 +118,7 @@ public class BaseAppApplication extends MultiDexApplication {
 //            }
 //        });
         //发布版本的时候把下面代码打开
-//        LogUtils.isDebug=false;
+//        LogUtils.isDebug=false
         mainHandler = new Handler();
         new ToastUtils(getApplicationContext());
         registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());
@@ -181,9 +181,13 @@ public class BaseAppApplication extends MultiDexApplication {
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
         LogUtils.D("lowMemory", String.valueOf(level));
-        LogUtils.D("lowMemory", String.valueOf(ZeroZeroSevenUtils.getCacheSize(this)));
         if (level == TRIM_MEMORY_UI_HIDDEN) {
-            Glide.get(this).clearMemory();
+           mainHandler.post(new Runnable() {
+               @Override
+               public void run() {
+                   Glide.get(context).clearMemory();
+               }
+           });
         }
         Glide.get(this).trimMemory(level);
     }
@@ -191,8 +195,12 @@ public class BaseAppApplication extends MultiDexApplication {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        Glide.get(this).clearMemory();
-        Glide.get(this).clearDiskCache();
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Glide.get(context).clearMemory();
+            }
+        });
     }
 
     public void clearActivityList() {

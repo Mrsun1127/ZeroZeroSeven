@@ -19,7 +19,7 @@ import com.bumptech.glide.module.GlideModule;
 public class GlideModelConfig implements GlideModule {
 
     int diskSize = 1024 * 1024 * 100;
-    int memorySize = (int) (Runtime.getRuntime().maxMemory()) / 8;  // 取1/8最大内存作为最大缓存
+    int memorySize = (int) (Runtime.getRuntime().maxMemory()) / 10;  // 取1/8最大内存作为最大缓存
 
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
@@ -42,6 +42,5 @@ public class GlideModelConfig implements GlideModule {
 
     @Override
     public void registerComponents(Context context, Glide glide) {
-
     }
 }
