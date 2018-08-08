@@ -204,7 +204,12 @@ public class BaseAppApplication extends MultiDexApplication {
             }
             activityList.clear();
         }
-//        System.exit(0);
+//        mainHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                System.exit(0);
+//            }
+//        }, 500);
     }
 
     public UserInfo.DataBean getLoginUser() {
