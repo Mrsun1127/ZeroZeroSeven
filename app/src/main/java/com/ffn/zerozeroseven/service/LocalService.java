@@ -61,8 +61,8 @@ public class LocalService extends Service {
                         BaseAppApplication.getInstance().clearActivityList();
                     }
                     try {
-                        Thread.sleep(180000);
-//                        Thread.sleep(5000);
+//                        Thread.sleep(180000);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

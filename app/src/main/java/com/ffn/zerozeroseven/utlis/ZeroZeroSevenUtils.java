@@ -24,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
@@ -36,6 +37,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,13 +52,83 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  */
 
 public class ZeroZeroSevenUtils {
+    public static String getCacheSize(Context context) {
+        try {
+            return getFormatSize(getFolderSize(new File(context.getCacheDir() + "/" + InternalCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 获取指定文件夹内所有文件大小的和
+     *
+     * @param file file
+     * @return size
+     * @throws Exception
+     */
+    private static long getFolderSize(File file) throws Exception {
+        long size = 0;
+        try {
+            File[] fileList = file.listFiles();
+            for (File aFileList : fileList) {
+                if (aFileList.isDirectory()) {
+                    size = size + getFolderSize(aFileList);
+                } else {
+                    size = size + aFileList.length();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return size;
+    }
+
+    /**
+     * 格式化单位
+     *
+     * @param size size
+     * @return size
+     */
+    private static String getFormatSize(double size) {
+
+        double kiloByte = size / 1024;
+        if (kiloByte < 1) {
+            return size + "Byte";
+        }
+
+        double megaByte = kiloByte / 1024;
+        if (megaByte < 1) {
+            BigDecimal result1 = new BigDecimal(Double.toString(kiloByte));
+            return result1.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "KB";
+        }
+
+        double gigaByte = megaByte / 1024;
+        if (gigaByte < 1) {
+            BigDecimal result2 = new BigDecimal(Double.toString(megaByte));
+            return result2.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "MB";
+        }
+
+        double teraBytes = gigaByte / 1024;
+        if (teraBytes < 1) {
+            BigDecimal result3 = new BigDecimal(Double.toString(gigaByte));
+            return result3.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "GB";
+        }
+        BigDecimal result4 = new BigDecimal(teraBytes);
+
+        return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB";
+    }
+
     /**
      * 判断是否在当前主线程
+     *
      * @return
      */
-    public static boolean isOnMainThread(){
+    public static boolean isOnMainThread() {
         return Looper.myLooper() == Looper.getMainLooper();
     }
+
     /**
      * 对手机号码中间四位加密
      *
@@ -414,7 +486,8 @@ public class ZeroZeroSevenUtils {
             }
         });
     }
-    public static void showSleepPop(final Context context,String s, View view) {
+
+    public static void showSleepPop(final Context context, String s, View view) {
         final CustomPopWindow popWindow = new CustomPopWindow((Activity) context);
         popWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         popWindow.setBackGroud(R.drawable.dayangluo);
@@ -427,6 +500,7 @@ public class ZeroZeroSevenUtils {
             }
         });
     }
+
     public static void showCustonPopToActivity(final Context context, String message, View view, final Class cls) {
         final CustomPopWindow popWindow = new CustomPopWindow((Activity) context);
         popWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -501,7 +575,8 @@ public class ZeroZeroSevenUtils {
         }
         return false;
     }
-    public static BitmapDrawable getBitmapDraw(Activity activity,int draw){
+
+    public static BitmapDrawable getBitmapDraw(Activity activity, int draw) {
         BitmapFactory.Options opt = new BitmapFactory.Options();
         opt.inPreferredConfig = Bitmap.Config.RGB_565;
         opt.inPurgeable = true;
@@ -509,6 +584,6 @@ public class ZeroZeroSevenUtils {
         InputStream is = activity.getResources().openRawResource(draw);
         Bitmap bm = BitmapFactory.decodeStream(is, null, opt);
         BitmapDrawable bd = new BitmapDrawable(activity.getResources(), bm);
-        return  bd;
+        return bd;
     }
 }

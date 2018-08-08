@@ -8,11 +8,14 @@ import android.support.multidex.MultiDexApplication;
 
 import com.aitangba.swipeback.ActivityLifecycleHelper;
 import com.baidu.mapapi.SDKInitializer;
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
+import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.mob.MobSDK;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
@@ -44,6 +47,7 @@ public class BaseAppApplication extends MultiDexApplication {
     private static NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
     //判断是否被回收
     public static String clearType;
+
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
@@ -173,6 +177,23 @@ public class BaseAppApplication extends MultiDexApplication {
         System.exit(0);
     }
 
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        LogUtils.D("lowMemory", String.valueOf(level));
+        LogUtils.D("lowMemory", String.valueOf(ZeroZeroSevenUtils.getCacheSize(this)));
+        if (level == TRIM_MEMORY_UI_HIDDEN) {
+            Glide.get(this).clearMemory();
+        }
+        Glide.get(this).trimMemory(level);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Glide.get(this).clearMemory();
+        Glide.get(this).clearDiskCache();
+    }
 
     public void clearActivityList() {
         if (activityList != null) {
@@ -183,7 +204,7 @@ public class BaseAppApplication extends MultiDexApplication {
             }
             activityList.clear();
         }
-        System.exit(0);
+//        System.exit(0);
     }
 
     public UserInfo.DataBean getLoginUser() {
