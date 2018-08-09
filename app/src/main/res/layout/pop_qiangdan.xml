@@ -10,6 +10,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="11dp"
@@ -53,6 +54,7 @@
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/tv_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
@@ -74,6 +76,7 @@
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="11dp"
@@ -197,6 +200,7 @@
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/tv_picktime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
@@ -285,6 +289,7 @@
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/tv_remark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"

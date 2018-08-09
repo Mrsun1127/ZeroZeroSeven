@@ -9,12 +9,15 @@ import android.widget.TextView;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.NumberLevelInfo;
+import com.ffn.zerozeroseven.bean.RunnerListInfo;
+
+import cn.iwgang.countdownview.CountdownView;
 
 /**
  * Created by GT on 2017/11/27.
  */
 
-public class ErrandMineRunAdapter extends BaseRecyclerAdapter<String> {
+public class ErrandMineRunAdapter extends BaseRecyclerAdapter<RunnerListInfo.DataBean.ErrandOrdersBean> {
     public ErrandMineRunAdapter(Context context) {
         super(context);
     }
@@ -27,16 +30,38 @@ public class ErrandMineRunAdapter extends BaseRecyclerAdapter<String> {
 
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, String item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, RunnerListInfo.DataBean.ErrandOrdersBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
-
+        mHolder.tv_time.setText(item.getCreateTime());
+        mHolder.tv_type.setText(item.getGoodsType());
+        mHolder.tv_money.setText(String.valueOf(item.getShippingFee()));
+        mHolder.tv_letadr.setText(item.getDeliveryAddress());
+        mHolder.tv_getadr.setText(item.getReceiverAddress());
+        mHolder.tv_letinfo.setText(item.getDeliveryName() + item.getDeliveryPhone());
+        mHolder.tv_getinfo.setText(item.getReceiverName() + item.getReceiverPhone());
     }
 
 
     private class MViewHolder extends RecyclerView.ViewHolder {
+        TextView tv_time;
+        TextView tv_type;
+        TextView tv_money;
+        TextView tv_letadr;
+        TextView tv_letinfo;
+        TextView tv_getadr;
+        TextView tv_getinfo;
+        CountdownView cd_time;
 
         MViewHolder(View itemView) {
             super(itemView);
+            tv_time = itemView.findViewById(R.id.tv_time);
+            tv_type = itemView.findViewById(R.id.tv_type);
+            tv_money = itemView.findViewById(R.id.tv_money);
+            tv_letadr = itemView.findViewById(R.id.tv_letadr);
+            tv_letinfo = itemView.findViewById(R.id.tv_letinfo);
+            tv_getadr = itemView.findViewById(R.id.tv_getadr);
+            tv_getinfo = itemView.findViewById(R.id.tv_getinfo);
+            cd_time = itemView.findViewById(R.id.cd_time);
         }
     }
 

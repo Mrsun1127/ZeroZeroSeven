@@ -22,6 +22,8 @@ import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.RequestRunnerInfo;
 import com.ffn.zerozeroseven.bean.RunnerInfo;
+import com.ffn.zerozeroseven.bean.RunnerListInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RQiangDanInfo;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.PeopleMessAgeActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
@@ -54,6 +56,7 @@ public class ErrandMineRunFragment extends BaseFragment {
     TextView tv_school;
     @Bind(R.id.tv_satisficing)
     TextView tv_satisficing;
+    private ErrandMineRunAdapter errandMineRunAdapter;
 
     public static ErrandMineRunFragment newInstance() {
         return new ErrandMineRunFragment();
@@ -63,19 +66,12 @@ public class ErrandMineRunFragment extends BaseFragment {
     protected void initView(View view) {
         ButterKnife.bind(this, view);
         recycleview.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
-        ErrandMineRunAdapter adapter = new ErrandMineRunAdapter(bfCxt);
-        recycleview.setAdapter(adapter);
-        List<String> strings = new ArrayList<>();
-        strings.add("");
-        strings.add("");
-        strings.add("");
-        strings.add("");
-        strings.add("");
-        adapter.addAll(strings);
-        adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+        errandMineRunAdapter = new ErrandMineRunAdapter(bfCxt);
+        recycleview.setAdapter(errandMineRunAdapter);
+        errandMineRunAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                showTypeDialog();
+                showTypeDialog(errandMineRunAdapter.getItem(position));
             }
         });
     }
@@ -83,6 +79,32 @@ public class ErrandMineRunFragment extends BaseFragment {
     @Override
     public void initDate() {
         requestData();
+        requestList();
+    }
+
+    private void requestList() {
+        RequestRunnerInfo requestRunnerInfo = new RequestRunnerInfo();
+        requestRunnerInfo.setFunctionName("ListSchoolErrandOrder");
+        RequestRunnerInfo.ParametersBean parametersBean = new RequestRunnerInfo.ParametersBean();
+        parametersBean.setUserPhone(userInfo.getPhone());
+        requestRunnerInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
+        okGoUtils.httpPostJSON(requestRunnerInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                RunnerListInfo runnerListInfo = JSON.parseObject(response, RunnerListInfo.class);
+                if (runnerListInfo.getCode() == 0) {
+                    if (runnerListInfo.getData().getErrandOrders() != null) {
+                        if (runnerListInfo.getData().getErrandOrders().size() > 0) {
+                            errandMineRunAdapter.addAll(runnerListInfo.getData().getErrandOrders());
+                        } else {
+                            errandMineRunAdapter.cleanDates();
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void requestData() {
@@ -116,12 +138,29 @@ public class ErrandMineRunFragment extends BaseFragment {
         });
     }
 
-    private void showTypeDialog() {
+    private void showTypeDialog(final RunnerListInfo.DataBean.ErrandOrdersBean ordersBean) {
         AlertDialog.Builder builder = new AlertDialog.Builder(bfCxt);
         final AlertDialog dialog = builder.create();
         View view = View.inflate(bfCxt, R.layout.pop_qiangdan, null);
         Button bt_left = view.findViewById(R.id.bt_left);
         Button bt_right = view.findViewById(R.id.bt_right);
+        TextView tv_time = view.findViewById(R.id.tv_time);
+        TextView tv_money = view.findViewById(R.id.tv_money);
+        TextView tv_letadr = view.findViewById(R.id.tv_letadr);
+        TextView tv_letinfo = view.findViewById(R.id.tv_letinfo);
+        TextView tv_getadr = view.findViewById(R.id.tv_getadr);
+        TextView tv_getinfo = view.findViewById(R.id.tv_getinfo);
+        TextView tv_picktime = view.findViewById(R.id.tv_picktime);
+        TextView tv_remark = view.findViewById(R.id.tv_remark);
+        tv_time.setText(ordersBean.getCreateTime());
+        tv_picktime.setText(ordersBean.getPickupTime());
+        tv_remark.setText(ordersBean.getRemark());
+        tv_money.setText(String.valueOf(ordersBean.getShippingFee()));
+        tv_letadr.setText(ordersBean.getDeliveryAddress());
+        tv_getadr.setText(ordersBean.getReceiverAddress());
+        tv_letinfo.setText(ordersBean.getDeliveryName() + "  " + ordersBean.getDeliveryPhone());
+        tv_getinfo.setText(ordersBean.getReceiverName() + "  " + ordersBean.getReceiverPhone());
+
         bt_left.setOnClickListener(new View.OnClickListener() {// 在相册中选取
             @Override
             public void onClick(View v) {
@@ -132,10 +171,28 @@ public class ErrandMineRunFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                QiangDan(ordersBean.getOrderNo());
             }
         });
         dialog.setView(view);
         dialog.show();
+    }
+
+    private void QiangDan(String orderNo) {
+        RQiangDanInfo qiangDanInfo = new RQiangDanInfo();
+        qiangDanInfo.setFunctionName("GrabErrandOrder");
+        RQiangDanInfo.ParametersBean parametersBean = new RQiangDanInfo.ParametersBean();
+        parametersBean.setOrderNo(orderNo);
+        parametersBean.setUserId(userId);
+        qiangDanInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
+        okGoUtils.httpPostJSON(qiangDanInfo,true,true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+
+            }
+        });
     }
 
     @Override
