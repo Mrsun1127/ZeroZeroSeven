@@ -2,6 +2,8 @@ package com.ffn.zerozeroseven.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -10,13 +12,18 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.adapter.NumberPayAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.ShouHuoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AllAdrInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TopView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,9 +36,12 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
     TextView tv_getname;
     @Bind(R.id.tv_getadr)
     TextView tv_getadr;
+    @Bind(R.id.recycleview)
+    RecyclerView recycleview;
     private ShouHuoInfo shouHuoInfo;
     private int position = 0;
     private NumberRicalInfo.RicalInfo ricalInfo;
+    private NumberPayAdapter numberPayAdapter;
 
     @Override
     protected int setLayout() {
@@ -53,6 +63,9 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
                 finish();
             }
         });
+        recycleview.setLayoutManager(new LinearLayoutManager(this));
+        numberPayAdapter = new NumberPayAdapter(this);
+        recycleview.setAdapter(numberPayAdapter);
     }
 
     @Override
@@ -60,8 +73,39 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
         ricalInfo = (NumberRicalInfo.RicalInfo) getIntent().getSerializableExtra("ricalInfo");
         if (!TextUtils.isEmpty(getIntent().getStringExtra("money"))) {
             tv_paymoney.setText(getIntent().getStringExtra("money"));
+            List<NumberRicalInfo.RicalInfo> ricalInfos = new ArrayList<>();
+            NumberRicalInfo numberRicalInfo = BaseAppApplication.getInstance().getNumberRicalInfo();
+            for (int i = 0; i < numberRicalInfo.getNumberRicalListInfo().size(); i++) {
+                if (numberRicalInfo.getNumberRicalListInfo().get(i).isChecked()) {
+                    NumberRicalInfo.RicalInfo rical = new NumberRicalInfo.RicalInfo();
+                    rical.setId(numberRicalInfo.getNumberRicalListInfo().get(i).getId());
+                    rical.setSpecId(numberRicalInfo.getNumberRicalListInfo().get(i).getSpecId());
+                    rical.setCount(numberRicalInfo.getNumberRicalListInfo().get(i).getCount());
+                    rical.setNeedsMoney(numberRicalInfo.getNumberRicalListInfo().get(i).getNeedsMoney());
+                    rical.setName(numberRicalInfo.getNumberRicalListInfo().get(i).getName());
+                    rical.setImgUrl(numberRicalInfo.getNumberRicalListInfo().get(i).getImgUrl());
+                    rical.setConfiguration(numberRicalInfo.getNumberRicalListInfo().get(i).getConfiguration());
+                    rical.setType(numberRicalInfo.getNumberRicalListInfo().get(i).getType());
+                    ricalInfos.add(rical);
+                }
+            }
+            numberPayAdapter.addAll(ricalInfos);
         } else {
             tv_paymoney.setText(String.valueOf(ricalInfo.getNeedsMoney()));
+//            NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
+            NumberRicalInfo.RicalInfo rical = new NumberRicalInfo.RicalInfo();
+            List<NumberRicalInfo.RicalInfo> ricalInfos = new ArrayList<>();
+            rical.setId(ricalInfo.getId());
+            rical.setSpecId(ricalInfo.getSpecId());
+            rical.setCount(ricalInfo.getCount());
+            rical.setNeedsMoney(ricalInfo.getNeedsMoney());
+            rical.setName(ricalInfo.getName());
+            rical.setImgUrl(ricalInfo.getImgUrl());
+            rical.setConfiguration(ricalInfo.getConfiguration());
+            rical.setType(ricalInfo.getType());
+            ricalInfos.add(rical);
+//            numberRicalInfo.setNumberRicalListInfo(ricalInfos);
+            numberPayAdapter.addAll(ricalInfos);
         }
 
         initAdr(0);

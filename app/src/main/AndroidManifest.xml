@@ -308,7 +308,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.NumberRicalCommitDingDanActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
         <activity
             android:name=".ui.NumberDrawBackActivity"
             android:screenOrientation="portrait" />

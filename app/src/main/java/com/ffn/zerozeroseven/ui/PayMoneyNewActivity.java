@@ -196,18 +196,30 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
         orderJsonInfo.setReceiver_phone(addressesBean.getContactPhone());
         parametersBean.setOrderInfoJson(JSON.toJSONString(orderJsonInfo));
         JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < numberRicalInfo.getNumberRicalListInfo().size(); i++) {
+        if(jumpType.equals("numberzhijie")){
             try {
-                if (numberRicalInfo.getNumberRicalListInfo().get(i).isChecked()) {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("goodsId", numberRicalInfo.getNumberRicalListInfo().get(i).getId());
-                    jsonObject.put("goods_name", numberRicalInfo.getNumberRicalListInfo().get(i).getName());
-                    jsonObject.put("goods_count", numberRicalInfo.getNumberRicalListInfo().get(i).getCount());
-                    jsonObject.put("specKey", numberRicalInfo.getNumberRicalListInfo().get(i).getSpecId());
-                    jsonObject.put("specKeyName", numberRicalInfo.getNumberRicalListInfo().get(i).getConfiguration());
-                    jsonArray.put(jsonObject);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("goodsId",ricalInfo.getId());
+                jsonObject.put("goods_name", ricalInfo.getName());
+                jsonObject.put("goods_count", ricalInfo.getCount());
+                jsonObject.put("specKey", ricalInfo.getSpecId());
+                jsonObject.put("specKeyName", ricalInfo.getConfiguration());
+                jsonArray.put(jsonObject);
+            }catch (Exception e){}
+        }else{
+            for (int i = 0; i < numberRicalInfo.getNumberRicalListInfo().size(); i++) {
+                try {
+                    if (numberRicalInfo.getNumberRicalListInfo().get(i).isChecked()) {
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("goodsId", numberRicalInfo.getNumberRicalListInfo().get(i).getId());
+                        jsonObject.put("goods_name", numberRicalInfo.getNumberRicalListInfo().get(i).getName());
+                        jsonObject.put("goods_count", numberRicalInfo.getNumberRicalListInfo().get(i).getCount());
+                        jsonObject.put("specKey", numberRicalInfo.getNumberRicalListInfo().get(i).getSpecId());
+                        jsonObject.put("specKeyName", numberRicalInfo.getNumberRicalListInfo().get(i).getConfiguration());
+                        jsonArray.put(jsonObject);
+                    }
+                } catch (Exception e) {
                 }
-            } catch (Exception e) {
             }
         }
         parametersBean.setOrderGoodsJson(jsonArray.toString());
