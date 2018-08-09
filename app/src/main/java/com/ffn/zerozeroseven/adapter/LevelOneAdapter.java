@@ -32,8 +32,10 @@ public class LevelOneAdapter extends BaseRecyclerAdapter<NumberLevelInfo.DataBea
         MViewHolder mHolder = (MViewHolder) holder;
         if (clickPosition == position) {
             mHolder.tv_level1.setTextColor(getResource().getColor(R.color.money));
+            mHolder.view.setVisibility(View.VISIBLE);
         } else {
             mHolder.tv_level1.setTextColor(getResource().getColor(R.color.black));
+            mHolder.view.setVisibility(View.GONE);
         }
         mHolder.tv_level1.setText(item.getName());
     }
@@ -49,10 +51,12 @@ public class LevelOneAdapter extends BaseRecyclerAdapter<NumberLevelInfo.DataBea
 
     private class MViewHolder extends RecyclerView.ViewHolder {
         TextView tv_level1;
+        View view;
 
         MViewHolder(View itemView) {
             super(itemView);
             tv_level1 = itemView.findViewById(R.id.tv_level1);
+            view = itemView.findViewById(R.id.view);
         }
     }
 
