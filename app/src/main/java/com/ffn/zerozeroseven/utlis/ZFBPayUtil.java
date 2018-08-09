@@ -75,6 +75,8 @@ public class ZFBPayUtil {
                             PayMoneyActivity.mInstance.get().finish();
                         } else if ("numberzhijie".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
+                        }else if("run".equals(pay)){
+                            PayMoneyNewActivity.mInstance.get().finish();
                         }
                         ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class);
                     } else {

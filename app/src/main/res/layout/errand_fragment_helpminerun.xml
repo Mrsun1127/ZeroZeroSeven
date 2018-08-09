@@ -67,6 +67,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:text="1Kg/10元"
                     android:id="@+id/tv_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -303,6 +304,7 @@
                     android:layout_weight="1" />
 
                 <EditText
+                    android:id="@+id/et_remark"
                     android:layout_width="120dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
@@ -365,6 +367,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/tv_rmoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
@@ -382,6 +385,7 @@
                 android:paddingLeft="16dp">
 
                 <CheckBox
+                    android:id="@+id/cb_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -439,6 +443,7 @@
             android:textSize="13sp" />
 
         <Button
+            android:id="@+id/bt_pay"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:background="@color/money"

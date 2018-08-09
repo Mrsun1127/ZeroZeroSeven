@@ -15,6 +15,7 @@ import com.ffn.zerozeroseven.bean.NumberCommiDingDanInfo;
 import com.ffn.zerozeroseven.bean.NumberOrderJsonInfo;
 import com.ffn.zerozeroseven.bean.NumberPayInfo;
 import com.ffn.zerozeroseven.bean.NumberRicalInfo;
+import com.ffn.zerozeroseven.bean.RrunnerPayInfo;
 import com.ffn.zerozeroseven.bean.ShouHuoInfo;
 import com.ffn.zerozeroseven.bean.WeChatInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CallNewDingDanInfo;
@@ -55,6 +56,8 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
     private ShouHuoInfo.DataBean.AddressesBean addressesBean;
     private NumberRicalInfo numberRicalInfo;
     private NumberRicalInfo.RicalInfo ricalInfo;
+    private RrunnerPayInfo rrunnerPayInfo;
+    private String jumpType;
 
     @Override
     protected int setLayout() {
@@ -71,8 +74,9 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
         numberRicalInfo = BaseAppApplication.getInstance().getNumberRicalInfo();
         addressesBean = (ShouHuoInfo.DataBean.AddressesBean) getIntent().getSerializableExtra("adrInfo");
         ricalInfo = (NumberRicalInfo.RicalInfo) getIntent().getSerializableExtra("ricalInfo");
+        rrunnerPayInfo = (RrunnerPayInfo) getIntent().getSerializableExtra("runInfo");
         tv_money.setText("支付金额：" + getIntent().getStringExtra("money") + "RMB");
-
+        jumpType = getIntent().getStringExtra("pay");
     }
 
     @Override
@@ -110,12 +114,20 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
             case R.id.bt_pay:
                 if (payment.equals("WechatPay")) {
                     if (isPaySupported) {
-                        PayMoney(payment);
+                        if (jumpType.equals("numbercar") || jumpType.equals("numberzhijie")) {
+                            PayMoney(payment);
+                        } else if (jumpType.equals("run")) {
+                            RunPay(payment);
+                        }
                     } else {
                         ZeroZeroSevenUtils.showCustonPop(PayMoneyNewActivity.this, "未安装微信客户端", tv_money);
                     }
                 } else {
-                    PayMoney(payment);
+                    if (jumpType.equals("numbercar") || jumpType.equals("numberzhijie")) {
+                        PayMoney(payment);
+                    } else if (jumpType.equals("run")) {
+                        RunPay(payment);
+                    }
                 }
                 break;
             case R.id.rb_zfb:
@@ -128,19 +140,53 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+    private void RunPay(final String payment) {
+        OkGoUtils okGoUtils = new OkGoUtils(PayMoneyNewActivity.this);
+        okGoUtils.httpPostJSON(rrunnerPayInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                BaseAppApplication.clearType = "run";
+                if (payment.equals("AliPay")) {
+                    NumberAliPayInfo aliPayInfo = JSON.parseObject(response, NumberAliPayInfo.class);
+                    if (aliPayInfo.getCode() == 0) {
+                        mZFbutils.pay(aliPayInfo.getData().getBody(), "runpay");
+                    } else {
+                        ZeroZeroSevenUtils.showCustonPop(PayMoneyNewActivity.this, aliPayInfo.getMessage(), ll_all);
+                    }
+                } else {
+                    NumberPayInfo numberPayInfo = JSON.parseObject(response, NumberPayInfo.class);
+                    if (numberPayInfo.getCode() == 0) {
+                        PayReq req = new PayReq();
+                        req.appId = numberPayInfo.getData().getAppid();
+                        req.partnerId = numberPayInfo.getData().getPartnerid();
+                        req.prepayId = numberPayInfo.getData().getPrepayid();
+                        req.nonceStr = numberPayInfo.getData().getNoncestr();
+                        req.timeStamp = numberPayInfo.getData().getTimestamp();
+                        req.packageValue = "Sign=WXPay";
+                        req.sign = numberPayInfo.getData().getSign();
+                        api.sendReq(req);
+                    } else {
+                        ZeroZeroSevenUtils.showCustonPop(PayMoneyNewActivity.this, numberPayInfo.getMessage(), ll_all);
+                    }
+                }
+            }
+        });
+    }
+
 
     private void PayMoney(final String str) {
         NumberCommiDingDanInfo numberCommiDingDanInfo = new NumberCommiDingDanInfo();
         numberCommiDingDanInfo.setFunctionName("AddDigitalGoodsOrder");
         NumberCommiDingDanInfo.ParametersBean parametersBean = new NumberCommiDingDanInfo.ParametersBean();
         parametersBean.setPayment(str);
-        if(ricalInfo!=null){
-            if(ricalInfo.getType()==0){
+        if (ricalInfo != null) {
+            if (ricalInfo.getType() == 0) {
                 parametersBean.setPayType("DEPOSIT");
-            }else{
+            } else {
                 parametersBean.setPayType("FULL");
             }
-        }else{
+        } else {
             parametersBean.setPayType("FULL");
         }
         parametersBean.setUserId(Integer.parseInt(userId));

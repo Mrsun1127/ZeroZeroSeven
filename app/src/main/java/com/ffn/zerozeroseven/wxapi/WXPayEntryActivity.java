@@ -130,6 +130,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                             SharePrefUtils.saveObject(WXPayEntryActivity.this, "numberRicalInfo", numberRicalInfo);
                         }else if ("numberzhijie".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
+                        }else if ("run".equals(pay)) {
+                            PayMoneyNewActivity.mInstance.get().finish();
                         }
 
                     } else {

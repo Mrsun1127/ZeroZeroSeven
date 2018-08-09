@@ -1,9 +1,13 @@
 package com.ffn.zerozeroseven.fragment;
 
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,9 +19,12 @@ import com.ffn.zerozeroseven.adapter.ErrandMineRunAdapter;
 import com.ffn.zerozeroseven.adapter.PopWeightAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.RrunnerPayInfo;
 import com.ffn.zerozeroseven.bean.RunTypeInfo;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
+import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
 import com.ffn.zerozeroseven.utlis.ScreenUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 import com.zyyoona7.popup.EasyPopup;
@@ -159,13 +166,13 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
                 //获取当前时间
                 tv_time.setText(simpleDateFormat.format(date));
             }
-        }).setType(new boolean[]{ false, false, false,true, true, false})// 默认全部显示
+        }).setType(new boolean[]{false, false, false, true, true, false})// 默认全部显示
                 .build();
         pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
         pvTime.show();
     }
 
-    @OnClick({R.id.ll_weight, R.id.ll_level, R.id.ll_lettime})
+    @OnClick({R.id.ll_weight, R.id.ll_level, R.id.ll_lettime, R.id.bt_pay})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.ll_weight:
@@ -187,7 +194,71 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
             case R.id.ll_lettime:
                 setBri();
                 break;
+            case R.id.bt_pay:
+                RrunnerPayInfo rrunnerPayInfo = checkSome();
+                if (rrunnerPayInfo != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("money", "10");
+                    bundle.putString("pay", "run");
+                    bundle.putSerializable("runInfo", rrunnerPayInfo);
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, PayMoneyNewActivity.class, bundle);
+                }
+                break;
         }
+    }
+
+    @Bind(R.id.et_remark)
+    EditText et_remark;
+    @Bind(R.id.tv_rmoney)
+    TextView tv_rmoney;
+    @Bind(R.id.cb_check)
+    CheckBox cb_check;
+
+    private RrunnerPayInfo checkSome() {
+        String type = errandHelpAdapter.getItem(errandHelpAdapter.clickPosition).getTitle();
+        String weight = tv_weight.getText().toString();
+        String letTime = tv_time.getText().toString();
+        String remark = et_remark.getText().toString().trim();
+        String level = tv_runnerlevel.getText().toString();
+        String rmoney = tv_rmoney.getText().toString();
+        boolean isSelect = cb_check.isChecked();
+        if (!TextUtils.isEmpty(weight)) {
+            if (!TextUtils.isEmpty(letTime)) {
+                if (!TextUtils.isEmpty(level)) {
+                    if (isSelect) {
+                        RrunnerPayInfo rrunnerPayInfo = new RrunnerPayInfo();
+                        rrunnerPayInfo.setFunctionName("AddErrandOrder");
+                        RrunnerPayInfo.ParametersBean parametersBean = new RrunnerPayInfo.ParametersBean();
+                        parametersBean.setGoodsType(type);
+                        parametersBean.setUserId(userId);
+                        parametersBean.setGoodsWeight(weight);
+                        parametersBean.setDeliveryAddress("xxx");
+                        parametersBean.setDeliveryName("mrsun");
+                        parametersBean.setDeliveryPhone("18888888888");
+                        parametersBean.setReceiverAddress("xxx");
+                        parametersBean.setReceiverName("mrqin");
+                        parametersBean.setReceiverPhone("1666666666");
+                        parametersBean.setShippingFee(rmoney);
+                        if (!TextUtils.isEmpty(remark)) {
+                            parametersBean.setRemark(remark);
+                        }
+                        parametersBean.setErrandLevel(level);
+                        parametersBean.setPickupTime(letTime);
+                        rrunnerPayInfo.setParameters(parametersBean);
+                        return rrunnerPayInfo;
+                    } else {
+                        ToastUtils.showShort("请同意跑腿条款");
+                    }
+                } else {
+                    ToastUtils.showShort("请选择跑腿等级");
+                }
+            } else {
+                ToastUtils.showShort("请选择取件时间");
+            }
+        } else {
+            ToastUtils.showShort("请选择物品重量");
+        }
+        return null;
     }
 
     @Override
