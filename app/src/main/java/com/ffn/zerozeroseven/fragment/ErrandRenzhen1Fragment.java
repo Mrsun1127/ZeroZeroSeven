@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.ReleaseJumpShopActivity;
 import com.ffn.zerozeroseven.ui.SeachSchoolListActivity;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 import java.util.ArrayList;
@@ -39,10 +41,19 @@ public class ErrandRenzhen1Fragment extends BaseFragment {
     public static ErrandRenzhen1Fragment newInstance() {
         return new ErrandRenzhen1Fragment();
     }
+
     private ErrandRenzhen1Fragment fragment;
     private ArrayList<String> imgList = new ArrayList<>();
     @Bind(R.id.tv_school)
     TextView tv_school;
+    @Bind(R.id.et_name)
+    EditText et_name;
+    @Bind(R.id.et_card)
+    EditText et_card;
+    @Bind(R.id.et_phone)
+    EditText et_phone;
+    @Bind(R.id.et_code)
+    EditText et_code;
 
     @Override
     protected void initView(View view) {
@@ -64,10 +75,10 @@ public class ErrandRenzhen1Fragment extends BaseFragment {
             case R.id.ll_school:
                 Bundle bundle = new Bundle();
                 bundle.putString("errand", "yes");
-                ZeroZeroSevenUtils.FragmentSwitchActivity(bfCxt, SeachSchoolListActivity.class, fragment,bundle, 3);
+                ZeroZeroSevenUtils.FragmentSwitchActivity(bfCxt, SeachSchoolListActivity.class, fragment, bundle, 3);
                 break;
             case R.id.bt_next:
-                ErrandAuitActivity.mInstance.get().goVp(1);
+                userCheck();
                 break;
             case R.id.iv_icon:
                 if (ContextCompat.checkSelfPermission(bfCxt, Manifest.permission.CAMERA)
@@ -80,6 +91,32 @@ public class ErrandRenzhen1Fragment extends BaseFragment {
                 }
                 break;
         }
+    }
+
+    private void userCheck() {
+        String imgUrl = imgList.get(0);
+        String name = et_name.getText().toString().trim();
+        String idCard = et_card.getText().toString().trim();
+        String phone = et_phone.getText().toString().trim();
+        String code = et_code.getText().toString().trim();
+        if (!TextUtils.isEmpty(imgUrl)) {
+            if (!TextUtils.isEmpty(name)) {
+                if (!TextUtils.isEmpty(idCard)) {
+                    if (!TextUtils.isEmpty(phone)) {
+                        ErrandAuitActivity.mInstance.get().goVp(1);
+                    } else {
+                        ToastUtils.showShort("请输入手机号码");
+                    }
+                } else {
+                    ToastUtils.showShort("请输入身份证号码");
+                }
+            } else {
+                ToastUtils.showShort("请输入姓名");
+            }
+        } else {
+            ToastUtils.showShort("请选择头像");
+        }
+
     }
 
     private static final int REQUEST_IMAGE = 2;

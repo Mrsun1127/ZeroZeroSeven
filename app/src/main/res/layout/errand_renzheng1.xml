@@ -68,6 +68,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/et_name"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -100,6 +101,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/et_card"
                     android:layout_width="250dp"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -164,6 +166,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/et_phone"
                     android:layout_width="250dp"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -199,6 +202,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/et_code"
                     android:layout_width="250dp"
                     android:layout_height="match_parent"
                     android:background="@null"
