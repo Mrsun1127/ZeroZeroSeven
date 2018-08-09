@@ -99,17 +99,12 @@ public class ErrandMineRunFragment extends BaseFragment {
                 RunnerInfo runnerInfo = JSON.parseObject(response, RunnerInfo.class);
                 if (runnerInfo.getCode() == 0) {
                     if (runnerInfo.getData() != null) {
-                        if (runnerInfo.getData().getItem() != null) {
-                            ll_audit.setVisibility(View.GONE);
-                            ll_verifile.setVisibility(View.VISIBLE);
+                        ll_audit.setVisibility(View.GONE);
+                        ll_verifile.setVisibility(View.VISIBLE);
 //                            Glide.with(bfCxt).load(runnerInfo.getData().getItem().getSex())
-                            tv_name.setText(runnerInfo.getData().getItem().getRealName());
-                            tv_phone.setText(runnerInfo.getData().getItem().getPhone());
-                            tv_satisficing.setText(runnerInfo.getData().getItem().getStarLevel() + "星级");
-                        } else {
-                            ll_audit.setVisibility(View.VISIBLE);
-                            ll_verifile.setVisibility(View.GONE);
-                        }
+                        tv_name.setText(runnerInfo.getData().getRealName());
+                        tv_phone.setText(runnerInfo.getData().getPhone());
+                        tv_satisficing.setText(runnerInfo.getData().getStarLevel() + "星级");
                     } else {
                         ll_audit.setVisibility(View.VISIBLE);
                         ll_verifile.setVisibility(View.GONE);

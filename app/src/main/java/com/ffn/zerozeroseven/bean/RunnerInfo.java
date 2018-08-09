@@ -1,49 +1,16 @@
 package com.ffn.zerozeroseven.bean;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class RunnerInfo  implements Parcelable{
+public class RunnerInfo  {
 
     /**
      * code : 0
-     * data : {"item":{"checkStatus":1,"createTime":"2018-08-06 10:42:09","idcard":"430421199810239875","payStatus":1,"phone":"17388933063","realName":"杨洲","refuseReason":"姓名不真实","schoolId":1719,"sex":1,"starLevel":5,"userId":90}}
-     * success : true
+     * data : {"realName":"杨洲","checkStatus":1,"createTime":"2018-08-06 10:42:09","phone":"17388933063","idcard":"430421199810239875","schoolId":1719,"sex":1,"starLevel":5,"schoolName":"湖南农业大学","payStatus":1,"userId":90,"refuseReason":"姓名不真实"}
+     * message : 请求成功
      */
 
     private int code;
     private DataBean data;
-    private boolean success;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     private String message;
-
-    protected RunnerInfo(Parcel in) {
-        code = in.readInt();
-        success = in.readByte() != 0;
-    }
-
-    public static final Creator<RunnerInfo> CREATOR = new Creator<RunnerInfo>() {
-        @Override
-        public RunnerInfo createFromParcel(Parcel in) {
-            return new RunnerInfo(in);
-        }
-
-        @Override
-        public RunnerInfo[] newArray(int size) {
-            return new RunnerInfo[size];
-        }
-    };
-
-    public RunnerInfo() {
-    }
 
     public int getCode() {
         return code;
@@ -61,230 +28,137 @@ public class RunnerInfo  implements Parcelable{
         this.data = data;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public String getMessage() {
+        return message;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(code);
-        parcel.writeByte((byte) (success ? 1 : 0));
-    }
-
-    public static class DataBean implements Parcelable{
+    public static class DataBean {
         /**
-         * item : {"checkStatus":1,"createTime":"2018-08-06 10:42:09","idcard":"430421199810239875","payStatus":1,"phone":"17388933063","realName":"杨洲","refuseReason":"姓名不真实","schoolId":1719,"sex":1,"starLevel":5,"userId":90}
+         * realName : 杨洲
+         * checkStatus : 1
+         * createTime : 2018-08-06 10:42:09
+         * phone : 17388933063
+         * idcard : 430421199810239875
+         * schoolId : 1719
+         * sex : 1
+         * starLevel : 5
+         * schoolName : 湖南农业大学
+         * payStatus : 1
+         * userId : 90
+         * refuseReason : 姓名不真实
          */
 
-        private ItemBean item;
+        private String realName;
+        private int checkStatus;
+        private String createTime;
+        private String phone;
+        private String idcard;
+        private int schoolId;
+        private int sex;
+        private int starLevel;
+        private String schoolName;
+        private int payStatus;
+        private int userId;
+        private String refuseReason;
 
-        protected DataBean(Parcel in) {
+        public String getRealName() {
+            return realName;
         }
 
-        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
-            @Override
-            public DataBean createFromParcel(Parcel in) {
-                return new DataBean(in);
-            }
-
-            @Override
-            public DataBean[] newArray(int size) {
-                return new DataBean[size];
-            }
-        };
-
-        public DataBean() {
+        public void setRealName(String realName) {
+            this.realName = realName;
         }
 
-        public ItemBean getItem() {
-            return item;
+        public int getCheckStatus() {
+            return checkStatus;
         }
 
-        public void setItem(ItemBean item) {
-            this.item = item;
+        public void setCheckStatus(int checkStatus) {
+            this.checkStatus = checkStatus;
         }
 
-        @Override
-        public int describeContents() {
-            return 0;
+        public String getCreateTime() {
+            return createTime;
         }
 
-        @Override
-        public void writeToParcel(Parcel parcel, int i) {
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
         }
 
-        public static class ItemBean implements Parcelable{
-            /**
-             * checkStatus : 1
-             * createTime : 2018-08-06 10:42:09
-             * idcard : 430421199810239875
-             * payStatus : 1
-             * phone : 17388933063
-             * realName : 杨洲
-             * refuseReason : 姓名不真实
-             * schoolId : 1719
-             * sex : 1
-             * starLevel : 5
-             * userId : 90
-             */
+        public String getPhone() {
+            return phone;
+        }
 
-            private int checkStatus;
-            private String createTime;
-            private String idcard;
-            private int payStatus;
-            private String phone;
-            private String realName;
-            private String refuseReason;
-            private int schoolId;
-            private int sex;
-            private int starLevel;
-            private int userId;
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
 
-            protected ItemBean(Parcel in) {
-                checkStatus = in.readInt();
-                createTime = in.readString();
-                idcard = in.readString();
-                payStatus = in.readInt();
-                phone = in.readString();
-                realName = in.readString();
-                refuseReason = in.readString();
-                schoolId = in.readInt();
-                sex = in.readInt();
-                starLevel = in.readInt();
-                userId = in.readInt();
-            }
+        public String getIdcard() {
+            return idcard;
+        }
 
-            public static final Creator<ItemBean> CREATOR = new Creator<ItemBean>() {
-                @Override
-                public ItemBean createFromParcel(Parcel in) {
-                    return new ItemBean(in);
-                }
+        public void setIdcard(String idcard) {
+            this.idcard = idcard;
+        }
 
-                @Override
-                public ItemBean[] newArray(int size) {
-                    return new ItemBean[size];
-                }
-            };
+        public int getSchoolId() {
+            return schoolId;
+        }
 
-            public ItemBean() {
-            }
+        public void setSchoolId(int schoolId) {
+            this.schoolId = schoolId;
+        }
 
-            public int getCheckStatus() {
-                return checkStatus;
-            }
+        public int getSex() {
+            return sex;
+        }
 
-            public void setCheckStatus(int checkStatus) {
-                this.checkStatus = checkStatus;
-            }
+        public void setSex(int sex) {
+            this.sex = sex;
+        }
 
-            public String getCreateTime() {
-                return createTime;
-            }
+        public int getStarLevel() {
+            return starLevel;
+        }
 
-            public void setCreateTime(String createTime) {
-                this.createTime = createTime;
-            }
+        public void setStarLevel(int starLevel) {
+            this.starLevel = starLevel;
+        }
 
-            public String getIdcard() {
-                return idcard;
-            }
+        public String getSchoolName() {
+            return schoolName;
+        }
 
-            public void setIdcard(String idcard) {
-                this.idcard = idcard;
-            }
+        public void setSchoolName(String schoolName) {
+            this.schoolName = schoolName;
+        }
 
-            public int getPayStatus() {
-                return payStatus;
-            }
+        public int getPayStatus() {
+            return payStatus;
+        }
 
-            public void setPayStatus(int payStatus) {
-                this.payStatus = payStatus;
-            }
+        public void setPayStatus(int payStatus) {
+            this.payStatus = payStatus;
+        }
 
-            public String getPhone() {
-                return phone;
-            }
+        public int getUserId() {
+            return userId;
+        }
 
-            public void setPhone(String phone) {
-                this.phone = phone;
-            }
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
 
-            public String getRealName() {
-                return realName;
-            }
+        public String getRefuseReason() {
+            return refuseReason;
+        }
 
-            public void setRealName(String realName) {
-                this.realName = realName;
-            }
-
-            public String getRefuseReason() {
-                return refuseReason;
-            }
-
-            public void setRefuseReason(String refuseReason) {
-                this.refuseReason = refuseReason;
-            }
-
-            public int getSchoolId() {
-                return schoolId;
-            }
-
-            public void setSchoolId(int schoolId) {
-                this.schoolId = schoolId;
-            }
-
-            public int getSex() {
-                return sex;
-            }
-
-            public void setSex(int sex) {
-                this.sex = sex;
-            }
-
-            public int getStarLevel() {
-                return starLevel;
-            }
-
-            public void setStarLevel(int starLevel) {
-                this.starLevel = starLevel;
-            }
-
-            public int getUserId() {
-                return userId;
-            }
-
-            public void setUserId(int userId) {
-                this.userId = userId;
-            }
-
-            @Override
-            public int describeContents() {
-                return 0;
-            }
-
-            @Override
-            public void writeToParcel(Parcel parcel, int i) {
-                parcel.writeInt(checkStatus);
-                parcel.writeString(createTime);
-                parcel.writeString(idcard);
-                parcel.writeInt(payStatus);
-                parcel.writeString(phone);
-                parcel.writeString(realName);
-                parcel.writeString(refuseReason);
-                parcel.writeInt(schoolId);
-                parcel.writeInt(sex);
-                parcel.writeInt(starLevel);
-                parcel.writeInt(userId);
-            }
+        public void setRefuseReason(String refuseReason) {
+            this.refuseReason = refuseReason;
         }
     }
 }
