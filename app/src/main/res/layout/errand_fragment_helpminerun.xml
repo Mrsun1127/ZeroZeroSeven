@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_all"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -46,6 +47,7 @@
                 android:background="@color/nobg" />
 
             <LinearLayout
+                android:id="@+id/ll_weight"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
@@ -65,10 +67,10 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/tv_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:text="1kg"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -200,6 +202,7 @@
                 android:background="@color/nobg" />
 
             <LinearLayout
+                android:id="@+id/ll_lettime"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
@@ -219,6 +222,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
@@ -239,6 +243,7 @@
                 android:background="@color/nobg" />
 
             <LinearLayout
+                android:id="@+id/ll_level"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
@@ -258,6 +263,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/tv_runnerlevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
@@ -397,6 +403,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
+        android:id="@+id/ll_bot"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#505052"
@@ -415,24 +422,27 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="待支付 ￥"
             android:textColor="@color/white"
             android:textSize="13sp" />
+
         <TextView
-            android:layout_marginRight="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:text="10"
             android:textColor="@color/white"
             android:textSize="13sp" />
+
         <Button
-            android:textColor="@color/white"
-            android:text="提交订单"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:background="@color/money"/>
+            android:background="@color/money"
+            android:text="提交订单"
+            android:textColor="@color/white" />
     </LinearLayout>
 </LinearLayout>
