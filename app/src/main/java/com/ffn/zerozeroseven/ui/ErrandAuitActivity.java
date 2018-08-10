@@ -8,6 +8,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ExamplePagerAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.bean.RrenzhengInfo;
 import com.ffn.zerozeroseven.fragment.ErrandRenzhen1Fragment;
 import com.ffn.zerozeroseven.fragment.ErrandRenzhen2Fragment;
 import com.ffn.zerozeroseven.fragment.ErrandRenzhen3Fragment;
@@ -33,6 +34,18 @@ public class ErrandAuitActivity extends BaseActivity {
     private List<String> mDataList = Arrays.asList(CHANNELS);
     private List<Fragment> fragmentList = new ArrayList<>();
     public static WeakReference<ErrandAuitActivity> mInstance;
+    public RrenzhengInfo rrenzhengInfo;
+
+    public RrenzhengInfo getRrenzhengInfo() {
+        if (rrenzhengInfo == null) {
+            rrenzhengInfo = new RrenzhengInfo();
+        }
+        return rrenzhengInfo;
+    }
+
+    public void setRrenzhengInfo(RrenzhengInfo rrenzhengInfo1) {
+        rrenzhengInfo = rrenzhengInfo1;
+    }
 
     @Override
     protected int setLayout() {

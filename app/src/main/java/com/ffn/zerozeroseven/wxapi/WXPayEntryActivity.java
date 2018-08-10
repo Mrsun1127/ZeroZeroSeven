@@ -14,6 +14,7 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CancelOrderInfo;
+import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
@@ -132,6 +133,9 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                             PayMoneyNewActivity.mInstance.get().finish();
                         }else if ("run".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
+                        }else if("renzheng".equals(pay)){
+                            PayMoneyNewActivity.mInstance.get().finish();
+                            ErrandAuitActivity.mInstance.get().goVp(2);
                         }
 
                     } else {

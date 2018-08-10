@@ -128,6 +128,7 @@
                 android:background="@color/nobg" />
 
             <LinearLayout
+                android:id="@+id/ll_sex"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
@@ -148,6 +149,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/tv_sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
@@ -165,13 +167,12 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/et_phone"
+                <TextView
+                    android:gravity="center_vertical"
+                    android:id="@+id/tv_phone"
                     android:layout_width="250dp"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:hint="手机号码"
-                    android:inputType="number"
                     android:paddingLeft="12dp"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
@@ -181,13 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <Button
-                    android:layout_width="90dp"
-                    android:layout_height="38dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/qiangdan"
-                    android:text="获取验证码"
-                    android:textColor="@color/white" />
+
             </LinearLayout>
 
             <View
@@ -195,29 +190,7 @@
                 android:layout_height="3dp"
                 android:background="@color/nobg" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/et_code"
-                    android:layout_width="250dp"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="输入验证码"
-                    android:inputType="number"
-                    android:paddingLeft="12dp"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

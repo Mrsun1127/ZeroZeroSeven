@@ -125,8 +125,9 @@ public class ErrandMineRunFragment extends BaseFragment {
                         if (!TextUtils.isEmpty(runnerInfo.getData().getPhone())) {
                             ll_audit.setVisibility(View.GONE);
                             ll_verifile.setVisibility(View.VISIBLE);
-//                            Glide.with(bfCxt).load(runnerInfo.getData().getItem().getSex())
+                            Glide.with(bfCxt).load(runnerInfo.getData().getAvatar()).into(clv_icon);
                             tv_name.setText(runnerInfo.getData().getRealName());
+                            tv_school.setText(runnerInfo.getData().getSchoolName());
                             tv_phone.setText(runnerInfo.getData().getPhone());
                             tv_satisficing.setText(runnerInfo.getData().getStarLevel() + "星级");
                         } else {

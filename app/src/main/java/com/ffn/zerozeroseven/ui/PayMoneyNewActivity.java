@@ -8,21 +8,16 @@ import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
-import com.ffn.zerozeroseven.bean.CarShopInfo;
-import com.ffn.zerozeroseven.bean.CommitDingDanInfo;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.NumberAliPayInfo;
 import com.ffn.zerozeroseven.bean.NumberCommiDingDanInfo;
 import com.ffn.zerozeroseven.bean.NumberOrderJsonInfo;
 import com.ffn.zerozeroseven.bean.NumberPayInfo;
 import com.ffn.zerozeroseven.bean.NumberRicalInfo;
+import com.ffn.zerozeroseven.bean.RrnzPayInfo;
 import com.ffn.zerozeroseven.bean.RrunnerPayInfo;
 import com.ffn.zerozeroseven.bean.ShouHuoInfo;
-import com.ffn.zerozeroseven.bean.WeChatInfo;
-import com.ffn.zerozeroseven.bean.requsetbean.CallNewDingDanInfo;
-import com.ffn.zerozeroseven.bean.requsetbean.OrderJsonInfo;
-import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
-import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZFBPayUtil;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -35,12 +30,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 /**
  * Created by GT on 2017/11/27.
@@ -118,6 +108,8 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
                             PayMoney(payment);
                         } else if (jumpType.equals("run")) {
                             RunPay(payment);
+                        }else if(jumpType.equals("renzheng")){
+                            VertifyInfo(payment);
                         }
                     } else {
                         ZeroZeroSevenUtils.showCustonPop(PayMoneyNewActivity.this, "未安装微信客户端", tv_money);
@@ -127,6 +119,8 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
                         PayMoney(payment);
                     } else if (jumpType.equals("run")) {
                         RunPay(payment);
+                    }else if(jumpType.equals("renzheng")){
+                        VertifyInfo(payment);
                     }
                 }
                 break;
@@ -138,6 +132,62 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
                 break;
 
         }
+    }
+
+    private void VertifyInfo(final String payment) {
+        OkGoUtils okGoUtils = new OkGoUtils(PayMoneyNewActivity.this);
+        okGoUtils.httpPostJSON(ErrandAuitActivity.mInstance.get().getRrenzhengInfo(),true,true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response,ErrorCodeInfo.class);
+                if(errorCodeInfo.getCode()==0){
+                    RenzhengPay(payment);
+                }else{
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
+                }
+            }
+        });
+    }
+
+    private void RenzhengPay(final String payment) {
+        RrnzPayInfo rrnzPayInfo = new RrnzPayInfo();
+        rrnzPayInfo.setFunctionName("AddErrandUserCheckOrder");
+        RrnzPayInfo.ParametersBean parametersBean = new RrnzPayInfo.ParametersBean();
+        parametersBean.setPayment(payment);
+        parametersBean.setUserId(userId);
+        rrnzPayInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(PayMoneyNewActivity.this);
+        okGoUtils.httpPostJSON(rrnzPayInfo,true,true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                BaseAppApplication.clearType = "renzheng";
+                if(payment.equals("AliPay")){
+                    NumberAliPayInfo aliPayInfo = JSON.parseObject(response, NumberAliPayInfo.class);
+                    if (aliPayInfo.getCode() == 0) {
+                        mZFbutils.pay(aliPayInfo.getData().getBody(), "runpay");
+                    } else {
+                        ZeroZeroSevenUtils.showCustonPop(PayMoneyNewActivity.this, aliPayInfo.getMessage(), ll_all);
+                    }
+                }else{
+                    NumberPayInfo numberPayInfo = JSON.parseObject(response, NumberPayInfo.class);
+                    if (numberPayInfo.getCode() == 0) {
+                        PayReq req = new PayReq();
+                        req.appId = numberPayInfo.getData().getAppid();
+                        req.partnerId = numberPayInfo.getData().getPartnerid();
+                        req.prepayId = numberPayInfo.getData().getPrepayid();
+                        req.nonceStr = numberPayInfo.getData().getNoncestr();
+                        req.timeStamp = numberPayInfo.getData().getTimestamp();
+                        req.packageValue = "Sign=WXPay";
+                        req.sign = numberPayInfo.getData().getSign();
+                        api.sendReq(req);
+                    } else {
+                        ZeroZeroSevenUtils.showCustonPop(PayMoneyNewActivity.this, numberPayInfo.getMessage(), ll_all);
+                    }
+                }
+            }
+        });
     }
 
     private void RunPay(final String payment) {

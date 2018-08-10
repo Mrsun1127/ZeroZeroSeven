@@ -65,6 +65,16 @@ public class RunnerInfo  {
         private int userId;
         private String refuseReason;
 
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+        private String avatar;
+
         public String getRealName() {
             return realName;
         }

@@ -1,11 +1,17 @@
 package com.ffn.zerozeroseven.fragment;
 
+import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
+import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -24,11 +30,19 @@ public class ErrandRenzhen2Fragment extends BaseFragment {
         return R.layout.errand_renzheng2;
     }
 
+    @Bind(R.id.cb)
+    CheckBox cb;
+
     @OnClick({R.id.bt_next})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_next:
-                ErrandAuitActivity.mInstance.get().goVp(2);
+                if (cb.isChecked()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("money", "99");
+                    bundle.putString("pay", "renzheng");
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, PayMoneyNewActivity.class, bundle);
+                }
                 break;
 
         }
