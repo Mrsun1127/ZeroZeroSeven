@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -121,12 +122,18 @@ public class ErrandMineRunFragment extends BaseFragment {
                 RunnerInfo runnerInfo = JSON.parseObject(response, RunnerInfo.class);
                 if (runnerInfo.getCode() == 0) {
                     if (runnerInfo.getData() != null) {
-                        ll_audit.setVisibility(View.GONE);
-                        ll_verifile.setVisibility(View.VISIBLE);
+                        if (!TextUtils.isEmpty(runnerInfo.getData().getPhone())) {
+                            ll_audit.setVisibility(View.GONE);
+                            ll_verifile.setVisibility(View.VISIBLE);
 //                            Glide.with(bfCxt).load(runnerInfo.getData().getItem().getSex())
-                        tv_name.setText(runnerInfo.getData().getRealName());
-                        tv_phone.setText(runnerInfo.getData().getPhone());
-                        tv_satisficing.setText(runnerInfo.getData().getStarLevel() + "星级");
+                            tv_name.setText(runnerInfo.getData().getRealName());
+                            tv_phone.setText(runnerInfo.getData().getPhone());
+                            tv_satisficing.setText(runnerInfo.getData().getStarLevel() + "星级");
+                        } else {
+                            ll_audit.setVisibility(View.VISIBLE);
+                            ll_verifile.setVisibility(View.GONE);
+                        }
+
                     } else {
                         ll_audit.setVisibility(View.VISIBLE);
                         ll_verifile.setVisibility(View.GONE);
@@ -186,7 +193,7 @@ public class ErrandMineRunFragment extends BaseFragment {
         parametersBean.setUserId(userId);
         qiangDanInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(qiangDanInfo,true,true);
+        okGoUtils.httpPostJSON(qiangDanInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
