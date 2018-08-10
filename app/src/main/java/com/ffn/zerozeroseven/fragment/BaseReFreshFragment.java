@@ -42,7 +42,7 @@ public abstract class BaseReFreshFragment extends BaseFragment implements OnRefr
     private KProgressHUD hud;
     private RgRefreshStatus rgRefreshStatus = RgRefreshStatus.IDLE;
     int pageNo = 0;
-
+    public boolean isLoadMore=true;
     private void setRefreshLayoutVis() {
         if (commonRefreshLayout.getVisibility() == View.GONE) {
             commonRefreshLayout.setVisibility(View.VISIBLE);
@@ -155,8 +155,13 @@ public abstract class BaseReFreshFragment extends BaseFragment implements OnRefr
 
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
-        rgRefreshStatus = RgRefreshStatus.PULL_DOWN;
-        requestData();
+        if(isLoadMore){
+            rgRefreshStatus = RgRefreshStatus.PULL_DOWN;
+            requestData();
+        }else{
+            refreshlayout.finishLoadmore();
+        }
+
     }
 
     protected abstract BaseRecyclerAdapter setAdapter();
