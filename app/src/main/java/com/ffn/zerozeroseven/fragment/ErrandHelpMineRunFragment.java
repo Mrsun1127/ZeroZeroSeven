@@ -76,6 +76,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
         initWeightPop();
     }
 
+    String weight1 = "1-10Kg";
 
     private void initWeightPop() {
         mCirclePop = EasyPopup.create()
@@ -114,6 +115,20 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
                     switch (clickSwitch) {
                         case 0:
                             tv_weight.setText(weightAdapter.getItem(weightAdapter.getClickPosition()));
+                            switch (weightAdapter.getClickPosition()) {
+                                case 0:
+                                    weight1="1-10kg";
+                                    break;
+                                case 1:
+                                    weight1="10-20kg";
+                                    break;
+                                case 2:
+                                    weight1="20-30kg";
+                                    break;
+                                case 3:
+                                    weight1="30kg以上";
+                                    break;
+                            }
                             break;
                         case 1:
                             tv_runnerlevel.setText(weightAdapter.getItem(weightAdapter.getClickPosition()));
@@ -220,7 +235,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
         String letTime = tv_time.getText().toString();
         String remark = et_remark.getText().toString().trim();
         String level = tv_runnerlevel.getText().toString();
-        String rmoney = tv_rmoney.getText().toString();
+        String rmoney = tv_rmoney.getText().toString().replaceAll("元", "");
         boolean isSelect = cb_check.isChecked();
         if (!TextUtils.isEmpty(weight)) {
             if (!TextUtils.isEmpty(letTime)) {
@@ -231,7 +246,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
                         RrunnerPayInfo.ParametersBean parametersBean = new RrunnerPayInfo.ParametersBean();
                         parametersBean.setGoodsType(type);
                         parametersBean.setUserId(userId);
-                        parametersBean.setGoodsWeight(weight);
+                        parametersBean.setGoodsWeight(weight1);
                         parametersBean.setDeliveryAddress("xxx");
                         parametersBean.setDeliveryName("mrsun");
                         parametersBean.setDeliveryPhone("18888888888");
@@ -242,7 +257,11 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
                         if (!TextUtils.isEmpty(remark)) {
                             parametersBean.setRemark(remark);
                         }
-                        parametersBean.setErrandLevel(level);
+                        if ("没要求".equals(level)) {
+                            parametersBean.setErrandLevel("5");
+                        } else {
+                            parametersBean.setErrandLevel(level.replaceAll("星跑腿", ""));
+                        }
                         parametersBean.setPickupTime(letTime);
                         rrunnerPayInfo.setParameters(parametersBean);
                         return rrunnerPayInfo;
