@@ -13,6 +13,7 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CancelOrderInfo;
+import com.ffn.zerozeroseven.fragment.ErrandMineRunFragment;
 import com.ffn.zerozeroseven.ui.CommitSuccessActivity;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyActivity;
@@ -81,6 +82,7 @@ public class ZFBPayUtil {
                         }else if("renzheng".equals(pay)){
                             PayMoneyNewActivity.mInstance.get().finish();
                             ErrandAuitActivity.mInstance.get().goVp(2);
+                            ErrandMineRunFragment.mInstance.get().requestData();
                         }
                         ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class);
                     } else {

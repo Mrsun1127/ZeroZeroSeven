@@ -27,11 +27,13 @@ import com.ffn.zerozeroseven.bean.RunnerListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RQiangDanInfo;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.PeopleMessAgeActivity;
+import com.ffn.zerozeroseven.ui.RenzhengStatusActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +60,7 @@ public class ErrandMineRunFragment extends BaseFragment {
     @Bind(R.id.tv_satisficing)
     TextView tv_satisficing;
     private ErrandMineRunAdapter errandMineRunAdapter;
-
+    public static WeakReference<ErrandMineRunFragment> mInstance;
     public static ErrandMineRunFragment newInstance() {
         return new ErrandMineRunFragment();
     }
@@ -66,6 +68,7 @@ public class ErrandMineRunFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
+        mInstance=new WeakReference<>(this);
         recycleview.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
         errandMineRunAdapter = new ErrandMineRunAdapter(bfCxt);
         recycleview.setAdapter(errandMineRunAdapter);
@@ -108,7 +111,7 @@ public class ErrandMineRunFragment extends BaseFragment {
         });
     }
 
-    private void requestData() {
+    public void requestData() {
         RequestRunnerInfo requestRunnerInfo = new RequestRunnerInfo();
         requestRunnerInfo.setFunctionName("QueryErrandUser");
         RequestRunnerInfo.ParametersBean parametersBean = new RequestRunnerInfo.ParametersBean();
@@ -208,13 +211,15 @@ public class ErrandMineRunFragment extends BaseFragment {
         return R.layout.errand_fragment_minerun;
     }
 
-    @OnClick({R.id.iv_audit})
+    @OnClick({R.id.iv_audit, R.id.ll_verifile})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.iv_audit:
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandAuitActivity.class);
                 break;
-
+            case R.id.ll_verifile:
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, RenzhengStatusActivity.class);
+                break;
         }
     }
 
