@@ -121,10 +121,10 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
                         tv_createtime.setText(runnerDingDanDetilsInfo.getData().getCreateTime());
                         tv_type.setText(runnerDingDanDetilsInfo.getData().getGoodsType());
                         tv_shipeeFee.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getShippingFee()));
-                        tv_letadr.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getReceiverAddress()));
-                        tv_getadr.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getDeliveryAddress()));
-                        tv_letinfo.setText(runnerDingDanDetilsInfo.getData().getReceiverName() + " " + runnerDingDanDetilsInfo.getData().getReceiverPhone());
-                        tv_getinfo.setText(runnerDingDanDetilsInfo.getData().getDeliveryName() + " " + runnerDingDanDetilsInfo.getData().getDeliveryPhone());
+                        tv_letadr.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getDeliveryAddress()));
+                        tv_getadr.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getReceiverAddress()));
+                        tv_letinfo.setText(runnerDingDanDetilsInfo.getData().getDeliveryName() + " " + runnerDingDanDetilsInfo.getData().getDeliveryPhone());
+                        tv_getinfo.setText(runnerDingDanDetilsInfo.getData().getReceiverName() + " " + runnerDingDanDetilsInfo.getData().getReceiverPhone());
                         tv_picktime.setText(runnerDingDanDetilsInfo.getData().getPickupTime());
                         if (!TextUtils.isEmpty(runnerDingDanDetilsInfo.getData().getRemark())) {
                             tv_remark.setText(runnerDingDanDetilsInfo.getData().getRemark());
@@ -180,14 +180,14 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.rl_tp:
-                if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 1 ) {
+                if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 1) {
                     ZeroZeroSevenUtils.MakingCalls(ErrandRunnerDingDanDetilsActivity.this, runnerDingDanDetilsInfo.getData().getDeliveryPhone());
-                } else if(runnerDingDanDetilsInfo.getData().getOrderStatus() == 2){
+                } else if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 2) {
                     ZeroZeroSevenUtils.MakingCalls(ErrandRunnerDingDanDetilsActivity.this, runnerDingDanDetilsInfo.getData().getReceiverPhone());
                 }
                 break;
             case R.id.rl_bt:
-                if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 2 ) {
+                if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 2) {
                     if (ContextCompat.checkSelfPermission(ErrandRunnerDingDanDetilsActivity.this, Manifest.permission.CAMERA)
                             != PackageManager.PERMISSION_GRANTED) {
                         //动态的请求权限
@@ -196,7 +196,7 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
                     } else {
                         pickImage();
                     }
-                }else if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 1 ) {
+                } else if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 1) {
                     if (ContextCompat.checkSelfPermission(ErrandRunnerDingDanDetilsActivity.this, Manifest.permission.CAMERA)
                             != PackageManager.PERMISSION_GRANTED) {
                         //动态的请求权限
@@ -210,8 +210,10 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
 
         }
     }
+
     private static final int REQUEST_IMAGE = 2;
     private ArrayList<String> imgList = new ArrayList<>();
+
     /**
      * 相册
      */
@@ -224,6 +226,7 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
         selector.start(ErrandRunnerDingDanDetilsActivity.this, REQUEST_IMAGE);
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -232,14 +235,15 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
                 if (resultCode == RESULT_OK) {
                     if (data != null) {
                         imgList = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-                       if(imgList.size()>0){
-                           ToastUtils.showShort("已上传"+imgList.get(0));
-                       }
+                        if (imgList.size() > 0) {
+                            ToastUtils.showShort("已上传" + imgList.get(0));
+                        }
                     }
                 }
                 break;
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

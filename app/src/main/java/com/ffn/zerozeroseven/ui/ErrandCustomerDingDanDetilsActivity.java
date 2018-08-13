@@ -176,10 +176,10 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                         tv_type.setText(runnerDingDanDetilsInfo.getData().getGoodsType());
                         tv_shipeeFee.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getShippingFee()));
                         tv_runMoney.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getShippingFee()));
-                        tv_letadr.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getReceiverAddress()));
-                        tv_getadr.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getDeliveryAddress()));
-                        tv_letinfo.setText(runnerDingDanDetilsInfo.getData().getReceiverName() + " " + runnerDingDanDetilsInfo.getData().getReceiverPhone());
-                        tv_getinfo.setText(runnerDingDanDetilsInfo.getData().getDeliveryName() + " " + runnerDingDanDetilsInfo.getData().getDeliveryPhone());
+                        tv_letadr.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getDeliveryAddress()));
+                        tv_getadr.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getReceiverAddress()));
+                        tv_letinfo.setText(runnerDingDanDetilsInfo.getData().getDeliveryName() + " " + runnerDingDanDetilsInfo.getData().getDeliveryPhone());
+                        tv_getinfo.setText(runnerDingDanDetilsInfo.getData().getReceiverName() + " " + runnerDingDanDetilsInfo.getData().getReceiverPhone());
                         tv_picktime.setText(runnerDingDanDetilsInfo.getData().getPickupTime());
                         tv_payType.setText(runnerDingDanDetilsInfo.getData().getPayment());
                         tv_orderNo.setText(runnerDingDanDetilsInfo.getData().getOrderNo());
