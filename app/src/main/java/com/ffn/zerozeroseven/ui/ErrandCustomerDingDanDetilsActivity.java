@@ -1,8 +1,11 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -16,10 +19,12 @@ import com.ffn.zerozeroseven.bean.requsetbean.TuiKUanoInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
+import com.ffn.zerozeroseven.view.ConfirmDialog;
 import com.ffn.zerozeroseven.view.TopView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
     @Bind(R.id.topView)
@@ -59,8 +64,6 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
     TextView tv_status;
     @Bind(R.id.tv_runneerMan)
     TextView tv_runneerMan;
-    @Bind(R.id.tv_manyidu)
-    TextView tv_manyidu;
     @Bind(R.id.bt_left)
     Button bt_left;
     @Bind(R.id.bt_right)
@@ -93,7 +96,64 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
     TextView tv_orderNo;
     @Bind(R.id.tv_payType)
     TextView tv_payType;
+    @Bind(R.id.tv_frist)
+    TextView tv_frist;
+    @Bind(R.id.tv_jixing)
+    TextView tv_jixing;
+    @Bind(R.id.ll_runner)
+    LinearLayout ll_runner;
     private RunnerDingDanDetilsInfo runnerDingDanDetilsInfo;
+
+    @OnClick({R.id.bt_left, R.id.bt_right})
+    void setOnClicks(View v) {
+        switch (v.getId()) {
+            case R.id.bt_left:
+                switch (runnerDingDanDetilsInfo.getData().getOrderStatus()) {
+                    case 1:
+                    case 0:
+                        final ConfirmDialog confirmDialog = new ConfirmDialog(ErrandCustomerDingDanDetilsActivity.this);
+                        confirmDialog.setTitles("提示");
+                        confirmDialog.setMessages("您确认取消订单？");
+                        confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
+                            @Override
+                            public void doConfirm() {
+                                confirmDialog.dismiss();
+                                Quxiao(orderNo, "正常取消");
+                            }
+
+                            @Override
+                            public void doCancel() {
+                                confirmDialog.dismiss();
+                            }
+                        });
+                        break;//取消
+
+                    case 2:
+                        sureGet(orderNo);
+                        break;//确认收货
+                    case 3:
+                        goToRelease(orderNo);
+                        break;//去评价
+
+                }
+                break;
+            case R.id.bt_right:
+                switch (runnerDingDanDetilsInfo.getData().getOrderStatus()) {
+                    case 0:
+                    case 3:
+                    case 5:
+                        releaseAgain(orderNo);
+                        break;
+                    case 1:
+                    case 2:
+                        ZeroZeroSevenUtils.MakingCalls(ErrandCustomerDingDanDetilsActivity.this, runnerDingDanDetilsInfo.getData().getPhone());
+                        break;
+
+                }
+                break;
+
+        }
+    }
 
     private void requestOrder(String orderNo) {
         RrmineRunDetilsInfo rrmineRunDetilsInfo = new RrmineRunDetilsInfo();
@@ -128,6 +188,47 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                         }
                         tv_weight.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getGoodsWeight()));
                     }
+                    //-1=无效状态，0=未接单，1=已接单，2=取货中，3=已收货，5=已取消
+                    switch (runnerDingDanDetilsInfo.getData().getOrderStatus()) {
+                        case 0:
+                            tv_status.setText("等待跑腿接单");
+                            tv_frist.setVisibility(View.VISIBLE);
+                            tv_frist.setText("5分钟未接单，系统将自动为您取消订单");
+                            bt_left.setText("取消订单");
+                            bt_right.setText("再来一单");
+                            break;
+                        case 1:
+                            tv_status.setText("正在取货中");
+                            bt_left.setText("取消订单");
+                            bt_right.setText("联系骑手");
+                            ll_runner.setVisibility(View.VISIBLE);
+                            tv_runneerMan.setText(runnerDingDanDetilsInfo.getData().getRealName());
+                            tv_jixing.setText(runnerDingDanDetilsInfo.getData().getErrandLevel() + "星级");
+                            break;
+                        case 2:
+                            tv_status.setText("正在配送中");
+                            bt_left.setText("确认收货");
+                            bt_right.setText("联系骑手");
+                            ll_runner.setVisibility(View.VISIBLE);
+                            tv_runneerMan.setText(runnerDingDanDetilsInfo.getData().getRealName());
+                            tv_jixing.setText(runnerDingDanDetilsInfo.getData().getErrandLevel() + "星级");
+                            break;
+                        case 3:
+                            tv_status.setText("订单已完成");
+                            bt_left.setText("去评价");
+                            bt_right.setText("再来一单");
+                            ll_runner.setVisibility(View.VISIBLE);
+                            tv_runneerMan.setText(runnerDingDanDetilsInfo.getData().getRealName());
+                            tv_jixing.setText(runnerDingDanDetilsInfo.getData().getErrandLevel() + "星级");
+                            break;
+                        case 5:
+                            tv_status.setText("订单已取消");
+                            tv_frist.setVisibility(View.VISIBLE);
+                            tv_frist.setText("订单已取消，感谢您对校园跑腿的信任");
+                            bt_left.setVisibility(View.GONE);
+                            bt_right.setText("再来一单");
+                            break;
+                    }
                 }
             }
         });
@@ -153,6 +254,8 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
                     requestOrder(orderNo);
+                }else{
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
                 }
             }
         });
@@ -178,6 +281,8 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
                     requestOrder(orderNo);
+                }else{
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
                 }
             }
         });
@@ -188,7 +293,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
      *
      * @param orderNo
      */
-    public void Tuikuan(final String orderNo, String remark) {
+    public void Quxiao(final String orderNo, String remark) {
         TuiKUanoInfo tuiKUanoInfo = new TuiKUanoInfo();
         tuiKUanoInfo.setFunctionName("CancelErrandOrder");
         TuiKUanoInfo.ParametersBean parametersBean = new TuiKUanoInfo.ParametersBean();
@@ -204,6 +309,8 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
                     requestOrder(orderNo);
+                }else{
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
                 }
             }
         });
@@ -211,6 +318,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
 
     /**
      * 去评价界面
+     *
      * @param orderNo
      */
     public void goToRelease(String orderNo) {

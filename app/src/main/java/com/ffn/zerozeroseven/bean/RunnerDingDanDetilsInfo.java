@@ -90,6 +90,9 @@ public class RunnerDingDanDetilsInfo {
         private String phone;
         private int errandLevel;
         private String deliveryName;
+
+
+
         private int payStatus;
 
         public String getDeliveryPhone() {
