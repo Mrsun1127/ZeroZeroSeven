@@ -1,16 +1,22 @@
 package com.ffn.zerozeroseven.fragment;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.adapter.ErrandmineDingdanadapter;
 import com.ffn.zerozeroseven.adapter.ErrandyouDingdanadapter;
+import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.RrunDingDanInfo;
 import com.ffn.zerozeroseven.bean.RunDingdanInfo;
 import com.ffn.zerozeroseven.bean.RunYouDingDanInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.SureGetInfo;
 import com.ffn.zerozeroseven.ui.ErrandCustomerDingDanDetilsActivity;
+import com.ffn.zerozeroseven.ui.ErrandDingdanActivity;
 import com.ffn.zerozeroseven.ui.ErrandRunnerDingDanDetilsActivity;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 public class RunYourDingDanFragment extends BaseReFreshFragment {
@@ -28,6 +34,18 @@ public class RunYourDingDanFragment extends BaseReFreshFragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("orderNo",errandmineDingdanadapter.getItem(position).getOrderNo());
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandCustomerDingDanDetilsActivity.class,bundle);
+            }
+        });
+        errandmineDingdanadapter.setOnItemImageViewClick(new ErrandyouDingdanadapter.OnItemImageClick() {
+            @Override
+            public void onClick(View view, int position) {
+                if(errandmineDingdanadapter.getItem(position).getPayStatus()!=-2){
+                    BaseAppApplication.getInstance().finishActivity(getActivity());
+                }else{
+                    Bundle bundle = new Bundle();
+                    bundle.putString("orderNo",errandmineDingdanadapter.getItem(position).getOrderNo());
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandCustomerDingDanDetilsActivity.class,bundle);
+                }
             }
         });
         return errandmineDingdanadapter;
