@@ -2,25 +2,27 @@ package com.ffn.zerozeroseven.fragment;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.adapter.ErrandmineDingdanadapter;
+import com.ffn.zerozeroseven.adapter.ErrandyouDingdanadapter;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.RrunDingDanInfo;
 import com.ffn.zerozeroseven.bean.RunDingdanInfo;
+import com.ffn.zerozeroseven.bean.RunYouDingDanInfo;
 
-public class RunnerDingDanFragment extends BaseReFreshFragment {
+public class RunYourDingDanFragment extends BaseReFreshFragment {
 
-    private RunDingdanInfo runDingdanInfo;
-    private ErrandmineDingdanadapter errandmineDingdanadapter;
+    private RunYouDingDanInfo runDingdanInfo;
+    private ErrandyouDingdanadapter errandmineDingdanadapter;
 
     @Override
     protected BaseRecyclerAdapter setAdapter() {
         isLoadMore = false;
-        errandmineDingdanadapter = new ErrandmineDingdanadapter(bfCxt);
+        errandmineDingdanadapter = new ErrandyouDingdanadapter(bfCxt);
         return errandmineDingdanadapter;
     }
 
     @Override
     protected void readRespones(String response) {
-        runDingdanInfo = JSON.parseObject(response, RunDingdanInfo.class);
+        runDingdanInfo = JSON.parseObject(response, RunYouDingDanInfo.class);
     }
 
     @Override
@@ -41,7 +43,7 @@ public class RunnerDingDanFragment extends BaseReFreshFragment {
     @Override
     protected Object setObj(int pageNo) {
         RrunDingDanInfo rrunDingDanInfo = new RrunDingDanInfo();
-        rrunDingDanInfo.setFunctionName("ListReceiverErrandOrder");
+        rrunDingDanInfo.setFunctionName("ListPublisherErrandOrder");
         RrunDingDanInfo.ParametersBean parametersBean = new RrunDingDanInfo.ParametersBean();
         parametersBean.setUserId(userId);
         rrunDingDanInfo.setParameters(parametersBean);
