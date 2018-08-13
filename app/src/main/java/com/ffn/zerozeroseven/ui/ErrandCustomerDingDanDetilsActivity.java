@@ -1,5 +1,6 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.SureGetInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.TuiKUanoInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
 import butterknife.Bind;
@@ -182,7 +184,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
     }
 
     /**
-     * 退款
+     * 取消订单
      *
      * @param orderNo
      */
@@ -201,9 +203,19 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
             public void onSuccLoad(String response) {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
-                    ToastUtils.showShort("退款已申请，请留意通知");
+                    requestOrder(orderNo);
                 }
             }
         });
+    }
+
+    /**
+     * 去评价界面
+     * @param orderNo
+     */
+    public void goToRelease(String orderNo) {
+        Bundle bundle = new Bundle();
+        bundle.putString("ordeNo", orderNo);
+        ZeroZeroSevenUtils.SwitchActivity(ErrandCustomerDingDanDetilsActivity.this, ErrandTalkReleaseActivity.class, bundle);
     }
 }
