@@ -49,17 +49,19 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_quhuo2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="21dp"
                     android:layout_marginTop="8dp"
-                    android:text="请在15分钟内到达取货地点（剩余时间 06:16:21）"
+                    android:text="请在15分钟内到达取货地点"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:layout_marginBottom="8dp"/>
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_tp"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginLeft="15dp"
@@ -78,6 +80,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_tpdesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_tp1"
@@ -96,6 +99,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_bt"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginLeft="15dp"
@@ -114,6 +118,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_tp2desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_tp2"
@@ -123,6 +128,7 @@
                     android:textSize="12sp" />
 
                 <ImageView
+                    android:id="@+id/iv_sibu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
