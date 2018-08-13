@@ -1,10 +1,14 @@
 package com.ffn.zerozeroseven.fragment;
 
+import android.os.Bundle;
+
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.adapter.ErrandmineDingdanadapter;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.RrunDingDanInfo;
 import com.ffn.zerozeroseven.bean.RunDingdanInfo;
+import com.ffn.zerozeroseven.ui.ErrandRunnerDingDanDetilsActivity;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 public class RunnerDingDanFragment extends BaseReFreshFragment {
 
@@ -15,6 +19,14 @@ public class RunnerDingDanFragment extends BaseReFreshFragment {
     protected BaseRecyclerAdapter setAdapter() {
         isLoadMore = false;
         errandmineDingdanadapter = new ErrandmineDingdanadapter(bfCxt);
+        errandmineDingdanadapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                Bundle bundle = new Bundle();
+                bundle.putString("orderNo",errandmineDingdanadapter.getItem(position).getOrderNo());
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandRunnerDingDanDetilsActivity.class,bundle);
+            }
+        });
         return errandmineDingdanadapter;
     }
 

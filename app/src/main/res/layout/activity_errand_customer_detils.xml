@@ -83,6 +83,7 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/bt_left"
                         android:layout_width="78dp"
                         android:layout_height="30dp"
                         android:background="@drawable/suijitwo"
@@ -90,6 +91,7 @@
                         android:textColor="@color/black" />
 
                     <Button
+                        android:id="@+id/bt_right"
                         android:layout_width="78dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="20dp"
@@ -109,6 +111,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_createtime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -131,6 +134,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
@@ -152,6 +156,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_shipeeFee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="11dp"
@@ -273,6 +278,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/tv_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"
@@ -301,6 +307,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/tv_runMoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"
@@ -337,6 +344,7 @@
                         android:text="取件时间:" />
 
                     <TextView
+                        android:id="@+id/tv_picktime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
@@ -356,6 +364,7 @@
                         android:text="跑腿人员等级:" />
 
                     <TextView
+                        android:id="@+id/tv_level"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
@@ -375,6 +384,7 @@
                         android:text="备注:" />
 
                     <TextView
+                        android:id="@+id/tv_remark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
@@ -394,6 +404,7 @@
                         android:text="订单号码:" />
 
                     <TextView
+                        android:id="@+id/tv_orderNo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
@@ -402,6 +413,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginBottom="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -413,6 +425,7 @@
                         android:text="支付方式:" />
 
                     <TextView
+                        android:id="@+id/tv_payType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
