@@ -1,10 +1,16 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
@@ -14,12 +20,17 @@ import com.ffn.zerozeroseven.bean.RunnerDingDanDetilsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RrmineRunDetilsInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.ShopStatusView;
 import com.ffn.zerozeroseven.view.TopView;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.nereo.multi_image_selector.MultiImageSelector;
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
     @Bind(R.id.topView)
@@ -149,7 +160,7 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
                                 rl_tp.setVisibility(View.GONE);
                                 rl_bt.setVisibility(View.GONE);
                                 tv_quhuo1.setText("已完成订单");
-                                tv_quhuo2.setText("您此次的跑腿收益："+runnerDingDanDetilsInfo.getData().getErrandIncome()+"元已收入您的收益中");
+                                tv_quhuo2.setText("您此次的跑腿收益：" + runnerDingDanDetilsInfo.getData().getErrandIncome() + "元已收入您的收益中");
                                 break;
                             case 5:
                                 break;
@@ -169,15 +180,67 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.rl_tp:
-                if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 1 || runnerDingDanDetilsInfo.getData().getOrderStatus() == 2) {
-                    ToastUtils.showShort("打发货人电话");
+                if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 1 ) {
+                    ZeroZeroSevenUtils.MakingCalls(ErrandRunnerDingDanDetilsActivity.this, runnerDingDanDetilsInfo.getData().getDeliveryPhone());
                 } else {
-
+                    ZeroZeroSevenUtils.MakingCalls(ErrandRunnerDingDanDetilsActivity.this, runnerDingDanDetilsInfo.getData().getReceiverPhone());
                 }
                 break;
             case R.id.rl_bt:
+                if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 2 ) {
+                    if (ContextCompat.checkSelfPermission(ErrandRunnerDingDanDetilsActivity.this, Manifest.permission.CAMERA)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        //动态的请求权限
+                        ActivityCompat.requestPermissions(ErrandRunnerDingDanDetilsActivity.this, new String[]{Manifest.permission.CAMERA},
+                                0x11);
+                    } else {
+                        pickImage();
+                    }
+                }
                 break;
 
+        }
+    }
+    private static final int REQUEST_IMAGE = 2;
+    private ArrayList<String> imgList = new ArrayList<>();
+    /**
+     * 相册
+     */
+    private void pickImage() {
+        MultiImageSelector selector = MultiImageSelector.create();
+        selector.showCamera(true);
+        selector.count(1);
+        selector.multi();
+        selector.origin(imgList);
+        selector.start(ErrandRunnerDingDanDetilsActivity.this, REQUEST_IMAGE);
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_IMAGE://拍照
+                if (resultCode == RESULT_OK) {
+                    if (data != null) {
+                        imgList = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                       if(imgList.size()>0){
+                           ToastUtils.showShort("已上传"+imgList.get(0));
+                       }
+                    }
+                }
+                break;
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0x11) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                pickImage();//拍照
+            } else {
+                // Permission Denied
+                Toast.makeText(this, "请求权限被拒绝", Toast.LENGTH_LONG);
+            }
         }
     }
 }
