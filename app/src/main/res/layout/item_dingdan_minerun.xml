@@ -2,6 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginTop="19dp"
+        android:textColor="@color/black"
+        android:layout_marginLeft="11dp"
+        android:textSize="15sp"
+        android:text="订单详情"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="11dp"
+        android:textSize="12sp"
+        android:text="2018-07-17  11:43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,12 +70,19 @@
         android:layout_marginTop="15dp"
         android:background="@color/line_color" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+        >
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:layout_width="17dp"
+            android:layout_height="22dp"
+            android:src="@drawable/phone_run"/>
         <RelativeLayout
+            android:id="@+id/rl_fa"
             android:layout_width="50dp"
             android:layout_height="50dp">
 
@@ -73,8 +97,9 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:layout_toRightOf="@+id/rl_fa"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -95,14 +120,20 @@
                 android:textColor="@color/black"
                 android:textSize="13sp" />
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:layout_width="17dp"
+            android:layout_height="22dp"
+            android:src="@drawable/phone_run"/>
         <RelativeLayout
+            android:id="@+id/rl_shou"
             android:layout_width="50dp"
             android:layout_height="50dp">
 
@@ -117,8 +148,9 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:layout_toRightOf="@+id/rl_shou"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -139,7 +171,7 @@
                 android:textColor="@color/black"
                 android:textSize="13sp" />
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
