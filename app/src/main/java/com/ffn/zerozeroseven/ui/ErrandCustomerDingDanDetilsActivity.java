@@ -134,6 +134,9 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                     case 3:
                         goToRelease(orderNo);
                         break;//去评价
+                    case 5:
+//                        TuiKuanla();
+                        break;
 
                 }
                 break;
@@ -225,7 +228,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                             tv_status.setText("订单已取消");
                             tv_frist.setVisibility(View.VISIBLE);
                             tv_frist.setText("订单已取消，感谢您对校园跑腿的信任");
-                            bt_left.setVisibility(View.GONE);
+                            bt_left.setText("申请退款");
                             bt_right.setText("再来一单");
                             break;
                     }
@@ -254,7 +257,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
                     requestOrder(orderNo);
-                }else{
+                } else {
                     ToastUtils.showShort(errorCodeInfo.getMessage());
                 }
             }
@@ -281,7 +284,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
                     requestOrder(orderNo);
-                }else{
+                } else {
                     ToastUtils.showShort(errorCodeInfo.getMessage());
                 }
             }
@@ -309,7 +312,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
                     requestOrder(orderNo);
-                }else{
+                } else {
                     ToastUtils.showShort(errorCodeInfo.getMessage());
                 }
             }
