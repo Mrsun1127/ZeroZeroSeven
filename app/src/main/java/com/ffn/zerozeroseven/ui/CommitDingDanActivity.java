@@ -398,7 +398,6 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                         return;
                     }
                 } catch (Exception e) {
-                    ToastUtils.showShort("很抱歉，未达到5.000元配送金额");
                 }
 
 
