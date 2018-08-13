@@ -7,9 +7,13 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.RunnerDingDanDetilsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RrmineRunDetilsInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.SureGetInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.TuiKUanoInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
 import butterknife.Bind;
@@ -88,6 +92,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
     @Bind(R.id.tv_payType)
     TextView tv_payType;
     private RunnerDingDanDetilsInfo runnerDingDanDetilsInfo;
+
     private void requestOrder(String orderNo) {
         RrmineRunDetilsInfo rrmineRunDetilsInfo = new RrmineRunDetilsInfo();
         rrmineRunDetilsInfo.setFunctionName("QueryErrandOrder");
@@ -101,7 +106,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
             public void onSuccLoad(String response) {
                 runnerDingDanDetilsInfo = JSON.parseObject(response, RunnerDingDanDetilsInfo.class);
                 if (runnerDingDanDetilsInfo.getCode() == 0) {
-                    if (runnerDingDanDetilsInfo.getData()!= null) {
+                    if (runnerDingDanDetilsInfo.getData() != null) {
                         tv_createtime.setText(runnerDingDanDetilsInfo.getData().getCreateTime());
                         tv_type.setText(runnerDingDanDetilsInfo.getData().getGoodsType());
                         tv_shipeeFee.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getShippingFee()));
@@ -121,6 +126,82 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                         }
                         tv_weight.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getGoodsWeight()));
                     }
+                }
+            }
+        });
+    }
+
+    /**
+     * 确认收货
+     *
+     * @param orderNo
+     */
+    public void sureGet(final String orderNo) {
+        SureGetInfo sureGetInfo = new SureGetInfo();
+        sureGetInfo.setFunctionName("UpdateErrandConfirmStatus");
+        SureGetInfo.ParametersBean parametersBean = new SureGetInfo.ParametersBean();
+        parametersBean.setOrderNo(orderNo);
+        parametersBean.setUserId(userId);
+        sureGetInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(ErrandCustomerDingDanDetilsActivity.this);
+        okGoUtils.httpPostJSON(sureGetInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    requestOrder(orderNo);
+                }
+            }
+        });
+    }
+
+    /**
+     * 重新发布
+     *
+     * @param orderNo
+     */
+    public void releaseAgain(final String orderNo) {
+        SureGetInfo sureGetInfo = new SureGetInfo();
+        sureGetInfo.setFunctionName("RepublishErrandOrder");
+        SureGetInfo.ParametersBean parametersBean = new SureGetInfo.ParametersBean();
+        parametersBean.setOrderNo(orderNo);
+        parametersBean.setUserId(userId);
+        sureGetInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(ErrandCustomerDingDanDetilsActivity.this);
+        okGoUtils.httpPostJSON(sureGetInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    requestOrder(orderNo);
+                }
+            }
+        });
+    }
+
+    /**
+     * 退款
+     *
+     * @param orderNo
+     */
+    public void Tuikuan(final String orderNo, String remark) {
+        TuiKUanoInfo tuiKUanoInfo = new TuiKUanoInfo();
+        tuiKUanoInfo.setFunctionName("CancelErrandOrder");
+        TuiKUanoInfo.ParametersBean parametersBean = new TuiKUanoInfo.ParametersBean();
+        parametersBean.setOrderNo(orderNo);
+        parametersBean.setUserId(userId);
+        parametersBean.setReason(remark);
+        tuiKUanoInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(ErrandCustomerDingDanDetilsActivity.this);
+        okGoUtils.httpPostJSON(tuiKUanoInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    ToastUtils.showShort("退款已申请，请留意通知");
                 }
             }
         });
