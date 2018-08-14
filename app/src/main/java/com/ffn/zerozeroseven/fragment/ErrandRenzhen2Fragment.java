@@ -2,6 +2,7 @@ package com.ffn.zerozeroseven.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.CheckBox;
 
 import com.ffn.zerozeroseven.R;
@@ -20,9 +21,13 @@ public class ErrandRenzhen2Fragment extends BaseFragment {
         return new ErrandRenzhen2Fragment();
     }
 
+    @Bind(R.id.webView)
+    WebView webView;
+
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
+        webView.loadUrl("https://www.duba.com/?f=foxdh&pru=1");
     }
 
     @Override
