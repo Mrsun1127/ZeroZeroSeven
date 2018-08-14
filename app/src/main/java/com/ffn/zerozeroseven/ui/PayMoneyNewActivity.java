@@ -234,10 +234,10 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
             if (ricalInfo.getType() == 0) {
                 parametersBean.setPayType("DEPOSIT");
             } else {
-                parametersBean.setPayType("FULL");
+                parametersBean.setPayType("DEPOSIT");
             }
         } else {
-            parametersBean.setPayType("FULL");
+            parametersBean.setPayType("DEPOSIT");
         }
         parametersBean.setUserId(Integer.parseInt(userId));
         NumberOrderJsonInfo orderJsonInfo = new NumberOrderJsonInfo();
