@@ -81,7 +81,26 @@ public class UserInfo implements Serializable{
         private String servicePhone="0731-85315177";
         private boolean isLoginCouris;
         private String curisInfoJson;
+        private String enrollmentYear;
+        private String schoolId;
+
+        public String getSchoolId() {
+            return schoolId;
+        }
+
+        public void setSchoolId(String schoolId) {
+            this.schoolId = schoolId;
+        }
+
         private Double smallRmb;
+
+        public String getEnrollmentYear() {
+            return enrollmentYear;
+        }
+
+        public void setEnrollmentYear(String enrollmentYear) {
+            this.enrollmentYear = enrollmentYear;
+        }
 
         public Double getSmallRmb() {
             return smallRmb;

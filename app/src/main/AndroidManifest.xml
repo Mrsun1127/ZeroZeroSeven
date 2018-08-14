@@ -347,6 +347,8 @@
         <activity android:name=".ui.RenzhengStatusActivity" />
         <activity android:name=".ui.ErrandCustomerDingDanDetilsActivity" />
         <activity android:name=".ui.ErrandTalkReleaseActivity" />
+        <activity android:name=".ui.UserSelectSchoolListActivity" />
+        <activity android:name=".ui.UserSelectYearActivity" />
 
         <!-- Required SDK核心功能-->
         <service

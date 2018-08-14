@@ -385,7 +385,15 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         okGoUtils4.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                ZeroZeroSevenUtils.SwitchActivity(LoginActivity.this, HomeActivity.class);
+                if(!TextUtils.isEmpty(BaseAppApplication.getInstance().getLoginUser().getSchoolId())){
+                    if(!"0".equals(BaseAppApplication.getInstance().getLoginUser().getSchoolId())){
+                        ZeroZeroSevenUtils.SwitchActivity(LoginActivity.this, HomeActivity.class);
+                    }else{
+                        ZeroZeroSevenUtils.SwitchActivity(LoginActivity.this, UserSelectSchoolListActivity.class);
+                    }
+                }else{
+                    ZeroZeroSevenUtils.SwitchActivity(LoginActivity.this, UserSelectSchoolListActivity.class);
+                }
                 finish();
             }
         });

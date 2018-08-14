@@ -28,12 +28,11 @@
             android:layout_toRightOf="@+id/rl_back"
             android:id="@+id/ct_school"
             android:paddingLeft="12dp"
-            android:hint="搜索所在学校"
+            android:hint="选择所在学校"
             android:textSize="13sp"
             android:layout_marginTop="23dp"
             android:background="@drawable/bg_search_corner20px"
             android:layout_marginRight="26dp"
-            android:layout_marginLeft="26dp"
             android:textColor="@color/text_show_color"
             android:layout_width="match_parent"
             android:layout_height="42dp" />
