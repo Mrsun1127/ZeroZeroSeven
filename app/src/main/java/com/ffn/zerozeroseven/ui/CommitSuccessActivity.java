@@ -1,7 +1,9 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseActivity;
@@ -20,7 +22,14 @@ public class CommitSuccessActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        TitleView titleView=findViewById(R.id.titleview);
+        TitleView titleView = findViewById(R.id.titleview);
+        TextView tv_bottom = findViewById(R.id.tv_bottom);
+        TextView tv_top = findViewById(R.id.tv_top);
+        String info = getIntent().getStringExtra("info");
+        if (!TextUtils.isEmpty(info)) {
+            tv_bottom.setText(info);
+            tv_top.setVisibility(View.GONE);
+        }
         titleView.setTopText("支付成功");
         titleView.setOnTitleListener(new TitleView.OnTitleClickListener() {
             @Override
@@ -38,7 +47,7 @@ public class CommitSuccessActivity extends BaseActivity {
 
             }
         });
-        Button bt_sub=findViewById(R.id.bt_sub);
+        Button bt_sub = findViewById(R.id.bt_sub);
         bt_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -32,6 +32,7 @@
             android:textSize="16sp" />
 
         <TextView
+            android:layout_margin="12dp"
             android:id="@+id/tv_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
