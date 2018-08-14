@@ -97,6 +97,7 @@ public class UserSelectYearActivity extends BaseActivity {
                     BaseAppApplication.getInstance().setLoginUser(userInfo);
                     SharePrefUtils.saveObject(UserSelectYearActivity.this, "userInfo", userInfo);
                     ZeroZeroSevenUtils.SwitchActivity(UserSelectYearActivity.this, HomeActivity.class);
+                    finish();
                 } else {
                     ToastUtils.showShort(errorCodeInfo.getMessage());
                 }
