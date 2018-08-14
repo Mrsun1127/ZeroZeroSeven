@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -65,6 +67,8 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
     private PopWeightAdapter weightAdapter;
     private TextView tv_center;
     private int clickSwitch = -1;
+    @Bind(R.id.tv_showmoney)
+    TextView tv_showmoney;
 
     public static ErrandHelpMineRunFragment newInstance() {
         return new ErrandHelpMineRunFragment();
@@ -74,6 +78,22 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
     protected void initView(View view) {
         ButterKnife.bind(this, view);
         initWeightPop();
+        tv_rmoney.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                tv_showmoney.setText(tv_rmoney.getText().toString().trim());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     String weight1 = "1-10Kg";
@@ -117,16 +137,16 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
                             tv_weight.setText(weightAdapter.getItem(weightAdapter.getClickPosition()));
                             switch (weightAdapter.getClickPosition()) {
                                 case 0:
-                                    weight1="1-10kg";
+                                    weight1 = "1-10kg";
                                     break;
                                 case 1:
-                                    weight1="10-20kg";
+                                    weight1 = "10-20kg";
                                     break;
                                 case 2:
-                                    weight1="20-30kg";
+                                    weight1 = "20-30kg";
                                     break;
                                 case 3:
-                                    weight1="30kg以上";
+                                    weight1 = "30kg以上";
                                     break;
                             }
                             break;
@@ -210,10 +230,15 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
                 setBri();
                 break;
             case R.id.bt_pay:
+                String mm=tv_rmoney.getText().toString().trim();
+                if(TextUtils.isEmpty(mm) || "0.0元".equals(mm) || "0".equals(mm) || "0.0".equals(mm)){
+                    ToastUtils.showShort("请输入>0元的跑腿费");
+                    return;
+                }
                 RrunnerPayInfo rrunnerPayInfo = checkSome();
                 if (rrunnerPayInfo != null) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("money", "10");
+                    bundle.putString("money", mm);
                     bundle.putString("pay", "run");
                     bundle.putSerializable("runInfo", rrunnerPayInfo);
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, PayMoneyNewActivity.class, bundle);
@@ -225,7 +250,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
     @Bind(R.id.et_remark)
     EditText et_remark;
     @Bind(R.id.tv_rmoney)
-    TextView tv_rmoney;
+    EditText tv_rmoney;
     @Bind(R.id.cb_check)
     CheckBox cb_check;
 

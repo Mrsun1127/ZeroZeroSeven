@@ -192,6 +192,7 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
 
     private void RunPay(final String payment) {
         OkGoUtils okGoUtils = new OkGoUtils(PayMoneyNewActivity.this);
+        rrunnerPayInfo.getParameters().setPayment(payment);
         okGoUtils.httpPostJSON(rrunnerPayInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override

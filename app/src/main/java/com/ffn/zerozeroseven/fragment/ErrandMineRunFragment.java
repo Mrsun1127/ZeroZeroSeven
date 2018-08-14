@@ -22,9 +22,11 @@ import com.ffn.zerozeroseven.adapter.ErrandMineRunAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.RequestRunnerInfo;
+import com.ffn.zerozeroseven.bean.RunnerCountInfo;
 import com.ffn.zerozeroseven.bean.RunnerInfo;
 import com.ffn.zerozeroseven.bean.RunnerListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RQiangDanInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RrunnerCountInfo;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.PeopleMessAgeActivity;
 import com.ffn.zerozeroseven.ui.RenzhengStatusActivity;
@@ -61,6 +63,7 @@ public class ErrandMineRunFragment extends BaseFragment {
     TextView tv_satisficing;
     private ErrandMineRunAdapter errandMineRunAdapter;
     public static WeakReference<ErrandMineRunFragment> mInstance;
+
     public static ErrandMineRunFragment newInstance() {
         return new ErrandMineRunFragment();
     }
@@ -68,7 +71,7 @@ public class ErrandMineRunFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
-        mInstance=new WeakReference<>(this);
+        mInstance = new WeakReference<>(this);
         recycleview.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
         errandMineRunAdapter = new ErrandMineRunAdapter(bfCxt);
         recycleview.setAdapter(errandMineRunAdapter);
@@ -84,6 +87,33 @@ public class ErrandMineRunFragment extends BaseFragment {
     public void initDate() {
         requestData();
         requestList();
+        requestCount();
+    }
+    @Bind(R.id.tv_running_count)
+    TextView tv_running_count;@Bind(R.id.tv_runfinishcount)
+    TextView tv_runfinishcount;@Bind(R.id.tv_runmoney)
+    TextView tv_runmoney;
+    private void requestCount() {
+        RrunnerCountInfo rrunnerCountInfo = new RrunnerCountInfo();
+        rrunnerCountInfo.setFunctionName("QueryErrandUserDailyStatistics");
+        RrunnerCountInfo.ParametersBean parametersBean = new RrunnerCountInfo.ParametersBean();
+        parametersBean.setUserId(userId);
+        rrunnerCountInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
+        okGoUtils.httpPostJSON(rrunnerCountInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                RunnerCountInfo runnerCountInfo = JSON.parseObject(response, RunnerCountInfo.class);
+                if (runnerCountInfo.getCode() == 0) {
+                    tv_running_count.setText(String.valueOf(runnerCountInfo.getData().getReceiveOrderCount()));
+                    tv_runfinishcount.setText(String.valueOf(runnerCountInfo.getData().getHaveOrderCount()));
+                    tv_runmoney.setText(runnerCountInfo.getData().getIncome()+"元");
+                }else{
+                    ToastUtils.showShort(runnerCountInfo.getMessage());
+                }
+            }
+        });
     }
 
     private void requestList() {

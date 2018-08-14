@@ -67,11 +67,11 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:text="1Kg/10元"
                     android:id="@+id/tv_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:text="1Kg/10元"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -298,18 +298,15 @@
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
 
                 <EditText
+                    android:gravity="center_vertical|right"
                     android:id="@+id/et_remark"
-                    android:layout_width="120dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
-                    android:background="@color/white"
-                    android:hint="可输入特殊需求"
+                    android:background="@null"
+                    android:hint="可输入备注"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -366,12 +363,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <TextView
+                <EditText
+                    android:inputType="number|numberDecimal"
+                    android:gravity="right|center_vertical"
                     android:id="@+id/tv_rmoney"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="90dp"
+                    android:paddingRight="20dp"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
-                    android:text="10元"
+                    android:background="@null"
+                    android:hint="0.0"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -435,10 +436,11 @@
             android:textSize="13sp" />
 
         <TextView
+            android:id="@+id/tv_showmoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
-            android:text="10"
+            android:text="0.0"
             android:textColor="@color/white"
             android:textSize="13sp" />
 
