@@ -180,9 +180,11 @@
             android:layout_marginLeft="18dp"
              />
         <CheckBox
+            android:button="@null"
+            android:background="@drawable/check_select"
             android:id="@+id/cb_default"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="center_vertical"/>
 
 

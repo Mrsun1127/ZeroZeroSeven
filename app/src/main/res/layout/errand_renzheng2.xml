@@ -16,12 +16,15 @@
         android:orientation="horizontal">
 
         <CheckBox
+            android:button="@null"
+            android:background="@drawable/check_select"
             android:id="@+id/cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginLeft="15dp" />
 
         <TextView
+            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我已阅读并同意认证协议"
