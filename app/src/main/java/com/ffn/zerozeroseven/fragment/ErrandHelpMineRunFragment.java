@@ -73,6 +73,9 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
     @Bind(R.id.tv_showmoney)
     TextView tv_showmoney;
     private ErrandHelpMineRunFragment fragment;
+    private RAddRunAdrInfo rAddRunAdrInfo;
+    private RAddRunAdrInfo rAddRunAdrInfo1;
+    private RAddRunAdrInfo rAddRunAdrInfo2;
 
     public static ErrandHelpMineRunFragment newInstance() {
         return new ErrandHelpMineRunFragment();
@@ -277,14 +280,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
     TextView tv_selectSadr;
     @Bind(R.id.tv_selectFadr)
     TextView tv_selectFadr;
-    @Bind(R.id.tv_letadr)
-    TextView tv_fahuo;
-    @Bind(R.id.tv_letinfo)
-    TextView tv_info;
-    @Bind(R.id.tv_getadr)
-    TextView tv_shouhuo;
-    @Bind(R.id.tv_getinfo)
-    TextView tv_shouinfo;
+
     @Bind(R.id.ll_s)
     LinearLayout ll_s;
     @Bind(R.id.ll_f)
@@ -296,19 +292,22 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
         switch (resultCode) {
             case 2:
                 try {
-                    RAddRunAdrInfo rAddRunAdrInfo = (RAddRunAdrInfo) data.getSerializableExtra("adrInfo");
+                    rAddRunAdrInfo=(RAddRunAdrInfo) data.getSerializableExtra("adrInfo");
                     if (rAddRunAdrInfo.getParameters().getType().equals("SEND")) {//发
+                        rAddRunAdrInfo1 = rAddRunAdrInfo;
                         tv_selectFadr.setVisibility(View.GONE);
                         ll_f.setVisibility(View.VISIBLE);
                         tv_fahuo.setText(rAddRunAdrInfo.getParameters().getAddress());
                         tv_info.setText(rAddRunAdrInfo.getParameters().getName() + "   " + rAddRunAdrInfo.getParameters().getPhone());
                     } else {
+                        rAddRunAdrInfo2 = rAddRunAdrInfo;
                         tv_selectSadr.setVisibility(View.GONE);
                         ll_s.setVisibility(View.VISIBLE);
                         tv_shouhuo.setText(rAddRunAdrInfo.getParameters().getAddress());
                         tv_shouinfo.setText(rAddRunAdrInfo.getParameters().getName() + "   " + rAddRunAdrInfo.getParameters().getPhone());
                     }
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
                 break;
         }
     }
@@ -319,7 +318,14 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
     EditText tv_rmoney;
     @Bind(R.id.cb_check)
     CheckBox cb_check;
-
+    @Bind(R.id.tv_letadr)
+    TextView tv_fahuo;
+    @Bind(R.id.tv_letinfo)
+    TextView tv_info;
+    @Bind(R.id.tv_getadr)
+    TextView tv_shouhuo;
+    @Bind(R.id.tv_getinfo)
+    TextView tv_shouinfo;
 
     private RrunnerPayInfo checkSome() {
         String type = errandHelpAdapter.getItem(errandHelpAdapter.clickPosition).getTitle();
@@ -332,33 +338,37 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
         if (!TextUtils.isEmpty(weight)) {
             if (!TextUtils.isEmpty(letTime)) {
                 if (!TextUtils.isEmpty(level)) {
-                    if (isSelect) {
-                        RrunnerPayInfo rrunnerPayInfo = new RrunnerPayInfo();
-                        rrunnerPayInfo.setFunctionName("AddErrandOrder");
-                        RrunnerPayInfo.ParametersBean parametersBean = new RrunnerPayInfo.ParametersBean();
-                        parametersBean.setGoodsType(type);
-                        parametersBean.setUserId(userId);
-                        parametersBean.setGoodsWeight(weight1);
-                        parametersBean.setDeliveryAddress("xxx");
-                        parametersBean.setDeliveryName("mrsun");
-                        parametersBean.setDeliveryPhone("18888888888");
-                        parametersBean.setReceiverAddress("xxx");
-                        parametersBean.setReceiverName("mrqin");
-                        parametersBean.setReceiverPhone("1666666666");
-                        parametersBean.setShippingFee(rmoney);
-                        if (!TextUtils.isEmpty(remark)) {
-                            parametersBean.setRemark(remark);
-                        }
-                        if ("没要求".equals(level)) {
-                            parametersBean.setErrandLevel("5");
+                    if (!TextUtils.isEmpty(tv_fahuo.getText().toString()) && !TextUtils.isEmpty(tv_info.getText().toString()) && !TextUtils.isEmpty(tv_shouhuo.getText().toString()) && !TextUtils.isEmpty(tv_shouinfo.getText().toString())) {
+                        if (isSelect) {
+                            RrunnerPayInfo rrunnerPayInfo = new RrunnerPayInfo();
+                            rrunnerPayInfo.setFunctionName("AddErrandOrder");
+                            RrunnerPayInfo.ParametersBean parametersBean = new RrunnerPayInfo.ParametersBean();
+                            parametersBean.setGoodsType(type);
+                            parametersBean.setUserId(userId);
+                            parametersBean.setGoodsWeight(weight1);
+                            parametersBean.setDeliveryAddress(rAddRunAdrInfo1.getParameters().getAddress());
+                            parametersBean.setDeliveryName(rAddRunAdrInfo1.getParameters().getName());
+                            parametersBean.setDeliveryPhone(rAddRunAdrInfo1.getParameters().getPhone());
+                            parametersBean.setReceiverAddress(rAddRunAdrInfo2.getParameters().getAddress());
+                            parametersBean.setReceiverName(rAddRunAdrInfo2.getParameters().getName());
+                            parametersBean.setReceiverPhone(rAddRunAdrInfo2.getParameters().getPhone());
+                            parametersBean.setShippingFee(rmoney);
+                            if (!TextUtils.isEmpty(remark)) {
+                                parametersBean.setRemark(remark);
+                            }
+                            if ("没要求".equals(level)) {
+                                parametersBean.setErrandLevel("5");
+                            } else {
+                                parametersBean.setErrandLevel(level.replaceAll("星跑腿", ""));
+                            }
+                            parametersBean.setPickupTime(letTime);
+                            rrunnerPayInfo.setParameters(parametersBean);
+                            return rrunnerPayInfo;
                         } else {
-                            parametersBean.setErrandLevel(level.replaceAll("星跑腿", ""));
+                            ToastUtils.showShort("请同意跑腿条款");
                         }
-                        parametersBean.setPickupTime(letTime);
-                        rrunnerPayInfo.setParameters(parametersBean);
-                        return rrunnerPayInfo;
                     } else {
-                        ToastUtils.showShort("请同意跑腿条款");
+                        ToastUtils.showShort("请完善地址");
                     }
                 } else {
                     ToastUtils.showShort("请选择跑腿等级");
