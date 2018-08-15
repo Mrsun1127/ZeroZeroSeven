@@ -30,7 +30,7 @@ import java.util.List;
  * Created by GT on 2017/11/27.
  */
 
-public class NumberRicalVerticalAdapter extends BaseRecyclerAdapter<NumberListInfo.DataBean.GoodsListBean.ListBean> {
+public class NumberRicalVerticalAdapter extends BaseRecyclerAdapter<NumberListInfo.DataBean.ListBean> {
     public NumberRicalVerticalAdapter(Context context) {
         super(context);
     }
@@ -43,14 +43,14 @@ public class NumberRicalVerticalAdapter extends BaseRecyclerAdapter<NumberListIn
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final NumberListInfo.DataBean.GoodsListBean.ListBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final NumberListInfo.DataBean.ListBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_name.setText(item.getGoodsName());
         Glide.with(mContext)
-                .load(item.getGoodsImg())
+                .load(item.getGoodsThumb())
                 .into(mHolder.iv_product);
         mHolder.tv_shopmoney.setText(item.getShopPrice() + "");
-        mHolder.tv_oldmoney.setText(item.getMarketPrize() + "");
+        mHolder.tv_oldmoney.setText(item.getMarketPrice() + "");
         FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
         mHolder.rc_top.setLayoutManager(linearLayoutManager);

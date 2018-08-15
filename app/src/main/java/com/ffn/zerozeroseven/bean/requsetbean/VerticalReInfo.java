@@ -46,8 +46,17 @@ public class VerticalReInfo {
         private int specItemId;
         private int brandId;
         private String attrValue;
+        private String schoolId;
         private int pageIndex;
         private int pageSize;
+
+        public String getSchoolId() {
+            return schoolId;
+        }
+
+        public void setSchoolId(String schoolId) {
+            this.schoolId = schoolId;
+        }
 
         public int getCategoryId() {
             return categoryId;

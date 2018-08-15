@@ -1,7 +1,6 @@
 package com.ffn.zerozeroseven.ui;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -367,7 +366,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         });
     }
 
-//    private void findVerticalData(int levelId, int specId, int brandId, final String attrValue, int pageIndex) {
+    //    private void findVerticalData(int levelId, int specId, int brandId, final String attrValue, int pageIndex) {
     private void findVerticalData(int levelId, int pageIndex) {
         VerticalReInfo verticalReInfo = new VerticalReInfo();
         verticalReInfo.setFunctionName("ListDigitalGoods");
@@ -381,6 +380,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
 //        }
 //        parametersBean.setAttrValue(attrValue);
         parametersBean.setPageSize(6);
+        parametersBean.setSchoolId(schoolIId);
         parametersBean.setPageIndex(pageIndex);
         verticalReInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(NumberRicalActivity.this);
@@ -395,20 +395,20 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                         case IDLE:
                         case REFRESHING:
                             verticalAdapter.cleanDates();
-                            if (numberListInfo.getData().getGoods_list().getList().size() > 0) {
+                            if (numberListInfo.getData().getList().size() > 0) {
                                 iv_nodate.setVisibility(View.GONE);
                                 vetical.setVisibility(View.VISIBLE);
-                                verticalAdapter.addAll(numberListInfo.getData().getGoods_list().getList());
+                                verticalAdapter.addAll(numberListInfo.getData().getList());
                             } else {
                                 iv_nodate.setVisibility(View.VISIBLE);
                                 vetical.setVisibility(View.GONE);
                             }
                             break;
                         case PULL_DOWN:
-                            if (numberListInfo.getData().getGoods_list().getList().size() == 0) {
+                            if (numberListInfo.getData().getList().size() == 0) {
                                 UiTipUtil.showToast(NumberRicalActivity.this, R.string.no_more_data);
                             } else {
-                                verticalAdapter.addAll(numberListInfo.getData().getGoods_list().getList());
+                                verticalAdapter.addAll(numberListInfo.getData().getList());
                             }
                             break;
                     }
@@ -512,7 +512,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         popBrandAdapter.setClickPosition(-1);
         popSpecAdapter.setClickPosition(-1);
 //        findVerticalData(oneAdapter.getItem(oneClickPositon).getId(), 0, 0, "", pageIndex);
-        findVerticalData(oneAdapter.getItem(oneClickPositon).getId(),  pageIndex);
+        findVerticalData(oneAdapter.getItem(oneClickPositon).getId(), pageIndex);
     }
 
     @Override
@@ -529,7 +529,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         if (BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo() != null) {
             if (BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo().size() > 0) {
                 badgeView.setBadgeNumber(BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo().size());
-            }else{
+            } else {
                 badgeView.setBadgeNumber(0);
             }
         }
