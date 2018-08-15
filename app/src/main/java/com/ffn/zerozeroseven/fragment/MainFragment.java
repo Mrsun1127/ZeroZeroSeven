@@ -4,12 +4,8 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,26 +20,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.baidu.location.BDAbstractLocationListener;
-import com.baidu.location.BDLocation;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiDetailResult;
-import com.baidu.mapapi.search.poi.PoiIndoorResult;
-import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
-import com.baidu.mapapi.search.poi.PoiResult;
-import com.baidu.mapapi.search.poi.PoiSearch;
-import com.baidu.mapapi.search.poi.PoiSortType;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.ViewTarget;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.BestNewGoodsAdapter;
 import com.ffn.zerozeroseven.adapter.HotTimeAdapter;
@@ -52,10 +32,8 @@ import com.ffn.zerozeroseven.adapter.WebBannerAdapter;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
-import com.ffn.zerozeroseven.base.BaseRecyclerTallAniAdapter;
 import com.ffn.zerozeroseven.bean.AppVersionInfo;
 import com.ffn.zerozeroseven.bean.BannerInfo;
-import com.ffn.zerozeroseven.bean.FindSchoolInfo;
 import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
 import com.ffn.zerozeroseven.bean.GoodsDetilsInfo;
 import com.ffn.zerozeroseven.bean.HotInfo;
@@ -70,7 +48,6 @@ import com.ffn.zerozeroseven.bean.requsetbean.LunBoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.OftenShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.PoppurlarListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RequeseGoods;
-import com.ffn.zerozeroseven.bean.requsetbean.SearchSchoolInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.TongZhiShowInfo;
 import com.ffn.zerozeroseven.ui.BitisDetils;
@@ -103,7 +80,6 @@ import com.yanzhenjie.permission.AndPermission;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -119,7 +95,7 @@ import butterknife.OnClick;
  * Created by GT on 2017/11/15.
  */
 
-public class MainFragment extends BaseFragment implements OnGetPoiSearchResultListener {
+public class MainFragment extends BaseFragment  {
 
     //    private RelativeLayout et_select;
     private UserLikeAdapter userLikeAdapter;
@@ -133,12 +109,12 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
     private BestNewShowInfo showBothInfo;
     private OftenShowInfo showOftenInfo;
     private ScroolRecyleView recyclerView;
-    public LocationClient mLocationClient = null;
-    private MyLocationListener myListener = new MyLocationListener();
-    private double latitude;
-    private double longitude;
-    private PoiSearch mPoiSearch;
-    private boolean loginStaus;
+//    public LocationClient mLocationClient = null;
+//    private MyLocationListener myListener = new MyLocationListener();
+//    private double latitude;
+//    private double longitude;
+//    private PoiSearch mPoiSearch;
+//    private boolean loginStaus;
     public static WeakReference<MainFragment> mInstance;
     private TextView tv_time;
 
@@ -284,19 +260,19 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
         Glide.with(this).load(R.drawable.cancel_icon).into(iv_cancer);
         Glide.with(this).load(R.drawable.cancel_icon).into(iv_cancer);
         mInstance = new WeakReference<>(this);
-        mLocationClient = new LocationClient(BaseAppApplication.context);
+//        mLocationClient = new LocationClient(BaseAppApplication.context);
         //声明LocationClient类
-        mLocationClient.registerLocationListener(myListener);
-        LocationClientOption option = new LocationClientOption();
-        option.setIsNeedLocationPoiList(true);
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-        option.setCoorType("bd09ll");
-        mPoiSearch = PoiSearch.newInstance();
-        mPoiSearch.setOnGetPoiSearchResultListener(this);
-        mLocationClient.setLocOption(option);
-        if (SharePrefUtils.getInt(bfCxt, "isLocation", 0) != 1) {
-            mLocationClient.start();
-        }
+//        mLocationClient.registerLocationListener(myListener);
+//        LocationClientOption option = new LocationClientOption();
+//        option.setIsNeedLocationPoiList(true);
+//        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+//        option.setCoorType("bd09ll");
+//        mPoiSearch = PoiSearch.newInstance();
+//        mPoiSearch.setOnGetPoiSearchResultListener(this);
+//        mLocationClient.setLocOption(option);
+//        if (SharePrefUtils.getInt(bfCxt, "isLocation", 0) != 1) {
+//            mLocationClient.start();
+//        }
         scrollTextView.setAnimTime(300);
         scrollview.setScrollViewListener(new SmartScrollView.ScrollViewListener() {
             @Override
@@ -775,109 +751,109 @@ public class MainFragment extends BaseFragment implements OnGetPoiSearchResultLi
 
     }
 
-    @Override
-    public void onGetPoiResult(final PoiResult poiResult) {
-        try {
-            if (poiResult != null) {
-                if (poiResult.getAllPoi() != null && poiResult.getAllPoi().size() > 0) {
-                    String poi = poiResult.getAllPoi().get(0).name;
-                    if (poi.indexOf("学") != -1) {
-                        poi.substring(0, poi.lastIndexOf("学"));
-                        FindSchoolId(poi.substring(0, poi.indexOf("学") + 1));
-                    } else {
-                        tv_school.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                tv_school.setText("去选择学校");
-                            }
-                        });
-
-                    }
-
-                }
-            }
-        } catch (Exception e) {
-            tv_school.post(new Runnable() {
-                @Override
-                public void run() {
-                    tv_school.setText("去选择学校");
-                }
-            });
-        }
-    }
-
-    private void FindSchoolId(final String name) {
-        SearchSchoolInfo schoolInfo = new SearchSchoolInfo();
-        schoolInfo.setFunctionName("QuerySchoolByName");
-        SearchSchoolInfo.ParametersBean parametersBean = new SearchSchoolInfo.ParametersBean();
-        parametersBean.setSchoolName(name);
-        schoolInfo.setParameters(parametersBean);
-
-        OkGoUtils okGoUtils = new OkGoUtils(getActivity());
-        okGoUtils.httpPostJSON(schoolInfo, true, false);
-        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
-            @Override
-            public void onSuccLoad(String response) {
-                final FindSchoolInfo findSchoolInfo = JSON.parseObject(response, FindSchoolInfo.class);
-                if (findSchoolInfo.getCode() == 0) {
-                    if (findSchoolInfo.getData() != null) {
-                        if (TextUtils.isEmpty(findSchoolInfo.getData().getName())) {
-                            tv_school.setText("去选择学校");
-                        } else {
-                            tv_school.setText(findSchoolInfo.getData().getName());
-                            BaseAppApplication.userInfo.setSchoolName(name);
-                            BaseAppApplication.userInfo.setLocationSchoolId(findSchoolInfo.getData().getId() + "");
-                            SharePrefUtils.saveObject(bfCxt, "userInfo", BaseAppApplication.getInstance().getLoginUser());
-                            SharePrefUtils.setInt(bfCxt, "isLocation", 1);
-                        }
-                        reQuest();
-                    } else {
-                        tv_school.setText("去选择学校");
-                        reQuest();
-                    }
-                } else {
-                    reQuest();
-                }
-
-            }
-        });
-
-    }
-
-    @Override
-    public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
-    }
-
-    @Override
-    public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
-
-    }
+//    @Override
+//    public void onGetPoiResult(final PoiResult poiResult) {
+//        try {
+//            if (poiResult != null) {
+//                if (poiResult.getAllPoi() != null && poiResult.getAllPoi().size() > 0) {
+//                    String poi = poiResult.getAllPoi().get(0).name;
+//                    if (poi.indexOf("学") != -1) {
+//                        poi.substring(0, poi.lastIndexOf("学"));
+//                        FindSchoolId(poi.substring(0, poi.indexOf("学") + 1));
+//                    } else {
+//                        tv_school.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                tv_school.setText("去选择学校");
+//                            }
+//                        });
+//
+//                    }
+//
+//                }
+//            }
+//        } catch (Exception e) {
+//            tv_school.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    tv_school.setText("去选择学校");
+//                }
+//            });
+//        }
+//    }
+//
+//    private void FindSchoolId(final String name) {
+//        SearchSchoolInfo schoolInfo = new SearchSchoolInfo();
+//        schoolInfo.setFunctionName("QuerySchoolByName");
+//        SearchSchoolInfo.ParametersBean parametersBean = new SearchSchoolInfo.ParametersBean();
+//        parametersBean.setSchoolName(name);
+//        schoolInfo.setParameters(parametersBean);
+//
+//        OkGoUtils okGoUtils = new OkGoUtils(getActivity());
+//        okGoUtils.httpPostJSON(schoolInfo, true, false);
+//        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+//            @Override
+//            public void onSuccLoad(String response) {
+//                final FindSchoolInfo findSchoolInfo = JSON.parseObject(response, FindSchoolInfo.class);
+//                if (findSchoolInfo.getCode() == 0) {
+//                    if (findSchoolInfo.getData() != null) {
+//                        if (TextUtils.isEmpty(findSchoolInfo.getData().getName())) {
+//                            tv_school.setText("去选择学校");
+//                        } else {
+//                            tv_school.setText(findSchoolInfo.getData().getName());
+//                            BaseAppApplication.userInfo.setSchoolName(name);
+//                            BaseAppApplication.userInfo.setLocationSchoolId(findSchoolInfo.getData().getId() + "");
+//                            SharePrefUtils.saveObject(bfCxt, "userInfo", BaseAppApplication.getInstance().getLoginUser());
+//                            SharePrefUtils.setInt(bfCxt, "isLocation", 1);
+//                        }
+//                        reQuest();
+//                    } else {
+//                        tv_school.setText("去选择学校");
+//                        reQuest();
+//                    }
+//                } else {
+//                    reQuest();
+//                }
+//
+//            }
+//        });
+//
+//    }
+//
+//    @Override
+//    public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+//    }
+//
+//    @Override
+//    public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
+//
+//    }
 
 //    @Override
 //    public void onRefresh(RefreshLayout refreshlayout) {
 //        reQuest();
 //    }
 
-    public class MyLocationListener extends BDAbstractLocationListener {
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
-            //以下只列举部分获取周边POI信息相关的结果
-            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-            searchNeayBy(latitude, longitude);
-        }
-    }
+//    public class MyLocationListener extends BDAbstractLocationListener {
+//        @Override
+//        public void onReceiveLocation(BDLocation location) {
+//            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+//            //以下只列举部分获取周边POI信息相关的结果
+//            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
+//            latitude = location.getLatitude();
+//            longitude = location.getLongitude();
+//            searchNeayBy(latitude, longitude);
+//        }
+//    }
 
-    private void searchNeayBy(double latitude1, double longitude1) {
-        PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
-        nearbySearchOption.location(new LatLng(latitude1, longitude1));
-        nearbySearchOption.keyword("大学");
-        nearbySearchOption.radius(3000);
-        nearbySearchOption.sortType(PoiSortType.distance_from_near_to_far);
-        mPoiSearch.searchNearby(nearbySearchOption);
-    }
+//    private void searchNeayBy(double latitude1, double longitude1) {
+//        PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
+//        nearbySearchOption.location(new LatLng(latitude1, longitude1));
+//        nearbySearchOption.keyword("大学");
+//        nearbySearchOption.radius(3000);
+//        nearbySearchOption.sortType(PoiSortType.distance_from_near_to_far);
+//        mPoiSearch.searchNearby(nearbySearchOption);
+//    }
 
     @Override
     public void initDate() {
