@@ -47,6 +47,15 @@ public class RAddRunAdrInfo implements Serializable{
         private String address;
         private String phone;
         private String type;
+        private String id;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
 
         public String getUserId() {
             return userId;

@@ -293,20 +293,22 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
+        switch (resultCode) {
             case 2:
-                RAddRunAdrInfo rAddRunAdrInfo = (RAddRunAdrInfo) data.getSerializableExtra("adrInfo");
-                if (rAddRunAdrInfo.getParameters().getType().equals("SEND")) {//发
-                    tv_selectFadr.setVisibility(View.GONE);
-                    ll_f.setVisibility(View.VISIBLE);
-                    tv_fahuo.setText(rAddRunAdrInfo.getParameters().getAddress());
-                    tv_info.setText(rAddRunAdrInfo.getParameters().getName() + "   " + rAddRunAdrInfo.getParameters().getPhone());
-                } else {
-                    tv_selectSadr.setVisibility(View.GONE);
-                    ll_s.setVisibility(View.VISIBLE);
-                    tv_shouhuo.setText(rAddRunAdrInfo.getParameters().getAddress());
-                    tv_shouinfo.setText(rAddRunAdrInfo.getParameters().getName() + "   " + rAddRunAdrInfo.getParameters().getPhone());
-                }
+                try {
+                    RAddRunAdrInfo rAddRunAdrInfo = (RAddRunAdrInfo) data.getSerializableExtra("adrInfo");
+                    if (rAddRunAdrInfo.getParameters().getType().equals("SEND")) {//发
+                        tv_selectFadr.setVisibility(View.GONE);
+                        ll_f.setVisibility(View.VISIBLE);
+                        tv_fahuo.setText(rAddRunAdrInfo.getParameters().getAddress());
+                        tv_info.setText(rAddRunAdrInfo.getParameters().getName() + "   " + rAddRunAdrInfo.getParameters().getPhone());
+                    } else {
+                        tv_selectSadr.setVisibility(View.GONE);
+                        ll_s.setVisibility(View.VISIBLE);
+                        tv_shouhuo.setText(rAddRunAdrInfo.getParameters().getAddress());
+                        tv_shouinfo.setText(rAddRunAdrInfo.getParameters().getName() + "   " + rAddRunAdrInfo.getParameters().getPhone());
+                    }
+                }catch (Exception e){}
                 break;
         }
     }

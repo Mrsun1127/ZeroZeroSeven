@@ -2,6 +2,7 @@ package com.ffn.zerozeroseven.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.adapter.RunAdrListAdapter;
@@ -10,7 +11,7 @@ import com.ffn.zerozeroseven.base.BaseUpdateRefreshActivity;
 import com.ffn.zerozeroseven.bean.FaHuoDiZhiInfo;
 import com.ffn.zerozeroseven.bean.RFaHuoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RAddRunAdrInfo;
-import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 public class RunAdrListActivity extends BaseUpdateRefreshActivity {
 
@@ -20,7 +21,18 @@ public class RunAdrListActivity extends BaseUpdateRefreshActivity {
 
     @Override
     protected BaseRecyclerAdapter setAdapter() {
+        type = getIntent().getStringExtra("type");
         adrListAdapter = new RunAdrListAdapter(this);
+        adrListAdapter.setOnItemImageViewClick(new RunAdrListAdapter.OnItemImageClick() {
+            @Override
+            public void onClick(View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("saveType","update");
+                bundle.putString("jumpType",type);
+                bundle.putSerializable("info",adrListAdapter.getItem(position));
+                ZeroZeroSevenUtils.SwitchActivity(RunAdrListActivity.this,RunAdrUpdateActivity.class,bundle);
+            }
+        });
         adrListAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
@@ -47,13 +59,14 @@ public class RunAdrListActivity extends BaseUpdateRefreshActivity {
 
     @Override
     protected void doMain() {
-        type = getIntent().getStringExtra("type");
     }
 
     @Override
     public void doRight() {
-
-        ToastUtils.showShort("新增地址");
+        Bundle bundle = new Bundle();
+        bundle.putString("saveType","add");
+        bundle.putString("jumpType",type);
+        ZeroZeroSevenUtils.SwitchActivity(this,RunAdrUpdateActivity.class,bundle);
     }
 
     @Override

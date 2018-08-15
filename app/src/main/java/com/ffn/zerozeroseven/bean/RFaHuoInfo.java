@@ -1,8 +1,9 @@
 package com.ffn.zerozeroseven.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RFaHuoInfo {
+public class RFaHuoInfo implements Serializable{
     /**
      * code : 0
      * data : {"list":[{"address":"湖南长沙市国储电脑城","id":6,"name":"杨洲","phone":"17388933063","type":"SEND","userId":96}]}
@@ -37,7 +38,7 @@ public class RFaHuoInfo {
         this.success = success;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         private List<ListBean> list;
 
         public List<ListBean> getList() {
@@ -48,7 +49,7 @@ public class RFaHuoInfo {
             this.list = list;
         }
 
-        public static class ListBean {
+        public static class ListBean implements Serializable{
             /**
              * address : 湖南长沙市国储电脑城
              * id : 6

@@ -350,6 +350,7 @@
         <activity android:name=".ui.UserSelectSchoolListActivity" />
         <activity android:name=".ui.UserSelectYearActivity" />
         <activity android:name=".ui.RunAdrListActivity" />
+        <activity android:name=".ui.RunAdrUpdateActivity" />
 
         <!-- Required SDK核心功能-->
         <service

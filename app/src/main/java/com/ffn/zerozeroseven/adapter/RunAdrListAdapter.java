@@ -27,16 +27,33 @@ public class RunAdrListAdapter extends BaseRecyclerAdapter<RFaHuoInfo.DataBean.L
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, RFaHuoInfo.DataBean.ListBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, RFaHuoInfo.DataBean.ListBean item, final int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_name.setText(item.getName());
         mHolder.tv_phone.setText(item.getPhone());
         mHolder.tv_adr.setText(item.getAddress());
+        mHolder.rl_edit.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                if (ImageClick != null) {
+                    ImageClick.onClick(v, position);
+                }
+            }
+        });
     }
     public void setClickPosition(int position){
         clickPosition=position;
         notifyDataSetChanged();
+    }
+    private OnItemImageClick ImageClick;
+
+    public void setOnItemImageViewClick(OnItemImageClick ImageClick) {
+        this.ImageClick = ImageClick;
+    }
+
+    public interface OnItemImageClick {
+        void onClick(View view, int position);
     }
     private class MViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name;
