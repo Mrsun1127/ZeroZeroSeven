@@ -80,7 +80,6 @@ public abstract class BaseFragment extends ImmersionFragment {
     }
 
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +92,7 @@ public abstract class BaseFragment extends ImmersionFragment {
         userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
             userId = "" + userInfo.getId();
-            schoolIId = userInfo.getLocationSchoolId();
+            schoolIId = userInfo.getSchoolId();
         } else {
             userId = "";
             schoolIId = "943478288";
@@ -108,7 +107,6 @@ public abstract class BaseFragment extends ImmersionFragment {
     }
 
     public void initDate() {
-
 
 
     }

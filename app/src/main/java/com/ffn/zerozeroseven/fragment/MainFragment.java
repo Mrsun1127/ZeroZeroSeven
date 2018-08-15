@@ -870,7 +870,7 @@ public class MainFragment extends BaseFragment  {
 
     public void reQuest() {
         if (userInfo != null) {
-            schoolIId = BaseAppApplication.getInstance().getLoginUser().getLocationSchoolId();
+            schoolIId = BaseAppApplication.getInstance().getLoginUser().getSchoolId();
             if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
                 tv_school.setText(userInfo.getSchoolName());
             }

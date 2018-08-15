@@ -138,7 +138,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
         setRefreshLayoutVis();
         userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
-            schoolIId = userInfo.getLocationSchoolId();
+            schoolIId = userInfo.getSchoolId();
         }
         if ("943478288".equals(schoolIId)) {
             rl_no_select.setVisibility(View.VISIBLE);

@@ -144,7 +144,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         super.onResume();
         UserInfo.DataBean userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
-            schoolIId = userInfo.getLocationSchoolId();
+            schoolIId = userInfo.getSchoolId();
             tv_username.setText(userInfo.getRealName());
             if (userInfo.getCollege() != null && userInfo.getClazz() != null) {
                 tv_schoolInfo.setText(userInfo.getCollege() + "  " + userInfo.getClazz());

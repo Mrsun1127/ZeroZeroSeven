@@ -61,7 +61,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
             userId = "" + userInfo.getId();
-            schoolIId = userInfo.getLocationSchoolId();
+            schoolIId = userInfo.getSchoolId();
         } else {
             userId = "";
             schoolIId = "943478288";
