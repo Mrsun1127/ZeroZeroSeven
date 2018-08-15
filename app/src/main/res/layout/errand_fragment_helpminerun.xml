@@ -111,7 +111,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="38dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -128,10 +128,20 @@
                         android:textSize="11sp" />
                 </RelativeLayout>
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_selectFadr"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:gravity="center"
+                    android:text="请选择发货地址"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:id="@+id/ll_f"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_letadr"
@@ -172,10 +182,19 @@
                         android:textSize="11sp" />
                 </RelativeLayout>
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_selectSadr"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:gravity="center"
+                    android:text="请选择收货地址" />
+
+                <LinearLayout
+                    android:id="@+id/ll_s"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_getadr"
@@ -300,12 +319,12 @@
 
 
                 <EditText
-                    android:gravity="center_vertical|right"
                     android:id="@+id/et_remark"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
                     android:background="@null"
+                    android:gravity="center_vertical|right"
                     android:hint="可输入备注"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
@@ -364,15 +383,15 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:inputType="number|numberDecimal"
-                    android:gravity="right|center_vertical"
                     android:id="@+id/tv_rmoney"
                     android:layout_width="90dp"
-                    android:paddingRight="20dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
                     android:background="@null"
+                    android:gravity="right|center_vertical"
                     android:hint="0.0"
+                    android:inputType="number|numberDecimal"
+                    android:paddingRight="20dp"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -386,11 +405,11 @@
                 android:paddingLeft="16dp">
 
                 <CheckBox
-                    android:button="@null"
-                    android:background="@drawable/check_select"
                     android:id="@+id/cb_check"
                     android:layout_width="20dp"
-                    android:layout_height="20dp" />
+                    android:layout_height="20dp"
+                    android:background="@drawable/check_select"
+                    android:button="@null" />
 
                 <TextView
                     android:layout_width="wrap_content"

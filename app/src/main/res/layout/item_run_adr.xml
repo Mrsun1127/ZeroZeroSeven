@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="97dp"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/iv_left"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/run_left_adrselect"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="19dp"
+        android:text="@string/name"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="19dp"
+        android:layout_toRightOf="@+id/tv_name"
+        android:text="sex"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="19dp"
+        android:layout_toRightOf="@+id/tv_sex"
+        android:text="phonenumber"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_adr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="9dp"
+        android:lines="2"
+        android:text="湖南省长沙市芙蓉区解放东路一段国储城市天地19楼1901室"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_edit"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/run_adr_select" />
+    </RelativeLayout>
+</RelativeLayout>

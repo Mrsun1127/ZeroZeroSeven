@@ -1,5 +1,6 @@
 package com.ffn.zerozeroseven.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,8 +24,10 @@ import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.RrunnerPayInfo;
 import com.ffn.zerozeroseven.bean.RunTypeInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RAddRunAdrInfo;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
+import com.ffn.zerozeroseven.ui.RunAdrListActivity;
 import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -69,6 +72,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
     private int clickSwitch = -1;
     @Bind(R.id.tv_showmoney)
     TextView tv_showmoney;
+    private ErrandHelpMineRunFragment fragment;
 
     public static ErrandHelpMineRunFragment newInstance() {
         return new ErrandHelpMineRunFragment();
@@ -77,6 +81,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
+        fragment = this;
         initWeightPop();
         tv_rmoney.addTextChangedListener(new TextWatcher() {
             @Override
@@ -207,9 +212,30 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
         pvTime.show();
     }
 
-    @OnClick({R.id.ll_weight, R.id.ll_level, R.id.ll_lettime, R.id.bt_pay})
+    @OnClick({R.id.ll_f, R.id.ll_s, R.id.tv_selectSadr, R.id.tv_selectFadr, R.id.ll_weight, R.id.ll_level, R.id.ll_lettime, R.id.bt_pay})
     void setOnClicks(View v) {
+
         switch (v.getId()) {
+            case R.id.tv_selectSadr:
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "s");
+                ZeroZeroSevenUtils.FragmentSwitchActivity(bfCxt, RunAdrListActivity.class, fragment, bundle, 2);
+                break;
+            case R.id.tv_selectFadr:
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("type", "f");
+                ZeroZeroSevenUtils.FragmentSwitchActivity(bfCxt, RunAdrListActivity.class, fragment, bundle1, 2);
+                break;
+            case R.id.ll_s:
+                Bundle bundle5 = new Bundle();
+                bundle5.putString("type", "s");
+                ZeroZeroSevenUtils.FragmentSwitchActivity(bfCxt, RunAdrListActivity.class, fragment, bundle5, 2);
+                break;
+            case R.id.ll_f:
+                Bundle bundle4 = new Bundle();
+                bundle4.putString("type", "f");
+                ZeroZeroSevenUtils.FragmentSwitchActivity(bfCxt, RunAdrListActivity.class, fragment, bundle4, 2);
+                break;
             case R.id.ll_weight:
                 clickSwitch = 0;
                 weightAdapter.setClickPosition(-1);
@@ -230,18 +256,56 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
                 setBri();
                 break;
             case R.id.bt_pay:
-                String mm=tv_rmoney.getText().toString().trim();
-                if(TextUtils.isEmpty(mm) || "0.0元".equals(mm) || "0".equals(mm) || "0.0".equals(mm)){
+                String mm = tv_rmoney.getText().toString().trim();
+                if (TextUtils.isEmpty(mm) || "0.0元".equals(mm) || "0".equals(mm) || "0.0".equals(mm)) {
                     ToastUtils.showShort("请输入>0元的跑腿费");
                     return;
                 }
                 RrunnerPayInfo rrunnerPayInfo = checkSome();
                 if (rrunnerPayInfo != null) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("money", mm);
-                    bundle.putString("pay", "run");
-                    bundle.putSerializable("runInfo", rrunnerPayInfo);
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, PayMoneyNewActivity.class, bundle);
+                    Bundle bundle3 = new Bundle();
+                    bundle3.putString("money", mm);
+                    bundle3.putString("pay", "run");
+                    bundle3.putSerializable("runInfo", rrunnerPayInfo);
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, PayMoneyNewActivity.class, bundle3);
+                }
+                break;
+        }
+    }
+
+    @Bind(R.id.tv_selectSadr)
+    TextView tv_selectSadr;
+    @Bind(R.id.tv_selectFadr)
+    TextView tv_selectFadr;
+    @Bind(R.id.tv_letadr)
+    TextView tv_fahuo;
+    @Bind(R.id.tv_letinfo)
+    TextView tv_info;
+    @Bind(R.id.tv_getadr)
+    TextView tv_shouhuo;
+    @Bind(R.id.tv_getinfo)
+    TextView tv_shouinfo;
+    @Bind(R.id.ll_s)
+    LinearLayout ll_s;
+    @Bind(R.id.ll_f)
+    LinearLayout ll_f;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 2:
+                RAddRunAdrInfo rAddRunAdrInfo = (RAddRunAdrInfo) data.getSerializableExtra("adrInfo");
+                if (rAddRunAdrInfo.getParameters().getType().equals("SEND")) {//发
+                    tv_selectFadr.setVisibility(View.GONE);
+                    ll_f.setVisibility(View.VISIBLE);
+                    tv_fahuo.setText(rAddRunAdrInfo.getParameters().getAddress());
+                    tv_info.setText(rAddRunAdrInfo.getParameters().getName() + "   " + rAddRunAdrInfo.getParameters().getPhone());
+                } else {
+                    tv_selectSadr.setVisibility(View.GONE);
+                    ll_s.setVisibility(View.VISIBLE);
+                    tv_shouhuo.setText(rAddRunAdrInfo.getParameters().getAddress());
+                    tv_shouinfo.setText(rAddRunAdrInfo.getParameters().getName() + "   " + rAddRunAdrInfo.getParameters().getPhone());
                 }
                 break;
         }
@@ -253,6 +317,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
     EditText tv_rmoney;
     @Bind(R.id.cb_check)
     CheckBox cb_check;
+
 
     private RrunnerPayInfo checkSome() {
         String type = errandHelpAdapter.getItem(errandHelpAdapter.clickPosition).getTitle();
