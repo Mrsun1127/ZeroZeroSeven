@@ -11,6 +11,7 @@
         android:layout_height="wrap_content" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -34,10 +35,10 @@
                     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
                     <ImageView
-                        android:layout_margin="15dp"
                         android:id="@+id/iv_top"
                         android:layout_width="match_parent"
                         android:layout_height="67dp"
+                        android:layout_margin="15dp"
                         android:background="@drawable/delete_one" />
                 </android.support.v7.widget.Toolbar>
 

@@ -28,6 +28,7 @@ import com.ffn.zerozeroseven.bean.RunnerListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RQiangDanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RrunnerCountInfo;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
+import com.ffn.zerozeroseven.ui.ErrandHomeActivity;
 import com.ffn.zerozeroseven.ui.PeopleMessAgeActivity;
 import com.ffn.zerozeroseven.ui.RenzhengStatusActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
@@ -89,10 +90,14 @@ public class ErrandMineRunFragment extends BaseFragment {
         requestList();
         requestCount();
     }
+
     @Bind(R.id.tv_running_count)
-    TextView tv_running_count;@Bind(R.id.tv_runfinishcount)
-    TextView tv_runfinishcount;@Bind(R.id.tv_runmoney)
+    TextView tv_running_count;
+    @Bind(R.id.tv_runfinishcount)
+    TextView tv_runfinishcount;
+    @Bind(R.id.tv_runmoney)
     TextView tv_runmoney;
+
     private void requestCount() {
         RrunnerCountInfo rrunnerCountInfo = new RrunnerCountInfo();
         rrunnerCountInfo.setFunctionName("QueryErrandUserDailyStatistics");
@@ -108,8 +113,8 @@ public class ErrandMineRunFragment extends BaseFragment {
                 if (runnerCountInfo.getCode() == 0) {
                     tv_running_count.setText(String.valueOf(runnerCountInfo.getData().getReceiveOrderCount()));
                     tv_runfinishcount.setText(String.valueOf(runnerCountInfo.getData().getHaveOrderCount()));
-                    tv_runmoney.setText(runnerCountInfo.getData().getIncome()+"元");
-                }else{
+                    tv_runmoney.setText(runnerCountInfo.getData().getIncome() + "元");
+                } else {
                     ToastUtils.showShort(runnerCountInfo.getMessage());
                 }
             }
@@ -127,6 +132,7 @@ public class ErrandMineRunFragment extends BaseFragment {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
+                ErrandHomeActivity.mInstance.get().refreshlayout.finishRefresh();
                 RunnerListInfo runnerListInfo = JSON.parseObject(response, RunnerListInfo.class);
                 if (runnerListInfo.getCode() == 0) {
                     if (runnerListInfo.getData().getErrandOrders() != null) {
