@@ -12,6 +12,16 @@
         android:visibility="gone" />
 
     <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:text="长按删除地址"
+        android:textSize="11sp"
+        android:visibility="gone" />
+
+    <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

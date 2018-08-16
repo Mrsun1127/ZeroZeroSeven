@@ -8,10 +8,15 @@ import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.adapter.RunAdrListAdapter;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.base.BaseUpdateRefreshActivity;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.FaHuoDiZhiInfo;
 import com.ffn.zerozeroseven.bean.RFaHuoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RAddRunAdrInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RdeleteRunAdrInfo;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
+import com.ffn.zerozeroseven.view.ConfirmDialog;
 
 public class RunAdrListActivity extends BaseUpdateRefreshActivity {
 
@@ -23,14 +28,34 @@ public class RunAdrListActivity extends BaseUpdateRefreshActivity {
     protected BaseRecyclerAdapter setAdapter() {
         type = getIntent().getStringExtra("type");
         adrListAdapter = new RunAdrListAdapter(this);
+        adrListAdapter.setOnItemLongClickListener(new BaseRecyclerAdapter.OnItemLongClickListener() {
+            @Override
+            public void onLongClick(final int position, long itemId) {
+                final ConfirmDialog confirmDialog = new ConfirmDialog(RunAdrListActivity.this);
+                confirmDialog.setMessages("确认删除地址");
+                confirmDialog.setTitles("提示");
+                confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm() {
+                        confirmDialog.dismiss();
+                        deleteAdr(position);
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        confirmDialog.dismiss();
+                    }
+                });
+            }
+        });
         adrListAdapter.setOnItemImageViewClick(new RunAdrListAdapter.OnItemImageClick() {
             @Override
             public void onClick(View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString("saveType","update");
-                bundle.putString("jumpType",type);
-                bundle.putSerializable("info",adrListAdapter.getItem(position));
-                ZeroZeroSevenUtils.SwitchActivity(RunAdrListActivity.this,RunAdrUpdateActivity.class,bundle);
+                bundle.putString("saveType", "update");
+                bundle.putString("jumpType", type);
+                bundle.putSerializable("info", adrListAdapter.getItem(position));
+                ZeroZeroSevenUtils.SwitchActivity(RunAdrListActivity.this, RunAdrUpdateActivity.class, bundle);
             }
         });
         adrListAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
@@ -57,6 +82,27 @@ public class RunAdrListActivity extends BaseUpdateRefreshActivity {
         return adrListAdapter;
     }
 
+    private void deleteAdr(int position) {
+        RdeleteRunAdrInfo rdeleteRunAdrInfo = new RdeleteRunAdrInfo();
+        rdeleteRunAdrInfo.setFunctionName("DeleteErrandUserAddress");
+        RdeleteRunAdrInfo.ParametersBean parametersBean = new RdeleteRunAdrInfo.ParametersBean();
+        parametersBean.setId(String.valueOf(adrListAdapter.getItem(position).getId()));
+        rdeleteRunAdrInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(RunAdrListActivity.this);
+        okGoUtils.httpPostJSON(rdeleteRunAdrInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    requestData();
+                } else {
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
+                }
+            }
+        });
+    }
+
     @Override
     protected void doMain() {
     }
@@ -64,9 +110,9 @@ public class RunAdrListActivity extends BaseUpdateRefreshActivity {
     @Override
     public void doRight() {
         Bundle bundle = new Bundle();
-        bundle.putString("saveType","add");
-        bundle.putString("jumpType",type);
-        ZeroZeroSevenUtils.SwitchActivity(this,RunAdrUpdateActivity.class,bundle);
+        bundle.putString("saveType", "add");
+        bundle.putString("jumpType", type);
+        ZeroZeroSevenUtils.SwitchActivity(this, RunAdrUpdateActivity.class, bundle);
     }
 
     @Override

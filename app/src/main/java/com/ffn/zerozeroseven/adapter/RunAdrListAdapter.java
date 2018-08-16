@@ -29,6 +29,9 @@ public class RunAdrListAdapter extends BaseRecyclerAdapter<RFaHuoInfo.DataBean.L
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, RFaHuoInfo.DataBean.ListBean item, final int position) {
         MViewHolder mHolder = (MViewHolder) holder;
+        if(position==0){
+            mHolder.tv_desc.setVisibility(View.VISIBLE);
+        }
         mHolder.tv_name.setText(item.getName());
         mHolder.tv_phone.setText(item.getPhone());
         mHolder.tv_adr.setText(item.getAddress());
@@ -56,6 +59,7 @@ public class RunAdrListAdapter extends BaseRecyclerAdapter<RFaHuoInfo.DataBean.L
         void onClick(View view, int position);
     }
     private class MViewHolder extends RecyclerView.ViewHolder {
+        TextView tv_desc;
         TextView tv_name;
         TextView tv_sex;
         TextView tv_phone;
@@ -64,6 +68,7 @@ public class RunAdrListAdapter extends BaseRecyclerAdapter<RFaHuoInfo.DataBean.L
 
         MViewHolder(View itemView) {
             super(itemView);
+            tv_desc=itemView.findViewById(R.id.tv_desc);
             tv_name=itemView.findViewById(R.id.tv_name);
             tv_sex=itemView.findViewById(R.id.tv_sex);
             tv_phone=itemView.findViewById(R.id.tv_phone);

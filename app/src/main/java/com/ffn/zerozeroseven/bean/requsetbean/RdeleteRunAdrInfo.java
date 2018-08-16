@@ -1,14 +1,13 @@
 package com.ffn.zerozeroseven.bean.requsetbean;
 
-/**
- * Created by GT on 2017/12/3.
- */
 
-public class GoodTabsInfo {
+
+public class RdeleteRunAdrInfo {
+
     /**
      * id : 1
-     * functionName : ListGoodsType
-     * parameters : {}
+     * functionName : QuerySchoolStore
+     * parameters : {"schoolId":1}
      */
 
     private String id;
@@ -40,14 +39,16 @@ public class GoodTabsInfo {
     }
 
     public static class ParametersBean {
-        private String schoolId;
+        /**
+         */
+        private String id;
 
-        public String getSchoolId() {
-            return schoolId;
+        public String getId() {
+            return id;
         }
 
-        public void setSchoolId(String schoolId) {
-            this.schoolId = schoolId;
+        public void setId(String id) {
+            this.id = id;
         }
     }
 }

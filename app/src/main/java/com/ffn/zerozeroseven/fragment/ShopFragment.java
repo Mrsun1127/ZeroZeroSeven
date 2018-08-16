@@ -6,6 +6,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,12 +18,17 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.adapter.ShopTitleAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
+import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.GoodTabsShowInfo;
+import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
+import com.ffn.zerozeroseven.bean.ShopTitleInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.GoodTabsInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.ui.CommitDingDanActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
@@ -49,34 +56,69 @@ import q.rorbin.badgeview.QBadgeView;
  */
 
 public class ShopFragment extends BaseFragment implements View.OnClickListener {
-    private TabLayout tabLayout;                            //定义TabLayout
     private ViewPager viewPager;                             //定义viewPager
     private FragmentPagerAdapter fAdapter;                               //定义adapter
     private List<Fragment> list_fragment;                                //定义要装fragment的列表
     private List<String> list_title;                                     //tab名称列表
     private ShopViewPagerFragment mineFragment;
     private ImageButton ib_shopcar;
-    private TextView tv_school_name;
     public static WeakReference<ShopFragment> mInstance;
-    private SearchView etSearch;
     private QBadgeView badgeView;
-    private RelativeLayout focus;
+    private TextView tv_name;
+    private TextView tv_yysj;
+    private TextView tv_qisongfei;
+    private TextView tv_paotuifei;
+    private TextView tv_shop_phone;
+    private TextView tv_desc;
+    private ShopTitleAdapter titleAdapter;
 
     public static ShopFragment newInstance() {
         return new ShopFragment();
     }
 
+    private RecyclerView recycleview;
+
+    private void getshangchangInfo() {
+        final ShangchangInfo shangchangInfo = new ShangchangInfo();
+        shangchangInfo.setFunctionName("QuerySchoolStore");
+        ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
+        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
+        shangchangInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
+        okGoUtils.httpPostJSON(shangchangInfo, true, false);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
+                if (shangChangShowInfo.getCode() == 0) {
+                    tv_name.setText(shangChangShowInfo.getData().getStoreName());
+                        if (shangChangShowInfo.getData().getOpeningTime().equals(shangChangShowInfo.getData().getClosingTime()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime2()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime())) {
+                            tv_yysj.setText("营业时间：打烊一天");
+                        } else {
+                            tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getOpeningTime() + "--" + shangChangShowInfo.getData().getClosingTime() + "丶" + shangChangShowInfo.getData().getOpeningTime2() + "--" + shangChangShowInfo.getData().getClosingTime2());
+                        }
+                    tv_qisongfei.setText("起送：￥" + shangChangShowInfo.getData().getDeliveryPrice());
+                    tv_paotuifei.setText("跑腿费：￥" + shangChangShowInfo.getData().getDeliveryPrice());
+                    tv_shop_phone.setText("客服电话：" + shangChangShowInfo.getData().getServicePhone());
+                    tv_desc.setText(TextUtils.isEmpty(shangChangShowInfo.getData().getPromotion())?"下单有惊喜":shangChangShowInfo.getData().getPromotion());
+
+                }
+            }
+        });
+    }
+
     @Override
     protected void initView(View view) {
         badgeView = new QBadgeView(bfCxt);
-        tabLayout = view.findViewById(R.id.tab_level);
+        tv_shop_phone = view.findViewById(R.id.tv_shop_phone);
+        tv_desc = view.findViewById(R.id.tv_desc);
+        tv_paotuifei = view.findViewById(R.id.tv_paotuifei);
+        tv_qisongfei = view.findViewById(R.id.tv_qisongfei);
+        tv_yysj = view.findViewById(R.id.tv_yysj);
         viewPager = view.findViewById(R.id.viewpager);
+        recycleview = view.findViewById(R.id.recycleview);
         ib_shopcar = view.findViewById(R.id.ib_shopcar);
-        etSearch = view.findViewById(R.id.et_search);
-        focus = view.findViewById(R.id.focus);
-        tv_school_name = view.findViewById(R.id.tv_school_name);
-        tv_school_name.setOnClickListener(this);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tv_name = view.findViewById(R.id.tv_name);
         ib_shopcar.setOnClickListener(this);
         badgeView.bindTarget(ib_shopcar);
         badgeView.setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
@@ -92,69 +134,74 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                 }
             }
         });
-        etSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(bfCxt);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recycleview.setLayoutManager(layoutManager);
+        titleAdapter = new ShopTitleAdapter(bfCxt);
+        recycleview.setAdapter(titleAdapter);
+        titleAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                MobclickAgent.onEvent(getActivity(), "商品搜索关键字");
-                if (!TextUtils.isEmpty(query)) {
-                    ShopViewPagerAllFragment.mInstance.get().requestShopOnUp(query);
-                    BaseAppApplication.mainHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            viewPager.setCurrentItem(0);
-                        }
-                    }, 500);
-                } else {
-                    ToastUtils.showShort("请输入关键字");
-                }
+            public void onItemClick(int position, long itemId) {
+                titleAdapter.setClickPosition(position);
+                viewPager.setCurrentItem(position);
+            }
+        });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                try {
-                    if ("".equals(newText)) {
-                        ShopViewPagerAllFragment.mInstance.get().requestShopOnUp("");
-                    }
-                } catch (Exception e) {
-                }
-                return false;
+            public void onPageSelected(int position) {
+                titleAdapter.setClickPosition(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
         mInstance = new WeakReference<>(this);
+        getshangchangInfo();
         initTabs();
     }
 
+
     public void initTabs() {
         GoodTabsInfo goodTabsInfo = new GoodTabsInfo();
-        goodTabsInfo.setFunctionName("ListGoodsType");
+        goodTabsInfo.setFunctionName("ListSchoolGoodsType");
+        GoodTabsInfo.ParametersBean parametersBean = new GoodTabsInfo.ParametersBean();
+        parametersBean.setSchoolId(schoolIId);
+        goodTabsInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(goodTabsInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                GoodTabsShowInfo showInfo = JSON.parseObject(response, GoodTabsShowInfo.class);
+                ShopTitleInfo showInfo = JSON.parseObject(response, ShopTitleInfo.class);
                 if (showInfo.getCode() == 0) {
-                    LogUtils.D("logcat1", "2");
                     list_title = new ArrayList<>();
                     list_title.add("全部");
                     list_fragment = new ArrayList<>();
                     list_fragment.add(ShopViewPagerAllFragment.newInstance("", ""));
-                    for (int i = 0; i < showInfo.getData().getItems().size(); i++) {
-                        list_title.add(showInfo.getData().getItems().get(i).getDicValue());
-                        mineFragment = ShopViewPagerFragment.newInstance(showInfo.getData().getItems().get(i).getDicValue(), showInfo.getData().getItems().get(i).getDicKey());
+                    titleAdapter.cleanDates();
+                    ShopTitleInfo.DataBean.GoodsTypesBean goodsTypesBean = new ShopTitleInfo.DataBean.GoodsTypesBean();
+                    goodsTypesBean.setName("全部");
+                    showInfo.getData().getGoodsTypes().add(0, goodsTypesBean);
+                    titleAdapter.addAll(showInfo.getData().getGoodsTypes());
+                    int length = showInfo.getData().getGoodsTypes().size();
+                    for (int i = 0; i < length; i++) {
+                        list_title.add(showInfo.getData().getGoodsTypes().get(i).getName());
+                        mineFragment = ShopViewPagerFragment.newInstance(showInfo.getData().getGoodsTypes().get(i).getName(), String.valueOf(showInfo.getData().getGoodsTypes().get(i).getId()));
                         list_fragment.add(mineFragment);
-                        LogUtils.D("logcat1", "3");
                     }
-                            try {
-                                viewPager.setOffscreenPageLimit(list_title.size());
-                                fAdapter = new ShopViewPagerAdapter(getChildFragmentManager(), list_fragment, list_title);
-                                viewPager.setAdapter(fAdapter);
-                                tabLayout.setupWithViewPager(viewPager);
-                                LogUtils.D("logcat1", "4");
-                            } catch (Exception e) {
-                            }
+                    try {
+                        viewPager.setOffscreenPageLimit(list_title.size());
+                        fAdapter = new ShopViewPagerAdapter(getChildFragmentManager(), list_fragment, list_title);
+                        viewPager.setAdapter(fAdapter);
+                    } catch (Exception e) {
+                    }
 
                 }
             }
@@ -165,7 +212,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected int setLayout() {
-        return R.layout.fragment_shop;
+        return R.layout.fragment_shopupdate;
     }
 
     @Override
@@ -207,17 +254,13 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(getActivity());
-        focus.setFocusable(true);
-        focus.setFocusableInTouchMode(true);
-        focus.requestFocus();
-//        String schoolName = MrsunAppCacheUtils.get(getActivity()).getAsString("schoolName");
         userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
             if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
                 if (userInfo.getSchoolName().length() > 7) {
-                    tv_school_name.setText(userInfo.getSchoolName().substring(0, 6) + "...");
+                    tv_name.setText(userInfo.getSchoolName().substring(0, 6) + "...");
                 } else {
-                    tv_school_name.setText(userInfo.getSchoolName());
+                    tv_name.setText(userInfo.getSchoolName());
 
                 }
             }
@@ -244,7 +287,8 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                     }
                 }, 500);
             }
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
 
     }
 

@@ -16,7 +16,10 @@ import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
 import com.ffn.zerozeroseven.fragment.ShopFragment;
+import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
+import com.ffn.zerozeroseven.utlis.Util;
+import com.yanzhenjie.loading.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +66,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 .load(info.getThumbnail())
                 .skipMemoryCache(true)
                 .error(R.drawable.oops)
+                .override((int)ScreenUtils.getScreenWidth()/3,(int)ScreenUtils.getScreenWidth()/3-50)
                 .into(mHolder.iv_icon);
         if (isClear) {
             mHolder.tv_count.setText("0");
