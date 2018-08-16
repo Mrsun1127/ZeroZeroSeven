@@ -83,7 +83,7 @@ public class RenzhengStatusActivity extends BaseActivity {
                         tv_id.setText(runnerInfo.getData().getIdcard());
                         tv_phone.setText(runnerInfo.getData().getPhone());
 //                        tv_money.setText(runnerInfo.getData().);
-                        tv_sex.setText(runnerInfo.getData().getSex() == 0 ? "男" : "女");
+                        tv_sex.setText(runnerInfo.getData().getSex() == 0 ? "女" : "男");
                         //审核状态：-2=取消资格（无法退款）-1=审核未通过，0=未审核，1=已审核
                         switch (runnerInfo.getData().getCheckStatus()) {
                             case -2:

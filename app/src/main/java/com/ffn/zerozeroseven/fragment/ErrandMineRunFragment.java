@@ -21,6 +21,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ErrandMineRunAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.RequestRunnerInfo;
 import com.ffn.zerozeroseven.bean.RunnerCountInfo;
 import com.ffn.zerozeroseven.bean.RunnerInfo;
@@ -137,6 +138,7 @@ public class ErrandMineRunFragment extends BaseFragment {
                 if (runnerListInfo.getCode() == 0) {
                     if (runnerListInfo.getData().getErrandOrders() != null) {
                         if (runnerListInfo.getData().getErrandOrders().size() > 0) {
+                            errandMineRunAdapter.cleanDates();
                             errandMineRunAdapter.addAll(runnerListInfo.getData().getErrandOrders());
                         } else {
                             errandMineRunAdapter.cleanDates();
@@ -237,7 +239,13 @@ public class ErrandMineRunFragment extends BaseFragment {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response,ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode()==0){
+                    ToastUtils.showShort("抢单成功");
+                    requestList();
+                }else{
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
+                }
             }
         });
     }

@@ -25,8 +25,7 @@
                 android:layout_width="87dp"
                 android:layout_height="87dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/run_shenhe" />
+                android:layout_marginTop="50dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -35,7 +34,8 @@
                 android:paddingLeft="15dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_1"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="认证跑腿学校"
@@ -45,7 +45,8 @@
                     android:id="@+id/tv_school"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_1"
                     android:text="湖南农业大学"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
@@ -62,7 +63,8 @@
                 android:paddingLeft="15dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv2"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="认证姓名"
@@ -72,7 +74,8 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv2"
                     android:text="王大锤"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
@@ -89,7 +92,8 @@
                 android:paddingLeft="15dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_3"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="身份证号码"
@@ -99,7 +103,8 @@
                     android:id="@+id/tv_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_3"
                     android:text="421616519549414646"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
@@ -116,7 +121,8 @@
                 android:paddingLeft="15dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_4"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="性别"
@@ -126,7 +132,8 @@
                     android:id="@+id/tv_sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_4"
                     android:text="男"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
@@ -143,7 +150,8 @@
                 android:paddingLeft="15dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv5"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="手机号码"
@@ -153,7 +161,8 @@
                     android:id="@+id/tv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv5"
                     android:text="15345496543"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
@@ -170,7 +179,8 @@
                 android:paddingLeft="15dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_6"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="认证押金"
@@ -180,7 +190,8 @@
                     android:id="@+id/tv_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_6"
                     android:text="99元"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
@@ -192,9 +203,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:textColor="@color/white"
+                    android:background="@color/errandtab"
                     android:text="xxxx"
-                    android:background="@color/errandtab" />
+                    android:textColor="@color/white" />
             </RelativeLayout>
 
             <View
