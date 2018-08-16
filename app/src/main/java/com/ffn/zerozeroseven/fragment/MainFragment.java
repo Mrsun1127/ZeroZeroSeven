@@ -62,6 +62,7 @@ import com.ffn.zerozeroseven.ui.MyBitisActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
 import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
+import com.ffn.zerozeroseven.ui.UserSelectSchoolListActivity;
 import com.ffn.zerozeroseven.ui.WebViewActivity;
 import com.ffn.zerozeroseven.utlis.DownLoadManager;
 import com.ffn.zerozeroseven.utlis.LogUtils;
@@ -95,7 +96,7 @@ import butterknife.OnClick;
  * Created by GT on 2017/11/15.
  */
 
-public class MainFragment extends BaseFragment  {
+public class MainFragment extends BaseFragment {
 
     //    private RelativeLayout et_select;
     private UserLikeAdapter userLikeAdapter;
@@ -109,7 +110,7 @@ public class MainFragment extends BaseFragment  {
     private BestNewShowInfo showBothInfo;
     private OftenShowInfo showOftenInfo;
     private ScroolRecyleView recyclerView;
-//    public LocationClient mLocationClient = null;
+    //    public LocationClient mLocationClient = null;
 //    private MyLocationListener myListener = new MyLocationListener();
 //    private double latitude;
 //    private double longitude;
@@ -469,6 +470,20 @@ public class MainFragment extends BaseFragment  {
             }
         });
         checkVersion();
+        checkUserData();
+    }
+
+    private void checkUserData() {
+        if (!TextUtils.isEmpty(BaseAppApplication.getInstance().getLoginUser().getSchoolId())) {
+            if ("0".equals(BaseAppApplication.getInstance().getLoginUser().getSchoolId())) {
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, UserSelectSchoolListActivity.class);
+                BaseAppApplication.getInstance().finishActivity(getActivity());
+            }
+        } else {
+            ZeroZeroSevenUtils.SwitchActivity(bfCxt, UserSelectSchoolListActivity.class);
+            BaseAppApplication.getInstance().finishActivity(getActivity());
+        }
+
     }
 
 
