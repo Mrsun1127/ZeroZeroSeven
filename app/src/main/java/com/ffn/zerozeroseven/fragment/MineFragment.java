@@ -156,6 +156,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             if (!TextUtils.isEmpty(userInfo.getAvatar())) {
                 Glide.with(bfCxt)
                         .load(userInfo.getAvatar())
+                        .override(150,150)
                         .into(iv_usericon);
             }
             if (!TextUtils.isEmpty(userInfo.getServicePhone())) {
@@ -167,22 +168,22 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
             switch (userInfo.getHonerLevel()) {
                 case 1:
-                    iv_level.setBackgroundResource(R.drawable.level1);
+                    Glide.with(bfCxt).load(R.drawable.level1).into(iv_level);
                     break;
                 case 2:
-                    iv_level.setBackgroundResource(R.drawable.level2);
+                    Glide.with(bfCxt).load(R.drawable.level2).into(iv_level);
                     break;
                 case 3:
-                    iv_level.setBackgroundResource(R.drawable.level3);
+                    Glide.with(bfCxt).load(R.drawable.level3).into(iv_level);
                     break;
                 case 4:
-                    iv_level.setBackgroundResource(R.drawable.level4);
+                    Glide.with(bfCxt).load(R.drawable.level4).into(iv_level);
                     break;
                 case 5:
-                    iv_level.setBackgroundResource(R.drawable.level5);
+                    Glide.with(bfCxt).load(R.drawable.level5).into(iv_level);
                     break;
                 case 6:
-                    iv_level.setBackgroundResource(R.drawable.level6);
+                    Glide.with(bfCxt).load(R.drawable.level6).into(iv_level);
                     break;
             }
         }

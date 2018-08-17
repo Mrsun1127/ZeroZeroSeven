@@ -50,10 +50,13 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import me.nereo.multi_image_selector.MultiImageSelector;
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -110,11 +113,13 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
             if (!TextUtils.isEmpty(MrsunAppCacheUtils.get(PeopleMessAgeActivity.this).getAsString("iconUrl"))) {
                 Glide.with(PeopleMessAgeActivity.this)
                         .load(MrsunAppCacheUtils.get(PeopleMessAgeActivity.this).getAsString("iconUrl"))
+                        .override(150,150)
                         .into(iv_photo);
             } else {
                 if (!TextUtils.isEmpty(userInfo.getAvatar())) {
                     Glide.with(PeopleMessAgeActivity.this)
                             .load(userInfo.getAvatar())
+                            .override(150,150)
                             .into(iv_photo);
                 }
             }
@@ -183,9 +188,8 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
     private File iconFile;
 
     private void savePepMessage() {
-        if (Constant.tempSelectBitmap.size() > 0) {
-            ImageItemInfo info = Constant.tempSelectBitmap.get(Constant.tempSelectBitmap.size() - 1);
-            iconFile = ZeroZeroSevenUtils.getBitmapFile(this, info.getBitmap(), 0);
+        if (imgList.size() > 0) {
+            iconFile = new File(imgList.get(0));
             OkHttpUtils.post()
                     .url("https://www.lingling7.com/lingling7-server/upload")
                     .addHeader("Authorization", "Bearer " + userInfo.getToken())
@@ -245,17 +249,16 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
             public void onSuccLoad(String response) {
                 final String code = JsonUtil.getFieldValue(response, "code");
 
-                        if (code.equals("0")) {
-                            BaseAppApplication.getInstance().setLoginUser(userInfo);
-                            SharePrefUtils.saveObject(PeopleMessAgeActivity.this, "userInfo", userInfo);
-                            SharePrefUtils.setBoolean(PeopleMessAgeActivity.this, "bri", true);
-                            Toast.makeText(PeopleMessAgeActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
-                        } else {
-                            ToastUtils.showShort("服务器正忙 请稍后再试");
-                        }
-                    }
-                });
-
+                if (code.equals("0")) {
+                    BaseAppApplication.getInstance().setLoginUser(userInfo);
+                    SharePrefUtils.saveObject(PeopleMessAgeActivity.this, "userInfo", userInfo);
+                    SharePrefUtils.setBoolean(PeopleMessAgeActivity.this, "bri", true);
+                    Toast.makeText(PeopleMessAgeActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    ToastUtils.showShort("服务器正忙 请稍后再试");
+                }
+            }
+        });
 
 
     }
@@ -287,7 +290,8 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_icon:
-                showTypeDialog();
+//                showTypeDialog();
+                pickImage();
                 break;
             case R.id.tv_cl_name:
                 showPop(tv_username);
@@ -341,12 +345,28 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
         pvTime.show();
     }
 
+    private ArrayList<String> imgList = new ArrayList<>();
+    private static final int REQUEST_IMAGE = 2;
+
+    /**
+     * 相册
+     */
+    private void pickImage() {
+        MultiImageSelector selector = MultiImageSelector.create();
+        selector.showCamera(true);
+        selector.count(1);
+        selector.multi();
+        selector.origin(imgList);
+        selector.start(PeopleMessAgeActivity.this, REQUEST_IMAGE);
+
+    }
+
     private void showTypeDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final AlertDialog dialog = builder.create();
         View view = View.inflate(this, R.layout.dialog_select_photo, null);
-        TextView tv_select_gallery =  view.findViewById(R.id.tv_select_gallery);
-        TextView tv_select_camera =  view.findViewById(R.id.tv_select_camera);
+        TextView tv_select_gallery = view.findViewById(R.id.tv_select_gallery);
+        TextView tv_select_camera = view.findViewById(R.id.tv_select_camera);
         tv_select_gallery.setOnClickListener(new View.OnClickListener() {// 在相册中选取
             @Override
             public void onClick(View v) {
@@ -402,45 +422,17 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case 1:
-                if (resultCode == RESULT_OK) {
-                    cropPhoto(data.getData());// 裁剪图片
-                }
-
-                break;
-            case 2:
-                if (resultCode == RESULT_OK) {
-                    Bundle extras = data.getExtras();
-                    head = extras.getParcelable("data");
-                    if (head != null) {
-                        iv_photo.setImageBitmap(head);// 用ImageView显示出来
-                        ImageItemInfo takePhoto = new ImageItemInfo();
-                        takePhoto.setBitmap(head);
-                        Constant.tempSelectBitmap.add(takePhoto);
-                    }
-                }
-
-                break;
-            case 3:
-                try {
-                    if (data != null) {
-                        Bundle extras = data.getExtras();
-                        head = extras.getParcelable("data");
-                        if (head != null) {
-                            iv_photo.setImageBitmap(head);// 用ImageView显示出来
-                            ImageItemInfo takePhoto = new ImageItemInfo();
-                            takePhoto.setBitmap(head);
-                            Constant.tempSelectBitmap.add(takePhoto);
-                        }
-                    }
-                } catch (Exception e) {
-                }
-                break;
-            default:
-                break;
-
-        }
         super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_IMAGE://拍照
+                if (resultCode == RESULT_OK) {
+                    if (data != null) {
+                        imgList = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                        Glide.with(PeopleMessAgeActivity.this).load(imgList.get(0)).override(150,150).into(iv_photo);
+                    }
+                }
+                break;
+        }
     }
+
 }
