@@ -21,6 +21,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.ProductDtilsInfo;
 import com.ffn.zerozeroseven.ui.InteralDetilsActivity;
 import com.ffn.zerozeroseven.ui.ProductDetilsActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
@@ -157,7 +158,7 @@ public class ProductDetilsFragment extends BaseFragment {
 
                         if (productDetilsInfo.getCode() == 0) {
                             //商品详情
-                            Glide.with(bfCxt).load(productDetilsInfo.getData().getPointPrize().getPrizePic()).into(iv_product);
+                            Glide.with(bfCxt).load(productDetilsInfo.getData().getPointPrize().getPrizePic()).override(ScreenUtils.getScreenWidth()+50,208).into(iv_product);
                             tv_name.setText("【第" + productDetilsInfo.getData().getIssue() + "期】" + productDetilsInfo.getData().getPointPrize().getPrizeName());
                             tv_name1.setText("【第" + productDetilsInfo.getData().getIssue() + "期】" + productDetilsInfo.getData().getPointPrize().getPrizeName());
                             tv_money.setText("￥" + productDetilsInfo.getData().getPointPrize().getPrizePrice());
