@@ -50,6 +50,7 @@ import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
+import com.ffn.zerozeroseven.view.ConfirmDialog;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -321,21 +322,25 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 }
                 break;
             case R.id.rl_tel:
-                if (Build.VERSION.SDK_INT >= 23) {
-
-                    //判断有没有拨打电话权限
-                    if (PermissionChecker.checkSelfPermission(bfCxt, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-
-                        //请求拨打电话权限
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CODE);
-
-                    } else {
-                        callPhone(userInfo.getServicePhone());
+                final ConfirmDialog confirmDialog = new ConfirmDialog(bfCxt);
+                confirmDialog.setTitles("提示");
+                confirmDialog.setMessages("确认拨打"+userInfo.getServicePhone()+"?");
+                confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm() {
+                        confirmDialog.dismiss();
+                        ZeroZeroSevenUtils.requestCallMainifest(getActivity());
+                        ZeroZeroSevenUtils.MakingCalls(bfCxt,userInfo.getServicePhone());
                     }
 
-                } else {
-                    callPhone(userInfo.getServicePhone());
-                }
+                    @Override
+                    public void doCancel() {
+                        confirmDialog.dismiss();
+                    }
+                });
+
+
+
                 break;
             case R.id.rl_vip:
                 if (userInfo != null) {
