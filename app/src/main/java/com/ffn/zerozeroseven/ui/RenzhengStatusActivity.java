@@ -13,12 +13,14 @@ import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.bean.QueserRunner;
 import com.ffn.zerozeroseven.bean.RunnerInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RenzhengStatusActivity extends BaseActivity {
     @Bind(R.id.topView)
@@ -47,7 +49,7 @@ public class RenzhengStatusActivity extends BaseActivity {
     }
 
     @Bind(R.id.iv_status)
-    ImageView iv_status;
+    CircleImageView iv_status;
     @Bind(R.id.tv_school)
     TextView tv_school;
     @Bind(R.id.tv_name)
@@ -99,7 +101,7 @@ public class RenzhengStatusActivity extends BaseActivity {
                                 break;
                             case 1:
                                 bt_sub.setText("申请退款");
-                                Glide.with(RenzhengStatusActivity.this).load(runnerInfo.getData().getAvatar()).into(iv_status);
+                                Glide.with(RenzhengStatusActivity.this).load(runnerInfo.getData().getAvatar()).override(ScreenUtils.getScreenWidth()/6,ScreenUtils.getScreenWidth()/6).into(iv_status);
                                 break;
                         }
                         switch (runnerInfo.getData().getPayStatus()) {//支付状态：-2=已退款，-1=支付失败，0=未支付，1=支付成功

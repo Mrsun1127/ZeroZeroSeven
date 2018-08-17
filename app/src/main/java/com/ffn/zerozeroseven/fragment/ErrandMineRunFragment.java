@@ -33,6 +33,7 @@ import com.ffn.zerozeroseven.ui.ErrandHomeActivity;
 import com.ffn.zerozeroseven.ui.PeopleMessAgeActivity;
 import com.ffn.zerozeroseven.ui.RenzhengStatusActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
@@ -166,7 +167,7 @@ public class ErrandMineRunFragment extends BaseFragment {
                         if (!TextUtils.isEmpty(runnerInfo.getData().getPhone())) {
                             ll_audit.setVisibility(View.GONE);
                             ll_verifile.setVisibility(View.VISIBLE);
-                            Glide.with(bfCxt).load(runnerInfo.getData().getAvatar()).into(clv_icon);
+                            Glide.with(bfCxt).load(runnerInfo.getData().getAvatar()).override(ScreenUtils.getScreenWidth()/6,ScreenUtils.getScreenWidth()/6).into(clv_icon);
                             tv_name.setText(runnerInfo.getData().getRealName());
                             tv_school.setText(runnerInfo.getData().getSchoolName());
                             tv_phone.setText(runnerInfo.getData().getPhone());

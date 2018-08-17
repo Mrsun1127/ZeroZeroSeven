@@ -20,7 +20,7 @@
             android:background="@drawable/rzbg"
             android:orientation="vertical">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_status"
                 android:layout_width="87dp"
                 android:layout_height="87dp"
