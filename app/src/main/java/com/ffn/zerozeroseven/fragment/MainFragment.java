@@ -67,6 +67,7 @@ import com.ffn.zerozeroseven.ui.WebViewActivity;
 import com.ffn.zerozeroseven.utlis.DownLoadManager;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -360,6 +361,8 @@ public class MainFragment extends BaseFragment {
                 try {
                     Glide.with(bfCxt)
                             .load(images.get(position))
+                            .override(20,20)
+//                            .override(ScreenUtils.getScreenWidth(),200)
                             .into(iv_bg);
                 } catch (Exception e) {
                 }
@@ -684,7 +687,7 @@ public class MainFragment extends BaseFragment {
                 if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
                     scrollTextView.stopAutoScroll();
                 }
-                banner.pause();//暂停轮播
+//                banner.pause();//暂停轮播
                 if (userLikeInfo.getData().getPosts().size() > 3) {
                     recyclerView.stop();
                 }
@@ -956,7 +959,7 @@ public class MainFragment extends BaseFragment {
         @Override
         public void onBind(Context context, int position, String data) {
             // 数据绑定
-            Glide.with(context).load(data).skipMemoryCache(true).into(mImageView);
+            Glide.with(context).load(data).skipMemoryCache(true).override(ScreenUtils.getScreenWidth()-50,160).into(mImageView);
         }
     }
 
@@ -1006,7 +1009,7 @@ public class MainFragment extends BaseFragment {
                             } else if (bannerInfo.getData().getList().get(i).getType().equals("专题广告")) {
                                 iv_guanggao.setVisibility(View.VISIBLE);
                                 projectUrl = bannerInfo.getData().getList().get(i).getLink();
-                                Glide.with(bfCxt).load(bannerInfo.getData().getList().get(i).getPicUrl()).into(iv_guanggao);
+                                Glide.with(bfCxt).load(bannerInfo.getData().getList().get(i).getPicUrl()).override(279,89).into(iv_guanggao);
                             }
                         }
                         if (!showTwo) {
@@ -1015,6 +1018,8 @@ public class MainFragment extends BaseFragment {
                         Glide.with(bfCxt)
                                 .load(images.get(0))
                                 .skipMemoryCache(true)
+//                                .override(ScreenUtils.getScreenWidth(),200)
+                                .override(1,1)
                                 .into(iv_bg);
                         banner.setPages(images, new MZHolderCreator() {
                             @Override
@@ -1022,7 +1027,7 @@ public class MainFragment extends BaseFragment {
                                 return new BannerViewHolder();
                             }
                         });
-                        banner.start();
+//                        banner.start();
                     }
                 }
             }
@@ -1308,7 +1313,7 @@ public class MainFragment extends BaseFragment {
         userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
             try {
-                banner.start();//开始轮播
+//                banner.start();//开始轮播
                 if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
                     scrollTextView.startAutoScroll();
                 }
