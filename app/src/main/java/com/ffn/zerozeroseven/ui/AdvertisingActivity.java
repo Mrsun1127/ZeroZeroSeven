@@ -13,6 +13,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppManger;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.utlis.MyCountTimer;
+import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 import java.util.Timer;
@@ -40,7 +41,7 @@ public class AdvertisingActivity extends AppCompatActivity {
         BaseAppApplication.getInstance().addActivity(this);
         ButterKnife.bind(this);
         imgUrl = getIntent().getStringExtra("imgurl");
-        Glide.with(this).load(imgUrl).into(imageView);
+        Glide.with(this).load(imgUrl).override(ScreenUtils.getScreenWidth()/2,ScreenUtils.getScreenHeight()/2).into(imageView);
         timer = new Timer();
         timer.schedule(new TimerTask() {
 

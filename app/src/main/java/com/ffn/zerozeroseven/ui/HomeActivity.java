@@ -282,6 +282,8 @@ public class HomeActivity extends AppCompatActivity {
         SharePrefUtils.saveObject(HomeActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
         SharePrefUtils.saveObject(HomeActivity.this, "numberRicalInfo", BaseAppApplication.getInstance().getNumberRicalInfo());
         BaseAppApplication.getInstance().finishActivity(this);
+        System.gc();
+        System.runFinalization();
     }
 
     public void openAliveService() {

@@ -384,4 +384,11 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
     public void onRefresh(RefreshLayout refreshlayout) {
         requestData();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.gc();
+        System.runFinalization();
+    }
 }
