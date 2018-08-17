@@ -18,6 +18,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.OftenShowInfo;
 import com.ffn.zerozeroseven.fragment.ShopFragment;
 import com.ffn.zerozeroseven.ui.HomeActivity;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
+import com.yanzhenjie.loading.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class HotTimeAdapter extends BaseRecyclerAdapter<HotInfo.DataBean.Product
                 .load(info.getThumbnail())
                 .skipMemoryCache(true)
                 .error(R.drawable.oops)
+                .override((int) Utils.dip2px(mContext,30),(int) Utils.dip2px(mContext,23))
                 .into(mHolder.imageView);
         mHolder.tv_name.setText(info.getGoodsName());
         mHolder.tv_money.setText("￥" + String.valueOf(info.getPrice()));

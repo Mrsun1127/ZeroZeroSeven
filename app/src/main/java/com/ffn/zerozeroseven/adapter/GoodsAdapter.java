@@ -66,7 +66,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 .load(info.getThumbnail())
                 .skipMemoryCache(true)
                 .error(R.drawable.oops)
-                .override((int)ScreenUtils.getScreenWidth()/3,(int)ScreenUtils.getScreenWidth()/3-50)
+                .override((int)ScreenUtils.getScreenWidth()/5,(int)ScreenUtils.getScreenWidth()/5-50)
                 .into(mHolder.iv_icon);
         if (isClear) {
             mHolder.tv_count.setText("0");
