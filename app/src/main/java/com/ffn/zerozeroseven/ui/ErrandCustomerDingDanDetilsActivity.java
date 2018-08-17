@@ -149,6 +149,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                         break;
                     case 1:
                     case 2:
+                        ZeroZeroSevenUtils.requestCallMainifest(ErrandCustomerDingDanDetilsActivity.this);
                         ZeroZeroSevenUtils.MakingCalls(ErrandCustomerDingDanDetilsActivity.this, runnerDingDanDetilsInfo.getData().getPhone());
                         break;
 

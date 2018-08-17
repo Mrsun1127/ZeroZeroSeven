@@ -180,6 +180,7 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.rl_tp:
+                ZeroZeroSevenUtils.requestCallMainifest(ErrandRunnerDingDanDetilsActivity.this);
                 if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 1) {
                     ZeroZeroSevenUtils.MakingCalls(ErrandRunnerDingDanDetilsActivity.this, runnerDingDanDetilsInfo.getData().getDeliveryPhone());
                 } else if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 2) {

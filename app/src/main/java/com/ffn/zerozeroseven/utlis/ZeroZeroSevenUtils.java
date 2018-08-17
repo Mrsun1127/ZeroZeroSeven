@@ -1,5 +1,6 @@
 package com.ffn.zerozeroseven.utlis;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Fragment;
@@ -15,6 +16,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -272,7 +274,14 @@ public class ZeroZeroSevenUtils {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dpVal, context.getResources().getDisplayMetrics());
     }
-
+    public static void requestCallMainifest(Activity context) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            int i = context.checkSelfPermission(Manifest.permission.CALL_PHONE);
+            if (i != PackageManager.PERMISSION_GRANTED) {
+                context.requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 101);
+            }
+        }
+    }
     /**
      * 拨打电话
      *
