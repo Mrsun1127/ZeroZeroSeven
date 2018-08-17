@@ -29,6 +29,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.RequeseGoods;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -144,6 +145,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         Glide.with(ShopDetilsActivity.this)
                 .load(goodsInfo.getThumbnail())
                 .error(R.drawable.oops)
+                .override(ScreenUtils.getScreenWidth()/3,ScreenUtils.getScreenHeight()/4)
                 .into(iv_icon);
         tv_kucun.setVisibility(View.INVISIBLE);
         tv_name.setText(goodsInfo.getGoodsName());
