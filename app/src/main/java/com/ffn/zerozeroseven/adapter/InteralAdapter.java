@@ -45,7 +45,7 @@ public class InteralAdapter extends BaseRecyclerAdapter<JiangChiInfo.DataBean.Ja
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final JiangChiInfo.DataBean.JackpotPrizesBean item, int position) {
         final MViewHolder mHolder = (MViewHolder) holder;
-        Glide.with(mContext).load(item.getPrizePic()).into(mHolder.iv_product);
+        Glide.with(mContext).load(item.getPrizePic()).override(200,130).into(mHolder.iv_product);
         mHolder.tv_product_detils.setText("【第" + item.getPrizeIssue() + "期】" + item.getPrizeName());
         switch (item.getIssuePrizeStatus()) {
             case 0:

@@ -48,7 +48,7 @@ public class BitisAdapter extends BaseRecyclerAdapter<QiangShowInfo.DataBean.Ite
         mHolder.tv_content.setText(TextUtils.isEmpty(item.getContent())?"加载失败":item.getContent());
         selectType(mHolder.tv_type,item.getPostType());
         if(!TextUtils.isEmpty(item.getAvatar())){
-            Glide.with(mContext).load(item.getAvatar()).into(mHolder.user_icon);
+            Glide.with(mContext).load(item.getAvatar()).override(50,50).into(mHolder.user_icon);
         }
         mHolder.rl_like.setOnClickListener(new View.OnClickListener() {
             @Override
