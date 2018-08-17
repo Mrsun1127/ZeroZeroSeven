@@ -165,8 +165,11 @@ public class MainFragment extends BaseFragment {
                 tongzhiInfo = JSON.parseObject(response, TongzhiInfo.class);
 
                 if (tongzhiInfo.getCode() == 0) {
-                    if (tongzhiInfo.getData().getList().size() > 0) {
+                    if (titles == null) {
                         titles = new ArrayList<>();
+                    }
+                    titles.clear();
+                    if (tongzhiInfo.getData().getList().size() > 0) {
                         for (int i = 0; i < tongzhiInfo.getData().getList().size(); i++) {
                             if (tongzhiInfo.getData().getList().get(i).getTitle().length() > 30) {
                                 titles.add(tongzhiInfo.getData().getList().get(i).getTitle().substring(0, 29) + "...");
@@ -180,7 +183,6 @@ public class MainFragment extends BaseFragment {
                         scrollTextView.setAnimTime(300);
                         scrollTextView.startAutoScroll();
                     } else {
-                        titles = new ArrayList<>();
                         titles.add("欢迎使用零零7");
                         scrollTextView.setTextList(titles);
                         scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
