@@ -177,6 +177,7 @@ public class MainFragment extends BaseFragment {
                         scrollTextView.setTextList(titles);
                         scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
                         scrollTextView.setTextStillTime(3000);//设置停留时长间隔
+                        scrollTextView.setAnimTime(300);
                         scrollTextView.startAutoScroll();
                     } else {
                         titles = new ArrayList<>();
@@ -184,6 +185,7 @@ public class MainFragment extends BaseFragment {
                         scrollTextView.setTextList(titles);
                         scrollTextView.setText(11, 5, Color.BLACK);//设置属性,具体跟踪源码
                         scrollTextView.setTextStillTime(3000);//设置停留时长间隔
+                        scrollTextView.setAnimTime(300);
                         scrollTextView.startAutoScroll();
                     }
 
@@ -274,7 +276,6 @@ public class MainFragment extends BaseFragment {
 //        if (SharePrefUtils.getInt(bfCxt, "isLocation", 0) != 1) {
 //            mLocationClient.start();
 //        }
-        scrollTextView.setAnimTime(300);
         scrollview.setScrollViewListener(new SmartScrollView.ScrollViewListener() {
             @Override
             public void onScrollChanged(SmartScrollView scrollView, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -321,6 +322,7 @@ public class MainFragment extends BaseFragment {
                 scrollview.scrollTo(0, 1);
             }
         }, 500);
+        banner.setDelayedTime(3500);
         banner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
             @Override
             public void onPageClick(View view, int position) {
@@ -1308,14 +1310,6 @@ public class MainFragment extends BaseFragment {
                 if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
                     scrollTextView.startAutoScroll();
                 }
-//                if (userLikeInfo != null && userLikeInfo.getData().getPosts().size() > 3) {
-//                    recyclerView.start();
-//                }
-//                if (haveData == 1) {
-//
-//                    requestpopularList();
-//
-//                }
                 requestTime();
                 if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
                     tv_school.setText(userInfo.getSchoolName());
