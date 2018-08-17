@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,11 +28,13 @@ public class DingDanDetisAdapter extends BaseRecyclerAdapter<DingDanDetlsInfo.Da
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder,DingDanDetlsInfo.DataBean.OrderBean.DetailsBean info, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, DingDanDetlsInfo.DataBean.OrderBean.DetailsBean info, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
+        mHolder.rl_delete.setVisibility(View.GONE);
         Glide.with(mContext)
                 .load(info.getGoodsImage())
                 .error(R.drawable.oops)
+                .override(70, 45)
                 .into(mHolder.iv_shop);
         mHolder.iv_add.setVisibility(View.GONE);
         mHolder.iv_close.setVisibility(View.GONE);
@@ -47,9 +50,11 @@ public class DingDanDetisAdapter extends BaseRecyclerAdapter<DingDanDetlsInfo.Da
         TextView tv_shopname;
         TextView tv_shopcount;
         TextView tv_money;
+        RelativeLayout rl_delete;
 
         MViewHolder(View itemView) {
             super(itemView);
+            rl_delete = itemView.findViewById(R.id.rl_delete);
             iv_shop = itemView.findViewById(R.id.iv_shop);
             iv_close = itemView.findViewById(R.id.iv_close);
             iv_add = itemView.findViewById(R.id.iv_add);

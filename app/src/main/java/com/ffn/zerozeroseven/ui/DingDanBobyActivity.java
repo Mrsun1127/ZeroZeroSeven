@@ -55,11 +55,13 @@ public class DingDanBobyActivity extends BaseActivity {
     private RecyclerView rc_shop;
     private DingDanDetisAdapter adapter;
     @Bind(R.id.bt_status)
-    Button bt_status;
+    TextView bt_status;
     @Bind(R.id.tv_show)
     TextView tv_show;
     @Bind(R.id.tv_remark)
     TextView tv_remark;
+    @Bind(R.id.bt_show)
+    Button bt_show;
     private ShangChangShowInfo shangChangShowInfo;
 
     @Override
@@ -128,11 +130,11 @@ public class DingDanBobyActivity extends BaseActivity {
             public void onSuccLoad(String response) {
                 shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
 
-                        if (shangChangShowInfo.getCode() == 0) {
-                            tv_endTime.setText("联系客服:" + shangChangShowInfo.getData().getServicePhone());
-                        }
-                    }
-                });
+                if (shangChangShowInfo.getCode() == 0) {
+                    tv_endTime.setText("联系客服:" + shangChangShowInfo.getData().getServicePhone());
+                }
+            }
+        });
 
 
     }
@@ -195,6 +197,7 @@ public class DingDanBobyActivity extends BaseActivity {
                                     s = "支付失败";
                                     tv_show.setText("请重新支付");
                                     tv_staus.setText("支付失败");
+                                    bt_show.setText("再来一单");
                                     tv_finish.setVisibility(View.GONE);
                                     rl_peple.setVisibility(View.GONE);
                                     break;
@@ -202,12 +205,14 @@ public class DingDanBobyActivity extends BaseActivity {
                                     tv_show.setText("快把商品带回家");
                                     s = "未支付";
                                     tv_staus.setText("未支付");
+                                    bt_show.setText("去支付");
                                     tv_finish.setVisibility(View.GONE);
                                     rl_peple.setVisibility(View.GONE);
                                     break;
                                 case 1:
                                     tv_show.setText("正在等待007接单");
                                     tv_staus.setText("支付成功");
+                                    bt_show.setText("取消订单");
                                     s = "支付成功";
                                     tv_finish.setVisibility(View.GONE);
                                     rl_peple.setVisibility(View.GONE);
@@ -216,6 +221,7 @@ public class DingDanBobyActivity extends BaseActivity {
                                     s = "已接单";
                                     tv_show.setText("007已接单 ,稍等片刻，美食即将到来");
                                     tv_staus.setText("已接单");
+                                    bt_show.setText("再来一单");
                                     tv_finish.setVisibility(View.GONE);
                                     rl_peple.setVisibility(View.VISIBLE);
                                     break;
@@ -223,11 +229,13 @@ public class DingDanBobyActivity extends BaseActivity {
                                     tv_show.setText("007已取货 ,稍等片刻，美食即将到来");
                                     tv_staus.setText("已取货");
                                     s = "已取货";
+                                    bt_show.setText("再来一单");
                                     tv_finish.setVisibility(View.GONE);
                                     rl_peple.setVisibility(View.VISIBLE);
                                     break;
                                 case 4:
                                     tv_show.setText("您的商品已到达您的手中");
+                                    bt_show.setText("再来一单");
                                     tv_staus.setText("已完成");
                                     tv_finish.setVisibility(View.VISIBLE);
                                     rl_peple.setVisibility(View.VISIBLE);
@@ -239,6 +247,7 @@ public class DingDanBobyActivity extends BaseActivity {
                                 default:
                                     tv_show.setText("异常单，请联系零零7");
                                     tv_staus.setText("异常单");
+                                    bt_show.setText("再来一单");
                                     s = "异常单";
                                     break;
                             }

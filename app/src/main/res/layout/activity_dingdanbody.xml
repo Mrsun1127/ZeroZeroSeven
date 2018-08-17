@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-   <com.ffn.zerozeroseven.view.TitleView
-       android:layout_width="wrap_content"
-       android:id="@+id/titleview"
-       android:layout_height="wrap_content"></com.ffn.zerozeroseven.view.TitleView>
+    <com.ffn.zerozeroseven.view.TitleView
+        android:id="@+id/titleview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <com.ffn.zerozeroseven.view.UserDefineScrollView
         android:layout_width="match_parent"
@@ -18,46 +18,124 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/rl_top"
+
+            <TextView
+                android:id="@+id/bt_status"
+                android:layout_width="153dp"
+                android:layout_height="38dp"
+                android:layout_marginLeft="11dp"
+                android:text="007已接单"
+                android:textColor="@color/money"
+                android:textSize="25dp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="121dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
-                android:layout_marginTop="19dp">
-
-                <Button
-                    android:id="@+id/bt_status"
-                    android:layout_width="153dp"
-                    android:layout_height="38dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/buttonbg"
-                    android:text="007已接单"
-                    android:textColor="@color/white" />
+                android:background="@color/white"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_show"
-                    android:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/bt_status"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="11dp"
                     android:layout_marginTop="13dp"
-                    android:text=""
-                    android:textSize="16sp" />
+                    android:text="xxx"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/bt_show"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/errandred"
+                    android:textColor="@color/money" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_peple"
+                android:layout_width="match_parent"
+                android:layout_height="79dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="20dp"
+                    android:text="007跑腿小哥为您服务"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_peopleName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/tv_left"
+                    android:text="王大锤 为您服务"
+                    android:textColor="@color/text_show_color"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_left"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="12dp"
+                    android:text="电话"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_left"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_toRightOf="@+id/tv_bottom"
+                    android:text="18888888888"
+                    android:textColor="@color/text_show_color"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_sug"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    android:text="服务欠佳，投诉他？"
+                    android:textColor="@color/text_show_color"
+                    android:textSize="13sp" />
             </RelativeLayout>
+
+
             <TextView
-                android:visibility="gone"
-                android:textSize="13sp"
-                android:textColor="@color/text_show_color"
                 android:id="@+id/tv_remark"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
-                android:background="@color/white"
                 android:text="备注 ：多放点辣椒"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:textColor="@color/text_show_color"
+                android:textSize="13sp"
+                android:visibility="gone" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,8 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                     />
+                    android:layout_marginTop="10dp" />
 
                 <TextView
                     android:id="@+id/tv_status"
@@ -80,14 +157,13 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                   />
+                    android:layout_marginTop="10dp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rc_shop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_time"></android.support.v7.widget.RecyclerView>
+                    android:layout_below="@+id/tv_time"/>
 
                 <TextView
                     android:id="@+id/tv_allmoney"
@@ -97,93 +173,33 @@
                     android:layout_below="@+id/rc_shop"
                     android:layout_marginBottom="13dp"
                     android:layout_marginRight="13dp"
-                    android:layout_marginTop="13dp"
-                     />
-            </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/rl_peple"
-                android:visibility="gone"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginLeft="11dp"
-                android:layout_width="match_parent"
-                android:layout_height="79dp"
-                android:background="@color/white">
-                <TextView
-                    android:id="@+id/tv_left"
-                    android:layout_marginLeft="14dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:text="007跑腿小哥为您服务"/>
-                <TextView
-                    android:id="@+id/tv_peopleName"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_toRightOf="@+id/tv_left"
-                    android:textSize="13sp"
-                    android:text="王大锤 为您服务"
-                    android:textColor="@color/text_show_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-                <TextView
-                    android:layout_below="@+id/tv_left"
-                    android:id="@+id/tv_bottom"
-                    android:layout_marginLeft="14dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:text="电话"/>
-                <TextView
-                    android:id="@+id/tv_phone"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_toRightOf="@+id/tv_bottom"
-                    android:textSize="13sp"
-                    android:layout_below="@+id/tv_left"
-                    android:text="18888888888"
-                    android:textColor="@color/text_show_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/tv_sug"
-                    android:textSize="13sp"
-                    android:textColor="@color/text_show_color"
-                    android:layout_margin="10dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="服务欠佳，投诉他？"/>
+                    android:layout_marginTop="13dp" />
             </RelativeLayout>
 
-                <TextView
-                    android:text="完成时间：正在加载中"
-                    android:visibility="gone"
-                    android:id="@+id/tv_finish"
-                    android:textSize="13sp"
-                    android:textColor="@color/text_show_color"
-                    android:layout_margin="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+
+            <TextView
+                android:id="@+id/tv_finish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:text="完成时间：正在加载中"
+                android:textColor="@color/text_show_color"
+                android:textSize="13sp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:visibility="visible"
                     android:id="@+id/tv_endTime"
-                    android:textSize="13sp"
-                    android:textColor="@color/text_show_color"
-                    android:layout_margin="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                   />
+                    android:layout_margin="12dp"
+                    android:textColor="@color/text_show_color"
+                    android:textSize="13sp"
+                    android:visibility="visible" />
             </LinearLayout>
 
         </LinearLayout>
