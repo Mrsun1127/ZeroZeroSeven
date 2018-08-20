@@ -25,6 +25,7 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.ui.HomeActivity;
 import com.ffn.zerozeroseven.ui.MrsunWebActivity;
+import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.just.library.AgentWeb;
 import com.just.library.AgentWebView;
@@ -59,7 +60,7 @@ public class CustomTwoLevelHeader extends FrameLayout implements TwoLevelRefresh
         iv_splash=header.findViewById(R.id.iv_splash);
     }
     public void loadImage(String url){
-        Glide.with(getContext()).load(url).into(iv_splash);
+        Glide.with(getContext()).load(url).override(ScreenUtils.getScreenWidth()/3,ScreenUtils.getScreenHeight()/3).into(iv_splash);
     }
     @Override
     public int getType() {

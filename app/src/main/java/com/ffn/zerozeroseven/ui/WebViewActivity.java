@@ -93,11 +93,7 @@ public class WebViewActivity extends BaseActivity {
         });
         String title = getIntent().getStringExtra("title");
         if (!TextUtils.isEmpty(title)) {
-            if ("商品详情".equals(title)) {
-                topView.setVisibility(View.GONE);
-            } else {
-                topView.setTopText(title);
-            }
+            topView.setTopText(title);
         }
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
