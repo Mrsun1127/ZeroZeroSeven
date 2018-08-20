@@ -35,7 +35,7 @@ public class NumberPayAdapter extends BaseRecyclerAdapter<NumberRicalInfo.RicalI
         mHolder.tv_name.setText(item.getName());
         mHolder.tv_desigh.setText(item.getConfiguration());
         mHolder.tv_count.setText("x" + item.getCount());
-        mHolder.tv_money.setText(String.valueOf(item.getNeedsMoney()));
+        mHolder.tv_money.setText(String.valueOf(item.getYuYueMoney()));
 
     }
 

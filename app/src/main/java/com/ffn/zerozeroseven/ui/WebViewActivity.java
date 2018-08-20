@@ -244,7 +244,7 @@ public class WebViewActivity extends BaseActivity {
          * @param specDesc 商品规格描述
          */
         @JavascriptInterface
-        public void addNumbericalCarInfo(int id, int specId, int count, double price, String name, String imgUrl, String specDesc) {//加 购物车
+        public void addNumbericalCarInfo(int id, int specId, int count, double price, double yuYueMoney,String name, String imgUrl, String specDesc) {//加 购物车
             LogUtils.D("numberCar", "Id=" + id + "specId=" + specId + "count=" + count + "price=" + price + "name=" + name + "img=" + imgUrl + "specDesc=" + specDesc);
             NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
             List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
@@ -253,6 +253,7 @@ public class WebViewActivity extends BaseActivity {
                     if (numberRicalListInfo.get(i).getId() == id && numberRicalListInfo.get(i).getSpecId() == specId) {
                         numberRicalListInfo.get(i).setCount(numberRicalListInfo.get(i).getCount() + count);
                         numberRicalListInfo.get(i).setNeedsMoney(price);
+                        numberRicalListInfo.get(i).setYuYueMoney(yuYueMoney);
                         numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
                         BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
                         return;
@@ -265,6 +266,7 @@ public class WebViewActivity extends BaseActivity {
                 ricalInfo.setName(name);
                 ricalInfo.setCount(count);
                 ricalInfo.setSpecId(specId);
+                ricalInfo.setYuYueMoney(yuYueMoney);
                 ricalInfo.setConfiguration(specDesc);
                 numberRicalListInfo.add(ricalInfo);
                 numberRicalInfo.setNumberRicalListInfo(numberRicalListInfo);
@@ -276,6 +278,7 @@ public class WebViewActivity extends BaseActivity {
                 ricalInfo.setId(id);
                 ricalInfo.setImgUrl(imgUrl);
                 ricalInfo.setName(name);
+                ricalInfo.setYuYueMoney(yuYueMoney);
                 ricalInfo.setCount(count);
                 ricalInfo.setSpecId(specId);
                 ricalInfo.setConfiguration(specDesc);
@@ -325,13 +328,14 @@ public class WebViewActivity extends BaseActivity {
          * @param specDesc 商品规格描述
          */
         @JavascriptInterface
-        public void webToNumberRicalCommit(int type, int id, int specId, int count, double price, String name, String imgUrl, String specDesc) {
+        public void webToNumberRicalCommit(int type, int id, int specId, int count, double price,double yuYueMoney, String name, String imgUrl, String specDesc) {
             NumberRicalInfo.RicalInfo ricalInfo = new NumberRicalInfo.RicalInfo();
             ricalInfo.setId(id);
             ricalInfo.setSpecId(specId);
             ricalInfo.setCount(count);
             ricalInfo.setNeedsMoney(price);
             ricalInfo.setName(name);
+            ricalInfo.setYuYueMoney(yuYueMoney);
             ricalInfo.setImgUrl(imgUrl);
             ricalInfo.setConfiguration(specDesc);
             ricalInfo.setType(type);
@@ -369,6 +373,8 @@ public class WebViewActivity extends BaseActivity {
         if (bit != null && !bit.isRecycled()) {
             bit.recycle();
         }
+        System.gc();
+        System.runFinalization();
         if (webView != null) {
             ViewParent parent = webView.getParent();
             if (parent != null) {
@@ -380,9 +386,9 @@ public class WebViewActivity extends BaseActivity {
             webView.clearHistory();
             webView.clearView();
             webView.removeAllViews();
-            webView.setWebChromeClient(null);
-            webView.setWebViewClient(null);
-            webView.clearCache(true);
+//            webView.setWebChromeClient(null);
+//            webView.setWebViewClient(null);
+//            webView.clearCache(true);
             try {
                 webView.destroy();
             } catch (Throwable ex) {

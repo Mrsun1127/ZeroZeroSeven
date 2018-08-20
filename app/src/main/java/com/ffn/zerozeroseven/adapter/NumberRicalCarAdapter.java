@@ -36,6 +36,7 @@ public class NumberRicalCarAdapter extends BaseRecyclerAdapter<NumberRicalInfo.R
         mHolder.tv_configureation.setText(item.getConfiguration()!=null?item.getConfiguration():"加载失败");
         mHolder.tv_count.setText(String.valueOf(item.getCount()));
         mHolder.tv_money.setText(String.valueOf(item.getNeedsMoney()));
+        mHolder.tv_yuyue.setText(String.valueOf(item.getYuYueMoney()));
 
         if (item.isChecked()) {
             mHolder.cb_check.setChecked(true);
@@ -106,6 +107,7 @@ public class NumberRicalCarAdapter extends BaseRecyclerAdapter<NumberRicalInfo.R
         CheckBox cb_check;
         ImageView iv_product;
         TextView tv_name;
+        TextView tv_yuyue;
         TextView tv_configureation;
         TextView tv_money;
         TextView tv_count;
@@ -115,6 +117,7 @@ public class NumberRicalCarAdapter extends BaseRecyclerAdapter<NumberRicalInfo.R
         MViewHolder(View itemView) {
             super(itemView);
             cb_check = itemView.findViewById(R.id.cb_check);
+            tv_yuyue = itemView.findViewById(R.id.tv_yuyue);
             iv_product = itemView.findViewById(R.id.iv_product);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_configureation = itemView.findViewById(R.id.tv_configureation);

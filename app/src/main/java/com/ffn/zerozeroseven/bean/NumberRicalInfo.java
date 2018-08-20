@@ -35,6 +35,16 @@ public class NumberRicalInfo implements Serializable {
         private boolean isChecked;//是否选中
         private Double needsMoney;//需要人民币
         private String configuration;
+        private Double yuYueMoney;
+
+        public Double getYuYueMoney() {
+            return yuYueMoney;
+        }
+
+        public void setYuYueMoney(Double yuYueMoney) {
+            this.yuYueMoney = yuYueMoney;
+        }
+
         public String getSpecKey() {
             return specKey;
         }

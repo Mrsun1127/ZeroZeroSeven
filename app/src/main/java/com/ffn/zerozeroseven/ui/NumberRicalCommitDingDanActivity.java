@@ -82,6 +82,7 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
                     rical.setSpecId(numberRicalInfo.getNumberRicalListInfo().get(i).getSpecId());
                     rical.setCount(numberRicalInfo.getNumberRicalListInfo().get(i).getCount());
                     rical.setNeedsMoney(numberRicalInfo.getNumberRicalListInfo().get(i).getNeedsMoney());
+                    rical.setYuYueMoney(numberRicalInfo.getNumberRicalListInfo().get(i).getYuYueMoney());
                     rical.setName(numberRicalInfo.getNumberRicalListInfo().get(i).getName());
                     rical.setImgUrl(numberRicalInfo.getNumberRicalListInfo().get(i).getImgUrl());
                     rical.setConfiguration(numberRicalInfo.getNumberRicalListInfo().get(i).getConfiguration());
@@ -91,7 +92,7 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
             }
             numberPayAdapter.addAll(ricalInfos);
         } else {
-            tv_paymoney.setText(String.valueOf(ricalInfo.getNeedsMoney()));
+            tv_paymoney.setText(String.valueOf(ricalInfo.getYuYueMoney() * ricalInfo.getCount()));
 //            NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
             NumberRicalInfo.RicalInfo rical = new NumberRicalInfo.RicalInfo();
             List<NumberRicalInfo.RicalInfo> ricalInfos = new ArrayList<>();
@@ -101,6 +102,7 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
             rical.setNeedsMoney(ricalInfo.getNeedsMoney());
             rical.setName(ricalInfo.getName());
             rical.setImgUrl(ricalInfo.getImgUrl());
+            rical.setYuYueMoney(ricalInfo.getYuYueMoney());
             rical.setConfiguration(ricalInfo.getConfiguration());
             rical.setType(ricalInfo.getType());
             ricalInfos.add(rical);

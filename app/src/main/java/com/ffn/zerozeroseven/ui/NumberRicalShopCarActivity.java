@@ -78,7 +78,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
             if (numberRicalListInfo.size() > 0) {
                 for (int i = 0; i < numberRicalListInfo.size(); i++) {
                     if (numberRicalListInfo.get(i).isChecked()) {
-                        a = a + numberRicalListInfo.get(i).getCount() * numberRicalListInfo.get(i).getNeedsMoney();
+                        a = a + numberRicalListInfo.get(i).getCount() * numberRicalListInfo.get(i).getYuYueMoney();
                     } else {
                         b = true;
                     }
