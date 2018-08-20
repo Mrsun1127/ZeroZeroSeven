@@ -146,7 +146,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
         GoodsListInfo.ParametersBean parametersBean = new GoodsListInfo.ParametersBean();
         parametersBean.setGoodsType(shopType);
         parametersBean.setPageIndex(pageNo);
-        parametersBean.setPageSize(16);
+        parametersBean.setPageSize(8);
         try {
             parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         } catch (Exception e) {

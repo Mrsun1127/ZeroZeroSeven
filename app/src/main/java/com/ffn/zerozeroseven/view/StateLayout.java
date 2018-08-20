@@ -24,19 +24,19 @@ public class StateLayout extends RelativeLayout {
     public static final int netError = 0;
     public static final int noData = 1;
 
-    protected int[] tipImgsId={R.mipmap.icon_server_net_error,R.mipmap.icon_server_no_data};
-    protected int[] tipTxtsId={R.string.state_tip_server_error,R.string.state_tip_no_data,};
+    protected int[] tipImgsId = {R.mipmap.icon_server_net_error, R.mipmap.icon_server_no_data};
+    protected int[] tipTxtsId = {R.string.state_tip_server_error, R.string.state_tip_no_data,};
 
     public StateLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_state_tip,this,true);
-        tipImg = (ImageView) view.findViewById(R.id.layout_state_tip_img);
-        tipTxt = (TextView) view.findViewById(R.id.layout_state_tip_text);
-        tipCallBt = (Button) view.findViewById(R.id.layout_state_tip_recall_bt);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_state_tip, this, true);
+        tipImg = view.findViewById(R.id.layout_state_tip_img);
+        tipTxt = view.findViewById(R.id.layout_state_tip_text);
+        tipCallBt = view.findViewById(R.id.layout_state_tip_recall_bt);
         tipCallBt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener != null){
+                if (listener != null) {
                     listener.reCall();
                 }
             }
@@ -54,14 +54,14 @@ public class StateLayout extends RelativeLayout {
 //        }
     }
 
-    public interface OnStateLayoutCallListener{
+    public interface OnStateLayoutCallListener {
         void reCall();
     }
 
     private OnStateLayoutCallListener listener;
 
-    public void setOnStateCallListener(OnStateLayoutCallListener listener){
-           this.listener = listener;
+    public void setOnStateCallListener(OnStateLayoutCallListener listener) {
+        this.listener = listener;
     }
 
 }
