@@ -38,26 +38,35 @@ public class MyDingDanAdapter extends BaseRecyclerAdapter<MyDingDanShowInfo.Data
         final MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_time.setText("下单时间: " + info.getCreateTime());
         mHolder.tv_allmoney.setText("共" + info.getDetails().size() + "个商品，合计¥: " + (info.getExtraPrice() + info.getTotalPrice()) + "(含跑腿费)¥:" + info.getExtraPrice());
-        //订单状态：-1=支付失败，0=未支付，1=支付成功，2=已接单，3=已完成
-        String s="";
+        //订单状态：-1=支付失败，0=未支付，1=支付成功，2=已接单，3=已完成 6=退款中，7=退款成功，8=拒绝退款
+        String s = "";
         switch (info.getStatus()) {
             case -1:
-                s="支付失败";
+                s = "支付失败";
                 break;
             case 0:
-                s="未支付";
+                s = "未支付";
                 break;
             case 1:
-                s="支付成功";
+                s = "支付成功";
                 break;
             case 2:
-                s="已接单";
+                s = "已接单";
                 break;
             case 3:
-                s="已取货";
+                s = "已取货";
                 break;
             case 4:
-                s="已完成";
+                s = "已完成";
+                break;
+            case 6:
+                s = "退款中";
+                break;
+            case 7:
+                s = "退款成功";
+                break;
+            case 8:
+                s = "拒绝退款";
                 break;
         }
         mHolder.tv_status.setText(s);
@@ -96,7 +105,7 @@ public class MyDingDanAdapter extends BaseRecyclerAdapter<MyDingDanShowInfo.Data
             @Override
             public void onChanged() {
                 super.onChanged();
-                if(mHolder.rc_shop!=null&&mHolder.rc_shop.getAdapter() == null){
+                if (mHolder.rc_shop != null && mHolder.rc_shop.getAdapter() == null) {
                     mHolder.rc_shop.setAdapter(adapter);
                 }
             }

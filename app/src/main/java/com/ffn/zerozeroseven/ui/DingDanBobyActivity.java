@@ -18,22 +18,30 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.baoyz.actionsheet.ActionSheet;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.DingDanDetisAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
+import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.DingDanDetlsInfo;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
+import com.ffn.zerozeroseven.bean.MyDingDanShowInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.GoodsDetilsInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RsnackTuikuanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.TitleView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,7 +54,7 @@ import okhttp3.Response;
  * Created by GT on 2017/11/19.
  */
 
-public class DingDanBobyActivity extends BaseActivity {
+public class DingDanBobyActivity extends BaseActivity implements ActionSheet.ActionSheetListener {
 
     private TextView tv_time;
     private TextView tv_staus;
@@ -63,6 +71,9 @@ public class DingDanBobyActivity extends BaseActivity {
     @Bind(R.id.bt_show)
     Button bt_show;
     private ShangChangShowInfo shangChangShowInfo;
+    private DingDanDetlsInfo info;
+    private String refuseReson;
+    private int orderId;
 
     @Override
     protected int setLayout() {
@@ -103,7 +114,7 @@ public class DingDanBobyActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        int orderId = getIntent().getIntExtra("orderId", 0);
+        orderId = getIntent().getIntExtra("orderId", 0);
         requestDetils(orderId);
         getShangChangInfo();
     }
@@ -139,6 +150,26 @@ public class DingDanBobyActivity extends BaseActivity {
 
     }
 
+    private void moreComemore() {
+        List<DingDanDetlsInfo.DataBean.OrderBean.DetailsBean> item = info.getData().getOrder().getDetails();
+        CarShopInfo carShopInfo = new CarShopInfo();
+        List<CarShopInfo.ShopInfo> shopInfos = new ArrayList<>();
+        for (int i = 0; i < item.size(); i++) {
+            CarShopInfo.ShopInfo shopInfo = new CarShopInfo.ShopInfo();
+            shopInfo.setBuyCount(item.get(i).getGoodsCount());
+            shopInfo.setShopName(item.get(i).getGoodsName());
+            shopInfo.setGoodsId(item.get(i).getGoodsId());
+            shopInfo.setRunMoney(info.getData().getOrder().getExtraPrice());
+            shopInfo.setImagUrl(item.get(i).getGoodsImage());
+            shopInfo.setShopMoney(item.get(i).getGoodsPrice());
+            shopInfo.setShopId(String.valueOf(info.getData().getOrder().getStoreId()));
+            shopInfos.add(shopInfo);
+        }
+        carShopInfo.setShopInfos(shopInfos);
+        SharePrefUtils.saveObject(DingDanBobyActivity.this, "zhijiecarShopInfo", carShopInfo);
+        ZeroZeroSevenUtils.SwitchActivity(DingDanBobyActivity.this, ZhiJieCommitDingDanActivity.class);
+    }
+
     private void requestDetils(int orderId) {
         showLoadProgress();
         GoodsDetilsInfo detilsInfo = new GoodsDetilsInfo();
@@ -157,7 +188,7 @@ public class DingDanBobyActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 disLoadProgress();
-                final DingDanDetlsInfo info = JSON.parseObject(response.body().string(), DingDanDetlsInfo.class);
+                info = JSON.parseObject(response.body().string(), DingDanDetlsInfo.class);
                 LogUtils.E("dingdan", JSON.toJSONString(info));
                 tv_allmoney.post(new Runnable() {
                     @Override
@@ -188,9 +219,9 @@ public class DingDanBobyActivity extends BaseActivity {
                             String s;
                             int i = 0;
                             try {
-                                i = info.getData().getCourier().getStatus();
-                            } catch (Exception e) {
                                 i = info.getData().getOrder().getStatus();
+                            } catch (Exception e) {
+                                i = info.getData().getCourier().getStatus();
                             }
                             switch (i) {
                                 case -1:
@@ -221,7 +252,7 @@ public class DingDanBobyActivity extends BaseActivity {
                                     s = "已接单";
                                     tv_show.setText("007已接单 ,稍等片刻，美食即将到来");
                                     tv_staus.setText("已接单");
-                                    bt_show.setText("再来一单");
+                                    bt_show.setText("取消订单");
                                     tv_finish.setVisibility(View.GONE);
                                     rl_peple.setVisibility(View.VISIBLE);
                                     break;
@@ -244,6 +275,29 @@ public class DingDanBobyActivity extends BaseActivity {
                                     }
                                     s = "已完成";
                                     break;
+                                // 6=退款中，7=退款成功，8=拒绝退款
+                                case 6:
+                                    tv_show.setText("商家正在处理退款");
+                                    tv_staus.setText("退款中");
+                                    s = "退款中";
+                                    bt_show.setText("再来一单");
+                                    tv_finish.setVisibility(View.GONE);
+                                    break;
+                                case 7:
+                                    tv_show.setText("商家已经退款到您的支付账户中");
+                                    tv_staus.setText("退款成功");
+                                    s = "退款成功";
+                                    bt_show.setText("退款成功");
+                                    tv_finish.setVisibility(View.GONE);
+                                    break;
+                                case 8:
+                                    tv_show.setText("商家拒绝退款");
+                                    tv_staus.setText("退款失败");
+                                    s = "退款失败";
+                                    bt_show.setText("退款失败");
+                                    tv_finish.setVisibility(View.VISIBLE);
+                                    tv_finish.setText("退款失败原因:" + info.getData().getOrder().getRefuseRefundReason());
+                                    break;
                                 default:
                                     tv_show.setText("异常单，请联系零零7");
                                     tv_staus.setText("异常单");
@@ -262,9 +316,23 @@ public class DingDanBobyActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_phone, R.id.tv_sug, R.id.tv_endTime})
+    String[] items = new String[]{"还没想好，不想支付了", "价格太贵了", "服务质量不满意", "其他"};
+
+    @OnClick({R.id.bt_show, R.id.tv_phone, R.id.tv_sug, R.id.tv_endTime})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.bt_show:
+                int status = info.getData().getOrder().getStatus();
+                if (status == 1 || status == 2) {
+                    ActionSheet.createBuilder(DingDanBobyActivity.this, getSupportFragmentManager())
+                            .setCancelButtonTitle("取消")
+                            .setOtherButtonTitles(items[0], items[1], items[2], items[3])
+                            .setCancelableOnTouchOutside(true)
+                            .setListener(this).show();
+                } else {
+                    moreComemore();
+                }
+                break;
             case R.id.tv_phone:
                 if (Build.VERSION.SDK_INT >= 23) {
 
@@ -326,5 +394,39 @@ public class DingDanBobyActivity extends BaseActivity {
         if (ActivityCompat.checkSelfPermission(DingDanBobyActivity.this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+    }
+
+    @Override
+    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+        actionSheet.dismiss();
+        refuseReson = items[index];
+        TuiKuan(refuseReson);
+    }
+
+    private void TuiKuan(String refuseReson) {
+        RsnackTuikuanInfo rsnackTuikuanInfo = new RsnackTuikuanInfo();
+        rsnackTuikuanInfo.setFunctionName("AddStoreGoodsRefundApply");
+        RsnackTuikuanInfo.ParametersBean parametersBean = new RsnackTuikuanInfo.ParametersBean();
+        parametersBean.setOrderNo(info.getData().getOrder().getOrderNo());
+        parametersBean.setReason(refuseReson);
+        parametersBean.setUserId(userId);
+        rsnackTuikuanInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(DingDanBobyActivity.this);
+        okGoUtils.httpPostJSON(rsnackTuikuanInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    requestDetils(orderId);
+                } else {
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
+                }
+            }
+        });
     }
 }

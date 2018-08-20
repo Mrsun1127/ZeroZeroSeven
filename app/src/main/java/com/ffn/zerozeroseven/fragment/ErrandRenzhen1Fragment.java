@@ -257,6 +257,7 @@ public class ErrandRenzhen1Fragment extends BaseFragment implements ActionSheet.
 
     @Override
     public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+        actionSheet.dismiss();
         tv_sex.setText(items[index]);
     }
 }

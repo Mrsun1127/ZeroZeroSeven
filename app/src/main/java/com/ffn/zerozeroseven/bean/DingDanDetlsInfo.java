@@ -300,6 +300,20 @@ public class DingDanDetlsInfo implements Parcelable {
              * userId : 90
              */
 
+            private String refuseRefundReason;
+
+            public String getRefuseRefundReason() {
+                return refuseRefundReason;
+            }
+
+            public void setRefuseRefundReason(String refuseRefundReason) {
+                this.refuseRefundReason = refuseRefundReason;
+            }
+
+            public static Creator<OrderBean> getCREATOR() {
+                return CREATOR;
+            }
+
             private String createTime;
             private Double extraPrice;
             private int id;

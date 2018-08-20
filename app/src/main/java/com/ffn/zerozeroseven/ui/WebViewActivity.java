@@ -6,11 +6,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.alibaba.fastjson.JSON;
@@ -41,13 +44,14 @@ import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 
 public class WebViewActivity extends BaseActivity {
-    @Bind(R.id.webView)
-    WebView webView;
     @Bind(R.id.topView)
     TopView topView;
     private Bitmap bit;
     @Bind(R.id.pb_watch)
     ProgressBar pb_watch;
+    @Bind(R.id.ll_content)
+    LinearLayout ll_content;
+    private WebView webView;
 
     @Override
     protected int setLayout() {
@@ -58,6 +62,8 @@ public class WebViewActivity extends BaseActivity {
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
+        webView = new WebView(getApplicationContext());
+        ll_content.addView(webView);
         webView.addJavascriptInterface(new JSHook(), "hello");
 
         WebSettings settings = webView.getSettings();
@@ -311,6 +317,7 @@ public class WebViewActivity extends BaseActivity {
         public void webToNumberRicalShopCar() {
             ZeroZeroSevenUtils.SwitchActivity(WebViewActivity.this, NumberRicalShopCarActivity.class);
         }
+
         /**
          * @param type     购买类型 0 预约上门 1 立即购买
          * @param id       商品Id
@@ -334,7 +341,7 @@ public class WebViewActivity extends BaseActivity {
             ricalInfo.setType(type);
             Bundle bundle = new Bundle();
             bundle.putSerializable("ricalInfo", ricalInfo);
-            bundle.putString("pay","numberzhijie");
+            bundle.putString("pay", "numberzhijie");
             ZeroZeroSevenUtils.SwitchActivity(WebViewActivity.this, NumberRicalCommitDingDanActivity.class, bundle);
         }
     }
@@ -366,9 +373,26 @@ public class WebViewActivity extends BaseActivity {
         if (bit != null && !bit.isRecycled()) {
             bit.recycle();
         }
-        webView.setWebChromeClient(null);
-        webView.setWebViewClient(null);
-        webView.getSettings().setJavaScriptEnabled(false);
-        webView.clearCache(true);
+        if (webView != null) {
+            ViewParent parent = webView.getParent();
+            if (parent != null) {
+                ((ViewGroup) parent).removeView(webView);
+            }
+            webView.stopLoading();
+            // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
+            webView.getSettings().setJavaScriptEnabled(false);
+            webView.clearHistory();
+            webView.clearView();
+            webView.removeAllViews();
+            webView.setWebChromeClient(null);
+            webView.setWebViewClient(null);
+            webView.clearCache(true);
+            try {
+                webView.destroy();
+            } catch (Throwable ex) {
+
+            }
+        }
+
     }
 }
