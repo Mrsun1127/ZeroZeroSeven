@@ -5,6 +5,15 @@ public class NumberOrderJsonInfo {
     private String receiver_name;
     private String receiver_phone;
     private String postscript;
+    private String schoolId;
+
+    public String getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(String schoolId) {
+        this.schoolId = schoolId;
+    }
 
     public String getReceiver_address() {
         return receiver_address;

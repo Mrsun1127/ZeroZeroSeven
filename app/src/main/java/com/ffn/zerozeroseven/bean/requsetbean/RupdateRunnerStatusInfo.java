@@ -1,14 +1,13 @@
 package com.ffn.zerozeroseven.bean.requsetbean;
 
-/**
- * Created by GT on 2018/3/2.
- */
 
-public class SugAppInfo {
+
+public class RupdateRunnerStatusInfo {
+
     /**
      * id : 1
-     * functionName : AddUserFeedback
-     * parameters : {"content":"反馈内容"}
+     * functionName : QuerySchoolStore
+     * parameters : {"schoolId":1}
      */
 
     private String id;
@@ -41,27 +40,24 @@ public class SugAppInfo {
 
     public static class ParametersBean {
         /**
-         * content : 反馈内容
          */
+        private String userId;
+        private String orderNo;
 
-        private String content;
-
-        public String getSchoolId() {
-            return schoolId;
+        public String getUserId() {
+            return userId;
         }
 
-        public void setSchoolId(String schoolId) {
-            this.schoolId = schoolId;
+        public void setUserId(String userId) {
+            this.userId = userId;
         }
 
-        private String schoolId;
-
-        public String getContent() {
-            return content;
+        public String getOrderNo() {
+            return orderNo;
         }
 
-        public void setContent(String content) {
-            this.content = content;
+        public void setOrderNo(String orderNo) {
+            this.orderNo = orderNo;
         }
     }
 }

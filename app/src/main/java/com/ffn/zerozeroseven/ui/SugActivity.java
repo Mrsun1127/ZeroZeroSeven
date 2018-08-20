@@ -76,6 +76,7 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
         sugAppInfo.setFunctionName("AddUserFeedback");
         SugAppInfo.ParametersBean parametersBean = new SugAppInfo.ParametersBean();
         parametersBean.setContent(et_body.getText().toString());
+        parametersBean.setSchoolId(schoolIId);
         sugAppInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(SugActivity.this);
         okGoUtils.httpPostJSON(sugAppInfo, true, true);
@@ -84,15 +85,14 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
             public void onSuccLoad(String response) {
                 final ErrorCodeInfo info = JSON.parseObject(response, ErrorCodeInfo.class);
 
-                        if (info.getCode() == 0) {
-                            ToastUtils.showShort("提交成功");
-                            finish();
-                        } else {
-                            ToastUtils.showShort(info.getMessage());
-                        }
-                    }
-                });
-
+                if (info.getCode() == 0) {
+                    ToastUtils.showShort("提交成功");
+                    finish();
+                } else {
+                    ToastUtils.showShort(info.getMessage());
+                }
+            }
+        });
 
 
     }
@@ -111,14 +111,14 @@ public class SugActivity extends BaseActivity implements View.OnClickListener {
             public void onSuccLoad(String response) {
                 final ErrorCodeInfo info = JSON.parseObject(response, ErrorCodeInfo.class);
 
-                        if (info.getCode() == 0) {
-                            ToastUtils.showShort("提交成功");
-                            finish();
-                        } else {
-                            ToastUtils.showShort(info.getMessage());
-                        }
-                    }
-                });
+                if (info.getCode() == 0) {
+                    ToastUtils.showShort("提交成功");
+                    finish();
+                } else {
+                    ToastUtils.showShort(info.getMessage());
+                }
+            }
+        });
 
     }
 }

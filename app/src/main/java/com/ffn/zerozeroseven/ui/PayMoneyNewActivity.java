@@ -108,7 +108,7 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
                             PayMoney(payment);
                         } else if (jumpType.equals("run")) {
                             RunPay(payment);
-                        }else if(jumpType.equals("renzheng")){
+                        } else if (jumpType.equals("renzheng")) {
                             VertifyInfo(payment);
                         }
                     } else {
@@ -119,7 +119,7 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
                         PayMoney(payment);
                     } else if (jumpType.equals("run")) {
                         RunPay(payment);
-                    }else if(jumpType.equals("renzheng")){
+                    } else if (jumpType.equals("renzheng")) {
                         VertifyInfo(payment);
                     }
                 }
@@ -136,14 +136,14 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
 
     private void VertifyInfo(final String payment) {
         OkGoUtils okGoUtils = new OkGoUtils(PayMoneyNewActivity.this);
-        okGoUtils.httpPostJSON(ErrandAuitActivity.mInstance.get().getRrenzhengInfo(),true,true);
+        okGoUtils.httpPostJSON(ErrandAuitActivity.mInstance.get().getRrenzhengInfo(), true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response,ErrorCodeInfo.class);
-                if(errorCodeInfo.getCode()==0){
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
                     RenzhengPay(payment);
-                }else{
+                } else {
                     ToastUtils.showShort(errorCodeInfo.getMessage());
                 }
             }
@@ -158,19 +158,19 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
         parametersBean.setUserId(userId);
         rrnzPayInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(PayMoneyNewActivity.this);
-        okGoUtils.httpPostJSON(rrnzPayInfo,true,true);
+        okGoUtils.httpPostJSON(rrnzPayInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 BaseAppApplication.clearType = "renzheng";
-                if(payment.equals("AliPay")){
+                if (payment.equals("AliPay")) {
                     NumberAliPayInfo aliPayInfo = JSON.parseObject(response, NumberAliPayInfo.class);
                     if (aliPayInfo.getCode() == 0) {
                         mZFbutils.pay(aliPayInfo.getData().getBody(), "runpay");
                     } else {
                         ZeroZeroSevenUtils.showCustonPop(PayMoneyNewActivity.this, aliPayInfo.getMessage(), ll_all);
                     }
-                }else{
+                } else {
                     NumberPayInfo numberPayInfo = JSON.parseObject(response, NumberPayInfo.class);
                     if (numberPayInfo.getCode() == 0) {
                         PayReq req = new PayReq();
@@ -245,19 +245,21 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
         orderJsonInfo.setReceiver_address(addressesBean.getContactSchool() + addressesBean.getContactBuilding() + addressesBean.getContactDorm());
         orderJsonInfo.setReceiver_name(addressesBean.getContactName());
         orderJsonInfo.setReceiver_phone(addressesBean.getContactPhone());
+        orderJsonInfo.setSchoolId(schoolIId);
         parametersBean.setOrderInfoJson(JSON.toJSONString(orderJsonInfo));
         JSONArray jsonArray = new JSONArray();
-        if(jumpType.equals("numberzhijie")){
+        if (jumpType.equals("numberzhijie")) {
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("goodsId",ricalInfo.getId());
+                jsonObject.put("goodsId", ricalInfo.getId());
                 jsonObject.put("goods_name", ricalInfo.getName());
                 jsonObject.put("goods_count", ricalInfo.getCount());
                 jsonObject.put("specKey", ricalInfo.getSpecId());
                 jsonObject.put("specKeyName", ricalInfo.getConfiguration());
                 jsonArray.put(jsonObject);
-            }catch (Exception e){}
-        }else{
+            } catch (Exception e) {
+            }
+        } else {
             for (int i = 0; i < numberRicalInfo.getNumberRicalListInfo().size(); i++) {
                 try {
                     if (numberRicalInfo.getNumberRicalListInfo().get(i).isChecked()) {

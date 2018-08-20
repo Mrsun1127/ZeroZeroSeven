@@ -16,8 +16,10 @@ import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.RunnerDingDanDetilsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RrmineRunDetilsInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RupdateRunnerStatusInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -236,13 +238,45 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
                 if (resultCode == RESULT_OK) {
                     if (data != null) {
                         imgList = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-                        if (imgList.size() > 0) {
-                            ToastUtils.showShort("已上传" + imgList.get(0));
+                        if(runnerDingDanDetilsInfo.getData().getOrderStatus() == 1){
+                            if (imgList.size() > 0) {
+
+                                pickProduct();
+                            }
+                        }else{
+                            if (imgList.size() > 0) {
+
+                            }
                         }
+
                     }
                 }
                 break;
         }
+    }
+
+    private void pickProduct() {
+        RupdateRunnerStatusInfo rupdateRunnerStatusInfo = new RupdateRunnerStatusInfo();
+        rupdateRunnerStatusInfo.setFunctionName("UpdateErrandOrderPickupStatus");
+        RupdateRunnerStatusInfo.ParametersBean parametersBean= new RupdateRunnerStatusInfo.ParametersBean();
+        parametersBean.setUserId(userId);
+        parametersBean.setOrderNo(orderNo);
+        rupdateRunnerStatusInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(ErrandRunnerDingDanDetilsActivity.this);
+        okGoUtils.httpPostJSON(rupdateRunnerStatusInfo,true,true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response,ErrorCodeInfo.class);
+                if(errorCodeInfo.getCode()==0){
+                    requestOrder(orderNo);
+                    ToastUtils.showShort("已保存至" + imgList.get(0));
+                }else{
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
+                }
+            }
+        });
+
     }
 
     @Override
