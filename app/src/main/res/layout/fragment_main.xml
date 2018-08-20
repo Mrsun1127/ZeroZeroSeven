@@ -83,7 +83,7 @@
                             android:layout_below="@+id/iv_one"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
-                            android:text="零食外卖"
+                            android:text="零食日用"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
@@ -185,7 +185,7 @@
                             android:layout_below="@+id/iv_six"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
-                            android:text="数码市场"
+                            android:text="数码手机"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
@@ -208,7 +208,7 @@
                             android:layout_below="@+id/iv_seven"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
-                            android:text="跳蚤市场"
+                            android:text="外卖美食"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
@@ -253,7 +253,7 @@
                             android:layout_below="@+id/iv_nine"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
-                            android:text="课程表"
+                            android:text="电脑租赁"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
