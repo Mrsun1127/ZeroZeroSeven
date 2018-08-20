@@ -1,10 +1,7 @@
 package com.ffn.zerozeroseven.base;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.bean.UserInfo;
@@ -28,7 +24,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * 碎片fragment基类
@@ -107,8 +102,6 @@ public abstract class BaseFragment extends ImmersionFragment {
     }
 
     public void initDate() {
-
-
     }
 
     @Nullable
@@ -142,13 +135,28 @@ public abstract class BaseFragment extends ImmersionFragment {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
+//        if (getUserVisibleHint()) {
+//            lazyLoad();
+//        } else {
+//            onInvisible();
+//        }
         super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            isVisible = true;
+    }
+
+    private boolean isLoad = true;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getUserVisibleHint() && isLoad) {
             lazyLoad();
-        } else {
-            isVisible = false;
-            onInvisible();
+            isLoad = false;
         }
     }
 
@@ -170,60 +178,6 @@ public abstract class BaseFragment extends ImmersionFragment {
      * 延迟加载 子类必须重写此方法
      */
     protected abstract void lazyLoad();
-
-
-    private String buildTransaction(final String type) {
-        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System
-                .currentTimeMillis();
-    }
-
-
-    protected void gotoActivity(Class<?> cls) {
-        Intent intent = new Intent();
-        intent.setClass(getActivity(), cls);
-        startActivity(intent);
-    }
-
-
-    private ProgressDialog dialogMsg;
-
-    protected void showMsgProgress() {
-        showMsgProgress("正在进行中，请稍后...");
-    }
-
-    protected void showMsgProgress(String msg) {
-        try {
-            hud.setDetailsLabel("正在加载中")
-                    .show();
-        } catch (Exception e) {
-            hud = KProgressHUD.create(getContext())
-                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                    .setCancellable(true)
-                    .setWindowColor(getResources().getColor(R.color.text_secondary_color))
-                    .setAnimationSpeed(2)
-                    .setDimAmount(0.5f)
-                    .show();
-        }
-
-    }
-
-    protected void disMsgProgress() {
-        if (hud != null) {
-            hud.dismiss();
-        } else {
-        }
-    }
-
-
-    protected void hideKeyBoard(IBinder windowToken) {
-        InputMethodManager mInputMethodManager = (InputMethodManager) bfCxt.getSystemService(INPUT_METHOD_SERVICE);
-        if (mInputMethodManager == null) return;
-        boolean active = mInputMethodManager.isActive();
-        if (active) {
-            mInputMethodManager.hideSoftInputFromWindow(windowToken, 0);
-        }
-    }
-
 
     /**
      * 设置添加屏幕的背景透明度

@@ -163,8 +163,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
             }
         });
         mInstance = new WeakReference<>(this);
-        getshangchangInfo();
-        initTabs();
+
     }
 
 
@@ -217,7 +216,9 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void lazyLoad() {
-
+        LogUtils.D("lazyLoad","lazyLoad");
+        getshangchangInfo();
+        initTabs();
     }
 
     @Override

@@ -222,6 +222,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void lazyLoad() {
+        LogUtils.D("lazyLoad","lazyLoad");
     }
 
     @Override

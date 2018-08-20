@@ -136,20 +136,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
     @Override
     public void initDate() {
         setRefreshLayoutVis();
-        userInfo = BaseAppApplication.getInstance().getLoginUser();
-        if (userInfo != null) {
-            schoolIId = userInfo.getSchoolId();
-        }
-        if ("943478288".equals(schoolIId)) {
-            rl_no_select.setVisibility(View.VISIBLE);
-        } else {
-            rl_no_select.setVisibility(View.GONE);
-            try {
-                getShangChangInfo();
-            } catch (Exception e) {
 
-            }
-        }
     }
 
     private void requestShop() {
@@ -302,6 +289,20 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
 
     @Override
     protected void lazyLoad() {
+        userInfo = BaseAppApplication.getInstance().getLoginUser();
+        if (userInfo != null) {
+            schoolIId = userInfo.getSchoolId();
+        }
+        if ("943478288".equals(schoolIId)) {
+            rl_no_select.setVisibility(View.VISIBLE);
+        } else {
+            rl_no_select.setVisibility(View.GONE);
+            try {
+                getShangChangInfo();
+            } catch (Exception e) {
+
+            }
+        }
     }
 
 
