@@ -132,7 +132,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                         sureGet(orderNo);
                         break;//确认收货
                     case 3:
-                        goToRelease(orderNo);
+                        goToRelease(orderNo,runnerDingDanDetilsInfo.getData().getRealName());
                         break;//去评价
                     case 5:
 //                        TuiKuanla();
@@ -325,9 +325,10 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
      *
      * @param orderNo
      */
-    public void goToRelease(String orderNo) {
+    public void goToRelease(String orderNo,String name) {
         Bundle bundle = new Bundle();
         bundle.putString("ordeNo", orderNo);
+        bundle.putString("name", name);
         ZeroZeroSevenUtils.SwitchActivity(ErrandCustomerDingDanDetilsActivity.this, ErrandTalkReleaseActivity.class, bundle);
     }
 }

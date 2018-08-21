@@ -37,6 +37,7 @@ import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
+import com.willy.ratingbar.ScaleRatingBar;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -99,6 +100,8 @@ public class ErrandMineRunFragment extends BaseFragment {
     TextView tv_runfinishcount;
     @Bind(R.id.tv_runmoney)
     TextView tv_runmoney;
+    @Bind(R.id.simpleRatingBar)
+    ScaleRatingBar scaleRatingBar;
 
     private void requestCount() {
         RrunnerCountInfo rrunnerCountInfo = new RrunnerCountInfo();
@@ -167,11 +170,12 @@ public class ErrandMineRunFragment extends BaseFragment {
                         if (!TextUtils.isEmpty(runnerInfo.getData().getPhone())) {
                             ll_audit.setVisibility(View.GONE);
                             ll_verifile.setVisibility(View.VISIBLE);
-                            Glide.with(bfCxt).load(runnerInfo.getData().getAvatar()).override(ScreenUtils.getScreenWidth()/6,ScreenUtils.getScreenWidth()/6).into(clv_icon);
+                            Glide.with(bfCxt).load(runnerInfo.getData().getAvatar()).override(ScreenUtils.getScreenWidth() / 6, ScreenUtils.getScreenWidth() / 6).into(clv_icon);
                             tv_name.setText(runnerInfo.getData().getRealName());
                             tv_school.setText(runnerInfo.getData().getSchoolName());
                             tv_phone.setText(runnerInfo.getData().getPhone());
                             tv_satisficing.setText(runnerInfo.getData().getStarLevel() + "星级");
+                            scaleRatingBar.setRating(runnerInfo.getData().getStarLevel());
                         } else {
                             ll_audit.setVisibility(View.VISIBLE);
                             ll_verifile.setVisibility(View.GONE);
@@ -240,11 +244,11 @@ public class ErrandMineRunFragment extends BaseFragment {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response,ErrorCodeInfo.class);
-                if (errorCodeInfo.getCode()==0){
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
                     ToastUtils.showShort("抢单成功");
                     requestList();
-                }else{
+                } else {
                     ToastUtils.showShort(errorCodeInfo.getMessage());
                 }
             }
