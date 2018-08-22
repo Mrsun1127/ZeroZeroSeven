@@ -92,15 +92,15 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                 ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
                 if (shangChangShowInfo.getCode() == 0) {
                     tv_name.setText(shangChangShowInfo.getData().getStoreName());
-                        if (shangChangShowInfo.getData().getOpeningTime().equals(shangChangShowInfo.getData().getClosingTime()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime2()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime())) {
-                            tv_yysj.setText("营业时间：打烊一天");
-                        } else {
-                            tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getOpeningTime() + "--" + shangChangShowInfo.getData().getClosingTime() + "丶" + shangChangShowInfo.getData().getOpeningTime2() + "--" + shangChangShowInfo.getData().getClosingTime2());
-                        }
+                    if (shangChangShowInfo.getData().getOpeningTime().equals(shangChangShowInfo.getData().getClosingTime()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime2()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime())) {
+                        tv_yysj.setText("营业时间：打烊一天");
+                    } else {
+                        tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getOpeningTime() + "--" + shangChangShowInfo.getData().getClosingTime() + "丶" + shangChangShowInfo.getData().getOpeningTime2() + "--" + shangChangShowInfo.getData().getClosingTime2());
+                    }
                     tv_qisongfei.setText("起送：￥" + shangChangShowInfo.getData().getDeliveryPrice());
                     tv_paotuifei.setText("跑腿费：￥" + shangChangShowInfo.getData().getDeliveryPrice());
                     tv_shop_phone.setText("客服电话：" + shangChangShowInfo.getData().getServicePhone());
-                    tv_desc.setText(TextUtils.isEmpty(shangChangShowInfo.getData().getPromotion())?"下单有惊喜":shangChangShowInfo.getData().getPromotion());
+                    tv_desc.setText(TextUtils.isEmpty(shangChangShowInfo.getData().getPromotion()) ? "下单有惊喜" : shangChangShowInfo.getData().getPromotion());
 
                 }
             }
@@ -144,6 +144,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
             public void onItemClick(int position, long itemId) {
                 titleAdapter.setClickPosition(position);
                 viewPager.setCurrentItem(position);
+                recycleview.scrollToPosition(position);
             }
         });
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -155,6 +156,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void onPageSelected(int position) {
                 titleAdapter.setClickPosition(position);
+                recycleview.scrollToPosition(position);
             }
 
             @Override
@@ -172,6 +174,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         goodTabsInfo.setFunctionName("ListSchoolGoodsType");
         GoodTabsInfo.ParametersBean parametersBean = new GoodTabsInfo.ParametersBean();
         parametersBean.setSchoolId(schoolIId);
+        parametersBean.setCate("ZH");
         goodTabsInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(goodTabsInfo, true, true);
@@ -181,7 +184,6 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                 ShopTitleInfo showInfo = JSON.parseObject(response, ShopTitleInfo.class);
                 if (showInfo.getCode() == 0) {
                     list_title = new ArrayList<>();
-                    list_title.add("全部");
                     list_fragment = new ArrayList<>();
                     list_fragment.add(ShopViewPagerAllFragment.newInstance("", ""));
                     titleAdapter.cleanDates();
@@ -216,7 +218,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void lazyLoad() {
-        LogUtils.D("lazyLoad","lazyLoad");
+        LogUtils.D("lazyLoad", "lazyLoad");
         getshangchangInfo();
         initTabs();
     }

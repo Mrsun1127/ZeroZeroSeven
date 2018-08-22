@@ -41,6 +41,15 @@ public class GoodTabsInfo {
 
     public static class ParametersBean {
         private String schoolId;
+        private String cate;
+
+        public String getCate() {
+            return cate;
+        }
+
+        public void setCate(String cate) {
+            this.cate = cate;
+        }
 
         public String getSchoolId() {
             return schoolId;

@@ -134,6 +134,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
             public void onItemClick(int position, long itemId) {
                 titleAdapter.setClickPosition(position);
                 viewPager.setCurrentItem(position);
+                recycleview.scrollToPosition(position);
             }
         });
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -145,6 +146,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
             @Override
             public void onPageSelected(int position) {
                 titleAdapter.setClickPosition(position);
+                recycleview.scrollToPosition(position);
             }
 
             @Override
@@ -171,7 +173,6 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
                 ShopTitleInfo showInfo = JSON.parseObject(response, ShopTitleInfo.class);
                 if (showInfo.getCode() == 0) {
                     list_title = new ArrayList<>();
-                    list_title.add("全部");
                     list_fragment = new ArrayList<>();
                     list_fragment.add(ShopViewPagerAllFragment.newInstance("", ""));
                     titleAdapter.cleanDates();
