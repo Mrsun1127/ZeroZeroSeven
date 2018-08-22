@@ -51,6 +51,16 @@ public class CallNewDingDanInfo {
          */
 
         private String productId;
+        private String cate;
+
+        public String getCate() {
+            return cate;
+        }
+
+        public void setCate(String cate) {
+            this.cate = cate;
+        }
+
         private String rechargePrice;
         private String payment;
         private String tradeType;

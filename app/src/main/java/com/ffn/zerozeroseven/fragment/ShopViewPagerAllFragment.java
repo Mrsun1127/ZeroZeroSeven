@@ -282,6 +282,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
         shangchangInfo.setFunctionName("QuerySchoolStore");
         ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
+        parametersBean.setCate("ZH");
         shangchangInfo.setParameters(parametersBean);
         httpPostJSON(shangchangInfo, true);
         call.enqueue(new Callback() {

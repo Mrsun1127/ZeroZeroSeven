@@ -46,6 +46,16 @@ public class ShangchangInfo {
 
         private int schoolId;
 
+        public String getCate() {
+            return cate;
+        }
+
+        public void setCate(String cate) {
+            this.cate = cate;
+        }
+
+        private String cate;
+
         public int getSchoolId() {
             return schoolId;
         }

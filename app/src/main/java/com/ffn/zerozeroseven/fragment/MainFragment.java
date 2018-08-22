@@ -916,6 +916,7 @@ public class MainFragment extends BaseFragment {
         shangchangInfo.setFunctionName("QuerySchoolStore");
         ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
+        parametersBean.setCate("ZH");
         shangchangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(shangchangInfo, true, false);

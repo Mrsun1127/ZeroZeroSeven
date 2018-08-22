@@ -97,6 +97,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         shangchangInfo.setFunctionName("QuerySchoolStore");
         ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
+        parametersBean.setCate("ZH");
         shangchangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(ShopDetilsActivity.this);
         okGoUtils.httpPostJSON(shangchangInfo, true, true);

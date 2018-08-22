@@ -158,6 +158,7 @@ public class MyDingDanActivity extends BaseActivity implements View.OnClickListe
         shangchangInfo.setFunctionName("QuerySchoolStore");
         ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
+        parametersBean.setCate("ZH");
         shangchangInfo.setParameters(parametersBean);
         httpPostJSON(shangchangInfo, true);
         call.enqueue(new Callback() {
