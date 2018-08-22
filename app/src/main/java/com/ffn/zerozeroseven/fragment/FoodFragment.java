@@ -129,7 +129,8 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
                     try {
                         FoodViewPagerAllFragment.mInstance.get().notifyShop();
                         FoodViewPagerFragment.mInstance.get().notifyShop();
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
