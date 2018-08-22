@@ -54,7 +54,7 @@ public class ZFBPayUtil {
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        Bundle bundle= new Bundle();
+                        Bundle bundle = new Bundle();
                         // 零食购物车 “carpay” 零食直接购买 “zhijie” 数码付尾款 “numberweikuan” 数码购物车 “numbercar” 数码直接预约或者直接购买 “numberzhijie”
                         String pay = BaseAppApplication.clearType;
                         if ("carpay".equals(pay)) {
@@ -63,6 +63,12 @@ public class ZFBPayUtil {
                             carShopInfo.getShopInfos().clear();
                             BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                             SharePrefUtils.saveObject(mContext, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
+                        } else if ("food".equals(pay)) {
+                            PayMoneyActivity.mInstance.get().finish();
+                            CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                            carShopInfo.getShopInfos().clear();
+                            BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                            SharePrefUtils.saveObject(mContext, "foodcarShopInfo", BaseAppApplication.getInstance().getFoodcarShopInfo());
                         } else if ("numbercar".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
                             NumberRicalInfo numberRicalInfo = BaseAppApplication.getInstance().getNumberRicalInfo();
@@ -79,16 +85,16 @@ public class ZFBPayUtil {
                             PayMoneyActivity.mInstance.get().finish();
                         } else if ("numberzhijie".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
-                        }else if("run".equals(pay)){
+                        } else if ("run".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
-                            bundle.putString("info","请等待跑腿人员接单，如五分钟内无人接单将会自动退款");
-                        }else if("renzheng".equals(pay)){
+                            bundle.putString("info", "请等待跑腿人员接单，如五分钟内无人接单将会自动退款");
+                        } else if ("renzheng".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
                             ErrandAuitActivity.mInstance.get().goVp(2);
                             ErrandMineRunFragment.mInstance.get().requestData();
-                            bundle.putString("info","请耐心等待工作人员审核，请留意App通知");
+                            bundle.putString("info", "请耐心等待工作人员审核，请留意App通知");
                         }
-                        ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class,bundle);
+                        ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class, bundle);
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
                         // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）

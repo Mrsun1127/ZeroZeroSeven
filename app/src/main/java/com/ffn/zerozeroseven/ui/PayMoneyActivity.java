@@ -56,6 +56,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
     private static IWXAPI api;
     private String reMark;
     private String orderNO;
+    private String carType;
 
     @Override
     protected int setLayout() {
@@ -75,11 +76,16 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         } else {
             double allMoney = getIntent().getDoubleExtra("allMoney", 0);
             payType = getIntent().getStringExtra("pay");
+            carType = getIntent().getStringExtra("carType");
             dormId = getIntent().getStringExtra("dormId");
             reMark = getIntent().getStringExtra("beizhu");
             if ("carpay".equals(payType)) {
                 MobclickAgent.onEvent(this, "购物车结算");
-                carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                if ("shop".equals(carType)) {
+                    carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                } else if ("food".equals(carType)) {
+                    carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                }
                 if (carShopInfo == null) {
                     ToastUtils.showShort("支付异常 请稍后再试！");
                     finish();
@@ -155,7 +161,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         if (!TextUtils.isEmpty(orderNO)) {
             NumberWeiKuanPay(str);
         } else {
-            lingshiBuy(str);
+            lingshiBuy(str, carType);
         }
 
 
@@ -203,7 +209,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         });
     }
 
-    private void lingshiBuy(final String str) {
+    private void lingshiBuy(final String str, final String carType) {
         CallNewDingDanInfo callNewDingDanInfo = new CallNewDingDanInfo();
         callNewDingDanInfo.setFunctionName("PayGoodsOrder");
         CallNewDingDanInfo.ParametersBean parametersBean1 = new CallNewDingDanInfo.ParametersBean();
@@ -253,7 +259,11 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(final String response) {
-                BaseAppApplication.clearType = getIntent().getStringExtra("pay");
+                if ("shop".equals(carType)) {
+                    BaseAppApplication.clearType = getIntent().getStringExtra("pay");
+                } else if ("food".equals(carType)) {
+                    BaseAppApplication.clearType = getIntent().getStringExtra("carType");
+                }
                 if (str.equals("AliPay")) {//支付宝支付
                     final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response, CommitDingDanInfo.class);
                     if (commitDingDanInfo.getCode() == 0) {

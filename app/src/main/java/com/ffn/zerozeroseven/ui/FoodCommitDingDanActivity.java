@@ -84,7 +84,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
     @Override
     protected void onPause() {
         super.onPause();
-        SharePrefUtils.saveObject(FoodCommitDingDanActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
+        SharePrefUtils.saveObject(FoodCommitDingDanActivity.this, "foodcarShopInfo", BaseAppApplication.getInstance().getFoodcarShopInfo());
     }
 
     @Override
@@ -93,7 +93,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
         badgeView.setBadgePadding(10, true);
         badgeView.setGravityOffset(-5, true);
         et_beizhu = findViewById(R.id.et_beizhu);
-        carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+        carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
         rl_selectadr = findViewById(R.id.rl_selectadr);
         rl_addadr = findViewById(R.id.rl_addadr);
         rl_selectadr.setOnClickListener(this);
@@ -112,9 +112,9 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
             @Override
             public void onDragStateChanged(int dragState, Badge badge, View targetView) {
                 if (dragState == 5) {
-                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
                     carShopInfo.getShopInfos().clear();
-                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
                     try {
                         FoodViewPagerAllFragment.mInstance.get().notifyShop();
                         FoodViewPagerFragment.mInstance.get().notifyShop();
@@ -134,7 +134,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                 carShopInfo.getShopInfos().get(position).setBuyCount(carShopInfo.getShopInfos().get(position).getBuyCount() + 1);
                 adapter.cleanDates();
                 adapter.addAll(carShopInfo.getShopInfos());
-                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
                 notifyCar();
             }
         });
@@ -153,7 +153,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                         carShopInfo.getShopInfos().remove(position);
                         adapter.cleanDates();
                         adapter.addAll(carShopInfo.getShopInfos());
-                        BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                        BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
                         notifyCar();
                     }
 
@@ -173,14 +173,14 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                     carShopInfo.getShopInfos().remove(position);
                     adapter.cleanDates();
                     adapter.addAll(carShopInfo.getShopInfos());
-                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
                     notifyCar();
                     return;
                 }
                 carShopInfo.getShopInfos().get(position).setBuyCount(carShopInfo.getShopInfos().get(position).getBuyCount() - 1);
                 adapter.cleanDates();
                 adapter.addAll(carShopInfo.getShopInfos());
-                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
                 notifyCar();
             }
         });
@@ -240,7 +240,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
     }
 
     public double reactMoney() {
-        carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+        carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
         double a = 0.0;
         if (carShopInfo == null) {
             return 0.0;
@@ -276,7 +276,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                         adapter.addAll(carShopInfo.getShopInfos());
                     }
                 }, 500);
-                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
                 notifyCar();
             }
 
@@ -289,7 +289,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
     }
 
     public void notifyCar() {
-        CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+        CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
         if (carShopInfo == null || carShopInfo.getShopInfos().size() == 0) {
             badgeView.setBadgeNumber(0);
         } else {
@@ -376,9 +376,9 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
 //                    return;
 //                }
                 if ("跑腿费：¥null".equals(tv_runMoney.getText().toString())) {
-                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
                     carShopInfo.getShopInfos().clear();
-                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
                     ShopViewPagerAllFragment.mInstance.get().notifyShop();
                     ShopViewPagerFragment.mInstance.get().notifyShop();
                     adapter.cleanDates();
@@ -400,7 +400,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                 }
 
 
-                carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
                 if (shouHuoInfo.getData().getAddresses() != null && shouHuoInfo.getData().getAddresses().size() > 0) {
                     if (carShopInfo != null && carShopInfo.getShopInfos().size() > 0) {
                         String reMark = et_beizhu.getText().toString().trim();
@@ -424,6 +424,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                             bundle.putString("adr", tv_location.getText().toString());
                             bundle.putString("phone", tv_phone.getText().toString());
                             bundle.putString("dormId", dormId);
+                            bundle.putString("carType","food");
                             if (!TextUtils.isEmpty(reMark)) {
                                 bundle.putString("beizhu", reMark);
                             }

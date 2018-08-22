@@ -123,9 +123,9 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
             public void onDragStateChanged(int dragState, Badge badge, View targetView) {
                 LogUtils.D("state", "" + dragState);
                 if (dragState == 5) {
-                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
                     carShopInfo.getShopInfos().clear();
-                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
                     try {
                         FoodViewPagerAllFragment.mInstance.get().notifyShop();
                         FoodViewPagerFragment.mInstance.get().notifyShop();
@@ -275,7 +275,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void notifyCar() {
-        final CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+        final CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
         try {
             if (carShopInfo == null || carShopInfo.getShopInfos().size() == 0) {
                 BaseAppApplication.mainHandler.postDelayed(new Runnable() {

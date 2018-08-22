@@ -25,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
     private SharedPreferences sharedLogin;
     private UserInfo.DataBean userInfo;
     private CarShopInfo carShopInfo;
+    private CarShopInfo foodcarShopInfo;
     private NumberRicalInfo numberRicalInfo;
 
     @Override
@@ -36,6 +37,7 @@ public class SplashActivity extends AppCompatActivity {
         tv_version = findViewById(R.id.tv_version);
         userInfo = (UserInfo.DataBean) SharePrefUtils.readObject(SplashActivity.this, "userInfo");
         carShopInfo = (CarShopInfo) SharePrefUtils.readObject(SplashActivity.this, "carShopInfo");
+        foodcarShopInfo = (CarShopInfo) SharePrefUtils.readObject(SplashActivity.this, "foodcarShopInfo");
         numberRicalInfo = (NumberRicalInfo) SharePrefUtils.readObject(SplashActivity.this, "numberRicalInfo");
         new Thread(new Runnable() {
             @Override
@@ -55,6 +57,7 @@ public class SplashActivity extends AppCompatActivity {
                     if (userInfo != null) {
                         BaseAppApplication.getInstance().setLoginUser(userInfo);
                         BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                        BaseAppApplication.getInstance().setFoodcarShopInfo(foodcarShopInfo);
                         BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
                         if (!TextUtils.isEmpty(userInfo.getDowmPoster())) {
                             Bundle bundle = new Bundle();

@@ -254,7 +254,7 @@ public class FoodViewPagerAllFragment extends BaseFragment implements BGARefresh
                                     } else {
                                         adapter.addAll(products);
                                         adapter.setRunMoneyAndStoreId(runMoney, storeId);
-                                        adapter.setLastCarShopInfo(BaseAppApplication.getInstance().getCarShopInfo());
+                                        adapter.setLastCarShopInfo(BaseAppApplication.getInstance().getFoodcarShopInfo());
                                     }
                                     break;
                                 case PULL_DOWN:

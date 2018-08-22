@@ -42,6 +42,7 @@ public class BaseAppApplication extends MultiDexApplication {
     public static UserInfo.DataBean userInfo;
     private static ArrayList<Integer> readList;
     private static CarShopInfo carShopInfo = new CarShopInfo();
+    private static CarShopInfo foodcarShopInfo = new CarShopInfo();
     private static NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
     //判断是否被回收
     public static String clearType;
@@ -72,6 +73,16 @@ public class BaseAppApplication extends MultiDexApplication {
     public void setCarShopInfo(CarShopInfo carShopInfo1) {
         if (carShopInfo1 != null) {
             carShopInfo = carShopInfo1;
+        }
+    }
+
+    public CarShopInfo getFoodcarShopInfo() {
+        return foodcarShopInfo;
+    }
+
+    public void setFoodcarShopInfo(CarShopInfo carShopInfo1) {
+        if (carShopInfo1 != null) {
+            foodcarShopInfo = carShopInfo1;
         }
     }
 
@@ -180,12 +191,12 @@ public class BaseAppApplication extends MultiDexApplication {
         super.onTrimMemory(level);
         LogUtils.D("lowMemory", String.valueOf(level));
         if (level == TRIM_MEMORY_UI_HIDDEN) {
-           mainHandler.post(new Runnable() {
-               @Override
-               public void run() {
-                   Glide.get(context).clearMemory();
-               }
-           });
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Glide.get(context).clearMemory();
+                }
+            });
         }
         Glide.get(this).trimMemory(level);
     }

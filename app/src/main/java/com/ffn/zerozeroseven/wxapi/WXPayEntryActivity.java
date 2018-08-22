@@ -110,17 +110,23 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                         iv_success.setBackgroundResource(R.drawable.success);
 
                         String pay = BaseAppApplication.clearType;
-                        if("carpay".equals(pay)){
+                        if ("carpay".equals(pay)) {
                             CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                             carShopInfo.getShopInfos().clear();
                             BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                             SharePrefUtils.saveObject(WXPayEntryActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
                             PayMoneyActivity.mInstance.get().finish();
-                        }else if ("zhijie".equals(pay)) {
+                        } else if ("food".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
-                        }else if ("numberweikuan".equals(pay)) {
+                            CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                            carShopInfo.getShopInfos().clear();
+                            BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                            SharePrefUtils.saveObject(WXPayEntryActivity.this, "foodcarShopInfo", BaseAppApplication.getInstance().getFoodcarShopInfo());
+                        } else if ("zhijie".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
-                        }else if ("numbercar".equals(pay)) {
+                        } else if ("numberweikuan".equals(pay)) {
+                            PayMoneyActivity.mInstance.get().finish();
+                        } else if ("numbercar".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
                             NumberRicalInfo numberRicalInfo = BaseAppApplication.getInstance().getNumberRicalInfo();
                             for (int i = 0; i < numberRicalInfo.getNumberRicalListInfo().size(); i++) {
@@ -130,11 +136,11 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                             }
                             BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
                             SharePrefUtils.saveObject(WXPayEntryActivity.this, "numberRicalInfo", numberRicalInfo);
-                        }else if ("numberzhijie".equals(pay)) {
+                        } else if ("numberzhijie".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
-                        }else if ("run".equals(pay)) {
+                        } else if ("run".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
-                        }else if("renzheng".equals(pay)){
+                        } else if ("renzheng".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
                             ErrandAuitActivity.mInstance.get().goVp(2);
                             ErrandMineRunFragment.mInstance.get().requestData();

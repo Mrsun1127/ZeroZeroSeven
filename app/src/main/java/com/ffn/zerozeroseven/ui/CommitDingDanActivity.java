@@ -425,6 +425,7 @@ public class CommitDingDanActivity extends BaseActivity implements View.OnClickL
                             bundle.putString("adr", tv_location.getText().toString());
                             bundle.putString("phone", tv_phone.getText().toString());
                             bundle.putString("dormId", dormId);
+                            bundle.putString("carType","shop");
                             if (!TextUtils.isEmpty(reMark)) {
                                 bundle.putString("beizhu", reMark);
                             }
