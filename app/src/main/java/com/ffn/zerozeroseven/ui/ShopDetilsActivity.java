@@ -77,6 +77,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
     TextView tv_phone;
     private String backType;
     private boolean isAdd = false;
+    private String jumpType;
 
     @Override
     protected int setLayout() {
@@ -85,9 +86,12 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void doMain() {
+        jumpType = getIntent().getStringExtra("type");
         getShangChangInfo();
     }
+
     Double rmb;
+
     private void getShangChangInfo() {
         final ShangchangInfo shangchangInfo = new ShangchangInfo();
         shangchangInfo.setFunctionName("QuerySchoolStore");
@@ -101,18 +105,18 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
             public void onSuccLoad(String response) {
                 final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
 
-                        if (shangChangShowInfo.getCode() == 0) {
-                            rmb=shangChangShowInfo.getData().getDeliveryPrice();
-                            storeId = shangChangShowInfo.getData().getId() + "";//商家Id
-                            if (shangChangShowInfo.getData().getExtraFee() != null) {
-                                runMoney = shangChangShowInfo.getData().getExtraFee();
-                            } else {
-                                runMoney = 1.0;
-                            }
-                            tv_smallmoney.setText("另需007跑腿费 " + runMoney);
-                        }
+                if (shangChangShowInfo.getCode() == 0) {
+                    rmb = shangChangShowInfo.getData().getDeliveryPrice();
+                    storeId = shangChangShowInfo.getData().getId() + "";//商家Id
+                    if (shangChangShowInfo.getData().getExtraFee() != null) {
+                        runMoney = shangChangShowInfo.getData().getExtraFee();
+                    } else {
+                        runMoney = 1.0;
                     }
-                });
+                    tv_smallmoney.setText("另需007跑腿费 " + runMoney);
+                }
+            }
+        });
 
 
     }
@@ -145,14 +149,14 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         Glide.with(ShopDetilsActivity.this)
                 .load(goodsInfo.getThumbnail())
                 .error(R.drawable.oops)
-                .override(ScreenUtils.getScreenWidth()/3,ScreenUtils.getScreenHeight()/4)
+                .override(ScreenUtils.getScreenWidth() / 3, ScreenUtils.getScreenHeight() / 4)
                 .into(iv_icon);
         tv_kucun.setVisibility(View.INVISIBLE);
         tv_name.setText(goodsInfo.getGoodsName());
-        if(!TextUtils.isEmpty(goodsInfo.getGoodsDesc())){
+        if (!TextUtils.isEmpty(goodsInfo.getGoodsDesc())) {
             tv_desc.setText(goodsInfo.getGoodsDesc());
-        }else{
-            tv_desc.setText(goodsInfo.getGoodsName()+"值得你消费");
+        } else {
+            tv_desc.setText(goodsInfo.getGoodsName() + "值得你消费");
         }
         try {
             tv_money.setText("¥" + goodsInfo.getPrice());
@@ -263,7 +267,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
 //                    return;
 //                }
                 if ((ZeroZeroSevenUtils.reactMoney((goodsInfo.getPrice() * tvCount))) < rmb) {
-                    ToastUtils.showShort("很抱歉，未达到"+rmb+"元配送金额");
+                    ToastUtils.showShort("很抱歉，未达到" + rmb + "元配送金额");
                     return;
                 }
                 carBuy = false;

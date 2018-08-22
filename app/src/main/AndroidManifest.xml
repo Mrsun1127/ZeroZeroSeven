@@ -353,6 +353,9 @@
         <activity android:name=".ui.RunAdrUpdateActivity" />
         <activity android:name=".ui.TakeAwayFoodActivity" />
         <activity android:name=".ui.LeaseActivity" />
+        <activity android:name=".ui.FoodCommitDingDanActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
+
 
         <!-- Required SDK核心功能-->
         <service

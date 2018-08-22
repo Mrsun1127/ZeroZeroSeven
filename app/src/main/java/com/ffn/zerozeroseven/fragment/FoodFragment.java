@@ -27,6 +27,7 @@ import com.ffn.zerozeroseven.bean.ShopTitleInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.GoodTabsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.ui.CommitDingDanActivity;
+import com.ffn.zerozeroseven.ui.FoodCommitDingDanActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
 import com.ffn.zerozeroseven.ui.TakeAwayFoodActivity;
@@ -52,7 +53,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
     private FragmentPagerAdapter fAdapter;                               //定义adapter
     private List<Fragment> list_fragment;                                //定义要装fragment的列表
     private List<String> list_title;                                     //tab名称列表
-    private ShopViewPagerFragment mineFragment;
+    private FoodViewPagerFragment mineFragment;
     private ImageButton ib_shopcar;
     public static WeakReference<FoodFragment> mInstance;
     private QBadgeView badgeView;
@@ -125,8 +126,10 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
                     CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                     carShopInfo.getShopInfos().clear();
                     BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
-                    ShopViewPagerAllFragment.mInstance.get().notifyShop();
-                    ShopViewPagerFragment.mInstance.get().notifyShop();
+                    try {
+                        FoodViewPagerAllFragment.mInstance.get().notifyShop();
+                        FoodViewPagerFragment.mInstance.get().notifyShop();
+                    }catch (Exception e){}
                 }
             }
         });
@@ -181,7 +184,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
                 if (showInfo.getCode() == 0) {
                     list_title = new ArrayList<>();
                     list_fragment = new ArrayList<>();
-                    list_fragment.add(ShopViewPagerAllFragment.newInstance("", ""));
+                    list_fragment.add(FoodViewPagerAllFragment.newInstance("", ""));
                     titleAdapter.cleanDates();
                     ShopTitleInfo.DataBean.GoodsTypesBean goodsTypesBean = new ShopTitleInfo.DataBean.GoodsTypesBean();
                     goodsTypesBean.setName("全部");
@@ -190,7 +193,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
                     int length = showInfo.getData().getGoodsTypes().size();
                     for (int i = 0; i < length; i++) {
                         list_title.add(showInfo.getData().getGoodsTypes().get(i).getName());
-                        mineFragment = ShopViewPagerFragment.newInstance(showInfo.getData().getGoodsTypes().get(i).getName(), String.valueOf(showInfo.getData().getGoodsTypes().get(i).getId()));
+                        mineFragment = FoodViewPagerFragment.newInstance(showInfo.getData().getGoodsTypes().get(i).getName(), String.valueOf(showInfo.getData().getGoodsTypes().get(i).getId()));
                         list_fragment.add(mineFragment);
                     }
                     try {
@@ -230,7 +233,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
                 if (userInfo != null) {
                     Bundle bundle = new Bundle();
                     bundle.putInt("type", 0);//0标记从购物车进来的
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, CommitDingDanActivity.class, bundle);
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, FoodCommitDingDanActivity.class, bundle);
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class, null);
                 }
