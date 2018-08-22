@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.fragment.FoodFragment;
 import com.ffn.zerozeroseven.fragment.ShopFragment;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class TakeAwayFoodActivity extends BaseActivity {
             stringList = new ArrayList<>();
         }
         stringList.add("");
-        fragmentList.add(ShopFragment.newInstance());
+        fragmentList.add(FoodFragment.newInstance());
         ShopViewPagerAdapter viewPagerAdapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, stringList);
         viewpager.setAdapter(viewPagerAdapter);
     }
