@@ -17,6 +17,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.DingDanListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.ui.DingDanBobyActivity;
 import com.ffn.zerozeroseven.ui.ZhiJieCommitDingDanActivity;
+import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
@@ -42,6 +43,7 @@ public class SnacksFragment extends BaseReFreshFragment {
 
     @Override
     protected void readRespones(String response) {
+        LogUtils.D("response", response);
         myDingDanShowInfo = JSON.parseObject(response, MyDingDanShowInfo.class);
     }
 
@@ -124,7 +126,9 @@ public class SnacksFragment extends BaseReFreshFragment {
         }
         carShopInfo.setShopInfos(shopInfos);
         SharePrefUtils.saveObject(bfCxt, "zhijiecarShopInfo", carShopInfo);
-        ZeroZeroSevenUtils.SwitchActivity(bfCxt, ZhiJieCommitDingDanActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("payCate", item.getOrderCate());
+        ZeroZeroSevenUtils.SwitchActivity(bfCxt, ZhiJieCommitDingDanActivity.class, bundle);
     }
 
     private void getShangChangInfo(final int position) {

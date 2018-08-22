@@ -214,11 +214,16 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         callNewDingDanInfo.setFunctionName("PayGoodsOrder");
         CallNewDingDanInfo.ParametersBean parametersBean1 = new CallNewDingDanInfo.ParametersBean();
         parametersBean1.setPayment(str);
-        if("shop".equals(carType)){
+        if ("shop".equals(carType)) {
             parametersBean1.setCate("ZH");
-        }else if("food".equals(carType)){
+        } else if ("food".equals(carType)) {
             parametersBean1.setCate("WM");
-        }else if("zhijie".equals(carType)){
+        } else if ("zhijie".equals(carType)) {
+            if ("WM".equals(getIntent().getStringExtra("payCate"))) {
+                parametersBean1.setCate("WM");
+            } else {
+                parametersBean1.setCate("ZH");
+            }
             parametersBean1.setCate("WM");
         }
         parametersBean1.setTradeType("APP");

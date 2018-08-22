@@ -121,6 +121,16 @@ public class MyDingDanShowInfo implements Serializable {
             private int storeId;
             private int totalCount;
             private int status;
+            private String orderCate;
+
+            public String getOrderCate() {
+                return orderCate;
+            }
+
+            public void setOrderCate(String orderCate) {
+                this.orderCate = orderCate;
+            }
+
             private List<DetailsBean> details;
 
             public String getOrderNo() {
