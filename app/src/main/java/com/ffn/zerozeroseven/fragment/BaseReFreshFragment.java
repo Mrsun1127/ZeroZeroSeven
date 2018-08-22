@@ -83,7 +83,6 @@ public abstract class BaseReFreshFragment extends BaseFragment implements OnRefr
                 .setWindowColor(getResources().getColor(R.color.text_secondary_color))
                 .setAnimationSpeed(2)
                 .setDimAmount(0.5f);
-        requestData();
         doMain();
     }
 
@@ -98,7 +97,7 @@ public abstract class BaseReFreshFragment extends BaseFragment implements OnRefr
 
     @Override
     protected void lazyLoad() {
-
+        requestData();
     }
 
     protected void showLoadDialog(String txt) {
