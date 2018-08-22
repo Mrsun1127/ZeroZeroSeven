@@ -27,6 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+
                     <ImageView
                         android:id="@+id/iv_in_bg"
                         android:layout_width="match_parent"
@@ -126,6 +127,20 @@
                         android:text="@string/loading"
                         android:textColor="@color/black"
                         android:textSize="11sp" />
+
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:id="@+id/rl_back"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:background="@drawable/back" />
+                    </RelativeLayout>
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
 
@@ -136,10 +151,10 @@
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager
-            android:layout_marginTop="8dp"
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </android.support.design.widget.CoordinatorLayout>
 

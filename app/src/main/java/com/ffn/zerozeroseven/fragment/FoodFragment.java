@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -28,6 +29,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.ui.CommitDingDanActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
+import com.ffn.zerozeroseven.ui.TakeAwayFoodActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -60,6 +62,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
     private TextView tv_paotuifei;
     private TextView tv_shop_phone;
     private TextView tv_desc;
+    private RelativeLayout rl_back;
     private ShopTitleAdapter titleAdapter;
 
     public static FoodFragment newInstance() {
@@ -82,15 +85,15 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
                 ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
                 if (shangChangShowInfo.getCode() == 0) {
                     tv_name.setText(shangChangShowInfo.getData().getStoreName());
-                        if (shangChangShowInfo.getData().getOpeningTime().equals(shangChangShowInfo.getData().getClosingTime()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime2()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime())) {
-                            tv_yysj.setText("营业时间：打烊一天");
-                        } else {
-                            tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getOpeningTime() + "--" + shangChangShowInfo.getData().getClosingTime() + "丶" + shangChangShowInfo.getData().getOpeningTime2() + "--" + shangChangShowInfo.getData().getClosingTime2());
-                        }
+                    if (shangChangShowInfo.getData().getOpeningTime().equals(shangChangShowInfo.getData().getClosingTime()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime2()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime())) {
+                        tv_yysj.setText("营业时间：打烊一天");
+                    } else {
+                        tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getOpeningTime() + "--" + shangChangShowInfo.getData().getClosingTime() + "丶" + shangChangShowInfo.getData().getOpeningTime2() + "--" + shangChangShowInfo.getData().getClosingTime2());
+                    }
                     tv_qisongfei.setText("起送：￥" + shangChangShowInfo.getData().getDeliveryPrice());
                     tv_paotuifei.setText("跑腿费：￥" + shangChangShowInfo.getData().getDeliveryPrice());
                     tv_shop_phone.setText("客服电话：" + shangChangShowInfo.getData().getServicePhone());
-                    tv_desc.setText(TextUtils.isEmpty(shangChangShowInfo.getData().getPromotion())?"下单有惊喜":shangChangShowInfo.getData().getPromotion());
+                    tv_desc.setText(TextUtils.isEmpty(shangChangShowInfo.getData().getPromotion()) ? "下单有惊喜" : shangChangShowInfo.getData().getPromotion());
 
                 }
             }
@@ -100,6 +103,8 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView(View view) {
         badgeView = new QBadgeView(bfCxt);
+        rl_back = view.findViewById(R.id.rl_back);
+        rl_back.setVisibility(View.VISIBLE);
         tv_shop_phone = view.findViewById(R.id.tv_shop_phone);
         tv_desc = view.findViewById(R.id.tv_desc);
         tv_paotuifei = view.findViewById(R.id.tv_paotuifei);
@@ -110,6 +115,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
         ib_shopcar = view.findViewById(R.id.ib_shopcar);
         tv_name = view.findViewById(R.id.tv_name);
         ib_shopcar.setOnClickListener(this);
+        rl_back.setOnClickListener(this);
         badgeView.bindTarget(ib_shopcar);
         badgeView.setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
             @Override
@@ -208,7 +214,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void lazyLoad() {
-        LogUtils.D("lazyLoad","lazyLoad");
+        LogUtils.D("lazyLoad", "lazyLoad");
         getshangchangInfo();
         initTabs();
     }
@@ -216,6 +222,9 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.rl_back:
+                BaseAppApplication.getInstance().finishActivity(getActivity());
+                break;
             case R.id.ib_shopcar:
                 userInfo = BaseAppApplication.getInstance().getLoginUser();
                 if (userInfo != null) {
