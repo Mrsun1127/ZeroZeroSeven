@@ -308,6 +308,7 @@ public class ZhiJieCommitDingDanActivity extends BaseActivity implements View.On
                             }
                             bundle.putDouble("allMoney", d);
                             bundle.putString("dormId", dormId);
+                            bundle.putString("carType","zhijie");
                             if (!TextUtils.isEmpty(reMark)) {
                                 bundle.putString("beizhu", reMark);
                             }

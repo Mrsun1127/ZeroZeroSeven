@@ -218,6 +218,8 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
             parametersBean1.setCate("ZH");
         }else if("food".equals(carType)){
             parametersBean1.setCate("WM");
+        }else if("zhijie".equals(carType)){
+            parametersBean1.setCate("WM");
         }
         parametersBean1.setTradeType("APP");
         OrderJsonInfo orderJsonInfo = new OrderJsonInfo();
