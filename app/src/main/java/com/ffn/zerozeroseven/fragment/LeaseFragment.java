@@ -164,6 +164,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
         goodTabsInfo.setFunctionName("ListSchoolGoodsType");
         GoodTabsInfo.ParametersBean parametersBean = new GoodTabsInfo.ParametersBean();
         parametersBean.setSchoolId(schoolIId);
+        parametersBean.setCate("WM");
         goodTabsInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(goodTabsInfo, true, true);
