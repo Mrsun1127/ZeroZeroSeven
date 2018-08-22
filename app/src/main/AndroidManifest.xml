@@ -351,6 +351,8 @@
         <activity android:name=".ui.UserSelectYearActivity" />
         <activity android:name=".ui.RunAdrListActivity" />
         <activity android:name=".ui.RunAdrUpdateActivity" />
+        <activity android:name=".ui.TakeAwayFoodActivity" />
+        <activity android:name=".ui.LeaseActivity" />
 
         <!-- Required SDK核心功能-->
         <service

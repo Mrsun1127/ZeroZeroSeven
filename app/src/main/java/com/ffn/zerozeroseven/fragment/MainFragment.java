@@ -55,6 +55,7 @@ import com.ffn.zerozeroseven.ui.ErrandHomeActivity;
 import com.ffn.zerozeroseven.ui.HomeActivity;
 import com.ffn.zerozeroseven.ui.IntegralDrawActivity;
 import com.ffn.zerozeroseven.ui.JumpShopActivity;
+import com.ffn.zerozeroseven.ui.LeaseActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
 import com.ffn.zerozeroseven.ui.MessAgeActivity;
 import com.ffn.zerozeroseven.ui.MrsunWebActivity;
@@ -62,6 +63,7 @@ import com.ffn.zerozeroseven.ui.MyBitisActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
 import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
+import com.ffn.zerozeroseven.ui.TakeAwayFoodActivity;
 import com.ffn.zerozeroseven.ui.UserSelectSchoolListActivity;
 import com.ffn.zerozeroseven.ui.WebViewActivity;
 import com.ffn.zerozeroseven.utlis.DownLoadManager;
@@ -248,10 +250,10 @@ public class MainFragment extends BaseFragment {
         Glide.with(this).load(R.drawable.main_two).into(iv_two);
         Glide.with(this).load(R.drawable.main_three).into(iv_four);
         Glide.with(this).load(R.drawable.main_four).into(iv_five);
-        Glide.with(this).load(R.drawable.main_four).into(iv_six);
-        Glide.with(this).load(R.drawable.main_four).into(iv_seven);
-        Glide.with(this).load(R.drawable.main_four).into(iv_eight);
-        Glide.with(this).load(R.drawable.main_four).into(iv_nine);
+        Glide.with(this).load(R.drawable.main_number).into(iv_six);
+        Glide.with(this).load(R.drawable.main_waimai).into(iv_seven);
+        Glide.with(this).load(R.drawable.main_runner).into(iv_eight);
+        Glide.with(this).load(R.drawable.main_lease).into(iv_nine);
         Glide.with(this).load(R.drawable.main_notify).into(iv_in);
         Glide.with(this).load(R.drawable.main_laba).into(iv_left);
         Glide.with(this).load(R.drawable.xinpin).into(iv_xinpin);
@@ -677,12 +679,12 @@ public class MainFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
 
-            if (userInfo != null) {
-                if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
-                    scrollTextView.stopAutoScroll();
-                }
-                banner.pause();//暂停轮播
+        if (userInfo != null) {
+            if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
+                scrollTextView.stopAutoScroll();
             }
+            banner.pause();//暂停轮播
+        }
 
     }
 
@@ -1186,9 +1188,20 @@ public class MainFragment extends BaseFragment {
     @Bind(R.id.tv_up_content)
     TextView tv_up_content;
 
-    @OnClick({R.id.rl_errand, R.id.rl_jump_shop, R.id.bt_update, R.id.tv_up_top, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
+    @OnClick({R.id.rl_lease, R.id.rl_errand, R.id.rl_jump_shop, R.id.bt_update, R.id.tv_up_top, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.rl_lease:
+                if (userInfo != null) {
+                    if ("943478288".equals(schoolIId)) {
+                        ZeroZeroSevenUtils.showCustonPop(bfCxt, "请先选择学校", recyclerView);
+                    } else {
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, LeaseActivity.class);
+                    }
+                } else {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
+                }
+                break;
             case R.id.rl_errand:
                 if (userInfo != null) {
                     if ("943478288".equals(schoolIId)) {
@@ -1205,7 +1218,7 @@ public class MainFragment extends BaseFragment {
                     if ("943478288".equals(schoolIId)) {
                         ZeroZeroSevenUtils.showCustonPop(bfCxt, "请先选择学校", recyclerView);
                     } else {
-                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, JumpShopActivity.class);
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, TakeAwayFoodActivity.class);
                     }
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
