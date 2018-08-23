@@ -199,6 +199,7 @@ public class DingDanBobyActivity extends BaseActivity implements ActionSheet.Act
 
                             tv_staus.setText(info.getData().getOrder().getStatus() + "");
                             tv_allmoney.setText("共" + info.getData().getOrder().getTotalCount() + "个商品，合计¥：" + (info.getData().getOrder().getTotalPrice() + info.getData().getOrder().getExtraPrice()) + "（含跑腿费）¥" + info.getData().getOrder().getExtraPrice());
+                            adapter.cleanDates();
                             adapter.addAll(info.getData().getOrder().getDetails());
                             if (!TextUtils.isEmpty(info.getData().getOrder().getRemark())) {
                                 tv_remark.setVisibility(View.VISIBLE);
