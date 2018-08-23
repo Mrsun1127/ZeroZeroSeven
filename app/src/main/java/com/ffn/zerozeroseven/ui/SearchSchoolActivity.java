@@ -38,7 +38,6 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import me.wangyuwei.loadingview.LoadingView;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -57,7 +56,6 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
     private CityAdapter cityAdapter;
     private RelativeLayout et_top;
     private SchoolListAdapter schoolListAdapter;
-    private LoadingView loadingView;
 //    public LocationClient mLocationClient = null;
     //    private MyLocationListener myListener = new MyLocationListener();
 //    private double latitude;
@@ -123,7 +121,6 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void initView() {
-        loadingView = findViewById(R.id.loadingView);
         et_top = findViewById(R.id.et_top);
         et_top.setOnClickListener(this);
         findViewById(R.id.rl_back).setOnClickListener(this);
@@ -232,7 +229,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void showSchoolList(String id) {
-        loadingView.setVisibility(View.VISIBLE);
+        showLoadProgress();
         IdSearchInfo idSearchInfo = new IdSearchInfo();
         idSearchInfo.setFunctionName("ListSchool");
         IdSearchInfo.ParametersBean parametersBean = new IdSearchInfo.ParametersBean();
@@ -245,7 +242,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        loadingView.setVisibility(View.GONE);
+                        disLoadProgress();
                         rc_school.setVisibility(View.GONE);
                         rl_nodata.setVisibility(View.VISIBLE);
                     }
@@ -258,7 +255,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        loadingView.setVisibility(View.GONE);
+                        disLoadProgress();
                         if (schoolListInfo.getCode() == 0 && schoolListInfo.getData() != null) {
                             schools = schoolListInfo.getData().getSchools();
                             if (schools.size() > 0) {

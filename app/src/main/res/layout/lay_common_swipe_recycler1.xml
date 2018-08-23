@@ -41,17 +41,7 @@
             android:layout_height="match_parent"
             android:visibility="gone" />
 
-        <me.wangyuwei.loadingview.LoadingView
-            android:id="@+id/loadingView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            lv:lv_duration="8"
-            lv:lv_end_color="#fff"
-            lv:lv_external_radius="30dp"
-            lv:lv_internal_radius="6dp"
-            lv:lv_start_color="@color/tab_color" />
+
 
         <cn.bingoogolapple.refreshlayout.util.BGARefreshLayout
             android:id="@+id/common_refreshLayout"
@@ -63,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+                android:scrollbars="vertical"/>
         </cn.bingoogolapple.refreshlayout.util.BGARefreshLayout>
 
 

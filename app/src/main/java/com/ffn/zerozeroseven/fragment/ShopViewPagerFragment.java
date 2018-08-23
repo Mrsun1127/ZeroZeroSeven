@@ -39,7 +39,6 @@ import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.util.BGARefreshLayout;
-import me.wangyuwei.loadingview.LoadingView;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;

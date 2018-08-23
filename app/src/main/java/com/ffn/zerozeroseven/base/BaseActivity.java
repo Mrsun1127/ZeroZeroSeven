@@ -31,10 +31,11 @@ public abstract class BaseActivity extends SwipeBackActivity {
     public String schoolIId;
     public UserInfo.DataBean userInfo;
     private KProgressHUD hud;
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+        savedInstanceState.putSerializable("userInfo", BaseAppApplication.getInstance().getLoginUser());
         savedInstanceState.putSerializable("carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
     }
 
@@ -42,9 +43,10 @@ public abstract class BaseActivity extends SwipeBackActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         LogUtils.D("logString", "onRestoreInstanceState");
-        BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo"));
+        BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
         BaseAppApplication.getInstance().setCarShopInfo((CarShopInfo) savedInstanceState.getSerializable("carShopInfo"));
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +81,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
     }
 
 
-
     public void bindData() {
 
     }
@@ -107,8 +108,18 @@ public abstract class BaseActivity extends SwipeBackActivity {
         BaseAppApplication.mainHandler.post(new Runnable() {
             @Override
             public void run() {
-                hud.setDetailsLabel("正在加载中")
-                        .show();
+                if (hud != null) {
+                    hud.setDetailsLabel("正在加载中")
+                            .show();
+                } else {
+                    hud = KProgressHUD.create(BaseActivity.this)
+                            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                            .setCancellable(true)
+                            .setWindowColor(getResources().getColor(R.color.text_secondary_color))
+                            .setAnimationSpeed(2)
+                            .setDimAmount(0.5f)
+                            .show();
+                }
             }
         });
     }
