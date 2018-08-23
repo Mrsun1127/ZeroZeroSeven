@@ -34,6 +34,7 @@ import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.NXHooldeView;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -124,7 +125,7 @@ public class HomeActivity extends AppCompatActivity {
         initRadio();
         initFragments();
         showFragment(0);
-        openAliveService();
+//        openAliveService();
         txst();
     }
 
@@ -284,6 +285,8 @@ public class HomeActivity extends AppCompatActivity {
         BaseAppApplication.getInstance().finishActivity(this);
         System.gc();
         System.runFinalization();
+        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(this);
+        refWatcher.watch(this);
     }
 
     public void openAliveService() {

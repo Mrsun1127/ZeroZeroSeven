@@ -32,6 +32,7 @@ import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.UserInfoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.util.Map;
 
@@ -368,6 +369,8 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         super.onDestroy();
         timer.onFinish();
         timer = null;
+        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(this);
+        refWatcher.watch(this);
     }
 
     public void bindJiGuang(int userId) {

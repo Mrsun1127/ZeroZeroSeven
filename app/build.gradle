@@ -144,7 +144,8 @@ dependencies {
     //    compile 'com.stone.vega.library:VegaLayoutManager:1.0.6'//RecycleView的设置
 
     //    compile 'com.youth.banner:banner:1.4.10'  //最新版本
-
+    debugApi 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+    releaseApi 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
     //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.3'
 
     //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.3'

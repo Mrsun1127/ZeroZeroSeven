@@ -23,6 +23,8 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.umeng.commonsdk.UMConfigure;
 
 import java.util.ArrayList;
@@ -106,7 +108,11 @@ public class BaseAppApplication extends MultiDexApplication {
     public void setReadList(ArrayList<Integer> readList1) {
         readList = readList1;
     }
-
+    private RefWatcher refWatcher;
+    public static RefWatcher getRefWatcher(Context context) {
+        BaseAppApplication application = (BaseAppApplication) context.getApplicationContext();
+        return application.refWatcher;
+    }
     @Override
     public void onCreate() {
         super.onCreate();
@@ -126,6 +132,7 @@ public class BaseAppApplication extends MultiDexApplication {
 //                });
 //            }
 //        });
+        refWatcher=LeakCanary.install(this);
         //发布版本的时候把下面代码打开
 //        LogUtils.isDebug=false
         mainHandler = new Handler();

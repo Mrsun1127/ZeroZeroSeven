@@ -24,7 +24,7 @@ public class ItemNumberDingDanDetilsAdapter extends BaseRecyclerAdapter<NumberDe
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        return new ItemNumberDingDanDetilsAdapter.MViewHolder(mInflater.inflate(R.layout.item_numberdingdanitem, null));
+        return new ItemNumberDingDanDetilsAdapter.MViewHolder(mInflater.inflate(R.layout.item_numberdingdanitem, parent,false));
     }
 
     @Override
