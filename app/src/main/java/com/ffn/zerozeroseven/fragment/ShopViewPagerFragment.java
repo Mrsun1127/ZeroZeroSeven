@@ -58,7 +58,6 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
     String title;
     String shopType;
     private GoodsContentShowInfo contentShowInfo;
-    private LoadingView loadingView;
     private Double runMoney;
     private String storeId;
     private RelativeLayout rl_no_select;
@@ -92,7 +91,6 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
     protected void initView(View view) {
         mInstance = new WeakReference<>(this);
         rl_no_select = view.findViewById(R.id.rl_no_select);
-        loadingView = view.findViewById(R.id.loadingView);
         commonStateLayout = view.findViewById(R.id.common_stateLayout);
         commonRefreshLayout = view.findViewById(R.id.common_refreshLayout);
         commonRecyclerView = view.findViewById(R.id.common_recyclerView);
@@ -247,15 +245,15 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
     private void disLoadState() {
         switch (rgRefreshStatus) {
             case IDLE:
-                loadingView.setVisibility(View.GONE);
+                disLoadProgress();
                 break;
             case REFRESHING:
                 commonRefreshLayout.endRefreshing();
-                loadingView.setVisibility(View.GONE);
+                disLoadProgress();
                 break;
             case PULL_DOWN:
                 commonRefreshLayout.endLoadingMore();
-                loadingView.setVisibility(View.GONE);
+                disLoadProgress();
                 break;
         }
     }
@@ -268,7 +266,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
                 pageNo = pageNo + 1;
                 break;
             case IDLE:
-                loadingView.setVisibility(View.VISIBLE);
+                showLoadProgress();
 
             case REFRESHING:
                 pageNo = 0;

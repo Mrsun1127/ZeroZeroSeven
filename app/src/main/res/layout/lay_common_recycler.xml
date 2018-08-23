@@ -37,17 +37,6 @@
             android:id="@+id/common_stateLayout"
             android:visibility="gone"
             />
-        <me.wangyuwei.loadingview.LoadingView
-            android:visibility="gone"
-            android:id="@+id/loadingView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            lv:lv_duration="8"
-            lv:lv_end_color="#fff"
-            lv:lv_external_radius="30dp"
-            lv:lv_internal_radius="6dp"
-            lv:lv_start_color="@color/tab_color" />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
