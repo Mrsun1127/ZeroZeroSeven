@@ -62,8 +62,6 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
 //    private double longitude;
 //    private PoiSearch mPoiSearch;
 //    private WaitingDialog waitingDialog1;
-    TextView tv_name;
-    TextView tv_relocate;
     private List<SchoolListInfo.DataBean.SchoolsBean> schools;
     public static WeakReference<SearchSchoolActivity> inStance;
     private Spinner spCity;
@@ -112,10 +110,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
             case R.id.et_top:
                 ZeroZeroSevenUtils.SwitchActivity(SearchSchoolActivity.this, SeachSchoolListActivity.class);
                 break;
-            case R.id.tv_relocate:
-                LogUtils.D("SearchSchoolActivity", "我走了点击方法");
-//                doGoLocation();
-                break;
+
         }
     }
 
@@ -126,9 +121,6 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
         findViewById(R.id.rl_back).setOnClickListener(this);
         spCity = findViewById(R.id.sp_city);
         tv_select_shen = findViewById(R.id.tv_select_shen);
-        tv_name = findViewById(R.id.tv_name);
-        tv_relocate = findViewById(R.id.tv_relocate);
-        tv_relocate.setOnClickListener(this);
         rc_city = findViewById(R.id.rc_city);
         rl_nodata = findViewById(R.id.rl_nodata);
         rc_city.setLayoutManager(new LinearLayoutManager(SearchSchoolActivity.this));
@@ -158,7 +150,6 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                     userInfo.setSchoolName(schoolListAdapter.getItem(position).getName());
                     userInfo.setSchoolId(schoolListAdapter.getItem(position).getId() + "");
                     BaseAppApplication.getInstance().setLoginUser(userInfo);
-                    tv_name.setText(schoolListAdapter.getItem(position).getName());
                     SharePrefUtils.saveObject(SearchSchoolActivity.this, "userInfo", userInfo);
                     SharePrefUtils.setInt(SearchSchoolActivity.this, "isLocation", 1);
                     SharePrefUtils.saveObject(SearchSchoolActivity.this, "carShopInfo", null);

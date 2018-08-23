@@ -57,46 +57,7 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="41dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/white">
 
-        <TextView
-            android:id="@+id/tv_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="22dp"
-            android:text="当前定位学校:"
-            android:textSize="13sp" />
-
-        <TextView
-            android:ellipsize="start"
-            android:id="@+id/tv_name"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/tv_left"
-            android:text="正在定位中..."
-            android:textColor="@color/text_show_color"
-            android:textSize="10sp" />
-
-        <TextView
-            android:gravity="center"
-            android:id="@+id/tv_relocate"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="30dp"
-            android:drawableLeft="@drawable/relocate_icon"
-            android:drawablePadding="5dp"
-            android:text="重新定位"
-            android:textColor="@color/tab_under_line" />
-    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -141,7 +102,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/iv_left1"
-            android:text="其他学校"
+            android:text="选择学校"
             android:textColor="@color/tab_under_line"
             android:textSize="18sp" />
 
@@ -152,7 +113,7 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/sp_city"
             android:gravity="center"
-            android:text="北京市"
+            android:text="湖南省"
             android:textColor="@color/text_show_color"
             android:textSize="18sp" />
 
