@@ -53,8 +53,7 @@ public class NumberRicalFragment extends BaseReFreshFragment {
                     gotoPayWeiKuan(position);
                 }else if (adapter.getItem(position).getOrderStatus() == 2) {
                     deleteDingDan(position);
-                }
-                else if (adapter.getItem(position).getOrderStatus() == 3) {
+                }else if (adapter.getItem(position).getOrderStatus() == 3) {
                     buyAgain(position);
                 }else if (adapter.getItem(position).getOrderStatus() == 4) {
                     deleteDingDan(position);

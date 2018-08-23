@@ -25,7 +25,7 @@ public class ItemNumberDingDanAdapter extends BaseRecyclerAdapter<NumberDingDanI
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        return new ItemNumberDingDanAdapter.MViewHolder(mInflater.inflate(R.layout.item_numberdingdanitem, null));
+        return new ItemNumberDingDanAdapter.MViewHolder(mInflater.inflate(R.layout.item_numberdingdanitem, parent, false));
     }
 
     @Override

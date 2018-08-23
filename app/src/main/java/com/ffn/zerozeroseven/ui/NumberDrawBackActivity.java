@@ -71,7 +71,7 @@ public class NumberDrawBackActivity extends BaseActivity {
         rc_product.setAdapter(itemNumberDingDanAdapter);
     }
 
-    String showReason = "";
+    StringBuilder showReason = new StringBuilder();
 
     @OnClick({R.id.bt_sub, R.id.rl_drawback_reason, R.id.tv_close, R.id.bt_sure})
     void setOnClicks(View v) {
@@ -95,9 +95,10 @@ public class NumberDrawBackActivity extends BaseActivity {
                 break;
             case R.id.bt_sure:
                 rl_pop.setVisibility(View.GONE);
+                showReason.delete(0,showReason.length());
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).isCheck()) {
-                        showReason = showReason + list.get(i).getName() + " ";
+                        showReason = showReason.append(list.get(i).getName()).append(" ");
                     }
                 }
                 if (!TextUtils.isEmpty(showReason)) {
@@ -117,7 +118,7 @@ public class NumberDrawBackActivity extends BaseActivity {
         tuiKuanInfo.setFunctionName("AddDigitalGoodsRefundApply");
         TuiKuanInfo.ParametersBean parametersBean = new TuiKuanInfo.ParametersBean();
         parametersBean.setOrderId(String.valueOf(numberDingDanInfo.getId()));
-        parametersBean.setReason(showReason);
+        parametersBean.setReason(showReason.toString());
         parametersBean.setRemark(et_remark.getText().toString().trim());
         tuiKuanInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(NumberDrawBackActivity.this);
@@ -160,11 +161,11 @@ public class NumberDrawBackActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, long itemId) {
                 curPosition = position;
-                showReason = "";
+                showReason.delete(0,showReason.length());
                 if (list.get(position).isCheck()) {
                     list.get(position).setCheck(false);
                     if (!TextUtils.isEmpty(showReason)) {
-                        showReason.replaceAll(list.get(position).getName(), "");
+                        showReason.toString().replaceAll(list.get(position).getName(), "");
                     }
                 } else {
                     list.get(position).setCheck(true);
