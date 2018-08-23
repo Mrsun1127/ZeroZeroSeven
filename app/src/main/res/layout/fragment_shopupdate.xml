@@ -31,8 +31,7 @@
                     <ImageView
                         android:id="@+id/iv_in_bg"
                         android:layout_width="match_parent"
-                        android:layout_height="126dp"
-                        android:background="@drawable/banner" />
+                        android:layout_height="126dp"/>
 
                     <RelativeLayout
                         android:id="@+id/rl_search"
