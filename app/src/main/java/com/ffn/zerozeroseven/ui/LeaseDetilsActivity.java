@@ -222,14 +222,6 @@ public class LeaseDetilsActivity extends BaseActivity implements View.OnClickLis
                 badgeView.setBadgeNumber(tvCount);
                 break;
             case R.id.bt_pay:
-//                if (!ZeroZeroSevenUtils.Date2date()) {
-//                    ZeroZeroSevenUtils.showCustonPop(ShopDetilsActivity.this, "亲，商铺现在打烊，请于早上9.30之后下单", tv_addshopcar);
-//                    return;
-//                }
-                if ((ZeroZeroSevenUtils.reactMoney((goodsInfo.getGoodsPrice() * tvCount))) < rmb) {
-                    ToastUtils.showShort("很抱歉，未达到" + rmb + "元配送金额");
-                    return;
-                }
                 carBuy = false;
                 buySinggerShop();
                 break;
