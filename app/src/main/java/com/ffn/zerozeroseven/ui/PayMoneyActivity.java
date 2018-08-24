@@ -13,10 +13,12 @@ import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.CommitDingDanInfo;
 import com.ffn.zerozeroseven.bean.NumberAliPayInfo;
 import com.ffn.zerozeroseven.bean.NumberPayInfo;
+import com.ffn.zerozeroseven.bean.OrderLeaseJsonInfo;
 import com.ffn.zerozeroseven.bean.WeChatInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CallNewDingDanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.NumberWeiKuanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.OrderJsonInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RleaseXiaDanInfo;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
@@ -173,8 +175,73 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-    private void leasePay(String str) {
+    private void leasePay(final String str) {
+        RleaseXiaDanInfo rleaseXiaDanInfo = new RleaseXiaDanInfo();
+        rleaseXiaDanInfo.setFunctionName("AddLeaseGoodsOrder");
+        RleaseXiaDanInfo.ParametersBean parametersBean = new RleaseXiaDanInfo.ParametersBean();
+        parametersBean.setPayment(str);
+        parametersBean.setUserId(userId);
+        OrderLeaseJsonInfo orderJsonInfo = new OrderLeaseJsonInfo();
+        orderJsonInfo.setReceivingAddress(getIntent().getStringExtra("adr"));
+        orderJsonInfo.setDeliveryName(getIntent().getStringExtra("name"));
+        orderJsonInfo.setReceivingPhone(getIntent().getStringExtra("phone"));
+        orderJsonInfo.setSchoolId(schoolIId);
+        if (!TextUtils.isEmpty(reMark)) {
+            orderJsonInfo.setPostscript(reMark);
+        }
+        if (TextUtils.isEmpty(userId)) {
+            ToastUtils.showShort("请重新登陆");
+            return;
+        }
+        String orderJson = JSON.toJSONString(orderJsonInfo);
+        parametersBean.setOrderInfoJson(orderJson);
+        try {
+            JSONArray json = new JSONArray();
+            for (int i = 0; i < carShopInfo.getShopInfos().size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("goodsCount", carShopInfo.getShopInfos().get(i).getBuyCount());
+                jsonObject.put("goodsId", carShopInfo.getShopInfos().get(i).getGoodsId());
+                json.put(jsonObject);
+            }
+            String s = json.toString();
+            LogUtils.D("PayMoneyActivity", s);
+            parametersBean.setOrderGoodsJson(s);
 
+        } catch (Exception e) {
+
+        }
+        rleaseXiaDanInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(PayMoneyActivity.this);
+        okGoUtils.httpPostJSON(rleaseXiaDanInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                BaseAppApplication.clearType = getIntent().getStringExtra("carType");
+                if (str.equals("WechatPay")) {
+                    NumberPayInfo numberPayInfo = JSON.parseObject(response, NumberPayInfo.class);
+                    if (numberPayInfo.getCode() == 0) {
+                        PayReq req = new PayReq();
+                        req.appId = numberPayInfo.getData().getAppid();
+                        req.partnerId = numberPayInfo.getData().getPartnerid();
+                        req.prepayId = numberPayInfo.getData().getPrepayid();
+                        req.nonceStr = numberPayInfo.getData().getNoncestr();
+                        req.timeStamp = numberPayInfo.getData().getTimestamp();
+                        req.packageValue = "Sign=WXPay";
+                        req.sign = numberPayInfo.getData().getSign();
+                        api.sendReq(req);
+                    } else {
+                        ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, numberPayInfo.getMessage(), ll_all);
+                    }
+                } else {
+                    NumberAliPayInfo aliPayInfo = JSON.parseObject(response, NumberAliPayInfo.class);
+                    if (aliPayInfo.getCode() == 0) {
+                        mZFbutils.pay(aliPayInfo.getData().getBody(), "电脑租赁");
+                    } else {
+                        ZeroZeroSevenUtils.showCustonPop(PayMoneyActivity.this, aliPayInfo.getMessage(), ll_all);
+                    }
+                }
+            }
+        });
     }
 
     private void NumberWeiKuanPay(final String str) {

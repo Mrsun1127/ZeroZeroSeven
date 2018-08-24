@@ -144,6 +144,14 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                             PayMoneyNewActivity.mInstance.get().finish();
                             ErrandAuitActivity.mInstance.get().goVp(2);
                             ErrandMineRunFragment.mInstance.get().requestData();
+                        } else if ("leasezhijie".equals(pay)) {
+                            PayMoneyActivity.mInstance.get().finish();
+                        } else if ("lease".equals(pay)) {
+                            PayMoneyActivity.mInstance.get().finish();
+                            CarShopInfo carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
+                            carShopInfo.getShopInfos().clear();
+                            BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
+                            SharePrefUtils.saveObject(WXPayEntryActivity.this, "leasecarShopInfo", BaseAppApplication.getInstance().getLeasecarShopInfo());
                         }
 
                     } else {

@@ -69,6 +69,14 @@ public class ZFBPayUtil {
                             carShopInfo.getShopInfos().clear();
                             BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
                             SharePrefUtils.saveObject(mContext, "foodcarShopInfo", BaseAppApplication.getInstance().getFoodcarShopInfo());
+                        }else if ("leasezhijie".equals(pay)) {
+                            PayMoneyActivity.mInstance.get().finish();
+                        }else if ("lease".equals(pay)) {
+                            PayMoneyActivity.mInstance.get().finish();
+                            CarShopInfo carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
+                            carShopInfo.getShopInfos().clear();
+                            BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
+                            SharePrefUtils.saveObject(mContext, "leasecarShopInfo", BaseAppApplication.getInstance().getLeasecarShopInfo());
                         } else if ("numbercar".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
                             NumberRicalInfo numberRicalInfo = BaseAppApplication.getInstance().getNumberRicalInfo();
