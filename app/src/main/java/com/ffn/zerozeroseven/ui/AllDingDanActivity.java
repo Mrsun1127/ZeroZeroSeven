@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.fragment.LeaseDingDanFragment;
 import com.ffn.zerozeroseven.fragment.NumberRicalFragment;
 import com.ffn.zerozeroseven.fragment.SnacksFragment;
 import com.ffn.zerozeroseven.view.TopView;
@@ -51,10 +52,12 @@ public class AllDingDanActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        titleList.add("零食日用");
+        titleList.add("零食外卖");
         titleList.add("电子数码");
+        titleList.add("电脑租赁");
         fragmentList.add(new SnacksFragment());
         fragmentList.add(new NumberRicalFragment());
+        fragmentList.add(new LeaseDingDanFragment());
         viewPager.setOffscreenPageLimit(titleList.size());
         ShopViewPagerAdapter adapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, titleList);
         viewPager.setAdapter(adapter);
