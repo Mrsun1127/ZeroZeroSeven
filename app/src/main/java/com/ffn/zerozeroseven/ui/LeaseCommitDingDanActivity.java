@@ -23,6 +23,8 @@ import com.ffn.zerozeroseven.bean.ShouHuoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AllAdrInfo;
 import com.ffn.zerozeroseven.fragment.FoodViewPagerAllFragment;
 import com.ffn.zerozeroseven.fragment.FoodViewPagerFragment;
+import com.ffn.zerozeroseven.fragment.LeaseViewPagerAllFragment;
+import com.ffn.zerozeroseven.fragment.LeaseViewPagerFragment;
 import com.ffn.zerozeroseven.fragment.ShopViewPagerAllFragment;
 import com.ffn.zerozeroseven.fragment.ShopViewPagerFragment;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
@@ -40,7 +42,7 @@ import q.rorbin.badgeview.QBadgeView;
  * Created by GT on 2017/11/27.
  */
 
-public class FoodCommitDingDanActivity extends BaseActivity implements View.OnClickListener {
+public class LeaseCommitDingDanActivity extends BaseActivity implements View.OnClickListener {
 
     private RelativeLayout rl_selectadr;
     private RelativeLayout rl_addadr;
@@ -88,11 +90,11 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void initView() {
-        badgeView = new QBadgeView(FoodCommitDingDanActivity.this);
+        badgeView = new QBadgeView(LeaseCommitDingDanActivity.this);
         badgeView.setBadgePadding(10, true);
         badgeView.setGravityOffset(-5, true);
         et_beizhu = findViewById(R.id.et_beizhu);
-        carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+        carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
         rl_selectadr = findViewById(R.id.rl_selectadr);
         rl_addadr = findViewById(R.id.rl_addadr);
         rl_selectadr.setOnClickListener(this);
@@ -111,21 +113,21 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
             @Override
             public void onDragStateChanged(int dragState, Badge badge, View targetView) {
                 if (dragState == 5) {
-                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
                     carShopInfo.getShopInfos().clear();
-                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                    BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
                     try {
-                        FoodViewPagerAllFragment.mInstance.get().notifyShop();
-                        FoodViewPagerFragment.mInstance.get().notifyShop();
+                        LeaseViewPagerAllFragment.mInstance.get().notifyShop();
+                        LeaseViewPagerFragment.mInstance.get().notifyShop();
                     }catch (Exception e){}
                     adapter.cleanDates();
                     notifyCar();
                 }
             }
         });
-        rc_shop.setLayoutManager(new LinearLayoutManager(FoodCommitDingDanActivity.this));
+        rc_shop.setLayoutManager(new LinearLayoutManager(LeaseCommitDingDanActivity.this));
         rc_shop.addItemDecoration(new SpaceItemDecoration(13));
-        adapter = new CarShopGoodsAdapter(FoodCommitDingDanActivity.this);
+        adapter = new CarShopGoodsAdapter(LeaseCommitDingDanActivity.this);
         rc_shop.setAdapter(adapter);
         adapter.setOnItemAddViewClick(new CarShopGoodsAdapter.OnItemAddClick() {
             @Override
@@ -133,7 +135,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                 carShopInfo.getShopInfos().get(position).setBuyCount(carShopInfo.getShopInfos().get(position).getBuyCount() + 1);
                 adapter.cleanDates();
                 adapter.addAll(carShopInfo.getShopInfos());
-                BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
                 notifyCar();
             }
         });
@@ -142,7 +144,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
         adapter.setOnItemImgViewClick(new CarShopGoodsAdapter.OnItemImgClick() {
             @Override
             public void onClick(View view, final int position) {
-                final ConfirmDialog confirmDialog = new ConfirmDialog(FoodCommitDingDanActivity.this);
+                final ConfirmDialog confirmDialog = new ConfirmDialog(LeaseCommitDingDanActivity.this);
                 confirmDialog.setTitles("提示");
                 confirmDialog.setMessages("确定删除此商品？");
                 confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
@@ -152,7 +154,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                         carShopInfo.getShopInfos().remove(position);
                         adapter.cleanDates();
                         adapter.addAll(carShopInfo.getShopInfos());
-                        BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                        BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
                         notifyCar();
                     }
 
@@ -172,14 +174,14 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                     carShopInfo.getShopInfos().remove(position);
                     adapter.cleanDates();
                     adapter.addAll(carShopInfo.getShopInfos());
-                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                    BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
                     notifyCar();
                     return;
                 }
                 carShopInfo.getShopInfos().get(position).setBuyCount(carShopInfo.getShopInfos().get(position).getBuyCount() - 1);
                 adapter.cleanDates();
                 adapter.addAll(carShopInfo.getShopInfos());
-                BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
                 notifyCar();
             }
         });
@@ -239,7 +241,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
     }
 
     public double reactMoney() {
-        carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+        carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
         double a = 0.0;
         if (carShopInfo == null) {
             return 0.0;
@@ -259,7 +261,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
 
 
     private void deleteDingDan(final int adapterPosition) {
-        final ConfirmDialog confirmDialog = new ConfirmDialog(FoodCommitDingDanActivity.this);
+        final ConfirmDialog confirmDialog = new ConfirmDialog(LeaseCommitDingDanActivity.this);
         confirmDialog.setTitles("提示");
         confirmDialog.setMessages("确定删除订单？");
         confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
@@ -288,7 +290,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
     }
 
     public void notifyCar() {
-        CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+        CarShopInfo carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
         if (carShopInfo == null || carShopInfo.getShopInfos().size() == 0) {
             badgeView.setBadgeNumber(0);
         } else {
@@ -300,7 +302,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
     }
 
     private void initAdr() {
-        okGoUtils = new OkGoUtils(FoodCommitDingDanActivity.this);
+        okGoUtils = new OkGoUtils(LeaseCommitDingDanActivity.this);
         AllAdrInfo allAdrInfo = new AllAdrInfo();
         allAdrInfo.setFunctionName("ListUserAddress");
         okGoUtils.httpPostJSON(allAdrInfo, true, true);
@@ -328,7 +330,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
     }
 
     private void initAdrone(final int position) {
-        OkGoUtils okGoUtils = new OkGoUtils(FoodCommitDingDanActivity.this);
+        OkGoUtils okGoUtils = new OkGoUtils(LeaseCommitDingDanActivity.this);
         AllAdrInfo allAdrInfo = new AllAdrInfo();
         allAdrInfo.setFunctionName("ListUserAddress");
         okGoUtils.httpPostJSON(allAdrInfo, true, true);
@@ -364,10 +366,10 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_selectadr:
-                ZeroZeroSevenUtils.SwitchActivity(FoodCommitDingDanActivity.this, SelectAdrMannGerActivity.class, null, 2);
+                ZeroZeroSevenUtils.SwitchActivity(LeaseCommitDingDanActivity.this, SelectAdrMannGerActivity.class, null, 2);
                 break;
             case R.id.rl_addadr:
-                ZeroZeroSevenUtils.SwitchActivity(FoodCommitDingDanActivity.this, SelectAdrMannGerActivity.class, null, 2);
+                ZeroZeroSevenUtils.SwitchActivity(LeaseCommitDingDanActivity.this, SelectAdrMannGerActivity.class, null, 2);
                 break;
             case R.id.bt_pay:
 //                if (!ZeroZeroSevenUtils.Date2date()) {
@@ -377,9 +379,9 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                 if ("跑腿费：¥null".equals(tv_runMoney.getText().toString())) {
                     CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
                     carShopInfo.getShopInfos().clear();
-                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
-                    ShopViewPagerAllFragment.mInstance.get().notifyShop();
-                    ShopViewPagerFragment.mInstance.get().notifyShop();
+                    BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
+                    LeaseViewPagerAllFragment.mInstance.get().notifyShop();
+                    LeaseViewPagerFragment.mInstance.get().notifyShop();
                     adapter.cleanDates();
                     notifyCar();
                     ToastUtils.showShort("当前网络较差，建议连接wifi或退出重新选择商品下单");
@@ -399,7 +401,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                 }
 
 
-                carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
                 if (shouHuoInfo.getData().getAddresses() != null && shouHuoInfo.getData().getAddresses().size() > 0) {
                     if (carShopInfo != null && carShopInfo.getShopInfos().size() > 0) {
                         String reMark = et_beizhu.getText().toString().trim();
@@ -423,23 +425,23 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                             bundle.putString("adr", tv_location.getText().toString());
                             bundle.putString("phone", tv_phone.getText().toString());
                             bundle.putString("dormId", dormId);
-                            bundle.putString("carType","food");
+                            bundle.putString("carType","lease");
                             if (!TextUtils.isEmpty(reMark)) {
                                 bundle.putString("beizhu", reMark);
                             }
-                            ZeroZeroSevenUtils.SwitchActivity(FoodCommitDingDanActivity.this, PayMoneyActivity.class, bundle);
+                            ZeroZeroSevenUtils.SwitchActivity(LeaseCommitDingDanActivity.this, PayMoneyActivity.class, bundle);
                             finish();
                         } else {
-                            ZeroZeroSevenUtils.showCustonPop(FoodCommitDingDanActivity.this, "请选择当前学校有关的地址", rl_selectadr);
+                            ZeroZeroSevenUtils.showCustonPop(LeaseCommitDingDanActivity.this, "请选择当前学校有关的地址", rl_selectadr);
                         }
 
 
                     } else {
-                        ZeroZeroSevenUtils.showCustonPop(FoodCommitDingDanActivity.this, "购物车空空如也", rl_selectadr);
+                        ZeroZeroSevenUtils.showCustonPop(LeaseCommitDingDanActivity.this, "购物车空空如也", rl_selectadr);
                     }
 
                 } else {
-                    ZeroZeroSevenUtils.showCustonPop(FoodCommitDingDanActivity.this, "请先选择收货地址", rl_selectadr);
+                    ZeroZeroSevenUtils.showCustonPop(LeaseCommitDingDanActivity.this, "请先选择收货地址", rl_selectadr);
                 }
 
                 break;

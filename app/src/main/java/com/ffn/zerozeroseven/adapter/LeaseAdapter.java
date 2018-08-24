@@ -154,7 +154,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
     private void closeCarInfo(GoodsContentShowInfo.DataBean.ProductsBean goodsInfo, TextView tv_count) {
         //减少的时候购物车里面是一定有东西的
         try {
-            lastCarShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+            lastCarShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
             List<CarShopInfo.ShopInfo> list = lastCarShopInfo.getShopInfos();
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getGoodsId() == goodsInfo.getId()) {
@@ -163,17 +163,17 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 if (lastCarShopInfo.getShopInfos().get(i).getBuyCount() == 0) {
                     lastCarShopInfo.getShopInfos().remove(i);
                 }
-                BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
+                BaseAppApplication.getInstance().setLeasecarShopInfo(lastCarShopInfo);
                 LeaseFragment.mInstance.get().notifyCar();
             }
         } catch (Exception e) {
             try {
-                lastCarShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                lastCarShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
                 List<CarShopInfo.ShopInfo> list = lastCarShopInfo.getShopInfos();
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).getGoodsId() == goodsInfo.getId()) {
                         lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() - 1);
-                        BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
+                        BaseAppApplication.getInstance().setLeasecarShopInfo(lastCarShopInfo);
                         LeaseFragment.mInstance.get().notifyCar();
                         return;
                     }
@@ -187,13 +187,13 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
 
     private void AddCarInfo(GoodsContentShowInfo.DataBean.ProductsBean goodsInfo, TextView tv_count) {
         try {
-            lastCarShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+            lastCarShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
             if (lastCarShopInfo.getShopInfos().size() > 0) {//说明购物车里面有东西
                 List<CarShopInfo.ShopInfo> list = lastCarShopInfo.getShopInfos();
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).getGoodsId() == goodsInfo.getId()) {
                         lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() + 1);
-                        BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
+                        BaseAppApplication.getInstance().setLeasecarShopInfo(lastCarShopInfo);
                         LeaseFragment.mInstance.get().notifyCar();
                         return;
                     }
@@ -208,7 +208,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 shopInfo.setShopMoney(goodsInfo.getPrice());
                 list.add(shopInfo);
                 lastCarShopInfo.setShopInfos(list);
-                BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
+                BaseAppApplication.getInstance().setLeasecarShopInfo(lastCarShopInfo);
                 LeaseFragment.mInstance.get().notifyCar();
             } else {//购物车里面的东西是空的
                 List<CarShopInfo.ShopInfo> list = new ArrayList<>();
@@ -223,7 +223,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 shopInfo.setShopMoney(goodsInfo.getPrice());
                 list.add(shopInfo);
                 carShopInfo.setShopInfos(list);
-                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
                 LeaseFragment.mInstance.get().notifyCar();
             }
         } catch (Exception e) {
@@ -239,7 +239,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
             shopInfo.setShopMoney(goodsInfo.getPrice());
             list.add(shopInfo);
             carShopInfo.setShopInfos(list);
-            BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+            BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
             LeaseFragment.mInstance.get().notifyCar();
         }
 

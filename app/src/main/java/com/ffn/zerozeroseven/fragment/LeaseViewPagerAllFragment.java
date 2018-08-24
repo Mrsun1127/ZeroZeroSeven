@@ -250,7 +250,7 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
                                     } else {
                                         adapter.addAll(products);
                                         adapter.setRunMoneyAndStoreId(runMoney, storeId);
-                                        adapter.setLastCarShopInfo(BaseAppApplication.getInstance().getCarShopInfo());
+                                        adapter.setLastCarShopInfo(BaseAppApplication.getInstance().getLeasecarShopInfo());
                                     }
                                     break;
                                 case PULL_DOWN:

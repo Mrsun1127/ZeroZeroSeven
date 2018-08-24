@@ -45,6 +45,7 @@ public class BaseAppApplication extends MultiDexApplication {
     private static ArrayList<Integer> readList;
     private static CarShopInfo carShopInfo = new CarShopInfo();
     private static CarShopInfo foodcarShopInfo = new CarShopInfo();
+    private static CarShopInfo leasecarShopInfo = new CarShopInfo();
     private static NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
     //判断是否被回收
     public static String clearType;
@@ -66,6 +67,16 @@ public class BaseAppApplication extends MultiDexApplication {
                 return new ClassicsFooter(context).setDrawableSize(20);
             }
         });
+    }
+
+    public CarShopInfo getLeasecarShopInfo() {
+        return leasecarShopInfo;
+    }
+
+    public void setLeasecarShopInfo(CarShopInfo carShopInfo1) {
+        if (carShopInfo1 != null) {
+            leasecarShopInfo = carShopInfo1;
+        }
     }
 
     public CarShopInfo getCarShopInfo() {
@@ -108,6 +119,7 @@ public class BaseAppApplication extends MultiDexApplication {
     public void setReadList(ArrayList<Integer> readList1) {
         readList = readList1;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();

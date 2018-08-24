@@ -355,6 +355,8 @@
         <activity android:name=".ui.LeaseActivity" />
         <activity android:name=".ui.FoodCommitDingDanActivity"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
+        <activity android:name=".ui.LeaseCommitDingDanActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
 
 
         <!-- Required SDK核心功能-->

@@ -26,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
     private UserInfo.DataBean userInfo;
     private CarShopInfo carShopInfo;
     private CarShopInfo foodcarShopInfo;
+    private CarShopInfo leasecarShopInfo;
     private NumberRicalInfo numberRicalInfo;
 
     @Override
@@ -38,6 +39,7 @@ public class SplashActivity extends AppCompatActivity {
         userInfo = (UserInfo.DataBean) SharePrefUtils.readObject(SplashActivity.this, "userInfo");
         carShopInfo = (CarShopInfo) SharePrefUtils.readObject(SplashActivity.this, "carShopInfo");
         foodcarShopInfo = (CarShopInfo) SharePrefUtils.readObject(SplashActivity.this, "foodcarShopInfo");
+        leasecarShopInfo = (CarShopInfo) SharePrefUtils.readObject(SplashActivity.this, "leasecarShopInfo");
         numberRicalInfo = (NumberRicalInfo) SharePrefUtils.readObject(SplashActivity.this, "numberRicalInfo");
         new Thread(new Runnable() {
             @Override
@@ -59,6 +61,7 @@ public class SplashActivity extends AppCompatActivity {
                         BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                         BaseAppApplication.getInstance().setFoodcarShopInfo(foodcarShopInfo);
                         BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+                        BaseAppApplication.getInstance().setLeasecarShopInfo(leasecarShopInfo);
                         if (!TextUtils.isEmpty(userInfo.getDowmPoster())) {
                             Bundle bundle = new Bundle();
                             bundle.putString("imgurl", userInfo.getDowmPoster());

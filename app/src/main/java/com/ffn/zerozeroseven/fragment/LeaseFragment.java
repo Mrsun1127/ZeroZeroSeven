@@ -30,6 +30,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.GoodTabsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RLeaseTabInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.ui.CommitDingDanActivity;
+import com.ffn.zerozeroseven.ui.LeaseCommitDingDanActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
 import com.ffn.zerozeroseven.ui.SearchSchoolActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
@@ -231,7 +232,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
                 if (userInfo != null) {
                     Bundle bundle = new Bundle();
                     bundle.putInt("type", 0);//0标记从购物车进来的
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, CommitDingDanActivity.class, bundle);
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LeaseCommitDingDanActivity.class, bundle);
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class, null);
                 }
@@ -273,7 +274,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
     }
 
     public void notifyCar() {
-        final CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+        final CarShopInfo carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
         try {
             if (carShopInfo == null || carShopInfo.getShopInfos().size() == 0) {
                 BaseAppApplication.mainHandler.postDelayed(new Runnable() {
