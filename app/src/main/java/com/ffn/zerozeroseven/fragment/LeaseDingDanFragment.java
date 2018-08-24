@@ -10,10 +10,8 @@ import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.LeaseDingDanListINfo;
-import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DeleteleaseDingDanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DingDanListInfo;
-import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.ui.LeaseDingDanBobyActivity;
 import com.ffn.zerozeroseven.ui.LeaseZhiJieCommitDingDanActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
@@ -100,12 +98,12 @@ public class LeaseDingDanFragment extends BaseReFreshFragment {
         adapter.setOnItemAgainClick(new LeaseDingDanAdapter.OnItemAgainClick() {
             @Override
             public void onClick(View view, int position) {
-                getShangChangInfo(position);
+                moreComeOneAlone(position);
             }
         });
     }
 
-    private void moreComeOneAlone(int position, String id) {
+    private void moreComeOneAlone(int position) {
         LeaseDingDanListINfo.DataBean.ListBean item = adapter.getItem(position);
         adapter.getItem(position);
         CarShopInfo carShopInfo = new CarShopInfo();
@@ -115,10 +113,8 @@ public class LeaseDingDanFragment extends BaseReFreshFragment {
             shopInfo.setBuyCount(item.getOrderGoodsList().get(i).getGoodsCount());
             shopInfo.setShopName(item.getOrderGoodsList().get(i).getGoodsName());
             shopInfo.setGoodsId(item.getOrderGoodsList().get(i).getGoodId());
-            shopInfo.setRunMoney(0.0);
             shopInfo.setImagUrl(item.getOrderGoodsList().get(i).getGoodsThumb());
             shopInfo.setShopMoney(item.getOrderGoodsList().get(i).getGoodsPrice());
-            shopInfo.setShopId(id);
             shopInfos.add(shopInfo);
         }
         carShopInfo.setShopInfos(shopInfos);
@@ -126,43 +122,6 @@ public class LeaseDingDanFragment extends BaseReFreshFragment {
         Bundle bundle = new Bundle();
 //        bundle.putString("payCate", item.getOrderCate());
         ZeroZeroSevenUtils.SwitchActivity(bfCxt, LeaseZhiJieCommitDingDanActivity.class, bundle);
-    }
-
-    private void getShangChangInfo(final int position) {
-        showLoadProgress();
-        final ShangchangInfo shangchangInfo = new ShangchangInfo();
-        shangchangInfo.setFunctionName("QuerySchoolStore");
-        ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
-        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        parametersBean.setCate("ZH");
-        shangchangInfo.setParameters(parametersBean);
-        httpPostJSON(shangchangInfo, true);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response.body().string(), ShangChangShowInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        if (shangChangShowInfo.getCode() == 0) {
-                            String storeId = shangChangShowInfo.getData().getId() + "";//商家Id
-                            moreComeOneAlone(position, storeId);
-                        }
-                    }
-                });
-            }
-        });
     }
 
     private void deleteDingDan(final int adapterPosition) {

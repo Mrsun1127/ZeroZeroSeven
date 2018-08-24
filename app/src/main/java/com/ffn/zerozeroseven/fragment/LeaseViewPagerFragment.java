@@ -111,7 +111,7 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
                 commonStateLayout.setVisibility(View.GONE);
                 commonRefreshLayout.setVisibility(View.VISIBLE);
                 rgRefreshStatus = RgRefreshStatus.IDLE;
-                getShangChangInfo();
+                requestShop();
             }
         });
 
@@ -172,7 +172,6 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
                                         showErrorLayout(StateLayout.noData);
                                     } else {
                                         adapter.addAll(products);
-                                        adapter.setRunMoneyAndStoreId(runMoney, storeId);
                                     }
                                     break;
                                 case PULL_DOWN:
@@ -189,47 +188,6 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
                         }
                     }
                 });
-            }
-        });
-    }
-
-    private void getShangChangInfo() {
-        ShangchangInfo shangchangInfo = new ShangchangInfo();
-        shangchangInfo.setFunctionName("QuerySchoolStore");
-        ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
-        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        parametersBean.setCate("ZH");
-        shangchangInfo.setParameters(parametersBean);
-        httpPostJSON(shangchangInfo, true);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                commonRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        showErrorLayout(StateLayout.netError);
-                    }
-                });
-
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response.body().string(), ShangChangShowInfo.class);
-                commonRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (shangChangShowInfo.getCode() == 0) {
-
-                            runMoney = shangChangShowInfo.getData().getExtraFee();
-                            storeId = shangChangShowInfo.getData().getId() + "";
-                            requestShop();
-
-                        }
-                    }
-                });
-
             }
         });
     }
@@ -288,11 +246,7 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
             rl_no_select.setVisibility(View.VISIBLE);
         } else {
             rl_no_select.setVisibility(View.GONE);
-            try {
-                getShangChangInfo();
-            } catch (Exception e) {
-
-            }
+            requestShop();
         }
     }
 

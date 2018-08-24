@@ -11,10 +11,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.LeaseTitleAdapter;
 import com.ffn.zerozeroseven.adapter.ShopTitleAdapter;
@@ -23,6 +25,7 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
+import com.ffn.zerozeroseven.bean.LeaseStoreInfo;
 import com.ffn.zerozeroseven.bean.LeaseTabInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
 import com.ffn.zerozeroseven.bean.ShopTitleInfo;
@@ -67,6 +70,8 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
     private TextView tv_desc;
     private LeaseTitleAdapter titleAdapter;
     private RelativeLayout rl_back;
+    private ImageView iv_icon;
+    private ImageView iv_in_bg;
 
     public static LeaseFragment newInstance() {
         return new LeaseFragment();
@@ -76,7 +81,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
 
     private void getshangchangInfo() {
         final ShangchangInfo shangchangInfo = new ShangchangInfo();
-        shangchangInfo.setFunctionName("QuerySchoolStore");
+        shangchangInfo.setFunctionName("QueryLeaseConfig");
         ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         shangchangInfo.setParameters(parametersBean);
@@ -85,19 +90,11 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
+                LeaseStoreInfo shangChangShowInfo = JSON.parseObject(response, LeaseStoreInfo.class);
                 if (shangChangShowInfo.getCode() == 0) {
-                    tv_name.setText(shangChangShowInfo.getData().getStoreName());
-                    if (shangChangShowInfo.getData().getOpeningTime().equals(shangChangShowInfo.getData().getClosingTime()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime2()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime())) {
-                        tv_yysj.setText("营业时间：打烊一天");
-                    } else {
-                        tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getOpeningTime() + "--" + shangChangShowInfo.getData().getClosingTime() + "丶" + shangChangShowInfo.getData().getOpeningTime2() + "--" + shangChangShowInfo.getData().getClosingTime2());
-                    }
-                    tv_qisongfei.setText("起送：￥" + shangChangShowInfo.getData().getDeliveryPrice());
-                    tv_paotuifei.setText("跑腿费：￥" + shangChangShowInfo.getData().getDeliveryPrice());
-                    tv_shop_phone.setText("客服电话：" + shangChangShowInfo.getData().getServicePhone());
-                    tv_desc.setText(TextUtils.isEmpty(shangChangShowInfo.getData().getPromotion()) ? "下单有惊喜" : shangChangShowInfo.getData().getPromotion());
-
+                    tv_shop_phone.setText("客服电话：" + shangChangShowInfo.getData().getLeaseConfig().getServicePhone());
+                    Glide.with(bfCxt).load(shangChangShowInfo.getData().getLeaseConfig().getLogo()).into(iv_icon);
+                    Glide.with(bfCxt).load(shangChangShowInfo.getData().getLeaseConfig().getBackground()).override(10,10).into(iv_in_bg);
                 }
             }
         });
@@ -106,6 +103,8 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
     @Override
     protected void initView(View view) {
         badgeView = new QBadgeView(bfCxt);
+        iv_in_bg = view.findViewById(R.id.iv_in_bg);
+        iv_icon = view.findViewById(R.id.iv_icon);
         rl_back = view.findViewById(R.id.rl_back);
         tv_shop_phone = view.findViewById(R.id.tv_shop_phone);
         tv_desc = view.findViewById(R.id.tv_desc);
@@ -119,15 +118,17 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
         ib_shopcar.setOnClickListener(this);
         rl_back.setOnClickListener(this);
         rl_back.setVisibility(View.VISIBLE);
+        iv_in_bg.setScaleX(1.8f);
+        iv_in_bg.setScaleY(1.2f);
         badgeView.bindTarget(ib_shopcar);
         badgeView.setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
             @Override
             public void onDragStateChanged(int dragState, Badge badge, View targetView) {
                 LogUtils.D("state", "" + dragState);
                 if (dragState == 5) {
-                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
                     carShopInfo.getShopInfos().clear();
-                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                    BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
                     try {
                         LeaseViewPagerAllFragment.mInstance.get().notifyShop();
                         LeaseViewPagerFragment.mInstance.get().notifyShop();

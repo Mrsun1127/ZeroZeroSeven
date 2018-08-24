@@ -35,16 +35,6 @@ public class LeaseAdapter extends BaseRecyclerAdapter<LeaseGoodsInfo.DataBean.Li
         super(context);
 
     }
-
-    public void setLastCarShopInfo(Object object) {
-        lastCarShopInfo = (CarShopInfo) object;
-    }
-
-    public void setRunMoneyAndStoreId(Double money, String id) {
-        runMoney = money;
-        storeId = id;
-    }
-
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
         return new LeaseAdapter.MViewHolder(mInflater.inflate(R.layout.item_goods, null));
@@ -201,8 +191,6 @@ public class LeaseAdapter extends BaseRecyclerAdapter<LeaseGoodsInfo.DataBean.Li
                 CarShopInfo.ShopInfo shopInfo = new CarShopInfo.ShopInfo();
                 shopInfo.setImagUrl(goodsInfo.getGoodsThumb());
                 shopInfo.setBuyCount(Integer.parseInt(tv_count.getText().toString()));
-                shopInfo.setRunMoney(runMoney);
-                shopInfo.setShopId(storeId);
                 shopInfo.setGoodsId(goodsInfo.getId());
                 shopInfo.setShopName(goodsInfo.getGoodsName());
                 shopInfo.setShopMoney(goodsInfo.getGoodsPrice());
@@ -216,8 +204,6 @@ public class LeaseAdapter extends BaseRecyclerAdapter<LeaseGoodsInfo.DataBean.Li
                 CarShopInfo.ShopInfo shopInfo = new CarShopInfo.ShopInfo();
                 shopInfo.setImagUrl(goodsInfo.getGoodsThumb());
                 shopInfo.setBuyCount(Integer.parseInt(tv_count.getText().toString()));
-                shopInfo.setRunMoney(runMoney);
-                shopInfo.setShopId(storeId);
                 shopInfo.setGoodsId(goodsInfo.getId());
                 shopInfo.setShopName(goodsInfo.getGoodsName());
                 shopInfo.setShopMoney(goodsInfo.getGoodsPrice());
@@ -232,8 +218,6 @@ public class LeaseAdapter extends BaseRecyclerAdapter<LeaseGoodsInfo.DataBean.Li
             CarShopInfo.ShopInfo shopInfo = new CarShopInfo.ShopInfo();
             shopInfo.setImagUrl(goodsInfo.getGoodsThumb());
             shopInfo.setBuyCount(Integer.parseInt(tv_count.getText().toString()));
-            shopInfo.setRunMoney(runMoney);
-            shopInfo.setShopId(storeId);
             shopInfo.setGoodsId(goodsInfo.getId());
             shopInfo.setShopName(goodsInfo.getGoodsName());
             shopInfo.setShopMoney(goodsInfo.getGoodsPrice());

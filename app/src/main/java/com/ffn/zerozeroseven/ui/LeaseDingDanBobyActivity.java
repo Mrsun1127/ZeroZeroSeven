@@ -20,19 +20,15 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.baoyz.actionsheet.ActionSheet;
 import com.ffn.zerozeroseven.R;
-import com.ffn.zerozeroseven.adapter.DingDanDetisAdapter;
 import com.ffn.zerozeroseven.adapter.LeaseDingDanDetisAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
-import com.ffn.zerozeroseven.bean.DingDanDetlsInfo;
 import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.LeaseBodyInfo;
+import com.ffn.zerozeroseven.bean.LeaseStoreInfo;
 import com.ffn.zerozeroseven.bean.RLeaseBodyInfo;
-import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
-import com.ffn.zerozeroseven.bean.requsetbean.GoodsDetilsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RsnackTuikuanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
-import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
@@ -40,16 +36,12 @@ import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.TitleView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 /**
  * Created by GT on 2017/11/19.
@@ -71,7 +63,7 @@ public class LeaseDingDanBobyActivity extends BaseActivity implements ActionShee
     TextView tv_remark;
     @Bind(R.id.bt_show)
     Button bt_show;
-    private ShangChangShowInfo shangChangShowInfo;
+    private LeaseStoreInfo shangChangShowInfo;
     private LeaseBodyInfo info;
     private String refuseReson;
     private int orderId;
@@ -131,20 +123,18 @@ public class LeaseDingDanBobyActivity extends BaseActivity implements ActionShee
 
     private void getShangChangInfo() {
         final ShangchangInfo shangchangInfo = new ShangchangInfo();
-        shangchangInfo.setFunctionName("QuerySchoolStore");
+        shangchangInfo.setFunctionName("QueryLeaseConfig");
         ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        parametersBean.setCate("ZH");
         shangchangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(LeaseDingDanBobyActivity.this);
         okGoUtils.httpPostJSON(shangchangInfo, true, false);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
-
+                shangChangShowInfo = JSON.parseObject(response, LeaseStoreInfo.class);
                 if (shangChangShowInfo.getCode() == 0) {
-                    tv_endTime.setText("联系客服:" + shangChangShowInfo.getData().getServicePhone());
+                    tv_endTime.setText("联系客服:" + shangChangShowInfo.getData().getLeaseConfig().getServicePhone());
                 }
             }
         });
@@ -161,15 +151,13 @@ public class LeaseDingDanBobyActivity extends BaseActivity implements ActionShee
             shopInfo.setBuyCount(item.get(i).getGoodsCount());
             shopInfo.setShopName(item.get(i).getGoodsName());
             shopInfo.setGoodsId(item.get(i).getGoodsId());
-            shopInfo.setRunMoney(0.0);
-//            shopInfo.setImagUrl(item.get(i).get());
+            shopInfo.setImagUrl(item.get(i).getGoodsThumb());
             shopInfo.setShopMoney(item.get(i).getGoodsPrice());
-//            shopInfo.setShopId(String.valueOf(info.getData().getOrder().getStoreId()));
             shopInfos.add(shopInfo);
         }
         carShopInfo.setShopInfos(shopInfos);
         SharePrefUtils.saveObject(LeaseDingDanBobyActivity.this, "zhijiecarShopInfo", carShopInfo);
-        ZeroZeroSevenUtils.SwitchActivity(LeaseDingDanBobyActivity.this, ZhiJieCommitDingDanActivity.class);
+        ZeroZeroSevenUtils.SwitchActivity(LeaseDingDanBobyActivity.this, LeaseZhiJieCommitDingDanActivity.class);
     }
 
     private void requestDetils(int orderId) {
@@ -352,11 +340,11 @@ public class LeaseDingDanBobyActivity extends BaseActivity implements ActionShee
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CODE);
 
                     } else {
-                        callPhone(shangChangShowInfo.getData().getServicePhone());
+                        callPhone(shangChangShowInfo.getData().getLeaseConfig().getServicePhone());
                     }
 
                 } else {
-                    callPhone(shangChangShowInfo.getData().getServicePhone());
+                    callPhone(shangChangShowInfo.getData().getLeaseConfig().getServicePhone());
                 }
                 break;
         }

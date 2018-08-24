@@ -111,7 +111,7 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
                 commonStateLayout.setVisibility(View.GONE);
                 commonRefreshLayout.setVisibility(View.VISIBLE);
                 rgRefreshStatus = RgRefreshStatus.IDLE;
-                getShangChangInfo();
+                requestShop();
             }
         });
 
@@ -128,11 +128,7 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
             rl_no_select.setVisibility(View.VISIBLE);
         } else {
             rl_no_select.setVisibility(View.GONE);
-            try {
-                getShangChangInfo();
-            } catch (Exception e) {
-
-            }
+            requestShop();
         }
     }
 
@@ -176,7 +172,6 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
                                         showErrorLayout(StateLayout.noData);
                                     } else {
                                         adapter.addAll(products);
-                                        adapter.setRunMoneyAndStoreId(runMoney, storeId);
                                     }
                                     break;
                                 case PULL_DOWN:
@@ -184,7 +179,6 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
                                         UiTipUtil.showToast(bfCxt, R.string.no_more_data);
                                     } else {
                                         adapter.addAll(products);
-                                        adapter.setRunMoneyAndStoreId(runMoney, storeId);
                                     }
 
                                     break;
@@ -197,58 +191,6 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
             }
         });
     }
-
-    private void getShangChangInfo() {
-        final ShangchangInfo shangchangInfo = new ShangchangInfo();
-        shangchangInfo.setFunctionName("QuerySchoolStore");
-        ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
-        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        parametersBean.setCate("ZH");
-        shangchangInfo.setParameters(parametersBean);
-        httpPostJSON(shangchangInfo, true);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                commonRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        showErrorLayout(StateLayout.netError);
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response.body().string(), ShangChangShowInfo.class);
-                commonRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (shangChangShowInfo.getCode() == 0) {
-                            userInfo.setServicePhone(shangChangShowInfo.getData().getServicePhone());
-                            BaseAppApplication.getInstance().setLoginUser(userInfo);
-                            SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
-                            runMoney = shangChangShowInfo.getData().getExtraFee();
-                            storeId = shangChangShowInfo.getData().getId() + "";
-                            userInfo.setSmallRmb(shangChangShowInfo.getData().getDeliveryPrice());
-                            SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
-                            requestShop();
-                            if (shangChangShowInfo.getData().isIsClosing()) {
-                                if (shangChangShowInfo.getData().getOpeningTime().equals(shangChangShowInfo.getData().getClosingTime()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime2()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime())) {
-                                    ZeroZeroSevenUtils.showSleepPop(bfCxt, "打烊一天", rl_no_select);
-                                } else {
-                                    ZeroZeroSevenUtils.showSleepPop(bfCxt, "\t\t营业时间" + "\n" + shangChangShowInfo.getData().getOpeningTime() + "--" + shangChangShowInfo.getData().getClosingTime() + "\n" + shangChangShowInfo.getData().getOpeningTime2() + "--" + shangChangShowInfo.getData().getClosingTime2(), rl_no_select);
-                                }
-                            }
-
-
-                        }
-                    }
-                });
-
-            }
-        });
-    }
-
     private void disLoadState() {
         switch (rgRefreshStatus) {
             case IDLE:
