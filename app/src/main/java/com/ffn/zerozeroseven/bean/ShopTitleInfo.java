@@ -57,7 +57,16 @@ public class ShopTitleInfo {
 
             private int id;
             private String name;
+            private String icon;
             private int sortOrder;
+
+            public String getIcon() {
+                return icon;
+            }
+
+            public void setIcon(String icon) {
+                this.icon = icon;
+            }
 
             public int getId() {
                 return id;

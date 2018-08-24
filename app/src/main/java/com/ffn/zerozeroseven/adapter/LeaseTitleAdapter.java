@@ -38,7 +38,7 @@ public class LeaseTitleAdapter extends BaseRecyclerAdapter<LeaseTabInfo.DataBean
         } else {
             mHolder.tv_type.setTextColor(getResource().getColor(R.color.line_color));
         }
-        Glide.with(mContext).load(R.drawable.deletefour).into(mHolder.iv_product);
+        Glide.with(mContext).load(item.getCateThumb()).into(mHolder.iv_product);
     }
 
     public void setClickPosition(int position) {

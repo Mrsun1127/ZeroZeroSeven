@@ -37,7 +37,7 @@ public class ShopTitleAdapter extends BaseRecyclerAdapter<ShopTitleInfo.DataBean
         } else {
             mHolder.tv_type.setTextColor(getResource().getColor(R.color.line_color));
         }
-        Glide.with(mContext).load(R.drawable.deletefour).into(mHolder.iv_product);
+        Glide.with(mContext).load(item.getIcon()).into(mHolder.iv_product);
     }
 
     public void setClickPosition(int position) {
