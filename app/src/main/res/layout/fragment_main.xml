@@ -35,10 +35,10 @@
                         android:layout_height="match_parent" />
 
                     <!--<com.github.mmin18.widget.RealtimeBlurView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--app:realtimeBlurRadius="20dp"-->
-                        <!--app:realtimeOverlayColor="@color/ee" />-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--app:realtimeBlurRadius="20dp"-->
+                    <!--app:realtimeOverlayColor="@color/ee" />-->
 
                     <ImageView
                         android:id="@+id/iv_sjx"
@@ -284,13 +284,13 @@
 
                     <com.paradoxie.autoscrolltextview.VerticalTextview
                         android:id="@+id/scrollTextView"
-                        android:background="@drawable/rectangle"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="8dp"
                         android:layout_marginRight="19dp"
                         android:layout_toRightOf="@+id/iv_left"
+                        android:background="@drawable/rectangle"
                         android:paddingLeft="10dp"
                         android:paddingTop="3dp" />
 
@@ -399,13 +399,15 @@
             <ImageView
                 android:id="@+id/iv_up_all"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@drawable/integral_back" />
 
             <ImageView
                 android:id="@+id/iv_cancer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"
+                android:background="@drawable/cancel_icon" />
 
             <TextView
                 android:id="@+id/tv_up_top"
@@ -427,13 +429,13 @@
                 android:textColor="@color/white" />
 
             <Button
-                android:background="@drawable/circle3"
                 android:id="@+id/bt_update"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="15dp"
+                android:background="@drawable/circle3"
                 android:text="前往更新"
                 android:textColor="@color/white" />
         </RelativeLayout>

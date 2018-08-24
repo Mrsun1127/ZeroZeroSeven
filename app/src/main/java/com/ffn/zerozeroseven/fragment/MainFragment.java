@@ -257,9 +257,7 @@ public class MainFragment extends BaseFragment {
         Glide.with(this).load(R.drawable.main_notify).into(iv_in);
         Glide.with(this).load(R.drawable.main_laba).into(iv_left);
         Glide.with(this).load(R.drawable.xinpin).into(iv_xinpin);
-        Glide.with(this).load(R.drawable.integral_back).into(iv_up_all);
-        Glide.with(this).load(R.drawable.cancel_icon).into(iv_cancer);
-        Glide.with(this).load(R.drawable.cancel_icon).into(iv_cancer);
+
         mInstance = new WeakReference<>(this);
 //        mLocationClient = new LocationClient(BaseAppApplication.context);
         //声明LocationClient类
