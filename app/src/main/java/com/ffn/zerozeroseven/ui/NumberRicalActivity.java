@@ -28,7 +28,8 @@ import com.ffn.zerozeroseven.bean.NumberListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.NumberHomeInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.VerticalReInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
-import com.ffn.zerozeroseven.utlis.UiTipUtil;
+import com.ffn.zerozeroseven.utlis.SharePrefUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyGridLayoutManager;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
@@ -406,7 +407,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                             break;
                         case PULL_DOWN:
                             if (numberListInfo.getData().getList().size() == 0) {
-                                UiTipUtil.showToast(NumberRicalActivity.this, R.string.no_more_data);
+                                ToastUtils.showShort("没有更多数据了");
                             } else {
                                 verticalAdapter.addAll(numberListInfo.getData().getList());
                             }
@@ -533,5 +534,11 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                 badgeView.setBadgeNumber(0);
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharePrefUtils.saveObject(NumberRicalActivity.this, "numberRicalInfo", BaseAppApplication.getInstance().getNumberRicalInfo());
     }
 }

@@ -281,7 +281,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onDestroy();
         LogUtils.D("logss", "onDestroy");
         SharePrefUtils.saveObject(HomeActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
-        SharePrefUtils.saveObject(HomeActivity.this, "numberRicalInfo", BaseAppApplication.getInstance().getNumberRicalInfo());
+
         BaseAppApplication.getInstance().finishActivity(this);
         System.gc();
         System.runFinalization();

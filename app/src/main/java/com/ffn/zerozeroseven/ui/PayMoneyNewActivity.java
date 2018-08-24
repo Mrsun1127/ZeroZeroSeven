@@ -42,7 +42,7 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
     ZFBPayUtil mZFbutils;
     public static WeakReference<PayMoneyNewActivity> mInstance;
     private boolean isPaySupported;//判断是否支持微信支付
-    private static IWXAPI api;
+    private IWXAPI api;
     private ShouHuoInfo.DataBean.AddressesBean addressesBean;
     private NumberRicalInfo numberRicalInfo;
     private NumberRicalInfo.RicalInfo ricalInfo;
@@ -57,7 +57,7 @@ public class PayMoneyNewActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void doMain() {
         mInstance = new WeakReference<>(this);
-        api = WXAPIFactory.createWXAPI(this, "wx189141e4085fa0d1", false);
+        api = WXAPIFactory.createWXAPI(getApplicationContext(), "wx189141e4085fa0d1", false);
         api.registerApp("wx189141e4085fa0d1");
         isPaySupported = api.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
         mZFbutils = new ZFBPayUtil(this);

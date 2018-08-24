@@ -53,7 +53,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
     public static WeakReference<PayMoneyActivity> mInstance;
     private String payType;
     private boolean isPaySupported;//判断是否支持微信支付
-    private static IWXAPI api;
+    private IWXAPI api;
     private String reMark;
     private String orderNO;
     private String carType;
@@ -65,8 +65,8 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void doMain() {
-        mInstance = new WeakReference<PayMoneyActivity>(this);
-        api = WXAPIFactory.createWXAPI(this, "wx189141e4085fa0d1", false);
+        mInstance = new WeakReference<>(this);
+        api = WXAPIFactory.createWXAPI(getApplicationContext(), "wx189141e4085fa0d1", false);
         api.registerApp("wx189141e4085fa0d1");
         isPaySupported = api.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
         mZFbutils = new ZFBPayUtil(this);
@@ -216,17 +216,17 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         parametersBean1.setPayment(str);
         if ("shop".equals(carType)) {
             parametersBean1.setCate("ZH");
-            LogUtils.D("carType","shop");
+            LogUtils.D("carType", "shop");
         } else if ("food".equals(carType)) {
             parametersBean1.setCate("WM");
-            LogUtils.D("carType","food");
+            LogUtils.D("carType", "food");
         } else if ("zhijie".equals(carType)) {
             if ("WM".equals(getIntent().getStringExtra("payCate"))) {
                 parametersBean1.setCate("WM");
-                LogUtils.D("carType","zhijieWM");
+                LogUtils.D("carType", "zhijieWM");
             } else {
                 parametersBean1.setCate("ZH");
-                LogUtils.D("carType","zhijieZH");
+                LogUtils.D("carType", "zhijieZH");
             }
         }
         parametersBean1.setTradeType("APP");
