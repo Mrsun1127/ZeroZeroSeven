@@ -132,8 +132,6 @@ public abstract class BaseFragment extends ImmersionFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(getActivity());
-        refWatcher.watch(this);
     }
 
     @Override

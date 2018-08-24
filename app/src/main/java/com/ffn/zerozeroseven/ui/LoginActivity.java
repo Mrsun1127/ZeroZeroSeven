@@ -369,8 +369,6 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         super.onDestroy();
         timer.onFinish();
         timer = null;
-        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(this);
-        refWatcher.watch(this);
     }
 
     public void bindJiGuang(int userId) {

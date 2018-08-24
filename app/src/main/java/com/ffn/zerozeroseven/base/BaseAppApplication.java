@@ -108,11 +108,6 @@ public class BaseAppApplication extends MultiDexApplication {
     public void setReadList(ArrayList<Integer> readList1) {
         readList = readList1;
     }
-    private RefWatcher refWatcher;
-    public static RefWatcher getRefWatcher(Context context) {
-        BaseAppApplication application = (BaseAppApplication) context.getApplicationContext();
-        return application.refWatcher;
-    }
     @Override
     public void onCreate() {
         super.onCreate();
@@ -132,7 +127,7 @@ public class BaseAppApplication extends MultiDexApplication {
 //                });
 //            }
 //        });
-        refWatcher=LeakCanary.install(this);
+        LeakCanary.install(this);
         //发布版本的时候把下面代码打开
 //        LogUtils.isDebug=false
         mainHandler = new Handler();

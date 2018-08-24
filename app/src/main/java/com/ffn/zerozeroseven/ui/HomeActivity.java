@@ -285,8 +285,6 @@ public class HomeActivity extends AppCompatActivity {
         BaseAppApplication.getInstance().finishActivity(this);
         System.gc();
         System.runFinalization();
-        RefWatcher refWatcher = BaseAppApplication.getRefWatcher(this);
-        refWatcher.watch(this);
     }
 
     public void openAliveService() {
