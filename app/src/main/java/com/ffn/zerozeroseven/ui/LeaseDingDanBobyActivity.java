@@ -27,6 +27,7 @@ import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.LeaseBodyInfo;
 import com.ffn.zerozeroseven.bean.LeaseStoreInfo;
 import com.ffn.zerozeroseven.bean.RLeaseBodyInfo;
+import com.ffn.zerozeroseven.bean.RquxiaoLeaseInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RsnackTuikuanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
@@ -382,11 +383,32 @@ public class LeaseDingDanBobyActivity extends BaseActivity implements ActionShee
     }
 
     private void TuiKuan(String refuseReson) {
-        RsnackTuikuanInfo rsnackTuikuanInfo = new RsnackTuikuanInfo();
-        rsnackTuikuanInfo.setFunctionName("AddStoreGoodsRefundApply");
-        RsnackTuikuanInfo.ParametersBean parametersBean = new RsnackTuikuanInfo.ParametersBean();
-        parametersBean.setOrderNo(String.valueOf(info.getData().getId()));
+        RquxiaoLeaseInfo rsnackTuikuanInfo = new RquxiaoLeaseInfo();
+        rsnackTuikuanInfo.setFunctionName("CancelLeaseGoodsOrder");
+        RquxiaoLeaseInfo.ParametersBean parametersBean = new RquxiaoLeaseInfo.ParametersBean();
+        parametersBean.setOrderId(String.valueOf(info.getData().getId()));
         parametersBean.setReason(refuseReson);
+        parametersBean.setUserId(userId);
+        rsnackTuikuanInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(LeaseDingDanBobyActivity.this);
+        okGoUtils.httpPostJSON(rsnackTuikuanInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    requestDetils(orderId);
+                } else {
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
+                }
+            }
+        });
+    }
+    private void sureGet(){
+        RquxiaoLeaseInfo rsnackTuikuanInfo = new RquxiaoLeaseInfo();
+        rsnackTuikuanInfo.setFunctionName("ConfirmLeaseGoodsOrder");
+        RquxiaoLeaseInfo.ParametersBean parametersBean = new RquxiaoLeaseInfo.ParametersBean();
+        parametersBean.setOrderId(String.valueOf(info.getData().getId()));
         parametersBean.setUserId(userId);
         rsnackTuikuanInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(LeaseDingDanBobyActivity.this);
