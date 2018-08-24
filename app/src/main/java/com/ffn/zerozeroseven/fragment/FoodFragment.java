@@ -11,10 +11,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ShopTitleAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
@@ -71,6 +73,8 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private RecyclerView recycleview;
+    private ImageView iv_icon;
+    private ImageView iv_in_bg;
 
     private void getshangchangInfo() {
         final ShangchangInfo shangchangInfo = new ShangchangInfo();
@@ -96,7 +100,8 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
                     tv_paotuifei.setText("跑腿费：￥" + shangChangShowInfo.getData().getDeliveryPrice());
                     tv_shop_phone.setText("客服电话：" + shangChangShowInfo.getData().getServicePhone());
                     tv_desc.setText(TextUtils.isEmpty(shangChangShowInfo.getData().getPromotion()) ? "下单有惊喜" : shangChangShowInfo.getData().getPromotion());
-
+                    Glide.with(bfCxt).load(shangChangShowInfo.getData().getLogo()).into(iv_icon);
+                    Glide.with(bfCxt).load(shangChangShowInfo.getData().getBackground()).override(10, 10).into(iv_in_bg);
                 }
             }
         });
@@ -105,6 +110,10 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView(View view) {
         badgeView = new QBadgeView(bfCxt);
+        iv_icon = view.findViewById(R.id.iv_icon);
+        iv_in_bg = view.findViewById(R.id.iv_in_bg);
+        iv_in_bg.setScaleX(1.8f);
+        iv_in_bg.setScaleY(1.2f);
         rl_back = view.findViewById(R.id.rl_back);
         rl_back.setVisibility(View.VISIBLE);
         tv_shop_phone = view.findViewById(R.id.tv_shop_phone);

@@ -80,6 +80,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private RecyclerView recycleview;
+    private ImageView iv_icon;
 
     private void getshangchangInfo() {
         final ShangchangInfo shangchangInfo = new ShangchangInfo();
@@ -105,7 +106,8 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                     tv_paotuifei.setText("跑腿费：￥" + shangChangShowInfo.getData().getDeliveryPrice());
                     tv_shop_phone.setText("客服电话：" + shangChangShowInfo.getData().getServicePhone());
                     tv_desc.setText(TextUtils.isEmpty(shangChangShowInfo.getData().getPromotion()) ? "下单有惊喜" : shangChangShowInfo.getData().getPromotion());
-
+                    Glide.with(bfCxt).load(shangChangShowInfo.getData().getLogo()).into(iv_icon);
+                    Glide.with(bfCxt).load(shangChangShowInfo.getData().getBackground()).override(10,10).into(iv_in_bg);
                 }
             }
         });
@@ -114,6 +116,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView(View view) {
         badgeView = new QBadgeView(bfCxt);
+        iv_icon = view.findViewById(R.id.iv_icon);
         iv_in_bg = view.findViewById(R.id.iv_in_bg);
         iv_in_bg.setScaleX(1.8f);
         iv_in_bg.setScaleY(1.2f);
@@ -126,7 +129,6 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         recycleview = view.findViewById(R.id.recycleview);
         ib_shopcar = view.findViewById(R.id.ib_shopcar);
         tv_name = view.findViewById(R.id.tv_name);
-        Glide.with(bfCxt).load(R.drawable.banner).override(15, 15).into(iv_in_bg);
         ib_shopcar.setOnClickListener(this);
         badgeView.bindTarget(ib_shopcar);
         badgeView.setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {

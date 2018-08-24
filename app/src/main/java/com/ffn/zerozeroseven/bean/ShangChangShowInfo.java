@@ -125,6 +125,37 @@ public class ShangChangShowInfo implements Parcelable {
         private Double extraFee=0.0;
         private String openingTime2;
         private String promotion;
+        private String logo;
+
+        public boolean isClosing() {
+            return isClosing;
+        }
+
+        public void setClosing(boolean closing) {
+            isClosing = closing;
+        }
+
+        public String getLogo() {
+            return logo;
+        }
+
+        public void setLogo(String logo) {
+            this.logo = logo;
+        }
+
+        public String getBackground() {
+            return background;
+        }
+
+        public void setBackground(String background) {
+            this.background = background;
+        }
+
+        public static Creator<DataBean> getCREATOR() {
+            return CREATOR;
+        }
+
+        private String background;
         private int status;
 
         protected DataBean(Parcel in) {
