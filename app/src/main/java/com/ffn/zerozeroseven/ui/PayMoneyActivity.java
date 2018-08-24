@@ -85,6 +85,8 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
                     carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                 } else if ("food".equals(carType)) {
                     carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                } else if ("lease".equals(carType)) {
+                    carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
                 }
                 if (carShopInfo == null) {
                     ToastUtils.showShort("支付异常 请稍后再试！");
@@ -158,12 +160,20 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
 
 
     private void PayMoney(final String str) {
-        if (!TextUtils.isEmpty(orderNO)) {
-            NumberWeiKuanPay(str);
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("who")) && "lease".equals(getIntent().getStringExtra("who"))) {
+            leasePay(str);
         } else {
-            lingshiBuy(str, carType);
+            if (!TextUtils.isEmpty(orderNO)) {
+                NumberWeiKuanPay(str);
+            } else {
+                lingshiBuy(str, carType);
+            }
         }
 
+
+    }
+
+    private void leasePay(String str) {
 
     }
 

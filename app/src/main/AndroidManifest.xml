@@ -358,6 +358,7 @@
         <activity android:name=".ui.LeaseCommitDingDanActivity"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
         <activity android:name=".ui.LeaseDetilsActivity" />
+        <activity android:name=".ui.LeaseZhiJieCommitDingDanActivity" />
 
 
         <!-- Required SDK核心功能-->

@@ -107,6 +107,7 @@ public class LeaseCommitDingDanActivity extends BaseActivity implements View.OnC
         rc_shop = findViewById(R.id.rc_shop);
         tv_allmoney = findViewById(R.id.tv_allmoney);
         tv_runMoney = findViewById(R.id.tv_runMoney);
+        tv_runMoney.setVisibility(View.GONE);
         ib_car = findViewById(R.id.ib_car);
         badgeView.bindTarget(ib_car);
         badgeView.setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
@@ -193,23 +194,8 @@ public class LeaseCommitDingDanActivity extends BaseActivity implements View.OnC
                 for (int i = 0; i < carShopInfo.getShopInfos().size(); i++) {
                     allMoney = allMoney + carShopInfo.getShopInfos().get(i).getShopMoney() * carShopInfo.getShopInfos().get(i).getBuyCount();
                 }
-                try {
-                    a = allMoney + carShopInfo.getShopInfos().get(0).getRunMoney();
-                } catch (Exception e) {
-                    a = allMoney;
-                }
-                if ("null".equals(a + "")) {
-                    a = 0.0;
-                }
                 tv_allmoney.setText("共计：¥" + ZeroZeroSevenUtils.reactMoney(a));
-
                 money.setText(ZeroZeroSevenUtils.reactMoney(a) + "");
-                Double b = 0.0;
-                try {
-                    b = carShopInfo.getShopInfos().get(0).getRunMoney();
-                } catch (Exception e) {
-                }
-                tv_runMoney.setText("跑腿费：¥" + (b != null ? b : 0.0));
             } else {
                 tv_allmoney.setText("暂无可支付的商品");
                 ToastUtils.showShort("暂无可支付的商品");
@@ -251,7 +237,7 @@ public class LeaseCommitDingDanActivity extends BaseActivity implements View.OnC
                 a = a + carShopInfo.getShopInfos().get(i).getShopMoney() * carShopInfo.getShopInfos().get(i).getBuyCount();
             }
             try {
-                return a + carShopInfo.getShopInfos().get(0).getRunMoney();
+                return a;
             } catch (Exception e) {
                 return 0.0;
             }
@@ -372,35 +358,10 @@ public class LeaseCommitDingDanActivity extends BaseActivity implements View.OnC
                 ZeroZeroSevenUtils.SwitchActivity(LeaseCommitDingDanActivity.this, SelectAdrMannGerActivity.class, null, 2);
                 break;
             case R.id.bt_pay:
-//                if (!ZeroZeroSevenUtils.Date2date()) {
-//                    ZeroZeroSevenUtils.showCustonPop(CommitDingDanActivity.this, "亲，商铺现在打烊，请于早上9.30之后下单", rl_addadr);
-//                    return;
-//                }
-                if ("跑腿费：¥null".equals(tv_runMoney.getText().toString())) {
-                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
-                    carShopInfo.getShopInfos().clear();
-                    BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
-                    LeaseViewPagerAllFragment.mInstance.get().notifyShop();
-                    LeaseViewPagerFragment.mInstance.get().notifyShop();
-                    adapter.cleanDates();
-                    notifyCar();
-                    ToastUtils.showShort("当前网络较差，建议连接wifi或退出重新选择商品下单");
-                    return;
-                }
                 if ("暂无可支付的商品".equals(tv_allmoney.getText().toString())) {
                     ToastUtils.showShort("请购买商品");
                     return;
                 }
-                try {
-                    Double rMb = userInfo.getSmallRmb();
-                    if (Double.parseDouble(money.getText().toString()) < rMb) {
-                        ToastUtils.showShort("很抱歉，未达到" + rMb + "元配送金额");
-                        return;
-                    }
-                } catch (Exception e) {
-                }
-
-
                 carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
                 if (shouHuoInfo.getData().getAddresses() != null && shouHuoInfo.getData().getAddresses().size() > 0) {
                     if (carShopInfo != null && carShopInfo.getShopInfos().size() > 0) {
@@ -425,6 +386,7 @@ public class LeaseCommitDingDanActivity extends BaseActivity implements View.OnC
                             bundle.putString("adr", tv_location.getText().toString());
                             bundle.putString("phone", tv_phone.getText().toString());
                             bundle.putString("dormId", dormId);
+                            bundle.putString("who","lease");
                             bundle.putString("carType","lease");
                             if (!TextUtils.isEmpty(reMark)) {
                                 bundle.putString("beizhu", reMark);

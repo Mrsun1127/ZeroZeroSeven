@@ -100,6 +100,7 @@ public class LeaseDetilsActivity extends BaseActivity implements View.OnClickLis
         tv_name = findViewById(R.id.tv_name);
         tv_money = findViewById(R.id.tv_peoplephone);
         tv_smallmoney = findViewById(R.id.tv_smallmoney);
+        tv_smallmoney.setVisibility(View.GONE);
         tv_addshopcar = findViewById(R.id.tv_addshopcar);
         findViewById(R.id.tv_addshopcar).setOnClickListener(this);
         findViewById(R.id.bt_pay).setOnClickListener(this);
@@ -221,10 +222,6 @@ public class LeaseDetilsActivity extends BaseActivity implements View.OnClickLis
                 badgeView.setBadgeNumber(tvCount);
                 break;
             case R.id.bt_pay:
-                if (tv_smallmoney.getText().toString().equals("加载中")) {
-                    ToastUtils.showShort("亲，正在加载商品信息");
-                    return;
-                }
 //                if (!ZeroZeroSevenUtils.Date2date()) {
 //                    ZeroZeroSevenUtils.showCustonPop(ShopDetilsActivity.this, "亲，商铺现在打烊，请于早上9.30之后下单", tv_addshopcar);
 //                    return;
@@ -324,7 +321,7 @@ public class LeaseDetilsActivity extends BaseActivity implements View.OnClickLis
         list.add(shopInfo);
         carShopInfo.setShopInfos(list);
         SharePrefUtils.saveObject(LeaseDetilsActivity.this, "zhijiecarShopInfo", carShopInfo);
-        ZeroZeroSevenUtils.SwitchActivity(LeaseDetilsActivity.this, ZhiJieCommitDingDanActivity.class);
+        ZeroZeroSevenUtils.SwitchActivity(LeaseDetilsActivity.this, LeaseZhiJieCommitDingDanActivity.class);
     }
 
     public void addAction(View startView, View endView) {
