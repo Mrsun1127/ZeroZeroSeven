@@ -16,15 +16,18 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.adapter.LeaseTitleAdapter;
 import com.ffn.zerozeroseven.adapter.ShopTitleAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
+import com.ffn.zerozeroseven.bean.LeaseTabInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
 import com.ffn.zerozeroseven.bean.ShopTitleInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.GoodTabsInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RLeaseTabInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.ui.CommitDingDanActivity;
 import com.ffn.zerozeroseven.ui.LoginActivity;
@@ -51,7 +54,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
     private FragmentPagerAdapter fAdapter;                               //定义adapter
     private List<Fragment> list_fragment;                                //定义要装fragment的列表
     private List<String> list_title;                                     //tab名称列表
-    private ShopViewPagerFragment mineFragment;
+    private LeaseViewPagerFragment mineFragment;
     private ImageButton ib_shopcar;
     public static WeakReference<LeaseFragment> mInstance;
     private QBadgeView badgeView;
@@ -61,7 +64,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
     private TextView tv_paotuifei;
     private TextView tv_shop_phone;
     private TextView tv_desc;
-    private ShopTitleAdapter titleAdapter;
+    private LeaseTitleAdapter titleAdapter;
     private RelativeLayout rl_back;
 
     public static LeaseFragment newInstance() {
@@ -124,15 +127,18 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
                     CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                     carShopInfo.getShopInfos().clear();
                     BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
-                    ShopViewPagerAllFragment.mInstance.get().notifyShop();
-                    ShopViewPagerFragment.mInstance.get().notifyShop();
+                    try {
+                        LeaseViewPagerAllFragment.mInstance.get().notifyShop();
+                        LeaseViewPagerFragment.mInstance.get().notifyShop();
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(bfCxt);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recycleview.setLayoutManager(layoutManager);
-        titleAdapter = new ShopTitleAdapter(bfCxt);
+        titleAdapter = new LeaseTitleAdapter(bfCxt);
         recycleview.setAdapter(titleAdapter);
         titleAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
@@ -165,31 +171,27 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
 
 
     public void initTabs() {
-        GoodTabsInfo goodTabsInfo = new GoodTabsInfo();
-        goodTabsInfo.setFunctionName("ListSchoolGoodsType");
-        GoodTabsInfo.ParametersBean parametersBean = new GoodTabsInfo.ParametersBean();
-        parametersBean.setSchoolId(schoolIId);
-        parametersBean.setCate("WM");
-        goodTabsInfo.setParameters(parametersBean);
+        RLeaseTabInfo rLeaseTabInfo = new RLeaseTabInfo();
+        rLeaseTabInfo.setFunctionName("ListLeaseGoodsCate");
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
-        okGoUtils.httpPostJSON(goodTabsInfo, true, true);
+        okGoUtils.httpPostJSON(rLeaseTabInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                ShopTitleInfo showInfo = JSON.parseObject(response, ShopTitleInfo.class);
-                if (showInfo.getCode() == 0) {
+                LeaseTabInfo leaseTabInfo = JSON.parseObject(response, LeaseTabInfo.class);
+                if (leaseTabInfo.getCode() == 0) {
                     list_title = new ArrayList<>();
                     list_fragment = new ArrayList<>();
-                    list_fragment.add(ShopViewPagerAllFragment.newInstance("", ""));
+                    list_fragment.add(LeaseViewPagerAllFragment.newInstance("", ""));
                     titleAdapter.cleanDates();
-                    ShopTitleInfo.DataBean.GoodsTypesBean goodsTypesBean = new ShopTitleInfo.DataBean.GoodsTypesBean();
-                    goodsTypesBean.setName("全部");
-                    showInfo.getData().getGoodsTypes().add(0, goodsTypesBean);
-                    titleAdapter.addAll(showInfo.getData().getGoodsTypes());
-                    int length = showInfo.getData().getGoodsTypes().size();
+                    LeaseTabInfo.DataBean.CateListBean cateListBean = new LeaseTabInfo.DataBean.CateListBean();
+                    cateListBean.setCateName("全部");
+                    leaseTabInfo.getData().getCateList().add(0, cateListBean);
+                    titleAdapter.addAll(leaseTabInfo.getData().getCateList());
+                    int length = leaseTabInfo.getData().getCateList().size();
                     for (int i = 0; i < length; i++) {
-                        list_title.add(showInfo.getData().getGoodsTypes().get(i).getName());
-                        mineFragment = ShopViewPagerFragment.newInstance(showInfo.getData().getGoodsTypes().get(i).getName(), String.valueOf(showInfo.getData().getGoodsTypes().get(i).getId()));
+                        list_title.add(leaseTabInfo.getData().getCateList().get(i).getCateName());
+                        mineFragment = LeaseViewPagerFragment.newInstance(leaseTabInfo.getData().getCateList().get(i).getCateName(), String.valueOf(leaseTabInfo.getData().getCateList().get(i).getId()));
                         list_fragment.add(mineFragment);
                     }
                     try {

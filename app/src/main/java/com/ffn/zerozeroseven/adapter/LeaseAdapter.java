@@ -15,8 +15,7 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
-import com.ffn.zerozeroseven.fragment.FoodFragment;
-import com.ffn.zerozeroseven.fragment.ShopFragment;
+import com.ffn.zerozeroseven.fragment.LeaseFragment;
 import com.ffn.zerozeroseven.utlis.ScreenUtils;
 
 import java.util.ArrayList;
@@ -64,7 +63,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 .load(info.getThumbnail())
                 .skipMemoryCache(true)
                 .error(R.drawable.oops)
-                .override((int)ScreenUtils.getScreenWidth()/5,(int)ScreenUtils.getScreenWidth()/5-50)
+                .override((int) ScreenUtils.getScreenWidth() / 5, (int) ScreenUtils.getScreenWidth() / 5 - 50)
                 .into(mHolder.iv_icon);
         if (isClear) {
             mHolder.tv_count.setText("0");
@@ -88,7 +87,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
             public void onClick(View v) {
                 mHolder.tv_count.setText((Integer.parseInt(mHolder.tv_count.getText().toString()) + 1) + "");
                 AddCarInfo(info, mHolder.tv_count);
-                FoodFragment.mInstance.get().addAction(mHolder.rl_add);
+                LeaseFragment.mInstance.get().addAction(mHolder.rl_add);
             }
         });
 
@@ -165,7 +164,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                     lastCarShopInfo.getShopInfos().remove(i);
                 }
                 BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
-                ShopFragment.mInstance.get().notifyCar();
+                LeaseFragment.mInstance.get().notifyCar();
             }
         } catch (Exception e) {
             try {
@@ -175,7 +174,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                     if (list.get(i).getGoodsId() == goodsInfo.getId()) {
                         lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() - 1);
                         BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
-                        ShopFragment.mInstance.get().notifyCar();
+                        LeaseFragment.mInstance.get().notifyCar();
                         return;
                     }
                 }
@@ -195,7 +194,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                     if (list.get(i).getGoodsId() == goodsInfo.getId()) {
                         lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() + 1);
                         BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
-                        ShopFragment.mInstance.get().notifyCar();
+                        LeaseFragment.mInstance.get().notifyCar();
                         return;
                     }
                 }
@@ -210,7 +209,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 list.add(shopInfo);
                 lastCarShopInfo.setShopInfos(list);
                 BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
-                ShopFragment.mInstance.get().notifyCar();
+                LeaseFragment.mInstance.get().notifyCar();
             } else {//购物车里面的东西是空的
                 List<CarShopInfo.ShopInfo> list = new ArrayList<>();
                 CarShopInfo carShopInfo = new CarShopInfo();
@@ -225,7 +224,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 list.add(shopInfo);
                 carShopInfo.setShopInfos(list);
                 BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
-                ShopFragment.mInstance.get().notifyCar();
+                LeaseFragment.mInstance.get().notifyCar();
             }
         } catch (Exception e) {
             List<CarShopInfo.ShopInfo> list = new ArrayList<>();
@@ -241,7 +240,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
             list.add(shopInfo);
             carShopInfo.setShopInfos(list);
             BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
-            ShopFragment.mInstance.get().notifyCar();
+            LeaseFragment.mInstance.get().notifyCar();
         }
 
     }
