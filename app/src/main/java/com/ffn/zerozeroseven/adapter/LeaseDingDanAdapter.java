@@ -14,6 +14,7 @@ import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.LeaseDingDanListINfo;
 import com.ffn.zerozeroseven.bean.MyDingDanShowInfo;
 import com.ffn.zerozeroseven.ui.DingDanBobyActivity;
+import com.ffn.zerozeroseven.ui.LeaseDingDanBobyActivity;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 
@@ -116,7 +117,7 @@ public class LeaseDingDanAdapter extends BaseRecyclerAdapter<LeaseDingDanListINf
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("orderId", info.getId());
-                ZeroZeroSevenUtils.SwitchActivity(mContext, DingDanBobyActivity.class, bundle);
+                ZeroZeroSevenUtils.SwitchActivity(mContext, LeaseDingDanBobyActivity.class, bundle);
             }
         });
     }

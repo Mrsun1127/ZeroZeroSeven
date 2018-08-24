@@ -51,6 +51,16 @@ public class LeaseListInfo {
         private int pageSize;
         private String cateId;
 
+        public String getSchoolId() {
+            return schoolId;
+        }
+
+        public void setSchoolId(String schoolId) {
+            this.schoolId = schoolId;
+        }
+
+        private String schoolId;
+
         public String getCateId() {
             return cateId;
         }

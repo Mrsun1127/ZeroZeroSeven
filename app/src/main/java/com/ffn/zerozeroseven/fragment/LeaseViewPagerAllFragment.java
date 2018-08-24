@@ -142,6 +142,7 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
         leaseListInfo.setFunctionName("ListLeaseGoods");
         LeaseListInfo.ParametersBean parametersBean = new LeaseListInfo.ParametersBean();
         parametersBean.setCateId(shopType);
+        parametersBean.setSchoolId(schoolIId);
         parametersBean.setPageIndex(pageNo);
         parametersBean.setPageSize(8);
         leaseListInfo.setParameters(parametersBean);

@@ -359,6 +359,7 @@
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
         <activity android:name=".ui.LeaseDetilsActivity" />
         <activity android:name=".ui.LeaseZhiJieCommitDingDanActivity" />
+        <activity android:name=".ui.LeaseDingDanBobyActivity" />
 
 
         <!-- Required SDK核心功能-->

@@ -1,26 +1,21 @@
 package com.ffn.zerozeroseven.fragment;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.adapter.LeaseDingDanAdapter;
-import com.ffn.zerozeroseven.adapter.MyDingDanAdapter;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.LeaseDingDanListINfo;
-import com.ffn.zerozeroseven.bean.MyDingDanShowInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
-import com.ffn.zerozeroseven.bean.requsetbean.DeleteDingDanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DeleteleaseDingDanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DingDanListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
-import com.ffn.zerozeroseven.ui.DingDanBobyActivity;
+import com.ffn.zerozeroseven.ui.LeaseDingDanBobyActivity;
 import com.ffn.zerozeroseven.ui.LeaseZhiJieCommitDingDanActivity;
-import com.ffn.zerozeroseven.ui.ZhiJieCommitDingDanActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -84,7 +79,7 @@ public class LeaseDingDanFragment extends BaseReFreshFragment {
             public void onClick(View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("orderId", adapter.getItem(position).getId());
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, DingDanBobyActivity.class, bundle);
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, LeaseDingDanBobyActivity.class, bundle);
             }
         });
 
@@ -93,7 +88,7 @@ public class LeaseDingDanFragment extends BaseReFreshFragment {
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("orderId", adapter.getItem(position).getId());
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, DingDanBobyActivity.class, bundle);
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, LeaseDingDanBobyActivity.class, bundle);
             }
         });
         adapter.setOnItemDeleteClick(new LeaseDingDanAdapter.OnItemDeleteClick() {

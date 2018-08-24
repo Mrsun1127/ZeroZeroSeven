@@ -139,6 +139,7 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
         LeaseListInfo.ParametersBean parametersBean = new LeaseListInfo.ParametersBean();
         parametersBean.setCateId(shopType);
         parametersBean.setPageIndex(pageNo);
+        parametersBean.setSchoolId(schoolIId);
         parametersBean.setPageSize(8);
         leaseListInfo.setParameters(parametersBean);
         httpPostJSON(leaseListInfo, true);
@@ -329,6 +330,7 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
         }
         return true;
     }
+
     private void unbindDrawables(View view) {
         if (view.getBackground() != null) {
             view.getBackground().setCallback(null);
