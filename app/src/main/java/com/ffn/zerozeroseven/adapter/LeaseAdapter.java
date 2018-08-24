@@ -14,7 +14,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
-import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
+import com.ffn.zerozeroseven.bean.LeaseGoodsInfo;
 import com.ffn.zerozeroseven.fragment.LeaseFragment;
 import com.ffn.zerozeroseven.utlis.ScreenUtils;
 
@@ -25,7 +25,7 @@ import java.util.List;
  * Created by GT on 2017/11/27.
  */
 
-public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataBean.ProductsBean> {
+public class LeaseAdapter extends BaseRecyclerAdapter<LeaseGoodsInfo.DataBean.ListBean> {
     private CarShopInfo lastCarShopInfo;
     private Double runMoney;
     private String storeId;
@@ -51,16 +51,16 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final GoodsContentShowInfo.DataBean.ProductsBean info, final int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final LeaseGoodsInfo.DataBean.ListBean info, final int position) {
         final MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_name.setText(info.getGoodsName());
-        if (!TextUtils.isEmpty(info.getPrice() + "")) {
-            mHolder.tv_price.setText("¥" + info.getPrice());
+        if (!TextUtils.isEmpty(info.getGoodsPrice() + "")) {
+            mHolder.tv_price.setText("¥" + info.getGoodsPrice());
         } else {
             mHolder.tv_price.setText("网络异常请刷新");
         }
         Glide.with(mContext)
-                .load(info.getThumbnail())
+                .load(info.getGoodsThumb())
                 .skipMemoryCache(true)
                 .error(R.drawable.oops)
                 .override((int) ScreenUtils.getScreenWidth() / 5, (int) ScreenUtils.getScreenWidth() / 5 - 50)
@@ -100,7 +100,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 }
             }
         });
-        if (info.getStockNum() == 0) {
+        if (info.getStoreCount() == 0) {
             mHolder.rl_add.setVisibility(View.INVISIBLE);
             mHolder.rl_close.setVisibility(View.INVISIBLE);
             mHolder.tv_count.setVisibility(View.INVISIBLE);
@@ -151,7 +151,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
         void onClick(View view, int position);
     }
 
-    private void closeCarInfo(GoodsContentShowInfo.DataBean.ProductsBean goodsInfo, TextView tv_count) {
+    private void closeCarInfo(LeaseGoodsInfo.DataBean.ListBean goodsInfo, TextView tv_count) {
         //减少的时候购物车里面是一定有东西的
         try {
             lastCarShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
@@ -185,7 +185,7 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
         }
     }
 
-    private void AddCarInfo(GoodsContentShowInfo.DataBean.ProductsBean goodsInfo, TextView tv_count) {
+    private void AddCarInfo(LeaseGoodsInfo.DataBean.ListBean goodsInfo, TextView tv_count) {
         try {
             lastCarShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
             if (lastCarShopInfo.getShopInfos().size() > 0) {//说明购物车里面有东西
@@ -199,13 +199,13 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                     }
                 }
                 CarShopInfo.ShopInfo shopInfo = new CarShopInfo.ShopInfo();
-                shopInfo.setImagUrl(goodsInfo.getThumbnail());
+                shopInfo.setImagUrl(goodsInfo.getGoodsThumb());
                 shopInfo.setBuyCount(Integer.parseInt(tv_count.getText().toString()));
                 shopInfo.setRunMoney(runMoney);
                 shopInfo.setShopId(storeId);
                 shopInfo.setGoodsId(goodsInfo.getId());
                 shopInfo.setShopName(goodsInfo.getGoodsName());
-                shopInfo.setShopMoney(goodsInfo.getPrice());
+                shopInfo.setShopMoney(goodsInfo.getGoodsPrice());
                 list.add(shopInfo);
                 lastCarShopInfo.setShopInfos(list);
                 BaseAppApplication.getInstance().setLeasecarShopInfo(lastCarShopInfo);
@@ -214,13 +214,13 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
                 List<CarShopInfo.ShopInfo> list = new ArrayList<>();
                 CarShopInfo carShopInfo = new CarShopInfo();
                 CarShopInfo.ShopInfo shopInfo = new CarShopInfo.ShopInfo();
-                shopInfo.setImagUrl(goodsInfo.getThumbnail());
+                shopInfo.setImagUrl(goodsInfo.getGoodsThumb());
                 shopInfo.setBuyCount(Integer.parseInt(tv_count.getText().toString()));
                 shopInfo.setRunMoney(runMoney);
                 shopInfo.setShopId(storeId);
                 shopInfo.setGoodsId(goodsInfo.getId());
                 shopInfo.setShopName(goodsInfo.getGoodsName());
-                shopInfo.setShopMoney(goodsInfo.getPrice());
+                shopInfo.setShopMoney(goodsInfo.getGoodsPrice());
                 list.add(shopInfo);
                 carShopInfo.setShopInfos(list);
                 BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
@@ -230,13 +230,13 @@ public class LeaseAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
             List<CarShopInfo.ShopInfo> list = new ArrayList<>();
             CarShopInfo carShopInfo = new CarShopInfo();
             CarShopInfo.ShopInfo shopInfo = new CarShopInfo.ShopInfo();
-            shopInfo.setImagUrl(goodsInfo.getThumbnail());
+            shopInfo.setImagUrl(goodsInfo.getGoodsThumb());
             shopInfo.setBuyCount(Integer.parseInt(tv_count.getText().toString()));
             shopInfo.setRunMoney(runMoney);
             shopInfo.setShopId(storeId);
             shopInfo.setGoodsId(goodsInfo.getId());
             shopInfo.setShopName(goodsInfo.getGoodsName());
-            shopInfo.setShopMoney(goodsInfo.getPrice());
+            shopInfo.setShopMoney(goodsInfo.getGoodsPrice());
             list.add(shopInfo);
             carShopInfo.setShopInfos(list);
             BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);

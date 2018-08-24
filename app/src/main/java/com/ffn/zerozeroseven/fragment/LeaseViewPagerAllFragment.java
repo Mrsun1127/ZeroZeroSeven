@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,14 +12,13 @@ import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
-import com.ffn.zerozeroseven.adapter.GoodsAdapter;
 import com.ffn.zerozeroseven.adapter.LeaseAdapter;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.RgRefreshStatus;
-import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
+import com.ffn.zerozeroseven.bean.LeaseGoodsInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
-import com.ffn.zerozeroseven.bean.requsetbean.GoodsListInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.LeaseListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
 import com.ffn.zerozeroseven.utlis.NetUtil;
@@ -55,7 +53,7 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
     String title;
     String shopType;
     Context context;
-    private GoodsContentShowInfo contentShowInfo;
+    private LeaseGoodsInfo contentShowInfo;
     private Double runMoney;
     private String storeId;
     private RelativeLayout rl_no_select;
@@ -99,7 +97,7 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
         adapter.setOnItemImageViewClick(new LeaseAdapter.OnItemImageClick() {
             @Override
             public void onClick(View view, int position) {
-                GoodsContentShowInfo.DataBean.ProductsBean item = adapter.getItem(position);
+                LeaseGoodsInfo.DataBean.ListBean item = adapter.getItem(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("shopInfo", item);
                 ZeroZeroSevenUtils.SwitchActivity(getContext(), ShopDetilsActivity.class, bundle);
@@ -139,18 +137,14 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
 
     private void requestShop() {
         setLoadPage();
-        GoodsListInfo listInfo = new GoodsListInfo();
-        listInfo.setFunctionName("ListSchoolGoods");
-        GoodsListInfo.ParametersBean parametersBean = new GoodsListInfo.ParametersBean();
-        parametersBean.setGoodsType(shopType);
+        LeaseListInfo leaseListInfo = new LeaseListInfo();
+        leaseListInfo.setFunctionName("ListLeaseGoods");
+        LeaseListInfo.ParametersBean parametersBean = new LeaseListInfo.ParametersBean();
+        parametersBean.setCateId(shopType);
         parametersBean.setPageIndex(pageNo);
         parametersBean.setPageSize(8);
-        try {
-            parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        } catch (Exception e) {
-        }
-        listInfo.setParameters(parametersBean);
-        httpPostJSON(listInfo, true);
+        leaseListInfo.setParameters(parametersBean);
+        httpPostJSON(leaseListInfo, true);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -165,13 +159,13 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                contentShowInfo = JSON.parseObject(response.body().string(), GoodsContentShowInfo.class);
+                contentShowInfo = JSON.parseObject(response.body().string(), LeaseGoodsInfo.class);
                 commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         disLoadState();
                         if (contentShowInfo.getCode() == 0) {
-                            List<GoodsContentShowInfo.DataBean.ProductsBean> products = contentShowInfo.getData().getProducts();
+                            List<LeaseGoodsInfo.DataBean.ListBean> products = contentShowInfo.getData().getList();
                             switch (rgRefreshStatus) {
                                 case IDLE:
                                 case REFRESHING:
@@ -198,77 +192,6 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
                         }
                     }
                 });
-            }
-        });
-    }
-
-    public void requestShopOnUp(String name) {
-        commonStateLayout.setVisibility(View.GONE);
-        commonRefreshLayout.setVisibility(View.VISIBLE);
-        rgRefreshStatus = RgRefreshStatus.IDLE;
-        setLoadPage();
-        GoodsListInfo listInfo = new GoodsListInfo();
-        listInfo.setFunctionName("ListSchoolGoods");
-        GoodsListInfo.ParametersBean parametersBean = new GoodsListInfo.ParametersBean();
-        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        if (!TextUtils.isEmpty(name)) {
-            parametersBean.setGoodsName(name);
-        }
-        parametersBean.setGoodsType(shopType);
-        parametersBean.setPageIndex(0);
-        parametersBean.setPageSize(16);
-        listInfo.setParameters(parametersBean);
-        httpPostJSON(listInfo, true);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                commonRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        showErrorLayout(StateLayout.netError);
-                        disLoadState();
-                    }
-                });
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                contentShowInfo = JSON.parseObject(response.body().string(), GoodsContentShowInfo.class);
-                commonRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadState();
-                        if (contentShowInfo.getCode() == 0) {
-                            List<GoodsContentShowInfo.DataBean.ProductsBean> products = contentShowInfo.getData().getProducts();
-                            switch (rgRefreshStatus) {
-                                case IDLE:
-                                case REFRESHING:
-                                    adapter.clear();
-                                    if (products.size() == 0) {
-                                        showErrorLayout(StateLayout.noData);
-                                    } else {
-                                        adapter.addAll(products);
-                                        adapter.setRunMoneyAndStoreId(runMoney, storeId);
-                                        adapter.setLastCarShopInfo(BaseAppApplication.getInstance().getLeasecarShopInfo());
-                                    }
-                                    break;
-                                case PULL_DOWN:
-                                    if (products.size() == 0) {
-                                        UiTipUtil.showToast(bfCxt, R.string.no_more_data);
-                                    } else {
-                                        adapter.clear();
-                                        adapter.addAll(products);
-                                    }
-
-                                    break;
-                            }
-                        } else {
-                            showErrorLayout(StateLayout.noData);
-                        }
-                    }
-                });
-
             }
         });
     }

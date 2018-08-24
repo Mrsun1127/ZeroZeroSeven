@@ -18,8 +18,10 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.RgRefreshStatus;
 import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
+import com.ffn.zerozeroseven.bean.LeaseGoodsInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.GoodsListInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.LeaseListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
 import com.ffn.zerozeroseven.utlis.NetUtil;
@@ -52,7 +54,7 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
     private LeaseAdapter adapter;
     String title;
     String shopType;
-    private GoodsContentShowInfo contentShowInfo;
+    private LeaseGoodsInfo contentShowInfo;
     private Double runMoney;
     private String storeId;
     private RelativeLayout rl_no_select;
@@ -98,7 +100,7 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
         adapter.setOnItemImageViewClick(new LeaseAdapter.OnItemImageClick() {
             @Override
             public void onClick(View view, int position) {
-                GoodsContentShowInfo.DataBean.ProductsBean item = adapter.getItem(position);
+                LeaseGoodsInfo.DataBean.ListBean item = adapter.getItem(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("shopInfo", item);
                 ZeroZeroSevenUtils.SwitchActivity(getContext(), ShopDetilsActivity.class, bundle);
@@ -134,18 +136,14 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
 
     private void requestShop() {
         setLoadPage();
-        GoodsListInfo listInfo = new GoodsListInfo();
-        listInfo.setFunctionName("ListSchoolGoods");
-        GoodsListInfo.ParametersBean parametersBean = new GoodsListInfo.ParametersBean();
-        parametersBean.setGoodsType(shopType);
+        LeaseListInfo leaseListInfo = new LeaseListInfo();
+        leaseListInfo.setFunctionName("ListLeaseGoods");
+        LeaseListInfo.ParametersBean parametersBean = new LeaseListInfo.ParametersBean();
+        parametersBean.setCateId(shopType);
         parametersBean.setPageIndex(pageNo);
         parametersBean.setPageSize(8);
-        try {
-            parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        } catch (Exception e) {
-        }
-        listInfo.setParameters(parametersBean);
-        httpPostJSON(listInfo, true);
+        leaseListInfo.setParameters(parametersBean);
+        httpPostJSON(leaseListInfo, true);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -160,13 +158,13 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                contentShowInfo = JSON.parseObject(response.body().string(), GoodsContentShowInfo.class);
+                contentShowInfo = JSON.parseObject(response.body().string(), LeaseGoodsInfo.class);
                 commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         disLoadState();
                         if (contentShowInfo.getCode() == 0) {
-                            List<GoodsContentShowInfo.DataBean.ProductsBean> products = contentShowInfo.getData().getProducts();
+                            List<LeaseGoodsInfo.DataBean.ListBean> products = contentShowInfo.getData().getList();
                             switch (rgRefreshStatus) {
                                 case IDLE:
                                 case REFRESHING:
@@ -180,7 +178,7 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
                                     break;
                                 case PULL_DOWN:
                                     if (products.size() == 0) {
-                                        UiTipUtil.showToast(bfCxt, R.string.no_more_data);
+                                        ToastUtils.showShort("没有更多数据了");
                                     } else {
                                         adapter.addAll(products);
                                     }
@@ -306,7 +304,7 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
             commonRecyclerView.post(new Runnable() {
                 @Override
                 public void run() {
-                    UiTipUtil.showToast(bfCxt, R.string.check_phone_net);
+                    ToastUtils.showShort("请检查网路是否打开");
                     commonRefreshLayout.endRefreshing();
                 }
             });
@@ -323,7 +321,7 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
             commonRecyclerView.post(new Runnable() {
                 @Override
                 public void run() {
-                    ToastUtils.showShort(R.string.check_phone_net + "");
+                    ToastUtils.showShort("请检查网路是否打开");
                     commonRefreshLayout.endLoadingMore();
                 }
             });
