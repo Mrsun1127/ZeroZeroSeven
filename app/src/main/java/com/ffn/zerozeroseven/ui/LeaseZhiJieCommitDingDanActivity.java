@@ -141,8 +141,8 @@ public class LeaseZhiJieCommitDingDanActivity extends BaseActivity implements Vi
                 for (int i = 0; i < carShopInfo.getShopInfos().size(); i++) {
                     allMoney = allMoney + carShopInfo.getShopInfos().get(i).getShopMoney() * carShopInfo.getShopInfos().get(i).getBuyCount();
                 }
-                tv_allmoney.setText("共计：¥" + ZeroZeroSevenUtils.reactMoney(a));
-                money.setText("" + ZeroZeroSevenUtils.reactMoney(a));
+                tv_allmoney.setText("共计：¥" + ZeroZeroSevenUtils.reactMoney(allMoney));
+                money.setText("" + ZeroZeroSevenUtils.reactMoney(allMoney));
             } else {
                 ToastUtils.showShort("暂无可支付的商品");
             }

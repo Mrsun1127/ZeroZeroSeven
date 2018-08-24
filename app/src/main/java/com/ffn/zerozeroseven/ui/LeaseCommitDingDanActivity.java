@@ -194,8 +194,8 @@ public class LeaseCommitDingDanActivity extends BaseActivity implements View.OnC
                 for (int i = 0; i < carShopInfo.getShopInfos().size(); i++) {
                     allMoney = allMoney + carShopInfo.getShopInfos().get(i).getShopMoney() * carShopInfo.getShopInfos().get(i).getBuyCount();
                 }
-                tv_allmoney.setText("共计：¥" + ZeroZeroSevenUtils.reactMoney(a));
-                money.setText(ZeroZeroSevenUtils.reactMoney(a) + "");
+                tv_allmoney.setText("共计：¥" + ZeroZeroSevenUtils.reactMoney(allMoney));
+                money.setText(ZeroZeroSevenUtils.reactMoney(allMoney) + "");
             } else {
                 tv_allmoney.setText("暂无可支付的商品");
                 ToastUtils.showShort("暂无可支付的商品");

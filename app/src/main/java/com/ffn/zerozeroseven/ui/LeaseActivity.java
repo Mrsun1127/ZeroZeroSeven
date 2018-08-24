@@ -51,7 +51,7 @@ public class LeaseActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SharePrefUtils.saveObject(LeaseActivity.this, "foodcarShopInfo", BaseAppApplication.getInstance().getFoodcarShopInfo());
+        SharePrefUtils.saveObject(LeaseActivity.this, "leasecarShopInfo", BaseAppApplication.getInstance().getLeasecarShopInfo());
 
     }
 }
