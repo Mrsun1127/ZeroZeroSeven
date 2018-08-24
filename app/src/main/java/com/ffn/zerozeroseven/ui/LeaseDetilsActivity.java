@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
@@ -24,8 +23,8 @@ import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
+import com.ffn.zerozeroseven.bean.LeaseGoodsInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
-import com.ffn.zerozeroseven.bean.requsetbean.RequeseGoods;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
@@ -35,24 +34,18 @@ import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.NXHooldeView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 import q.rorbin.badgeview.QBadgeView;
 
 /**
  * Created by GT on 2017/11/24.
  */
 
-public class ShopDetilsActivity extends BaseActivity implements View.OnClickListener {
+public class LeaseDetilsActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView tv_allmoney;
     private TextView tv_name;
@@ -64,7 +57,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
     private int countCompare;
     private Double runMoney;
     private String storeId;
-    private GoodsContentShowInfo.DataBean.ProductsBean goodsInfo;
+    private LeaseGoodsInfo.DataBean.ListBean goodsInfo;
     private CarShopInfo lastCarShopInfo;
     boolean carBuy = true;//是否是购物车买
     private QBadgeView badgeView;
@@ -86,45 +79,14 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void doMain() {
-        getShangChangInfo();
+        jumpType = getIntent().getStringExtra("type");
     }
 
     Double rmb;
 
-    private void getShangChangInfo() {
-        final ShangchangInfo shangchangInfo = new ShangchangInfo();
-        shangchangInfo.setFunctionName("QuerySchoolStore");
-        ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
-        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
-        parametersBean.setCate("ZH");
-        shangchangInfo.setParameters(parametersBean);
-        OkGoUtils okGoUtils = new OkGoUtils(ShopDetilsActivity.this);
-        okGoUtils.httpPostJSON(shangchangInfo, true, true);
-        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
-            @Override
-            public void onSuccLoad(String response) {
-                final ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
-
-                if (shangChangShowInfo.getCode() == 0) {
-                    rmb = shangChangShowInfo.getData().getDeliveryPrice();
-                    storeId = shangChangShowInfo.getData().getId() + "";//商家Id
-                    if (shangChangShowInfo.getData().getExtraFee() != null) {
-                        runMoney = shangChangShowInfo.getData().getExtraFee();
-                    } else {
-                        runMoney = 1.0;
-                    }
-                    tv_smallmoney.setText("另需007跑腿费 " + runMoney);
-                }
-            }
-        });
-
-
-    }
-
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        jumpType = getIntent().getStringExtra("type");
         badgeView = new QBadgeView(this);
         ImageView iv_back = findViewById(R.id.iv_back);
         iv_zzs = findViewById(R.id.iv_zzs);
@@ -147,8 +109,8 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         tv_phone.setOnClickListener(this);
         tv_addshopcar.setOnClickListener(this);
         goodsInfo = getIntent().getParcelableExtra("shopInfo");
-        Glide.with(ShopDetilsActivity.this)
-                .load(goodsInfo.getThumbnail())
+        Glide.with(LeaseDetilsActivity.this)
+                .load(goodsInfo.getGoodsThumb())
                 .error(R.drawable.oops)
                 .override(ScreenUtils.getScreenWidth() / 3, ScreenUtils.getScreenHeight() / 4)
                 .into(iv_icon);
@@ -160,8 +122,8 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
             tv_desc.setText(goodsInfo.getGoodsName() + "值得你消费");
         }
         try {
-            tv_money.setText("¥" + goodsInfo.getPrice());
-            tv_kucun.setText("库存" + goodsInfo.getStockNum());
+            tv_money.setText("¥" + goodsInfo.getGoodsPrice());
+            tv_kucun.setText("库存" + goodsInfo.getStoreCount());
         } catch (Exception e) {
         }
         tv_allmoney.setText("商品总价为 ¥0.0");
@@ -173,12 +135,8 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
             }
         }
         countCompare = Integer.parseInt(count1);
+        lastCarShopInfo = (CarShopInfo) SharePrefUtils.readObject(LeaseDetilsActivity.this, "leasecarShopInfo");
         backType = getIntent().getStringExtra("back");
-        if("shop".equals(jumpType)){
-            lastCarShopInfo = (CarShopInfo) SharePrefUtils.readObject(ShopDetilsActivity.this, "carShopInfo");
-        }else if("food".equals(jumpType)){
-            lastCarShopInfo = (CarShopInfo) SharePrefUtils.readObject(ShopDetilsActivity.this, "foodcarShopInfo");
-        }
     }
 
 
@@ -193,7 +151,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE && PermissionChecker.checkSelfPermission(ShopDetilsActivity.this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == REQUEST_CODE && PermissionChecker.checkSelfPermission(LeaseDetilsActivity.this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
             ToastUtils.showShort("授权成功,请重新拨打电话");
         }
     }
@@ -203,7 +161,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         Uri uri = Uri.parse("tel:" + phoneNum);
         Intent intent = new Intent(Intent.ACTION_CALL, uri);
         //此处不判断就会报错
-        if (ActivityCompat.checkSelfPermission(ShopDetilsActivity.this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(LeaseDetilsActivity.this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
             startActivity(intent);
         }
     }
@@ -217,7 +175,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 if (Build.VERSION.SDK_INT >= 23) {
 
                     //判断有没有拨打电话权限
-                    if (PermissionChecker.checkSelfPermission(ShopDetilsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    if (PermissionChecker.checkSelfPermission(LeaseDetilsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
 
                         //请求拨打电话权限
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CODE);
@@ -237,11 +195,11 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.ib_add:
                 if (tvCount >= countCompare) {
-                    ZeroZeroSevenUtils.showCustonPop(ShopDetilsActivity.this, "商品已售完，请等待商家补充货源", ib_lose);
+                    ZeroZeroSevenUtils.showCustonPop(LeaseDetilsActivity.this, "商品已售完，请等待商家补充货源", ib_lose);
                     return;
                 }
                 tv_count.setText(++tvCount + "");
-                tv_allmoney.setText("商品总价为 ¥" + ZeroZeroSevenUtils.reactMoney((goodsInfo.getPrice() * tvCount)));
+                tv_allmoney.setText("商品总价为 ¥" + ZeroZeroSevenUtils.reactMoney((goodsInfo.getGoodsPrice() * tvCount)));
                 tvCount = Integer.parseInt(tv_count.getText().toString());
                 addAction(ib_add, iv_zzs);
                 BaseAppApplication.mainHandler.postDelayed(new Runnable() {
@@ -253,11 +211,11 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.ib_lose:
                 if (tvCount <= 0) {
-                    ZeroZeroSevenUtils.showCustonPop(ShopDetilsActivity.this, "亲 再减就成负数了", ib_lose);
+                    ZeroZeroSevenUtils.showCustonPop(LeaseDetilsActivity.this, "亲 再减就成负数了", ib_lose);
                     return;
                 }
                 tv_count.setText(--tvCount + "");
-                tv_allmoney.setText("商品总价为 ¥" + ZeroZeroSevenUtils.reactMoney((goodsInfo.getPrice() * tvCount)));
+                tv_allmoney.setText("商品总价为 ¥" + ZeroZeroSevenUtils.reactMoney((goodsInfo.getGoodsPrice() * tvCount)));
                 tvCount = Integer.parseInt(tv_count.getText().toString());
                 addAction(iv_zzs, ib_lose);
                 badgeView.setBadgeNumber(tvCount);
@@ -271,7 +229,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
 //                    ZeroZeroSevenUtils.showCustonPop(ShopDetilsActivity.this, "亲，商铺现在打烊，请于早上9.30之后下单", tv_addshopcar);
 //                    return;
 //                }
-                if ((ZeroZeroSevenUtils.reactMoney((goodsInfo.getPrice() * tvCount))) < rmb) {
+                if ((ZeroZeroSevenUtils.reactMoney((goodsInfo.getGoodsPrice() * tvCount))) < rmb) {
                     ToastUtils.showShort("很抱歉，未达到" + rmb + "元配送金额");
                     return;
                 }
@@ -299,13 +257,13 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                         }
                     }
                     CarShopInfo.ShopInfo shopInfo = new CarShopInfo.ShopInfo();
-                    shopInfo.setImagUrl(goodsInfo.getThumbnail());
+                    shopInfo.setImagUrl(goodsInfo.getGoodsThumb());
                     shopInfo.setBuyCount(Integer.parseInt(tv_count.getText().toString()));
                     shopInfo.setRunMoney(runMoney);
                     shopInfo.setShopId(storeId);
                     shopInfo.setGoodsId(goodsInfo.getId());
                     shopInfo.setShopName(goodsInfo.getGoodsName());
-                    shopInfo.setShopMoney(goodsInfo.getPrice());
+                    shopInfo.setShopMoney(goodsInfo.getGoodsPrice());
                     list.add(shopInfo);
                     lastCarShopInfo.setShopInfos(list);
                     BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
@@ -314,13 +272,13 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                     List<CarShopInfo.ShopInfo> list = new ArrayList<>();
                     CarShopInfo carShopInfo = new CarShopInfo();
                     CarShopInfo.ShopInfo shopInfo = new CarShopInfo.ShopInfo();
-                    shopInfo.setImagUrl(goodsInfo.getThumbnail());
+                    shopInfo.setImagUrl(goodsInfo.getGoodsThumb());
                     shopInfo.setBuyCount(Integer.parseInt(tv_count.getText().toString()));
                     shopInfo.setRunMoney(runMoney);
                     shopInfo.setShopId(storeId);
                     shopInfo.setGoodsId(goodsInfo.getId());
                     shopInfo.setShopName(goodsInfo.getGoodsName());
-                    shopInfo.setShopMoney(goodsInfo.getPrice());
+                    shopInfo.setShopMoney(goodsInfo.getGoodsPrice());
                     list.add(shopInfo);
                     carShopInfo.setShopInfos(list);
                     BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
@@ -330,13 +288,13 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 List<CarShopInfo.ShopInfo> list = new ArrayList<>();
                 CarShopInfo carShopInfo = new CarShopInfo();
                 CarShopInfo.ShopInfo shopInfo = new CarShopInfo.ShopInfo();
-                shopInfo.setImagUrl(goodsInfo.getThumbnail());
+                shopInfo.setImagUrl(goodsInfo.getGoodsThumb());
                 shopInfo.setBuyCount(Integer.parseInt(tv_count.getText().toString()));
                 shopInfo.setRunMoney(runMoney);
                 shopInfo.setShopId(storeId);
                 shopInfo.setGoodsId(goodsInfo.getId());
                 shopInfo.setShopName(goodsInfo.getGoodsName());
-                shopInfo.setShopMoney(goodsInfo.getPrice());
+                shopInfo.setShopMoney(goodsInfo.getGoodsPrice());
                 list.add(shopInfo);
                 carShopInfo.setShopInfos(list);
                 BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
@@ -356,17 +314,17 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         List<CarShopInfo.ShopInfo> list = new ArrayList<>();
         CarShopInfo carShopInfo = new CarShopInfo();
         CarShopInfo.ShopInfo shopInfo = new CarShopInfo.ShopInfo();
-        shopInfo.setImagUrl(goodsInfo.getThumbnail());
+        shopInfo.setImagUrl(goodsInfo.getGoodsThumb());
         shopInfo.setBuyCount(Integer.parseInt(tv_count.getText().toString()));
         shopInfo.setRunMoney(runMoney);
         shopInfo.setShopId(storeId);
         shopInfo.setGoodsId(goodsInfo.getId());
         shopInfo.setShopName(goodsInfo.getGoodsName());
-        shopInfo.setShopMoney(goodsInfo.getPrice());
+        shopInfo.setShopMoney(goodsInfo.getGoodsPrice());
         list.add(shopInfo);
         carShopInfo.setShopInfos(list);
-        SharePrefUtils.saveObject(ShopDetilsActivity.this, "zhijiecarShopInfo", carShopInfo);
-        ZeroZeroSevenUtils.SwitchActivity(ShopDetilsActivity.this, ZhiJieCommitDingDanActivity.class);
+        SharePrefUtils.saveObject(LeaseDetilsActivity.this, "zhijiecarShopInfo", carShopInfo);
+        ZeroZeroSevenUtils.SwitchActivity(LeaseDetilsActivity.this, ZhiJieCommitDingDanActivity.class);
     }
 
     public void addAction(View startView, View endView) {
@@ -385,6 +343,6 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        SharePrefUtils.saveObject(LeaseDetilsActivity.this, "leasecarShopInfo", BaseAppApplication.getInstance().getLeasecarShopInfo());
     }
 }

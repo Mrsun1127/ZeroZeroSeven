@@ -20,6 +20,7 @@ import com.ffn.zerozeroseven.bean.LeaseGoodsInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.LeaseListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
+import com.ffn.zerozeroseven.ui.LeaseDetilsActivity;
 import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
 import com.ffn.zerozeroseven.utlis.NetUtil;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
@@ -100,7 +101,7 @@ public class LeaseViewPagerAllFragment extends BaseFragment implements BGARefres
                 LeaseGoodsInfo.DataBean.ListBean item = adapter.getItem(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("shopInfo", item);
-                ZeroZeroSevenUtils.SwitchActivity(getContext(), ShopDetilsActivity.class, bundle);
+                ZeroZeroSevenUtils.SwitchActivity(getContext(), LeaseDetilsActivity.class, bundle);
             }
         });
 

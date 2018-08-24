@@ -17,16 +17,14 @@ import com.ffn.zerozeroseven.adapter.LeaseAdapter;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.RgRefreshStatus;
-import com.ffn.zerozeroseven.bean.GoodsContentShowInfo;
 import com.ffn.zerozeroseven.bean.LeaseGoodsInfo;
 import com.ffn.zerozeroseven.bean.ShangChangShowInfo;
-import com.ffn.zerozeroseven.bean.requsetbean.GoodsListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.LeaseListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
+import com.ffn.zerozeroseven.ui.LeaseDetilsActivity;
 import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
 import com.ffn.zerozeroseven.utlis.NetUtil;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
-import com.ffn.zerozeroseven.utlis.UiTipUtil;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.ffn.zerozeroseven.view.StateLayout;
@@ -103,7 +101,7 @@ public class LeaseViewPagerFragment extends BaseFragment implements BGARefreshLa
                 LeaseGoodsInfo.DataBean.ListBean item = adapter.getItem(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("shopInfo", item);
-                ZeroZeroSevenUtils.SwitchActivity(getContext(), ShopDetilsActivity.class, bundle);
+                ZeroZeroSevenUtils.SwitchActivity(getContext(), LeaseDetilsActivity.class, bundle);
             }
         });
 

@@ -103,6 +103,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                 GoodsContentShowInfo.DataBean.ProductsBean item = adapter.getItem(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("shopInfo", item);
+                bundle.putString("type","shop");
                 ZeroZeroSevenUtils.SwitchActivity(getContext(), ShopDetilsActivity.class, bundle);
             }
         });

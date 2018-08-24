@@ -101,6 +101,7 @@ public class FoodViewPagerFragment extends BaseFragment implements BGARefreshLay
                 GoodsContentShowInfo.DataBean.ProductsBean item = adapter.getItem(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("shopInfo", item);
+                bundle.putString("type", "food");
                 ZeroZeroSevenUtils.SwitchActivity(getContext(), ShopDetilsActivity.class, bundle);
             }
         });
