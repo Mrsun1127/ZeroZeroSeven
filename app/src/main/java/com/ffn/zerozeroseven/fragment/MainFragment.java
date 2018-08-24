@@ -234,10 +234,16 @@ public class MainFragment extends BaseFragment {
     ImageView iv_xinpin;
     @Bind(R.id.iv_up_all)
     ImageView iv_up_all;
-    @Bind(R.id.iv_cancer)
-    ImageView iv_cancer;
     @Bind(R.id.bt_update)
     Button bt_update;
+    @Bind(R.id.tv_up_title)
+    TextView tv_up_title;
+    @Bind(R.id.tv_size)
+    TextView tv_size;
+    @Bind(R.id.tv_ignore)
+    TextView tv_ignore;
+    @Bind(R.id.ll_close)
+    LinearLayout ll_close;
 
 
     @Override
@@ -577,6 +583,16 @@ public class MainFragment extends BaseFragment {
                     if (lastVersion > curVersion) {
                         rl_update.setVisibility(View.VISIBLE);
                         tv_up_content.setText(appVersionInfo.getData().getReleaseNote());
+                        tv_up_title.setText("是否升级到" + appVersionInfo.getData().getLatestVersion() + "版本？");
+                        tv_size.setText("升级大小" + appVersionInfo.getData().getTargetSize() + "M");
+
+                        if(appVersionInfo.getData().getConstraint()==1){
+                            ll_close.setVisibility(View.GONE);
+                            tv_ignore.setVisibility(View.GONE);
+                        }else{
+                            ll_close.setVisibility(View.VISIBLE);
+                            tv_ignore.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
 
@@ -1187,9 +1203,16 @@ public class MainFragment extends BaseFragment {
     @Bind(R.id.tv_up_content)
     TextView tv_up_content;
 
-    @OnClick({R.id.rl_lease, R.id.rl_errand, R.id.rl_jump_shop, R.id.bt_update, R.id.tv_up_top, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
+    @OnClick({R.id.tv_ignore,R.id.rl_lease, R.id.rl_errand, R.id.rl_jump_shop, R.id.bt_update, R.id.ll_close, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.tv_ignore:
+                if (appVersionInfo.getData().getConstraint() == 1) {
+                    BaseAppApplication.getInstance().exit();
+                } else {
+                    rl_update.setVisibility(View.GONE);
+                }
+                break;
             case R.id.rl_lease:
                 if (userInfo != null) {
                     if ("943478288".equals(schoolIId)) {
@@ -1228,7 +1251,7 @@ public class MainFragment extends BaseFragment {
                 downLoadApk(appVersionInfo.getData().getDownloadUrl());
                 rl_update.setVisibility(View.GONE);
                 break;
-            case R.id.tv_up_top:
+            case R.id.ll_close:
                 if (appVersionInfo.getData().getConstraint() == 1) {
                     BaseAppApplication.getInstance().exit();
                 } else {

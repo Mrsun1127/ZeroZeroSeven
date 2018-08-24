@@ -366,11 +366,11 @@
     </RelativeLayout>
 
     <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_above="@+id/iv_show"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:src="@drawable/fristshow" />-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_above="@+id/iv_show"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:src="@drawable/fristshow" />-->
 
     <ImageView
         android:id="@+id/iv_show"
@@ -388,57 +388,110 @@
         android:background="@color/trancelate"
         android:visibility="gone">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="45dp"
-            android:layout_marginRight="45dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:orientation="vertical"
             android:visibility="visible">
 
             <ImageView
                 android:id="@+id/iv_up_all"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/integral_back" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/lib_update_app_top_bg" />
 
-            <ImageView
-                android:id="@+id/iv_cancer"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/lib_update_app_info_bg"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tv_up_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="是否升级到4.1.1版本？"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/tv_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="是否升级到4.1.1版本？"
+                    android:textSize="11sp" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:scrollbars="none">
+
+                    <TextView
+                        android:id="@+id/tv_up_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1，xxxxxxxx\n2，ooooooooo"
+                        android:textColor="#666"
+                        android:textSize="14sp" />
+                </ScrollView>
+
+
+                <Button
+                    android:background="@color/money"
+                    android:id="@+id/bt_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:minHeight="40dp"
+                    android:text="升级"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_ignore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="忽略此版本"
+                    android:textColor="#666"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/cancel_icon" />
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_up_top"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:gravity="center"
-                android:text="更新说明"
-                android:textColor="@color/white"
-                android:textSize="13sp" />
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:background="#d8d8d8"
+                    android:visibility="visible" />
 
-            <TextView
-                android:id="@+id/tv_up_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_up_top"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/white" />
+                <ImageView
+                    android:id="@+id/iv_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/lib_update_app_close" />
 
-            <Button
-                android:id="@+id/bt_update"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/circle3"
-                android:text="前往更新"
-                android:textColor="@color/white" />
-        </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
 
 </RelativeLayout>
