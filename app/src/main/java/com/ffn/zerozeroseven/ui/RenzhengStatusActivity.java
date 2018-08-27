@@ -15,7 +15,10 @@ import com.ffn.zerozeroseven.bean.RunnerInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TopView;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,6 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RenzhengStatusActivity extends BaseActivity {
     @Bind(R.id.topView)
     TopView topView;
+    public static WeakReference<RenzhengStatusActivity> mInstance;
 
     @Override
     protected int setLayout() {
@@ -67,6 +71,11 @@ public class RenzhengStatusActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
+        mInstance = new WeakReference<>(this);
+        init();
+    }
+
+    public void init() {
         QueserRunner queserRunner = new QueserRunner();
         queserRunner.setFunctionName("QueryErrandUser");
         QueserRunner.ParametersBean parametersBean = new QueserRunner.ParametersBean();
@@ -101,7 +110,7 @@ public class RenzhengStatusActivity extends BaseActivity {
                                 break;
                             case 1:
                                 bt_sub.setText("申请退款");
-                                Glide.with(RenzhengStatusActivity.this).load(runnerInfo.getData().getAvatar()).override(ScreenUtils.getScreenWidth()/6,ScreenUtils.getScreenWidth()/6).into(iv_status);
+                                Glide.with(RenzhengStatusActivity.this).load(runnerInfo.getData().getAvatar()).override(ScreenUtils.getScreenWidth() / 6, ScreenUtils.getScreenWidth() / 6).into(iv_status);
                                 break;
                         }
                         switch (runnerInfo.getData().getPayStatus()) {//支付状态：-2=已退款，-1=支付失败，0=未支付，1=支付成功
@@ -116,12 +125,13 @@ public class RenzhengStatusActivity extends BaseActivity {
             }
         });
     }
+
     @OnClick({R.id.bt_sub})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_sub:
-
-            break;
+                ZeroZeroSevenUtils.SwitchActivity(RenzhengStatusActivity.this, RunnerTuiKuanActivity.class);
+                break;
 
         }
     }

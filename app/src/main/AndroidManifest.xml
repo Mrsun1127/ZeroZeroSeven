@@ -378,6 +378,7 @@
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
         <activity android:name=".ui.LeaseDingDanBobyActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.RunnerTuiKuanActivity" />
 
 
         <!-- Required SDK核心功能-->
