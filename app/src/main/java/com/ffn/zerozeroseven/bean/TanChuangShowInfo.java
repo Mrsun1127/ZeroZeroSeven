@@ -3,13 +3,13 @@ package com.ffn.zerozeroseven.bean;
 public class TanChuangShowInfo {
     /**
      * code : 0
-     * data : {"item":{"content":"内容","id":1,"title":"标题"}}
-     * success : true
+     * data : {"id":1,"title":"标题","content":"内容"}
+     * message : 请求成功
      */
 
     private int code;
     private DataBean data;
-    private boolean success;
+    private String message;
 
     public int getCode() {
         return code;
@@ -27,63 +27,47 @@ public class TanChuangShowInfo {
         this.data = data;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public String getMessage() {
+        return message;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public static class DataBean {
         /**
-         * item : {"content":"内容","id":1,"title":"标题"}
+         * id : 1
+         * title : 标题
+         * content : 内容
          */
 
-        private ItemBean item;
+        private int id;
+        private String title;
+        private String content;
 
-        public ItemBean getItem() {
-            return item;
+        public int getId() {
+            return id;
         }
 
-        public void setItem(ItemBean item) {
-            this.item = item;
+        public void setId(int id) {
+            this.id = id;
         }
 
-        public static class ItemBean {
-            /**
-             * content : 内容
-             * id : 1
-             * title : 标题
-             */
+        public String getTitle() {
+            return title;
+        }
 
-            private String content;
-            private int id;
-            private String title;
+        public void setTitle(String title) {
+            this.title = title;
+        }
 
-            public String getContent() {
-                return content;
-            }
+        public String getContent() {
+            return content;
+        }
 
-            public void setContent(String content) {
-                this.content = content;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
-            }
+        public void setContent(String content) {
+            this.content = content;
         }
     }
 }
