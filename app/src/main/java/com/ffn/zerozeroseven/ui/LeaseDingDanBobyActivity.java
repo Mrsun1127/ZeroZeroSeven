@@ -185,6 +185,9 @@ public class LeaseDingDanBobyActivity extends BaseActivity implements ActionShee
                         tv_remark.setVisibility(View.VISIBLE);
                         tv_remark.setText("备注:" + info.getData().getPostscript());
                     }
+                    if (info.getData().getPayStatus() == 2) {
+                        ToastUtils.showShort("您的商品已经退款至您的支付账户");
+                    }
                     try {
                         if (!TextUtils.isEmpty(info.getData().getDeliveryName())) {
                             rl_peple.setVisibility(View.VISIBLE);
@@ -201,43 +204,36 @@ public class LeaseDingDanBobyActivity extends BaseActivity implements ActionShee
                     String s;
                     int i = 0;
                     i = info.getData().getOrderStatus();
+                    //0=未接单,1=（后台）已确认,2=已收货,3=已取消，4=已完成，5=已作废
                     switch (i) {
-                        case -1:
-                            s = "支付失败";
-                            tv_show.setText("请重新支付");
-                            tv_staus.setText("支付失败");
-                            bt_show.setText("再来一单");
-                            tv_finish.setVisibility(View.GONE);
-                            rl_peple.setVisibility(View.GONE);
-                            break;
                         case 0:
                             tv_show.setText("快把商品带回家");
-                            s = "未支付";
-                            tv_staus.setText("未支付");
-                            bt_show.setText("去支付");
+                            s = "未接单";
+                            tv_staus.setText("未接单");
+                            bt_show.setText("取消订单");
                             tv_finish.setVisibility(View.GONE);
                             rl_peple.setVisibility(View.GONE);
                             break;
                         case 1:
-                            tv_show.setText("正在等待007接单");
-                            tv_staus.setText("支付成功");
-                            bt_show.setText("取消订单");
-                            s = "支付成功";
-                            tv_finish.setVisibility(View.GONE);
-                            rl_peple.setVisibility(View.GONE);
-                            break;
-                        case 2:
                             s = "已接单";
-                            tv_show.setText("007已接单 ,稍等片刻，美食即将到来");
+                            tv_show.setText("007已接单");
                             tv_staus.setText("已接单");
-                            bt_show.setText("取消订单");
+                            bt_show.setText("再来一单");
                             tv_finish.setVisibility(View.GONE);
                             rl_peple.setVisibility(View.VISIBLE);
                             break;
+                        case 2:
+                            tv_show.setText("007已经把商品送到您的手中");
+                            tv_staus.setText("已收货");
+                            bt_show.setText("再来一单");
+                            s = "已收货";
+                            tv_finish.setVisibility(View.GONE);
+                            rl_peple.setVisibility(View.GONE);
+                            break;
                         case 3:
-                            tv_show.setText("007已取货 ,稍等片刻，美食即将到来");
-                            tv_staus.setText("已取货");
-                            s = "已取货";
+                            tv_show.setText("您已取消订单");
+                            tv_staus.setText("已取消");
+                            s = "已取消";
                             bt_show.setText("再来一单");
                             tv_finish.setVisibility(View.GONE);
                             rl_peple.setVisibility(View.VISIBLE);
@@ -253,28 +249,13 @@ public class LeaseDingDanBobyActivity extends BaseActivity implements ActionShee
                             }
                             s = "已完成";
                             break;
-                        // 6=退款中，7=退款成功，8=拒绝退款
-                        case 6:
-                            tv_show.setText("商家正在处理退款");
-                            tv_staus.setText("退款中");
-                            s = "退款中";
+                        case 5:
+                            tv_show.setText("此订单已作废");
+                            tv_staus.setText("已作废");
+                            s = "已作废";
                             bt_show.setText("再来一单");
                             tv_finish.setVisibility(View.GONE);
-                            break;
-                        case 7:
-                            tv_show.setText("商家已经退款到您的支付账户中");
-                            tv_staus.setText("退款成功");
-                            s = "退款成功";
-                            bt_show.setText("退款成功");
-                            tv_finish.setVisibility(View.GONE);
-                            break;
-                        case 8:
-                            tv_show.setText("商家拒绝退款");
-                            tv_staus.setText("退款失败");
-                            s = "退款失败";
-                            bt_show.setText("退款失败");
-                            tv_finish.setVisibility(View.VISIBLE);
-                            tv_finish.setText("退款失败原因:");
+                            rl_peple.setVisibility(View.VISIBLE);
                             break;
                         default:
                             tv_show.setText("异常单，请联系零零7");
@@ -298,7 +279,7 @@ public class LeaseDingDanBobyActivity extends BaseActivity implements ActionShee
         switch (v.getId()) {
             case R.id.bt_show:
                 int status = info.getData().getOrderStatus();
-                if (status == 1 || status == 2) {
+                if (status == 0) {
                     ActionSheet.createBuilder(LeaseDingDanBobyActivity.this, getSupportFragmentManager())
                             .setCancelButtonTitle("取消")
                             .setOtherButtonTitles(items[0], items[1], items[2], items[3])
@@ -404,7 +385,8 @@ public class LeaseDingDanBobyActivity extends BaseActivity implements ActionShee
             }
         });
     }
-    private void sureGet(){
+
+    private void sureGet() {
         RquxiaoLeaseInfo rsnackTuikuanInfo = new RquxiaoLeaseInfo();
         rsnackTuikuanInfo.setFunctionName("ConfirmLeaseGoodsOrder");
         RquxiaoLeaseInfo.ParametersBean parametersBean = new RquxiaoLeaseInfo.ParametersBean();

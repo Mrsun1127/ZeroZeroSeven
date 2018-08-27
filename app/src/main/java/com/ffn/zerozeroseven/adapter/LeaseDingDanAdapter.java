@@ -39,39 +39,35 @@ public class LeaseDingDanAdapter extends BaseRecyclerAdapter<LeaseDingDanListINf
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final LeaseDingDanListINfo.DataBean.ListBean info, final int position) {
         final MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_time.setText("下单时间: " + info.getCreateTime());
-        mHolder.tv_allmoney.setText("共" + info.getOrderGoodsList().size() + "个商品，合计¥: " + ( info.getGoodsPrice()));
-        //订单状态：-1=支付失败，0=未支付，1=支付成功，2=已接单，3=已完成 6=退款中，7=退款成功，8=拒绝退款
+        mHolder.tv_allmoney.setText("共" + info.getOrderGoodsList().size() + "个商品，合计¥: " + (info.getGoodsPrice()));
+        //订单状态：0=待确认,1=（后台）已确认,2=已收货,3=已取消，4=已完成，5=已作废
         String s = "";
         switch (info.getOrderStatus()) {
-            case -1:
-                s = "支付失败";
-                break;
             case 0:
-                s = "未支付";
+                s = "待确认";
                 break;
             case 1:
-                s = "支付成功";
+                s = "已确认";
                 break;
             case 2:
-                s = "已接单";
+                s = "已收货";
                 break;
             case 3:
-                s = "已取货";
+                s = "已取消";
                 break;
             case 4:
                 s = "已完成";
                 break;
-            case 6:
-                s = "退款中";
+            case 5:
+                s = "已作废";
                 break;
-            case 7:
-                s = "退款成功";
-                break;
-            case 8:
-                s = "拒绝退款";
-                break;
+
+        }
+        if(info.getPayStatus()==2){
+            s = "已退款";
         }
         mHolder.tv_status.setText(s);
+
         adapter = new ItemLeaseDingDanAdapter(mContext);
         mHolder.rc_shop.setAdapter(adapter);
         adapter.addAll(info.getOrderGoodsList());
