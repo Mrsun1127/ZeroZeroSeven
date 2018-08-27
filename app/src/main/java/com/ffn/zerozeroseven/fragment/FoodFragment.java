@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ShopTitleAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
+import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
@@ -199,6 +200,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
                     titleAdapter.cleanDates();
                     ShopTitleInfo.DataBean.GoodsTypesBean goodsTypesBean = new ShopTitleInfo.DataBean.GoodsTypesBean();
                     goodsTypesBean.setName("全部");
+                    goodsTypesBean.setIcon(AppConfig.SHOP_ALL);
                     showInfo.getData().getGoodsTypes().add(0, goodsTypesBean);
                     titleAdapter.addAll(showInfo.getData().getGoodsTypes());
                     int length = showInfo.getData().getGoodsTypes().size();

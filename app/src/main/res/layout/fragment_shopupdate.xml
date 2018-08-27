@@ -31,7 +31,8 @@
                     <ImageView
                         android:id="@+id/iv_in_bg"
                         android:layout_width="match_parent"
-                        android:layout_height="126dp"/>
+                        android:layout_height="126dp"
+                        android:background="@drawable/shop_default" />
 
                     <RelativeLayout
                         android:id="@+id/rl_search"
@@ -47,6 +48,7 @@
                     </RelativeLayout>
 
                     <ImageView
+                        android:background="@drawable/app_default"
                         android:id="@+id/iv_icon"
                         android:layout_width="95dp"
                         android:layout_height="95dp"
@@ -127,10 +129,10 @@
                         android:textSize="11sp" />
 
                     <RelativeLayout
-                        android:visibility="gone"
                         android:id="@+id/rl_back"
                         android:layout_width="60dp"
-                        android:layout_height="60dp">
+                        android:layout_height="60dp"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="wrap_content"

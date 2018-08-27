@@ -157,9 +157,8 @@ public class HomeActivity extends AppCompatActivity {
                 TanChuangShowInfo tanChuangShowInfo = JSON.parseObject(response, TanChuangShowInfo.class);
                 if (tanChuangShowInfo.getCode() == 0) {
                     int showId = SharePrefUtils.getInt(HomeActivity.this, "showId", 0);
-                    if (showId != tanChuangShowInfo.getData().getId()) {
+                    if (showId == tanChuangShowInfo.getData().getId()) {
                         TanChuang(tanChuangShowInfo.getData().getContent(), tanChuangShowInfo.getData().getTitle());
-//                        TanChuang("农大放假一个月", "放假通知");
                         SharePrefUtils.setInt(HomeActivity.this, "showId", tanChuangShowInfo.getData().getId());
                     }
                 }
@@ -170,18 +169,19 @@ public class HomeActivity extends AppCompatActivity {
     private void TanChuang(String s, String s1) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
         View view = View.inflate(this, R.layout.main_tanchuangshow, null);
         TextView tv_tanchuang = view.findViewById(R.id.tv_tanchuang);
         TextView tv_title = view.findViewById(R.id.tv_title);
-//        RelativeLayout rl_close = view.findViewById(R.id.rl_close);
+        ImageView iv_close = view.findViewById(R.id.iv_close);
         tv_tanchuang.setText(s);
         tv_title.setText(s1);
-//        rl_close.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dialog.dismiss();
-//            }
-//        });
+        iv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         dialog.setView(view);
         dialog.show();
     }

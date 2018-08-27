@@ -21,6 +21,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.LeaseTitleAdapter;
 import com.ffn.zerozeroseven.adapter.ShopTitleAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
+import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
@@ -188,6 +189,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
                     titleAdapter.cleanDates();
                     LeaseTabInfo.DataBean.CateListBean cateListBean = new LeaseTabInfo.DataBean.CateListBean();
                     cateListBean.setCateName("全部");
+                    cateListBean.setCateThumb(AppConfig.SHOP_ALL);
                     leaseTabInfo.getData().getCateList().add(0, cateListBean);
                     titleAdapter.addAll(leaseTabInfo.getData().getCateList());
                     int length = leaseTabInfo.getData().getCateList().size();
