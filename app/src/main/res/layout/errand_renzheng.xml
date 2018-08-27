@@ -20,7 +20,8 @@
            android:clickable="false"
            app:tabIndicatorColor="@color/white"
            app:tabSelectedTextColor="@color/errandtab"
-           app:tabTextColor="@color/line_color" />
+           app:tabTextColor="@color/line_color"
+           app:tabTextAppearance="@style/TextAppearance.Design.Tab.Custom"/>
        <Button
            android:background="@color/transtale"
            android:layout_width="match_parent"

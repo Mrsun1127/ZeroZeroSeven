@@ -73,6 +73,7 @@ public class ErrandAuitActivity extends BaseActivity {
         fragmentList.add(ErrandRenzhen3Fragment.newInstance());
         ShopViewPagerAdapter adapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, mDataList);
         viewpager.setAdapter(adapter);
+        tablayout.setTabMode(TabLayout.MODE_FIXED);
         tablayout.setupWithViewPager(viewpager);
     }
 

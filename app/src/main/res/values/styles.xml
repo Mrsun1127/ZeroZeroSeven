@@ -18,6 +18,11 @@
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
         <item name="actionSheetStyle">@style/ActionSheetStyleiOS7</item>
     </style>
+    <style name="TextAppearance.Design.Tab.Custom" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="textAllCaps">true</item>
+    </style>
     <!--通用弹窗-->
     <style name="Dialog" parent="android:style/Theme.Dialog">
         <item name="android:background">#00000000</item>
