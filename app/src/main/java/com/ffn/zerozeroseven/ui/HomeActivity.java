@@ -1,6 +1,7 @@
 package com.ffn.zerozeroseven.ui;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
@@ -12,29 +13,36 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
+import com.ffn.zerozeroseven.bean.TanChuangShowInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.TanChuangInfo;
 import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.fragment.MineFragment;
 import com.ffn.zerozeroseven.fragment.ShopFragment;
 import com.ffn.zerozeroseven.service.LocalService;
 import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.NXHooldeView;
 import com.squareup.leakcanary.RefWatcher;
+import com.zyyoona7.popup.EasyPopup;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -127,6 +135,55 @@ public class HomeActivity extends AppCompatActivity {
         showFragment(0);
 //        openAliveService();
         txst();
+        try {
+            if (!TextUtils.isEmpty(BaseAppApplication.getInstance().getLoginUser().getSchoolId())) {
+                initTanChuang();
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    private void initTanChuang() {
+        final TanChuangInfo tanChuangInfo = new TanChuangInfo();
+        tanChuangInfo.setFunctionName("QuerySchoolAd");
+        TanChuangInfo.ParametersBean parametersBean = new TanChuangInfo.ParametersBean();
+        parametersBean.setSchoolId(BaseAppApplication.getInstance().getLoginUser().getSchoolId());
+        tanChuangInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(this);
+        okGoUtils.httpPostJSON(tanChuangInfo, true, false);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                TanChuangShowInfo tanChuangShowInfo = JSON.parseObject(response, TanChuangShowInfo.class);
+                if (tanChuangShowInfo.getCode() == 0) {
+                    int showId = SharePrefUtils.getInt(HomeActivity.this, "showId", 0);
+                    if (showId != tanChuangShowInfo.getData().getItem().getId()) {
+                        TanChuang(tanChuangShowInfo.getData().getItem().getContent(), tanChuangShowInfo.getData().getItem().getTitle());
+//                        TanChuang("农大放假一个月", "放假通知");
+                        SharePrefUtils.setInt(HomeActivity.this, "showId", tanChuangShowInfo.getData().getItem().getId());
+                    }
+                }
+            }
+        });
+    }
+
+    private void TanChuang(String s, String s1) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog dialog = builder.create();
+        View view = View.inflate(this, R.layout.main_tanchuangshow, null);
+        TextView tv_tanchuang = view.findViewById(R.id.tv_tanchuang);
+        TextView tv_title = view.findViewById(R.id.tv_title);
+//        RelativeLayout rl_close = view.findViewById(R.id.rl_close);
+        tv_tanchuang.setText(s);
+        tv_title.setText(s1);
+//        rl_close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dialog.dismiss();
+//            }
+//        });
+        dialog.setView(view);
+        dialog.show();
     }
 
     private void txst() {
