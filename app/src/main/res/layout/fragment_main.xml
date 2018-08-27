@@ -89,6 +89,109 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rl_jump_shop"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_seven"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_seven"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="外卖美食"
+                            android:textColor="#333"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_numberrical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_six"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_six"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="数码手机"
+                            android:textColor="#333"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_errand"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_eight"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_eight"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="学校跑腿"
+                            android:textColor="#333"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+
+                    <RelativeLayout
+                        android:id="@+id/rl_lease"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_nine"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_nine"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="电脑租赁"
+                            android:textColor="#333"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:id="@+id/rl_computer"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -110,7 +213,6 @@
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
-
 
                     <RelativeLayout
                         android:id="@+id/rl_integer"
@@ -155,106 +257,6 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
                             android:text="土豪排行"
-                            android:textColor="#333"
-                            android:textSize="13sp" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:visibility="visible">
-
-                    <RelativeLayout
-                        android:id="@+id/rl_numberrical"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/iv_six"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_centerHorizontal="true" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/iv_six"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="4dp"
-                            android:text="数码手机"
-                            android:textColor="#333"
-                            android:textSize="13sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/rl_jump_shop"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/iv_seven"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_centerHorizontal="true" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/iv_seven"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="4dp"
-                            android:text="外卖美食"
-                            android:textColor="#333"
-                            android:textSize="13sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/rl_errand"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/iv_eight"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_centerHorizontal="true" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/iv_eight"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="4dp"
-                            android:text="学校跑腿"
-                            android:textColor="#333"
-                            android:textSize="13sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/rl_lease"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/iv_nine"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_centerHorizontal="true" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/iv_nine"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="4dp"
-                            android:text="电脑租赁"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
@@ -418,11 +420,12 @@
                     android:text="是否升级到4.1.1版本？"
                     android:textColor="@android:color/black"
                     android:textSize="15sp" />
+
                 <TextView
-                    android:layout_marginTop="2dp"
                     android:id="@+id/tv_size"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:text="是否升级到4.1.1版本？"
                     android:textSize="11sp" />
 
@@ -445,10 +448,10 @@
 
 
                 <Button
-                    android:background="@color/money"
                     android:id="@+id/bt_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/money"
                     android:gravity="center"
                     android:minHeight="40dp"
                     android:text="升级"
