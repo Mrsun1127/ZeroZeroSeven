@@ -17,6 +17,7 @@ import com.ffn.zerozeroseven.ui.LeaseZhiJieCommitDingDanActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
 
@@ -158,6 +159,8 @@ public class LeaseDingDanFragment extends BaseReFreshFragment {
                 final ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
                     adapter.removeItem(adapter.getItem(position));
+                } else {
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
                 }
 
             }

@@ -260,7 +260,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
                 break;
             case R.id.bt_pay:
                 String mm = tv_rmoney.getText().toString().trim();
-                if (TextUtils.isEmpty(mm) || "0.0元".equals(mm) || "0".equals(mm) || "0.0".equals(mm)) {
+                if (TextUtils.isEmpty(mm) || "输入配送配".equals(mm) || "0".equals(mm) || "0.0".equals(mm)) {
                     ToastUtils.showShort("请输入>0元的跑腿费");
                     return;
                 }
