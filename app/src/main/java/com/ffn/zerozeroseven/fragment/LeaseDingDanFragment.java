@@ -15,6 +15,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.DingDanListInfo;
 import com.ffn.zerozeroseven.ui.LeaseDingDanBobyActivity;
 import com.ffn.zerozeroseven.ui.LeaseZhiJieCommitDingDanActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
@@ -138,47 +139,29 @@ public class LeaseDingDanFragment extends BaseReFreshFragment {
             @Override
             public void doCancel() {
                 confirmDialog.dismiss();
-                adapter.replaceItem(adapterPosition, adapter.getItem(adapterPosition));
             }
         });
     }
 
     private void Request(final int position) {
-        showLoadProgress();
         DeleteleaseDingDanInfo deleteDingDanInfo = new DeleteleaseDingDanInfo();
         deleteDingDanInfo.setFunctionName("DeleteUserLeaseOrder");
         DeleteleaseDingDanInfo.ParametersBean parametersBean = new DeleteleaseDingDanInfo.ParametersBean();
         parametersBean.setOrderId(adapter.getItem(position).getOrderNo());
         parametersBean.setUserId(userId);
         deleteDingDanInfo.setParameters(parametersBean);
-        httpPostJSON(deleteDingDanInfo, true);
-        call.enqueue(new Callback() {
+        OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
+        okGoUtils.httpPostJSON(deleteDingDanInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        adapter.replaceItem(position, adapter.getItem(position));
-                    }
-                });
-            }
+            public void onSuccLoad(String response) {
+                final ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    adapter.removeItem(adapter.getItem(position));
+                }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final ErrorCodeInfo errorCodeInfo = JSON.parseObject(response.body().string(), ErrorCodeInfo.class);
-                BaseAppApplication.mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        disLoadProgress();
-                        if (errorCodeInfo.getCode() == 0) {
-                            adapter.removeItem(adapter.getItem(position));
-                        } else {
-                            adapter.replaceItem(position, adapter.getItem(position));
-                        }
-                    }
-                });
             }
         });
+
     }
 }

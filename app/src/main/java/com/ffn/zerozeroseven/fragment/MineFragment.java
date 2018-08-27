@@ -69,9 +69,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private ImageView iv_usericon;
     @Bind(R.id.iv_level)
     ImageView iv_level;
+
     public static MineFragment newInstance() {
         return new MineFragment();
     }
+
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
@@ -126,11 +128,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             public void onSuccLoad(String response) {
                 final JiInfo jiInfo = JSON.parseObject(response, JiInfo.class);
 
-                        if (jiInfo.getCode() == 0) {
-                            tv_jifen.setText("当前积分：" + jiInfo.getData().getHonerPoint());
-                        }
-                    }
-                });
+                if (jiInfo.getCode() == 0) {
+                    tv_jifen.setText("当前积分：" + jiInfo.getData().getHonerPoint());
+                }
+            }
+        });
     }
 
     @Bind(R.id.iv_vip)
@@ -156,7 +158,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             if (!TextUtils.isEmpty(userInfo.getAvatar())) {
                 Glide.with(bfCxt)
                         .load(userInfo.getAvatar())
-                        .override(150,150)
+                        .override(150, 150)
                         .into(iv_usericon);
             }
             if (!TextUtils.isEmpty(userInfo.getServicePhone())) {
@@ -222,7 +224,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void lazyLoad() {
-        LogUtils.D("lazyLoad","lazyLoad");
+        LogUtils.D("lazyLoad", "lazyLoad");
     }
 
     @Override
@@ -324,25 +326,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 }
                 break;
             case R.id.rl_tel:
-                final ConfirmDialog confirmDialog = new ConfirmDialog(bfCxt);
-                confirmDialog.setTitles("提示");
-                confirmDialog.setMessages("确认拨打"+userInfo.getServicePhone()+"?");
-                confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
-                    @Override
-                    public void doConfirm() {
-                        confirmDialog.dismiss();
-                        ZeroZeroSevenUtils.requestCallMainifest(getActivity());
-                        ZeroZeroSevenUtils.MakingCalls(bfCxt,userInfo.getServicePhone());
-                    }
-
-                    @Override
-                    public void doCancel() {
-                        confirmDialog.dismiss();
-                    }
-                });
-
-
-
+                ZeroZeroSevenUtils.requestCallMainifest(getActivity());
+                ZeroZeroSevenUtils.MakingCalls(bfCxt, userInfo.getServicePhone());
                 break;
             case R.id.rl_vip:
                 if (userInfo != null) {
