@@ -148,7 +148,7 @@ public class LeaseDingDanFragment extends BaseReFreshFragment {
         DeleteleaseDingDanInfo deleteDingDanInfo = new DeleteleaseDingDanInfo();
         deleteDingDanInfo.setFunctionName("DeleteUserLeaseOrder");
         DeleteleaseDingDanInfo.ParametersBean parametersBean = new DeleteleaseDingDanInfo.ParametersBean();
-        parametersBean.setOrderId(adapter.getItem(position).getOrderNo());
+        parametersBean.setOrderId(String.valueOf(adapter.getItem(position).getId()));
         parametersBean.setUserId(userId);
         deleteDingDanInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
