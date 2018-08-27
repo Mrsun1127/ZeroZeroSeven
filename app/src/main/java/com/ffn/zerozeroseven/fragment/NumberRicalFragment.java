@@ -65,6 +65,7 @@ public class NumberRicalFragment extends BaseReFreshFragment {
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("orderId", adapter.getItem(position).getId());
+                bundle.putDouble("money",adapter.getItem(position).getOrderPrice());
                 if(adapter.getItem(position).isIsApplyRefund()){
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, NumberTuiKuanDetilsActivity.class, bundle);
                 }else {

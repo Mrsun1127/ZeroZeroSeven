@@ -137,13 +137,13 @@
                         android:layout_width="1dp"
                         android:layout_height="46dp"
                         android:layout_marginRight="10dp"
-                        android:background="@color/numberical_default_text" />
+                        android:background="@color/money" />
 
                     <Button
                         android:id="@+id/bt_two"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:background="@drawable/defaltcirclebutton"
+                        android:background="@drawable/money_circle"
                         android:text="2"
                         android:textColor="@color/white" />
 

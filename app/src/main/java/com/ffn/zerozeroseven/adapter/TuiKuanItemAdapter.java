@@ -11,12 +11,13 @@ import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.NumberDetlsInfo;
+import com.ffn.zerozeroseven.bean.TuiKuanInfo;
 
 /**
  * Created by GT on 2017/11/27.
  */
 
-public class TuiKuanItemAdapter extends BaseRecyclerAdapter<NumberDetlsInfo.DataBean.OrderGoodsListBean> {
+public class TuiKuanItemAdapter extends BaseRecyclerAdapter<TuiKuanInfo.DataBean.OrderGoodsListBean> {
     public TuiKuanItemAdapter(Context context) {
         super(context);
     }
@@ -27,7 +28,7 @@ public class TuiKuanItemAdapter extends BaseRecyclerAdapter<NumberDetlsInfo.Data
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberDetlsInfo.DataBean.OrderGoodsListBean info, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, TuiKuanInfo.DataBean.OrderGoodsListBean info, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         Glide.with(mContext)
                 .load(info.getGoodsImage())
