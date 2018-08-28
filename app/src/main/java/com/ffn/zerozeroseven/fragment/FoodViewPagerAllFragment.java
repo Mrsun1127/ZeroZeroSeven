@@ -102,7 +102,7 @@ public class FoodViewPagerAllFragment extends BaseFragment implements BGARefresh
                 GoodsContentShowInfo.DataBean.ProductsBean item = adapter.getItem(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("shopInfo", item);
-                bundle.putString("type","food");
+                bundle.putString("type", "food");
                 ZeroZeroSevenUtils.SwitchActivity(getContext(), ShopDetilsActivity.class, bundle);
             }
         });
@@ -309,11 +309,7 @@ public class FoodViewPagerAllFragment extends BaseFragment implements BGARefresh
                             SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
                             requestShop();
                             if (shangChangShowInfo.getData().isIsClosing()) {
-                                if (shangChangShowInfo.getData().getOpeningTime().equals(shangChangShowInfo.getData().getClosingTime()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime2()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime())) {
-                                    ZeroZeroSevenUtils.showSleepPop(bfCxt, "打烊一天", rl_no_select);
-                                } else {
-                                    ZeroZeroSevenUtils.showSleepPop(bfCxt, "\t\t营业时间" + "\n" + shangChangShowInfo.getData().getOpeningTime() + "--" + shangChangShowInfo.getData().getClosingTime() + "\n" + shangChangShowInfo.getData().getOpeningTime2() + "--" + shangChangShowInfo.getData().getClosingTime2(), rl_no_select);
-                                }
+                                ZeroZeroSevenUtils.changeWindowAlfa(getActivity(), 0.5f);
                             }
 
 
@@ -349,7 +345,7 @@ public class FoodViewPagerAllFragment extends BaseFragment implements BGARefresh
                 pageNo = pageNo + 1;
                 break;
             case IDLE:
-               showLoadProgress();
+                showLoadProgress();
 
             case REFRESHING:
                 pageNo = 0;

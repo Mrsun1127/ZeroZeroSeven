@@ -23,6 +23,7 @@ import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -55,6 +56,15 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  */
 
 public class ZeroZeroSevenUtils {
+    /*
+    更改屏幕窗口透明度
+ */
+    public static  void changeWindowAlfa(Activity context ,float alfa){
+        WindowManager.LayoutParams params = context.getWindow().getAttributes();
+        params.alpha = alfa;
+        context.getWindow().setAttributes(params);
+
+    }
     public static String getCacheSize(Context context) {
         try {
             return getFormatSize(getFolderSize(new File(context.getCacheDir() + "/" + InternalCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR)));
@@ -537,7 +547,6 @@ public class ZeroZeroSevenUtils {
         popWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         popWindow.setContent(message);
         popWindow.setBtText("分享");
-
         popWindow.setMlistener(new CustomPopWindow.OnButonClikListener() {
             @Override
             public void BtAgain() {
