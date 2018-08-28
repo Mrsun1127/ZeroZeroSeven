@@ -161,6 +161,7 @@ public class OkGoUtils {
 
     public void gotoLogin() {
         BaseAppApplication.getInstance().setLoginUser(null);
+        SharePrefUtils.saveObject(context,"userInfo",BaseAppApplication.getInstance().getLoginUser());
         ZeroZeroSevenUtils.SwitchActivity(context, LoginActivity.class);
         BaseAppApplication.getInstance().clearActivityList();
     }
