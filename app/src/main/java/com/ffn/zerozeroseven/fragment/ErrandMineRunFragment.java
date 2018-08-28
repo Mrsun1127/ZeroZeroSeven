@@ -37,6 +37,7 @@ import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
+import com.ffn.zerozeroseven.view.StateLayout;
 import com.willy.ratingbar.ScaleRatingBar;
 
 import java.lang.ref.WeakReference;
@@ -85,6 +86,13 @@ public class ErrandMineRunFragment extends BaseFragment {
                 showTypeDialog(errandMineRunAdapter.getItem(position));
             }
         });
+        common_stateLayout.setOnStateCallListener(new StateLayout.OnStateLayoutCallListener() {
+            @Override
+            public void reCall() {
+                common_stateLayout.setVisibility(View.GONE);
+                requestList();
+            }
+        });
     }
 
     @Override
@@ -102,6 +110,8 @@ public class ErrandMineRunFragment extends BaseFragment {
     TextView tv_runmoney;
     @Bind(R.id.simpleRatingBar)
     ScaleRatingBar scaleRatingBar;
+    @Bind(R.id.common_stateLayout)
+    StateLayout common_stateLayout;
 
     private void requestCount() {
         RrunnerCountInfo rrunnerCountInfo = new RrunnerCountInfo();
@@ -142,17 +152,27 @@ public class ErrandMineRunFragment extends BaseFragment {
                 if (runnerListInfo.getCode() == 0) {
                     if (runnerListInfo.getData().getErrandOrders() != null) {
                         if (runnerListInfo.getData().getErrandOrders().size() > 0) {
+                            recycleview.setVisibility(View.VISIBLE);
+                            common_stateLayout.setVisibility(View.GONE);
                             errandMineRunAdapter.cleanDates();
                             errandMineRunAdapter.addAll(runnerListInfo.getData().getErrandOrders());
                         } else {
+                            recycleview.setVisibility(View.GONE);
                             errandMineRunAdapter.cleanDates();
+                            showErrorLayout(StateLayout.noData);
                         }
+                    } else {
+                        recycleview.setVisibility(View.GONE);
+                        showErrorLayout(StateLayout.noData);
                     }
                 }
             }
         });
     }
-
+    private void showErrorLayout(int errType) {
+        common_stateLayout.setVisibility(View.VISIBLE);
+        common_stateLayout.showError(errType);
+    }
     public void requestData() {
         RequestRunnerInfo requestRunnerInfo = new RequestRunnerInfo();
         requestRunnerInfo.setFunctionName("QueryErrandUser");
