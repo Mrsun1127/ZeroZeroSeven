@@ -19,6 +19,7 @@ import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.TopView;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import butterknife.Bind;
@@ -37,6 +38,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
     private NumberRicalInfo numberRicalInfo;
     @Bind(R.id.tv_money)
     TextView tv_money;
+    public static WeakReference<NumberRicalShopCarActivity> mInstance;
 
     @Override
     protected int setLayout() {
@@ -46,6 +48,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        mInstance = new WeakReference<>(this);
         topView.setTopText("购物车");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
@@ -95,7 +98,7 @@ public class NumberRicalShopCarActivity extends BaseActivity {
                     bt_buy.setBackgroundColor(getResources().getColor(R.color.numberical_default_bg));
                     bt_buy.setTextColor(getResources().getColor(R.color.numberical_default_text));
                 }
-            }else{
+            } else {
                 a = 0.0;
                 bt_buy.setBackgroundColor(getResources().getColor(R.color.numberical_default_bg));
                 bt_buy.setTextColor(getResources().getColor(R.color.numberical_default_text));

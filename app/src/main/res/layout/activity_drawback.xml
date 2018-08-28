@@ -75,16 +75,17 @@
         </RelativeLayout>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_miaoshu"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:gravity="center_vertical"
             android:paddingLeft="8dp"
-            android:text="预约费￥50.00，含运费￥0.00"
             android:textColor="#999999"
             android:textSize="13sp" />
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:background="@color/white"

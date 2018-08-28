@@ -44,7 +44,6 @@ public class TuiKuanInfo {
         private String userId;
         private String orderId;
         private String reason;
-        private String remark;
 
         public String getUserId() {
             return userId;
@@ -70,12 +69,5 @@ public class TuiKuanInfo {
             this.reason = reason;
         }
 
-        public String getRemark() {
-            return remark;
-        }
-
-        public void setRemark(String remark) {
-            this.remark = remark;
-        }
     }
 }

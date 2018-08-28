@@ -17,6 +17,8 @@ import com.ffn.zerozeroseven.bean.requsetbean.CancelOrderInfo;
 import com.ffn.zerozeroseven.fragment.ErrandMineRunFragment;
 import com.ffn.zerozeroseven.ui.CommitSuccessActivity;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
+import com.ffn.zerozeroseven.ui.NumberRicalCommitDingDanActivity;
+import com.ffn.zerozeroseven.ui.NumberRicalShopCarActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
 
@@ -69,9 +71,9 @@ public class ZFBPayUtil {
                             carShopInfo.getShopInfos().clear();
                             BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
                             SharePrefUtils.saveObject(mContext, "foodcarShopInfo", BaseAppApplication.getInstance().getFoodcarShopInfo());
-                        }else if ("leasezhijie".equals(pay)) {
+                        } else if ("leasezhijie".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
-                        }else if ("lease".equals(pay)) {
+                        } else if ("lease".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
                             CarShopInfo carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
                             carShopInfo.getShopInfos().clear();
@@ -79,6 +81,8 @@ public class ZFBPayUtil {
                             SharePrefUtils.saveObject(mContext, "leasecarShopInfo", BaseAppApplication.getInstance().getLeasecarShopInfo());
                         } else if ("numbercar".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
+                            NumberRicalCommitDingDanActivity.mInstance.get().finish();
+                            NumberRicalShopCarActivity.mInstance.get().finish();
                             NumberRicalInfo numberRicalInfo = BaseAppApplication.getInstance().getNumberRicalInfo();
                             for (int i = 0; i < numberRicalInfo.getNumberRicalListInfo().size(); i++) {
                                 if (numberRicalInfo.getNumberRicalListInfo().get(i).isChecked()) {
@@ -93,6 +97,7 @@ public class ZFBPayUtil {
                             PayMoneyActivity.mInstance.get().finish();
                         } else if ("numberzhijie".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
+                            NumberRicalCommitDingDanActivity.mInstance.get().finish();
                         } else if ("run".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
                             bundle.putString("info", "请等待跑腿人员接单，如五分钟内无人接单将会自动退款");

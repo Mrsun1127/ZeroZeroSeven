@@ -16,6 +16,8 @@ import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CancelOrderInfo;
 import com.ffn.zerozeroseven.fragment.ErrandMineRunFragment;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
+import com.ffn.zerozeroseven.ui.NumberRicalCommitDingDanActivity;
+import com.ffn.zerozeroseven.ui.NumberRicalShopCarActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
@@ -128,6 +130,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                             PayMoneyActivity.mInstance.get().finish();
                         } else if ("numbercar".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
+                            NumberRicalCommitDingDanActivity.mInstance.get().finish();
+                            NumberRicalShopCarActivity.mInstance.get().finish();
                             NumberRicalInfo numberRicalInfo = BaseAppApplication.getInstance().getNumberRicalInfo();
                             for (int i = 0; i < numberRicalInfo.getNumberRicalListInfo().size(); i++) {
                                 if (numberRicalInfo.getNumberRicalListInfo().get(i).isChecked()) {
@@ -138,6 +142,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                             SharePrefUtils.saveObject(WXPayEntryActivity.this, "numberRicalInfo", numberRicalInfo);
                         } else if ("numberzhijie".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
+                            NumberRicalCommitDingDanActivity.mInstance.get().finish();
                         } else if ("run".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
                         } else if ("renzheng".equals(pay)) {

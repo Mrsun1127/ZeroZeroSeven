@@ -39,6 +39,8 @@ public class NumberDrawBackActivity extends BaseActivity {
     TextView tv_select_reason;
     @Bind(R.id.tv_money)
     TextView tv_money;
+    @Bind(R.id.tv_miaoshu)
+    TextView tv_miaoshu;
     @Bind(R.id.rc_reason)
     RecyclerView rc_reason;
     @Bind(R.id.rc_product)
@@ -80,11 +82,7 @@ public class NumberDrawBackActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.bt_sub:
                 if (!TextUtils.isEmpty(showReason)) {
-                    if (!TextUtils.isEmpty(et_remark.getText().toString())) {
-                        tuiKuan();
-                    } else {
-                        ToastUtils.showShort("请填写退款说明");
-                    }
+                    tuiKuan();
                 } else {
                     ToastUtils.showShort("请选择退款原因");
                 }
@@ -121,7 +119,6 @@ public class NumberDrawBackActivity extends BaseActivity {
         TuiKuanInfo.ParametersBean parametersBean = new TuiKuanInfo.ParametersBean();
         parametersBean.setOrderId(String.valueOf(numberDingDanInfo.getId()));
         parametersBean.setReason(showReason.toString());
-        parametersBean.setRemark(et_remark.getText().toString().trim());
         tuiKuanInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(NumberDrawBackActivity.this);
         okGoUtils.httpPostJSON(tuiKuanInfo, true, true);

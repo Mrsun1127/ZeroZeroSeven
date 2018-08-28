@@ -19,9 +19,11 @@ import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.ShouHuoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.AllAdrInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,7 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
     private int position = 0;
     private NumberRicalInfo.RicalInfo ricalInfo;
     private NumberPayAdapter numberPayAdapter;
+    public static WeakReference<NumberRicalCommitDingDanActivity> mInstance;
 
     @Override
     protected int setLayout() {
@@ -51,6 +54,7 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        mInstance = new WeakReference<>(this);
         topView.setTopText("提交订单");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
@@ -159,11 +163,15 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.bt_pay:
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("adrInfo", shouHuoInfo.getData().getAddresses().get(position));
-                bundle.putString("money", tv_paymoney.getText().toString());
-                bundle.putString("pay", getIntent().getStringExtra("pay"));
-                bundle.putSerializable("ricalInfo", ricalInfo);
-                ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this, PayMoneyNewActivity.class, bundle);
+                try {
+                    bundle.putSerializable("adrInfo", shouHuoInfo.getData().getAddresses().get(position));
+                    bundle.putString("money", tv_paymoney.getText().toString());
+                    bundle.putString("pay", getIntent().getStringExtra("pay"));
+                    bundle.putSerializable("ricalInfo", ricalInfo);
+                    ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this, PayMoneyNewActivity.class, bundle);
+                } catch (Exception e) {
+                    ToastUtils.showShort("请选择地址");
+                }
                 break;
             case R.id.rl_select_adr:
                 ZeroZeroSevenUtils.SwitchActivity(NumberRicalCommitDingDanActivity.this, SelectAdrMannGerActivity.class, null, 2);
