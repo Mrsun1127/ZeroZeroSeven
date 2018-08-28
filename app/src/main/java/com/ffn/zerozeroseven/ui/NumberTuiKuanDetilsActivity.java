@@ -97,7 +97,7 @@ public class NumberTuiKuanDetilsActivity extends BaseActivity {
                     }
                     if (tuiKuanInfo.getData().getRefundApply() != null) {
                         tv_reson.setText("退款原因:" + tuiKuanInfo.getData().getRefundApply().getRefundReason());
-                        tv_money.setText("退款金额:" + getIntent().getDoubleExtra("money", 0.0));
+                        tv_money.setText("退款金额:" +tuiKuanInfo.getData().getRefundApply().getRefundAmount()+"元" );
 //                        tv_remark.setText("退款说明:" + tuiKuanInfo.getData().getRefundApply().getRefundRemark());
                         tv_time.setText("申请时间:" + tuiKuanInfo.getData().getRefundApply().getCreateTime());
                         tv_gettime.setText(tuiKuanInfo.getData().getRefundApply().getCreateTime());
