@@ -65,7 +65,11 @@ public class MyDingDanOfNumberAdapter extends BaseRecyclerAdapter<NumberDingDanI
 //                mHolder.bt_left.setVisibility(View.GONE);
 //                break;
         }
-
+        if(info.getPayStatus()==2){
+            mHolder.tv_status.setText("全额付款");
+            mHolder.bt_left.setVisibility(View.GONE);
+            mHolder.bt_right.setText("确认收货");
+        }
         mHolder.tv_desc.setText("共" + info.getGoodsCount() + "件商品 合计：￥" + info.getOrderPrice() + "(含运费￥" + (info.getFreightPrice() == null ? 0.00 : info.getFreightPrice()) + ")");
         mHolder.tv_time.setText(info.getCreateTime());
         ItemNumberDingDanAdapter itemNumberDingDanAdapter = new ItemNumberDingDanAdapter(mContext);

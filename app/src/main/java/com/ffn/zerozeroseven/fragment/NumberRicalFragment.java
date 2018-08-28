@@ -10,6 +10,7 @@ import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.NumberDelete;
 import com.ffn.zerozeroseven.bean.NumberDingDanInfo;
+import com.ffn.zerozeroseven.bean.NumberShuoHuoInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.NumberDingDAnInfo;
 import com.ffn.zerozeroseven.ui.NumberDrawBackActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalDetilsActivity;
@@ -52,15 +53,20 @@ public class NumberRicalFragment extends BaseReFreshFragment {
         adapter.setOnItemAgainClick(new MyDingDanOfNumberAdapter.OnItemAgainClick() {
             @Override
             public void onClick(View view, int position) {
-                if (adapter.getItem(position).getOrderStatus() == 1) {
-                    gotoPayWeiKuan(position);
-                } else if (adapter.getItem(position).getOrderStatus() == 2) {
-                    deleteDingDan(position);
-                } else if (adapter.getItem(position).getOrderStatus() == 3) {
-                    buyAgain(position);
-                } else if (adapter.getItem(position).getOrderStatus() == 4) {
-                    deleteDingDan(position);
+                if (adapter.getItem(position).getPayStatus() == 2) {
+                    sureget(position);
+                } else {
+                    if (adapter.getItem(position).getOrderStatus() == 1) {
+                        gotoPayWeiKuan(position);
+                    } else if (adapter.getItem(position).getOrderStatus() == 2) {
+                        deleteDingDan(position);
+                    } else if (adapter.getItem(position).getOrderStatus() == 3) {
+                        buyAgain(position);
+                    } else if (adapter.getItem(position).getOrderStatus() == 4) {
+                        deleteDingDan(position);
+                    }
                 }
+
             }
         });
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
@@ -140,6 +146,43 @@ public class NumberRicalFragment extends BaseReFreshFragment {
                 }
             }
         });
+    }
+
+    public void sureget(final int position) {
+        final ConfirmDialog confirmDialog = new ConfirmDialog(bfCxt);
+        confirmDialog.setTitles("提示");
+        confirmDialog.setMessages("确认收货?");
+        confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
+            @Override
+            public void doConfirm() {
+                confirmDialog.dismiss();
+            }
+
+            @Override
+            public void doCancel() {
+                confirmDialog.dismiss();
+                NumberShuoHuoInfo numberShuoHuoInfo = new NumberShuoHuoInfo();
+                numberShuoHuoInfo.setFunctionName("UpdateDigitalOrderInfo");
+                NumberShuoHuoInfo.ParametersBean parametersBean = new NumberShuoHuoInfo.ParametersBean();
+                parametersBean.setOrderId(String.valueOf(adapter.getItem(position).getId()));
+                numberShuoHuoInfo.setParameters(parametersBean);
+                OkGoUtils okGoUtils = new OkGoUtils(getContext());
+                okGoUtils.httpPostJSON(numberShuoHuoInfo, true, true);
+                okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+                    @Override
+                    public void onSuccLoad(String response) {
+                        ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                        if (errorCodeInfo.getCode() == 0) {
+                            requestData();
+                        } else {
+                            ToastUtils.showShort(errorCodeInfo.getMessage());
+                        }
+
+                    }
+                });
+            }
+        });
+
     }
 
     @Override
