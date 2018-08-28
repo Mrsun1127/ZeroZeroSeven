@@ -50,7 +50,7 @@
                     android:id="@+id/iv_usericon"
                     android:layout_width="84dp"
                     android:layout_height="84dp"
-                    android:background="@drawable/courier_selfie" />
+                    android:background="@drawable/default_user_icon" />
 
                 <ImageView
                     android:id="@+id/iv_level"

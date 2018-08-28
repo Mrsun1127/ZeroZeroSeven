@@ -20,7 +20,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_icon"
-            android:background="@drawable/courier_selfie"
+            android:background="@drawable/default_user_icon"
             android:layout_width="89dp"
             android:layout_height="89dp"
             android:layout_centerHorizontal="true"
