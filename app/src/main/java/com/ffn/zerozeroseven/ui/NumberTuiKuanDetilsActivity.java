@@ -21,6 +21,8 @@ import butterknife.ButterKnife;
 public class NumberTuiKuanDetilsActivity extends BaseActivity {
     @Bind(R.id.topView)
     TopView topView;
+    @Bind(R.id.tv_top)
+    TextView tv_top;
     @Bind(R.id.rc_product)
     RecyclerView rc_product;
     private TuiKuanItemAdapter tuiKuanItemAdapter;
@@ -60,6 +62,10 @@ public class NumberTuiKuanDetilsActivity extends BaseActivity {
     TextView tv_reson;
     @Bind(R.id.tv_money)
     TextView tv_money;
+    @Bind(R.id.tv_bot)
+    TextView tv_bot;
+    @Bind(R.id.tv_bot1)
+    TextView tv_bot1;
     @Bind(R.id.tv_remark)
     TextView tv_remark;
     @Bind(R.id.tv_time)
@@ -92,10 +98,16 @@ public class NumberTuiKuanDetilsActivity extends BaseActivity {
                     if (tuiKuanInfo.getData().getRefundApply() != null) {
                         tv_reson.setText("退款原因:" + tuiKuanInfo.getData().getRefundApply().getRefundReason());
                         tv_money.setText("退款金额:" + getIntent().getDoubleExtra("money", 0.0));
-                        tv_remark.setText("退款说明:" + tuiKuanInfo.getData().getRefundApply().getRefundRemark());
-                        tv_time.setText("退款说明:" + tuiKuanInfo.getData().getRefundApply().getCreateTime());
-                        tv_gettime.setText("退款说明:" + tuiKuanInfo.getData().getRefundApply().getCreateTime());
+//                        tv_remark.setText("退款说明:" + tuiKuanInfo.getData().getRefundApply().getRefundRemark());
+                        tv_time.setText("申请时间:" + tuiKuanInfo.getData().getRefundApply().getCreateTime());
+                        tv_gettime.setText(tuiKuanInfo.getData().getRefundApply().getCreateTime());
                         if (tuiKuanInfo.getData().getRefundApply().getStatus() == 1) {
+                            bt_three.setBackgroundResource(R.drawable.money_circle);
+                            line2.setBackgroundResource(R.color.money);
+                        } else if (tuiKuanInfo.getData().getRefundApply().getStatus() == -2) {
+                            tv_top.setText("退款失败");
+                            tv_bot.setText("退款失败");
+                            tv_bot1.setText(tuiKuanInfo.getData().getRefundApply().getRefuseReason());
                             bt_three.setBackgroundResource(R.drawable.money_circle);
                             line2.setBackgroundResource(R.color.money);
                         }

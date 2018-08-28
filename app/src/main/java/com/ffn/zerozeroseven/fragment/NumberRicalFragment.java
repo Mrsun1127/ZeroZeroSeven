@@ -7,6 +7,7 @@ import android.view.View;
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.adapter.MyDingDanOfNumberAdapter;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.NumberDelete;
 import com.ffn.zerozeroseven.bean.NumberDingDanInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.NumberDingDAnInfo;
@@ -18,6 +19,7 @@ import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
+import com.ffn.zerozeroseven.view.ConfirmDialog;
 
 import java.lang.ref.WeakReference;
 
@@ -99,7 +101,26 @@ public class NumberRicalFragment extends BaseReFreshFragment {
         ZeroZeroSevenUtils.SwitchActivity(bfCxt, PayMoneyActivity.class, bundle);
     }
 
-    private void deleteDingDan(int position) {
+    private void deleteDingDan(final int position) {
+        final ConfirmDialog confirmDialog = new ConfirmDialog(getContext());
+        confirmDialog.setTitles("提示");
+        confirmDialog.setMessages("确认删除订单？");
+        confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
+            @Override
+            public void doConfirm() {
+                confirmDialog.dismiss();
+                deleteo(position);
+            }
+
+            @Override
+            public void doCancel() {
+                confirmDialog.dismiss();
+            }
+        });
+
+    }
+
+    public void deleteo(int position) {
         NumberDelete numberDelete = new NumberDelete();
         numberDelete.setFunctionName("DeleteDigitalGoodsOrder");
         NumberDelete.ParametersBean parametersBean = new NumberDelete.ParametersBean();
@@ -108,11 +129,22 @@ public class NumberRicalFragment extends BaseReFreshFragment {
         numberDelete.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(numberDelete, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    requestData();
+                } else {
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
+                }
+            }
+        });
     }
 
     @Override
     protected void readRespones(String response) {
-        LogUtils.D("response",response);
+        LogUtils.D("response", response);
         numberDingDanInfo = JSON.parseObject(response, NumberDingDanInfo.class);
     }
 

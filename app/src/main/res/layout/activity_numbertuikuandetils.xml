@@ -24,6 +24,7 @@
                 android:background="@color/money">
 
                 <TextView
+                    android:id="@+id/tv_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -71,6 +72,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/tv_remark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -223,6 +225,7 @@
                         android:textSize="11sp" />
 
                     <TextView
+                        android:id="@+id/tv_bot"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -232,6 +235,7 @@
                         android:textSize="13sp" />
 
                     <TextView
+                        android:id="@+id/tv_bot1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
