@@ -44,6 +44,15 @@ public class RsnackTuikuanInfo {
         private String userId;
         private String orderNo;
         private String reason;
+        private String schoolId;
+
+        public String getSchoolId() {
+            return schoolId;
+        }
+
+        public void setSchoolId(String schoolId) {
+            this.schoolId = schoolId;
+        }
 
         public String getUserId() {
             return userId;

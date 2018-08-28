@@ -12,14 +12,11 @@
         android:text="平台认证押金 99元"
         android:textColor="@color/black"
         android:textSize="18sp" />
-    <TextView
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
+    <WebView
+        android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="平台认证押金 99元平台认证押金平台认证押金平台认证押金平台认证押金平台认证押金平台认证押金平台认证押金"
-        android:textSize="12sp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
 
     <LinearLayout
@@ -44,10 +41,7 @@
 
     </LinearLayout>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2" />
+
 
     <Button
         android:id="@+id/bt_next"

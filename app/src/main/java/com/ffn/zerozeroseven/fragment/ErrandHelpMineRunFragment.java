@@ -20,6 +20,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ErrandHelpAdapter;
 import com.ffn.zerozeroseven.adapter.ErrandMineRunAdapter;
 import com.ffn.zerozeroseven.adapter.PopWeightAdapter;
+import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.RrunnerPayInfo;
@@ -28,6 +29,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.RAddRunAdrInfo;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
 import com.ffn.zerozeroseven.ui.RunAdrListActivity;
+import com.ffn.zerozeroseven.ui.WebViewActivity;
 import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -215,10 +217,16 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
         pvTime.show();
     }
 
-    @OnClick({R.id.ll_f, R.id.ll_s, R.id.tv_selectSadr, R.id.tv_selectFadr, R.id.ll_weight, R.id.ll_level, R.id.ll_lettime, R.id.bt_pay})
+    @OnClick({R.id.tv_web, R.id.ll_f, R.id.ll_s, R.id.tv_selectSadr, R.id.tv_selectFadr, R.id.ll_weight, R.id.ll_level, R.id.ll_lettime, R.id.bt_pay})
     void setOnClicks(View v) {
 
         switch (v.getId()) {
+            case R.id.tv_web:
+                Bundle bundle9 = new Bundle();
+                bundle9.putString("title","发布协议");
+                bundle9.putString("url", AppConfig.WEBFABUCONTENT);
+                ZeroZeroSevenUtils.SwitchActivity(getContext(), WebViewActivity.class,bundle9);
+                break;
             case R.id.tv_selectSadr:
                 Bundle bundle = new Bundle();
                 bundle.putString("type", "s");
@@ -292,7 +300,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
         switch (resultCode) {
             case 2:
                 try {
-                    rAddRunAdrInfo=(RAddRunAdrInfo) data.getSerializableExtra("adrInfo");
+                    rAddRunAdrInfo = (RAddRunAdrInfo) data.getSerializableExtra("adrInfo");
                     if (rAddRunAdrInfo.getParameters().getType().equals("SEND")) {//发
                         rAddRunAdrInfo1 = rAddRunAdrInfo;
                         tv_selectFadr.setVisibility(View.GONE);

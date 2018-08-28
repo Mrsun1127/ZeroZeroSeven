@@ -411,11 +411,12 @@ public class DingDanBobyActivity extends BaseActivity implements ActionSheet.Act
 
     private void TuiKuan(String refuseReson) {
         RsnackTuikuanInfo rsnackTuikuanInfo = new RsnackTuikuanInfo();
-        rsnackTuikuanInfo.setFunctionName("AddStoreGoodsRefundApply");
+        rsnackTuikuanInfo.setFunctionName("StoreGoodsRefund");
         RsnackTuikuanInfo.ParametersBean parametersBean = new RsnackTuikuanInfo.ParametersBean();
         parametersBean.setOrderNo(info.getData().getOrder().getOrderNo());
         parametersBean.setReason(refuseReson);
         parametersBean.setUserId(userId);
+        parametersBean.setSchoolId(schoolIId);
         rsnackTuikuanInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(DingDanBobyActivity.this);
         okGoUtils.httpPostJSON(rsnackTuikuanInfo, true, true);

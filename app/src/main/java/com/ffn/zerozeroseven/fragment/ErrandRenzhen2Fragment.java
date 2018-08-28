@@ -6,6 +6,7 @@ import android.webkit.WebView;
 import android.widget.CheckBox;
 
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
@@ -22,7 +23,6 @@ public class ErrandRenzhen2Fragment extends BaseFragment {
     }
 
 
-
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
@@ -35,6 +35,8 @@ public class ErrandRenzhen2Fragment extends BaseFragment {
 
     @Bind(R.id.cb)
     CheckBox cb;
+    @Bind(R.id.webview)
+    WebView webview;
 
     @OnClick({R.id.bt_next})
     void setOnClicks(View v) {
@@ -53,6 +55,6 @@ public class ErrandRenzhen2Fragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-
+        webview.loadUrl(AppConfig.WEBRENZHENGCONTENT);
     }
 }
