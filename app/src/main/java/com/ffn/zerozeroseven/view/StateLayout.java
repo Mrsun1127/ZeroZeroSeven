@@ -23,9 +23,13 @@ public class StateLayout extends RelativeLayout {
     private TextView tipTxt;
     public static final int netError = 0;
     public static final int noData = 1;
+    public static final int noDianPu = 2;
+    public static final int noJiLu = 3;
+    public static final int noShangPin = 4;
+    public static final int noTuPian = 4;
 
-    protected int[] tipImgsId = {R.mipmap.icon_server_net_error, R.mipmap.icon_server_no_data};
-    protected int[] tipTxtsId = {R.string.state_tip_server_error, R.string.state_tip_no_data,};
+    protected int[] tipImgsId = {R.mipmap.icon_server_net_error, R.mipmap.icon_server_no_data, R.drawable.nodianpu, R.drawable.nojilu, R.drawable.noshangpin, R.drawable.notypian};
+    protected int[] tipTxtsId = {R.string.state_tip_server_error, R.string.state_tip_no_data, R.string.state_tip_nodianpu, R.string.state_nojilu, R.string.state_noshangpin, R.string.state_notupian};
 
     public StateLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -47,11 +51,14 @@ public class StateLayout extends RelativeLayout {
     public void showError(int type) {
         tipImg.setBackgroundResource(tipImgsId[type]);
         tipTxt.setText(tipTxtsId[type]);
-//        if (type==netError){
-//            tipCallBt.setVisibility(View.VISIBLE);
-//        }else {
-//            tipCallBt.setVisibility(View.GONE);
-//        }
+    }
+
+    public void showError(int type, boolean showBt) {
+        tipImg.setBackgroundResource(tipImgsId[type]);
+        tipTxt.setText(tipTxtsId[type]);
+        if (!showBt) {
+            tipCallBt.setVisibility(View.GONE);
+        }
     }
 
     public interface OnStateLayoutCallListener {

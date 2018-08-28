@@ -45,4 +45,8 @@
     <string name="reson2">退款说明：选填选填选填</string>
     <string name="_2018_06_21_18_26_26">申请时间：2018-06-21 18:26:26</string>
     <string name="runlevel">跑腿等级</string>
+    <string name="state_tip_nodianpu">店铺未开通</string>
+    <string name="state_nojilu">暂无记录</string>
+    <string name="state_noshangpin">暂无商品</string>
+    <string name="state_notupian">暂无图片</string>
 </resources>

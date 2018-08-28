@@ -318,6 +318,8 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                             }
 
 
+                        }else{
+                            showErrorLayout(StateLayout.noData);
                         }
                     }
                 });
