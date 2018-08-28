@@ -5,41 +5,42 @@
     android:id="@+id/ll_pop"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/main_tanchuang">
-
-        <android.support.v4.widget.NestedScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:background="@drawable/main_newgonggao">
 
-                <TextView
-                    android:id="@+id/tv_tanchuang"
+                <android.support.v4.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_marginTop="120dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_tanchuang"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="15dp"
+                            android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </android.support.v4.widget.NestedScrollView>
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_marginTop="25dp"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-        <ImageView
-            android:id="@+id/iv_close"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shuckowm"/>
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shuckowm"/>
+        </RelativeLayout>
 </LinearLayout>

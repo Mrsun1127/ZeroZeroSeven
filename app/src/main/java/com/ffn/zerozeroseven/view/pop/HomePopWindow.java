@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
@@ -46,7 +47,7 @@ public class HomePopWindow extends PopupWindow implements View.OnClickListener {
         setContentView(mContentView);
         //设置宽与高
         setWidth(w / 2 + 100);
-        setHeight(h - w / 2-100);
+        setHeight(h - w / 2-240);
         /**
          * 设置进出动画
          */
@@ -81,7 +82,7 @@ public class HomePopWindow extends PopupWindow implements View.OnClickListener {
                  * 判断是不是点击了外部
                  */
                 if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
-                    return false;
+                    return true;
                 }
                 //不是点击外部
                 return false;

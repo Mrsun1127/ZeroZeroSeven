@@ -226,7 +226,7 @@ public class TuiKuanInfo {
             private Double costPrice;
             private int goodsCount;
             private int goodsId;
-            private String goodsImage;
+            private String goodsThumb;
             private String goodsName;
             private int id;
             private Double marketPrice;
@@ -259,12 +259,12 @@ public class TuiKuanInfo {
                 this.goodsId = goodsId;
             }
 
-            public String getGoodsImage() {
-                return goodsImage;
+            public String getGoodsThumb() {
+                return goodsThumb;
             }
 
-            public void setGoodsImage(String goodsImage) {
-                this.goodsImage = goodsImage;
+            public void setGoodsThumb(String goodsThumb) {
+                this.goodsThumb = goodsThumb;
             }
 
             public String getGoodsName() {

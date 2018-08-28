@@ -31,7 +31,7 @@ public class TuiKuanItemAdapter extends BaseRecyclerAdapter<TuiKuanInfo.DataBean
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, TuiKuanInfo.DataBean.OrderGoodsListBean info, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         Glide.with(mContext)
-                .load(info.getGoodsImage())
+                .load(info.getGoodsThumb())
                 .error(R.drawable.oops)
                 .into(mHolder.iv_product);
         mHolder.tv_name.setText(info.getGoodsName());

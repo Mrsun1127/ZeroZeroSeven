@@ -1,7 +1,6 @@
 package com.ffn.zerozeroseven.ui;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
@@ -165,6 +164,7 @@ public class HomeActivity extends AppCompatActivity {
                         BaseAppApplication.mainHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                ZeroZeroSevenUtils.changeWindowAlfa(HomeActivity.this,0.2f);
                                 TanChuang(tanChuangShowInfo.getData().getContent());
                             }
                         },1000);
@@ -183,6 +183,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void BtAgain() {
                 popWindow.dismiss();
+                ZeroZeroSevenUtils.changeWindowAlfa(HomeActivity.this,1f);
             }
         });
 
