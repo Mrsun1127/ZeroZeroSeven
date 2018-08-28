@@ -207,11 +207,11 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
         TimePickerView pvTime = new TimePickerView.Builder(bfCxt, new TimePickerView.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");// HH:mm:ss
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH");// HH:mm:ss
                 //获取当前时间
-                tv_time.setText(simpleDateFormat.format(date));
+                tv_time.setText(simpleDateFormat.format(date)+":00左右");
             }
-        }).setType(new boolean[]{false, false, false, true, true, false})// 默认全部显示
+        }).setType(new boolean[]{false, false, false, true, false, false})// 默认全部显示
                 .build();
         pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
         pvTime.show();
@@ -223,9 +223,9 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
         switch (v.getId()) {
             case R.id.tv_web:
                 Bundle bundle9 = new Bundle();
-                bundle9.putString("title","发布协议");
+                bundle9.putString("title", "发布协议");
                 bundle9.putString("url", AppConfig.WEBFABUCONTENT);
-                ZeroZeroSevenUtils.SwitchActivity(getContext(), WebViewActivity.class,bundle9);
+                ZeroZeroSevenUtils.SwitchActivity(getContext(), WebViewActivity.class, bundle9);
                 break;
             case R.id.tv_selectSadr:
                 Bundle bundle = new Bundle();
@@ -337,56 +337,51 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
 
     private RrunnerPayInfo checkSome() {
         String type = errandHelpAdapter.getItem(errandHelpAdapter.clickPosition).getTitle();
-        String weight = tv_weight.getText().toString();
         String letTime = tv_time.getText().toString();
         String remark = et_remark.getText().toString().trim();
         String level = tv_runnerlevel.getText().toString();
         String rmoney = tv_rmoney.getText().toString().replaceAll("元", "");
         boolean isSelect = cb_check.isChecked();
-        if (!TextUtils.isEmpty(weight)) {
-            if (!TextUtils.isEmpty(letTime)) {
-                if (!TextUtils.isEmpty(level)) {
-                    if (!TextUtils.isEmpty(tv_fahuo.getText().toString()) && !TextUtils.isEmpty(tv_info.getText().toString()) && !TextUtils.isEmpty(tv_shouhuo.getText().toString()) && !TextUtils.isEmpty(tv_shouinfo.getText().toString())) {
-                        if (isSelect) {
-                            RrunnerPayInfo rrunnerPayInfo = new RrunnerPayInfo();
-                            rrunnerPayInfo.setFunctionName("AddErrandOrder");
-                            RrunnerPayInfo.ParametersBean parametersBean = new RrunnerPayInfo.ParametersBean();
-                            parametersBean.setGoodsType(type);
-                            parametersBean.setUserId(userId);
-                            parametersBean.setGoodsWeight(weight1);
-                            parametersBean.setDeliveryAddress(rAddRunAdrInfo1.getParameters().getAddress());
-                            parametersBean.setDeliveryName(rAddRunAdrInfo1.getParameters().getName());
-                            parametersBean.setDeliveryPhone(rAddRunAdrInfo1.getParameters().getPhone());
-                            parametersBean.setReceiverAddress(rAddRunAdrInfo2.getParameters().getAddress());
-                            parametersBean.setReceiverName(rAddRunAdrInfo2.getParameters().getName());
-                            parametersBean.setReceiverPhone(rAddRunAdrInfo2.getParameters().getPhone());
-                            parametersBean.setShippingFee(rmoney);
-                            if (!TextUtils.isEmpty(remark)) {
-                                parametersBean.setRemark(remark);
-                            }
-                            if ("没要求".equals(level)) {
-                                parametersBean.setErrandLevel("5");
-                            } else {
-                                parametersBean.setErrandLevel(level.replaceAll("星跑腿", ""));
-                            }
-                            parametersBean.setPickupTime(letTime);
-                            rrunnerPayInfo.setParameters(parametersBean);
-                            return rrunnerPayInfo;
-                        } else {
-                            ToastUtils.showShort("请同意跑腿条款");
+        if (!TextUtils.isEmpty(letTime)) {
+            if (!TextUtils.isEmpty(level)) {
+                if (!TextUtils.isEmpty(tv_fahuo.getText().toString()) && !TextUtils.isEmpty(tv_info.getText().toString()) && !TextUtils.isEmpty(tv_shouhuo.getText().toString()) && !TextUtils.isEmpty(tv_shouinfo.getText().toString())) {
+                    if (isSelect) {
+                        RrunnerPayInfo rrunnerPayInfo = new RrunnerPayInfo();
+                        rrunnerPayInfo.setFunctionName("AddErrandOrder");
+                        RrunnerPayInfo.ParametersBean parametersBean = new RrunnerPayInfo.ParametersBean();
+                        parametersBean.setGoodsType(type);
+                        parametersBean.setUserId(userId);
+                        parametersBean.setDeliveryAddress(rAddRunAdrInfo1.getParameters().getAddress());
+                        parametersBean.setDeliveryName(rAddRunAdrInfo1.getParameters().getName());
+                        parametersBean.setDeliveryPhone(rAddRunAdrInfo1.getParameters().getPhone());
+                        parametersBean.setReceiverAddress(rAddRunAdrInfo2.getParameters().getAddress());
+                        parametersBean.setReceiverName(rAddRunAdrInfo2.getParameters().getName());
+                        parametersBean.setReceiverPhone(rAddRunAdrInfo2.getParameters().getPhone());
+                        parametersBean.setShippingFee(rmoney);
+                        if (!TextUtils.isEmpty(remark)) {
+                            parametersBean.setRemark(remark);
                         }
+                        if ("没要求".equals(level)) {
+                            parametersBean.setErrandLevel("5");
+                        } else {
+                            parametersBean.setErrandLevel(level.replaceAll("星跑腿", ""));
+                        }
+                        parametersBean.setPickupTime(letTime);
+                        rrunnerPayInfo.setParameters(parametersBean);
+                        return rrunnerPayInfo;
                     } else {
-                        ToastUtils.showShort("请完善地址");
+                        ToastUtils.showShort("请同意跑腿条款");
                     }
                 } else {
-                    ToastUtils.showShort("请选择跑腿等级");
+                    ToastUtils.showShort("请完善地址");
                 }
             } else {
-                ToastUtils.showShort("请选择取件时间");
+                ToastUtils.showShort("请选择跑腿等级");
             }
         } else {
-            ToastUtils.showShort("请选择物品重量");
+            ToastUtils.showShort("请选择取件时间");
         }
+
         return null;
     }
 

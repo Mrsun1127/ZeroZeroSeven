@@ -160,7 +160,7 @@ public class HomeActivity extends AppCompatActivity {
                 tanChuangShowInfo = JSON.parseObject(response, TanChuangShowInfo.class);
                 if (tanChuangShowInfo.getCode() == 0) {
                     int showId = SharePrefUtils.getInt(HomeActivity.this, "showId", 0);
-                    if (showId == tanChuangShowInfo.getData().getId()) {
+                    if (showId != tanChuangShowInfo.getData().getId()) {
                         BaseAppApplication.mainHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {

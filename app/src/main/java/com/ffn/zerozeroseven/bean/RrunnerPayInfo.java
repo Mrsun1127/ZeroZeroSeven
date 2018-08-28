@@ -44,7 +44,6 @@ public class RrunnerPayInfo implements Serializable {
          */
         private String userId;
         private String goodsType;
-        private String goodsWeight;
         private String deliveryAddress;
         private String deliveryName;
         private String deliveryPhone;
@@ -73,13 +72,7 @@ public class RrunnerPayInfo implements Serializable {
             this.goodsType = goodsType;
         }
 
-        public String getGoodsWeight() {
-            return goodsWeight;
-        }
 
-        public void setGoodsWeight(String goodsWeight) {
-            this.goodsWeight = goodsWeight;
-        }
 
         public String getDeliveryAddress() {
             return deliveryAddress;
