@@ -209,7 +209,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
             public void onTimeSelect(Date date, View v) {//选中事件回调
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH");// HH:mm:ss
                 //获取当前时间
-                tv_time.setText(simpleDateFormat.format(date)+":00左右");
+                tv_time.setText(simpleDateFormat.format(date) + ":00左右");
             }
         }).setType(new boolean[]{false, false, false, true, false, false})// 默认全部显示
                 .build();
@@ -358,6 +358,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
                         parametersBean.setReceiverName(rAddRunAdrInfo2.getParameters().getName());
                         parametersBean.setReceiverPhone(rAddRunAdrInfo2.getParameters().getPhone());
                         parametersBean.setShippingFee(rmoney);
+                        parametersBean.setSchoolId(schoolIId);
                         if (!TextUtils.isEmpty(remark)) {
                             parametersBean.setRemark(remark);
                         }

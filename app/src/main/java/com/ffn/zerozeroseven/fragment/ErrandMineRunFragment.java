@@ -141,6 +141,7 @@ public class ErrandMineRunFragment extends BaseFragment {
         requestRunnerInfo.setFunctionName("ListSchoolErrandOrder");
         RequestRunnerInfo.ParametersBean parametersBean = new RequestRunnerInfo.ParametersBean();
         parametersBean.setUserPhone(userInfo.getPhone());
+        parametersBean.setSchoolId(schoolIId);
         requestRunnerInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
         okGoUtils.httpPostJSON(requestRunnerInfo, true, true);
@@ -169,10 +170,12 @@ public class ErrandMineRunFragment extends BaseFragment {
             }
         });
     }
+
     private void showErrorLayout(int errType) {
         common_stateLayout.setVisibility(View.VISIBLE);
         common_stateLayout.showError(errType);
     }
+
     public void requestData() {
         RequestRunnerInfo requestRunnerInfo = new RequestRunnerInfo();
         requestRunnerInfo.setFunctionName("QueryErrandUser");

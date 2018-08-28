@@ -56,6 +56,7 @@ public class RunnerDingDanFragment extends BaseReFreshFragment {
         rrunDingDanInfo.setFunctionName("ListReceiverErrandOrder");
         RrunDingDanInfo.ParametersBean parametersBean = new RrunDingDanInfo.ParametersBean();
         parametersBean.setUserId(userId);
+        parametersBean.setSchoolId(schoolIId);
         rrunDingDanInfo.setParameters(parametersBean);
         return rrunDingDanInfo;
     }

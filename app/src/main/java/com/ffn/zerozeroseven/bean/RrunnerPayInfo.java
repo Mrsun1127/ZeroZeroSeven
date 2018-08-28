@@ -55,6 +55,15 @@ public class RrunnerPayInfo implements Serializable {
         private String errandLevel;
         private String pickupTime;
         private String payment;
+        private String schoolId;
+
+        public String getSchoolId() {
+            return schoolId;
+        }
+
+        public void setSchoolId(String schoolId) {
+            this.schoolId = schoolId;
+        }
 
         public String getUserId() {
             return userId;

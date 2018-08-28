@@ -32,19 +32,19 @@ public class RunYourDingDanFragment extends BaseReFreshFragment {
             @Override
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
-                bundle.putString("orderNo",errandmineDingdanadapter.getItem(position).getOrderNo());
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandCustomerDingDanDetilsActivity.class,bundle);
+                bundle.putString("orderNo", errandmineDingdanadapter.getItem(position).getOrderNo());
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandCustomerDingDanDetilsActivity.class, bundle);
             }
         });
         errandmineDingdanadapter.setOnItemImageViewClick(new ErrandyouDingdanadapter.OnItemImageClick() {
             @Override
             public void onClick(View view, int position) {
-                if(errandmineDingdanadapter.getItem(position).getPayStatus()!=-2){
+                if (errandmineDingdanadapter.getItem(position).getPayStatus() != -2) {
                     BaseAppApplication.getInstance().finishActivity(getActivity());
-                }else{
+                } else {
                     Bundle bundle = new Bundle();
-                    bundle.putString("orderNo",errandmineDingdanadapter.getItem(position).getOrderNo());
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandCustomerDingDanDetilsActivity.class,bundle);
+                    bundle.putString("orderNo", errandmineDingdanadapter.getItem(position).getOrderNo());
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandCustomerDingDanDetilsActivity.class, bundle);
                 }
             }
         });
@@ -77,6 +77,7 @@ public class RunYourDingDanFragment extends BaseReFreshFragment {
         rrunDingDanInfo.setFunctionName("ListPublisherErrandOrder");
         RrunDingDanInfo.ParametersBean parametersBean = new RrunDingDanInfo.ParametersBean();
         parametersBean.setUserId(userId);
+        parametersBean.setSchoolId(schoolIId);
         rrunDingDanInfo.setParameters(parametersBean);
         return rrunDingDanInfo;
     }

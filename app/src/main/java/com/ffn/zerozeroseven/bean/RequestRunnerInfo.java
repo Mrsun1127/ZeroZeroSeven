@@ -43,6 +43,16 @@ public class RequestRunnerInfo {
          */
         private String userPhone;
 
+        public String getSchoolId() {
+            return schoolId;
+        }
+
+        public void setSchoolId(String schoolId) {
+            this.schoolId = schoolId;
+        }
+
+        private String schoolId;
+
         public String getUserPhone() {
             return userPhone;
         }
