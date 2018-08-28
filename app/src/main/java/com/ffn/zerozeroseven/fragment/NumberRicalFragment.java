@@ -51,11 +51,11 @@ public class NumberRicalFragment extends BaseReFreshFragment {
             public void onClick(View view, int position) {
                 if (adapter.getItem(position).getOrderStatus() == 1) {
                     gotoPayWeiKuan(position);
-                }else if (adapter.getItem(position).getOrderStatus() == 2) {
+                } else if (adapter.getItem(position).getOrderStatus() == 2) {
                     deleteDingDan(position);
-                }else if (adapter.getItem(position).getOrderStatus() == 3) {
+                } else if (adapter.getItem(position).getOrderStatus() == 3) {
                     buyAgain(position);
-                }else if (adapter.getItem(position).getOrderStatus() == 4) {
+                } else if (adapter.getItem(position).getOrderStatus() == 4) {
                     deleteDingDan(position);
                 }
             }
@@ -65,10 +65,10 @@ public class NumberRicalFragment extends BaseReFreshFragment {
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("orderId", adapter.getItem(position).getId());
-                bundle.putDouble("money",adapter.getItem(position).getOrderPrice());
-                if(adapter.getItem(position).isIsApplyRefund()){
+                bundle.putDouble("money", adapter.getItem(position).getOrderPrice());
+                if (adapter.getItem(position).isIsApplyRefund()) {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, NumberTuiKuanDetilsActivity.class, bundle);
-                }else {
+                } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, NumberRicalDetilsActivity.class, bundle);
                 }
 
@@ -92,7 +92,8 @@ public class NumberRicalFragment extends BaseReFreshFragment {
     private void gotoPayWeiKuan(int position) {
         Bundle bundle = new Bundle();
         bundle.putString("parentOrderNo", adapter.getItem(position).getOrderNo());
-        bundle.putString("pay","numberweikuan");
+        bundle.putString("pay", "numberweikuan");
+        bundle.putDouble("allMoney", adapter.getItem(position).getOrderPrice() - adapter.getItem(position).getDepositFee());
         ZeroZeroSevenUtils.SwitchActivity(bfCxt, PayMoneyActivity.class, bundle);
     }
 

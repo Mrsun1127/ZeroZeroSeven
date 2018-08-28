@@ -73,10 +73,10 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         isPaySupported = api.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
         mZFbutils = new ZFBPayUtil(this);
         orderNO = getIntent().getStringExtra("parentOrderNo");
+        double allMoney = getIntent().getDoubleExtra("allMoney", 0);
         if (!TextUtils.isEmpty(orderNO)) {
-            tv_money.setText("支付金额：" + "2000" + "RMB");
+            tv_money.setText("支付金额：" +allMoney + "RMB");
         } else {
-            double allMoney = getIntent().getDoubleExtra("allMoney", 0);
             payType = getIntent().getStringExtra("pay");
             carType = getIntent().getStringExtra("carType");
             dormId = getIntent().getStringExtra("dormId");

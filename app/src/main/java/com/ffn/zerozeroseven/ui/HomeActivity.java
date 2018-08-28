@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -41,6 +42,8 @@ import com.ffn.zerozeroseven.utlis.SharePrefUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.NXHooldeView;
+import com.ffn.zerozeroseven.view.pop.CustomPopWindow;
+import com.ffn.zerozeroseven.view.pop.HomePopWindow;
 import com.squareup.leakcanary.RefWatcher;
 import com.zyyoona7.popup.EasyPopup;
 
@@ -69,6 +72,7 @@ public class HomeActivity extends AppCompatActivity {
     private MainFragment mainFragment;
     private ShopFragment shopFragment;
     private MineFragment mineFragment;
+    private TanChuangShowInfo tanChuangShowInfo;
 
     public static WeakReference<HomeActivity> getmInstance() {
         return mInstance;
@@ -154,11 +158,16 @@ public class HomeActivity extends AppCompatActivity {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                TanChuangShowInfo tanChuangShowInfo = JSON.parseObject(response, TanChuangShowInfo.class);
+                tanChuangShowInfo = JSON.parseObject(response, TanChuangShowInfo.class);
                 if (tanChuangShowInfo.getCode() == 0) {
                     int showId = SharePrefUtils.getInt(HomeActivity.this, "showId", 0);
-                    if (showId != tanChuangShowInfo.getData().getId()) {
-                        TanChuang(tanChuangShowInfo.getData().getContent(), tanChuangShowInfo.getData().getTitle());
+                    if (showId == tanChuangShowInfo.getData().getId()) {
+                        BaseAppApplication.mainHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                TanChuang(tanChuangShowInfo.getData().getContent());
+                            }
+                        },1000);
                         SharePrefUtils.setInt(HomeActivity.this, "showId", tanChuangShowInfo.getData().getId());
                     }
                 }
@@ -166,24 +175,17 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void TanChuang(String s, String s1) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final AlertDialog dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(false);
-        View view = View.inflate(this, R.layout.main_tanchuangshow, null);
-        TextView tv_tanchuang = view.findViewById(R.id.tv_tanchuang);
-        TextView tv_title = view.findViewById(R.id.tv_title);
-        ImageView iv_close = view.findViewById(R.id.iv_close);
-        tv_tanchuang.setText(s);
-        tv_title.setText(s1);
-        iv_close.setOnClickListener(new View.OnClickListener() {
+    private void TanChuang(String s) {
+        final HomePopWindow popWindow = new HomePopWindow(HomeActivity.this);
+        popWindow.showAtLocation(rl_main, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+        popWindow.setContent(s);
+        popWindow.setMlistener(new HomePopWindow.OnButonClikListener() {
             @Override
-            public void onClick(View view) {
-                dialog.dismiss();
+            public void BtAgain() {
+                popWindow.dismiss();
             }
         });
-        dialog.setView(view);
-        dialog.show();
+
     }
 
     private void txst() {

@@ -37,6 +37,8 @@ public class NumberDrawBackActivity extends BaseActivity {
     RelativeLayout rl_pop;
     @Bind(R.id.tv_select_reason)
     TextView tv_select_reason;
+    @Bind(R.id.tv_money)
+    TextView tv_money;
     @Bind(R.id.rc_reason)
     RecyclerView rc_reason;
     @Bind(R.id.rc_product)
@@ -95,7 +97,7 @@ public class NumberDrawBackActivity extends BaseActivity {
                 break;
             case R.id.bt_sure:
                 rl_pop.setVisibility(View.GONE);
-                showReason.delete(0,showReason.length());
+                showReason.delete(0, showReason.length());
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).isCheck()) {
                         showReason = showReason.append(list.get(i).getName()).append(" ");
@@ -161,7 +163,7 @@ public class NumberDrawBackActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, long itemId) {
                 curPosition = position;
-                showReason.delete(0,showReason.length());
+                showReason.delete(0, showReason.length());
                 if (list.get(position).isCheck()) {
                     list.get(position).setCheck(false);
                     if (!TextUtils.isEmpty(showReason)) {
@@ -175,6 +177,7 @@ public class NumberDrawBackActivity extends BaseActivity {
         });
         numberDingDanInfo = (NumberDingDanInfo.DataBean.ListBean) getIntent().getSerializableExtra("info");
         itemNumberDingDanAdapter.addAll(numberDingDanInfo.getOrderGoodsList());
+        tv_money.setText(String.valueOf(numberDingDanInfo.getDepositFee()));
     }
 
 

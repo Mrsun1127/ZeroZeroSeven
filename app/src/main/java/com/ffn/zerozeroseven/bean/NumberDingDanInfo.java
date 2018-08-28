@@ -3,7 +3,7 @@ package com.ffn.zerozeroseven.bean;
 import java.io.Serializable;
 import java.util.List;
 
-public class NumberDingDanInfo implements Serializable{
+public class NumberDingDanInfo implements Serializable {
     /**
      * code : 0
      * data : {"total":1,"pageIndex":0,"totalPage":1,"pageSize":6,"list":[{"createTime":"2018-07-25 14:56:09","downPayment":60,"freightPrice":0,"goodsCount":1,"id":24,"isApplyRefund":true,"orderGoodsList":[{"costPrice":0,"goodsCount":1,"goodsId":3,"goodsImage":"http://www.xianjichina.com/data/editer/20170405/image/ff25b8a0fef9eebd70cd0454f696bde0.jpg","goodsName":"111","id":7,"marketPrice":13999,"orderNo":"153250175965101","shopPrice":9999,"specKey":"9_11_15","specKeyName":"选择版本:全网通3G+32G 选择颜色:红色 套餐类型:官方标配"}],"orderNo":"153250175965101","orderPrice":9999,"orderStatus":1,"payStatus":1,"shippingStatus":0}]}
@@ -38,7 +38,7 @@ public class NumberDingDanInfo implements Serializable{
         this.success = success;
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataBean implements Serializable {
         /**
          * total : 1
          * pageIndex : 0
@@ -93,7 +93,7 @@ public class NumberDingDanInfo implements Serializable{
             this.list = list;
         }
 
-        public static class ListBean implements  Serializable{
+        public static class ListBean implements Serializable {
             /**
              * createTime : 2018-07-25 14:56:09
              * downPayment : 60
@@ -110,7 +110,7 @@ public class NumberDingDanInfo implements Serializable{
              */
 
             private String createTime;
-            private int downPayment;
+            private Double depositFee;
             private Double freightPrice;
             private int goodsCount;
             private int id;
@@ -130,12 +130,20 @@ public class NumberDingDanInfo implements Serializable{
                 this.createTime = createTime;
             }
 
-            public int getDownPayment() {
-                return downPayment;
+            public Double getDepositFee() {
+                return depositFee;
             }
 
-            public void setDownPayment(int downPayment) {
-                this.downPayment = downPayment;
+            public void setDepositFee(Double depositFee) {
+                this.depositFee = depositFee;
+            }
+
+            public boolean isApplyRefund() {
+                return isApplyRefund;
+            }
+
+            public void setApplyRefund(boolean applyRefund) {
+                isApplyRefund = applyRefund;
             }
 
             public Double getFreightPrice() {
@@ -218,7 +226,7 @@ public class NumberDingDanInfo implements Serializable{
                 this.orderGoodsList = orderGoodsList;
             }
 
-            public static class OrderGoodsListBean implements Serializable{
+            public static class OrderGoodsListBean implements Serializable {
                 /**
                  * costPrice : 0
                  * goodsCount : 1
