@@ -16,13 +16,11 @@ public class ErrandRenzhen3Fragment extends BaseFragment {
         return new ErrandRenzhen3Fragment();
     }
 
-    @Bind(R.id.webView)
-    WebView webView;
+
 
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
-        webView.loadUrl("https://blog.csdn.net/u012246458/article/details/73288487/");
     }
 
     @Override
