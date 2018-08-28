@@ -157,7 +157,7 @@ public class HomeActivity extends AppCompatActivity {
                 TanChuangShowInfo tanChuangShowInfo = JSON.parseObject(response, TanChuangShowInfo.class);
                 if (tanChuangShowInfo.getCode() == 0) {
                     int showId = SharePrefUtils.getInt(HomeActivity.this, "showId", 0);
-                    if (showId == tanChuangShowInfo.getData().getId()) {
+                    if (showId != tanChuangShowInfo.getData().getId()) {
                         TanChuang(tanChuangShowInfo.getData().getContent(), tanChuangShowInfo.getData().getTitle());
                         SharePrefUtils.setInt(HomeActivity.this, "showId", tanChuangShowInfo.getData().getId());
                     }

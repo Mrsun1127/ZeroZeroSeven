@@ -379,6 +379,7 @@
         <activity android:name=".ui.LeaseDingDanBobyActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.RunnerTuiKuanActivity" />
+        <activity android:name=".ui.SerachShopActivity" />
 
 
         <!-- Required SDK核心功能-->
