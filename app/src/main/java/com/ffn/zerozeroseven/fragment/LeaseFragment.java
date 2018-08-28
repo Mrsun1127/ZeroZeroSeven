@@ -71,6 +71,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
     private TextView tv_desc;
     private LeaseTitleAdapter titleAdapter;
     private RelativeLayout rl_back;
+    private RelativeLayout rl_search;
     private ImageView iv_icon;
     private ImageView iv_in_bg;
 
@@ -95,7 +96,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
                 if (shangChangShowInfo.getCode() == 0) {
                     tv_shop_phone.setText("客服电话：" + shangChangShowInfo.getData().getLeaseConfig().getServicePhone());
                     Glide.with(bfCxt).load(shangChangShowInfo.getData().getLeaseConfig().getLogo()).into(iv_icon);
-                    Glide.with(bfCxt).load(shangChangShowInfo.getData().getLeaseConfig().getBackground()).override(10,10).into(iv_in_bg);
+                    Glide.with(bfCxt).load(shangChangShowInfo.getData().getLeaseConfig().getBackground()).override(10, 10).into(iv_in_bg);
                 }
             }
         });
@@ -104,6 +105,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
     @Override
     protected void initView(View view) {
         badgeView = new QBadgeView(bfCxt);
+        rl_search = view.findViewById(R.id.rl_search);
         iv_in_bg = view.findViewById(R.id.iv_in_bg);
         iv_icon = view.findViewById(R.id.iv_icon);
         rl_back = view.findViewById(R.id.rl_back);
@@ -119,6 +121,7 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
         ib_shopcar.setOnClickListener(this);
         rl_back.setOnClickListener(this);
         rl_back.setVisibility(View.VISIBLE);
+        rl_search.setVisibility(View.GONE);
         iv_in_bg.setScaleX(1.8f);
         iv_in_bg.setScaleY(1.2f);
         badgeView.bindTarget(ib_shopcar);

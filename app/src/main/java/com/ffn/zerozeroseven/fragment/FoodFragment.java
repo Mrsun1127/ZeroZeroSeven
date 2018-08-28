@@ -67,6 +67,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
     private TextView tv_shop_phone;
     private TextView tv_desc;
     private RelativeLayout rl_back;
+    private RelativeLayout rl_search;
     private ShopTitleAdapter titleAdapter;
 
     public static FoodFragment newInstance() {
@@ -111,6 +112,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView(View view) {
         badgeView = new QBadgeView(bfCxt);
+        rl_search = view.findViewById(R.id.rl_search);
         iv_icon = view.findViewById(R.id.iv_icon);
         iv_in_bg = view.findViewById(R.id.iv_in_bg);
         iv_in_bg.setScaleX(1.8f);
@@ -129,6 +131,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
         ib_shopcar.setOnClickListener(this);
         rl_back.setOnClickListener(this);
         badgeView.bindTarget(ib_shopcar);
+        rl_search.setVisibility(View.GONE);
         badgeView.setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
             @Override
             public void onDragStateChanged(int dragState, Badge badge, View targetView) {
