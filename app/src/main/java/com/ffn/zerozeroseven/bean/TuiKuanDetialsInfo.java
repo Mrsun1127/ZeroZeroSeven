@@ -41,7 +41,7 @@ public class TuiKuanDetialsInfo {
         /**
          */
         private String userId;
-        private int orderNo;
+        private String orderNo;
 
         public String getUserId() {
             return userId;
@@ -51,11 +51,11 @@ public class TuiKuanDetialsInfo {
             this.userId = userId;
         }
 
-        public int getOrderNo() {
+        public String getOrderNo() {
             return orderNo;
         }
 
-        public void setOrderNo(int orderNo) {
+        public void setOrderNo(String orderNo) {
             this.orderNo = orderNo;
         }
     }

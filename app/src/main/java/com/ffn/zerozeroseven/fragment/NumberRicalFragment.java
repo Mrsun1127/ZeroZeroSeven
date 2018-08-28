@@ -14,6 +14,7 @@ import com.ffn.zerozeroseven.ui.NumberDrawBackActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalDetilsActivity;
 import com.ffn.zerozeroseven.ui.NumberTuiKuanDetilsActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyActivity;
+import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -64,8 +65,9 @@ public class NumberRicalFragment extends BaseReFreshFragment {
             @Override
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("orderId", adapter.getItem(position).getId());
                 bundle.putDouble("money", adapter.getItem(position).getOrderPrice());
+                bundle.putInt("orderId", adapter.getItem(position).getId());
+                bundle.putString("orderNo", adapter.getItem(position).getOrderNo());
                 if (adapter.getItem(position).isIsApplyRefund()) {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, NumberTuiKuanDetilsActivity.class, bundle);
                 } else {
@@ -110,6 +112,7 @@ public class NumberRicalFragment extends BaseReFreshFragment {
 
     @Override
     protected void readRespones(String response) {
+        LogUtils.D("response",response);
         numberDingDanInfo = JSON.parseObject(response, NumberDingDanInfo.class);
     }
 

@@ -14,8 +14,7 @@
             android:layout_width="84dp"
             android:layout_height="71dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/willdelete" />
+            android:layout_marginLeft="5dp" />
 
         <TextView
             android:id="@+id/tv_name"

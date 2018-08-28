@@ -75,7 +75,9 @@ public class MyDingDanOfNumberAdapter extends BaseRecyclerAdapter<NumberDingDanI
             @Override
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
+                bundle.putDouble("money", info.getOrderPrice());
                 bundle.putInt("orderId", info.getId());
+                bundle.putString("orderNo", info.getOrderNo());
                 if (info.isIsApplyRefund()) {
                     ZeroZeroSevenUtils.SwitchActivity(mContext, NumberTuiKuanDetilsActivity.class, bundle);
                 } else {

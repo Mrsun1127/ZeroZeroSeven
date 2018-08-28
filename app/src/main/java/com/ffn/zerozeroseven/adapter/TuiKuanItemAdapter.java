@@ -47,7 +47,7 @@ public class TuiKuanItemAdapter extends BaseRecyclerAdapter<TuiKuanInfo.DataBean
             super(itemView);
             iv_product = itemView.findViewById(R.id.iv_product);
             tv_name = itemView.findViewById(R.id.tv_name);
-            tv_desc = itemView.findViewById(R.id.tv_desc);
+            tv_desc = itemView.findViewById(R.id.tv_configureation);
 
         }
     }

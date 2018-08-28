@@ -53,7 +53,7 @@ public class NumberTuiKuanDetilsActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        requestDate(getIntent().getIntExtra("orderId", 0));
+        requestDate(getIntent().getStringExtra("orderNo"));
     }
 
     @Bind(R.id.tv_reson)
@@ -71,7 +71,7 @@ public class NumberTuiKuanDetilsActivity extends BaseActivity {
     @Bind(R.id.line2)
     View line2;
 
-    private void requestDate(int orderId) {
+    private void requestDate(String orderId) {
         TuiKuanDetialsInfo tuiKuanDetialsInfo = new TuiKuanDetialsInfo();
         tuiKuanDetialsInfo.setFunctionName("QueryDigitalOrderRefundApply");
         TuiKuanDetialsInfo.ParametersBean parametersBean = new TuiKuanDetialsInfo.ParametersBean();
