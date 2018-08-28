@@ -32,7 +32,7 @@ public class ItemNumberDingDanAdapter extends BaseRecyclerAdapter<NumberDingDanI
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, NumberDingDanInfo.DataBean.ListBean.OrderGoodsListBean info, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         Glide.with(mContext)
-                .load(info.getGoodsImage())
+                .load(info.getGoodsThumb())
                 .error(R.drawable.oops)
                 .into(mHolder.iv_product);
         mHolder.tv_name.setText(info.getGoodsName());

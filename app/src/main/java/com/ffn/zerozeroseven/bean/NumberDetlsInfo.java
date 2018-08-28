@@ -263,7 +263,7 @@ public class NumberDetlsInfo {
             private Double shopPrice;
             private int goodsId;
             private Double costPrice;
-            private String goodsImage;
+            private String goodsThumb;
             private int id;
             private String specKey;
             private String goodsName;
@@ -324,12 +324,12 @@ public class NumberDetlsInfo {
                 this.costPrice = costPrice;
             }
 
-            public String getGoodsImage() {
-                return goodsImage;
+            public String getGoodsThumb() {
+                return goodsThumb;
             }
 
-            public void setGoodsImage(String goodsImage) {
-                this.goodsImage = goodsImage;
+            public void setGoodsThumb(String goodsThumb) {
+                this.goodsThumb = goodsThumb;
             }
 
             public int getId() {
