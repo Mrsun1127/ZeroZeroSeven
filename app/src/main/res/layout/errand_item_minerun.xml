@@ -30,15 +30,17 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:text="剩余："
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            android:visibility="gone" />
 
         <cn.iwgang.countdownview.CountdownView
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="2dp"
             android:id="@+id/cd_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/iv_product"
+            android:visibility="gone"
             app:isHideTimeBackground="true"
             app:isShowHour="true"
             app:isShowMinute="true"
@@ -84,11 +86,11 @@
             android:textSize="13sp" />
 
         <TextView
-            android:layout_marginRight="8dp"
             android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:text="@string/loading"
             android:textColor="@color/black"
             android:textSize="13sp" />
@@ -194,9 +196,9 @@
         android:layout_width="70dp"
         android:layout_height="25dp"
         android:layout_gravity="center_horizontal"
-        android:gravity="center"
         android:layout_marginTop="12dp"
         android:background="@drawable/qiangdan"
+        android:gravity="center"
         android:text="抢单"
         android:textColor="@color/white"
         android:textSize="14sp" />
