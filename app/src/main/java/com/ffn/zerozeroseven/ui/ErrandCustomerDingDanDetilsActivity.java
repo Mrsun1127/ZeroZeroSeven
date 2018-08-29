@@ -1,6 +1,5 @@
 package com.ffn.zerozeroseven.ui;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -82,8 +81,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
     TextView tv_getadr;
     @Bind(R.id.tv_getinfo)
     TextView tv_getinfo;
-    @Bind(R.id.tv_weight)
-    TextView tv_weight;
+
     @Bind(R.id.tv_runMoney)
     TextView tv_runMoney;
     @Bind(R.id.tv_picktime)
@@ -190,7 +188,6 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                         } else {
                             tv_remark.setText("无");
                         }
-                        tv_weight.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getGoodsWeight()));
                     }
                     //-1=无效状态，0=未接单，1=已接单，2=取货中，3=已收货，5=已取消
                     switch (runnerDingDanDetilsInfo.getData().getOrderStatus()) {

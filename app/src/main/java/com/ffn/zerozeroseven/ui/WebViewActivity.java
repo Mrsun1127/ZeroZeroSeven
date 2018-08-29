@@ -307,8 +307,15 @@ public class WebViewActivity extends BaseActivity {
 //            BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
 //        }
 
+        /**
+         *
+         * @param id
+         * @param title 产品标题
+         * @param imgUrl 产品图片url
+         * @param desc    预约金额及销售价格（拼接起来返回一个字符串给我）
+         */
         @JavascriptInterface
-        public void shareproductDetils(String id) {
+        public void shareproductDetils(String id,String title,String imgUrl,String desc) {
             shareProduct(AppConfig.NUMBERICALSHAREURL + id);
         }
 

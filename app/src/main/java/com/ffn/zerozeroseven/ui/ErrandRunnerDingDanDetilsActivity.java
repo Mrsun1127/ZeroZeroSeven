@@ -89,8 +89,7 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
     TextView tv_getinfo;
     @Bind(R.id.tv_picktime)
     TextView tv_picktime;
-    @Bind(R.id.tv_weight)
-    TextView tv_weight;
+
     @Bind(R.id.tv_remark)
     TextView tv_remark;
     @Bind(R.id.tv_quhuo2)
@@ -133,7 +132,6 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
                         } else {
                             tv_remark.setText("无");
                         }
-                        tv_weight.setText(String.valueOf(runnerDingDanDetilsInfo.getData().getGoodsWeight()));
 
 
                         //-1=无效状态，0=未接单，1=已接单，2=取货中，3=已收货，5=已取消

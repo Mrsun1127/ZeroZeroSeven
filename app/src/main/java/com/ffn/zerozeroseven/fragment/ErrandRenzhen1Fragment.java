@@ -157,7 +157,7 @@ public class ErrandRenzhen1Fragment extends BaseFragment implements ActionSheet.
     private void saveIcon() {
         iconFile = new File(imgList.get(0));
         OkHttpUtils.post()
-                .url("https://www.lingling7.com/lingling7-server/upload")
+                .url("https://api.lingling7.com/lingling7-server/upload")
                 .addHeader("Authorization", "Bearer " + userInfo.getToken())
                 .addParams("uploadType", "IMAGE")
                 .addFile("file", iconFile.getName(), iconFile)
