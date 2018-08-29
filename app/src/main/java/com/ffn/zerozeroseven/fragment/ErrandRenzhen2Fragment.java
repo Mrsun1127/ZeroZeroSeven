@@ -4,10 +4,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseFragment;
+import com.ffn.zerozeroseven.bean.WocaoInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RRunnerMoneyInfo;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
@@ -18,6 +22,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ErrandRenzhen2Fragment extends BaseFragment {
+
+    private WocaoInfo wocaoInfo;
+
     public static ErrandRenzhen2Fragment newInstance() {
         return new ErrandRenzhen2Fragment();
     }
@@ -37,6 +44,8 @@ public class ErrandRenzhen2Fragment extends BaseFragment {
     CheckBox cb;
     @Bind(R.id.webview)
     WebView webview;
+    @Bind(R.id.tv_money)
+    TextView tv_money;
 
     @OnClick({R.id.bt_next})
     void setOnClicks(View v) {
@@ -44,7 +53,11 @@ public class ErrandRenzhen2Fragment extends BaseFragment {
             case R.id.bt_next:
                 if (cb.isChecked()) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("money", "99");
+                    try {
+                        bundle.putString("money", String.valueOf(wocaoInfo.getData().getErrandCheckFee()));
+                    } catch (Exception e) {
+                        bundle.putString("money", "99");
+                    }
                     bundle.putString("pay", "renzheng");
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, PayMoneyNewActivity.class, bundle);
                 }
@@ -56,5 +69,27 @@ public class ErrandRenzhen2Fragment extends BaseFragment {
     @Override
     protected void lazyLoad() {
         webview.loadUrl(AppConfig.WEBRENZHENGCONTENT);
+        doQuest();
+    }
+
+    private void doQuest() {
+        RRunnerMoneyInfo rRunnerMoneyInfo = new RRunnerMoneyInfo();
+        rRunnerMoneyInfo.setFunctionName("QueryErrandCheckFee");
+        RRunnerMoneyInfo.ParametersBean parametersBean = new RRunnerMoneyInfo.ParametersBean();
+        parametersBean.setSchoolId(schoolIId);
+        rRunnerMoneyInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
+        okGoUtils.httpPostJSON(rRunnerMoneyInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                wocaoInfo = JSON.parseObject(response, WocaoInfo.class);
+                if (wocaoInfo.getCode() == 0) {
+                    tv_money.setText("平台认证押金" + wocaoInfo.getData().getErrandCheckFee() + "元");
+                } else {
+                    tv_money.setText("平台认证押金99元");
+                }
+            }
+        });
     }
 }

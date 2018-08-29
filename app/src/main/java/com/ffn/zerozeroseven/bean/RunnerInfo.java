@@ -64,6 +64,15 @@ public class RunnerInfo  {
         private int payStatus;
         private int userId;
         private String refuseReason;
+        private String depositFee;
+
+        public String getDepositFee() {
+            return depositFee;
+        }
+
+        public void setDepositFee(String depositFee) {
+            this.depositFee = depositFee;
+        }
 
         public String getAvatar() {
             return avatar;

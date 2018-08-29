@@ -1,5 +1,6 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ public class RenzhengStatusActivity extends BaseActivity {
     @Bind(R.id.topView)
     TopView topView;
     public static WeakReference<RenzhengStatusActivity> mInstance;
+    private RunnerInfo runnerInfo;
 
     @Override
     protected int setLayout() {
@@ -86,14 +88,14 @@ public class RenzhengStatusActivity extends BaseActivity {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                RunnerInfo runnerInfo = JSON.parseObject(response, RunnerInfo.class);
+                runnerInfo = JSON.parseObject(response, RunnerInfo.class);
                 if (runnerInfo.getCode() == 0) {
                     if (runnerInfo.getData() != null) {
                         tv_school.setText(runnerInfo.getData().getSchoolName());
                         tv_name.setText(runnerInfo.getData().getRealName());
                         tv_id.setText(runnerInfo.getData().getIdcard());
                         tv_phone.setText(runnerInfo.getData().getPhone());
-//                        tv_money.setText(runnerInfo.getData().);
+                        tv_money.setText(runnerInfo.getData().getDepositFee() + "元");
                         tv_sex.setText(runnerInfo.getData().getSex() == 0 ? "女" : "男");
                         //审核状态：-2=取消资格（无法退款）-1=审核未通过，0=未审核，1=已审核
                         switch (runnerInfo.getData().getCheckStatus()) {
@@ -130,7 +132,9 @@ public class RenzhengStatusActivity extends BaseActivity {
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_sub:
-                ZeroZeroSevenUtils.SwitchActivity(RenzhengStatusActivity.this, RunnerTuiKuanActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("money", runnerInfo.getData().getDepositFee());
+                ZeroZeroSevenUtils.SwitchActivity(RenzhengStatusActivity.this, RunnerTuiKuanActivity.class,bundle);
                 break;
 
         }

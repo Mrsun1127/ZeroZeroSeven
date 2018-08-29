@@ -29,6 +29,7 @@ public class RunnerTuiKuanActivity extends BaseActivity {
     public void initView() {
 
         ButterKnife.bind(this);
+        tv_money.setText(getIntent().getStringExtra("money"));
     }
 
     @OnClick({R.id.bt_sub})
