@@ -130,7 +130,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                         sureGet(orderNo);
                         break;//确认收货
                     case 3:
-                        goToRelease(orderNo,runnerDingDanDetilsInfo.getData().getRealName());
+                        goToRelease(orderNo, runnerDingDanDetilsInfo.getData().getRealName());
                         break;//去评价
                     case 5:
 //                        TuiKuanla();
@@ -226,7 +226,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                             tv_status.setText("订单已取消");
                             tv_frist.setVisibility(View.VISIBLE);
                             tv_frist.setText("订单已取消，感谢您对校园跑腿的信任");
-                            bt_left.setText("申请退款");
+                            bt_left.setVisibility(View.GONE);
                             bt_right.setText("再来一单");
                             break;
                     }
@@ -268,25 +268,26 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
      * @param orderNo
      */
     public void releaseAgain(final String orderNo) {
-        SureGetInfo sureGetInfo = new SureGetInfo();
-        sureGetInfo.setFunctionName("RepublishErrandOrder");
-        SureGetInfo.ParametersBean parametersBean = new SureGetInfo.ParametersBean();
-        parametersBean.setOrderNo(orderNo);
-        parametersBean.setUserId(userId);
-        sureGetInfo.setParameters(parametersBean);
-        OkGoUtils okGoUtils = new OkGoUtils(ErrandCustomerDingDanDetilsActivity.this);
-        okGoUtils.httpPostJSON(sureGetInfo, true, true);
-        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
-            @Override
-            public void onSuccLoad(String response) {
-                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
-                if (errorCodeInfo.getCode() == 0) {
-                    requestOrder(orderNo);
-                } else {
-                    ToastUtils.showShort(errorCodeInfo.getMessage());
-                }
-            }
-        });
+//        SureGetInfo sureGetInfo = new SureGetInfo();
+//        sureGetInfo.setFunctionName("RepublishErrandOrder");
+//        SureGetInfo.ParametersBean parametersBean = new SureGetInfo.ParametersBean();
+//        parametersBean.setOrderNo(orderNo);
+//        parametersBean.setUserId(userId);
+//        sureGetInfo.setParameters(parametersBean);
+//        OkGoUtils okGoUtils = new OkGoUtils(ErrandCustomerDingDanDetilsActivity.this);
+//        okGoUtils.httpPostJSON(sureGetInfo, true, true);
+//        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+//            @Override
+//            public void onSuccLoad(String response) {
+//                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+//                if (errorCodeInfo.getCode() == 0) {
+//                    requestOrder(orderNo);
+//                } else {
+//                    ToastUtils.showShort(errorCodeInfo.getMessage());
+//                }
+//            }
+//        });
+        finish();
     }
 
     /**
@@ -322,7 +323,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
      *
      * @param orderNo
      */
-    public void goToRelease(String orderNo,String name) {
+    public void goToRelease(String orderNo, String name) {
         Bundle bundle = new Bundle();
         bundle.putString("ordeNo", orderNo);
         bundle.putString("name", name);
