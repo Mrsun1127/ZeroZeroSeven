@@ -51,7 +51,7 @@ public class NumberRicalVerticalAdapter extends BaseRecyclerAdapter<NumberListIn
                 .into(mHolder.iv_product);
         mHolder.tv_shopmoney.setText(item.getShopPrice() + "");
         mHolder.tv_desc.setText(item.getGoodsBrief());
-        mHolder.tv_yuyuemoney.setText("预约加价"+item.getDepositFee());
+        mHolder.tv_yuyuemoney.setText("预约价"+item.getDepositFee());
         mHolder.tv_oldmoney.setText("原价 " + item.getMarketPrice() + "");
 
 //        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(mContext);
