@@ -105,11 +105,11 @@ public class MyDingDanOfNumberAdapter extends BaseRecyclerAdapter<NumberDingDanI
 //                break;
         }
 
-        if (info.getOrderStatus() != 3 && info.getPayStatus() == 2) {
-            mHolder.tv_status.setText("全额付款");
-            mHolder.bt_left.setVisibility(View.GONE);
-            mHolder.bt_right.setText("确认收货");
-        }
+//        if (info.getOrderStatus() != 3 && info.getPayStatus() == 2) {
+//            mHolder.tv_status.setText("全额付款");
+//            mHolder.bt_left.setVisibility(View.GONE);
+//            mHolder.bt_right.setText("确认收货");
+//        }
 
     }
 

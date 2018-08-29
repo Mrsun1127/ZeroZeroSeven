@@ -53,21 +53,21 @@ public class NumberRicalFragment extends BaseReFreshFragment {
         adapter.setOnItemAgainClick(new MyDingDanOfNumberAdapter.OnItemAgainClick() {
             @Override
             public void onClick(View view, int position) {
-                if (adapter.getItem(position).getOrderStatus() != 3 && adapter.getItem(position).getPayStatus() == 2) {
-                    sureget(position);
-                } else {
-                    if (adapter.getItem(position).getOrderStatus() == 1) {
-                        gotoPayWeiKuan(position);
-                    } else if (adapter.getItem(position).getOrderStatus() == 2) {
-                        deleteDingDan(position);
-                    } else if (adapter.getItem(position).getOrderStatus() == 3) {
-                        buyAgain(position);
-                    } else if (adapter.getItem(position).getOrderStatus() == 4) {
-                        deleteDingDan(position);
-                    }
+//                if (adapter.getItem(position).getOrderStatus() != 3 && adapter.getItem(position).getPayStatus() == 2) {
+//                    sureget(position);
+//                } else {
+                if (adapter.getItem(position).getOrderStatus() == 1) {
+                    gotoPayWeiKuan(position);
+                } else if (adapter.getItem(position).getOrderStatus() == 2) {
+                    deleteDingDan(position);
+                } else if (adapter.getItem(position).getOrderStatus() == 3) {
+                    buyAgain(position);
+                } else if (adapter.getItem(position).getOrderStatus() == 4) {
+                    deleteDingDan(position);
                 }
-
             }
+
+//            }
         });
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
