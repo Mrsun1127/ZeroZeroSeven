@@ -13,23 +13,4 @@
         android:text="感谢您的认证，正在为您审核"
         android:textColor="@color/black"
         android:textSize="13sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="12dp"
-        android:paddingLeft="12dp"
-        android:text="审核说明"
-        android:textSize="12sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:text="审核说明审核说明审核说明审核说明审核说明审核说明审核说明审核说明"
-        android:textSize="12sp" />
 </LinearLayout>
