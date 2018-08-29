@@ -269,7 +269,7 @@ public class ErrandMineRunFragment extends BaseFragment {
             public void onSuccLoad(String response) {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
-                    ToastUtils.showShort("抢单成功");
+                    ToastUtils.showShort("抢单成功,请到右上角订单点击查看");
                     requestList();
                 } else {
                     ToastUtils.showShort(errorCodeInfo.getMessage());
