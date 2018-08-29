@@ -65,18 +65,20 @@
         android:textColor="@color/black"
         android:textSize="13sp" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_status"
         android:layout_width="match_parent"
         android:layout_height="53dp"
-        android:layout_marginTop="1dp">
-
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical">
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
         <Button
             android:id="@+id/bt_right"
             android:layout_width="74dp"
             android:layout_height="27dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:background="@drawable/redxian"
             android:text="@string/loading"
@@ -86,13 +88,12 @@
             android:id="@+id/bt_left"
             android:layout_width="74dp"
             android:layout_height="27dp"
-            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/bt_right"
             android:background="@drawable/redblack"
             android:text="@string/loading"
             android:textColor="@color/black" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

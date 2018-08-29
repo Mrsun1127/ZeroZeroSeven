@@ -96,7 +96,7 @@ public class MyDingDanOfNumberAdapter extends BaseRecyclerAdapter<NumberDingDanI
             case 3:
                 mHolder.tv_status.setText("已收货");
                 mHolder.bt_left.setText("删除订单");
-                mHolder.bt_right.setText("再来一单");
+                mHolder.bt_right.setVisibility(View.GONE);
                 break;
 //            case 4:
 //                mHolder.tv_status.setText("退货");
@@ -142,11 +142,9 @@ public class MyDingDanOfNumberAdapter extends BaseRecyclerAdapter<NumberDingDanI
         RecyclerView rc_product;
         Button bt_right;
         Button bt_left;
-        RelativeLayout rl_status;
 
         MViewHolder(View itemView) {
             super(itemView);
-            rl_status = itemView.findViewById(R.id.rl_status);
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_status = itemView.findViewById(R.id.tv_status);
             tv_desc = itemView.findViewById(R.id.tv_desc);
