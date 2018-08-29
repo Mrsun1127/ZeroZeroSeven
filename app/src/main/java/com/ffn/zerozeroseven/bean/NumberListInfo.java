@@ -183,6 +183,20 @@ public class NumberListInfo implements Parcelable{
             private int id;
             private int rangeStatus;
             private String goodsName;
+            private String depositFee;
+
+            public static Creator<ListBean> getCREATOR() {
+                return CREATOR;
+            }
+
+            public String getDepositFee() {
+
+                return depositFee;
+            }
+
+            public void setDepositFee(String depositFee) {
+                this.depositFee = depositFee;
+            }
 
             protected ListBean(Parcel in) {
                 if (in.readByte() == 0) {

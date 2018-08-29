@@ -50,41 +50,44 @@ public class NumberRicalVerticalAdapter extends BaseRecyclerAdapter<NumberListIn
                 .load(item.getGoodsThumb())
                 .into(mHolder.iv_product);
         mHolder.tv_shopmoney.setText(item.getShopPrice() + "");
-        mHolder.tv_oldmoney.setText(item.getMarketPrice() + "");
-        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(mContext);
-        linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
-        mHolder.rc_top.setLayoutManager(linearLayoutManager);
-        VerticalItemAdapter topAdapter = new VerticalItemAdapter(mContext);
-        mHolder.rc_top.setAdapter(topAdapter);
-        stringList = new ArrayList<>();
-        stringList.add("CPU I7");
-        stringList.add("2GB 独显");
-        stringList.add("256G固态");
-        topAdapter.addAll(stringList);
-        topAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, long itemId) {
-                Bundle bundle = new Bundle();
-                bundle.putString("url", AppConfig.NUMBERICALURL + item.getId());
-                bundle.putString("title", "商品详情");
-                ZeroZeroSevenUtils.SwitchActivity(mContext, WebViewActivity.class, bundle);
-            }
-        });
-        FullyLinearLayoutManager linearLayoutManager1 = new FullyLinearLayoutManager(mContext);
-        linearLayoutManager1.setOrientation(LinearLayout.HORIZONTAL);
-        mHolder.rc_bot.setLayoutManager(linearLayoutManager1);
-        VerticalItemBotAdapter botAdapter = new VerticalItemBotAdapter(mContext);
-        mHolder.rc_bot.setAdapter(botAdapter);
-        botAdapter.addAll(stringList);
-        botAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, long itemId) {
-                Bundle bundle = new Bundle();
-                bundle.putString("url", AppConfig.NUMBERICALURL + item.getId());
-                bundle.putString("title", "商品详情");
-                ZeroZeroSevenUtils.SwitchActivity(mContext, WebViewActivity.class, bundle);
-            }
-        });
+        mHolder.tv_desc.setText(item.getGoodsBrief());
+        mHolder.tv_yuyuemoney.setText("预约加价"+item.getDepositFee());
+        mHolder.tv_oldmoney.setText("原价 " + item.getMarketPrice() + "");
+
+//        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(mContext);
+//        linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
+//        mHolder.rc_top.setLayoutManager(linearLayoutManager);
+//        VerticalItemAdapter topAdapter = new VerticalItemAdapter(mContext);
+//        mHolder.rc_top.setAdapter(topAdapter);
+//        stringList = new ArrayList<>();
+//        stringList.add("CPU I7");
+//        stringList.add("2GB 独显");
+//        stringList.add("256G固态");
+//        topAdapter.addAll(stringList);
+//        topAdapter.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position, long itemId) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("url", AppConfig.NUMBERICALURL + item.getId());
+//                bundle.putString("title", "商品详情");
+//                ZeroZeroSevenUtils.SwitchActivity(mContext, WebViewActivity.class, bundle);
+//            }
+//        });
+//        FullyLinearLayoutManager linearLayoutManager1 = new FullyLinearLayoutManager(mContext);
+//        linearLayoutManager1.setOrientation(LinearLayout.HORIZONTAL);
+//        mHolder.rc_bot.setLayoutManager(linearLayoutManager1);
+//        VerticalItemBotAdapter botAdapter = new VerticalItemBotAdapter(mContext);
+//        mHolder.rc_bot.setAdapter(botAdapter);
+//        botAdapter.addAll(stringList);
+//        botAdapter.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position, long itemId) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("url", AppConfig.NUMBERICALURL + item.getId());
+//                bundle.putString("title", "商品详情");
+//                ZeroZeroSevenUtils.SwitchActivity(mContext, WebViewActivity.class, bundle);
+//            }
+//        });
         mHolder.tv_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,19 +104,23 @@ public class NumberRicalVerticalAdapter extends BaseRecyclerAdapter<NumberListIn
         TextView tv_name;
         TextView tv_oldmoney;
         TextView tv_shopmoney;
+        TextView tv_yuyuemoney;
         TextView tv_go;
-        RecyclerView rc_bot;
-        RecyclerView rc_top;
+        TextView tv_desc;
+//        RecyclerView rc_bot;
+//        RecyclerView rc_top;
 
         MViewHolder(View itemView) {
             super(itemView);
+            tv_yuyuemoney = itemView.findViewById(R.id.tv_yuyuemoney);
+            tv_desc = itemView.findViewById(R.id.tv_desc);
             iv_product = itemView.findViewById(R.id.iv_product);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_oldmoney = itemView.findViewById(R.id.tv_oldmoney);
             tv_go = itemView.findViewById(R.id.tv_go);
             tv_shopmoney = itemView.findViewById(R.id.tv_shopmoney);
-            rc_top = itemView.findViewById(R.id.rc_top);
-            rc_bot = itemView.findViewById(R.id.rc_bot);
+//            rc_top = itemView.findViewById(R.id.rc_top);
+//            rc_bot = itemView.findViewById(R.id.rc_bot);
         }
     }
 

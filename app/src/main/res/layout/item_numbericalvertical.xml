@@ -22,12 +22,24 @@
         android:textColor="@color/black"
         android:textSize="11sp" />
 
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/iv_product"
+        android:text="xxxxxxx"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
 
     <LinearLayout
         android:id="@+id/ll_money"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_below="@+id/tv_name"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@id/iv_product"
         android:layout_marginLeft="18dp"
         android:layout_toRightOf="@+id/iv_product"
         android:gravity="center_vertical"
@@ -46,7 +58,6 @@
             android:id="@+id/tv_shopmoney"
             android:layout_width="wrap_content"
             android:layout_height="15dp"
-            android:background="@drawable/numberrical"
             android:gravity="center"
             android:text="2199.99"
             android:textColor="#f0250f"
@@ -62,6 +73,16 @@
             android:text="原价 2400"
             android:textSize="9sp" />
 
+        <TextView
+            android:id="@+id/tv_yuyuemoney"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:text="预约价 2400"
+            android:textColor="@color/money"
+            android:textSize="12sp" />
     </LinearLayout>
 
 
@@ -71,6 +92,7 @@
         android:layout_height="27dp"
         android:layout_alignBottom="@+id/iv_product"
         android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="19dp"
         android:background="@drawable/numberverticalbutton"
         android:gravity="center"
