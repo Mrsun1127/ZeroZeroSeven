@@ -58,7 +58,7 @@ public class RunnerTuiKuanActivity extends BaseActivity {
 
     private void tuiKuan() {
         final ErrandTuiKuan errandTuiKuan = new ErrandTuiKuan();
-        errandTuiKuan.setFunctionName("AddErrandUserRefundApply");
+        errandTuiKuan.setFunctionName("ErrandUserCheckRefund");
         ErrandTuiKuan.ParametersBean parametersBean = new ErrandTuiKuan.ParametersBean();
         parametersBean.setUserId(userId);
         errandTuiKuan.setParameters(parametersBean);

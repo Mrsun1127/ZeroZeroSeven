@@ -45,7 +45,7 @@ public class ErrandmineDingdanadapter extends BaseRecyclerAdapter<RunDingdanInfo
                 mHolder.tv_status.setText("已接单");
                 break;
             case 2:
-                mHolder.tv_status.setText("取货中");
+                mHolder.tv_status.setText("配送中");
                 break;
             case 3:
                 mHolder.tv_status.setText("已收货");
