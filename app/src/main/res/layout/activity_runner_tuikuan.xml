@@ -52,7 +52,13 @@
             android:layout_below="@+id/tv_tp2"
             android:layout_centerHorizontal="true"
             android:layout_margin="15dp"
-            android:text="退款说明"
+            android:text="跑腿押金退款说明
+一、申请认证退款前，请保证您账户内无进行中或未完成的跑腿交易，否则无法申请退款
+二、跑腿认证退款申请后，则无法正常接单跑腿业务
+三、跑腿押金允许申请全额退款，除违反平台相关条例的跑腿用户外
+四、退款方式支持原路返回
+五、具体到账时间根据实际到账情况而定，退款周期可能会受银行、支付机构等相关因素影响。
+六、如有疑问请致电0731-85315177，服务时间：周一至周五 10:00-18:00"
             android:textSize="11sp" />
 
         <Button

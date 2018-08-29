@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_pop"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ll_pop"
     android:orientation="vertical">
 
-        <RelativeLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/main_newgonggao">
 
-            <LinearLayout
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/main_newgonggao">
+                android:layout_height="match_parent">
 
-                <android.support.v4.widget.NestedScrollView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="120dp"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_marginTop="120dp"
+                    <TextView
+                        android:id="@+id/tv_tanchuang"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tv_tanchuang"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="15dp"
-                            android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-                </android.support.v4.widget.NestedScrollView>
-            </LinearLayout>
-            <ImageView
-                android:id="@+id/iv_close"
-                android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shuckowm"/>
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/shuckowm" />
+    </RelativeLayout>
 </LinearLayout>

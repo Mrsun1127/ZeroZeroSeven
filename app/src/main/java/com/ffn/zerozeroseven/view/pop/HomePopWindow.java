@@ -47,7 +47,7 @@ public class HomePopWindow extends PopupWindow implements View.OnClickListener {
         setContentView(mContentView);
         //设置宽与高
         setWidth(w / 2 + 100);
-        setHeight(h - w / 2-240);
+        setHeight(h - w );
         /**
          * 设置进出动画
          */
