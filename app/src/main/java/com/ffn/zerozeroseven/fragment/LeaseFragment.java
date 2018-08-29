@@ -97,6 +97,10 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
                     tv_shop_phone.setText("客服电话：" + shangChangShowInfo.getData().getLeaseConfig().getServicePhone());
                     Glide.with(bfCxt).load(shangChangShowInfo.getData().getLeaseConfig().getLogo()).into(iv_icon);
                     Glide.with(bfCxt).load(shangChangShowInfo.getData().getLeaseConfig().getBackground()).override(10, 10).into(iv_in_bg);
+                    tv_yysj.setVisibility(View.GONE);
+                    tv_qisongfei.setVisibility(View.GONE);
+                    tv_paotuifei.setVisibility(View.GONE);
+                    tv_shop_phone.setVisibility(View.GONE);
                 }
             }
         });
@@ -266,14 +270,15 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
         MobclickAgent.onResume(getActivity());
         userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
-            if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
-                if (userInfo.getSchoolName().length() > 7) {
-                    tv_name.setText(userInfo.getSchoolName().substring(0, 6) + "...");
-                } else {
-                    tv_name.setText(userInfo.getSchoolName());
-
-                }
-            }
+//            if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
+//                if (userInfo.getSchoolName().length() > 7) {
+//                    tv_name.setText(userInfo.getSchoolName().substring(0, 6) + "...");
+//                } else {
+//                    tv_name.setText(userInfo.getSchoolName());
+//
+//                }
+//            }
+            tv_name.setText("该学校暂未开通");
             notifyCar();
         }
 

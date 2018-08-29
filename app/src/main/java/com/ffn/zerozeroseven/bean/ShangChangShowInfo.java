@@ -3,19 +3,16 @@ package com.ffn.zerozeroseven.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by GT on 2017/12/3.
  */
 
-public class ShangChangShowInfo implements Parcelable {
-    public ShangChangShowInfo() {
-    }
-
+public class ShangChangShowInfo implements Parcelable{
     /**
      * code : 0
-     * data : {"storeDesc":"零零7湖南农业大学分仓","freeOrderNum":1000,"address":"","servicePhone":"85315177","city":"430100","openingTime":"11:30:00","updateTime":"2018-05-07 11:59:01","deliveryPrice":5,"adminName":"刘海波","closingTime2":"22:30:00","adminPhone":"18229853043","closingTime":"14:00:00","province":"430000","createTime":"2018-03-06 09:55:42","schoolId":1719,"storeName":"湖南农业大学","id":14,"isClosing":true,"extraFee":0,"openingTime2":"18:00:00","promotion":"随机免单+推广收益","status":1}
+     * data : {"storeDesc":"零零7湖南农业大学分仓","city":"长沙市","openingTime":"09:00:00","closingTime":"22:00:00","province":"430000","schoolId":1719,"logo":"","storeName":"湖南农业大学","id":14,"openingTime2":"18:00:00","freeOrderNum":1000,"address":"","servicePhone":"85315177","updateTime":"2018-08-29 21:04:55","deliveryPrice":0,"storeBusiTimes":[{"cate":"WM","closingTime":"20:20:20","openingTime":"18:10:10"},{"cate":"WM","closingTime":"20:40:30","openingTime":"14:10:10"}],"adminName":"刘海波","closingTime2":"22:30:00","adminPhone":"18229853043","createTime":"2018-03-06 09:55:42","background":"","isClosing":true,"extraFee":0,"promotion":"新学期 礼品大放送","status":1}
      * message : 请求成功
      */
 
@@ -39,6 +36,9 @@ public class ShangChangShowInfo implements Parcelable {
             return new ShangChangShowInfo[size];
         }
     };
+
+    public ShangChangShowInfo() {
+    }
 
     public int getCode() {
         return code;
@@ -75,96 +75,76 @@ public class ShangChangShowInfo implements Parcelable {
         parcel.writeString(message);
     }
 
-    public static class DataBean implements Parcelable{
-        public DataBean() {
-        }
 
+    public static class DataBean implements Parcelable{
         /**
          * storeDesc : 零零7湖南农业大学分仓
+         * city : 长沙市
+         * openingTime : 09:00:00
+         * closingTime : 22:00:00
+         * province : 430000
+         * schoolId : 1719
+         * logo :
+         * storeName : 湖南农业大学
+         * id : 14
+         * openingTime2 : 18:00:00
          * freeOrderNum : 1000
          * address :
          * servicePhone : 85315177
-         * city : 430100
-         * openingTime : 11:30:00
-         * updateTime : 2018-05-07 11:59:01
-         * deliveryPrice : 5
+         * updateTime : 2018-08-29 21:04:55
+         * deliveryPrice : 0
+         * storeBusiTimes : [{"cate":"WM","closingTime":"20:20:20","openingTime":"18:10:10"},{"cate":"WM","closingTime":"20:40:30","openingTime":"14:10:10"}]
          * adminName : 刘海波
          * closingTime2 : 22:30:00
          * adminPhone : 18229853043
-         * closingTime : 14:00:00
-         * province : 430000
          * createTime : 2018-03-06 09:55:42
-         * schoolId : 1719
-         * storeName : 湖南农业大学
-         * id : 14
+         * background :
          * isClosing : true
          * extraFee : 0
-         * openingTime2 : 18:00:00
-         * promotion : 随机免单+推广收益
+         * promotion : 新学期 礼品大放送
          * status : 1
          */
 
         private String storeDesc;
+        private String city;
+        private String openingTime;
+        private String closingTime;
+        private String province;
+        private int schoolId;
+        private String logo;
+        private String storeName;
+        private int id;
+        private String openingTime2;
         private int freeOrderNum;
         private String address;
         private String servicePhone;
-        private String city;
-        private String openingTime;
         private String updateTime;
         private Double deliveryPrice;
         private String adminName;
         private String closingTime2;
         private String adminPhone;
-        private String closingTime;
-        private String province;
         private String createTime;
-        private int schoolId;
-        private String storeName;
-        private int id;
-        private boolean isClosing;
-        private Double extraFee=0.0;
-        private String openingTime2;
-        private String promotion;
-        private String logo;
-
-        public boolean isClosing() {
-            return isClosing;
-        }
-
-        public void setClosing(boolean closing) {
-            isClosing = closing;
-        }
-
-        public String getLogo() {
-            return logo;
-        }
-
-        public void setLogo(String logo) {
-            this.logo = logo;
-        }
-
-        public String getBackground() {
-            return background;
-        }
-
-        public void setBackground(String background) {
-            this.background = background;
-        }
-
-        public static Creator<DataBean> getCREATOR() {
-            return CREATOR;
-        }
-
         private String background;
+        private boolean isClosing;
+        private Double extraFee;
+        private String promotion;
         private int status;
+        private List<StoreBusiTimesBean> storeBusiTimes;
 
         protected DataBean(Parcel in) {
             storeDesc = in.readString();
+            city = in.readString();
+            openingTime = in.readString();
+            closingTime = in.readString();
+            province = in.readString();
+            schoolId = in.readInt();
+            logo = in.readString();
+            storeName = in.readString();
+            id = in.readInt();
+            openingTime2 = in.readString();
             freeOrderNum = in.readInt();
             address = in.readString();
             servicePhone = in.readString();
-            city = in.readString();
-            openingTime = in.readString();
             updateTime = in.readString();
             if (in.readByte() == 0) {
                 deliveryPrice = null;
@@ -174,19 +154,14 @@ public class ShangChangShowInfo implements Parcelable {
             adminName = in.readString();
             closingTime2 = in.readString();
             adminPhone = in.readString();
-            closingTime = in.readString();
-            province = in.readString();
             createTime = in.readString();
-            schoolId = in.readInt();
-            storeName = in.readString();
-            id = in.readInt();
+            background = in.readString();
             isClosing = in.readByte() != 0;
             if (in.readByte() == 0) {
                 extraFee = null;
             } else {
                 extraFee = in.readDouble();
             }
-            openingTime2 = in.readString();
             promotion = in.readString();
             status = in.readInt();
         }
@@ -203,12 +178,87 @@ public class ShangChangShowInfo implements Parcelable {
             }
         };
 
+        public DataBean() {
+        }
+
         public String getStoreDesc() {
             return storeDesc;
         }
 
         public void setStoreDesc(String storeDesc) {
             this.storeDesc = storeDesc;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getOpeningTime() {
+            return openingTime;
+        }
+
+        public void setOpeningTime(String openingTime) {
+            this.openingTime = openingTime;
+        }
+
+        public String getClosingTime() {
+            return closingTime;
+        }
+
+        public void setClosingTime(String closingTime) {
+            this.closingTime = closingTime;
+        }
+
+        public String getProvince() {
+            return province;
+        }
+
+        public void setProvince(String province) {
+            this.province = province;
+        }
+
+        public int getSchoolId() {
+            return schoolId;
+        }
+
+        public void setSchoolId(int schoolId) {
+            this.schoolId = schoolId;
+        }
+
+        public String getLogo() {
+            return logo;
+        }
+
+        public void setLogo(String logo) {
+            this.logo = logo;
+        }
+
+        public String getStoreName() {
+            return storeName;
+        }
+
+        public void setStoreName(String storeName) {
+            this.storeName = storeName;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getOpeningTime2() {
+            return openingTime2;
+        }
+
+        public void setOpeningTime2(String openingTime2) {
+            this.openingTime2 = openingTime2;
         }
 
         public int getFreeOrderNum() {
@@ -233,22 +283,6 @@ public class ShangChangShowInfo implements Parcelable {
 
         public void setServicePhone(String servicePhone) {
             this.servicePhone = servicePhone;
-        }
-
-        public String getCity() {
-            return city;
-        }
-
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-        public String getOpeningTime() {
-            return openingTime;
-        }
-
-        public void setOpeningTime(String openingTime) {
-            this.openingTime = openingTime;
         }
 
         public String getUpdateTime() {
@@ -291,22 +325,6 @@ public class ShangChangShowInfo implements Parcelable {
             this.adminPhone = adminPhone;
         }
 
-        public String getClosingTime() {
-            return closingTime;
-        }
-
-        public void setClosingTime(String closingTime) {
-            this.closingTime = closingTime;
-        }
-
-        public String getProvince() {
-            return province;
-        }
-
-        public void setProvince(String province) {
-            this.province = province;
-        }
-
         public String getCreateTime() {
             return createTime;
         }
@@ -315,28 +333,12 @@ public class ShangChangShowInfo implements Parcelable {
             this.createTime = createTime;
         }
 
-        public int getSchoolId() {
-            return schoolId;
+        public String getBackground() {
+            return background;
         }
 
-        public void setSchoolId(int schoolId) {
-            this.schoolId = schoolId;
-        }
-
-        public String getStoreName() {
-            return storeName;
-        }
-
-        public void setStoreName(String storeName) {
-            this.storeName = storeName;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
+        public void setBackground(String background) {
+            this.background = background;
         }
 
         public boolean isIsClosing() {
@@ -355,14 +357,6 @@ public class ShangChangShowInfo implements Parcelable {
             this.extraFee = extraFee;
         }
 
-        public String getOpeningTime2() {
-            return openingTime2;
-        }
-
-        public void setOpeningTime2(String openingTime2) {
-            this.openingTime2 = openingTime2;
-        }
-
         public String getPromotion() {
             return promotion;
         }
@@ -379,6 +373,14 @@ public class ShangChangShowInfo implements Parcelable {
             this.status = status;
         }
 
+        public List<StoreBusiTimesBean> getStoreBusiTimes() {
+            return storeBusiTimes;
+        }
+
+        public void setStoreBusiTimes(List<StoreBusiTimesBean> storeBusiTimes) {
+            this.storeBusiTimes = storeBusiTimes;
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -387,11 +389,18 @@ public class ShangChangShowInfo implements Parcelable {
         @Override
         public void writeToParcel(Parcel parcel, int i) {
             parcel.writeString(storeDesc);
+            parcel.writeString(city);
+            parcel.writeString(openingTime);
+            parcel.writeString(closingTime);
+            parcel.writeString(province);
+            parcel.writeInt(schoolId);
+            parcel.writeString(logo);
+            parcel.writeString(storeName);
+            parcel.writeInt(id);
+            parcel.writeString(openingTime2);
             parcel.writeInt(freeOrderNum);
             parcel.writeString(address);
             parcel.writeString(servicePhone);
-            parcel.writeString(city);
-            parcel.writeString(openingTime);
             parcel.writeString(updateTime);
             if (deliveryPrice == null) {
                 parcel.writeByte((byte) 0);
@@ -402,12 +411,8 @@ public class ShangChangShowInfo implements Parcelable {
             parcel.writeString(adminName);
             parcel.writeString(closingTime2);
             parcel.writeString(adminPhone);
-            parcel.writeString(closingTime);
-            parcel.writeString(province);
             parcel.writeString(createTime);
-            parcel.writeInt(schoolId);
-            parcel.writeString(storeName);
-            parcel.writeInt(id);
+            parcel.writeString(background);
             parcel.writeByte((byte) (isClosing ? 1 : 0));
             if (extraFee == null) {
                 parcel.writeByte((byte) 0);
@@ -415,9 +420,77 @@ public class ShangChangShowInfo implements Parcelable {
                 parcel.writeByte((byte) 1);
                 parcel.writeDouble(extraFee);
             }
-            parcel.writeString(openingTime2);
             parcel.writeString(promotion);
             parcel.writeInt(status);
+        }
+
+        public static class StoreBusiTimesBean implements Parcelable{
+            /**
+             * cate : WM
+             * closingTime : 20:20:20
+             * openingTime : 18:10:10
+             */
+
+            private String cate;
+            private String closingTime;
+            private String openingTime;
+
+            protected StoreBusiTimesBean(Parcel in) {
+                cate = in.readString();
+                closingTime = in.readString();
+                openingTime = in.readString();
+            }
+
+            public static final Creator<StoreBusiTimesBean> CREATOR = new Creator<StoreBusiTimesBean>() {
+                @Override
+                public StoreBusiTimesBean createFromParcel(Parcel in) {
+                    return new StoreBusiTimesBean(in);
+                }
+
+                @Override
+                public StoreBusiTimesBean[] newArray(int size) {
+                    return new StoreBusiTimesBean[size];
+                }
+            };
+
+            public StoreBusiTimesBean() {
+            }
+
+            public String getCate() {
+                return cate;
+            }
+
+            public void setCate(String cate) {
+                this.cate = cate;
+            }
+
+            public String getClosingTime() {
+                return closingTime;
+            }
+
+            public void setClosingTime(String closingTime) {
+                this.closingTime = closingTime;
+            }
+
+            public String getOpeningTime() {
+                return openingTime;
+            }
+
+            public void setOpeningTime(String openingTime) {
+                this.openingTime = openingTime;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel parcel, int i) {
+                parcel.writeString(cate);
+                parcel.writeString(closingTime);
+                parcel.writeString(openingTime);
+            }
         }
     }
 }
