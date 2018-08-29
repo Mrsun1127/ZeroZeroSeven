@@ -244,7 +244,7 @@ public class WebViewActivity extends BaseActivity {
          * @param specDesc 商品规格描述
          */
         @JavascriptInterface
-        public void addNumbericalCarInfo(int id, int specId, int count, double price, double yuYueMoney,String name, String imgUrl, String specDesc) {//加 购物车
+        public void addNumbericalCarInfo(int id, int specId, int count, double price, double yuYueMoney, String name, String imgUrl, String specDesc) {//加 购物车
             LogUtils.D("numberCar", "Id=" + id + "specId=" + specId + "count=" + count + "price=" + price + "name=" + name + "img=" + imgUrl + "specDesc=" + specDesc);
             NumberRicalInfo numberRicalInfo = new NumberRicalInfo();
             List<NumberRicalInfo.RicalInfo> numberRicalListInfo = BaseAppApplication.getInstance().getNumberRicalInfo().getNumberRicalListInfo();
@@ -308,15 +308,14 @@ public class WebViewActivity extends BaseActivity {
 //        }
 
         /**
-         *
          * @param id
-         * @param title 产品标题
+         * @param title  产品标题
          * @param imgUrl 产品图片url
-         * @param desc    预约金额及销售价格（拼接起来返回一个字符串给我）
+         * @param desc   预约金额及销售价格（拼接起来返回一个字符串给我）
          */
         @JavascriptInterface
-        public void shareproductDetils(String id,String title,String imgUrl,String desc) {
-            shareProduct(AppConfig.NUMBERICALSHAREURL + id);
+        public void shareproductDetils(String id, String title, String imgUrl, String desc) {
+            shareProduct(AppConfig.NUMBERICALSHAREURL + id, title, imgUrl, desc);
         }
 
         @JavascriptInterface
@@ -335,7 +334,7 @@ public class WebViewActivity extends BaseActivity {
          * @param specDesc 商品规格描述
          */
         @JavascriptInterface
-        public void webToNumberRicalCommit(int type, int id, int specId, int count, double price,double yuYueMoney, String name, String imgUrl, String specDesc) {
+        public void webToNumberRicalCommit(int type, int id, int specId, int count, double price, double yuYueMoney, String name, String imgUrl, String specDesc) {
             NumberRicalInfo.RicalInfo ricalInfo = new NumberRicalInfo.RicalInfo();
             ricalInfo.setId(id);
             ricalInfo.setSpecId(specId);
@@ -353,18 +352,18 @@ public class WebViewActivity extends BaseActivity {
         }
     }
 
-    private void shareProduct(String url) {
+    private void shareProduct(String url, String title, String imgUrl, String desc) {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         // title标题，微信、QQ和QQ空间等平台使用
-        oks.setTitle("商品详情");
+        oks.setTitle(title);
         // titleUrl QQ和QQ空间跳转链接
         oks.setTitleUrl(url);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText("商品详情");
+        oks.setText(desc);
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        oks.setImageUrl(AppConfig.LOGOURL);//确保SDcard下面存在此张图片
+        oks.setImageUrl(imgUrl);//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用
         oks.setUrl(url);
         // 启动分享GUI
