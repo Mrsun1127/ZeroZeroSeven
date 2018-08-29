@@ -189,14 +189,14 @@ public class ErrandRunnerDingDanDetilsActivity extends BaseActivity {
                 break;
             case R.id.rl_bt:
                 if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 2) {
-                    if (ContextCompat.checkSelfPermission(ErrandRunnerDingDanDetilsActivity.this, Manifest.permission.CAMERA)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        //动态的请求权限
-                        ActivityCompat.requestPermissions(ErrandRunnerDingDanDetilsActivity.this, new String[]{Manifest.permission.CAMERA},
-                                0x11);
-                    } else {
-                        pickImage();
-                    }
+//                    if (ContextCompat.checkSelfPermission(ErrandRunnerDingDanDetilsActivity.this, Manifest.permission.CAMERA)
+//                            != PackageManager.PERMISSION_GRANTED) {
+//                        //动态的请求权限
+//                        ActivityCompat.requestPermissions(ErrandRunnerDingDanDetilsActivity.this, new String[]{Manifest.permission.CAMERA},
+//                                0x11);
+//                    } else {
+//                        pickImage();
+//                    }
                 } else if (runnerDingDanDetilsInfo.getData().getOrderStatus() == 1) {
                     if (ContextCompat.checkSelfPermission(ErrandRunnerDingDanDetilsActivity.this, Manifest.permission.CAMERA)
                             != PackageManager.PERMISSION_GRANTED) {
