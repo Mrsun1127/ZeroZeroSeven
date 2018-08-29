@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="147dp"
+    android:layout_height="wrap_content"
     android:background="@color/white">
 
     <ImageView
@@ -23,20 +23,11 @@
         android:textSize="11sp" />
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rc_top"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_below="@+id/tv_name"
-        android:layout_marginLeft="18dp"
-        android:layout_toRightOf="@+id/iv_product" />
-
-
     <LinearLayout
         android:id="@+id/ll_money"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_below="@+id/rc_top"
+        android:layout_below="@+id/tv_name"
         android:layout_marginLeft="18dp"
         android:layout_toRightOf="@+id/iv_product"
         android:gravity="center_vertical"
@@ -74,19 +65,11 @@
     </LinearLayout>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rc_bot"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_below="@+id/ll_money"
-        android:layout_marginLeft="18dp"
-        android:layout_toRightOf="@+id/iv_product" />
-
     <TextView
         android:id="@+id/tv_go"
-        android:layout_alignBottom="@+id/iv_product"
         android:layout_width="63dp"
         android:layout_height="27dp"
+        android:layout_alignBottom="@+id/iv_product"
         android:layout_alignParentRight="true"
         android:layout_marginRight="19dp"
         android:background="@drawable/numberverticalbutton"

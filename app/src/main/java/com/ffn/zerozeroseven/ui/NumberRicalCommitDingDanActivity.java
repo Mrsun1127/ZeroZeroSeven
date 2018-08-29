@@ -162,6 +162,12 @@ public class NumberRicalCommitDingDanActivity extends BaseActivity {
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_pay:
+                if (!TextUtils.isEmpty(tv_getadr.getText().toString())) {
+                    if(!tv_getadr.getText().toString().contains(userInfo.getSchoolName())){
+                        ToastUtils.showShort("请检查您填写的收货地址的学校是否是您所在的学校");
+                        return;
+                    }
+                }
                 Bundle bundle = new Bundle();
                 try {
                     bundle.putSerializable("adrInfo", shouHuoInfo.getData().getAddresses().get(position));
