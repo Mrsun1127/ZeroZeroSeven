@@ -35,7 +35,7 @@ public class LevelTwoAdapter extends BaseRecyclerAdapter<NumberLevelInfo.DataBea
         if (clickPosition == position) {
             mHolder.tv_type.setTextColor(getResource().getColor(R.color.money));
         } else {
-            mHolder.tv_type.setTextColor(getResource().getColor(R.color.line_color));
+            mHolder.tv_type.setTextColor(getResource().getColor(R.color.black));
         }
         Glide.with(mContext).load(item.getImage()).into(mHolder.iv_product);
     }

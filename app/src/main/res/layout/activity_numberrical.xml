@@ -68,7 +68,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/rl_levelone"
                             android:layout_marginTop="1dp"
-                            android:background="@color/white" />
+                            android:background="@color/all_bg" />
 
                         <HorizontalScrollView
                             android:visibility="gone"

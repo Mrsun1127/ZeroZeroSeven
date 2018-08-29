@@ -106,7 +106,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
         ButterKnife.bind(this);
         badgeView = new QBadgeView(this);
         badgeView.bindTarget(iv_shopcar);
-        topView.setTopText("数码市场");
+        topView.setTopText("数码手机");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
             public void Right() {
