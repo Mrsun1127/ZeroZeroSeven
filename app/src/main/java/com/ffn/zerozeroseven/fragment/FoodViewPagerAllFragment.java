@@ -309,7 +309,7 @@ public class FoodViewPagerAllFragment extends BaseFragment implements BGARefresh
                             SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
                             requestShop();
                             if (shangChangShowInfo.getData().isIsClosing()) {
-                                ZeroZeroSevenUtils.changeWindowAlfa(getActivity(), 0.5f);
+                                ZeroZeroSevenUtils.showSleepPop(getActivity(), "打烊一天",commonRecyclerView);
                             }
 
 
