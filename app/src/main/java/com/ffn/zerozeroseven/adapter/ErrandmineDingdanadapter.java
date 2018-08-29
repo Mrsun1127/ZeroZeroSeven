@@ -23,7 +23,7 @@ public class ErrandmineDingdanadapter extends BaseRecyclerAdapter<RunDingdanInfo
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        return new ErrandmineDingdanadapter.MViewHolder(mInflater.inflate(R.layout.item_dingdan_minerun, parent,false));
+        return new ErrandmineDingdanadapter.MViewHolder(mInflater.inflate(R.layout.item_dingdan_minerun, parent, false));
     }
 
     @Override
@@ -36,7 +36,24 @@ public class ErrandmineDingdanadapter extends BaseRecyclerAdapter<RunDingdanInfo
         mHolder.tv_shipeeFee.setText(String.valueOf(item.getShippingFee()));
         mHolder.tv_letinfo.setText(item.getDeliveryName() + "   " + item.getDeliveryPhone());
         mHolder.tv_getinfo.setText(item.getReceiverName() + "   " + item.getReceiverPhone());
-
+        //订单状态：-1=无效状态，0=未接单，1=已接单，2=取货中，3=已收货，5=已取消
+        switch (item.getOrderStatus()) {
+            case 0:
+                mHolder.tv_status.setText("未接单");
+                break;
+            case 1:
+                mHolder.tv_status.setText("已接单");
+                break;
+            case 2:
+                mHolder.tv_status.setText("取货中");
+                break;
+            case 3:
+                mHolder.tv_status.setText("已收货");
+                break;
+            case 5:
+                mHolder.tv_status.setText("已取消");
+                break;
+        }
     }
 
     public void setClickPosition(int position) {
@@ -52,9 +69,11 @@ public class ErrandmineDingdanadapter extends BaseRecyclerAdapter<RunDingdanInfo
         TextView tv_letinfo;
         TextView tv_getadr;
         TextView tv_getinfo;
+        TextView tv_status;
 
         MViewHolder(View itemView) {
             super(itemView);
+            tv_status = itemView.findViewById(R.id.tv_status);
             tv_createtime = itemView.findViewById(R.id.tv_createtime);
             tv_type = itemView.findViewById(R.id.tv_type);
             tv_shipeeFee = itemView.findViewById(R.id.tv_shipeeFee);
