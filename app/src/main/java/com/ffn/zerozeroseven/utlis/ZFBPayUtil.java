@@ -15,6 +15,7 @@ import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CancelOrderInfo;
 import com.ffn.zerozeroseven.fragment.ErrandMineRunFragment;
+import com.ffn.zerozeroseven.ui.AllDingDanActivity;
 import com.ffn.zerozeroseven.ui.CommitSuccessActivity;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalCommitDingDanActivity;
@@ -65,20 +66,24 @@ public class ZFBPayUtil {
                             carShopInfo.getShopInfos().clear();
                             BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                             SharePrefUtils.saveObject(mContext, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
+                            gotoVp(0);
                         } else if ("food".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
                             CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
                             carShopInfo.getShopInfos().clear();
                             BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
                             SharePrefUtils.saveObject(mContext, "foodcarShopInfo", BaseAppApplication.getInstance().getFoodcarShopInfo());
+                            gotoVp(0);
                         } else if ("leasezhijie".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
+                            gotoVp(2);
                         } else if ("lease".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
                             CarShopInfo carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
                             carShopInfo.getShopInfos().clear();
                             BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
                             SharePrefUtils.saveObject(mContext, "leasecarShopInfo", BaseAppApplication.getInstance().getLeasecarShopInfo());
+                            gotoVp(2);
                         } else if ("numbercar".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
                             NumberRicalCommitDingDanActivity.mInstance.get().finish();
@@ -91,23 +96,30 @@ public class ZFBPayUtil {
                             }
                             BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
                             SharePrefUtils.saveObject(mContext, "numberRicalInfo", numberRicalInfo);
+                            gotoVp(1);
                         } else if ("zhijie".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
+                            gotoVp(0);
                         } else if ("numberweikuan".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
+                            ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class, bundle);
                         } else if ("numberzhijie".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
                             NumberRicalCommitDingDanActivity.mInstance.get().finish();
+                            gotoVp(1);
                         } else if ("run".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
                             bundle.putString("info", "请等待跑腿人员接单，如五分钟内无人接单将会自动退款");
+                            ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class, bundle);
+
                         } else if ("renzheng".equals(pay)) {
                             PayMoneyNewActivity.mInstance.get().finish();
                             ErrandAuitActivity.mInstance.get().goVp(2);
                             ErrandMineRunFragment.mInstance.get().requestData();
                             bundle.putString("info", "请耐心等待工作人员审核，请留意App通知");
+                            ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class, bundle);
+
                         }
-                        ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class, bundle);
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
                         // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
@@ -128,7 +140,11 @@ public class ZFBPayUtil {
         }
 
     };
-
+    private void gotoVp(int position){
+        Bundle bundle = new Bundle();
+        bundle.putInt("position",position);
+        ZeroZeroSevenUtils.SwitchActivity(mContext, AllDingDanActivity.class,bundle);
+    }
     private void cancelPay() {
         CancelOrderInfo cancelOrderInfo = new CancelOrderInfo();
         cancelOrderInfo.setFunctionName("CancelOrderPay");

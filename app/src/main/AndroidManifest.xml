@@ -64,9 +64,9 @@
 
 
         <!--<service-->
-            <!--android:name="com.baidu.location.f"-->
-            <!--android:enabled="true"-->
-            <!--android:process=":remote" />-->
+        <!--android:name="com.baidu.location.f"-->
+        <!--android:enabled="true"-->
+        <!--android:process=":remote" />-->
 
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
@@ -309,7 +309,7 @@
         <activity
             android:name=".ui.NumberRicalCommitDingDanActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".ui.NumberDrawBackActivity"
             android:screenOrientation="portrait" />
@@ -341,43 +341,60 @@
             android:name=".ui.ErrandAuitActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
-        <activity android:name=".ui.ErrandRunnerDingDanDetilsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.ErrandLevelActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.ErrandDingdanActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.RenzhengStatusActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.ErrandCustomerDingDanDetilsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.ErrandTalkReleaseActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.UserSelectSchoolListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.UserSelectYearActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.RunAdrListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.RunAdrUpdateActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.TakeAwayFoodActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.LeaseActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.FoodCommitDingDanActivity"
+        <activity
+            android:name=".ui.ErrandRunnerDingDanDetilsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ErrandLevelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ErrandDingdanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.RenzhengStatusActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ErrandCustomerDingDanDetilsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ErrandTalkReleaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.UserSelectSchoolListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.UserSelectYearActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.RunAdrListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.RunAdrUpdateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.TakeAwayFoodActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.LeaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.FoodCommitDingDanActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
-        <activity android:name=".ui.LeaseCommitDingDanActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.LeaseCommitDingDanActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
-        <activity android:name=".ui.LeaseDetilsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.LeaseZhiJieCommitDingDanActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.LeaseDetilsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.LeaseZhiJieCommitDingDanActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan"/>
-        <activity android:name=".ui.LeaseDingDanBobyActivity"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.LeaseDingDanBobyActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.RunnerTuiKuanActivity" />
         <activity android:name=".ui.SerachShopActivity" />
 

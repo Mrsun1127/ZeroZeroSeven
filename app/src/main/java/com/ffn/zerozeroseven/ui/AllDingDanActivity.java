@@ -12,6 +12,7 @@ import com.ffn.zerozeroseven.fragment.NumberRicalFragment;
 import com.ffn.zerozeroseven.fragment.SnacksFragment;
 import com.ffn.zerozeroseven.view.TopView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class AllDingDanActivity extends BaseActivity {
     TopView topView;
     List<String> titleList = new ArrayList<>();
     List<Fragment> fragmentList = new ArrayList<>();
+    public static WeakReference<AllDingDanActivity> mIntance;
 
     @Override
     protected int setLayout() {
@@ -36,6 +38,7 @@ public class AllDingDanActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        mIntance = new WeakReference<>(this);
         topView.setTopText("我的订单");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
@@ -48,6 +51,11 @@ public class AllDingDanActivity extends BaseActivity {
                 finish();
             }
         });
+
+    }
+
+    public void goVp(int position) {
+        viewPager.setCurrentItem(position);
     }
 
     @Override
@@ -62,5 +70,6 @@ public class AllDingDanActivity extends BaseActivity {
         ShopViewPagerAdapter adapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, titleList);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        goVp(getIntent().getIntExtra("position",0));
     }
 }

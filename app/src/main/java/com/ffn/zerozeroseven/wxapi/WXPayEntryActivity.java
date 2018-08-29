@@ -15,6 +15,7 @@ import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CancelOrderInfo;
 import com.ffn.zerozeroseven.fragment.ErrandMineRunFragment;
+import com.ffn.zerozeroseven.ui.AllDingDanActivity;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalCommitDingDanActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalShopCarActivity;
@@ -23,6 +24,7 @@ import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.SharePrefUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TitleView;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -39,6 +41,12 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     private ImageView iv_success;
     private TextView tv_bottom;
     private Button bt_sub;
+
+    private void gotoVp(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        ZeroZeroSevenUtils.SwitchActivity(WXPayEntryActivity.this, AllDingDanActivity.class, bundle);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +77,25 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         findViewById(R.id.bt_sub).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String pay = BaseAppApplication.clearType;
+                if ("carpay".equals(pay)) {
+                    gotoVp(0);
+                } else if ("food".equals(pay)) {
+                    gotoVp(0);
+                } else if ("zhijie".equals(pay)) {
+                    gotoVp(0);
+                } else if ("numberweikuan".equals(pay)) {
+                } else if ("numbercar".equals(pay)) {
+                    gotoVp(1);
+                } else if ("numberzhijie".equals(pay)) {
+                    gotoVp(1);
+                } else if ("run".equals(pay)) {
+                } else if ("renzheng".equals(pay)) {
+                } else if ("leasezhijie".equals(pay)) {
+                    gotoVp(2);
+                } else if ("lease".equals(pay)) {
+                    gotoVp(2);
+                }
                 finish();
             }
         });
