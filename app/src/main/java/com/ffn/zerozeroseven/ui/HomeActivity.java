@@ -164,7 +164,6 @@ public class HomeActivity extends AppCompatActivity {
                         BaseAppApplication.mainHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                ZeroZeroSevenUtils.changeWindowAlfa(HomeActivity.this,0.2f);
                                 TanChuang(tanChuangShowInfo.getData().getContent());
                             }
                         },1000);
@@ -183,7 +182,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void BtAgain() {
                 popWindow.dismiss();
-                ZeroZeroSevenUtils.changeWindowAlfa(HomeActivity.this,1f);
             }
         });
 
