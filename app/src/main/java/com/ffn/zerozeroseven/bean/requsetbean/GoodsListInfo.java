@@ -52,6 +52,15 @@ public class GoodsListInfo {
         private int pageIndex;
         private int pageSize;
         private String goodsName;
+        private String cate;
+
+        public String getCate() {
+            return cate;
+        }
+
+        public void setCate(String cate) {
+            this.cate = cate;
+        }
 
         public String getGoodsName() {
             return goodsName;

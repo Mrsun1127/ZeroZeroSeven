@@ -144,6 +144,7 @@ public class FoodViewPagerAllFragment extends BaseFragment implements BGARefresh
         listInfo.setFunctionName("ListSchoolGoods");
         GoodsListInfo.ParametersBean parametersBean = new GoodsListInfo.ParametersBean();
         parametersBean.setGoodsType(shopType);
+        parametersBean.setCate("WM");
         parametersBean.setPageIndex(pageNo);
         parametersBean.setPageSize(8);
         try {
@@ -215,6 +216,7 @@ public class FoodViewPagerAllFragment extends BaseFragment implements BGARefresh
         if (!TextUtils.isEmpty(name)) {
             parametersBean.setGoodsName(name);
         }
+        parametersBean.setCate("WM");
         parametersBean.setGoodsType(shopType);
         parametersBean.setPageIndex(0);
         parametersBean.setPageSize(16);

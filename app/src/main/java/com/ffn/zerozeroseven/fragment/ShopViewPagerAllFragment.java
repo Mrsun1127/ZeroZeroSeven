@@ -145,8 +145,10 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
         listInfo.setFunctionName("ListSchoolGoods");
         GoodsListInfo.ParametersBean parametersBean = new GoodsListInfo.ParametersBean();
         parametersBean.setGoodsType(shopType);
+        parametersBean.setCate("ZH");
         parametersBean.setPageIndex(pageNo);
         parametersBean.setPageSize(8);
+
         try {
             parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         } catch (Exception e) {
@@ -212,6 +214,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
         GoodsListInfo listInfo = new GoodsListInfo();
         listInfo.setFunctionName("ListSchoolGoods");
         GoodsListInfo.ParametersBean parametersBean = new GoodsListInfo.ParametersBean();
+        parametersBean.setCate("ZH");
         parametersBean.setSchoolId(Integer.parseInt(schoolIId));
         if (!TextUtils.isEmpty(name)) {
             parametersBean.setGoodsName(name);

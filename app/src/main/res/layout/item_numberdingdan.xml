@@ -63,7 +63,7 @@
         android:paddingLeft="75dp"
         android:text="@string/loading"
         android:textColor="@color/black"
-        android:textSize="13sp" />
+        android:textSize="12sp" />
 
     <LinearLayout
         android:id="@+id/rl_status"
