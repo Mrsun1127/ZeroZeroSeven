@@ -68,6 +68,7 @@ public class ErrandMineRunFragment extends BaseFragment {
     TextView tv_satisficing;
     private ErrandMineRunAdapter errandMineRunAdapter;
     public static WeakReference<ErrandMineRunFragment> mInstance;
+    private RunnerInfo runnerInfo;
 
     public static ErrandMineRunFragment newInstance() {
         return new ErrandMineRunFragment();
@@ -187,7 +188,7 @@ public class ErrandMineRunFragment extends BaseFragment {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                RunnerInfo runnerInfo = JSON.parseObject(response, RunnerInfo.class);
+                runnerInfo = JSON.parseObject(response, RunnerInfo.class);
                 if (runnerInfo.getCode() == 0) {
                     if (runnerInfo.getData() != null) {
                         if (!TextUtils.isEmpty(runnerInfo.getData().getPhone())) {

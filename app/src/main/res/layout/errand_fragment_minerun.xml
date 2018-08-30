@@ -19,14 +19,14 @@
             android:visibility="gone">
 
             <Button
-                android:textSize="11sp"
-                android:textColor="@color/white"
-                android:text="未认证"
-                android:background="@drawable/bg_button"
                 android:id="@+id/clv_img"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/bg_button"
+                android:text="未认证"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
 
 
             <ImageView
@@ -124,16 +124,26 @@
                 android:textColor="@color/black"
                 android:textSize="13sp" />
 
-            <com.willy.ratingbar.ScaleRatingBar
-                android:id="@+id/simpleRatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
-                android:layout_marginTop="5dp"
-                app:srb_clickable="false"
-                app:srb_starHeight="8dp"
-                app:srb_starPadding="2dp"
-                app:srb_starWidth="8dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.willy.ratingbar.ScaleRatingBar
+                    android:id="@+id/simpleRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="5dp"
+                    app:srb_starHeight="8dp"
+                    app:srb_starPadding="2dp"
+                    app:srb_starWidth="8dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent" />
+            </RelativeLayout>
+
         </LinearLayout>
 
         <LinearLayout

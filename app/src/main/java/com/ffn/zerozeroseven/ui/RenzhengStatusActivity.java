@@ -100,6 +100,7 @@ public class RenzhengStatusActivity extends BaseActivity {
                         tv_money.setText(runnerInfo.getData().getDepositFee() + "元");
                         tv_sex.setText(runnerInfo.getData().getSex() == 0 ? "女" : "男");
                         //审核状态：-2=取消资格（无法退款）-1=审核未通过，0=未审核，1=已审核
+                        // payStatus 0 未支付  1 已支付 2 退款中  3 退款成功
                         switch (runnerInfo.getData().getCheckStatus()) {
                             case -2:
                                 Glide.with(RenzhengStatusActivity.this).load(R.drawable.run_zhuxiao).into(iv_status);
