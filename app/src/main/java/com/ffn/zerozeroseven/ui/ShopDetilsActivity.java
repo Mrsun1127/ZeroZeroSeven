@@ -174,10 +174,10 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         }
         countCompare = Integer.parseInt(count1);
         backType = getIntent().getStringExtra("back");
-        if("shop".equals(jumpType)){
-            lastCarShopInfo = (CarShopInfo) SharePrefUtils.readObject(ShopDetilsActivity.this, "carShopInfo");
-        }else if("food".equals(jumpType)){
-            lastCarShopInfo = (CarShopInfo) SharePrefUtils.readObject(ShopDetilsActivity.this, "foodcarShopInfo");
+        if ("shop".equals(jumpType)) {
+            lastCarShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+        } else if ("food".equals(jumpType)) {
+            lastCarShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
         }
     }
 
@@ -293,7 +293,11 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                     for (int i = 0; i < list.size(); i++) {
                         if (list.get(i).getGoodsId() == goodsInfo.getId()) {
                             lastCarShopInfo.getShopInfos().get(i).setBuyCount(list.get(i).getBuyCount() + Integer.parseInt(tv_count.getText().toString()));
-                            BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
+                            if ("shop".equals(jumpType)) {
+                                BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
+                            } else if ("food".equals(jumpType)) {
+                                BaseAppApplication.getInstance().setFoodcarShopInfo(lastCarShopInfo);
+                            }
                             ToastUtils.showShort("添加成功");
                             return;
                         }
@@ -308,7 +312,11 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                     shopInfo.setShopMoney(goodsInfo.getPrice());
                     list.add(shopInfo);
                     lastCarShopInfo.setShopInfos(list);
-                    BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
+                    if ("shop".equals(jumpType)) {
+                        BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
+                    } else if ("food".equals(jumpType)) {
+                        BaseAppApplication.getInstance().setFoodcarShopInfo(lastCarShopInfo);
+                    }
                     ToastUtils.showShort("添加成功");
                 } else {//购物车里面的东西是空的
                     List<CarShopInfo.ShopInfo> list = new ArrayList<>();
@@ -323,7 +331,11 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                     shopInfo.setShopMoney(goodsInfo.getPrice());
                     list.add(shopInfo);
                     carShopInfo.setShopInfos(list);
-                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                    if ("shop".equals(jumpType)) {
+                        BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                    } else if ("food".equals(jumpType)) {
+                        BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                    }
                     ToastUtils.showShort("添加成功");
                 }
             } catch (Exception e) {
@@ -339,7 +351,11 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 shopInfo.setShopMoney(goodsInfo.getPrice());
                 list.add(shopInfo);
                 carShopInfo.setShopInfos(list);
-                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                if ("shop".equals(jumpType)) {
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                } else if ("food".equals(jumpType)) {
+                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                }
                 ToastUtils.showShort("添加成功");
             }
             isAdd = true;
