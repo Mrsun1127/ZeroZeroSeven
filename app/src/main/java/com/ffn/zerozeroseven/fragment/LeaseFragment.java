@@ -192,7 +192,6 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
                 if (leaseTabInfo.getCode() == 0) {
                     list_title = new ArrayList<>();
                     list_fragment = new ArrayList<>();
-                    list_fragment.add(LeaseViewPagerAllFragment.newInstance("", ""));
                     titleAdapter.cleanDates();
                     LeaseTabInfo.DataBean.CateListBean cateListBean = new LeaseTabInfo.DataBean.CateListBean();
                     cateListBean.setCateName("全部");
@@ -202,8 +201,13 @@ public class LeaseFragment extends BaseFragment implements View.OnClickListener 
                     int length = leaseTabInfo.getData().getCateList().size();
                     for (int i = 0; i < length; i++) {
                         list_title.add(leaseTabInfo.getData().getCateList().get(i).getCateName());
-                        mineFragment = LeaseViewPagerFragment.newInstance(leaseTabInfo.getData().getCateList().get(i).getCateName(), String.valueOf(leaseTabInfo.getData().getCateList().get(i).getId()));
-                        list_fragment.add(mineFragment);
+                        if(i==0){
+                            list_fragment.add(LeaseViewPagerAllFragment.newInstance("", ""));
+                        }else{
+                            mineFragment = LeaseViewPagerFragment.newInstance(leaseTabInfo.getData().getCateList().get(i).getCateName(), String.valueOf(leaseTabInfo.getData().getCateList().get(i).getId()));
+                            list_fragment.add(mineFragment);
+                        }
+
                     }
                     try {
                         viewPager.setOffscreenPageLimit(list_title.size());

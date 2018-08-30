@@ -199,7 +199,6 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
                 if (showInfo.getCode() == 0) {
                     list_title = new ArrayList<>();
                     list_fragment = new ArrayList<>();
-                    list_fragment.add(FoodViewPagerAllFragment.newInstance("", ""));
                     titleAdapter.cleanDates();
                     ShopTitleInfo.DataBean.GoodsTypesBean goodsTypesBean = new ShopTitleInfo.DataBean.GoodsTypesBean();
                     goodsTypesBean.setName("全部");
@@ -209,8 +208,12 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
                     int length = showInfo.getData().getGoodsTypes().size();
                     for (int i = 0; i < length; i++) {
                         list_title.add(showInfo.getData().getGoodsTypes().get(i).getName());
-                        mineFragment = FoodViewPagerFragment.newInstance(showInfo.getData().getGoodsTypes().get(i).getName(), String.valueOf(showInfo.getData().getGoodsTypes().get(i).getId()));
-                        list_fragment.add(mineFragment);
+                        if(i==0){
+                            list_fragment.add(FoodViewPagerAllFragment.newInstance("", ""));
+                        }else{
+                            mineFragment = FoodViewPagerFragment.newInstance(showInfo.getData().getGoodsTypes().get(i).getName(), String.valueOf(showInfo.getData().getGoodsTypes().get(i).getId()));
+                            list_fragment.add(mineFragment);
+                        }
                     }
                     try {
                         viewPager.setOffscreenPageLimit(list_title.size());
