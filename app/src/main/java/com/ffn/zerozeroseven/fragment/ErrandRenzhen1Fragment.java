@@ -173,20 +173,17 @@ public class ErrandRenzhen1Fragment extends BaseFragment implements ActionSheet.
                 .setCompressListener(new OnCompressListener() {
                     @Override
                     public void onStart() {
-                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
                         showLoadProgress();
                     }
 
                     @Override
                     public void onSuccess(File file) {
-                        // TODO 压缩成功后调用，返回压缩后的图片文件
                         disLoadProgress();
                         wifiGo(file);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        // TODO 当压缩过程出现问题时调用
                         ToastUtils.showShort("出现问题");
                     }
                 }).launch();
