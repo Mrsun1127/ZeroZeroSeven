@@ -171,4 +171,6 @@ dependencies {
     api 'com.baoyz.actionsheet:library:1.1.7'
     //搜索框
     api 'com.carson_ho:SearchLayout:1.0.1'
+    //压缩图片
+    api 'top.zibin:Luban:1.1.8'
 }

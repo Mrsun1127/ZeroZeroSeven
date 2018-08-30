@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.baoyz.actionsheet.ActionSheet;
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.bean.CodeInfo;
 import com.ffn.zerozeroseven.bean.OkInfo;
@@ -47,6 +48,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import okhttp3.Call;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -156,11 +160,44 @@ public class ErrandRenzhen1Fragment extends BaseFragment implements ActionSheet.
 
     private void saveIcon() {
         iconFile = new File(imgList.get(0));
+        Luban.with(bfCxt)
+                .load(iconFile)
+                .ignoreBy(100)
+                .setTargetDir(BaseAppApplication.context.getExternalCacheDir().getAbsolutePath())
+                .filter(new CompressionPredicate() {
+                    @Override
+                    public boolean apply(String path) {
+                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                    }
+                })
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                        showLoadProgress();
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        // TODO 压缩成功后调用，返回压缩后的图片文件
+                        disLoadProgress();
+                        wifiGo(file);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // TODO 当压缩过程出现问题时调用
+                        ToastUtils.showShort("出现问题");
+                    }
+                }).launch();
+    }
+
+    private void wifiGo(File file) {
         OkHttpUtils.post()
                 .url("https://api.lingling7.com/lingling7-server/upload")
                 .addHeader("Authorization", "Bearer " + userInfo.getToken())
                 .addParams("uploadType", "IMAGE")
-                .addFile("file", iconFile.getName(), iconFile)
+                .addFile("file", file.getName(), file)
                 .build()
                 .execute(new StringCallback() {
                     @Override

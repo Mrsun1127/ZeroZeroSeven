@@ -60,6 +60,9 @@ import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * Created by GT on 2017/11/22.
@@ -113,13 +116,13 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
             if (!TextUtils.isEmpty(MrsunAppCacheUtils.get(PeopleMessAgeActivity.this).getAsString("iconUrl"))) {
                 Glide.with(PeopleMessAgeActivity.this)
                         .load(MrsunAppCacheUtils.get(PeopleMessAgeActivity.this).getAsString("iconUrl"))
-                        .override(150,150)
+                        .override(150, 150)
                         .into(iv_photo);
             } else {
                 if (!TextUtils.isEmpty(userInfo.getAvatar())) {
                     Glide.with(PeopleMessAgeActivity.this)
                             .load(userInfo.getAvatar())
-                            .override(150,150)
+                            .override(150, 150)
                             .into(iv_photo);
                 }
             }
@@ -190,35 +193,68 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
     private void savePepMessage() {
         if (imgList.size() > 0) {
             iconFile = new File(imgList.get(0));
-            OkHttpUtils.post()
-                    .url("https://api.lingling7.com/lingling7-server/upload")
-                    .addHeader("Authorization", "Bearer " + userInfo.getToken())
-                    .addParams("uploadType", "IMAGE")
-                    .addFile("file", iconFile.getName(), iconFile)
-                    .build()
-                    .execute(new StringCallback() {
+            Luban.with(this)
+                    .load(iconFile)
+                    .ignoreBy(100)
+                    .setTargetDir(BaseAppApplication.context.getExternalCacheDir().getAbsolutePath())
+                    .filter(new CompressionPredicate() {
                         @Override
-                        public void onError(Call call, Exception e, int id) {
-                            ZeroZeroSevenUtils.showCustonPop(PeopleMessAgeActivity.this, "图片太大，请选择尺寸合适的图片", iv_photo);
+                        public boolean apply(String path) {
+                            return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                        }
+                    })
+                    .setCompressListener(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                            showLoadProgress();
                         }
 
                         @Override
-                        public void onResponse(String response, int id) {
-                            LogUtils.D("PeopleMessAgeActivity", response);
-                            UpdateIconInfo updateIconInfo = JSON.parseObject(response, UpdateIconInfo.class);
-                            if (updateIconInfo.getCode() == 0) {
-                                saveAndMessAge(updateIconInfo.getData().getUrl(), true);
-                                MrsunAppCacheUtils.get(PeopleMessAgeActivity.this).put("iconUrl", updateIconInfo.getData().getUrl());
-                            } else {
-                                ZeroZeroSevenUtils.showCustonPop(PeopleMessAgeActivity.this, updateIconInfo.getMessage(), iv_photo);
-                            }
+                        public void onSuccess(File file) {
+                            // TODO 压缩成功后调用，返回压缩后的图片文件
+                            disLoadProgress();
+                            wifiGo(file);
                         }
-                    });
+
+                        @Override
+                        public void onError(Throwable e) {
+                            // TODO 当压缩过程出现问题时调用
+                            ToastUtils.showShort("出现问题");
+                        }
+                    }).launch();
 
         } else {
             saveAndMessAge("", false);
         }
 
+    }
+
+    private void wifiGo(File file) {
+        OkHttpUtils.post()
+                .url("https://api.lingling7.com/lingling7-server/upload")
+                .addHeader("Authorization", "Bearer " + userInfo.getToken())
+                .addParams("uploadType", "IMAGE")
+                .addFile("file", file.getName(), file)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ZeroZeroSevenUtils.showCustonPop(PeopleMessAgeActivity.this, "图片太大，请选择尺寸合适的图片", iv_photo);
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        LogUtils.D("PeopleMessAgeActivity", response);
+                        UpdateIconInfo updateIconInfo = JSON.parseObject(response, UpdateIconInfo.class);
+                        if (updateIconInfo.getCode() == 0) {
+                            saveAndMessAge(updateIconInfo.getData().getUrl(), true);
+                            MrsunAppCacheUtils.get(PeopleMessAgeActivity.this).put("iconUrl", updateIconInfo.getData().getUrl());
+                        } else {
+                            ZeroZeroSevenUtils.showCustonPop(PeopleMessAgeActivity.this, updateIconInfo.getMessage(), iv_photo);
+                        }
+                    }
+                });
     }
 
     public void saveAndMessAge(String iconUrl, boolean needIcon) {
@@ -428,7 +464,7 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
                 if (resultCode == RESULT_OK) {
                     if (data != null) {
                         imgList = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-                        Glide.with(PeopleMessAgeActivity.this).load(imgList.get(0)).override(150,150).into(iv_photo);
+                        Glide.with(PeopleMessAgeActivity.this).load(imgList.get(0)).override(150, 150).into(iv_photo);
                     }
                 }
                 break;
