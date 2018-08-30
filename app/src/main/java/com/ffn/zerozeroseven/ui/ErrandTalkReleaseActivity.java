@@ -1,6 +1,7 @@
 package com.ffn.zerozeroseven.ui;
 
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.willy.ratingbar.ScaleRatingBar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ErrandTalkReleaseActivity extends BaseActivity {
     @Bind(R.id.topView)
@@ -74,6 +76,16 @@ public class ErrandTalkReleaseActivity extends BaseActivity {
     protected void doMain() {
     }
 
+    @OnClick({R.id.bt_sub})
+    void setOnClicks(View v) {
+        switch (v.getId()) {
+            case R.id.bt_sub:
+                Talk();
+                break;
+
+        }
+    }
+
     @Bind(R.id.sudu)
     ScaleRatingBar sudu;
     @Bind(R.id.taidu)
@@ -110,9 +122,9 @@ public class ErrandTalkReleaseActivity extends BaseActivity {
         parametersBean.setUserPhone(userInfo.getPhone());
         parametersBean.setOrderNo(orderNo);
         parametersBean.setServiceEvaluation(fuwupingjia);//服务评价：吐槽，满意，超赞
-        parametersBean.setSpeedStarCount(String.valueOf(sudu.getRating()));//跑腿速度星星数
-        parametersBean.setServiceStarCount(String.valueOf(taidu.getRating()));//服务态度星星数
-        parametersBean.setCompleteStarCount(String.valueOf(wanzheng.getRating()));//货物完整星星数
+        parametersBean.setSpeedStarCount((int)sudu.getRating());//跑腿速度星星数
+        parametersBean.setServiceStarCount((int)taidu.getRating());//服务态度星星数
+        parametersBean.setCompleteStarCount((int)wanzheng.getRating());//货物完整星星数
         if (!TextUtils.isEmpty(et_wenzi.getText().toString().trim())) {
             parametersBean.setRemark(et_wenzi.getText().toString().trim());//文字评价
         }

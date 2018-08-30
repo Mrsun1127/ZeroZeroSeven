@@ -79,7 +79,7 @@ public class RunnerListInfo {
             private String deliveryAddress;
             private String deliveryName;
             private String deliveryPhone;
-            private int errandIncome;
+            private Double errandIncome;
             private int errandLevel;
             private int evaluation;
             private String goodsType;
@@ -131,11 +131,11 @@ public class RunnerListInfo {
                 this.deliveryPhone = deliveryPhone;
             }
 
-            public int getErrandIncome() {
+            public Double getErrandIncome() {
                 return errandIncome;
             }
 
-            public void setErrandIncome(int errandIncome) {
+            public void setErrandIncome(Double errandIncome) {
                 this.errandIncome = errandIncome;
             }
 

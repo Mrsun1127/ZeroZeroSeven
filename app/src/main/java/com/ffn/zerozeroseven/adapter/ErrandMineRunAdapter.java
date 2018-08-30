@@ -34,7 +34,7 @@ public class ErrandMineRunAdapter extends BaseRecyclerAdapter<RunnerListInfo.Dat
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_time.setText(item.getCreateTime());
         mHolder.tv_type.setText(item.getGoodsType());
-        mHolder.tv_money.setText(String.valueOf(item.getErrandIncome()));
+        mHolder.tv_money.setText(String.valueOf(item.getErrandIncome())+"元");
         mHolder.tv_letadr.setText(item.getDeliveryAddress());
         mHolder.tv_getadr.setText(item.getReceiverAddress());
         mHolder.tv_letinfo.setText(item.getDeliveryName() + item.getDeliveryPhone());

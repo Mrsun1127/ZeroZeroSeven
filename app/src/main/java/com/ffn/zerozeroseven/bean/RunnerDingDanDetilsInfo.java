@@ -75,7 +75,7 @@ public class RunnerDingDanDetilsInfo {
         private int publisherId;
         private int receiverId;
         private String receiverPhone;
-        private int errandIncome;
+        private Double errandIncome;
         private String deliveryAddress;
         private int schoolId;
         private String payment;
@@ -175,11 +175,11 @@ public class RunnerDingDanDetilsInfo {
             this.receiverPhone = receiverPhone;
         }
 
-        public int getErrandIncome() {
+        public Double getErrandIncome() {
             return errandIncome;
         }
 
-        public void setErrandIncome(int errandIncome) {
+        public void setErrandIncome(Double errandIncome) {
             this.errandIncome = errandIncome;
         }
 

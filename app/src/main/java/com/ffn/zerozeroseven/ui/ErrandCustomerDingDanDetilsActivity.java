@@ -218,7 +218,11 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                             break;
                         case 3:
                             tv_status.setText("订单已完成");
-                            bt_left.setText("去评价");
+                            if(runnerDingDanDetilsInfo.getData().getIsComment()==0){
+                                bt_left.setText("去评价");
+                            }else{
+                                bt_left.setVisibility(View.GONE);
+                            }
                             bt_right.setText("再来一单");
                             ll_runner.setVisibility(View.VISIBLE);
                             tv_runneerMan.setText(runnerDingDanDetilsInfo.getData().getRealName());
@@ -327,7 +331,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
      */
     public void goToRelease(String orderNo, String name) {
         Bundle bundle = new Bundle();
-        bundle.putString("ordeNo", orderNo);
+        bundle.putString("orderNo", orderNo);
         bundle.putString("name", name);
         ZeroZeroSevenUtils.SwitchActivity(ErrandCustomerDingDanDetilsActivity.this, ErrandTalkReleaseActivity.class, bundle);
     }

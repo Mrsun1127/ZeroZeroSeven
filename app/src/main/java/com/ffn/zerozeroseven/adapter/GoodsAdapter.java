@@ -63,7 +63,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
         } else {
             mHolder.tv_price.setText("网络异常请刷新");
         }
-        if(!TextUtils.isEmpty(info.getMarketPrice())){
+        if(!TextUtils.isEmpty(info.getMarketPrice()) && "0.0".equals(info.getMarketPrice())){
             mHolder.tv_oldprice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
             mHolder.tv_oldprice.setText(info.getMarketPrice());
         }else{

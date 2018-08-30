@@ -45,9 +45,9 @@ public class RTalkInfo {
         private String userPhone;
         private String orderNo;
         private String serviceEvaluation;
-        private String speedStarCount;
-        private String serviceStarCount;
-        private String completeStarCount;
+        private int speedStarCount;
+        private int serviceStarCount;
+        private int completeStarCount;
         private String remark;
 
         public String getUserId() {
@@ -82,27 +82,27 @@ public class RTalkInfo {
             this.serviceEvaluation = serviceEvaluation;
         }
 
-        public String getSpeedStarCount() {
+        public int getSpeedStarCount() {
             return speedStarCount;
         }
 
-        public void setSpeedStarCount(String speedStarCount) {
+        public void setSpeedStarCount(int speedStarCount) {
             this.speedStarCount = speedStarCount;
         }
 
-        public String getServiceStarCount() {
+        public int getServiceStarCount() {
             return serviceStarCount;
         }
 
-        public void setServiceStarCount(String serviceStarCount) {
+        public void setServiceStarCount(int serviceStarCount) {
             this.serviceStarCount = serviceStarCount;
         }
 
-        public String getCompleteStarCount() {
+        public int getCompleteStarCount() {
             return completeStarCount;
         }
 
-        public void setCompleteStarCount(String completeStarCount) {
+        public void setCompleteStarCount(int completeStarCount) {
             this.completeStarCount = completeStarCount;
         }
 
