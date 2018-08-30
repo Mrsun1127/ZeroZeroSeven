@@ -101,6 +101,7 @@ public class RenzhengStatusActivity extends BaseActivity {
                         tv_sex.setText(runnerInfo.getData().getSex() == 0 ? "女" : "男");
                         //审核状态：-2=取消资格（无法退款）-1=审核未通过，0=未审核，1=已审核
                         // payStatus 0 未支付  1 已支付 2 退款中  3 退款成功
+                        //退款状态：-2=拒绝退款，-1=退款失败，0=退款申请中，1=退款成功
                         switch (runnerInfo.getData().getCheckStatus()) {
                             case -2:
                                 Glide.with(RenzhengStatusActivity.this).load(R.drawable.run_zhuxiao).into(iv_status);
@@ -120,11 +121,16 @@ public class RenzhengStatusActivity extends BaseActivity {
                                 Glide.with(RenzhengStatusActivity.this).load(runnerInfo.getData().getAvatar()).override(ScreenUtils.getScreenWidth() / 6, ScreenUtils.getScreenWidth() / 6).into(iv_status);
                                 break;
                         }
-                        switch (runnerInfo.getData().getPayStatus()) {//支付状态：-2=已退款，-1=支付失败，0=未支付，1=支付成功
-                            case -2:
-                                Glide.with(RenzhengStatusActivity.this).load(R.drawable.run_tuikuan).into(iv_status);
+                        //退款状态：-2=拒绝退款，-1=退款失败，0=退款申请中，1=退款成功
+                        switch (runnerInfo.getData().getRefundStatus()) {
+                            case 0:
+                                Glide.with(RenzhengStatusActivity.this).load(R.drawable.run_tuikuanzhong).into(iv_status);
+                                bt_sub.setText("正在申请退款");
+                                bt_sub.setClickable(false);
                                 break;
+
                         }
+
                     }
                 } else {
                     ToastUtils.showShort(runnerInfo.getMessage());

@@ -190,21 +190,15 @@ public class ErrandMineRunFragment extends BaseFragment {
             public void onSuccLoad(String response) {
                 runnerInfo = JSON.parseObject(response, RunnerInfo.class);
                 if (runnerInfo.getCode() == 0) {
-                    if (runnerInfo.getData() != null) {
-                        if (!TextUtils.isEmpty(runnerInfo.getData().getPhone())) {
-                            ll_audit.setVisibility(View.GONE);
-                            ll_verifile.setVisibility(View.VISIBLE);
-                            Glide.with(bfCxt).load(runnerInfo.getData().getAvatar()).override(ScreenUtils.getScreenWidth() / 6, ScreenUtils.getScreenWidth() / 6).into(clv_icon);
-                            tv_name.setText(runnerInfo.getData().getRealName());
-                            tv_school.setText(runnerInfo.getData().getSchoolName());
-                            tv_phone.setText(runnerInfo.getData().getPhone());
-                            tv_satisficing.setText(runnerInfo.getData().getStarLevel() + "星级");
-                            scaleRatingBar.setRating(runnerInfo.getData().getStarLevel());
-                        } else {
-                            ll_audit.setVisibility(View.VISIBLE);
-                            ll_verifile.setVisibility(View.GONE);
-                        }
-
+                    if (runnerInfo.getData() != null && !TextUtils.isEmpty(runnerInfo.getData().getPhone())) {
+                        ll_audit.setVisibility(View.GONE);
+                        ll_verifile.setVisibility(View.VISIBLE);
+                        Glide.with(bfCxt).load(runnerInfo.getData().getAvatar()).override(ScreenUtils.getScreenWidth() / 6, ScreenUtils.getScreenWidth() / 6).into(clv_icon);
+                        tv_name.setText(runnerInfo.getData().getRealName());
+                        tv_school.setText(runnerInfo.getData().getSchoolName());
+                        tv_phone.setText(runnerInfo.getData().getPhone());
+                        tv_satisficing.setText(runnerInfo.getData().getStarLevel() + "星级");
+                        scaleRatingBar.setRating(runnerInfo.getData().getStarLevel());
                     } else {
                         ll_audit.setVisibility(View.VISIBLE);
                         ll_verifile.setVisibility(View.GONE);
@@ -236,8 +230,8 @@ public class ErrandMineRunFragment extends BaseFragment {
         tv_money.setText(String.valueOf(ordersBean.getErrandIncome()));
         tv_letadr.setText(ordersBean.getDeliveryAddress());
         tv_getadr.setText(ordersBean.getReceiverAddress());
-        tv_letinfo.setText(ordersBean.getDeliveryName().substring(0,1)+"*" + "  " + ZeroZeroSevenUtils.phoneClose(ordersBean.getDeliveryPhone()));
-        tv_getinfo.setText(ordersBean.getReceiverName().substring(0,1)+"*"+ "  " + ZeroZeroSevenUtils.phoneClose(ordersBean.getReceiverPhone()));
+        tv_letinfo.setText(ordersBean.getDeliveryName().substring(0, 1) + "*" + "  " + ZeroZeroSevenUtils.phoneClose(ordersBean.getDeliveryPhone()));
+        tv_getinfo.setText(ordersBean.getReceiverName().substring(0, 1) + "*" + "  " + ZeroZeroSevenUtils.phoneClose(ordersBean.getReceiverPhone()));
 
         bt_left.setOnClickListener(new View.OnClickListener() {// 在相册中选取
             @Override
@@ -291,7 +285,15 @@ public class ErrandMineRunFragment extends BaseFragment {
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandAuitActivity.class);
                 break;
             case R.id.ll_verifile:
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, RenzhengStatusActivity.class);
+                //退款状态：-2=拒绝退款，-1=退款失败，0=退款申请中，1=退款成功
+                switch (runnerInfo.getData().getRefundStatus()) {
+                    case 1:
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandAuitActivity.class);
+                        break;
+                    default:
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, RenzhengStatusActivity.class);
+                        break;
+                }
                 break;
         }
     }

@@ -65,6 +65,18 @@ public class RunnerInfo  {
         private int userId;
         private String refuseReason;
         private String depositFee;
+        private int refundStatus;
+
+        public int getRefundStatus() {
+            return refundStatus;
+        }
+
+        public void setRefundStatus(int refundStatus) {
+            this.refundStatus = refundStatus;
+        }
+
+
+
 
         public String getDepositFee() {
             return depositFee;
