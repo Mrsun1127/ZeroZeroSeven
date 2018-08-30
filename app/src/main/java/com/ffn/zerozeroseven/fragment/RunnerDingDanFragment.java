@@ -18,7 +18,7 @@ public class RunnerDingDanFragment extends BaseReFreshFragment {
     @Override
     protected BaseRecyclerAdapter setAdapter() {
         isLoadMore = false;
-        errandmineDingdanadapter = new ErrandmineDingdanadapter(bfCxt);
+        errandmineDingdanadapter = new ErrandmineDingdanadapter(getActivity());
         errandmineDingdanadapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {

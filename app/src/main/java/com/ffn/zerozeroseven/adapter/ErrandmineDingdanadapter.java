@@ -1,14 +1,17 @@
 package com.ffn.zerozeroseven.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.RunDingdanInfo;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 /**
  * Created by GT on 2017/11/27.
@@ -27,7 +30,7 @@ public class ErrandmineDingdanadapter extends BaseRecyclerAdapter<RunDingdanInfo
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, RunDingdanInfo.DataBean.ErrandOrdersBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final RunDingdanInfo.DataBean.ErrandOrdersBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_createtime.setText(item.getCreateTime());
         mHolder.tv_type.setText(item.getGoodsType());
@@ -53,7 +56,23 @@ public class ErrandmineDingdanadapter extends BaseRecyclerAdapter<RunDingdanInfo
             case 5:
                 mHolder.tv_status.setText("已取消");
                 break;
+
         }
+        mHolder.iv_shou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ZeroZeroSevenUtils.requestCallMainifest((Activity) mContext);
+                ZeroZeroSevenUtils.MakingCalls(mContext, item.getReceiverPhone());
+            }
+        });
+
+        mHolder.iv_fa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ZeroZeroSevenUtils.requestCallMainifest((Activity) mContext);
+                ZeroZeroSevenUtils.MakingCalls(mContext, item.getDeliveryPhone());
+            }
+        });
     }
 
     public void setClickPosition(int position) {
@@ -70,9 +89,13 @@ public class ErrandmineDingdanadapter extends BaseRecyclerAdapter<RunDingdanInfo
         TextView tv_getadr;
         TextView tv_getinfo;
         TextView tv_status;
+        ImageView iv_shou;
+        ImageView iv_fa;
 
         MViewHolder(View itemView) {
             super(itemView);
+            iv_fa = itemView.findViewById(R.id.iv_fa);
+            iv_shou = itemView.findViewById(R.id.iv_shou);
             tv_status = itemView.findViewById(R.id.tv_status);
             tv_createtime = itemView.findViewById(R.id.tv_createtime);
             tv_type = itemView.findViewById(R.id.tv_type);
