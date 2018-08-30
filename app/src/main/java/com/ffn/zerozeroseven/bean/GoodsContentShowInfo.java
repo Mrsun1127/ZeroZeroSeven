@@ -207,6 +207,16 @@ public class GoodsContentShowInfo implements Parcelable{
             private int stockNum;
             private int id;
             private String goodsName;
+            private String marketPrice;
+
+            public String getMarketPrice() {
+                return marketPrice;
+            }
+
+            public void setMarketPrice(String marketPrice) {
+                this.marketPrice = marketPrice;
+            }
+
             private String goodsDesc;
             protected ProductsBean(Parcel in) {
                 thumbnail = in.readString();

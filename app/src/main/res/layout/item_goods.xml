@@ -5,26 +5,24 @@
     android:background="@color/white">
 
     <ImageView
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
         android:id="@+id/iv_icon"
         android:layout_width="140dp"
         android:layout_height="90dp"
-        android:scaleType="centerInside"
-         />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerInside" />
 
     <TextView
-        android:gravity="center|left"
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_below="@+id/iv_icon"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="9dp"
+        android:gravity="center|left"
         android:text="提前拜个早年之说啥套餐"
         android:textColor="@color/text_show_color"
         android:textSize="10sp" />
-
 
 
     <View
@@ -48,6 +46,18 @@
         android:text="¥5:00"
         android:textColor="#ff0025" />
 
+    <TextView
+        android:id="@+id/tv_oldprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="13dp"
+        android:layout_toRightOf="@+id/tv_price"
+        android:text="¥5:00"
+        android:textSize="11sp" />
+
     <RelativeLayout
         android:id="@+id/rl_add"
         android:layout_width="30dp"
@@ -62,44 +72,47 @@
             android:layout_centerInParent="true"
             android:background="@drawable/addone" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_none"
-        android:visibility="gone"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/view_line"
         android:layout_marginRight="8dp"
-        android:layout_width="50dp"
-        android:layout_height="35dp">
+        android:visibility="gone">
+
         <TextView
-            android:textSize="11sp"
-            android:textColor="@color/text_show_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="已售完"/>
+            android:text="已售完"
+            android:textColor="@color/text_show_color"
+            android:textSize="11sp" />
     </RelativeLayout>
+
     <TextView
         android:id="@+id/tv_count"
-        android:textSize="13sp"
-        android:layout_marginRight="5dp"
-        android:text="0"
-        android:gravity="center"
-        android:layout_toLeftOf="@+id/rl_add"
-        android:layout_below="@+id/view_line"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"/>
+        android:layout_height="35dp"
+        android:layout_below="@+id/view_line"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/rl_add"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="13sp" />
+
     <RelativeLayout
         android:id="@+id/rl_close"
         android:layout_width="30dp"
         android:layout_height="35dp"
-        android:layout_toLeftOf="@+id/tv_count"
         android:layout_below="@+id/view_line"
-         >
+        android:layout_toLeftOf="@+id/tv_count">
 
         <ImageView
             android:layout_width="15dp"
-            android:layout_centerInParent="true"
             android:layout_height="15dp"
+            android:layout_centerInParent="true"
             android:background="@drawable/closeone" />
     </RelativeLayout>
 

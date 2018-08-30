@@ -1,6 +1,7 @@
 package com.ffn.zerozeroseven.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -61,6 +62,12 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
             mHolder.tv_price.setText("¥" + info.getPrice());
         } else {
             mHolder.tv_price.setText("网络异常请刷新");
+        }
+        if(!TextUtils.isEmpty(info.getMarketPrice())){
+            mHolder.tv_oldprice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+            mHolder.tv_oldprice.setText(info.getMarketPrice());
+        }else{
+            mHolder.tv_oldprice.setVisibility(View.GONE);
         }
         Glide.with(mContext)
                 .load(info.getThumbnail())
@@ -125,6 +132,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
         ImageView iv_icon;
         TextView tv_name;
         TextView tv_price;
+        TextView tv_oldprice;
         TextView tv_count;
         RelativeLayout rl_add;
         RelativeLayout rl_close;
@@ -132,6 +140,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
 
         MViewHolder(View itemView) {
             super(itemView);
+            tv_oldprice = itemView.findViewById(R.id.tv_oldprice);
             iv_icon = itemView.findViewById(R.id.iv_icon);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_price = itemView.findViewById(R.id.tv_price);
