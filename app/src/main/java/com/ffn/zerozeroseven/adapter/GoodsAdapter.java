@@ -63,17 +63,18 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
         } else {
             mHolder.tv_price.setText("网络异常请刷新");
         }
-        if(!TextUtils.isEmpty(info.getMarketPrice()) && "0.0".equals(info.getMarketPrice())){
-            mHolder.tv_oldprice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+        if (!TextUtils.isEmpty(info.getMarketPrice()) && !"0.0".equals(info.getMarketPrice())) {
+            mHolder.tv_oldprice.setVisibility(View.VISIBLE);
+            mHolder.tv_oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             mHolder.tv_oldprice.setText(info.getMarketPrice());
-        }else{
+        } else {
             mHolder.tv_oldprice.setVisibility(View.GONE);
         }
         Glide.with(mContext)
                 .load(info.getThumbnail())
                 .skipMemoryCache(true)
                 .error(R.drawable.oops)
-                .override((int)ScreenUtils.getScreenWidth()/5,(int)ScreenUtils.getScreenWidth()/5-50)
+                .override((int) ScreenUtils.getScreenWidth() / 5, (int) ScreenUtils.getScreenWidth() / 5 - 50)
                 .into(mHolder.iv_icon);
         if (isClear) {
             mHolder.tv_count.setText("0");
