@@ -86,7 +86,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                         bundle.putString("exit","set");
                         ZeroZeroSevenUtils.SwitchActivity(SetActivity.this, LoginActivity.class,bundle);
                         BaseAppApplication.getInstance().setLoginUser(null);
-                        BaseAppApplication.getInstance().exit();
+                        BaseAppApplication.getInstance().clearActivityList();
                         overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
                     }
 

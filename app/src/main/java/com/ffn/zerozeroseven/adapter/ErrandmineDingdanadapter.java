@@ -33,7 +33,7 @@ public class ErrandmineDingdanadapter extends BaseRecyclerAdapter<RunDingdanInfo
         mHolder.tv_type.setText(item.getGoodsType());
         mHolder.tv_letadr.setText(item.getDeliveryAddress());
         mHolder.tv_getadr.setText(item.getReceiverAddress());
-        mHolder.tv_shipeeFee.setText(String.valueOf(item.getShippingFee()));
+        mHolder.tv_shipeeFee.setText(String.valueOf(item.getErrandIncome()));
         mHolder.tv_letinfo.setText(item.getDeliveryName() + "   " + item.getDeliveryPhone());
         mHolder.tv_getinfo.setText(item.getReceiverName() + "   " + item.getReceiverPhone());
         //订单状态：-1=无效状态，0=未接单，1=已接单，2=取货中，3=已收货，5=已取消

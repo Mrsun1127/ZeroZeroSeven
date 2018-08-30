@@ -10,16 +10,16 @@ public  class AppConfig {
 
 
     //外网请求地址
-//    public static final String BaseUrl="https://api.lingling7.com/lingling7-server/api/MobileServer/single";
-    public static final String BaseUrl="http://192.168.0.199:8001/lingling7-server/api/MobileServer/single";
+    public static final String BaseUrl="https://api.lingling7.com/lingling7-server/api/MobileServer/single";
+//    public static final String BaseUrl="http://192.168.0.199:8001/lingling7-server/api/MobileServer/single";
     //分享地址
-
     public static final String SHAREURL="http://www.lingling7.com/share/t1.html";
     public static final String PRODUCTSHAREURL="https://www.lingling7.com/lingling7-res/app/productDetails.html?id=";
-//    public static final String NUMBERICALURL="https://www.lingling7.com/lingling7-res/app/digital/digitalInformation.html?type=app&id=";
-    public static final String NUMBERICALURL="http://192.168.0.199/lingling7-res/appHtml/digitalInformation.html?type=app&id=";
-//    public static final String NUMBERICALSHAREURL="https://www.lingling7.com/lingling7-res/app/digital/digitalInformation.html?id=";
-    public static final String NUMBERICALSHAREURL="http://192.168.0.199/lingling7-res/appHtml/digitalInformation.html?id=";
+                                                      //http://www.lingling7.com/lingling7-res/app/digital/digitalInformation.html
+    public static final String NUMBERICALURL="https://www.lingling7.com/lingling7-res/app/digital/digitalInformation.html?type=app&id=";
+//    public static final String NUMBERICALURL="http://192.168.0.199/lingling7-res/appHtml/digitalInformation.html?type=app&id=";
+    public static final String NUMBERICALSHAREURL="https://www.lingling7.com/lingling7-res/app/digital/digitalInformation.html?id=";
+//    public static final String NUMBERICALSHAREURL="http://192.168.0.199/lingling7-res/appHtml/digitalInformation.html?id=";
     public static final String WEBRENZHENGCONTENT="http://192.168.0.199/lingling7-res/appHtml/tcp-approve.html";
     public static final String WEBFABUCONTENT="http://192.168.0.199/lingling7-res/appHtml/tcp-issue.html";
     //logo链接

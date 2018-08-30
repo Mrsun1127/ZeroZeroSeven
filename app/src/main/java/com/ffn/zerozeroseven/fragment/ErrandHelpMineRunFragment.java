@@ -358,7 +358,6 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
                         parametersBean.setReceiverName(rAddRunAdrInfo2.getParameters().getName());
                         parametersBean.setReceiverPhone(rAddRunAdrInfo2.getParameters().getPhone());
                         parametersBean.setShippingFee(rmoney);
-                        parametersBean.setSchoolId(schoolIId);
                         if (!TextUtils.isEmpty(remark)) {
                             parametersBean.setRemark(remark);
                         }
