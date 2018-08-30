@@ -62,6 +62,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
     private QBadgeView badgeView;
     private TextView tv_name;
     private TextView tv_yysj;
+    private TextView tv_yysj2;
     private TextView tv_qisongfei;
     private TextView tv_paotuifei;
     private TextView tv_shop_phone;
@@ -100,9 +101,11 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
                     Glide.with(bfCxt).load(shangChangShowInfo.getData().getLogo()).into(iv_icon);
                     Glide.with(bfCxt).load(shangChangShowInfo.getData().getBackground()).override(10, 10).into(iv_in_bg);
                     if (shangChangShowInfo.getData().getStoreBusiTimes() != null && shangChangShowInfo.getData().getStoreBusiTimes().size() > 1) {
-                        tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime() + " " + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getClosingTime());
+                        tv_yysj.setText(shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime() );
+                        tv_yysj2.setText(shangChangShowInfo.getData().getStoreBusiTimes().get(1).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getClosingTime());
                     } else {
-                        tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime());
+                        tv_yysj.setText(shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime());
+                        tv_yysj2.setVisibility(View.GONE);
                     }
 
                 }
@@ -113,6 +116,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView(View view) {
         badgeView = new QBadgeView(bfCxt);
+        tv_yysj2 = view.findViewById(R.id.tv_yysj2);
         rl_search = view.findViewById(R.id.rl_search);
         iv_icon = view.findViewById(R.id.iv_icon);
         iv_in_bg = view.findViewById(R.id.iv_in_bg);

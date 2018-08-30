@@ -75,6 +75,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     private TextView tv_paotuifei;
     private TextView tv_shop_phone;
     private TextView tv_desc;
+    private TextView tv_yysj2;
     private ImageView iv_in_bg;
     private RelativeLayout rl_search;
     private ShopTitleAdapter titleAdapter;
@@ -108,9 +109,11 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                     Glide.with(bfCxt).load(shangChangShowInfo.getData().getBackground()).override(10, 10).into(iv_in_bg);
                     tv_name.setText(shangChangShowInfo.getData().getStoreName());
                     if (shangChangShowInfo.getData().getStoreBusiTimes() != null && shangChangShowInfo.getData().getStoreBusiTimes().size() > 1) {
-                        tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime() + " " + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getClosingTime());
+                        tv_yysj.setText(shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime() );
+                        tv_yysj2.setText(shangChangShowInfo.getData().getStoreBusiTimes().get(1).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getClosingTime());
                     } else {
-                        tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime());
+                        tv_yysj.setText(shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime());
+                        tv_yysj2.setVisibility(View.GONE);
                     }
 
                 }
@@ -121,6 +124,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView(View view) {
         badgeView = new QBadgeView(bfCxt);
+        tv_yysj2 = view.findViewById(R.id.tv_yysj2);
         rl_search = view.findViewById(R.id.rl_search);
         iv_icon = view.findViewById(R.id.iv_icon);
         iv_in_bg = view.findViewById(R.id.iv_in_bg);
@@ -213,7 +217,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                         list_title.add(showInfo.getData().getGoodsTypes().get(i).getName());
                         if (i == 0) {
                             list_fragment.add(ShopViewPagerAllFragment.newInstance("", ""));
-                        }else{
+                        } else {
                             mineFragment = ShopViewPagerFragment.newInstance(showInfo.getData().getGoodsTypes().get(i).getName(), String.valueOf(showInfo.getData().getGoodsTypes().get(i).getId()));
                             list_fragment.add(mineFragment);
                         }

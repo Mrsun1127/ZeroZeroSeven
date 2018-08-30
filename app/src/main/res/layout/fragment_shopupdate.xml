@@ -31,7 +31,7 @@
                     <ImageView
                         android:id="@+id/iv_in_bg"
                         android:layout_width="match_parent"
-                        android:layout_height="126dp"
+                        android:layout_height="140dp"
                         android:background="@drawable/shop_default" />
 
                     <RelativeLayout
@@ -65,7 +65,17 @@
                         android:text="@string/loading"
                         android:textColor="@color/white"
                         android:textSize="19sp" />
-
+                    <TextView
+                        android:id="@+id/tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_name"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/iv_icon"
+                        android:text="营业时间:"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
                     <TextView
                         android:id="@+id/tv_yysj"
                         android:layout_width="wrap_content"
@@ -73,16 +83,26 @@
                         android:layout_below="@+id/tv_name"
                         android:layout_marginLeft="12dp"
                         android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@+id/iv_icon"
+                        android:layout_toRightOf="@+id/tv1"
                         android:text="@string/loading"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
-
+                    <TextView
+                        android:id="@+id/tv_yysj2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_yysj"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/tv1"
+                        android:text="@string/loading"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
                     <TextView
                         android:id="@+id/tv_qisongfei"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_yysj"
+                        android:layout_below="@+id/tv_yysj2"
                         android:layout_marginLeft="12dp"
                         android:layout_marginTop="2dp"
                         android:layout_toRightOf="@+id/iv_icon"
@@ -94,7 +114,7 @@
                         android:id="@+id/tv_paotuifei"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_yysj"
+                        android:layout_below="@+id/tv_yysj2"
                         android:layout_marginLeft="53dp"
                         android:layout_marginTop="2dp"
                         android:layout_toRightOf="@+id/tv_qisongfei"

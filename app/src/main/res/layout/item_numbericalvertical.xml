@@ -8,6 +8,7 @@
         android:id="@+id/iv_product"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginBottom="6dp"
         android:layout_marginTop="15dp" />
 
     <TextView
@@ -68,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:paddingLeft="15dp"
+            android:paddingLeft="6dp"
             android:paddingTop="5dp"
             android:text="原价 2400"
             android:textSize="9sp" />
@@ -78,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:paddingLeft="15dp"
+            android:paddingLeft="8dp"
             android:paddingTop="5dp"
             android:text="预约价 2400"
             android:textColor="@color/money"
