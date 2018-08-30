@@ -15,6 +15,7 @@ import com.ffn.zerozeroseven.bean.RunnerDingDanDetilsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RrmineRunDetilsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.SureGetInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.TuiKUanoInfo;
+import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -56,6 +57,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
     @Override
     protected void doMain() {
         orderNo = getIntent().getStringExtra("orderNo");
+        LogUtils.D("orderNo", orderNo);
         requestOrder(orderNo);
     }
 
