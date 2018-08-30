@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.MyDingDanShowInfo;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 /**
  * Created by GT on 2017/11/27.
@@ -39,7 +40,7 @@ public class ItemDingDanAdapter extends BaseRecyclerAdapter<MyDingDanShowInfo.Da
         mHolder.tv_shopname.setText(info.getGoodsName());
         mHolder.tv_shopcount.setText("x" + info.getGoodsCount());
         mHolder.rl_delete.setVisibility(View.GONE);
-        mHolder.tv_money.setText("¥" + info.getGoodsCount() * info.getGoodsPrice());
+        mHolder.tv_money.setText("¥" + ZeroZeroSevenUtils.reactMoney(info.getGoodsCount() * info.getGoodsPrice()));
     }
 
     private class MViewHolder extends RecyclerView.ViewHolder {
