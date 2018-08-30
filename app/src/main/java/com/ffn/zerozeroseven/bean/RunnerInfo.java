@@ -65,7 +65,7 @@ public class RunnerInfo  {
         private int userId;
         private String refuseReason;
         private String depositFee;
-        private int refundStatus;
+        private int refundStatus=-100;
 
         public int getRefundStatus() {
             return refundStatus;
