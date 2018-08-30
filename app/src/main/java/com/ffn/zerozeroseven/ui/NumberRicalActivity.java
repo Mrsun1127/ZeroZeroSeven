@@ -156,7 +156,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                         level2BottomList.add(level2List.get(i));
                     }
                 }
-                twoAdapter.setClickPosition(-1);
+                twoAdapter.setClickPosition(0);
                 popAttrAdapter.setClickPosition(-1);
                 popBrandAdapter.setClickPosition(-1);
                 popSpecAdapter.setClickPosition(-1);
@@ -180,7 +180,7 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                 rgRefreshStatus = RgRefreshStatus.IDLE;
                 pageIndex = 0;
 //                findVerticalData(oneAdapter.getItem(position).getId(), 0, 0, "", 0);
-                findVerticalData(oneAdapter.getItem(position).getId(), 0);
+                findVerticalData(twoAdapter.getItem(0).getId(), 0);
             }
         });
         twoAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
@@ -343,7 +343,8 @@ public class NumberRicalActivity extends BaseActivity implements OnRefreshListen
                     }
                     oneAdapter.addAll(level1List);
                     twoAdapter.addAll(level2BottomList);
-                    levelId = level1List.get(0).getId();
+                    twoAdapter.setClickPosition(0);
+                    levelId = level2List.get(0).getId();
 
 //                    if (levelInfo.getData().getCategories().get(0).getFilterAttrList().size() > 0) {
 //                        attrAdapter.cleanDates();
