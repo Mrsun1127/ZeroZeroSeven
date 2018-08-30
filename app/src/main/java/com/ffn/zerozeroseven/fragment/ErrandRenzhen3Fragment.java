@@ -17,7 +17,6 @@ public class ErrandRenzhen3Fragment extends BaseFragment {
     }
 
 
-
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
@@ -31,6 +30,6 @@ public class ErrandRenzhen3Fragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-
+        ErrandMineRunFragment.mInstance.get().requestData();
     }
 }

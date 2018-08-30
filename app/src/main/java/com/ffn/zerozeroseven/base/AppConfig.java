@@ -20,8 +20,9 @@ public  class AppConfig {
 //    public static final String NUMBERICALURL="http://192.168.0.199/lingling7-res/appHtml/digitalInformation.html?type=app&id=";
     public static final String NUMBERICALSHAREURL="https://www.lingling7.com/lingling7-res/app/digital/digitalInformation.html?id=";
 //    public static final String NUMBERICALSHAREURL="http://192.168.0.199/lingling7-res/appHtml/digitalInformation.html?id=";
-    public static final String WEBRENZHENGCONTENT="http://192.168.0.199/lingling7-res/appHtml/tcp-approve.html";
-    public static final String WEBFABUCONTENT="http://192.168.0.199/lingling7-res/appHtml/tcp-issue.html";
+    //                                                  http://www.lingling7.com/lingling7-res/app/tcp/tcp-issue.html
+    public static final String WEBRENZHENGCONTENT="http://www.lingling7.com/lingling7-res/app/tcp/tcp-approve.html";
+    public static final String WEBFABUCONTENT="http://www.lingling7.com/lingling7-res/app/tcp/tcp-issue.html";
     //logo链接
     public static final String LOGOURL="http://a1.qpic.cn/psb?/V11aBxEr3o07IR/aPTWUpzy03lS2WgXGXHDY6eDqhjVcIY*w8Azpuz32ts!/m/dEQBAAAAAAAAnull&bo=bABsAAAAAAADByI!&rf=photolist&t=5";
     public static final String SHOP_ALL="http://a2.qpic.cn/psb?/V11aBxEr3o07IR/9w0Mr*o2Ne2IAmvirYNMkd5O4wZ7YVoM6r22F0M7sWY!/m/dGEBAAAAAAAA&bo=hgCGAAAAAAADByI!&rf=photolist";

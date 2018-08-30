@@ -121,9 +121,9 @@ public class RenzhengStatusActivity extends BaseActivity {
                                 Glide.with(RenzhengStatusActivity.this).load(runnerInfo.getData().getAvatar()).override(ScreenUtils.getScreenWidth() / 6, ScreenUtils.getScreenWidth() / 6).into(iv_status);
                                 break;
                         }
-                        //退款状态：-2=拒绝退款，-1=退款失败，0=退款申请中，1=退款成功
-                        switch (runnerInfo.getData().getRefundStatus()) {
-                            case 0:
+                        //支付押金状态：0=未支付,1=已支付,2=退款中，3=已退款
+                        switch (runnerInfo.getData().getPayStatus()) {
+                            case 2:
                                 Glide.with(RenzhengStatusActivity.this).load(R.drawable.run_tuikuanzhong).into(iv_status);
                                 bt_sub.setText("正在申请退款");
                                 bt_sub.setClickable(false);

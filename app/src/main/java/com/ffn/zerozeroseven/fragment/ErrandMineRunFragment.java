@@ -127,8 +127,8 @@ public class ErrandMineRunFragment extends BaseFragment {
             public void onSuccLoad(String response) {
                 RunnerCountInfo runnerCountInfo = JSON.parseObject(response, RunnerCountInfo.class);
                 if (runnerCountInfo.getCode() == 0) {
-                    tv_running_count.setText(String.valueOf(runnerCountInfo.getData().getReceiveOrderCount()));
-                    tv_runfinishcount.setText(String.valueOf(runnerCountInfo.getData().getHaveOrderCount()));
+                    tv_running_count.setText(String.valueOf(runnerCountInfo.getData().getHaveOrderCount()));
+                    tv_runfinishcount.setText(String.valueOf(runnerCountInfo.getData().getReceiveOrderCount()));
                     tv_runmoney.setText(runnerCountInfo.getData().getIncome() + "元");
                 } else {
                     ToastUtils.showShort(runnerCountInfo.getMessage());
@@ -191,6 +191,12 @@ public class ErrandMineRunFragment extends BaseFragment {
                 runnerInfo = JSON.parseObject(response, RunnerInfo.class);
                 if (runnerInfo.getCode() == 0) {
                     if (runnerInfo.getData() != null && !TextUtils.isEmpty(runnerInfo.getData().getPhone())) {
+                        //支付押金状态：0=未支付,1=已支付,2=退款中，3=已退款
+                        if (runnerInfo.getData().getPayStatus() == 3) {
+                            ll_audit.setVisibility(View.VISIBLE);
+                            ll_verifile.setVisibility(View.GONE);
+                            return;
+                        }
                         ll_audit.setVisibility(View.GONE);
                         ll_verifile.setVisibility(View.VISIBLE);
                         Glide.with(bfCxt).load(runnerInfo.getData().getAvatar()).override(ScreenUtils.getScreenWidth() / 6, ScreenUtils.getScreenWidth() / 6).into(clv_icon);
@@ -285,9 +291,9 @@ public class ErrandMineRunFragment extends BaseFragment {
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandAuitActivity.class);
                 break;
             case R.id.ll_verifile:
-                //退款状态：-2=拒绝退款，-1=退款失败，0=退款申请中，1=退款成功
-                switch (runnerInfo.getData().getRefundStatus()) {
-                    case 1:
+                //支付押金状态：0=未支付,1=已支付,2=退款中，3=已退款
+                switch (runnerInfo.getData().getPayStatus()) {
+                    case 3:
                         ZeroZeroSevenUtils.SwitchActivity(bfCxt, ErrandAuitActivity.class);
                         break;
                     default:
