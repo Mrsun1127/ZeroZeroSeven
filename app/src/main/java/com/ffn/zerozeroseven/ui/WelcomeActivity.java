@@ -25,13 +25,11 @@ import java.util.List;
 
 
 /*
-* WelcomeActivity 引导页
-* @author archerlee
-* @time 16/7/6 15:33
-*/
+ * WelcomeActivity 引导页
+ * @author archerlee
+ * @time 16/7/6 15:33
+ */
 public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeListener {
-
-
 
 
     private int[] images;
@@ -59,17 +57,18 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
                 SharedPreferences.Editor editor = shared.edit();
                 editor.putBoolean("First", false);
                 editor.apply();
-                ZeroZeroSevenUtils.SwitchActivity(WelcomeActivity.this,LoginActivity.class);
+                ZeroZeroSevenUtils.SwitchActivity(WelcomeActivity.this, LoginActivity.class);
                 finish();
             }
         });
         // 设置引导图片
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  仅需在这设置图片 指示器和page自动添加
         images = new int[]{R.drawable.lead_one, R.drawable.lead_two,
-                R.drawable.lead_three};
+                R.drawable.lead_three, R.drawable.lead_four};
         initData();
         requestSomePermission();
     }
+
     private void requestSomePermission() {
 
         // 先判断是否有权限。
@@ -81,10 +80,11 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
             // 申请权限。
             AndPermission.with(WelcomeActivity.this)
                     .requestCode(100)
-                    .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CAMERA)
+                    .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA)
                     .send();
         }
     }
+
     private void initData() {
         views = new ArrayList<>();
         indicators = new ImageView[images.length]; // 定义指示器数组大小
@@ -110,13 +110,11 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
 
-
-
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
+
     @Override
     public void onPageSelected(int position) {
         // 显示最后一个图片时显示按钮

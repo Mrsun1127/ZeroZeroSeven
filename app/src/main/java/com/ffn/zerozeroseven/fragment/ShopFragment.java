@@ -109,7 +109,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                     Glide.with(bfCxt).load(shangChangShowInfo.getData().getBackground()).override(10, 10).into(iv_in_bg);
                     tv_name.setText(shangChangShowInfo.getData().getStoreName());
                     if (shangChangShowInfo.getData().getStoreBusiTimes() != null && shangChangShowInfo.getData().getStoreBusiTimes().size() > 1) {
-                        tv_yysj.setText(shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime() );
+                        tv_yysj.setText(shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime());
                         tv_yysj2.setText(shangChangShowInfo.getData().getStoreBusiTimes().get(1).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getClosingTime());
                     } else {
                         tv_yysj.setText(shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime());
@@ -211,6 +211,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                     goodsTypesBean.setName("全部");
                     goodsTypesBean.setIcon(AppConfig.SHOP_ALL);
                     showInfo.getData().getGoodsTypes().add(0, goodsTypesBean);
+                    titleAdapter.cleanDates();
                     titleAdapter.addAll(showInfo.getData().getGoodsTypes());
                     int length = showInfo.getData().getGoodsTypes().size();
                     for (int i = 0; i < length; i++) {

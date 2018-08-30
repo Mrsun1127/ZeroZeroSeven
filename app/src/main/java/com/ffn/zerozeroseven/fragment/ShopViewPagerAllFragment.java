@@ -103,7 +103,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                 GoodsContentShowInfo.DataBean.ProductsBean item = adapter.getItem(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("shopInfo", item);
-                bundle.putString("type","shop");
+                bundle.putString("type", "shop");
                 ZeroZeroSevenUtils.SwitchActivity(getContext(), ShopDetilsActivity.class, bundle);
             }
         });
@@ -312,16 +312,14 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                             userInfo.setSmallRmb(shangChangShowInfo.getData().getDeliveryPrice());
                             SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
                             requestShop();
-                            if (shangChangShowInfo.getData().isIsClosing()) {
-                                if (shangChangShowInfo.getData().getOpeningTime().equals(shangChangShowInfo.getData().getClosingTime()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime2()) && shangChangShowInfo.getData().getOpeningTime2().equals(shangChangShowInfo.getData().getClosingTime())) {
-                                    ZeroZeroSevenUtils.showSleepPop(bfCxt, "打烊一天", rl_no_select);
-                                } else {
-                                    ZeroZeroSevenUtils.showSleepPop(bfCxt, "\t\t营业时间" + "\n" + shangChangShowInfo.getData().getOpeningTime() + "--" + shangChangShowInfo.getData().getClosingTime() + "\n" + shangChangShowInfo.getData().getOpeningTime2() + "--" + shangChangShowInfo.getData().getClosingTime2(), rl_no_select);
-                                }
+                            if (shangChangShowInfo.getData().isIsClosing() && shangChangShowInfo.getData().getStoreBusiTimes() != null && shangChangShowInfo.getData().getStoreBusiTimes().size() > 1) {
+                                ZeroZeroSevenUtils.showSleepPop(bfCxt, "\t\t营业时间" + "\n" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime() + "\n" + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getClosingTime(), rl_no_select);
+                            } else {
+                                ZeroZeroSevenUtils.showSleepPop(bfCxt, "小店正在打烊中", rl_no_select);
                             }
 
 
-                        }else{
+                        } else {
                             showErrorLayout(StateLayout.noData);
                         }
                     }
