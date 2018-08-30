@@ -100,18 +100,19 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
             public void onSuccLoad(String response) {
                 ShangChangShowInfo shangChangShowInfo = JSON.parseObject(response, ShangChangShowInfo.class);
                 if (shangChangShowInfo.getCode() == 0) {
-                    tv_name.setText(shangChangShowInfo.getData().getStoreName());
-                    if (shangChangShowInfo.getData().getStoreBusiTimes() != null && shangChangShowInfo.getData().getStoreBusiTimes().size() > 1) {
-                        tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime() + " " + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getClosingTime());
-                    } else {
-                        tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime());
-                    }
                     tv_qisongfei.setText("起送：￥" + shangChangShowInfo.getData().getDeliveryPrice());
                     tv_paotuifei.setText("跑腿费：￥" + shangChangShowInfo.getData().getExtraFee());
                     tv_shop_phone.setText("客服电话：" + shangChangShowInfo.getData().getServicePhone());
                     tv_desc.setText(TextUtils.isEmpty(shangChangShowInfo.getData().getPromotion()) ? "下单有惊喜" : shangChangShowInfo.getData().getPromotion());
                     Glide.with(bfCxt).load(shangChangShowInfo.getData().getLogo()).into(iv_icon);
                     Glide.with(bfCxt).load(shangChangShowInfo.getData().getBackground()).override(10, 10).into(iv_in_bg);
+                    tv_name.setText(shangChangShowInfo.getData().getStoreName());
+                    if (shangChangShowInfo.getData().getStoreBusiTimes() != null && shangChangShowInfo.getData().getStoreBusiTimes().size() > 1) {
+                        tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime() + " " + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getClosingTime());
+                    } else {
+                        tv_yysj.setText("营业时间：" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime());
+                    }
+
                 }
             }
         });
