@@ -187,7 +187,7 @@ public class FoodViewPagerAllFragment extends BaseFragment implements BGARefresh
                                     break;
                                 case PULL_DOWN:
                                     if (products.size() == 0) {
-                                        UiTipUtil.showToast(bfCxt, R.string.no_more_data);
+                                        ToastUtils.showShort("没有更多数据了");
                                     } else {
                                         adapter.addAll(products);
                                         adapter.setRunMoneyAndStoreId(runMoney, storeId);
@@ -258,7 +258,7 @@ public class FoodViewPagerAllFragment extends BaseFragment implements BGARefresh
                                     break;
                                 case PULL_DOWN:
                                     if (products.size() == 0) {
-                                        UiTipUtil.showToast(bfCxt, R.string.no_more_data);
+                                        ToastUtils.showShort("没有更多数据了");
                                     } else {
                                         adapter.clear();
                                         adapter.addAll(products);
@@ -378,7 +378,7 @@ public class FoodViewPagerAllFragment extends BaseFragment implements BGARefresh
             commonRecyclerView.post(new Runnable() {
                 @Override
                 public void run() {
-                    UiTipUtil.showToast(bfCxt, R.string.check_phone_net);
+                    ToastUtils.showShort("请检查网络");
                     commonRefreshLayout.endRefreshing();
                 }
             });
@@ -395,7 +395,7 @@ public class FoodViewPagerAllFragment extends BaseFragment implements BGARefresh
             commonRecyclerView.post(new Runnable() {
                 @Override
                 public void run() {
-                    ToastUtils.showShort(R.string.check_phone_net + "");
+                    ToastUtils.showShort("请检查网络");
                     commonRefreshLayout.endLoadingMore();
                 }
             });

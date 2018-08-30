@@ -182,7 +182,7 @@ public class FoodViewPagerFragment extends BaseFragment implements BGARefreshLay
                                     break;
                                 case PULL_DOWN:
                                     if (products.size() == 0) {
-                                        UiTipUtil.showToast(bfCxt, R.string.no_more_data);
+                                        ToastUtils.showShort("没有更多数据了");
                                     } else {
                                         adapter.addAll(products);
                                     }
@@ -308,7 +308,7 @@ public class FoodViewPagerFragment extends BaseFragment implements BGARefreshLay
             commonRecyclerView.post(new Runnable() {
                 @Override
                 public void run() {
-                    UiTipUtil.showToast(bfCxt, R.string.check_phone_net);
+                    ToastUtils.showShort("请检查网络");
                     commonRefreshLayout.endRefreshing();
                 }
             });
