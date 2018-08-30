@@ -114,7 +114,6 @@ public class SeachSchoolListActivity extends BaseActivity {
                     userInfo.setSchoolId(adapter.getItem(position).getId() + "");
                     BaseAppApplication.getInstance().setLoginUser(userInfo);
                     SharePrefUtils.saveObject(SeachSchoolListActivity.this,"userInfo",userInfo);
-                    SharePrefUtils.setInt(SeachSchoolListActivity.this, "isLocation", 1);
                     SharePrefUtils.saveObject(SeachSchoolListActivity.this, "carShopInfo",null);
                     SearchSchoolActivity.inStance.get().finish();
                     finish();

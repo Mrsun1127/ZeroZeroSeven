@@ -151,7 +151,6 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                     userInfo.setSchoolId(schoolListAdapter.getItem(position).getId() + "");
                     BaseAppApplication.getInstance().setLoginUser(userInfo);
                     SharePrefUtils.saveObject(SearchSchoolActivity.this, "userInfo", userInfo);
-                    SharePrefUtils.setInt(SearchSchoolActivity.this, "isLocation", 1);
                     SharePrefUtils.saveObject(SearchSchoolActivity.this, "carShopInfo", null);
                     finish();
                     MainFragment.mInstance.get().reQuest();
