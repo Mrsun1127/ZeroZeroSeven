@@ -165,7 +165,7 @@ public class ErrandRenzhen1Fragment extends BaseFragment implements ActionSheet.
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        ToastUtils.showShort("服务器正忙");
+                        ToastUtils.showShort("图片太大，请选择尺寸合适的图片");
                     }
 
                     @Override

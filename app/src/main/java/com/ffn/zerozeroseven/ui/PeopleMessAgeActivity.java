@@ -199,7 +199,7 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
                     .execute(new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
-                            ZeroZeroSevenUtils.showCustonPop(PeopleMessAgeActivity.this, "服务器正忙，请稍后再试", iv_photo);
+                            ZeroZeroSevenUtils.showCustonPop(PeopleMessAgeActivity.this, "图片太大，请选择尺寸合适的图片", iv_photo);
                         }
 
                         @Override
