@@ -15,6 +15,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.RRunnerMoneyInfo;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 import butterknife.Bind;
@@ -60,7 +61,9 @@ public class ErrandRenzhen2Fragment extends BaseFragment {
                     }
                     bundle.putString("pay", "renzheng");
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, PayMoneyNewActivity.class, bundle);
+                    return;
                 }
+                ToastUtils.showShort("请同意认证协议");
                 break;
 
         }
