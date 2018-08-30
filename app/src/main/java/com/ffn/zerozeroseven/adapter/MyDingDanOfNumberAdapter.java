@@ -42,7 +42,7 @@ public class MyDingDanOfNumberAdapter extends BaseRecyclerAdapter<NumberDingDanI
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final NumberDingDanInfo.DataBean.ListBean info, final int position) {
         final MViewHolder mHolder = (MViewHolder) holder;
 
-        mHolder.tv_desc.setText("共" + info.getGoodsCount() + "件商品 合计：￥" + info.getOrderPrice() + "(预约金:"+info.getDepositFee()+" 尾款："+(info.getOrderPrice()-info.getDepositFee()+")"));
+        mHolder.tv_desc.setText("共" + info.getGoodsCount() + "件商品 合计：￥" + info.getOrderPrice() + "(预约金:￥"+info.getDepositFee()+" 尾款：￥"+(info.getOrderPrice()-info.getDepositFee()+")"));
         mHolder.tv_time.setText(info.getCreateTime());
         ItemNumberDingDanAdapter itemNumberDingDanAdapter = new ItemNumberDingDanAdapter(mContext);
         mHolder.rc_product.setAdapter(itemNumberDingDanAdapter);

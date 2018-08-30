@@ -38,8 +38,8 @@ public class ItemNumberDingDanAdapter extends BaseRecyclerAdapter<NumberDingDanI
         mHolder.tv_name.setText(info.getGoodsName());
         mHolder.tv_count.setText("x" + info.getGoodsCount());
         mHolder.tv_desc.setText(info.getSpecKeyName());
-        mHolder.tv_price.setText(String.valueOf(info.getShopPrice()));
-        mHolder.tv_oldprice.setText(String.valueOf(info.getMarketPrice()));
+        mHolder.tv_price.setText("￥"+String.valueOf(info.getShopPrice()));
+        mHolder.tv_oldprice.setText("￥"+String.valueOf(info.getMarketPrice()));
     }
 
     private class MViewHolder extends RecyclerView.ViewHolder {

@@ -9,15 +9,13 @@
             android:id="@+id/iv_product"
             android:layout_width="84dp"
             android:layout_height="84dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
              />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="80dp"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -39,10 +37,8 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="69dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="9dp"
-            android:layout_marginRight="9dp"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
