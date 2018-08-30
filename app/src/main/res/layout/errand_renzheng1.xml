@@ -106,6 +106,8 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:hint="填写身份证号码"
+                    android:inputType="number"
+                    android:digits="0123456789xyzXYZ"
                     android:paddingLeft="12dp"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
@@ -168,11 +170,11 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:gravity="center_vertical"
                     android:id="@+id/tv_phone"
                     android:layout_width="250dp"
                     android:layout_height="match_parent"
                     android:background="@null"
+                    android:gravity="center_vertical"
                     android:paddingLeft="12dp"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
@@ -189,7 +191,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:background="@color/nobg" />
-
 
 
             <View
