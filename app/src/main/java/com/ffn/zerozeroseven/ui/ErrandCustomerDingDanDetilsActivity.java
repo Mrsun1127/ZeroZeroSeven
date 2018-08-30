@@ -22,6 +22,8 @@ import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
 import com.ffn.zerozeroseven.view.TopView;
 
+import java.lang.ref.WeakReference;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -30,6 +32,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
     @Bind(R.id.topView)
     TopView topView;
     private String orderNo;
+    public static WeakReference<ErrandCustomerDingDanDetilsActivity> mIntance;
 
     @Override
     protected int setLayout() {
@@ -40,6 +43,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
     public void initView() {
 
         ButterKnife.bind(this);
+        mIntance = new WeakReference<>(this);
         topView.setTopText("跑腿详情");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
@@ -159,7 +163,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
         }
     }
 
-    private void requestOrder(String orderNo) {
+    public void requestOrder(String orderNo) {
         RrmineRunDetilsInfo rrmineRunDetilsInfo = new RrmineRunDetilsInfo();
         rrmineRunDetilsInfo.setFunctionName("QueryErrandOrder");
         RrmineRunDetilsInfo.ParametersBean parametersBean = new RrmineRunDetilsInfo.ParametersBean();

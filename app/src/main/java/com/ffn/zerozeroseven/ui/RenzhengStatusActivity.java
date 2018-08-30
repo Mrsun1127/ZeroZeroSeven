@@ -109,7 +109,7 @@ public class RenzhengStatusActivity extends BaseActivity {
                                 break;
                             case -1:
                                 tv_refuse.setVisibility(View.VISIBLE);
-                                tv_refuse.setText(runnerInfo.getData().getRefuseReason());
+                                tv_refuse.setText("您的申请失败："+runnerInfo.getData().getRefuseReason());
                                 bt_sub.setText("申请退款");
                                 break;
                             case 0:

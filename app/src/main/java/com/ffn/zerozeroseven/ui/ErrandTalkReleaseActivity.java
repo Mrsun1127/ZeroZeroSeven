@@ -122,9 +122,9 @@ public class ErrandTalkReleaseActivity extends BaseActivity {
         parametersBean.setUserPhone(userInfo.getPhone());
         parametersBean.setOrderNo(orderNo);
         parametersBean.setServiceEvaluation(fuwupingjia);//服务评价：吐槽，满意，超赞
-        parametersBean.setSpeedStarCount((int)sudu.getRating());//跑腿速度星星数
-        parametersBean.setServiceStarCount((int)taidu.getRating());//服务态度星星数
-        parametersBean.setCompleteStarCount((int)wanzheng.getRating());//货物完整星星数
+        parametersBean.setSpeedStarCount((int) sudu.getRating());//跑腿速度星星数
+        parametersBean.setServiceStarCount((int) taidu.getRating());//服务态度星星数
+        parametersBean.setCompleteStarCount((int) wanzheng.getRating());//货物完整星星数
         if (!TextUtils.isEmpty(et_wenzi.getText().toString().trim())) {
             parametersBean.setRemark(et_wenzi.getText().toString().trim());//文字评价
         }
@@ -137,6 +137,7 @@ public class ErrandTalkReleaseActivity extends BaseActivity {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
                     ToastUtils.showShort("评价成功");
+                    ErrandCustomerDingDanDetilsActivity.mIntance.get().requestOrder(orderNo);
                     finish();
                 }
             }
