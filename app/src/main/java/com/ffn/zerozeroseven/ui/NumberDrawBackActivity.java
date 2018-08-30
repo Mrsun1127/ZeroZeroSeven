@@ -115,7 +115,7 @@ public class NumberDrawBackActivity extends BaseActivity {
 
     private void tuiKuan() {
         TuiKuanInfo tuiKuanInfo = new TuiKuanInfo();
-        tuiKuanInfo.setFunctionName("AddDigitalGoodsRefundApply");
+        tuiKuanInfo.setFunctionName("DigitalGoodsRefund");
         TuiKuanInfo.ParametersBean parametersBean = new TuiKuanInfo.ParametersBean();
         parametersBean.setOrderId(String.valueOf(numberDingDanInfo.getId()));
         parametersBean.setReason(showReason.toString());

@@ -195,8 +195,7 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                     switch (runnerDingDanDetilsInfo.getData().getOrderStatus()) {
                         case 0:
                             tv_status.setText("等待跑腿接单");
-                            tv_frist.setVisibility(View.VISIBLE);
-                            tv_frist.setText("5分钟未接单，系统将自动为您取消订单");
+                            tv_frist.setVisibility(View.GONE);
                             bt_left.setText("取消订单");
                             bt_right.setText("再来一单");
                             break;
@@ -218,11 +217,12 @@ public class ErrandCustomerDingDanDetilsActivity extends BaseActivity {
                             break;
                         case 3:
                             tv_status.setText("订单已完成");
-                            if(runnerDingDanDetilsInfo.getData().getIsComment()==0){
+                            if (runnerDingDanDetilsInfo.getData().getIsComment() == 0) {
                                 bt_left.setText("去评价");
-                            }else{
+                            } else {
                                 bt_left.setVisibility(View.GONE);
                             }
+
                             bt_right.setText("再来一单");
                             ll_runner.setVisibility(View.VISIBLE);
                             tv_runneerMan.setText(runnerDingDanDetilsInfo.getData().getRealName());
