@@ -101,7 +101,7 @@ public class VipActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        api = WXAPIFactory.createWXAPI(this, "wx189141e4085fa0d1", false);
+        api = WXAPIFactory.createWXAPI(getApplicationContext(), "wx189141e4085fa0d1", false);
         api.registerApp("wx189141e4085fa0d1");
 
         isPaySupported = api.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
@@ -140,21 +140,20 @@ public class VipActivity extends BaseActivity {
             public void onSuccLoad(String response) {
                 chanpinInfo = JSON.parseObject(response, ChanpinInfo.class);
 
-                        if (chanpinInfo.getCode() == 0) {
-                            tv_level1.setText(chanpinInfo.getData().getProducts().get(0).getPrice() + "元");
-                            tv_level2.setText(chanpinInfo.getData().getProducts().get(1).getPrice() + "元");
-                            tv_remark1.setText(chanpinInfo.getData().getProducts().get(0).getRemark());
-                            tv_remark2.setText(chanpinInfo.getData().getProducts().get(1).getRemark());
-                            tv_name1.setText(chanpinInfo.getData().getProducts().get(0).getName());
-                            tv_name2.setText(chanpinInfo.getData().getProducts().get(0).getName());
-                        } else {
-                            rl_one.setVisibility(View.GONE);
-                            rl_two.setVisibility(View.GONE);
-                            ToastUtils.showShort(chanpinInfo.getMessage());
-                        }
-                    }
-                });
-
+                if (chanpinInfo.getCode() == 0) {
+                    tv_level1.setText(chanpinInfo.getData().getProducts().get(0).getPrice() + "元");
+                    tv_level2.setText(chanpinInfo.getData().getProducts().get(1).getPrice() + "元");
+                    tv_remark1.setText(chanpinInfo.getData().getProducts().get(0).getRemark());
+                    tv_remark2.setText(chanpinInfo.getData().getProducts().get(1).getRemark());
+                    tv_name1.setText(chanpinInfo.getData().getProducts().get(0).getName());
+                    tv_name2.setText(chanpinInfo.getData().getProducts().get(0).getName());
+                } else {
+                    rl_one.setVisibility(View.GONE);
+                    rl_two.setVisibility(View.GONE);
+                    ToastUtils.showShort(chanpinInfo.getMessage());
+                }
+            }
+        });
 
 
     }
@@ -249,14 +248,14 @@ public class VipActivity extends BaseActivity {
             public void onSuccLoad(String response) {
                 final ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
 
-                        if (errorCodeInfo.getCode() == 0) {
-                            ToastUtils.showShort("提现成功");
-                            refreshUserInfo();
-                        } else {
-                            ToastUtils.showShort(errorCodeInfo.getMessage());
-                        }
-                    }
-                });
+                if (errorCodeInfo.getCode() == 0) {
+                    ToastUtils.showShort("提现成功");
+                    refreshUserInfo();
+                } else {
+                    ToastUtils.showShort(errorCodeInfo.getMessage());
+                }
+            }
+        });
 
     }
 
@@ -303,18 +302,18 @@ public class VipActivity extends BaseActivity {
             public void onSuccLoad(String response) {
                 final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response, CommitDingDanInfo.class);
 
-                       if (commitDingDanInfo.getCode() == 0) {
-                           mZFbutils.pay(commitDingDanInfo.getData().getBody(), "");
-                       } else {
-                           ZeroZeroSevenUtils.showCustonPop(VipActivity.this, commitDingDanInfo.getMessage(), et_money);
-                       }
-                   }
-               });
+                if (commitDingDanInfo.getCode() == 0) {
+                    mZFbutils.pay(commitDingDanInfo.getData().getBody(), "");
+                } else {
+                    ZeroZeroSevenUtils.showCustonPop(VipActivity.this, commitDingDanInfo.getMessage(), et_money);
+                }
+            }
+        });
 
     }
 
     private boolean isPaySupported;//判断是否支持微信支付
-    private static IWXAPI api;
+    private IWXAPI api;
 
     private void wechatPay() {
         CallNewDingDanInfo callNewDingDanInfo = new CallNewDingDanInfo();
@@ -330,21 +329,21 @@ public class VipActivity extends BaseActivity {
             public void onSuccLoad(String response) {
                 final ChongZhiInfo chongZhiInfo = JSON.parseObject(response, ChongZhiInfo.class);
 
-                        if (chongZhiInfo.getCode() == 0) {
-                            PayReq req = new PayReq();
-                            req.appId = chongZhiInfo.getData().getAppid();
-                            req.partnerId = chongZhiInfo.getData().getPartnerid();
-                            req.prepayId = chongZhiInfo.getData().getPrepayid();
-                            req.nonceStr = chongZhiInfo.getData().getNoncestr();
-                            req.timeStamp = chongZhiInfo.getData().getTimestamp();
-                            req.packageValue = "Sign=WXPay";
-                            req.sign = chongZhiInfo.getData().getSign();
-                            api.sendReq(req);
-                        } else {
-                            ZeroZeroSevenUtils.showCustonPop(VipActivity.this, chongZhiInfo.getMessage(), et_money);
-                        }
-                    }
-                });
+                if (chongZhiInfo.getCode() == 0) {
+                    PayReq req = new PayReq();
+                    req.appId = chongZhiInfo.getData().getAppid();
+                    req.partnerId = chongZhiInfo.getData().getPartnerid();
+                    req.prepayId = chongZhiInfo.getData().getPrepayid();
+                    req.nonceStr = chongZhiInfo.getData().getNoncestr();
+                    req.timeStamp = chongZhiInfo.getData().getTimestamp();
+                    req.packageValue = "Sign=WXPay";
+                    req.sign = chongZhiInfo.getData().getSign();
+                    api.sendReq(req);
+                } else {
+                    ZeroZeroSevenUtils.showCustonPop(VipActivity.this, chongZhiInfo.getMessage(), et_money);
+                }
+            }
+        });
 
     }
 
@@ -381,13 +380,13 @@ public class VipActivity extends BaseActivity {
             @Override
             public void onSuccLoad(String response) {
                 final CommitDingDanInfo commitDingDanInfo = JSON.parseObject(response, CommitDingDanInfo.class);
-                       if (commitDingDanInfo.getCode() == 0) {
-                           mZFbutils.pay(commitDingDanInfo.getData().getBody(), "");
-                       } else {
-                           ZeroZeroSevenUtils.showCustonPop(VipActivity.this, commitDingDanInfo.getMessage(), et_money);
-                       }
-                   }
-               });
+                if (commitDingDanInfo.getCode() == 0) {
+                    mZFbutils.pay(commitDingDanInfo.getData().getBody(), "");
+                } else {
+                    ZeroZeroSevenUtils.showCustonPop(VipActivity.this, commitDingDanInfo.getMessage(), et_money);
+                }
+            }
+        });
 
     }
 
@@ -409,22 +408,21 @@ public class VipActivity extends BaseActivity {
             public void onSuccLoad(String response) {
                 final ChongZhiInfo chongZhiInfo = JSON.parseObject(response, ChongZhiInfo.class);
 
-                       if (chongZhiInfo.getCode() == 0) {
-                           PayReq req = new PayReq();
-                           req.appId = chongZhiInfo.getData().getAppid();
-                           req.partnerId = chongZhiInfo.getData().getPartnerid();
-                           req.prepayId = chongZhiInfo.getData().getPrepayid();
-                           req.nonceStr = chongZhiInfo.getData().getNoncestr();
-                           req.timeStamp = chongZhiInfo.getData().getTimestamp();
-                           req.packageValue = "Sign=WXPay";
-                           req.sign = chongZhiInfo.getData().getSign();
-                           api.sendReq(req);
-                       } else {
-                           ToastUtils.showShort(chongZhiInfo.getMessage());
-                       }
-                   }
-               });
-
+                if (chongZhiInfo.getCode() == 0) {
+                    PayReq req = new PayReq();
+                    req.appId = chongZhiInfo.getData().getAppid();
+                    req.partnerId = chongZhiInfo.getData().getPartnerid();
+                    req.prepayId = chongZhiInfo.getData().getPrepayid();
+                    req.nonceStr = chongZhiInfo.getData().getNoncestr();
+                    req.timeStamp = chongZhiInfo.getData().getTimestamp();
+                    req.packageValue = "Sign=WXPay";
+                    req.sign = chongZhiInfo.getData().getSign();
+                    api.sendReq(req);
+                } else {
+                    ToastUtils.showShort(chongZhiInfo.getMessage());
+                }
+            }
+        });
 
 
     }
@@ -448,29 +446,27 @@ public class VipActivity extends BaseActivity {
             public void onSuccLoad(String response) {
                 final ReFreShUserInfo reFreShUserInfo = JSON.parseObject(response, ReFreShUserInfo.class);
 
-                        if (reFreShUserInfo.getCode() == 0) {
-                            ReFreShUserInfo.DataBean.UserBean user = reFreShUserInfo.getData().getUser();
-                            if (!TextUtils.isEmpty(user.getAvatar())) {
-                                Glide.with(VipActivity.this)
-                                        .load(user.getAvatar())
-                                        .into(iv_icon);
-                            }
-                            tv_phone.setText(user.getPhone());
-                            tv_money.setText("余额:" + user.getBalance() + "元");
-                            tv_paymoney.setText(user.getBalance() + "元");
-                            tv_getmoney.setText(user.getIncome() + "元");
-                            if (user.getIsMember() == 1) {
-                                iv_vip.setVisibility(View.VISIBLE);
-                            } else {
-                                iv_vip.setVisibility(View.GONE);
-                            }
-                        } else {
-                            finish();
-                        }
+                if (reFreShUserInfo.getCode() == 0) {
+                    ReFreShUserInfo.DataBean.UserBean user = reFreShUserInfo.getData().getUser();
+                    if (!TextUtils.isEmpty(user.getAvatar())) {
+                        Glide.with(VipActivity.this)
+                                .load(user.getAvatar())
+                                .into(iv_icon);
                     }
-                });
-
-
+                    tv_phone.setText(user.getPhone());
+                    tv_money.setText("余额:" + user.getBalance() + "元");
+                    tv_paymoney.setText(user.getBalance() + "元");
+                    tv_getmoney.setText(user.getIncome() + "元");
+                    if (user.getIsMember() == 1) {
+                        iv_vip.setVisibility(View.VISIBLE);
+                    } else {
+                        iv_vip.setVisibility(View.GONE);
+                    }
+                } else {
+                    finish();
+                }
+            }
+        });
 
 
     }
@@ -478,7 +474,7 @@ public class VipActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(api!=null){
+        if (api != null) {
             api.unregisterApp();
             api = null;
         }
