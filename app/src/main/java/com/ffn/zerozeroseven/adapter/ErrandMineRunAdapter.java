@@ -10,6 +10,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.NumberLevelInfo;
 import com.ffn.zerozeroseven.bean.RunnerListInfo;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 
 import cn.iwgang.countdownview.CountdownView;
 
@@ -34,11 +35,11 @@ public class ErrandMineRunAdapter extends BaseRecyclerAdapter<RunnerListInfo.Dat
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_time.setText(item.getCreateTime());
         mHolder.tv_type.setText(item.getGoodsType());
-        mHolder.tv_money.setText(String.valueOf(item.getErrandIncome())+"元");
+        mHolder.tv_money.setText(String.valueOf(item.getErrandIncome()) + "元");
         mHolder.tv_letadr.setText(item.getDeliveryAddress());
         mHolder.tv_getadr.setText(item.getReceiverAddress());
-        mHolder.tv_letinfo.setText(item.getDeliveryName() + item.getDeliveryPhone());
-        mHolder.tv_getinfo.setText(item.getReceiverName() + item.getReceiverPhone());
+        mHolder.tv_letinfo.setText(item.getDeliveryName().substring(0, 1) + "*" + ZeroZeroSevenUtils.phoneClose(item.getDeliveryPhone()));
+        mHolder.tv_getinfo.setText(item.getReceiverName().substring(0, 1) + "*" + ZeroZeroSevenUtils.phoneClose(item.getReceiverPhone()));
     }
 
 

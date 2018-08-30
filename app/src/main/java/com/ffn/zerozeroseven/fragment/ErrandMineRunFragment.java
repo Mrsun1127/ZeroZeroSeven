@@ -235,8 +235,8 @@ public class ErrandMineRunFragment extends BaseFragment {
         tv_money.setText(String.valueOf(ordersBean.getErrandIncome()));
         tv_letadr.setText(ordersBean.getDeliveryAddress());
         tv_getadr.setText(ordersBean.getReceiverAddress());
-        tv_letinfo.setText(ordersBean.getDeliveryName() + "  " + ordersBean.getDeliveryPhone());
-        tv_getinfo.setText(ordersBean.getReceiverName() + "  " + ordersBean.getReceiverPhone());
+        tv_letinfo.setText(ordersBean.getDeliveryName().substring(0,1)+"*" + "  " + ZeroZeroSevenUtils.phoneClose(ordersBean.getDeliveryPhone()));
+        tv_getinfo.setText(ordersBean.getReceiverName().substring(0,1)+"*"+ "  " + ZeroZeroSevenUtils.phoneClose(ordersBean.getReceiverPhone()));
 
         bt_left.setOnClickListener(new View.OnClickListener() {// 在相册中选取
             @Override
