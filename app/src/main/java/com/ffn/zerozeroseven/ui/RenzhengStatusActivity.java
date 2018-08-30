@@ -29,6 +29,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RenzhengStatusActivity extends BaseActivity {
     @Bind(R.id.topView)
     TopView topView;
+    @Bind(R.id.tv_refuse)
+    TextView tv_refuse;
     public static WeakReference<RenzhengStatusActivity> mInstance;
     private RunnerInfo runnerInfo;
 
@@ -104,6 +106,8 @@ public class RenzhengStatusActivity extends BaseActivity {
                                 bt_sub.setVisibility(View.GONE);
                                 break;
                             case -1:
+                                tv_refuse.setVisibility(View.VISIBLE);
+                                tv_refuse.setText(runnerInfo.getData().getRefuseReason());
                                 bt_sub.setText("申请退款");
                                 break;
                             case 0:
@@ -134,7 +138,7 @@ public class RenzhengStatusActivity extends BaseActivity {
             case R.id.bt_sub:
                 Bundle bundle = new Bundle();
                 bundle.putString("money", runnerInfo.getData().getDepositFee());
-                ZeroZeroSevenUtils.SwitchActivity(RenzhengStatusActivity.this, RunnerTuiKuanActivity.class,bundle);
+                ZeroZeroSevenUtils.SwitchActivity(RenzhengStatusActivity.this, RunnerTuiKuanActivity.class, bundle);
                 break;
 
         }
