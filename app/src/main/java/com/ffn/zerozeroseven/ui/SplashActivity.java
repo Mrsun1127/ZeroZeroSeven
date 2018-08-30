@@ -41,43 +41,37 @@ public class SplashActivity extends AppCompatActivity {
         foodcarShopInfo = (CarShopInfo) SharePrefUtils.readObject(SplashActivity.this, "foodcarShopInfo");
         leasecarShopInfo = (CarShopInfo) SharePrefUtils.readObject(SplashActivity.this, "leasecarShopInfo");
         numberRicalInfo = (NumberRicalInfo) SharePrefUtils.readObject(SplashActivity.this, "numberRicalInfo");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                shared = getSharedPreferences("lead", Context.MODE_PRIVATE);
-                // 如果网络可用则判断是否第一次进入，如果是第一次则进入欢迎界面
-                first = shared.getBoolean("First", true);
-                if (first) {
-                    ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, WelcomeActivity.class);
-                    finish();
-                } else {
-                    if (userInfo != null) {
-                        BaseAppApplication.getInstance().setLoginUser(userInfo);
-                        BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
-                        BaseAppApplication.getInstance().setFoodcarShopInfo(foodcarShopInfo);
-                        BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
-                        BaseAppApplication.getInstance().setLeasecarShopInfo(leasecarShopInfo);
-                        if (!TextUtils.isEmpty(userInfo.getDowmPoster())) {
-                            Bundle bundle = new Bundle();
-                            bundle.putString("imgurl", userInfo.getDowmPoster());
-                            ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, AdvertisingActivity.class, bundle);
-                        } else {
-                            ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, HomeActivity.class, null);
-                        }
-                        finish();
-                    } else {
-                        ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, LoginActivity.class, null);
-                        finish();
-                    }
-                }
-
-            }
-        }).start();
+       BaseAppApplication.mainHandler.postDelayed(new Runnable() {
+           @Override
+           public void run() {
+               shared = getSharedPreferences("lead", Context.MODE_PRIVATE);
+               // 如果网络可用则判断是否第一次进入，如果是第一次则进入欢迎界面
+               first = shared.getBoolean("First", true);
+               if (first) {
+                   ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, WelcomeActivity.class);
+                   finish();
+               } else {
+                   if (userInfo != null) {
+                       BaseAppApplication.getInstance().setLoginUser(userInfo);
+                       BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                       BaseAppApplication.getInstance().setFoodcarShopInfo(foodcarShopInfo);
+                       BaseAppApplication.getInstance().setNumberRicalInfo(numberRicalInfo);
+                       BaseAppApplication.getInstance().setLeasecarShopInfo(leasecarShopInfo);
+                       if (!TextUtils.isEmpty(userInfo.getDowmPoster())) {
+                           Bundle bundle = new Bundle();
+                           bundle.putString("imgurl", userInfo.getDowmPoster());
+                           ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, AdvertisingActivity.class, bundle);
+                       } else {
+                           ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, HomeActivity.class, null);
+                       }
+                       finish();
+                   } else {
+                       ZeroZeroSevenUtils.SwitchActivity(SplashActivity.this, LoginActivity.class, null);
+                       finish();
+                   }
+               }
+           }
+       },2000);
     }
 
     @Override
