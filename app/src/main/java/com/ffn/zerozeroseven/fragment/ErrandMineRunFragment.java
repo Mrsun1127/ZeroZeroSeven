@@ -232,7 +232,7 @@ public class ErrandMineRunFragment extends BaseFragment {
         tv_time.setText(ordersBean.getCreateTime());
         tv_picktime.setText(ordersBean.getPickupTime());
         tv_remark.setText(ordersBean.getRemark());
-        tv_money.setText(String.valueOf(ordersBean.getShippingFee()));
+        tv_money.setText(String.valueOf(ordersBean.getErrandIncome()));
         tv_letadr.setText(ordersBean.getDeliveryAddress());
         tv_getadr.setText(ordersBean.getReceiverAddress());
         tv_letinfo.setText(ordersBean.getDeliveryName() + "  " + ordersBean.getDeliveryPhone());
