@@ -151,22 +151,20 @@ public class ErrandMineRunFragment extends BaseFragment {
             public void onSuccLoad(String response) {
                 ErrandHomeActivity.mInstance.get().refreshlayout.finishRefresh();
                 RunnerListInfo runnerListInfo = JSON.parseObject(response, RunnerListInfo.class);
-                if (runnerListInfo.getCode() == 0) {
-                    if (runnerListInfo.getData().getErrandOrders() != null) {
-                        if (runnerListInfo.getData().getErrandOrders().size() > 0) {
-                            recycleview.setVisibility(View.VISIBLE);
-                            common_stateLayout.setVisibility(View.GONE);
-                            errandMineRunAdapter.cleanDates();
-                            errandMineRunAdapter.addAll(runnerListInfo.getData().getErrandOrders());
-                        } else {
-                            recycleview.setVisibility(View.GONE);
-                            errandMineRunAdapter.cleanDates();
-                            showErrorLayout(StateLayout.noData);
-                        }
+                if (runnerListInfo.getCode() == 0 && runnerListInfo.getData().getErrandOrders() != null) {
+                    if (runnerListInfo.getData().getErrandOrders().size() > 0) {
+                        recycleview.setVisibility(View.VISIBLE);
+                        common_stateLayout.setVisibility(View.GONE);
+                        errandMineRunAdapter.cleanDates();
+                        errandMineRunAdapter.addAll(runnerListInfo.getData().getErrandOrders());
                     } else {
                         recycleview.setVisibility(View.GONE);
+                        errandMineRunAdapter.cleanDates();
                         showErrorLayout(StateLayout.noData);
                     }
+                } else {
+                    recycleview.setVisibility(View.GONE);
+                    showErrorLayout(StateLayout.noData);
                 }
             }
         });
