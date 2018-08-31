@@ -56,7 +56,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
     private CityAdapter cityAdapter;
     private RelativeLayout et_top;
     private SchoolListAdapter schoolListAdapter;
-//    public LocationClient mLocationClient = null;
+    //    public LocationClient mLocationClient = null;
     //    private MyLocationListener myListener = new MyLocationListener();
 //    private double latitude;
 //    private double longitude;
@@ -156,6 +156,7 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                     MainFragment.mInstance.get().reQuest();
                     try {
                         ShopFragment.mInstance.get().initTabs();
+                        ShopFragment.mInstance.get().getshangchangInfo();
                     } catch (Exception e) {
 
                     }

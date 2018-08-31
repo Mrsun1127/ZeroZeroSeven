@@ -87,11 +87,11 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     private RecyclerView recycleview;
     private ImageView iv_icon;
 
-    private void getshangchangInfo() {
+    public void getshangchangInfo() {
         final ShangchangInfo shangchangInfo = new ShangchangInfo();
         shangchangInfo.setFunctionName("QuerySchoolStore");
         ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
-        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
+        parametersBean.setSchoolId(Integer.parseInt(BaseAppApplication.getInstance().getLoginUser().getSchoolId()));
         parametersBean.setCate("ZH");
         shangchangInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
@@ -107,7 +107,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                     tv_desc.setText(TextUtils.isEmpty(shangChangShowInfo.getData().getPromotion()) ? "下单有惊喜" : shangChangShowInfo.getData().getPromotion());
                     Glide.with(bfCxt).load(shangChangShowInfo.getData().getLogo()).into(iv_icon);
                     Glide.with(bfCxt).load(shangChangShowInfo.getData().getBackground()).override(10, 10).into(iv_in_bg);
-                    tv_name.setText(shangChangShowInfo.getData().getStoreName());
+                    tv_name.setText(TextUtils.isEmpty(shangChangShowInfo.getData().getStoreName()) ? "暂未开通杂货铺" : shangChangShowInfo.getData().getStoreName());
                     if (shangChangShowInfo.getData().getStoreBusiTimes() != null && shangChangShowInfo.getData().getStoreBusiTimes().size() > 1) {
                         tv_yysj.setText(shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime());
                         tv_yysj2.setText(shangChangShowInfo.getData().getStoreBusiTimes().get(1).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getClosingTime());
@@ -194,7 +194,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         GoodTabsInfo goodTabsInfo = new GoodTabsInfo();
         goodTabsInfo.setFunctionName("ListSchoolGoodsType");
         GoodTabsInfo.ParametersBean parametersBean = new GoodTabsInfo.ParametersBean();
-        parametersBean.setSchoolId(schoolIId);
+        parametersBean.setSchoolId(BaseAppApplication.getInstance().getLoginUser().getSchoolId());
         parametersBean.setCate("ZH");
         goodTabsInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(bfCxt);
@@ -301,14 +301,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         MobclickAgent.onResume(getActivity());
         userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
-            if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
-                if (userInfo.getSchoolName().length() > 7) {
-                    tv_name.setText(userInfo.getSchoolName().substring(0, 6) + "...");
-                } else {
-                    tv_name.setText(userInfo.getSchoolName());
 
-                }
-            }
             notifyCar();
         }
 

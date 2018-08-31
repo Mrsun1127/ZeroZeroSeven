@@ -120,6 +120,7 @@ public class SeachSchoolListActivity extends BaseActivity {
                     MainFragment.mInstance.get().reQuest();
                     try {
                         ShopFragment.mInstance.get().initTabs();
+                        ShopFragment.mInstance.get().getshangchangInfo();
                     } catch (Exception e) {
 
                     }

@@ -147,7 +147,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
         parametersBean.setPageIndex(pageNo);
         parametersBean.setPageSize(8);
         try {
-            parametersBean.setSchoolId(Integer.parseInt(schoolIId));
+            parametersBean.setSchoolId(Integer.parseInt(BaseAppApplication.getInstance().getLoginUser().getSchoolId()));
         } catch (Exception e) {
         }
         listInfo.setParameters(parametersBean);
@@ -206,7 +206,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
         ShangchangInfo shangchangInfo = new ShangchangInfo();
         shangchangInfo.setFunctionName("QuerySchoolStore");
         ShangchangInfo.ParametersBean parametersBean = new ShangchangInfo.ParametersBean();
-        parametersBean.setSchoolId(Integer.parseInt(schoolIId));
+        parametersBean.setSchoolId(Integer.parseInt(BaseAppApplication.getInstance().getLoginUser().getSchoolId()));
         parametersBean.setCate("ZH");
         shangchangInfo.setParameters(parametersBean);
         httpPostJSON(shangchangInfo, true);
