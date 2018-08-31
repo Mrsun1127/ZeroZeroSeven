@@ -311,7 +311,7 @@ public class FoodViewPagerAllFragment extends BaseFragment implements BGARefresh
                             SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
                             requestShop();
                             if (shangChangShowInfo.getData().isIsClosing()) {
-                                ZeroZeroSevenUtils.showSleepPop(getActivity(), "打烊一天",commonRecyclerView);
+                                ZeroZeroSevenUtils.showSleepPop(getActivity(), "小店正在打烊中",commonRecyclerView);
                             }
 
 

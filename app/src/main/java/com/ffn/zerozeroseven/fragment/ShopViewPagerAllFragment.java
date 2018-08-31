@@ -312,13 +312,9 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
                             userInfo.setSmallRmb(shangChangShowInfo.getData().getDeliveryPrice());
                             SharePrefUtils.saveObject(bfCxt, "userInfo", userInfo);
                             requestShop();
-                            if (shangChangShowInfo.getData().isIsClosing() && shangChangShowInfo.getData().getStoreBusiTimes() != null && shangChangShowInfo.getData().getStoreBusiTimes().size() > 1) {
-                                ZeroZeroSevenUtils.showSleepPop(bfCxt, "\t\t营业时间" + "\n" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(0).getClosingTime() + "\n" + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getOpeningTime() + "--" + shangChangShowInfo.getData().getStoreBusiTimes().get(1).getClosingTime(), rl_no_select);
-                            } else {
+                            if (shangChangShowInfo.getData().isIsClosing()) {
                                 ZeroZeroSevenUtils.showSleepPop(bfCxt, "小店正在打烊中", rl_no_select);
                             }
-
-
                         } else {
                             showErrorLayout(StateLayout.noData);
                         }
