@@ -18,6 +18,7 @@ import com.ffn.zerozeroseven.bean.SchoolLikeListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.IdSearchInfo;
 import com.ffn.zerozeroseven.utlis.MrsunAppCacheUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.ClearEditText;
 
@@ -44,15 +45,7 @@ public class UserSelectSchoolListActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        json = MrsunAppCacheUtils.get(UserSelectSchoolListActivity.this).getAsString("allSchoolList");
-        if (TextUtils.isEmpty(json)) {
-            requestAllSchoolData();
-        } else {
-            try {
-                SearCher();
-            } catch (Exception e) {
-            }
-        }
+        requestAllSchoolData();
     }
 
     private void requestAllSchoolData() {
@@ -66,7 +59,7 @@ public class UserSelectSchoolListActivity extends BaseActivity {
                 SchoolLikeListInfo info = JSON.parseObject(response, SchoolLikeListInfo.class);
                 if (info.getCode() == 0 && info.getData() != null) {
                     final SchoolLikeListInfo.DataBean data = info.getData();
-                    MrsunAppCacheUtils.get(UserSelectSchoolListActivity.this).put("allSchoolList", JSON.toJSONString(data));
+                    json = JSON.toJSONString(data);
                     adapter.addAll(data.getSchools());
                 }
             }
@@ -106,9 +99,8 @@ public class UserSelectSchoolListActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i0, int i1, int i2) {
-                json = MrsunAppCacheUtils.get(UserSelectSchoolListActivity.this).getAsString("allSchoolList");
                 if (TextUtils.isEmpty(json)) {
-                    ZeroZeroSevenUtils.showCustonPop(UserSelectSchoolListActivity.this, "网络连接异常，请稍后再试", ct_school);
+                    ToastUtils.showShort("请输入学校名");
                 } else {
                     SearCher();
 
@@ -125,7 +117,6 @@ public class UserSelectSchoolListActivity extends BaseActivity {
     public void SearCher() {
         String searchName = ct_school.getText().toString().trim();
         char[] chars = searchName.toCharArray();
-        String json = MrsunAppCacheUtils.get(UserSelectSchoolListActivity.this).getAsString("allSchoolList");
         SchoolLikeListInfo.DataBean dataBean = JSON.parseObject(json, SchoolLikeListInfo.DataBean.class);
         List<SchoolLikeListInfo.DataBean.SchoolsBean> showList = new ArrayList();
         for (int i = 0; i < dataBean.getSchools().size(); i++) {

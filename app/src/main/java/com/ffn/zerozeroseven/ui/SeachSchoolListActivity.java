@@ -53,33 +53,22 @@ public class SeachSchoolListActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        json = MrsunAppCacheUtils.get(SeachSchoolListActivity.this).getAsString("allSchoolList");
-        if (TextUtils.isEmpty(json)) {
-            requestAllSchoolData();
-        } else {
-            try {
-                SearCher();
-            } catch (Exception e) {
-            }
-        }
+        requestAllSchoolData();
     }
 
     private void requestAllSchoolData() {
         IdSearchInfo searchInfo = new IdSearchInfo();
         searchInfo.setFunctionName("ListSchool");
-        OkGoUtils okGoUtils=new OkGoUtils(SeachSchoolListActivity.this);
-        okGoUtils.httpPostJSON(searchInfo,true,true);
+        OkGoUtils okGoUtils = new OkGoUtils(SeachSchoolListActivity.this);
+        okGoUtils.httpPostJSON(searchInfo, true, true);
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
                 SchoolLikeListInfo info = JSON.parseObject(response, SchoolLikeListInfo.class);
                 if (info.getCode() == 0 && info.getData() != null) {
                     final SchoolLikeListInfo.DataBean data = info.getData();
-                    MrsunAppCacheUtils.get(SeachSchoolListActivity.this).put("allSchoolList", JSON.toJSONString(data));
-
-                            adapter.addAll(data.getSchools());
-
-
+                    json = JSON.toJSONString(data);
+                    adapter.addAll(data.getSchools());
                 }
             }
         });
@@ -103,18 +92,19 @@ public class SeachSchoolListActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                if(!TextUtils.isEmpty(getIntent().getStringExtra("errand"))){
+                if (!TextUtils.isEmpty(getIntent().getStringExtra("errand"))) {
                     Intent intent = new Intent();
                     intent.putExtra("school", "" + adapter.getItem(position).getName());
                     intent.putExtra("id", "" + adapter.getItem(position).getId());
                     setResult(3, intent);
                     finish();
-                }else{
+                } else {
                     userInfo.setSchoolName(adapter.getItem(position).getName());
                     userInfo.setSchoolId(adapter.getItem(position).getId() + "");
                     BaseAppApplication.getInstance().setLoginUser(userInfo);
-                    SharePrefUtils.saveObject(SeachSchoolListActivity.this,"userInfo",userInfo);
-                    SharePrefUtils.saveObject(SeachSchoolListActivity.this, "carShopInfo",null);
+                    SharePrefUtils.saveObject(SeachSchoolListActivity.this, "userInfo", userInfo);
+                    SharePrefUtils.saveObject(SeachSchoolListActivity.this, "carShopInfo", null);
+                    SharePrefUtils.saveObject(SeachSchoolListActivity.this, "foodcarShopInfo", null);
                     SearchSchoolActivity.inStance.get().finish();
                     finish();
                     MainFragment.mInstance.get().reQuest();
@@ -137,9 +127,9 @@ public class SeachSchoolListActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i0, int i1, int i2) {
                 json = MrsunAppCacheUtils.get(SeachSchoolListActivity.this).getAsString("allSchoolList");
-                if(TextUtils.isEmpty(json)){
-                    ZeroZeroSevenUtils.showCustonPop(SeachSchoolListActivity.this,"网络连接异常，请稍后再试",ct_school);
-                }else{
+                if (TextUtils.isEmpty(json)) {
+                    ZeroZeroSevenUtils.showCustonPop(SeachSchoolListActivity.this, "网络连接异常，请稍后再试", ct_school);
+                } else {
                     SearCher();
 
                 }
