@@ -39,15 +39,14 @@ public class OkGoUtils {
         BaseAppApplication.mainHandler.post(new Runnable() {
             @Override
             public void run() {
-                hud = KProgressHUD.create(context)
+                hud = KProgressHUD.create(BaseAppApplication.context)
                         .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                         .setCancellable(true)
-                        .setWindowColor(context.getResources().getColor(R.color.text_secondary_color))
+                        .setWindowColor(BaseAppApplication.context.getResources().getColor(R.color.text_secondary_color))
                         .setAnimationSpeed(2)
                         .setDimAmount(0.5f);
             }
         });
-
 
 
     }
@@ -78,11 +77,13 @@ public class OkGoUtils {
         });
 
     }
-    public void cancel(){
+
+    public void cancel() {
         call.cancel();
     }
+
     public void httpPostJSON(Object obj, boolean isToken, final boolean showLoad) {
-        if(showLoad){
+        if (showLoad) {
             showLoadProgress();
         }
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -116,7 +117,7 @@ public class OkGoUtils {
             //请求失败时调用
             @Override
             public void onFailure(Call call, IOException e) {
-                if(showLoad){
+                if (showLoad) {
                     disLoadProgress();
                 }
                 BaseAppApplication.mainHandler.post(new Runnable() {
@@ -161,7 +162,7 @@ public class OkGoUtils {
 
     public void gotoLogin() {
         BaseAppApplication.getInstance().setLoginUser(null);
-        SharePrefUtils.saveObject(context,"userInfo",BaseAppApplication.getInstance().getLoginUser());
+        SharePrefUtils.saveObject(context, "userInfo", BaseAppApplication.getInstance().getLoginUser());
         ZeroZeroSevenUtils.SwitchActivity(context, LoginActivity.class);
         BaseAppApplication.getInstance().clearActivityList();
     }
