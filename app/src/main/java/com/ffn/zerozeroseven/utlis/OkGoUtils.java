@@ -1,9 +1,6 @@
 package com.ffn.zerozeroseven.utlis;
 
-import android.app.Activity;
 import android.content.Context;
-import android.text.TextUtils;
-import android.view.View;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.AppConfig;

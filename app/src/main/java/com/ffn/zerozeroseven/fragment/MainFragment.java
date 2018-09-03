@@ -481,15 +481,23 @@ public class MainFragment extends BaseFragment {
     }
 
     private void checkUserData() {
-        if (!TextUtils.isEmpty(BaseAppApplication.getInstance().getLoginUser().getSchoolId())) {
-            if ("0".equals(BaseAppApplication.getInstance().getLoginUser().getSchoolId())) {
+        if(BaseAppApplication.getInstance().getLoginUser()!=null){
+            if (!TextUtils.isEmpty(BaseAppApplication.getInstance().getLoginUser().getSchoolId())) {
+                if ("0".equals(BaseAppApplication.getInstance().getLoginUser().getSchoolId())) {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, UserSelectSchoolListActivity.class);
+                    BaseAppApplication.getInstance().finishActivity(getActivity());
+                }
+            } else {
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, UserSelectSchoolListActivity.class);
                 BaseAppApplication.getInstance().finishActivity(getActivity());
             }
-        } else {
-            ZeroZeroSevenUtils.SwitchActivity(bfCxt, UserSelectSchoolListActivity.class);
-            BaseAppApplication.getInstance().finishActivity(getActivity());
+        }else{
+            BaseAppApplication.getInstance().setLoginUser(null);
+            SharePrefUtils.saveObject(bfCxt, "userInfo", BaseAppApplication.getInstance().getLoginUser());
+            ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
+            BaseAppApplication.getInstance().clearActivityList();
         }
+
 
     }
 
