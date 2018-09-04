@@ -146,6 +146,7 @@ dependencies {
     //    compile 'com.youth.banner:banner:1.4.10'  //最新版本
     debugApi 'com.squareup.leakcanary:leakcanary-android:1.6.1'
     releaseApi 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
+
     //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.3'
 
     //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.3'
@@ -169,8 +170,11 @@ dependencies {
     api 'com.github.ome450901:SimpleRatingBar:1.4.2'
     api 'com.github.zyyoona7:EasyPopup:1.1.2'
     api 'com.baoyz.actionsheet:library:1.1.7'
+
     //搜索框
     api 'com.carson_ho:SearchLayout:1.0.1'
+
     //压缩图片
     api 'top.zibin:Luban:1.1.8'
+    implementation files('libs/BaiduLBS_Android.jar')
 }

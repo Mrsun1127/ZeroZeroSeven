@@ -70,6 +70,7 @@
     *;
  }
  -keep public class * extends android.webkit.WebChromeClient
-
-
+-keep class com.baidu.** {*;}
+-keep class mapsdkvi.com.** {*;}
+-dontwarn com.baidu.**
 
