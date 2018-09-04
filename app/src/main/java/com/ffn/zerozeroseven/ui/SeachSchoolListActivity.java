@@ -126,7 +126,6 @@ public class SeachSchoolListActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i0, int i1, int i2) {
-                json = MrsunAppCacheUtils.get(SeachSchoolListActivity.this).getAsString("allSchoolList");
                 if (TextUtils.isEmpty(json)) {
                     ZeroZeroSevenUtils.showCustonPop(SeachSchoolListActivity.this, "网络连接异常，请稍后再试", ct_school);
                 } else {
@@ -145,7 +144,6 @@ public class SeachSchoolListActivity extends BaseActivity {
     public void SearCher() {
         String searchName = ct_school.getText().toString().trim();
         char[] chars = searchName.toCharArray();
-        String json = MrsunAppCacheUtils.get(SeachSchoolListActivity.this).getAsString("allSchoolList");
         SchoolLikeListInfo.DataBean dataBean = JSON.parseObject(json, SchoolLikeListInfo.DataBean.class);
         List<SchoolLikeListInfo.DataBean.SchoolsBean> showList = new ArrayList();
         for (int i = 0; i < dataBean.getSchools().size(); i++) {
