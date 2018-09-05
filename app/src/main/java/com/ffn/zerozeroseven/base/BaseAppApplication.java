@@ -139,7 +139,7 @@ public class BaseAppApplication extends MultiDexApplication {
         });
         LeakCanary.install(this);
         //发布版本的时候把下面代码打开
-        LogUtils.isDebug = false;
+//        LogUtils.isDebug = false;
         mainHandler = new Handler();
         new ToastUtils(getApplicationContext());
         registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());
