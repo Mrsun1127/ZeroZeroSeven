@@ -1,7 +1,6 @@
 package com.ffn.zerozeroseven.ui;
 
 
-
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 import com.ffn.zerozeroseven.R;
@@ -28,6 +27,17 @@ public class DrivingSchoolActivity extends BaseActivity {
     public void initView() {
         ButterKnife.bind(this);
         topView.setTopText("百度地图");
+        topView.setOnTitleListener(new TopView.OnTitleClickListener() {
+            @Override
+            public void Right() {
+
+            }
+
+            @Override
+            public void Back() {
+                finish();
+            }
+        });
         mBaiduMap = mMapView.getMap();
     }
 
@@ -39,8 +49,21 @@ public class DrivingSchoolActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        mMapView.onDestroy();
     }
 
 
