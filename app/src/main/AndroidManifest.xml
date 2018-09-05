@@ -63,10 +63,10 @@
             android:value="KUL2VBxakGB9twyZrUUmBVTMPSOyw1eC" />
 
 
-        <!--<service-->
-        <!--android:name="com.baidu.location.f"-->
-        <!--android:enabled="true"-->
-        <!--android:process=":remote" />-->
+        <service
+        android:name="com.baidu.location.f"
+        android:enabled="true"
+        android:process=":remote" />
 
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"

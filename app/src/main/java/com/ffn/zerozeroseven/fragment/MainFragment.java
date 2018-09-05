@@ -51,6 +51,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.RequeseGoods;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.TongZhiShowInfo;
 import com.ffn.zerozeroseven.ui.BitisDetils;
+import com.ffn.zerozeroseven.ui.DrivingSchoolActivity;
 import com.ffn.zerozeroseven.ui.ErrandHomeActivity;
 import com.ffn.zerozeroseven.ui.HomeActivity;
 import com.ffn.zerozeroseven.ui.IntegralDrawActivity;
@@ -222,6 +223,8 @@ public class MainFragment extends BaseFragment {
     ImageView iv_eight;
     @Bind(R.id.iv_nine)
     ImageView iv_nine;
+    @Bind(R.id.iv_shi)
+    ImageView iv_shi;
     @Bind(R.id.iv_in)
     ImageView iv_in;
     @Bind(R.id.iv_left)
@@ -260,6 +263,7 @@ public class MainFragment extends BaseFragment {
         Glide.with(this).load(R.drawable.main_waimai).into(iv_seven);
         Glide.with(this).load(R.drawable.main_runner).into(iv_eight);
         Glide.with(this).load(R.drawable.main_lease).into(iv_nine);
+        Glide.with(this).load(R.drawable.main_lease).into(iv_shi);
         Glide.with(this).load(R.drawable.main_notify).into(iv_in);
         Glide.with(this).load(R.drawable.main_laba).into(iv_left);
         Glide.with(this).load(R.drawable.xinpin).into(iv_xinpin);
@@ -481,7 +485,7 @@ public class MainFragment extends BaseFragment {
     }
 
     private void checkUserData() {
-        if(BaseAppApplication.getInstance().getLoginUser()!=null){
+        if (BaseAppApplication.getInstance().getLoginUser() != null) {
             if (!TextUtils.isEmpty(BaseAppApplication.getInstance().getLoginUser().getSchoolId())) {
                 if ("0".equals(BaseAppApplication.getInstance().getLoginUser().getSchoolId())) {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, UserSelectSchoolListActivity.class);
@@ -491,7 +495,7 @@ public class MainFragment extends BaseFragment {
                 ZeroZeroSevenUtils.SwitchActivity(bfCxt, UserSelectSchoolListActivity.class);
                 BaseAppApplication.getInstance().finishActivity(getActivity());
             }
-        }else{
+        } else {
             BaseAppApplication.getInstance().setLoginUser(null);
             SharePrefUtils.saveObject(bfCxt, "userInfo", BaseAppApplication.getInstance().getLoginUser());
             ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
@@ -594,10 +598,10 @@ public class MainFragment extends BaseFragment {
                         tv_up_title.setText("是否升级到" + appVersionInfo.getData().getLatestVersion() + "版本？");
                         tv_size.setText("升级大小" + appVersionInfo.getData().getTargetSize() + "M");
 
-                        if(appVersionInfo.getData().getConstraint()==1){
+                        if (appVersionInfo.getData().getConstraint() == 1) {
                             ll_close.setVisibility(View.GONE);
                             tv_ignore.setVisibility(View.GONE);
-                        }else{
+                        } else {
                             ll_close.setVisibility(View.VISIBLE);
                             tv_ignore.setVisibility(View.VISIBLE);
                         }
@@ -1211,9 +1215,20 @@ public class MainFragment extends BaseFragment {
     @Bind(R.id.tv_up_content)
     TextView tv_up_content;
 
-    @OnClick({R.id.tv_ignore,R.id.rl_lease, R.id.rl_errand, R.id.rl_jump_shop, R.id.bt_update, R.id.ll_close, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
+    @OnClick({R.id.rl_drive, R.id.tv_ignore, R.id.rl_lease, R.id.rl_errand, R.id.rl_jump_shop, R.id.bt_update, R.id.ll_close, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.rl_drive:
+                if (userInfo != null) {
+                    if ("943478288".equals(schoolIId)) {
+                        ZeroZeroSevenUtils.showCustonPop(bfCxt, "请先选择学校", recyclerView);
+                    } else {
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, DrivingSchoolActivity.class);
+                    }
+                } else {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
+                }
+                break;
             case R.id.tv_ignore:
                 if (appVersionInfo.getData().getConstraint() == 1) {
                     BaseAppApplication.getInstance().exit();

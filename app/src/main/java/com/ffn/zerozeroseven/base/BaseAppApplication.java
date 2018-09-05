@@ -8,6 +8,7 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.aitangba.swipeback.ActivityLifecycleHelper;
+import com.baidu.mapapi.SDKInitializer;
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
@@ -143,7 +144,7 @@ public class BaseAppApplication extends MultiDexApplication {
         new ToastUtils(getApplicationContext());
         registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());
         //初始化百度地图
-//        SDKInitializer.initialize(this);
+        SDKInitializer.initialize(this);
         //初始化极光
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
