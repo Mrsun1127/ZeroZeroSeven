@@ -566,7 +566,7 @@ public class MainFragment extends BaseFragment {
                     int curVersion = Integer.parseInt(ZeroZeroSevenUtils.getAppVersionName(bfCxt).replace(".", ""));
                     int lastVersion = Integer.parseInt(appVersionInfo.getData().getLatestVersion().replace(".", ""));
                     LogUtils.D("curVersion", curVersion + ":::::" + lastVersion);
-                    if (lastVersion <= curVersion) {
+                    if (lastVersion > curVersion) {
                         Tanchuang(appVersionInfo.getData().getLatestVersion(), appVersionInfo.getData().getReleaseNote(), appVersionInfo.getData().getTargetSize(), appVersionInfo.getData().getConstraint());
                     }
                 }
@@ -591,6 +591,7 @@ public class MainFragment extends BaseFragment {
 
             @Override
             public void UpdateApp() {
+                popWindow.dismiss();
                 requestSomePermission();
                 downLoadApk(appVersionInfo.getData().getDownloadUrl());
             }
