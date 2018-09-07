@@ -46,8 +46,8 @@ public class HomePopWindow extends PopupWindow implements View.OnClickListener {
         int w = context.getWindowManager().getDefaultDisplay().getWidth();
         setContentView(mContentView);
         //设置宽与高
-//        setWidth(w / 2 + 100);
-//        setHeight(h - w );
+        setWidth(w);
+        setHeight(h );
         /**
          * 设置进出动画
          */
@@ -110,7 +110,7 @@ public class HomePopWindow extends PopupWindow implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_close:
+            case R.id.tv_close:
                 mlistener.BtAgain();
                 break;
         }
