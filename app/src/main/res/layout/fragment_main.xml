@@ -463,7 +463,6 @@
                         android:id="@+id/tv_up_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="1，xxxxxxxx\n2，ooooooooo"
                         android:textColor="#666"
                         android:textSize="14sp" />
                 </ScrollView>
