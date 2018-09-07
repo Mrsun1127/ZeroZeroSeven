@@ -36,10 +36,10 @@ public class OkGoUtils {
         BaseAppApplication.mainHandler.post(new Runnable() {
             @Override
             public void run() {
-                hud = KProgressHUD.create(BaseAppApplication.context)
+                hud = KProgressHUD.create(context)
                         .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                         .setCancellable(true)
-                        .setWindowColor(BaseAppApplication.context.getResources().getColor(R.color.text_secondary_color))
+                        .setWindowColor(context.getResources().getColor(R.color.text_secondary_color))
                         .setAnimationSpeed(2)
                         .setDimAmount(0.5f);
             }
@@ -136,6 +136,7 @@ public class OkGoUtils {
                 String code = JsonUtil.getFieldValue(json, "code");
                 if ("401".equals(code)) {
                     gotoLogin();
+                    return;
                 }
                 if ("-101".equals(code)) {
                     HomeActivity.getmInstance().get().showpop();

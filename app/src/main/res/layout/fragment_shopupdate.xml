@@ -6,7 +6,8 @@
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -19,7 +20,7 @@
                 android:background="#FAFAFA"
                 android:contentInsetStart="0dp"
                 app:contentInsetStart="0dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:layout_scrollFlags="scroll|snap"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 

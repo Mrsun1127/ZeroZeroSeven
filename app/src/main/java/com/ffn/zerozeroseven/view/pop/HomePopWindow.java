@@ -26,7 +26,7 @@ public class HomePopWindow extends PopupWindow implements View.OnClickListener {
     private Context context;
     OnButonClikListener mlistener;
     private TextView tv_tanchuang;
-    private ImageView iv_close;
+    private TextView tv_close;
     private LinearLayout ll_pop;
 
     public interface OnButonClikListener {
@@ -46,8 +46,8 @@ public class HomePopWindow extends PopupWindow implements View.OnClickListener {
         int w = context.getWindowManager().getDefaultDisplay().getWidth();
         setContentView(mContentView);
         //设置宽与高
-        setWidth(w / 2 + 100);
-        setHeight(h - w );
+//        setWidth(w / 2 + 100);
+//        setHeight(h - w );
         /**
          * 设置进出动画
          */
@@ -101,8 +101,8 @@ public class HomePopWindow extends PopupWindow implements View.OnClickListener {
     }
 
     private void initView(View mContentView) {
-        iv_close = mContentView.findViewById(R.id.iv_close);
-        iv_close.setOnClickListener(this);
+        tv_close = mContentView.findViewById(R.id.tv_close);
+        tv_close.setOnClickListener(this);
         tv_tanchuang = mContentView.findViewById(R.id.tv_tanchuang);
         ll_pop = mContentView.findViewById(R.id.ll_pop);
     }
