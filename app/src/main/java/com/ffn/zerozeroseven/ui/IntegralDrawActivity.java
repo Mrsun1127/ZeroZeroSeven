@@ -330,7 +330,7 @@ public class IntegralDrawActivity extends BaseFullActivity implements OnRefreshL
         ZhongMaInfo zhongMaInfo = new ZhongMaInfo();
         zhongMaInfo.setFunctionName("QueryPrizeWinning");
         ZhongMaInfo.ParametersBean parametersBean = new ZhongMaInfo.ParametersBean();
-        parametersBean.setUserPhone(userInfo.getPhone());
+        parametersBean.setUserPhone(BaseAppApplication.getInstance().getLoginUser().getPhone());
         zhongMaInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(IntegralDrawActivity.this);
         okGoUtils.httpPostJSON(zhongMaInfo, true, true);

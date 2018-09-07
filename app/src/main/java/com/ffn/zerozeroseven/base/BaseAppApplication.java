@@ -225,7 +225,7 @@ public class BaseAppApplication extends MultiDexApplication {
     }
 
     public void clearActivityList() {
-        if (activityList != null) {
+        if (activityList != null && activityList.size() > 0) {
             for (int i = 0, size = activityList.size(); i < size; i++) {
                 if (null != activityList.get(i)) {
                     activityList.get(i).finish();
