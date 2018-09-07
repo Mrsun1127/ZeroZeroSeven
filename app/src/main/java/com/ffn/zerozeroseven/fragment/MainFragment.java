@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -80,6 +81,7 @@ import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.mainscroll.CustomTwoLevelHeader;
 import com.ffn.zerozeroseven.view.mainscroll.TwoLevelRefreshingListenerAdapter;
 import com.ffn.zerozeroseven.view.mainscroll.TwoLevelSmoothRefreshLayout;
+import com.ffn.zerozeroseven.view.pop.UpdatePopWindow;
 import com.paradoxie.autoscrolltextview.VerticalTextview;
 import com.yanzhenjie.permission.AndPermission;
 import com.zhouwei.mzbanner.MZBannerView;
@@ -235,19 +237,6 @@ public class MainFragment extends BaseFragment {
     ImageView iv_time_right;
     @Bind(R.id.iv_xinpin)
     ImageView iv_xinpin;
-    @Bind(R.id.iv_up_all)
-    ImageView iv_up_all;
-    @Bind(R.id.bt_update)
-    Button bt_update;
-    @Bind(R.id.tv_up_title)
-    TextView tv_up_title;
-    @Bind(R.id.tv_size)
-    TextView tv_size;
-    @Bind(R.id.tv_ignore)
-    TextView tv_ignore;
-    @Bind(R.id.ll_close)
-    LinearLayout ll_close;
-
 
     @Override
     protected void initView(View view) {
@@ -267,21 +256,7 @@ public class MainFragment extends BaseFragment {
         Glide.with(this).load(R.drawable.main_notify).into(iv_in);
         Glide.with(this).load(R.drawable.main_laba).into(iv_left);
         Glide.with(this).load(R.drawable.xinpin).into(iv_xinpin);
-
         mInstance = new WeakReference<>(this);
-//        mLocationClient = new LocationClient(BaseAppApplication.context);
-        //声明LocationClient类
-//        mLocationClient.registerLocationListener(myListener);
-//        LocationClientOption option = new LocationClientOption();
-//        option.setIsNeedLocationPoiList(true);
-//        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-//        option.setCoorType("bd09ll");
-//        mPoiSearch = PoiSearch.newInstance();
-//        mPoiSearch.setOnGetPoiSearchResultListener(this);
-//        mLocationClient.setLocOption(option);
-//        if (SharePrefUtils.getInt(bfCxt, "isLocation", 0) != 1) {
-//            mLocationClient.start();
-//        }
         scrollview.setScrollViewListener(new SmartScrollView.ScrollViewListener() {
             @Override
             public void onScrollChanged(SmartScrollView scrollView, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -366,7 +341,6 @@ public class MainFragment extends BaseFragment {
                     Glide.with(bfCxt)
                             .load(images.get(position))
                             .override(10, 10)
-//                            .override(ScreenUtils.getScreenWidth(),200)
                             .into(iv_bg);
                 } catch (Exception e) {
                 }
@@ -592,25 +566,35 @@ public class MainFragment extends BaseFragment {
                     int curVersion = Integer.parseInt(ZeroZeroSevenUtils.getAppVersionName(bfCxt).replace(".", ""));
                     int lastVersion = Integer.parseInt(appVersionInfo.getData().getLatestVersion().replace(".", ""));
                     LogUtils.D("curVersion", curVersion + ":::::" + lastVersion);
-                    if (lastVersion > curVersion) {
-                        rl_update.setVisibility(View.VISIBLE);
-                        tv_up_content.setText(appVersionInfo.getData().getReleaseNote());
-                        tv_up_title.setText("是否升级到" + appVersionInfo.getData().getLatestVersion() + "版本？");
-                        tv_size.setText("升级大小" + appVersionInfo.getData().getTargetSize() + "M");
-
-                        if (appVersionInfo.getData().getConstraint() == 1) {
-                            ll_close.setVisibility(View.GONE);
-                            tv_ignore.setVisibility(View.GONE);
-                        } else {
-                            ll_close.setVisibility(View.VISIBLE);
-                            tv_ignore.setVisibility(View.VISIBLE);
-                        }
+                    if (lastVersion <= curVersion) {
+                        Tanchuang(appVersionInfo.getData().getLatestVersion(), appVersionInfo.getData().getReleaseNote(), appVersionInfo.getData().getTargetSize(), appVersionInfo.getData().getConstraint());
                     }
                 }
 
             }
         });
 
+    }
+
+    private void Tanchuang(String title, String content, String size, int isupdate) {
+        final UpdatePopWindow popWindow = new UpdatePopWindow(getActivity());
+        popWindow.showAtLocation(ll_both, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+        popWindow.setContent(content);
+        popWindow.setSize(size);
+        popWindow.setTitle(title);
+        popWindow.setGone(isupdate);
+        popWindow.setMlistener(new UpdatePopWindow.OnButonClikListener() {
+            @Override
+            public void PopClose() {
+                popWindow.dismiss();
+            }
+
+            @Override
+            public void UpdateApp() {
+                requestSomePermission();
+                downLoadApk(appVersionInfo.getData().getDownloadUrl());
+            }
+        });
     }
 
     public void goYing() {
@@ -905,8 +889,7 @@ public class MainFragment extends BaseFragment {
     TextView tv_hot;
     @Bind(R.id.tv_both)
     TextView tv_both;
-    @Bind(R.id.rl_update)
-    RelativeLayout rl_update;
+
 
     public void reQuest() {
         if (userInfo != null) {
@@ -1212,10 +1195,9 @@ public class MainFragment extends BaseFragment {
     boolean open = true;
     @Bind(R.id.iv_guanggao)
     ImageView iv_guanggao;
-    @Bind(R.id.tv_up_content)
-    TextView tv_up_content;
 
-    @OnClick({R.id.rl_drive, R.id.tv_ignore, R.id.rl_lease, R.id.rl_errand, R.id.rl_jump_shop, R.id.bt_update, R.id.ll_close, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
+
+    @OnClick({R.id.rl_drive, R.id.rl_lease, R.id.rl_errand, R.id.rl_jump_shop, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.rl_drive:
@@ -1227,13 +1209,6 @@ public class MainFragment extends BaseFragment {
                     }
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
-                }
-                break;
-            case R.id.tv_ignore:
-                if (appVersionInfo.getData().getConstraint() == 1) {
-                    BaseAppApplication.getInstance().exit();
-                } else {
-                    rl_update.setVisibility(View.GONE);
                 }
                 break;
             case R.id.rl_lease:
@@ -1267,18 +1242,6 @@ public class MainFragment extends BaseFragment {
                     }
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
-                }
-                break;
-            case R.id.bt_update:
-                requestSomePermission();
-                downLoadApk(appVersionInfo.getData().getDownloadUrl());
-                rl_update.setVisibility(View.GONE);
-                break;
-            case R.id.ll_close:
-                if (appVersionInfo.getData().getConstraint() == 1) {
-                    BaseAppApplication.getInstance().exit();
-                } else {
-                    rl_update.setVisibility(View.GONE);
                 }
                 break;
             case R.id.rl_numberrical:
