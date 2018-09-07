@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     >
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_product"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -19,7 +19,7 @@
         android:layout_below="@+id/iv_product"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:text="全部"
         android:textSize="12sp" />
 </RelativeLayout>

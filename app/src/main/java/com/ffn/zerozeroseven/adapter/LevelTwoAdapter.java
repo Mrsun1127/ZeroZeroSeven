@@ -12,6 +12,8 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.NumberLevelInfo;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by GT on 2017/11/27.
  */
@@ -51,7 +53,7 @@ public class LevelTwoAdapter extends BaseRecyclerAdapter<NumberLevelInfo.DataBea
 
 
     private class MViewHolder extends RecyclerView.ViewHolder {
-        ImageView iv_product;
+        CircleImageView iv_product;
         TextView tv_type;
 
         MViewHolder(View itemView) {

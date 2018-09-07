@@ -94,7 +94,7 @@
         android:layout_alignBottom="@+id/iv_product"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="19dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/numberverticalbutton"
         android:gravity="center"
         android:text="预约上门"
