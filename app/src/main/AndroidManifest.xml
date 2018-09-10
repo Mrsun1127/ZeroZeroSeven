@@ -404,6 +404,7 @@
         <activity
             android:name=".ui.DrivingSchoolActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.DrivingDetilsActivity" />
 
 
         <!-- Required SDK核心功能-->

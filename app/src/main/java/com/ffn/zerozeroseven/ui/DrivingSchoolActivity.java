@@ -17,8 +17,10 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.DriverHomeAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
+import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.utlis.MapNaviUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.StateLayout;
 import com.ffn.zerozeroseven.view.TopView;
@@ -71,6 +73,12 @@ public class DrivingSchoolActivity extends BaseActivity {
         recycleview.addItemDecoration(new SpaceItemDecoration(1));
         driverHomeAdapter = new DriverHomeAdapter(this);
         recycleview.setAdapter(driverHomeAdapter);
+        driverHomeAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, DrivingDetilsActivity.class);
+            }
+        });
         List<String> list = new ArrayList<>();
         list.add("");
         list.add("");

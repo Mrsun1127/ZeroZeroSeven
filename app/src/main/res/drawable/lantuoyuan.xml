@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 填充 -->
+    <solid android:color="@color/errandtab" /> <!-- 定义填充的颜色值 -->
+    <!-- 描边 -->
+
+    <!-- 圆角 -->
+    <corners
+        android:bottomLeftRadius="35dp"
+        android:bottomRightRadius="35dp"
+        android:topLeftRadius="35dp"
+        android:topRightRadius="35dp" /> <!-- 设置四个角的半径 -->
+
+</shape>
