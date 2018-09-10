@@ -27,7 +27,9 @@
 
     <RelativeLayout
         android:id="@+id/rl_post"
-        android:layout_width="60dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:visibility="gone">
