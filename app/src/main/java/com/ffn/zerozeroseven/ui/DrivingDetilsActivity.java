@@ -11,6 +11,7 @@ import com.ffn.zerozeroseven.adapter.ExamplePagerAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.fragment.DriverDetilsOneFragment;
+import com.ffn.zerozeroseven.fragment.DriverDetilsTwoFragment;
 import com.ffn.zerozeroseven.view.TopView;
 import com.zhouwei.mzbanner.MZBannerView;
 
@@ -72,7 +73,7 @@ public class DrivingDetilsActivity extends BaseActivity {
     @Override
     protected void doMain() {
         fragmentList.add(new DriverDetilsOneFragment());
-        fragmentList.add(new DriverDetilsOneFragment());
+        fragmentList.add(new DriverDetilsTwoFragment());
         fragmentList.add(new DriverDetilsOneFragment());
         fragmentList.add(new DriverDetilsOneFragment());
         ShopViewPagerAdapter adapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, mDataList);
