@@ -10,6 +10,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ExamplePagerAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.fragment.DriverDetilsFourFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsOneFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsTwoFragment;
 import com.ffn.zerozeroseven.view.TopView;
@@ -75,9 +76,10 @@ public class DrivingDetilsActivity extends BaseActivity {
         fragmentList.add(new DriverDetilsOneFragment());
         fragmentList.add(new DriverDetilsTwoFragment());
         fragmentList.add(new DriverDetilsOneFragment());
-        fragmentList.add(new DriverDetilsOneFragment());
+        fragmentList.add(new DriverDetilsFourFragment());
         ShopViewPagerAdapter adapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, mDataList);
         viewpager.setAdapter(adapter);
+        viewpager.setOffscreenPageLimit(fragmentList.size());
         tablayout.setupWithViewPager(viewpager);
     }
 }
