@@ -7,6 +7,9 @@ import android.view.View;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.DriverOneAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
+import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.ui.DriverClassTypeDetilsActivity;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 
 import java.util.ArrayList;
@@ -28,6 +31,12 @@ public class DriverDetilsOneFragment extends BaseFragment {
     @Override
     public void initDate() {
         driverOneAdapter = new DriverOneAdapter(bfCxt);
+        driverOneAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, DriverClassTypeDetilsActivity.class);
+            }
+        });
         recycleview.setLayoutManager(new LinearLayoutManager(bfCxt));
         recycleview.addItemDecoration(new SpaceItemDecoration(2));
         recycleview.setAdapter(driverOneAdapter);

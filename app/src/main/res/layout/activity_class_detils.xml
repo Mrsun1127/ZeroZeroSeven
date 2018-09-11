@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.ffn.zerozeroseven.view.TopView
+        android:id="@+id/topView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.ffn.zerozeroseven.view.UserDefineScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="C1 极速版"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="5300"
+                    android:textColor="@color/tab_under_line"
+                    android:textSize="19sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_price"
+                    android:text="￥"
+                    android:textColor="@color/tab_under_line"
+                    android:textSize="19sp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="基本信息"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="驾照类型"
+                    android:textColor="@color/line4"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="C1"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="训练车辆"
+                    android:textColor="@color/line4"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="比亚迪"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="上车时间"
+                    android:textColor="@color/line4"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="最快15天上车"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="课时介绍"
+                    android:textColor="@color/line4"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="科目二：25"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/line" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="科目三：12"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="正常拿本时间"
+                    android:textColor="@color/line4"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="45天左右"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="接送形式"
+                    android:textColor="@color/line4"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="班车接送"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="21dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:text="费用明细"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="考试费"
+                android:textColor="@color/line"
+                android:textSize="13sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="制卡费"
+                android:textColor="@color/line"
+                android:textSize="13sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="保险费"
+                android:textColor="@color/line"
+                android:textSize="13sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="照相费"
+                android:textColor="@color/line"
+                android:textSize="13sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="工本费"
+                android:textColor="@color/line"
+                android:textSize="13sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="培训费"
+                android:textColor="@color/line"
+                android:textSize="13sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="不包含：体检费、模拟费、补考补训费"
+                android:textColor="@color/line"
+                android:textSize="13sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="21dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/line" />
+            <TextView
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="14dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="服务承诺"/>
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/line1"
+                android:textSize="13sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="本人有着严谨负责的工作态度、和幽默风趣的教学风格，深受学员的好评，对学员讲解耐心周到时常鼓励学员学车要胆大心细，相信自己，相信教练，"/>
+            <TextView
+                android:drawablePadding="8dp"
+                android:drawableLeft="@drawable/drivercall"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="13dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="客服咨询"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+        </LinearLayout>
+    </com.ffn.zerozeroseven.view.UserDefineScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/errandtab"
+            android:text="报名预约"
+            android:textColor="@color/white" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:text="立即报名"
+            android:textColor="@color/errandtab" />
+    </LinearLayout>
+</LinearLayout>

@@ -406,6 +406,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.DrivingDetilsActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.DriverClassTypeDetilsActivity"
+            android:screenOrientation="portrait"/>
 
 
         <!-- Required SDK核心功能-->
