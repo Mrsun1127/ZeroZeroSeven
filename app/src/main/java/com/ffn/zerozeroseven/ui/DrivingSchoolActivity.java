@@ -105,31 +105,7 @@ public class DrivingSchoolActivity extends BaseActivity {
     protected void doMain() {
     }
 
-    public void startNavBaiDu() {
-        if (!MapNaviUtils.isBaiduMapInstalled()) {
-            ToastUtils.showShort("请安装百度地图");
-            return;
-        }
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-//        intent.setData(Uri.parse("baidumap://map/geocoder?src=andr.baidu.openAPIdemo&address=明诚驾校"));
-        intent.setData(Uri.parse("baidumap://map/marker?location=28.199933,113.070635&title=明诚驾校&content=零零7合作驾校明诚驾校&traffic=on&src=andr.baidu.openAPIdemo"));
-        startActivity(intent);
-    }
 
-    //高德地图,起点就是定位点
-    // 终点是LatLng ll = new LatLng("你的纬度latitude","你的经度longitude");
-    public void startNaviGao(String jingDu, String weiDu, String dName) {
-        if (!MapNaviUtils.isGdMapInstalled()) {
-            ToastUtils.showShort("请安装高德地图");
-            return;
-        }
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.addCategory(Intent.CATEGORY_DEFAULT);//113.070635,28.199933
-//        intent.setData(Uri.parse("amapuri://route/plan/?sid=BGVIS1&did=BGVIS2&dlat=28.199933&dlon=113.070635&dname=明诚驾校&dev=0&t=0"));
-        intent.setData(Uri.parse("amapuri://route/plan/?sid=BGVIS1&did=BGVIS2&dlat=28.199933&dlon=113.070635&dname=明诚驾校&dev=0&t=0"));
-        intent.setPackage("com.autonavi.minimap");
-        startActivity(intent);
-    }
 
 
     @Override
