@@ -31,6 +31,8 @@
     <color name="line2">#818181</color>
     <color name="line3">#808080</color>
     <color name="line4">#999999</color>
+    <color name="line5">#f2f2f2</color>
+    <color name="line6">#cccccc</color>
     <color name="numberical_default_bg">#CACACA</color>
     <color name="money">#f45b43</color>
     <color name="bgf2">#F2F2F2</color>

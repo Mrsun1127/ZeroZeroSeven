@@ -446,6 +446,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/bt_left"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -454,6 +455,7 @@
             android:textColor="@color/white" />
 
         <Button
+            android:id="@+id/bt_right"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
