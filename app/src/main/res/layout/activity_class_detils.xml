@@ -451,16 +451,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/errandtab"
-            android:text="报名预约"
+            android:text="立即报名"
             android:textColor="@color/white" />
 
-        <Button
-            android:id="@+id/bt_right"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:text="立即报名"
-            android:textColor="@color/errandtab" />
     </LinearLayout>
 </LinearLayout>

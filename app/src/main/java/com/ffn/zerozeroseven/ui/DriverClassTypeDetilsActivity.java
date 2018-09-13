@@ -43,15 +43,11 @@ public class DriverClassTypeDetilsActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.bt_left, R.id.bt_right})
+    @OnClick({R.id.bt_left})
     void setOnClicks(View v) {
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.bt_left:
-                bundle.putString("title","预约");
-                ZeroZeroSevenUtils.SwitchActivity(DriverClassTypeDetilsActivity.this,DriverCommitActivity.class,bundle);
-                break;
-            case R.id.bt_right:
                 bundle.putString("title","报名");
                 ZeroZeroSevenUtils.SwitchActivity(DriverClassTypeDetilsActivity.this,DriverCommitActivity.class,bundle);
                 break;
