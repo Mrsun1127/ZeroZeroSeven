@@ -47,8 +47,8 @@ public class CustomPopWindow extends PopupWindow implements View.OnClickListener
         int w = context.getWindowManager().getDefaultDisplay().getWidth();
         setContentView(mContentView);
         //设置宽与高
-        setWidth(w/2+100);
-        setHeight(h/2-150);
+        setWidth(w);
+        setHeight(h);
         /**
          * 设置进出动画
          */
