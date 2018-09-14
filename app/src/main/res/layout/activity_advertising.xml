@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
          />
     <Button
-        android:background="#FF000000 "
+        android:background="@color/trancelate"
         android:textColor="@color/white"
         android:id="@+id/bt_jump"
         android:layout_marginTop="22dp"

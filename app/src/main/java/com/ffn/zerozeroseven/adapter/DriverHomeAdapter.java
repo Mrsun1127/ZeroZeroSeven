@@ -33,7 +33,7 @@ public class DriverHomeAdapter extends BaseRecyclerAdapter<DriverSchoolMainInfo.
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, DriverSchoolMainInfo.ContentsBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
 //        Glide.with(mContext).load(item.getThumb().getMid()).override(90, 70).into(mHolder.iv_icon);
-        Glide.with(mContext).load(item.getThumb().getMid()).into(mHolder.iv_icon);
+        Glide.with(mContext).load(item.getImage().getMid()).into(mHolder.iv_icon);
         mHolder.tv_name.setText(TextUtils.isEmpty(item.getTitle())?"加载中":item.getTitle());
         mHolder.tv_distance.setText(TextUtils.isEmpty(item.getDistance())?"加载中":item.getDistance()+"m");
         mHolder.tv_count.setText(TextUtils.isEmpty(item.getNumber())?"加载中":item.getNumber());

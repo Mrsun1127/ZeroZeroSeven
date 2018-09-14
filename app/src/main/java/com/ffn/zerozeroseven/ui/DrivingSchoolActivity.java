@@ -1,28 +1,25 @@
 package com.ffn.zerozeroseven.ui;
 
 
-import android.content.Intent;
-import android.net.Uri;
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.RadioGroup;
 
 import com.alibaba.fastjson.JSON;
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.model.LatLng;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.DriverHomeAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
-import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.DriverSchoolMainInfo;
 import com.ffn.zerozeroseven.utlis.LogUtils;
-import com.ffn.zerozeroseven.utlis.MapNaviUtils;
-import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
@@ -32,12 +29,10 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.yanzhenjie.permission.AndPermission;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -58,10 +53,21 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
     RecyclerView recycleview;
     private DriverHomeAdapter driverHomeAdapter;
     private DriverSchoolMainInfo driverSchoolMainInfo;
+    private String[] split;
 
     @Override
     protected int setLayout() {
         return R.layout.activity_driver;
+    }
+
+    @Override
+    protected void doMain() {
+        String jingWeidu = getLngAndLat(this);
+        split = jingWeidu.split(",");
+        if (split.length < 1) {
+            ToastUtils.showShort("请打开Gps方便定位");
+        }
+
     }
 
     @Override
@@ -98,35 +104,120 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
                 switch (i) {
                     case R.id.rb_distance:
                         postUrl = "http://api.map.baidu.com/geosearch/v3/nearby?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&sortby=distance:1&radius=100000";
-                        requestDate(postUrl, 112.982211, 28.20261, false, 0, 6);
+                        requestDate(postUrl, split[0], split[1], false, 0, 6);
                         break;
                     case R.id.rb_price:
                         postUrl = "http://api.map.baidu.com/geosearch/v3/local?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&sortby=price:1&filter=check_status:1";
-                        requestDate(postUrl, 112.982211, 28.20261, false, 0, 6);
+                        requestDate(postUrl, split[0], split[1], false, 0, 6);
                         break;
                     case R.id.rb_other:
                         postUrl = "http://api.map.baidu.com/geosearch/v3/local?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&filter=check_status:1";
-                        requestDate(postUrl, 112.982211, 28.20261, false, 0, 6);
+                        requestDate(postUrl, split[0], split[1], false, 0, 6);
                         break;
                 }
             }
         });
+
+    }
+    //获取权限
+    public void requestPermisson() {
+        AndPermission.with(DrivingSchoolActivity.this)
+                .requestCode(100)
+                .permission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                .send();
+    }
+    //获取经纬度
+    private String getLngAndLat(Context context) {
+        double latitude = 0.0;
+        double longitude = 0.0;
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {  //从gps获取经纬度
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                requestPermisson();
+            }
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location != null) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            } else {//当GPS信号弱没获取到位置的时候又从网络获取
+                return getLngAndLatWithNetwork();
+            }
+        } else {    //从网络获取经纬度
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location != null) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+        }
+        requestDate(postUrl, String.valueOf(longitude), String.valueOf(latitude), false, 0, 6);
+        return longitude + "," + latitude;
     }
 
-    @Override
-    protected void doMain() {
-        requestDate(postUrl, 112.982211, 28.20261, false, 0, 6);
+    //从网络获取经纬度
+    public String getLngAndLatWithNetwork() {
+        double latitude = 0.0;
+        double longitude = 0.0;
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            requestPermisson();
+        }
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
+        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+        requestDate(postUrl, String.valueOf(longitude), String.valueOf(latitude), false, 0, 6);
+        return longitude + "," + latitude;
     }
+
+    LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+
 
     private String postUrl = "http://api.map.baidu.com/geosearch/v3/nearby?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&sortby=distance:1&radius=100000";
-    //http://api.map.baidu.com/geosearch/v3/local?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&sortby=" + sortby + "&radius=100000&tags=驾校" + ":1&location=" + jingDu + "," + weiDu
     private String distanceUrl = "http://api.map.baidu.com/geosearch/v3/nearby?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&sortby=distance:1&radius=100000";
     private String priceUrl = "http://api.map.baidu.com/geosearch/v3/local?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&sortby=price:1&filter=check_status:1";
     private String otherUrl = "http://api.map.baidu.com/geosearch/v3/local?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&filter=check_status:1";
     private int index = 0;
 
-    private void requestDate(String url, Double jingDu, Double weiDu, final boolean b, final int index, int size) {
-        LogUtils.D("response",url + "&tags=驾校" + "&location=" + jingDu + "," + weiDu + "&pageIndex=" + index + "&pageSize=" + 6);
+    private void requestDate(String url, String jingDu, String weiDu, final boolean b, final int index, int size) {
+        LogUtils.D("response", url + "&tags=驾校" + "&location=" + jingDu + "," + weiDu + "&pageIndex=" + index + "&pageSize=" + 6);
         OkHttpUtils.get()
                 .url(url + "&tags=驾校" + "&location=" + jingDu + "," + weiDu + "&pageIndex=" + index + "&pageSize=" + 6)
                 .build()
@@ -180,13 +271,13 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         index = 0;
-        requestDate(postUrl, 112.982211, 28.20261, true, index, 6);
+        requestDate(postUrl, split[0], split[1], true, index, 6);
     }
 
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
         index++;
-        requestDate(postUrl, 112.982211, 28.20261, true, index, 6);
+        requestDate(postUrl, split[0], split[1], true, index, 6);
     }
 }
 

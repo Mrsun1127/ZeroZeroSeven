@@ -7,7 +7,7 @@ public class DriverSchoolMainInfo {
      * status : 0
      * total : 2
      * size : 2
-     * contents : [{"driving_id":"1","thumb":{"imgid":"56388971581","big":"http://h.hiphotos.baidu.com/lbsapi/pic/item/d52a2834349b033b66d9c2cb18ce36d3d539bd49.jpg","mid":"http://h.hiphotos.baidu.com/lbsapi/wh%3D160%2C160/sign=f67f42750423dd542126af69e7399fef/d52a2834349b033b66d9c2cb18ce36d3d539bd49.jpg","sml":"http://h.hiphotos.baidu.com/lbsapi/wh%3D16%2C16/sign=9c28a6155482b2b7a7ca31c50781fad9/d52a2834349b033b66d9c2cb18ce36d3d539bd49.jpg"},"tags":"驾校","price":300,"uid":2557645013,"province":"湖南省","selling_tag":"多渠道,dqd","geotable_id":194571,"modify_time":1536742217,"district":"芙蓉区","create_time":1536635894,"number":0,"city":"长沙市","location":[113.022603,28.199393],"address":"湖南省长沙市芙蓉区车站中路406号","title":"零零7驾校","coord_type":3,"direction":"西","type":0,"distance":3978,"weight":0},{"driving_id":"2","thumb":{"imgid":"56388986794","big":"http://h.imgsrc.baidu.com/lbsapi/pic/item/71cf3bc79f3df8dc7ba7b180c011728b4710280c.jpg","mid":"http://h.imgsrc.baidu.com/lbsapi/wh%3D160%2C160/sign=2cbf3d5bd7b44aed591bb6e5852cab30/71cf3bc79f3df8dc7ba7b180c011728b4710280c.jpg","sml":"http://h.imgsrc.baidu.com/lbsapi/wh%3D16%2C16/sign=2b6c32fabbfd5266a77e34159d34a61d/71cf3bc79f3df8dc7ba7b180c011728b4710280c.jpg"},"tags":"驾校","price":3200,"uid":2557645298,"province":"湖南省","selling_tag":"包接送","geotable_id":194571,"modify_time":1536742210,"district":"雨花区","create_time":1536635948,"number":0,"city":"长沙市","location":[113.022603,28.1899393],"address":"湖南省长沙市芙蓉区车站中路406号","title":"辉煌驾校","coord_type":3,"direction":"西","type":0,"distance":4203,"weight":0}]
+     * contents : [{"driving_id":"1","check_status":1,"image":{"imgid":"56437507362","big":"http://a.imgsrc.baidu.com/lbsapi/pic/item/b999a9014c086e063f90fa580f087bf40ad1cbed.jpg","mid":"http://a.imgsrc.baidu.com/lbsapi/wh%3D160%2C160/sign=2ed261009adda144da5c64b38487fc93/b999a9014c086e063f90fa580f087bf40ad1cbed.jpg","sml":"http://a.imgsrc.baidu.com/lbsapi/wh%3D16%2C16/sign=90feb33560224f4a57cc7b123fdba164/b999a9014c086e063f90fa580f087bf40ad1cbed.jpg"},"tags":"驾校","price":300,"uid":2557645013,"province":"湖南省","selling_tag":"多渠道,dqd","geotable_id":194571,"modify_time":1536825671,"district":"芙蓉区","create_time":1536635894,"number":0,"city":"长沙市","location":[113.022603,28.199393],"address":"湖南省长沙市芙蓉区车站中路406号","title":"零零7驾校","coord_type":3,"direction":"西","type":0,"distance":3978,"weight":0},{"driving_id":"2","check_status":1,"image":{"imgid":"56437496883","big":"http://f.imgsrc.baidu.com/lbsapi/pic/item/63d0f703918fa0ec3b26be1e2b9759ee3c6ddbc4.jpg","mid":"http://f.imgsrc.baidu.com/lbsapi/wh%3D160%2C160/sign=4f0562330ce939015657853f4ddc78d6/63d0f703918fa0ec3b26be1e2b9759ee3c6ddbc4.jpg","sml":"http://f.imgsrc.baidu.com/lbsapi/wh%3D16%2C16/sign=58bf190766600c33f02cd6c92c606039/63d0f703918fa0ec3b26be1e2b9759ee3c6ddbc4.jpg"},"tags":"驾校","price":3200,"uid":2557645298,"province":"湖南省","selling_tag":"包接送","geotable_id":194571,"modify_time":1536825665,"district":"雨花区","create_time":1536635948,"number":0,"city":"长沙市","location":[113.022603,28.1899393],"address":"湖南省长沙市芙蓉区车站中路406号","title":"辉煌驾校","coord_type":3,"direction":"西","type":0,"distance":4203,"weight":0}]
      */
 
     private int status;
@@ -50,14 +50,15 @@ public class DriverSchoolMainInfo {
     public static class ContentsBean {
         /**
          * driving_id : 1
-         * thumb : {"imgid":"56388971581","big":"http://h.hiphotos.baidu.com/lbsapi/pic/item/d52a2834349b033b66d9c2cb18ce36d3d539bd49.jpg","mid":"http://h.hiphotos.baidu.com/lbsapi/wh%3D160%2C160/sign=f67f42750423dd542126af69e7399fef/d52a2834349b033b66d9c2cb18ce36d3d539bd49.jpg","sml":"http://h.hiphotos.baidu.com/lbsapi/wh%3D16%2C16/sign=9c28a6155482b2b7a7ca31c50781fad9/d52a2834349b033b66d9c2cb18ce36d3d539bd49.jpg"}
+         * check_status : 1
+         * image : {"imgid":"56437507362","big":"http://a.imgsrc.baidu.com/lbsapi/pic/item/b999a9014c086e063f90fa580f087bf40ad1cbed.jpg","mid":"http://a.imgsrc.baidu.com/lbsapi/wh%3D160%2C160/sign=2ed261009adda144da5c64b38487fc93/b999a9014c086e063f90fa580f087bf40ad1cbed.jpg","sml":"http://a.imgsrc.baidu.com/lbsapi/wh%3D16%2C16/sign=90feb33560224f4a57cc7b123fdba164/b999a9014c086e063f90fa580f087bf40ad1cbed.jpg"}
          * tags : 驾校
          * price : 300
          * uid : 2557645013
          * province : 湖南省
          * selling_tag : 多渠道,dqd
          * geotable_id : 194571
-         * modify_time : 1536742217
+         * modify_time : 1536825671
          * district : 芙蓉区
          * create_time : 1536635894
          * number : 0
@@ -73,7 +74,8 @@ public class DriverSchoolMainInfo {
          */
 
         private String driving_id;
-        private ThumbBean thumb;
+        private int check_status;
+        private ImageBean image;
         private String tags;
         private String price;
         private long uid;
@@ -102,12 +104,20 @@ public class DriverSchoolMainInfo {
             this.driving_id = driving_id;
         }
 
-        public ThumbBean getThumb() {
-            return thumb;
+        public int getCheck_status() {
+            return check_status;
         }
 
-        public void setThumb(ThumbBean thumb) {
-            this.thumb = thumb;
+        public void setCheck_status(int check_status) {
+            this.check_status = check_status;
+        }
+
+        public ImageBean getImage() {
+            return image;
+        }
+
+        public void setImage(ImageBean image) {
+            this.image = image;
         }
 
         public String getTags() {
@@ -262,12 +272,12 @@ public class DriverSchoolMainInfo {
             this.location = location;
         }
 
-        public static class ThumbBean {
+        public static class ImageBean {
             /**
-             * imgid : 56388971581
-             * big : http://h.hiphotos.baidu.com/lbsapi/pic/item/d52a2834349b033b66d9c2cb18ce36d3d539bd49.jpg
-             * mid : http://h.hiphotos.baidu.com/lbsapi/wh%3D160%2C160/sign=f67f42750423dd542126af69e7399fef/d52a2834349b033b66d9c2cb18ce36d3d539bd49.jpg
-             * sml : http://h.hiphotos.baidu.com/lbsapi/wh%3D16%2C16/sign=9c28a6155482b2b7a7ca31c50781fad9/d52a2834349b033b66d9c2cb18ce36d3d539bd49.jpg
+             * imgid : 56437507362
+             * big : http://a.imgsrc.baidu.com/lbsapi/pic/item/b999a9014c086e063f90fa580f087bf40ad1cbed.jpg
+             * mid : http://a.imgsrc.baidu.com/lbsapi/wh%3D160%2C160/sign=2ed261009adda144da5c64b38487fc93/b999a9014c086e063f90fa580f087bf40ad1cbed.jpg
+             * sml : http://a.imgsrc.baidu.com/lbsapi/wh%3D16%2C16/sign=90feb33560224f4a57cc7b123fdba164/b999a9014c086e063f90fa580f087bf40ad1cbed.jpg
              */
 
             private String imgid;
