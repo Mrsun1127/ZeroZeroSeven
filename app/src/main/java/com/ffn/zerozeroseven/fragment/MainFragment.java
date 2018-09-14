@@ -724,6 +724,7 @@ public class MainFragment extends BaseFragment {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("shopInfo", goodsInfo);
                     bundle.putString("back", "main");
+                    bundle.putString("type","shop");
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
                 } else {
                     ToastUtils.showShort(goodsDetilsInfo.getMessage());
@@ -757,6 +758,7 @@ public class MainFragment extends BaseFragment {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("shopInfo", goodsInfo);
                     bundle.putString("back", "main");
+                    bundle.putString("type", "shop");
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
                 } else {
                     ToastUtils.showShort(goodsDetilsInfo.getMessage());
