@@ -54,6 +54,7 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
     private DriverHomeAdapter driverHomeAdapter;
     private DriverSchoolMainInfo driverSchoolMainInfo;
     private String[] split;
+    private LocationManager locationManager;
 
     @Override
     protected int setLayout() {
@@ -119,6 +120,7 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
         });
 
     }
+
     //获取权限
     public void requestPermisson() {
         AndPermission.with(DrivingSchoolActivity.this)
@@ -126,11 +128,12 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
                 .permission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
                 .send();
     }
+
     //获取经纬度
     private String getLngAndLat(Context context) {
         double latitude = 0.0;
         double longitude = 0.0;
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {  //从gps获取经纬度
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 //    ActivityCompat#requestPermissions
@@ -187,7 +190,7 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
         return longitude + "," + latitude;
     }
 
-    LocationListener locationListener = new LocationListener() {
+    static LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
 
@@ -265,6 +268,7 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
     }
 
 
