@@ -410,6 +410,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.DriverCommitActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.JoinDriverSchoolActivity" />
 
 
         <!-- Required SDK核心功能-->

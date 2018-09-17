@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.ffn.zerozeroseven.view.TopView
+        android:id="@+id/topView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/joindriver1"
+        android:textColor="#333333"
+        android:textSize="10sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:text="@string/joindriver2"
+        android:textColor="#333333"
+        android:textSize="10sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:text="@string/joindriver3"
+        android:textColor="#333333"
+        android:textSize="10sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:text="@string/joindriver4"
+        android:textColor="#333333"
+        android:textSize="10sp" />
+
+    <com.ffn.zerozeroseven.view.ClearEditText
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/lankongxin"
+        android:gravity="center"
+        android:hint="输入驾校名称"
+        android:textColor="#2093ff"
+        android:textColorHint="#2093ff"
+        android:textSize="13sp" />
+
+    <com.ffn.zerozeroseven.view.ClearEditText
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/lankongxin"
+        android:gravity="center"
+        android:hint="联系方式"
+        android:inputType="phone"
+        android:textColor="#2093ff"
+        android:textColorHint="#2093ff"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/bt_sub"
+        android:layout_width="115dp"
+        android:layout_height="37dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/lantuoyuan"
+        android:text="提交"
+        android:textColor="@color/white" />
+</LinearLayout>

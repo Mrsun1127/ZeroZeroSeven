@@ -108,6 +108,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </android.support.design.widget.CoordinatorLayout>
     <RelativeLayout
+        android:id="@+id/rl_ask"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/white">

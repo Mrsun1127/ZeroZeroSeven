@@ -133,14 +133,16 @@ public class DrivingDetilsActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.rl_call})
+    @OnClick({R.id.rl_call, R.id.rl_ask})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.rl_call:
                 ZeroZeroSevenUtils.requestCallMainifest(DrivingDetilsActivity.this);
                 ZeroZeroSevenUtils.MakingCalls(DrivingDetilsActivity.this, phoneNumber);
                 break;
-
+            case R.id.rl_ask:
+                ZeroZeroSevenUtils.SwitchActivity(DrivingDetilsActivity.this, JoinDriverSchoolActivity.class);
+                break;
         }
     }
 }

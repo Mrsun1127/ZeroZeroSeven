@@ -49,4 +49,8 @@
     <string name="state_nojilu">暂无记录</string>
     <string name="state_noshangpin">暂无商品</string>
     <string name="state_notupian">暂无图片</string>
+    <string name="joindriver1">\"1、商城有权根据（包括但不仅限于）品牌需求、公司经营状况、服务水平等其他因素退回客户申请；</string>
+    <string name="joindriver2">2、商城有权在申请入驻及后续经营阶段要求客户提供其他资质；商城将结合各行业发展动态、国家相关规定及消费者购买需求，不定期更新招商标准；</string>
+    <string name="joindriver3">3、申请企业须确保其申请入驻及后续经营阶段提供的相关资质的真实性（若企业提供的相关资质如商标注册证、授权书等由第三方提供，请务必先行核实文件的真实有效性），一旦发现虚假资质，申请企业将被商城列入非诚信客户名单，并不再进行合作；</string>
+    <string name="joindriver4">4、商城暂不接受未取得国家商标总局颁发的商标注册证或商标受理通知书的品牌开店申请（部分类目的进口商品除外），亦不接受纯图形类商标的入驻申请。\"</string>
 </resources>
