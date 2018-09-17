@@ -3,16 +3,23 @@ package com.ffn.zerozeroseven.ui;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ExamplePagerAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.bean.DriverDetilsInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RDriverDetilsInfo;
 import com.ffn.zerozeroseven.fragment.DriverDetilsFourFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsOneFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsTwoFragment;
+import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TopView;
 import com.zhouwei.mzbanner.MZBannerView;
 
@@ -22,6 +29,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DrivingDetilsActivity extends BaseActivity {
     @Bind(R.id.topView)
@@ -48,6 +56,7 @@ public class DrivingDetilsActivity extends BaseActivity {
     private static final String[] CHANNELS = new String[]{"热门班型", "练车场地", "驾校简介", "考生须知"};
     private List<String> mDataList = Arrays.asList(CHANNELS);
     private List<Fragment> fragmentList = new ArrayList<>();
+    private String phoneNumber;
 
     @Override
     protected int setLayout() {
@@ -73,13 +82,50 @@ public class DrivingDetilsActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        fragmentList.add(new DriverDetilsOneFragment());
-        fragmentList.add(new DriverDetilsTwoFragment());
-        fragmentList.add(new DriverDetilsOneFragment());
-        fragmentList.add(new DriverDetilsFourFragment());
-        ShopViewPagerAdapter adapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, mDataList);
-        viewpager.setAdapter(adapter);
-        viewpager.setOffscreenPageLimit(fragmentList.size());
-        tablayout.setupWithViewPager(viewpager);
+        String driverId = getIntent().getStringExtra("driverId");
+        requesetDate(driverId);
+
+    }
+
+
+    private void requesetDate(String driverId) {
+        RDriverDetilsInfo rDriverDetilsInfo = new RDriverDetilsInfo();
+        rDriverDetilsInfo.setFunctionName("QueryDrivingSchool");
+        RDriverDetilsInfo.ParametersBean parametersBean = new RDriverDetilsInfo.ParametersBean();
+        parametersBean.setDrivingId(driverId);
+        rDriverDetilsInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(this);
+        okGoUtils.httpPostJSON(rDriverDetilsInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                DriverDetilsInfo driverDetilsInfo = JSON.parseObject(response, DriverDetilsInfo.class);
+                if (driverDetilsInfo.getCode() == 0) {
+                    tv_name.setText(driverDetilsInfo.getData().getDrivingSchool().getName());
+                    tv_adr.setText(driverDetilsInfo.getData().getDrivingSchool().getAddress());
+                    phoneNumber = driverDetilsInfo.getData().getDrivingSchool().getContact();
+                    fragmentList.add(DriverDetilsOneFragment.newInstance(driverDetilsInfo));
+                    fragmentList.add(new DriverDetilsTwoFragment());
+                    fragmentList.add(DriverDetilsOneFragment.newInstance(driverDetilsInfo));
+                    fragmentList.add(new DriverDetilsFourFragment());
+                    ShopViewPagerAdapter adapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, mDataList);
+                    viewpager.setAdapter(adapter);
+                    viewpager.setOffscreenPageLimit(fragmentList.size());
+                    tablayout.setupWithViewPager(viewpager);
+
+                }
+            }
+        });
+    }
+
+    @OnClick({R.id.rl_call})
+    void setOnClicks(View v) {
+        switch (v.getId()) {
+            case R.id.rl_call:
+                ZeroZeroSevenUtils.requestCallMainifest(DrivingDetilsActivity.this);
+                ZeroZeroSevenUtils.MakingCalls(DrivingDetilsActivity.this, phoneNumber);
+                break;
+
+        }
     }
 }

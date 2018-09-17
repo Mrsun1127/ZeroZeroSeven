@@ -1,5 +1,7 @@
 package com.ffn.zerozeroseven.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,7 +10,9 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.DriverOneAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.DriverDetilsInfo;
 import com.ffn.zerozeroseven.ui.DriverClassTypeDetilsActivity;
+import com.ffn.zerozeroseven.utlis.JsonUtil;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 
@@ -22,10 +26,25 @@ public class DriverDetilsOneFragment extends BaseFragment {
     @Bind(R.id.recycleview)
     RecyclerView recycleview;
     private DriverOneAdapter driverOneAdapter;
+    private DriverDetilsInfo info;
 
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
+    }
+
+    public static DriverDetilsOneFragment newInstance(DriverDetilsInfo driverDetilsInfo) {
+        Bundle args = new Bundle();
+        args.putSerializable("info", driverDetilsInfo);
+        DriverDetilsOneFragment fragment = new DriverDetilsOneFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        info = (DriverDetilsInfo) getArguments().getSerializable("info");
     }
 
     @Override
@@ -51,12 +70,6 @@ public class DriverDetilsOneFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        driverOneAdapter.addAll(list);
+        driverOneAdapter.addAll(info.getData().getDrivingSchool().getDrivingClassList());
     }
 }

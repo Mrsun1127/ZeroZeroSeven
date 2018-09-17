@@ -12,14 +12,18 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.DriverHomeAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.DriverCountInfo;
 import com.ffn.zerozeroseven.bean.DriverSchoolMainInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RDriverCountInfo;
 import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
@@ -51,6 +55,8 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
     SmartRefreshLayout refreshlayout;
     @Bind(R.id.recycleview)
     RecyclerView recycleview;
+    @Bind(R.id.tv_count)
+    TextView tv_count;
     private DriverHomeAdapter driverHomeAdapter;
     private DriverSchoolMainInfo driverSchoolMainInfo;
     private String[] split;
@@ -68,7 +74,23 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
         if (split.length < 1) {
             ToastUtils.showShort("请打开Gps方便定位");
         }
+        requestCount();
+    }
 
+    private void requestCount() {
+        RDriverCountInfo rDriverCountInfo = new RDriverCountInfo();
+        rDriverCountInfo.setFunctionName("QueryStatistics");
+        OkGoUtils okGoUtils = new OkGoUtils(this);
+        okGoUtils.httpPostJSON(rDriverCountInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                DriverCountInfo driverCountInfo = JSON.parseObject(response, DriverCountInfo.class);
+                if (driverCountInfo.getCode() == 0) {
+                    tv_count.setText(String.valueOf(driverCountInfo.getData().getCount()));
+                }
+            }
+        });
     }
 
     @Override
@@ -96,7 +118,9 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
         driverHomeAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, DrivingDetilsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("driverId", driverHomeAdapter.getItem(position).getDriving_id());
+                ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, DrivingDetilsActivity.class, bundle);
             }
         });
         rg_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
