@@ -69,7 +69,7 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
 
     @Override
     protected void doMain() {
-        String jingWeidu = getLngAndLat(this);
+        String jingWeidu = getLngAndLat(getApplicationContext());
         split = jingWeidu.split(",");
         if (split.length < 1) {
             ToastUtils.showShort("请打开Gps方便定位");
