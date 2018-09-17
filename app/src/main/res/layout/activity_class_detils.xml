@@ -100,6 +100,7 @@
                     android:background="@color/line" />
 
                 <TextView
+                    android:id="@+id/tv_type"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -134,6 +135,7 @@
                     android:background="@color/line" />
 
                 <TextView
+                    android:id="@+id/tv_car"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -168,6 +170,7 @@
                     android:background="@color/line" />
 
                 <TextView
+                    android:id="@+id/tv_up_car_time"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -208,6 +211,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_projectto"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -222,6 +226,7 @@
                         android:background="@color/line" />
 
                     <TextView
+                        android:id="@+id/tv_projectthree"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -258,6 +263,7 @@
                     android:background="@color/line" />
 
                 <TextView
+                    android:id="@+id/tv_finish_time"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -292,6 +298,7 @@
                     android:background="@color/line" />
 
                 <TextView
+                    android:id="@+id/tv_xingshi"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -322,83 +329,105 @@
                 android:text="费用明细"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/line" />
+
             <TextView
+                android:id="@+id/tv_test_money"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:gravity="center"
                 android:text="考试费"
                 android:textColor="@color/line"
                 android:textSize="13sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/line" />
+
             <TextView
+                android:id="@+id/tv_card_money"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:gravity="center"
                 android:text="制卡费"
                 android:textColor="@color/line"
                 android:textSize="13sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/line" />
+
             <TextView
+                android:id="@+id/tv_baoxian"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:gravity="center"
                 android:text="保险费"
                 android:textColor="@color/line"
                 android:textSize="13sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/line" />
+
             <TextView
+                android:id="@+id/tv_photo_money"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:gravity="center"
                 android:text="照相费"
                 android:textColor="@color/line"
                 android:textSize="13sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/line" />
+
             <TextView
+                android:id="@+id/tv_gongben"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:gravity="center"
                 android:text="工本费"
                 android:textColor="@color/line"
                 android:textSize="13sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/line" />
+
             <TextView
+                android:id="@+id/tv_teach_money"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:gravity="center"
                 android:text="培训费"
                 android:textColor="@color/line"
                 android:textSize="13sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/line" />
+
             <TextView
+                android:id="@+id/tv_other_money"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:gravity="center"
                 android:text="不包含：体检费、模拟费、补考补训费"
                 android:textColor="@color/line"
                 android:textSize="13sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="21dp" />
@@ -407,33 +436,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:background="@color/line" />
+
             <TextView
-                android:layout_marginLeft="9dp"
-                android:layout_marginTop="14dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="服务承诺"/>
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="14dp"
+                android:text="服务承诺"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
             <TextView
+                android:id="@+id/tv_talk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="12dp"
+                android:text="本人有着严谨负责的工作态度、和幽默风趣的教学风格，深受学员的好评，对学员讲解耐心周到时常鼓励学员学车要胆大心细，相信自己，相信教练，"
                 android:textColor="@color/line1"
-                android:textSize="13sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="本人有着严谨负责的工作态度、和幽默风趣的教学风格，深受学员的好评，对学员讲解耐心周到时常鼓励学员学车要胆大心细，相信自己，相信教练，"/>
+                android:textSize="13sp" />
+
             <TextView
-                android:drawablePadding="8dp"
-                android:drawableLeft="@drawable/drivercall"
-                android:layout_marginLeft="9dp"
-                android:layout_marginTop="13dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="客服咨询"/>
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="13dp"
+                android:drawableLeft="@drawable/drivercall"
+                android:drawablePadding="8dp"
+                android:text="客服咨询"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="48dp" />

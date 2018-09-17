@@ -12,12 +12,9 @@ import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.DriverDetilsInfo;
 import com.ffn.zerozeroseven.ui.DriverClassTypeDetilsActivity;
-import com.ffn.zerozeroseven.utlis.JsonUtil;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -53,7 +50,9 @@ public class DriverDetilsOneFragment extends BaseFragment {
         driverOneAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, DriverClassTypeDetilsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("classId", String.valueOf(driverOneAdapter.getItem(position).getId()));
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, DriverClassTypeDetilsActivity.class, bundle);
             }
         });
         recycleview.setLayoutManager(new LinearLayoutManager(bfCxt));
