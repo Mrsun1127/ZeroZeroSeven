@@ -23,6 +23,7 @@ import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TopView;
 import com.zhouwei.mzbanner.MZBannerView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -57,15 +58,28 @@ public class DrivingDetilsActivity extends BaseActivity {
     private List<String> mDataList = Arrays.asList(CHANNELS);
     private List<Fragment> fragmentList = new ArrayList<>();
     private String phoneNumber;
+    public String driverId;
+    public static WeakReference<DrivingDetilsActivity> mInstance;
+    private DriverDetilsInfo driverDetilsInfo;
+    public String driverName;
 
     @Override
     protected int setLayout() {
         return R.layout.activity_driver_detils;
     }
 
+    public String getName() {
+        return driverName;
+    }
+
+    public String getId() {
+        return driverId;
+    }
+
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        mInstance = new WeakReference<>(this);
         topView.setTopText("驾校详情");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
@@ -82,7 +96,7 @@ public class DrivingDetilsActivity extends BaseActivity {
 
     @Override
     protected void doMain() {
-        String driverId = getIntent().getStringExtra("driverId");
+        driverId = getIntent().getStringExtra("driverId");
         requesetDate(driverId);
 
     }
@@ -99,9 +113,10 @@ public class DrivingDetilsActivity extends BaseActivity {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                DriverDetilsInfo driverDetilsInfo = JSON.parseObject(response, DriverDetilsInfo.class);
+                driverDetilsInfo = JSON.parseObject(response, DriverDetilsInfo.class);
                 if (driverDetilsInfo.getCode() == 0) {
-                    tv_name.setText(driverDetilsInfo.getData().getDrivingSchool().getName());
+                    driverName = driverDetilsInfo.getData().getDrivingSchool().getName();
+                    tv_name.setText(driverName);
                     tv_adr.setText(driverDetilsInfo.getData().getDrivingSchool().getAddress());
                     phoneNumber = driverDetilsInfo.getData().getDrivingSchool().getContact();
                     fragmentList.add(DriverDetilsOneFragment.newInstance(driverDetilsInfo));

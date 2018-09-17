@@ -13,6 +13,8 @@ import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TopView;
 
+import java.lang.ref.WeakReference;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,6 +22,8 @@ import butterknife.OnClick;
 public class DriverClassTypeDetilsActivity extends BaseActivity {
     @Bind(R.id.topView)
     TopView topView;
+    private DriverClassInfo driverClassInfo;
+    public static WeakReference<DriverClassTypeDetilsActivity> mInstacne;
 
     @Override
     protected int setLayout() {
@@ -29,6 +33,7 @@ public class DriverClassTypeDetilsActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        mInstacne = new WeakReference<>(this);
         topView.setTopText("班型详情");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
@@ -94,7 +99,7 @@ public class DriverClassTypeDetilsActivity extends BaseActivity {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                DriverClassInfo driverClassInfo = JSON.parseObject(response, DriverClassInfo.class);
+                driverClassInfo = JSON.parseObject(response, DriverClassInfo.class);
                 if (driverClassInfo.getCode() == 0) {
                     //carBrand : String - 车辆品牌
                     //licenseType : String - 驾照类型
@@ -139,6 +144,8 @@ public class DriverClassTypeDetilsActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.bt_left:
                 bundle.putString("title", "报名");
+                bundle.putString("classId", getIntent().getStringExtra("classId"));
+                bundle.putString("money", String.valueOf(driverClassInfo.getData().getDrivingClass().getTotalPrice()));
                 ZeroZeroSevenUtils.SwitchActivity(DriverClassTypeDetilsActivity.this, DriverCommitActivity.class, bundle);
                 break;
 

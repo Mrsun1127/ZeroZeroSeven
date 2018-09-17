@@ -16,6 +16,9 @@ import com.ffn.zerozeroseven.bean.NumberRicalInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CancelOrderInfo;
 import com.ffn.zerozeroseven.fragment.ErrandMineRunFragment;
 import com.ffn.zerozeroseven.ui.AllDingDanActivity;
+import com.ffn.zerozeroseven.ui.DriverClassTypeDetilsActivity;
+import com.ffn.zerozeroseven.ui.DriverCommitActivity;
+import com.ffn.zerozeroseven.ui.DrivingDetilsActivity;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalCommitDingDanActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalShopCarActivity;
@@ -95,6 +98,11 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                     gotoVp(2);
                 } else if ("lease".equals(pay)) {
                     gotoVp(2);
+                }else if ("driver".equals(pay)) {
+                    PayMoneyNewActivity.mInstance.get().finish();
+                    DrivingDetilsActivity.mInstance.get().finish();
+                    DriverClassTypeDetilsActivity.mInstacne.get().finish();
+                    DriverCommitActivity.mInstance.get().finish();
                 }
                 finish();
             }
@@ -184,6 +192,11 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                             carShopInfo.getShopInfos().clear();
                             BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
                             SharePrefUtils.saveObject(WXPayEntryActivity.this, "leasecarShopInfo", BaseAppApplication.getInstance().getLeasecarShopInfo());
+                        }else if ("driver".equals(pay)) {
+                            PayMoneyNewActivity.mInstance.get().finish();
+                            DrivingDetilsActivity.mInstance.get().finish();
+                            DriverClassTypeDetilsActivity.mInstacne.get().finish();
+                            DriverCommitActivity.mInstance.get().finish();
                         }
 
                     } else {

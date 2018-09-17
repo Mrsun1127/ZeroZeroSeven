@@ -17,6 +17,9 @@ import com.ffn.zerozeroseven.bean.requsetbean.CancelOrderInfo;
 import com.ffn.zerozeroseven.fragment.ErrandMineRunFragment;
 import com.ffn.zerozeroseven.ui.AllDingDanActivity;
 import com.ffn.zerozeroseven.ui.CommitSuccessActivity;
+import com.ffn.zerozeroseven.ui.DriverClassTypeDetilsActivity;
+import com.ffn.zerozeroseven.ui.DriverCommitActivity;
+import com.ffn.zerozeroseven.ui.DrivingDetilsActivity;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalCommitDingDanActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalShopCarActivity;
@@ -119,6 +122,11 @@ public class ZFBPayUtil {
                             bundle.putString("info", "请耐心等待工作人员审核，请留意App通知");
                             ZeroZeroSevenUtils.SwitchActivity(mContext, CommitSuccessActivity.class, bundle);
 
+                        } else if ("driver".equals(pay)) {
+                            PayMoneyNewActivity.mInstance.get().finish();
+                            DrivingDetilsActivity.mInstance.get().finish();
+                            DriverClassTypeDetilsActivity.mInstacne.get().finish();
+                            DriverCommitActivity.mInstance.get().finish();
                         }
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
@@ -140,11 +148,13 @@ public class ZFBPayUtil {
         }
 
     };
-    private void gotoVp(int position){
+
+    private void gotoVp(int position) {
         Bundle bundle = new Bundle();
-        bundle.putInt("position",position);
-        ZeroZeroSevenUtils.SwitchActivity(mContext, AllDingDanActivity.class,bundle);
+        bundle.putInt("position", position);
+        ZeroZeroSevenUtils.SwitchActivity(mContext, AllDingDanActivity.class, bundle);
     }
+
     private void cancelPay() {
         CancelOrderInfo cancelOrderInfo = new CancelOrderInfo();
         cancelOrderInfo.setFunctionName("CancelOrderPay");
