@@ -47,6 +47,7 @@
         android:textSize="10sp" />
 
     <com.ffn.zerozeroseven.view.ClearEditText
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="37dp"
         android:layout_marginLeft="70dp"
@@ -60,6 +61,7 @@
         android:textSize="13sp" />
 
     <com.ffn.zerozeroseven.view.ClearEditText
+        android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="37dp"
         android:layout_marginLeft="70dp"

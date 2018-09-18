@@ -501,7 +501,24 @@ public class ZeroZeroSevenUtils {
             }
         });
     }
-
+    /**
+     * 提示弹出框
+     *
+     * @param context
+     * @param message 提示信息
+     */
+    public static void showCustonPop(final Context context, String message, View view, final Activity cls) {
+        final CustomPopWindow popWindow = new CustomPopWindow((Activity) context);
+        popWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+        popWindow.setContent(message);
+        popWindow.setMlistener(new CustomPopWindow.OnButonClikListener() {
+            @Override
+            public void BtAgain() {
+                BaseAppApplication.getInstance().finishActivity(cls);
+                popWindow.dismiss();
+            }
+        });
+    }
     public static void showSleepPop(final Context context, View view) {
         final CustomPopWindow popWindow = new CustomPopWindow((Activity) context);
         popWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
