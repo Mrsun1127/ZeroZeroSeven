@@ -1,6 +1,7 @@
 package com.ffn.zerozeroseven.ui;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -74,6 +75,8 @@ public class DriverOrderDetilsActivity extends BaseActivity implements ActionShe
     TextView tv_idcard;
     @Bind(R.id.tv_status)
     TextView tv_status;
+    @Bind(R.id.bt_show)
+    Button bt_show;
     String[] items = new String[]{"还没想好，不想支付了", "服务质量不满意", "其他"};
 
     private void requestDate(String orderId) {
@@ -96,11 +99,26 @@ public class DriverOrderDetilsActivity extends BaseActivity implements ActionShe
                     tv_pay.setText(driverDetilsInfo.getData().getDrivingOrder().getPayment());
                     tv_idcard.setText(driverDetilsInfo.getData().getDrivingOrder().getIdcard());
                     tv_money.setText(String.valueOf(driverDetilsInfo.getData().getDrivingOrder().getTotalPrice()));
-                    if (driverDetilsInfo.getData().getDrivingOrder().getIsSignUp() == 1) {
+                    if (driverDetilsInfo.getData().getDrivingOrder().getStatus() == 1 && driverDetilsInfo.getData().getDrivingOrder().getIsSignUp() == 1) {
                         tv_status.setText("驾校已受理，请带上身份证，前往驾校登记");
-                    } else {
+                    } else if (driverDetilsInfo.getData().getDrivingOrder().getStatus() == 1 && driverDetilsInfo.getData().getDrivingOrder().getIsSignUp() == 0) {
                         tv_status.setText("驾校后台已响应，等待工作人员确认");
+                    } else {
+                        switch (driverDetilsInfo.getData().getDrivingOrder().getStatus()) {
+                            case -1:
+                                tv_status.setText("退款失败:" + driverDetilsInfo.getData().getDrivingOrder().getRefuseReason());
+                                break;
+                            case 2:
+                                bt_show.setVisibility(View.GONE);
+                                tv_status.setText("您的订单已取消，工作人员正在审核（大概工作日1-7天）");
+                                break;
+                            case 3:
+                                tv_status.setText("您的订单已取消，并成功退款");
+                                bt_show.setVisibility(View.GONE);
+                                break;
+                        }
                     }
+                    //-1=退款失败，0=未付款，1=已付款，2=取消订单，3=退款成功
                 }
             }
         });

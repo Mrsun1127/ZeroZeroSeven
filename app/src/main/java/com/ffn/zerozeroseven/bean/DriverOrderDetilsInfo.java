@@ -84,7 +84,17 @@ public class DriverOrderDetilsInfo {
             private int isSignUp;
             private String orderNo;
             private String payment;
+            private String refuseReason;
             private Double profits;
+
+            public String getRefuseReason() {
+                return refuseReason;
+            }
+
+            public void setRefuseReason(String refuseReason) {
+                this.refuseReason = refuseReason;
+            }
+
             private int status;
             private Double totalPrice;
             private int userId;
