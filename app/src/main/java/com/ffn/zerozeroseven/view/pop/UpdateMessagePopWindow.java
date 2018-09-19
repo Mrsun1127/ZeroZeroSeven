@@ -26,7 +26,7 @@ public class UpdateMessagePopWindow extends PopupWindow implements View.OnClickL
     private EditText et_content;
 
     public interface OnButonClikListener {
-        void OnBtSub(String content);
+        void OnBtSub(String content,EditText view);
     }
 
     public void setMlistener(OnButonClikListener mListener) {
@@ -43,8 +43,8 @@ public class UpdateMessagePopWindow extends PopupWindow implements View.OnClickL
         setContentView(mContentView);
 
         //设置宽与高
-        setWidth(w/2+100);
-        setHeight(h/2-110);
+        setWidth(w);
+        setHeight(h);
         /**
          * 设置进出动画
          */
@@ -103,11 +103,11 @@ public class UpdateMessagePopWindow extends PopupWindow implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_sub:
-                if (et_content.getText().toString().isEmpty() ) {
-                    ToastUtils.showShort("请将信息填写完整", context);
+                if (et_content.getText().toString().isEmpty()) {
+                    dismiss();
                     return;
                 }
-                mlistener.OnBtSub(et_content.getText().toString());
+                mlistener.OnBtSub(et_content.getText().toString(),et_content);
                 break;
         }
     }

@@ -18,6 +18,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -298,20 +299,12 @@ public class PeopleMessAgeActivity extends BaseActivity implements View.OnClickL
 
     private void showPop(final TextView view) {
         popWindow.showAtLocation(ll_all, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
-        lightOff();
-        popWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-                layoutParams.alpha = 1.0f;
-                getWindow().setAttributes(layoutParams);
-            }
-        });
         popWindow.setMlistener(new UpdateMessagePopWindow.OnButonClikListener() {
 
             @Override
-            public void OnBtSub(String content) {
+            public void OnBtSub(String content, EditText editText) {
                 view.setText(content);
+                editText.setText(!TextUtils.isEmpty(view.getText().toString()) ? view.getText().toString() : "");
                 popWindow.dismiss();
             }
         });
