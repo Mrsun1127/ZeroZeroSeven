@@ -97,11 +97,11 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
     public void initView() {
         ButterKnife.bind(this);
         topView.setTopText("校园驾校");
-        topView.setTvRightText(userInfo.getSchoolName());
+        topView.setTvRightText("订单");
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
             public void Right() {
-
+                ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, DriverDingDanListActivity.class);
             }
 
             @Override
