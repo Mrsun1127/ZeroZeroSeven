@@ -21,11 +21,11 @@
 
 
             <TextView
-                android:id="@+id/bt_status"
+                android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
-                android:text="驾校已受理，请带上身份证，前往驾校登记"
+                android:text="驾校后台已响应，等待工作人员确认"
                 android:textColor="@color/money"
                 android:textSize="16sp" />
 
@@ -105,6 +105,27 @@
                     android:textSize="13sp" />
                 <TextView
                     android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="xxx"
+                    android:textColor="@color/line6"
+                    android:textSize="13sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="身份证号码："
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+                <TextView
+                    android:id="@+id/tv_idcard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="xxx"

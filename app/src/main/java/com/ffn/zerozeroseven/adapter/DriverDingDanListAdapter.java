@@ -30,7 +30,11 @@ public class DriverDingDanListAdapter extends BaseRecyclerAdapter<DriverDingDanL
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, DriverDingDanListInfo.DataBean.ListBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_time.setText("下单时间：" + item.getCreateTime());
-        mHolder.tv_status.setText("" + item.getStatus());
+        if (item.getStatus() == 1) {
+            mHolder.tv_status.setText("支付成功");
+        } else {
+            mHolder.tv_status.setText("" + item.getStatus());
+        }
         mHolder.tv_driverName.setText("报考驾校:" + item.getDrivingName());
         mHolder.tv_orderNo.setText("订单号:" + item.getOrderNo());
         mHolder.tv_className.setText("报考班级:" + item.getClassName());

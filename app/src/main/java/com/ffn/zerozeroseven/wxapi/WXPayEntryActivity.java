@@ -18,6 +18,7 @@ import com.ffn.zerozeroseven.fragment.ErrandMineRunFragment;
 import com.ffn.zerozeroseven.ui.AllDingDanActivity;
 import com.ffn.zerozeroseven.ui.DriverClassTypeDetilsActivity;
 import com.ffn.zerozeroseven.ui.DriverCommitActivity;
+import com.ffn.zerozeroseven.ui.DriverDingDanListActivity;
 import com.ffn.zerozeroseven.ui.DrivingDetilsActivity;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalCommitDingDanActivity;
@@ -103,6 +104,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                     DrivingDetilsActivity.mInstance.get().finish();
                     DriverClassTypeDetilsActivity.mInstacne.get().finish();
                     DriverCommitActivity.mInstance.get().finish();
+                    ZeroZeroSevenUtils.SwitchActivity(WXPayEntryActivity.this, DriverDingDanListActivity.class);
                 }
                 finish();
             }

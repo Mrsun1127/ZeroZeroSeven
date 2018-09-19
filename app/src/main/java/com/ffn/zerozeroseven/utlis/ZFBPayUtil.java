@@ -19,6 +19,7 @@ import com.ffn.zerozeroseven.ui.AllDingDanActivity;
 import com.ffn.zerozeroseven.ui.CommitSuccessActivity;
 import com.ffn.zerozeroseven.ui.DriverClassTypeDetilsActivity;
 import com.ffn.zerozeroseven.ui.DriverCommitActivity;
+import com.ffn.zerozeroseven.ui.DriverDingDanListActivity;
 import com.ffn.zerozeroseven.ui.DrivingDetilsActivity;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
 import com.ffn.zerozeroseven.ui.NumberRicalCommitDingDanActivity;
@@ -127,6 +128,7 @@ public class ZFBPayUtil {
                             DrivingDetilsActivity.mInstance.get().finish();
                             DriverClassTypeDetilsActivity.mInstacne.get().finish();
                             DriverCommitActivity.mInstance.get().finish();
+                            ZeroZeroSevenUtils.SwitchActivity(mContext, DriverDingDanListActivity.class);
                         }
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
