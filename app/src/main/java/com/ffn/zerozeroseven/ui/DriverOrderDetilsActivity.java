@@ -98,6 +98,8 @@ public class DriverOrderDetilsActivity extends BaseActivity implements ActionShe
                     tv_money.setText(String.valueOf(driverDetilsInfo.getData().getDrivingOrder().getTotalPrice()));
                     if (driverDetilsInfo.getData().getDrivingOrder().getIsSignUp() == 1) {
                         tv_status.setText("驾校已受理，请带上身份证，前往驾校登记");
+                    } else {
+                        tv_status.setText("驾校后台已响应，等待工作人员确认");
                     }
                 }
             }

@@ -30,10 +30,23 @@ public class DriverDingDanListAdapter extends BaseRecyclerAdapter<DriverDingDanL
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, DriverDingDanListInfo.DataBean.ListBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_time.setText("下单时间：" + item.getCreateTime());
-        if (item.getStatus() == 1) {
-            mHolder.tv_status.setText("支付成功");
-        } else {
-            mHolder.tv_status.setText("" + item.getStatus());
+        //-1=退款失败，0=未付款，1=已付款，2=取消订单，3=退款成功
+        switch (item.getStatus()) {
+            case -1:
+                mHolder.tv_status.setText("退款失败");
+                break;
+            case 0:
+                mHolder.tv_status.setText("未付款");
+                break;
+            case 1:
+                mHolder.tv_status.setText("支付成功");
+                break;
+            case 2:
+                mHolder.tv_status.setText("取消订单");
+                break;
+            case 3:
+                mHolder.tv_status.setText("退款成功");
+                break;
         }
         mHolder.tv_driverName.setText("报考驾校:" + item.getDrivingName());
         mHolder.tv_orderNo.setText("订单号:" + item.getOrderNo());
