@@ -127,16 +127,16 @@ public class BaseAppApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         context = this;
-        Cockroach.install(new Cockroach.ExceptionHandler() {
-            @Override
-            public void handlerException(Thread thread, Throwable throwable) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                });
-            }
-        });
+//        Cockroach.install(new Cockroach.ExceptionHandler() {
+//            @Override
+//            public void handlerException(Thread thread, Throwable throwable) {
+//                new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                    }
+//                });
+//            }
+//        });
         LeakCanary.install(this);
         //发布版本的时候把下面代码打开
 //        LogUtils.isDebug = false;

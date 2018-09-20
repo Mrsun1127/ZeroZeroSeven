@@ -145,10 +145,11 @@ public class OkGoUtils {
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            loadSuccess.onSuccLoad(json);
-                        } catch (Exception e) {
-                        }
+//                        try {
+//                            loadSuccess.onSuccLoad(json);
+//                        } catch (Exception e) {
+//                        }
+                        loadSuccess.onSuccLoad(json);
                     }
                 });
 

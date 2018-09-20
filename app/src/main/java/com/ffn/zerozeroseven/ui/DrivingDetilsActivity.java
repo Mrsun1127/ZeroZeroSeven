@@ -1,13 +1,17 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.ExamplePagerAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
@@ -17,11 +21,14 @@ import com.ffn.zerozeroseven.bean.requsetbean.RDriverDetilsInfo;
 import com.ffn.zerozeroseven.fragment.DriverDetilsFourFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsOneFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsTwoFragment;
+import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TopView;
 import com.zhouwei.mzbanner.MZBannerView;
+import com.zhouwei.mzbanner.holder.MZHolderCreator;
+import com.zhouwei.mzbanner.holder.MZViewHolder;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -101,6 +108,7 @@ public class DrivingDetilsActivity extends BaseActivity {
 
     }
 
+    private List<String> images;
 
     private void requesetDate(String driverId) {
         RDriverDetilsInfo rDriverDetilsInfo = new RDriverDetilsInfo();
@@ -120,17 +128,50 @@ public class DrivingDetilsActivity extends BaseActivity {
                     tv_adr.setText(driverDetilsInfo.getData().getDrivingSchool().getAddress());
                     phoneNumber = driverDetilsInfo.getData().getDrivingSchool().getContact();
                     fragmentList.add(DriverDetilsOneFragment.newInstance(driverDetilsInfo));
-                    fragmentList.add(new DriverDetilsTwoFragment());
+                    fragmentList.add(DriverDetilsTwoFragment.newInstance(driverDetilsInfo));
                     fragmentList.add(DriverDetilsOneFragment.newInstance(driverDetilsInfo));
                     fragmentList.add(new DriverDetilsFourFragment());
                     ShopViewPagerAdapter adapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, mDataList);
                     viewpager.setAdapter(adapter);
                     viewpager.setOffscreenPageLimit(fragmentList.size());
                     tablayout.setupWithViewPager(viewpager);
-
+                    if (driverDetilsInfo.getData().getDrivingSchool().getDrivingGalleryList() == null || driverDetilsInfo.getData().getDrivingSchool().getDrivingGalleryList().size() < 1) {
+                        return;
+                    }
+                    if (images == null) {
+                        images = new ArrayList<>();
+                    }
+                    int size = driverDetilsInfo.getData().getDrivingSchool().getDrivingGalleryList().size();
+                    for (int i = 0; i < size; i++) {
+                        images.add(driverDetilsInfo.getData().getDrivingSchool().getDrivingGalleryList().get(i).getPicUrl());
+                    }
+                    banner.setPages(images, new MZHolderCreator() {
+                        @Override
+                        public BannerViewHolder createViewHolder() {
+                            return new BannerViewHolder();
+                        }
+                    });
                 }
             }
         });
+    }
+
+    public static class BannerViewHolder implements MZViewHolder<String> {
+        private ImageView mImageView;
+
+        @Override
+        public View createView(Context context) {
+            // 返回页面布局
+            View view = LayoutInflater.from(context).inflate(R.layout.item_driver_image, null);
+            mImageView = view.findViewById(R.id.image);
+            return view;
+        }
+
+        @Override
+        public void onBind(Context context, int position, String data) {
+            // 数据绑定
+            Glide.with(context).load(data).skipMemoryCache(true).into(mImageView);
+        }
     }
 
     @OnClick({R.id.rl_call, R.id.rl_ask})

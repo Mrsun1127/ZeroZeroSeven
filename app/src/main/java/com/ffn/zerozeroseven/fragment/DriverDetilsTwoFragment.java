@@ -2,6 +2,8 @@ package com.ffn.zerozeroseven.fragment;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,6 +13,7 @@ import com.ffn.zerozeroseven.adapter.DriverOneAdapter;
 import com.ffn.zerozeroseven.adapter.DriverTwoAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.DriverDetilsInfo;
 import com.ffn.zerozeroseven.utlis.MapNaviUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
@@ -26,10 +29,25 @@ public class DriverDetilsTwoFragment extends BaseFragment {
     @Bind(R.id.recycleview)
     RecyclerView recycleview;
     private DriverTwoAdapter driverOneAdapter;
+    private DriverDetilsInfo info;
 
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
+    }
+
+    public static DriverDetilsTwoFragment newInstance(DriverDetilsInfo driverDetilsInfo) {
+        Bundle args = new Bundle();
+        args.putSerializable("info", driverDetilsInfo);
+        DriverDetilsTwoFragment fragment = new DriverDetilsTwoFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        info = (DriverDetilsInfo) getArguments().getSerializable("info");
     }
 
     @Override
@@ -61,6 +79,7 @@ public class DriverDetilsTwoFragment extends BaseFragment {
 
 
     }
+
     public void startNavBaiDu(String s) {
         if (!MapNaviUtils.isBaiduMapInstalled()) {
             ToastUtils.showShort("请安装百度地图");
@@ -68,7 +87,7 @@ public class DriverDetilsTwoFragment extends BaseFragment {
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
 //        intent.setData(Uri.parse("baidumap://map/geocoder?src=andr.baidu.openAPIdemo&address=明诚驾校"));
-        intent.setData(Uri.parse("baidumap://map/marker?location=28.199933,113.070635&title="+s+"&content=零零7合作驾校+"+s+"&traffic=on&src=andr.baidu.openAPIdemo"));
+        intent.setData(Uri.parse("baidumap://map/marker?location=28.199933,113.070635&title=" + s + "&content=零零7合作驾校+" + s + "&traffic=on&src=andr.baidu.openAPIdemo"));
         startActivity(intent);
     }
 
@@ -82,10 +101,11 @@ public class DriverDetilsTwoFragment extends BaseFragment {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_DEFAULT);//113.070635,28.199933
 //        intent.setData(Uri.parse("amapuri://route/plan/?sid=BGVIS1&did=BGVIS2&dlat=28.199933&dlon=113.070635&dname=明诚驾校&dev=0&t=0"));
-        intent.setData(Uri.parse("amapuri://route/plan/?sid=BGVIS1&did=BGVIS2&dlat=28.199933&dlon=113.070635&dname="+dName+"&dev=0&t=0"));
+        intent.setData(Uri.parse("amapuri://route/plan/?sid=BGVIS1&did=BGVIS2&dlat=28.199933&dlon=113.070635&dname=" + dName + "&dev=0&t=0"));
         intent.setPackage("com.autonavi.minimap");
         startActivity(intent);
     }
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_driver_two;
@@ -93,19 +113,6 @@ public class DriverDetilsTwoFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        driverOneAdapter.addAll(list);
+        driverOneAdapter.addAll(info.getData().getDrivingSchool().getDrivingPlaceList());
     }
 }
