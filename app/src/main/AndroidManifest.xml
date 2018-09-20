@@ -413,6 +413,7 @@
         <activity android:name=".ui.JoinDriverSchoolActivity" />
         <activity android:name=".ui.DriverDingDanListActivity" />
         <activity android:name=".ui.DriverOrderDetilsActivity" />
+        <activity android:name=".ui.MapActivity" />
 
 
         <!-- Required SDK核心功能-->

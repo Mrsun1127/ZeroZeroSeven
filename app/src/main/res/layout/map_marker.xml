@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:background="@drawable/daohangleft"
+            android:gravity="center"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="这是文本在上"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_go"
+            android:layout_width="46dp"
+            android:layout_height="37dp"
+            android:layout_toRightOf="@+id/tv_name"
+            android:background="@drawable/daohang">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="17dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/go" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/jiantou" />
+
+    <ImageView
+        android:id="@+id/baidumap_custom_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/driver_selectlocation" />
+</LinearLayout>

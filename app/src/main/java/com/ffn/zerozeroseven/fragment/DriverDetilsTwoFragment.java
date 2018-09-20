@@ -14,8 +14,10 @@ import com.ffn.zerozeroseven.adapter.DriverTwoAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.DriverDetilsInfo;
+import com.ffn.zerozeroseven.ui.MapActivity;
 import com.ffn.zerozeroseven.utlis.MapNaviUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.ConfirmDialog;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 
@@ -56,21 +58,8 @@ public class DriverDetilsTwoFragment extends BaseFragment {
         driverOneAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                final ConfirmDialog confirmDialog = new ConfirmDialog(bfCxt);
-                confirmDialog.setTitle("提示");
-                confirmDialog.setMessages("将打开百度导航为您导航");
-                confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
-                    @Override
-                    public void doConfirm() {
-                        confirmDialog.dismiss();
-                        startNavBaiDu("明诚驾校");
-                    }
 
-                    @Override
-                    public void doCancel() {
-                        confirmDialog.dismiss();
-                    }
-                });
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, MapActivity.class);
             }
         });
         recycleview.setLayoutManager(new LinearLayoutManager(bfCxt));
