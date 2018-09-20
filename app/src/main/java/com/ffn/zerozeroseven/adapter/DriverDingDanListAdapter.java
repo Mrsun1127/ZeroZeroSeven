@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.DriverDingDanListInfo;
@@ -51,6 +53,7 @@ public class DriverDingDanListAdapter extends BaseRecyclerAdapter<DriverDingDanL
         mHolder.tv_driverName.setText("报考驾校:" + item.getDrivingName());
         mHolder.tv_orderNo.setText("订单号:" + item.getOrderNo());
         mHolder.tv_className.setText("报考班级:" + item.getClassName());
+        Glide.with(mContext).load(item.getPicUrl()).override(60, 60).into(mHolder.iv_icon);
     }
 
     public void setClickPosition(int position) {
@@ -64,6 +67,7 @@ public class DriverDingDanListAdapter extends BaseRecyclerAdapter<DriverDingDanL
         TextView tv_orderNo;
         TextView tv_driverName;
         TextView tv_className;
+        ImageView iv_icon;
 
         MViewHolder(View itemView) {
             super(itemView);
@@ -72,6 +76,7 @@ public class DriverDingDanListAdapter extends BaseRecyclerAdapter<DriverDingDanL
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_status = itemView.findViewById(R.id.tv_status);
             tv_driverName = itemView.findViewById(R.id.tv_driverName);
+            iv_icon = itemView.findViewById(R.id.iv_icon);
         }
     }
 

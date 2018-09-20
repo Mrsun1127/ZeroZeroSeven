@@ -122,6 +122,23 @@ public class DriverDingDanListInfo {
             private int status;
             private Double totalPrice;
             private int userId;
+            private String picUrl;
+
+            public boolean isApplyRefund() {
+                return isApplyRefund;
+            }
+
+            public void setApplyRefund(boolean applyRefund) {
+                isApplyRefund = applyRefund;
+            }
+
+            public String getPicUrl() {
+                return picUrl;
+            }
+
+            public void setPicUrl(String picUrl) {
+                this.picUrl = picUrl;
+            }
 
             public int getClassId() {
                 return classId;
