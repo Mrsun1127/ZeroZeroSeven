@@ -53,7 +53,7 @@ public class DriverDingDanListAdapter extends BaseRecyclerAdapter<DriverDingDanL
         mHolder.tv_driverName.setText("报考驾校:" + item.getDrivingName());
         mHolder.tv_orderNo.setText("订单号:" + item.getOrderNo());
         mHolder.tv_className.setText("报考班级:" + item.getClassName());
-        Glide.with(mContext).load(item.getPicUrl()).override(60, 60).into(mHolder.iv_icon);
+        Glide.with(mContext).load(item.getThumb()).override(60, 60).into(mHolder.iv_icon);
     }
 
     public void setClickPosition(int position) {

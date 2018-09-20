@@ -122,7 +122,7 @@ public class DriverDingDanListInfo {
             private int status;
             private Double totalPrice;
             private int userId;
-            private String picUrl;
+            private String thumb;
 
             public boolean isApplyRefund() {
                 return isApplyRefund;
@@ -132,12 +132,12 @@ public class DriverDingDanListInfo {
                 isApplyRefund = applyRefund;
             }
 
-            public String getPicUrl() {
-                return picUrl;
+            public String getThumb() {
+                return thumb;
             }
 
-            public void setPicUrl(String picUrl) {
-                this.picUrl = picUrl;
+            public void setThumb(String thumb) {
+                this.thumb = thumb;
             }
 
             public int getClassId() {
