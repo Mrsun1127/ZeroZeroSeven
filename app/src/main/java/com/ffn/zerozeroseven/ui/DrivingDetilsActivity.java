@@ -20,6 +20,7 @@ import com.ffn.zerozeroseven.bean.DriverDetilsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RDriverDetilsInfo;
 import com.ffn.zerozeroseven.fragment.DriverDetilsFourFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsOneFragment;
+import com.ffn.zerozeroseven.fragment.DriverDetilsThreeFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsTwoFragment;
 import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.utlis.LogUtils;
@@ -129,8 +130,8 @@ public class DrivingDetilsActivity extends BaseActivity {
                     phoneNumber = driverDetilsInfo.getData().getDrivingSchool().getContact();
                     fragmentList.add(DriverDetilsOneFragment.newInstance(driverDetilsInfo));
                     fragmentList.add(DriverDetilsTwoFragment.newInstance(driverDetilsInfo));
-                    fragmentList.add(DriverDetilsOneFragment.newInstance(driverDetilsInfo));
-                    fragmentList.add(new DriverDetilsFourFragment());
+                    fragmentList.add(DriverDetilsThreeFragment.newInstance(driverDetilsInfo.getData().getDrivingSchool().getContent()));
+                    fragmentList.add(DriverDetilsFourFragment.newInstance(driverDetilsInfo.getData().getDrivingSchool().getNotice()));
                     ShopViewPagerAdapter adapter = new ShopViewPagerAdapter(getSupportFragmentManager(), fragmentList, mDataList);
                     viewpager.setAdapter(adapter);
                     viewpager.setOffscreenPageLimit(fragmentList.size());
@@ -174,10 +175,14 @@ public class DrivingDetilsActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.rl_call, R.id.rl_ask})
+    @OnClick({R.id.rl_call, R.id.rl_ask, R.id.bt_talk})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.rl_call:
+                ZeroZeroSevenUtils.requestCallMainifest(DrivingDetilsActivity.this);
+                ZeroZeroSevenUtils.MakingCalls(DrivingDetilsActivity.this, phoneNumber);
+                break;
+            case R.id.bt_talk:
                 ZeroZeroSevenUtils.requestCallMainifest(DrivingDetilsActivity.this);
                 ZeroZeroSevenUtils.MakingCalls(DrivingDetilsActivity.this, phoneNumber);
                 break;

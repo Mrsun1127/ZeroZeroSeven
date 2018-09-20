@@ -139,6 +139,7 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/bt_talk"
         android:layout_width="match_parent"
         android:layout_height="37dp"
         android:background="@color/errandtab"

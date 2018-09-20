@@ -1,39 +1,44 @@
 package com.ffn.zerozeroseven.fragment;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
-import com.ffn.zerozeroseven.adapter.DriverFourAdapter;
-import com.ffn.zerozeroseven.adapter.DriverTwoAdapter;
 import com.ffn.zerozeroseven.base.BaseFragment;
-import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class DriverDetilsFourFragment extends BaseFragment {
-    @Bind(R.id.recycleview)
-    RecyclerView recycleview;
-    private DriverFourAdapter driverOneAdapter;
+    @Bind(R.id.tv_content)
+    TextView tv_content;
 
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
     }
 
+    private String content;
+
+    public static DriverDetilsFourFragment newInstance(String s) {
+        Bundle args = new Bundle();
+        args.putString("s", s);
+        DriverDetilsFourFragment fragment = new DriverDetilsFourFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        content = getArguments().getString("s");
+    }
+
     @Override
     public void initDate() {
-        driverOneAdapter = new DriverFourAdapter(bfCxt);
-        recycleview.setLayoutManager(new LinearLayoutManager(bfCxt));
-        recycleview.addItemDecoration(new SpaceItemDecoration(2));
-        recycleview.setAdapter(driverOneAdapter);
-
-
     }
 
     @Override
@@ -43,19 +48,6 @@ public class DriverDetilsFourFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        driverOneAdapter.addAll(list);
+        tv_content.setText(content);
     }
 }
