@@ -7,8 +7,10 @@ import android.view.View;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.bean.UserInfo;
+import com.ffn.zerozeroseven.ui.MineWantGoQiangActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.UiTipUtil;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.StateLayout;
 import com.ffn.zerozeroseven.view.TitleView;
@@ -43,6 +45,11 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
     private KProgressHUD hud;
     private RgRefreshStatus rgRefreshStatus = RgRefreshStatus.IDLE;
     int pageNo = 0;
+
+    public void setRight(){
+        titleView.setTvRightText("我要上墙");
+    }
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
@@ -90,7 +97,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
 
             @Override
             public void ivMessAge() {
-
+                ZeroZeroSevenUtils.SwitchActivity(BaseRefreshActivity.this, MineWantGoQiangActivity.class);
             }
         });
         titleView.setTopText(setTopTitle());

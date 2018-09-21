@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/courier_selfie" />
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@+id/user_icon"
+        android:text="138****9999"
+        android:textColor="#501A0B"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_phone"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/user_icon"
+        android:text="20分钟前"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_icon"
+        android:layout_marginRight="42dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        android:textColor="@color/black"
+        android:textSize="11sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="8dp"
+        android:id="@+id/rc_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_talk"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/rc_photo"
+        android:layout_toLeftOf="@+id/rl_like">
+
+        <TextView
+            android:id="@+id/tv_talk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:drawableLeft="@drawable/bt_talk_nor"
+            android:drawablePadding="5dp"
+            android:gravity="bottom"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_like"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/rc_photo"
+        android:layout_toLeftOf="@+id/rl_share">
+
+        <TextView
+            android:id="@+id/tv_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:drawableLeft="@drawable/bt_like_nor"
+            android:drawablePadding="5dp"
+            android:gravity="bottom"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_share"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/rc_photo"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:id="@+id/tv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:drawableLeft="@drawable/bt_share_nor"
+            android:drawablePadding="5dp"
+            android:gravity="bottom"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

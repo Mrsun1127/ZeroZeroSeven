@@ -52,6 +52,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.RequeseGoods;
 import com.ffn.zerozeroseven.bean.requsetbean.ShangchangInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.TongZhiShowInfo;
 import com.ffn.zerozeroseven.ui.BitisDetils;
+import com.ffn.zerozeroseven.ui.BitisNewActivity;
 import com.ffn.zerozeroseven.ui.DrivingSchoolActivity;
 import com.ffn.zerozeroseven.ui.ErrandHomeActivity;
 import com.ffn.zerozeroseven.ui.HomeActivity;
@@ -1269,7 +1270,7 @@ public class MainFragment extends BaseFragment {
                 break;
             case R.id.rl_computer:
                 if (userInfo != null) {
-                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, MyBitisActivity.class);
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, BitisNewActivity.class);
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
                 }
