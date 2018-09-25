@@ -8,6 +8,7 @@ import android.view.View;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.ui.MineWantGoQiangActivity;
+import com.ffn.zerozeroseven.ui.ReleaseBitisActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.UiTipUtil;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -46,22 +47,29 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
     private RgRefreshStatus rgRefreshStatus = RgRefreshStatus.IDLE;
     int pageNo = 0;
 
-    public void setRight(){
+    public void setRight() {
         titleView.setTvRightShow();
         titleView.setTvRightText("我要上墙");
+        titleView.setOnRightClickListener(new TitleView.OnRightClickListener() {
+            @Override
+            public void tvRight() {
+                ZeroZeroSevenUtils.SwitchActivity(BaseRefreshActivity.this, ReleaseBitisActivity.class);
+            }
+        });
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putSerializable("userInfo",BaseAppApplication.getInstance().getLoginUser());
+        savedInstanceState.putSerializable("userInfo", BaseAppApplication.getInstance().getLoginUser());
         super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean)savedInstanceState.getSerializable("userInfo"));
+        BaseAppApplication.getInstance().setLoginUser((UserInfo.DataBean) savedInstanceState.getSerializable("userInfo"));
     }
+
     private void setRefreshLayoutVis() {
         if (commonRefreshLayout.getVisibility() == View.GONE) {
             commonRefreshLayout.setVisibility(View.VISIBLE);
@@ -98,7 +106,6 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
 
             @Override
             public void ivMessAge() {
-                ZeroZeroSevenUtils.SwitchActivity(BaseRefreshActivity.this, MineWantGoQiangActivity.class);
             }
         });
         titleView.setTopText(setTopTitle());
@@ -214,7 +221,9 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
     }
 
     protected abstract BaseRecyclerAdapter setAdapter();
+
     protected abstract String setTopTitle();
+
     protected abstract void readRespones(String response);
 
     protected abstract int setFlag();
@@ -241,8 +250,8 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String json=response.body().string();
-                LogUtils.D("response",json);
+                String json = response.body().string();
+                LogUtils.D("response", json);
                 readRespones(json);
 
                 BaseAppApplication.mainHandler.post(new Runnable() {

@@ -415,6 +415,7 @@
         <activity android:name=".ui.DriverOrderDetilsActivity" />
         <activity android:name=".ui.MapActivity" />
         <activity android:name=".ui.BitisNewActivity" />
+        <activity android:name=".ui.ReleaseBitisActivity" />
 
 
         <!-- Required SDK核心功能-->

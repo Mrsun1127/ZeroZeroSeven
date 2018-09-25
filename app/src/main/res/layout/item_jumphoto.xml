@@ -2,16 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp">
+
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
         <ImageView
-            android:scaleType="centerCrop"
-            android:layout_centerInParent="true"
             android:id="@+id/iv_photo"
-            android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop" />
+        <RelativeLayout
+            android:layout_alignRight="@+id/iv_photo"
+            android:layout_alignTop="@+id/iv_photo"
+            android:id="@+id/rl_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp">
+
+            <ImageButton
+                android:layout_margin="3dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/bitis_delete" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>
