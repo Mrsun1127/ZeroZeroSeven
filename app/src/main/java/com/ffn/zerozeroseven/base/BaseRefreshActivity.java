@@ -47,6 +47,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
     int pageNo = 0;
 
     public void setRight(){
+        titleView.setTvRightShow();
         titleView.setTvRightText("我要上墙");
     }
 

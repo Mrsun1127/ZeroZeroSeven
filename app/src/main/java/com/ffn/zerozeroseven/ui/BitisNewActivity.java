@@ -13,9 +13,11 @@ public class BitisNewActivity extends BaseRefreshActivity {
 
     @Override
     protected BaseRecyclerAdapter setAdapter() {
+        setRight();
         BitisNewAdapter bitisNewAdapter = new BitisNewAdapter(this);
         return bitisNewAdapter;
     }
+
 
     @Override
     protected String setTopTitle() {

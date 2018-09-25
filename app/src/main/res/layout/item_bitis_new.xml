@@ -39,79 +39,88 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_icon"
-        android:layout_marginRight="42dp"
         android:layout_marginLeft="30dp"
+        android:layout_marginRight="42dp"
         android:layout_marginTop="10dp"
         android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         android:textColor="@color/black"
         android:textSize="11sp" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="8dp"
         android:id="@+id/rc_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" />
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="8dp" />
 
-    <RelativeLayout
-        android:id="@+id/rl_talk"
-        android:layout_width="40dp"
+    <LinearLayout
+        android:id="@+id/ll_talk"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_below="@+id/rc_photo"
-        android:layout_toLeftOf="@+id/rl_like">
+        android:layout_toLeftOf="@+id/ll_like"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_talk"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/bt_talk_nor" />
 
         <TextView
+            android:textColor="@color/line6"
             android:id="@+id/tv_talk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="15dp"
-            android:drawableLeft="@drawable/bt_talk_nor"
-            android:drawablePadding="5dp"
-            android:gravity="bottom"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/iv_talk"
             android:textSize="10sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_like"
-        android:layout_width="40dp"
+    <LinearLayout
+        android:id="@+id/ll_like"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_below="@+id/rc_photo"
-        android:layout_toLeftOf="@+id/rl_share">
+        android:layout_marginLeft="8dp"
+        android:layout_toLeftOf="@+id/ll_share"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_like"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/bt_like_nor" />
 
         <TextView
+            android:textColor="@color/line6"
             android:id="@+id/tv_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="15dp"
-            android:drawableLeft="@drawable/bt_like_nor"
-            android:drawablePadding="5dp"
-            android:gravity="bottom"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/iv_like"
+            android:text="13"
             android:textSize="10sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_share"
+    <LinearLayout
+        android:id="@+id/ll_share"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/rc_photo"
-        android:layout_marginRight="10dp">
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tv_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="15dp"
-            android:drawableLeft="@drawable/bt_share_nor"
-            android:drawablePadding="5dp"
-            android:gravity="bottom"
-            android:textSize="10sp" />
-    </RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/bt_share_nor" />
+    </LinearLayout>
 
 
 </RelativeLayout>
