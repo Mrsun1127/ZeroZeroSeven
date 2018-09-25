@@ -410,12 +410,19 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.DriverCommitActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.JoinDriverSchoolActivity" />
-        <activity android:name=".ui.DriverDingDanListActivity" />
-        <activity android:name=".ui.DriverOrderDetilsActivity" />
-        <activity android:name=".ui.MapActivity" />
-        <activity android:name=".ui.BitisNewActivity" />
-        <activity android:name=".ui.ReleaseBitisActivity" />
+        <activity android:name=".ui.JoinDriverSchoolActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.DriverDingDanListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.DriverOrderDetilsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.MapActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.BitisNewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.ReleaseBitisActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
 
 
         <!-- Required SDK核心功能-->

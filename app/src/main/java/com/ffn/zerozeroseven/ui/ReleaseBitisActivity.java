@@ -7,35 +7,59 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.BitisAdapter;
 import com.ffn.zerozeroseven.adapter.BitisScrollAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
+import com.ffn.zerozeroseven.base.BaseAppApplication;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
+import com.ffn.zerozeroseven.bean.UrlInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.FaTieInfo;
+import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
+import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.AllItemDecoration;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
 import com.ffn.zerozeroseven.view.TopView;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.builder.PostFormBuilder;
+import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
+import okhttp3.Call;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class ReleaseBitisActivity extends BaseActivity {
     @Bind(R.id.topView)
     TopView topView;
     @Bind(R.id.recycleview)
     RecyclerView recyclerView;
+    @Bind(R.id.et_talk)
+    EditText et_talk;
     private BitisScrollAdapter bitisScrollAdapter;
+    private String text;
 
     @Override
     protected int setLayout() {
@@ -50,7 +74,15 @@ public class ReleaseBitisActivity extends BaseActivity {
         topView.setOnTitleListener(new TopView.OnTitleClickListener() {
             @Override
             public void Right() {
-                ToastUtils.showShort("发布");
+                text = et_talk.getText().toString().trim();
+                if (TextUtils.isEmpty(text)) {
+                    return;
+                }
+                if (imgList != null && imgList.size() > 0) {
+                    imgSub(imgList);
+                } else {
+                    textSub();
+                }
             }
 
             @Override
@@ -69,10 +101,120 @@ public class ReleaseBitisActivity extends BaseActivity {
             public void onClick(View view, int position) {
                 imgList.remove(position);
                 tv_photo_count.setTextColor(getResources().getColor(R.color.line6));
-                tv_photo_count.setText(imgList.size()+"/3");
+                tv_photo_count.setText(imgList.size() + "/3");
                 bitisScrollAdapter.cleanDates();
                 bitisScrollAdapter.addAll(imgList);
                 ib_add.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void textSub() {
+        finalImgSub(null);
+    }
+
+    private ArrayList<File> files;
+
+    private void imgSub(final ArrayList<String> imgList) {
+        for (int i = 0; i < imgList.size(); i++) {
+            final int finalI = i;
+            Luban.with(ReleaseBitisActivity.this)
+                    .load(imgList.get(i))
+                    .ignoreBy(100)
+                    .setTargetDir(BaseAppApplication.context.getExternalCacheDir().getAbsolutePath())
+                    .filter(new CompressionPredicate() {
+                        @Override
+                        public boolean apply(String path) {
+                            return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                        }
+                    })
+                    .setCompressListener(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+                            showLoadProgress();
+                        }
+
+                        @Override
+                        public void onSuccess(File file) {
+                            disLoadProgress();
+                            if (files == null) {
+                                files = new ArrayList<>();
+                            }
+                            files.add(file);
+                            if (finalI == imgList.size() - 1) {
+                                saveImg(files);
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            ToastUtils.showShort("出现问题");
+                        }
+                    }).launch();
+        }
+
+    }
+
+    private void saveImg(ArrayList<File> files) {
+        Map<String, File> fileMap = new HashMap<>();
+        for (int i = 0; i < files.size(); i++) {
+            fileMap.put("files", files.get(i));
+        }
+        PostFormBuilder post = OkHttpUtils.post();
+        post
+                .url("https://api.lingling7.com/lingling7-server/upload/multiple")
+                .addHeader("Authorization", "Bearer " + userInfo.getToken())
+                .addParams("uploadType", "IMAGE");
+        for (int i = 0; i < files.size(); i++) {
+            post.addFile("files", files.get(i).getName(), files.get(i));
+        }
+        post.build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ZeroZeroSevenUtils.showCustonPop(ReleaseBitisActivity.this, "上传的图片过大", et_talk);
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        LogUtils.D("response", response);
+                        UrlInfo urlInfo = JSON.parseObject(response, UrlInfo.class);
+                        if (urlInfo.getCode() == 0) {
+                            finalImgSub(urlInfo.getData().getUrls());
+                        } else {
+                            ZeroZeroSevenUtils.showCustonPop(ReleaseBitisActivity.this, urlInfo.getMessage(), et_talk);
+                        }
+                    }
+                });
+    }
+
+    String[] strings;
+
+    private void finalImgSub(List<String> urls) {
+        FaTieInfo faTieInfo = new FaTieInfo();
+        faTieInfo.setFunctionName("UserPosting");
+        FaTieInfo.ParametersBean parametersBean = new FaTieInfo.ParametersBean();
+        parametersBean.setContent(text);
+        parametersBean.setUserId(BaseAppApplication.getInstance().getLoginUser().getId());
+        if (urls != null && urls.size() > 0) {
+            strings = new String[urls.size()];
+            for (int i = 0; i < urls.size(); i++) {
+                strings[i] = urls.get(i);
+            }
+            parametersBean.setImages(strings);
+        }
+        faTieInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(ReleaseBitisActivity.this);
+        okGoUtils.httpPostJSON(faTieInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    ZeroZeroSevenUtils.showCustonPop(ReleaseBitisActivity.this, "您的帖子发布成功，工作人员正在审核", et_talk, ReleaseBitisActivity.this);
+                } else {
+                    ZeroZeroSevenUtils.showCustonPop(ReleaseBitisActivity.this, errorCodeInfo.getMessage(), et_talk);
+                }
             }
         });
     }
@@ -138,10 +280,8 @@ public class ReleaseBitisActivity extends BaseActivity {
                                 ib_add.setVisibility(View.VISIBLE);
                                 tv_photo_count.setTextColor(getResources().getColor(R.color.line6));
                             }
-                            for (int i = 0; i < imgList.size(); i++) {
-                                bitisScrollAdapter.cleanDates();
-                                bitisScrollAdapter.addAll(imgList);
-                            }
+                            bitisScrollAdapter.cleanDates();
+                            bitisScrollAdapter.addAll(imgList);
                         }
                     }
                 }

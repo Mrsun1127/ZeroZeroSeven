@@ -53,6 +53,15 @@ public class FaTieInfo {
         private String content;
         private String postType;
         private String isAnonymity;
+        private String[] images;
+
+        public String[] getImages() {
+            return images;
+        }
+
+        public void setImages(String[] images) {
+            this.images = images;
+        }
 
         public int getUserId() {
             return userId;
