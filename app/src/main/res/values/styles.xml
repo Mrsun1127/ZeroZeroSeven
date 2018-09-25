@@ -18,6 +18,7 @@
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
         <item name="actionSheetStyle">@style/ActionSheetStyleiOS7</item>
     </style>
+
     <style name="TextAppearance.Design.Tab.Custom" parent="TextAppearance.AppCompat.Button">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">?android:textColorSecondary</item>
@@ -30,6 +31,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+
     <style name="HomeTabButton">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/color_home_tab_text</item>
@@ -41,14 +43,17 @@
         <item name="android:button">@null</item>
         <item name="android:layout_weight">1</item>
     </style>
+
     <style name="NewPopView">
         <item name="android:windowEnterAnimation">@anim/pop_in</item>
         <item name="android:windowExitAnimation">@anim/pop_out</item>
     </style>
+
     <style name="CirclePopAnim" parent="@android:style/Animation.Activity">
         <item name="android:windowEnterAnimation">@anim/pop_in</item>
         <item name="android:windowExitAnimation">@anim/pop_out</item>
     </style>
+
     <style name="AnimTools" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/push_in</item>
         <item name="android:windowExitAnimation">@anim/push_out</item>
@@ -73,8 +78,14 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
-    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat"/>
-    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar"> <item name="actionMenuTextColor">@color/black</item> <!-- 敲定颜色--> <item name="android:textSize">11sp</item> <!-- 搞掂字体大小--> </style>
+
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat" />
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="actionMenuTextColor">@color/black</item> <!-- 敲定颜色-->
+        <item name="android:textSize">11sp</item> <!-- 搞掂字体大小-->
+    </style>
+
     <style name="OverflowMenuStyle" parent="@style/Widget.AppCompat.PopupMenu.Overflow">
         <!-- 是否覆盖锚点，默认为true，即盖住Toolbar -->
         <item name="overlapAnchor">false</item>
@@ -90,6 +101,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:width">90dp</item>
     </style>
+
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
@@ -107,5 +119,24 @@
         <item name="otherButtonSpacing">0dp</item>
         <item name="cancelButtonMarginTop">10dp</item>
         <item name="actionSheetTextSize">12sp</item>
+    </style>
+
+    <style name="inputDialog" parent="@android:style/Theme.Holo.Light.Dialog">
+               
+        <item name="android:windowBackground">@android:color/transparent</item>
+                <!--背景-->
+               
+        <item name="android:windowFrame">@null</item>
+                <!--设置无边框-->
+               
+        <item name="android:windowNoTitle">true</item>
+                <!-- 无标题 -->
+               
+        <item name="android:backgroundDimEnabled">true</item>
+                <!-- 模糊 -->
+               
+        <item name="android:windowSoftInputMode">stateAlwaysVisible</item>
+                <!--显示软件盘-->
+           
     </style>
 </resources>

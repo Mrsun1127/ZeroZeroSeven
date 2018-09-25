@@ -5,13 +5,13 @@ import java.util.List;
 public class BitisInfo {
     /**
      * code : 0
-     * data : {"total":348,"pageIndex":0,"totalPage":35,"pageSize":10,"items":[{"avatar":"","content":"Y","createTime":"2018-09-21 15:07:33","id":1375,"images":["http://www.lingling7.com/lingling7-res/image/20180921/1537513652914.jpg","http://www.lingling7.com/lingling7-res/image/20180921/1537513652944.jpg","http://www.lingling7.com/lingling7-res/image/20180921/1537513653009.jpg"],"isAnonymity":0,"isLike":0,"likeCount":0,"messages":[],"userClazz":"","userCollege":"","userId":7133,"userName":"","userPhone":"15364115319"},{"avatar":"","content":"H","createTime":"2018-09-21 14:55:36","id":1374,"images":["[\"http:\\/\\/www.lingling7.com\\/lingling7-res\\/image\\/20180921\\/1537512929166.jpg\",\"http:\\/\\/www.lingling7.com\\/lingling7-res\\/image\\/20180921\\/1537512929197.jpg\",\"http:\\/\\/www.lingling7.com\\/lingling7-res\\/image\\/20180921\\/1537512929260.jpg\"]"],"isAnonymity":0,"isLike":0,"likeCount":0,"messages":[],"userClazz":"","userCollege":"","userId":7133,"userName":"","userPhone":"15364115319"},{"avatar":"http://www.lingling7.com/lingling7-res/image/20180917/1537153845303.jpg","content":"某年某月的某一天，就像一张破碎的脸，难以开口道再见，就让一切走远。        ----邓丽君","createTime":"2018-09-20 16:02:52","id":1373,"images":[],"isAnonymity":0,"isLike":0,"likeCount":2,"messages":[],"postType":"04","userClazz":"天字号一班","userCollege":"国教学院","userId":95,"userName":"初五丶","userPhone":"18874055954"},{"avatar":"http://www.lingling7.com/lingling7-res/image/20180905/1536161795812.jpg","content":"许愿荒古七宗罪！","createTime":"2018-09-20 13:45:35","id":1372,"images":[],"isAnonymity":1,"isLike":0,"likeCount":1,"messages":[],"postType":"02","userClazz":"","userCollege":"皇家水院","userId":12941,"userName":"Archer","userPhone":"15717348671"},{"avatar":"","content":"刚刚看完香蜜，心里堵堵的，感觉走不出来，还有上学期看完独孤天下也是走不出，我是不是太感性了","createTime":"2018-09-19 22:52:30","id":1371,"images":[],"isAnonymity":1,"isLike":0,"likeCount":1,"messages":[],"postType":"01","userClazz":"","userCollege":"湖南农业大学","userId":4824,"userName":"崔昌智","userPhone":"13975435160"},{"avatar":"","content":"那个她你知道我在等你吗？\n等得我有多辛苦可是我没想过放弃，因为我相信你浪够了还会回来。\n别人怎么说你我不管我只知道\u201c我相信你\u201d\n这些你都知道吗？       (cly)","createTime":"2018-09-19 21:23:23","id":1370,"images":[],"isAnonymity":1,"isLike":0,"likeCount":1,"messages":[],"postType":"01","userClazz":"","userCollege":"","userId":13807,"userName":"7友273097","userPhone":"17369333615"},{"avatar":"","content":"我想吃水果，好多好多的那种","createTime":"2018-09-19 15:19:05","id":1367,"images":[],"isAnonymity":1,"isLike":0,"likeCount":1,"messages":[],"postType":"01","userClazz":"","userCollege":"","userId":15688,"userName":"","userPhone":"17369287370"},{"avatar":"","content":"fafa我宣你","createTime":"2018-09-18 21:27:13","id":1365,"images":[],"isAnonymity":1,"isLike":0,"likeCount":1,"messages":[],"postType":"01","userClazz":"","userCollege":"","userId":9683,"userName":"某个滑手","userPhone":"18255695597"},{"avatar":"http://www.lingling7.com/lingling7-res/image/20180315/1521114697561.jpg","content":"表白茶艺燕哥，我爱你，希望大家祝福我们","createTime":"2018-09-18 14:57:38","id":1363,"images":[],"isAnonymity":0,"isLike":0,"likeCount":2,"messages":[],"postType":"01","userClazz":"电会1605","userCollege":"涉外经济学院","userId":206,"userName":"精致的姣姣girl","userPhone":"15580074257"},{"avatar":"","content":"喜欢的人叫肖菲","createTime":"2018-09-18 13:12:27","id":1362,"images":[],"isAnonymity":1,"isLike":0,"likeCount":2,"messages":[],"postType":"01","userClazz":"","userCollege":"","userId":15686,"userName":"7友234804","userPhone":"18817116411"}]}
-     * success : true
+     * data : {"total":354,"pageIndex":0,"totalPage":354,"pageSize":1,"items":[{"images":[],"userClazz":"噢噢噢哦哦","isLike":0,"userPhone":"17388933063","likeCount":0,"avatar":"http://www.lingling7.com/lingling7-res/image/20180830/1535606514187.png","userName":"汨罗刘德华","userId":90,"content":"哈哈考虑考虑","createTime":"2018-09-25 16:02:04","isAnonymity":0,"userCollege":"oooooo","messages":[{"toUid":90,"createTime":"2018-09-25 16:08:26","fromUid":356,"fromUname":"是洋妹妹哦","id":7,"content":"您的帖子写的很有水平大师"},{"toUid":356,"createTime":"2018-09-25 16:10:22","fromUid":90,"fromUname":"汨罗刘德华","id":3,"toUname":"是洋妹妹哦","content":"哈哈 你可以给我嘿嘿一下吗"},{"toUid":356,"createTime":"2018-09-25 16:10:42","fromUid":90,"fromUname":"汨罗刘德华","id":4,"toUname":"是洋妹妹哦","content":"哈哈 或者睡一下也可以"}],"id":1382}]}
+     * message : 请求成功
      */
 
     private int code;
     private DataBean data;
-    private boolean success;
+    private String message;
 
     public int getCode() {
         return code;
@@ -29,21 +29,21 @@ public class BitisInfo {
         this.data = data;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public String getMessage() {
+        return message;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public static class DataBean {
         /**
-         * total : 348
+         * total : 354
          * pageIndex : 0
-         * totalPage : 35
-         * pageSize : 10
-         * items : [{"avatar":"","content":"Y","createTime":"2018-09-21 15:07:33","id":1375,"images":["http://www.lingling7.com/lingling7-res/image/20180921/1537513652914.jpg","http://www.lingling7.com/lingling7-res/image/20180921/1537513652944.jpg","http://www.lingling7.com/lingling7-res/image/20180921/1537513653009.jpg"],"isAnonymity":0,"isLike":0,"likeCount":0,"messages":[],"userClazz":"","userCollege":"","userId":7133,"userName":"","userPhone":"15364115319"},{"avatar":"","content":"H","createTime":"2018-09-21 14:55:36","id":1374,"images":["[\"http:\\/\\/www.lingling7.com\\/lingling7-res\\/image\\/20180921\\/1537512929166.jpg\",\"http:\\/\\/www.lingling7.com\\/lingling7-res\\/image\\/20180921\\/1537512929197.jpg\",\"http:\\/\\/www.lingling7.com\\/lingling7-res\\/image\\/20180921\\/1537512929260.jpg\"]"],"isAnonymity":0,"isLike":0,"likeCount":0,"messages":[],"userClazz":"","userCollege":"","userId":7133,"userName":"","userPhone":"15364115319"},{"avatar":"http://www.lingling7.com/lingling7-res/image/20180917/1537153845303.jpg","content":"某年某月的某一天，就像一张破碎的脸，难以开口道再见，就让一切走远。        ----邓丽君","createTime":"2018-09-20 16:02:52","id":1373,"images":[],"isAnonymity":0,"isLike":0,"likeCount":2,"messages":[],"postType":"04","userClazz":"天字号一班","userCollege":"国教学院","userId":95,"userName":"初五丶","userPhone":"18874055954"},{"avatar":"http://www.lingling7.com/lingling7-res/image/20180905/1536161795812.jpg","content":"许愿荒古七宗罪！","createTime":"2018-09-20 13:45:35","id":1372,"images":[],"isAnonymity":1,"isLike":0,"likeCount":1,"messages":[],"postType":"02","userClazz":"","userCollege":"皇家水院","userId":12941,"userName":"Archer","userPhone":"15717348671"},{"avatar":"","content":"刚刚看完香蜜，心里堵堵的，感觉走不出来，还有上学期看完独孤天下也是走不出，我是不是太感性了","createTime":"2018-09-19 22:52:30","id":1371,"images":[],"isAnonymity":1,"isLike":0,"likeCount":1,"messages":[],"postType":"01","userClazz":"","userCollege":"湖南农业大学","userId":4824,"userName":"崔昌智","userPhone":"13975435160"},{"avatar":"","content":"那个她你知道我在等你吗？\n等得我有多辛苦可是我没想过放弃，因为我相信你浪够了还会回来。\n别人怎么说你我不管我只知道\u201c我相信你\u201d\n这些你都知道吗？       (cly)","createTime":"2018-09-19 21:23:23","id":1370,"images":[],"isAnonymity":1,"isLike":0,"likeCount":1,"messages":[],"postType":"01","userClazz":"","userCollege":"","userId":13807,"userName":"7友273097","userPhone":"17369333615"},{"avatar":"","content":"我想吃水果，好多好多的那种","createTime":"2018-09-19 15:19:05","id":1367,"images":[],"isAnonymity":1,"isLike":0,"likeCount":1,"messages":[],"postType":"01","userClazz":"","userCollege":"","userId":15688,"userName":"","userPhone":"17369287370"},{"avatar":"","content":"fafa我宣你","createTime":"2018-09-18 21:27:13","id":1365,"images":[],"isAnonymity":1,"isLike":0,"likeCount":1,"messages":[],"postType":"01","userClazz":"","userCollege":"","userId":9683,"userName":"某个滑手","userPhone":"18255695597"},{"avatar":"http://www.lingling7.com/lingling7-res/image/20180315/1521114697561.jpg","content":"表白茶艺燕哥，我爱你，希望大家祝福我们","createTime":"2018-09-18 14:57:38","id":1363,"images":[],"isAnonymity":0,"isLike":0,"likeCount":2,"messages":[],"postType":"01","userClazz":"电会1605","userCollege":"涉外经济学院","userId":206,"userName":"精致的姣姣girl","userPhone":"15580074257"},{"avatar":"","content":"喜欢的人叫肖菲","createTime":"2018-09-18 13:12:27","id":1362,"images":[],"isAnonymity":1,"isLike":0,"likeCount":2,"messages":[],"postType":"01","userClazz":"","userCollege":"","userId":15686,"userName":"7友234804","userPhone":"18817116411"}]
+         * totalPage : 354
+         * pageSize : 1
+         * items : [{"images":[],"userClazz":"噢噢噢哦哦","isLike":0,"userPhone":"17388933063","likeCount":0,"avatar":"http://www.lingling7.com/lingling7-res/image/20180830/1535606514187.png","userName":"汨罗刘德华","userId":90,"content":"哈哈考虑考虑","createTime":"2018-09-25 16:02:04","isAnonymity":0,"userCollege":"oooooo","messages":[{"toUid":90,"createTime":"2018-09-25 16:08:26","fromUid":356,"fromUname":"是洋妹妹哦","id":7,"content":"您的帖子写的很有水平大师"},{"toUid":356,"createTime":"2018-09-25 16:10:22","fromUid":90,"fromUname":"汨罗刘德华","id":3,"toUname":"是洋妹妹哦","content":"哈哈 你可以给我嘿嘿一下吗"},{"toUid":356,"createTime":"2018-09-25 16:10:42","fromUid":90,"fromUname":"汨罗刘德华","id":4,"toUname":"是洋妹妹哦","content":"哈哈 或者睡一下也可以"}],"id":1382}]
          */
 
         private int total;
@@ -94,38 +94,68 @@ public class BitisInfo {
 
         public static class ItemsBean {
             /**
-             * avatar :
-             * content : Y
-             * createTime : 2018-09-21 15:07:33
-             * id : 1375
-             * images : ["http://www.lingling7.com/lingling7-res/image/20180921/1537513652914.jpg","http://www.lingling7.com/lingling7-res/image/20180921/1537513652944.jpg","http://www.lingling7.com/lingling7-res/image/20180921/1537513653009.jpg"]
-             * isAnonymity : 0
+             * images : []
+             * userClazz : 噢噢噢哦哦
              * isLike : 0
+             * userPhone : 17388933063
              * likeCount : 0
-             * messages : []
-             * userClazz :
-             * userCollege :
-             * userId : 7133
-             * userName :
-             * userPhone : 15364115319
-             * postType : 04
+             * avatar : http://www.lingling7.com/lingling7-res/image/20180830/1535606514187.png
+             * userName : 汨罗刘德华
+             * userId : 90
+             * content : 哈哈考虑考虑
+             * createTime : 2018-09-25 16:02:04
+             * isAnonymity : 0
+             * userCollege : oooooo
+             * messages : [{"toUid":90,"createTime":"2018-09-25 16:08:26","fromUid":356,"fromUname":"是洋妹妹哦","id":7,"content":"您的帖子写的很有水平大师"},{"toUid":356,"createTime":"2018-09-25 16:10:22","fromUid":90,"fromUname":"汨罗刘德华","id":3,"toUname":"是洋妹妹哦","content":"哈哈 你可以给我嘿嘿一下吗"},{"toUid":356,"createTime":"2018-09-25 16:10:42","fromUid":90,"fromUname":"汨罗刘德华","id":4,"toUname":"是洋妹妹哦","content":"哈哈 或者睡一下也可以"}]
+             * id : 1382
              */
 
+            private String userClazz;
+            private int isLike;
+            private String userPhone;
+            private int likeCount;
             private String avatar;
+            private String userName;
+            private int userId;
             private String content;
             private String createTime;
-            private int id;
             private int isAnonymity;
-            private int isLike;
-            private int likeCount;
-            private String userClazz;
             private String userCollege;
-            private int userId;
-            private String userName;
-            private String userPhone;
-            private String postType;
+            private int id;
             private List<String> images;
-            private List<?> messages;
+            private List<MessagesBean> messages;
+
+            public String getUserClazz() {
+                return userClazz;
+            }
+
+            public void setUserClazz(String userClazz) {
+                this.userClazz = userClazz;
+            }
+
+            public int getIsLike() {
+                return isLike;
+            }
+
+            public void setIsLike(int isLike) {
+                this.isLike = isLike;
+            }
+
+            public String getUserPhone() {
+                return userPhone;
+            }
+
+            public void setUserPhone(String userPhone) {
+                this.userPhone = userPhone;
+            }
+
+            public int getLikeCount() {
+                return likeCount;
+            }
+
+            public void setLikeCount(int likeCount) {
+                this.likeCount = likeCount;
+            }
 
             public String getAvatar() {
                 return avatar;
@@ -133,6 +163,22 @@ public class BitisInfo {
 
             public void setAvatar(String avatar) {
                 this.avatar = avatar;
+            }
+
+            public String getUserName() {
+                return userName;
+            }
+
+            public void setUserName(String userName) {
+                this.userName = userName;
+            }
+
+            public int getUserId() {
+                return userId;
+            }
+
+            public void setUserId(int userId) {
+                this.userId = userId;
             }
 
             public String getContent() {
@@ -151,44 +197,12 @@ public class BitisInfo {
                 this.createTime = createTime;
             }
 
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
             public int getIsAnonymity() {
                 return isAnonymity;
             }
 
             public void setIsAnonymity(int isAnonymity) {
                 this.isAnonymity = isAnonymity;
-            }
-
-            public int getIsLike() {
-                return isLike;
-            }
-
-            public void setIsLike(int isLike) {
-                this.isLike = isLike;
-            }
-
-            public int getLikeCount() {
-                return likeCount;
-            }
-
-            public void setLikeCount(int likeCount) {
-                this.likeCount = likeCount;
-            }
-
-            public String getUserClazz() {
-                return userClazz;
-            }
-
-            public void setUserClazz(String userClazz) {
-                this.userClazz = userClazz;
             }
 
             public String getUserCollege() {
@@ -199,36 +213,12 @@ public class BitisInfo {
                 this.userCollege = userCollege;
             }
 
-            public int getUserId() {
-                return userId;
+            public int getId() {
+                return id;
             }
 
-            public void setUserId(int userId) {
-                this.userId = userId;
-            }
-
-            public String getUserName() {
-                return userName;
-            }
-
-            public void setUserName(String userName) {
-                this.userName = userName;
-            }
-
-            public String getUserPhone() {
-                return userPhone;
-            }
-
-            public void setUserPhone(String userPhone) {
-                this.userPhone = userPhone;
-            }
-
-            public String getPostType() {
-                return postType;
-            }
-
-            public void setPostType(String postType) {
-                this.postType = postType;
+            public void setId(int id) {
+                this.id = id;
             }
 
             public List<String> getImages() {
@@ -239,12 +229,88 @@ public class BitisInfo {
                 this.images = images;
             }
 
-            public List<?> getMessages() {
+            public List<MessagesBean> getMessages() {
                 return messages;
             }
 
-            public void setMessages(List<?> messages) {
+            public void setMessages(List<MessagesBean> messages) {
                 this.messages = messages;
+            }
+
+            public static class MessagesBean {
+                /**
+                 * toUid : 90
+                 * createTime : 2018-09-25 16:08:26
+                 * fromUid : 356
+                 * fromUname : 是洋妹妹哦
+                 * id : 7
+                 * content : 您的帖子写的很有水平大师
+                 * toUname : 是洋妹妹哦
+                 */
+
+                private int toUid;
+                private String createTime;
+                private int fromUid;
+                private String fromUname;
+                private int id;
+                private String content;
+                private String toUname;
+
+                public int getToUid() {
+                    return toUid;
+                }
+
+                public void setToUid(int toUid) {
+                    this.toUid = toUid;
+                }
+
+                public String getCreateTime() {
+                    return createTime;
+                }
+
+                public void setCreateTime(String createTime) {
+                    this.createTime = createTime;
+                }
+
+                public int getFromUid() {
+                    return fromUid;
+                }
+
+                public void setFromUid(int fromUid) {
+                    this.fromUid = fromUid;
+                }
+
+                public String getFromUname() {
+                    return fromUname;
+                }
+
+                public void setFromUname(String fromUname) {
+                    this.fromUname = fromUname;
+                }
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getContent() {
+                    return content;
+                }
+
+                public void setContent(String content) {
+                    this.content = content;
+                }
+
+                public String getToUname() {
+                    return toUname;
+                }
+
+                public void setToUname(String toUname) {
+                    this.toUname = toUname;
+                }
             }
         }
     }

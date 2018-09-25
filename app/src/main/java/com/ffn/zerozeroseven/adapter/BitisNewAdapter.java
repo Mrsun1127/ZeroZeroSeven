@@ -1,13 +1,17 @@
 package com.ffn.zerozeroseven.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,6 +26,8 @@ import com.ffn.zerozeroseven.bean.requsetbean.DafenInfo;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
+import com.ffn.zerozeroseven.view.AllItemDecoration;
+import com.ffn.zerozeroseven.view.CommentDialog;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
@@ -51,7 +57,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         mHolder.tv_phone.setText(TextUtils.isEmpty(item.getUserName()) ? ZeroZeroSevenUtils.phoneClose(item.getUserPhone()) : item.getUserName());
         mHolder.tv_time.setText(item.getCreateTime());
         mHolder.tv_like.setText(String.valueOf(item.getLikeCount()));
-        mHolder.tv_talk.setText(String.valueOf(item.getMessages()==null?0:item.getMessages().size()));
+        mHolder.tv_talk.setText(String.valueOf(item.getMessages() == null ? 0 : item.getMessages().size()));
         mHolder.tv_content.setText(TextUtils.isEmpty(item.getContent()) ? "加载失败" : item.getContent());
         if (item.getIsLike() == 1) {
             Glide.with(mContext).load(R.drawable.bit_like).override(50, 50).into(mHolder.iv_like);
@@ -69,8 +75,15 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         BitisImageAdapter bitisImageAdapter = new BitisImageAdapter(mContext);
         mHolder.rc_photo.setAdapter(bitisImageAdapter);
         if (item.getImages() != null && item.getImages().size() > 0) {
+            bitisImageAdapter.cleanDates();
             bitisImageAdapter.addAll(item.getImages());
         }
+        mHolder.rc_talk.setLayoutManager(new LinearLayoutManager(mContext));
+        mHolder.rc_talk.addItemDecoration(new AllItemDecoration(0, 2));
+        TalkAdapter talkAdapter = new TalkAdapter(mContext);
+        mHolder.rc_talk.setAdapter(talkAdapter);
+        talkAdapter.cleanDates();
+        talkAdapter.addAll(item.getMessages());
         mHolder.ll_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +93,29 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
                     return;
                 }
                 likebitis(mHolder.tv_like, mHolder.iv_like, item);
+            }
+        });
+        final CommentDialog commentDialog = new CommentDialog(mContext);
+        commentDialog.setOnCommitListener(new CommentDialog.OnCommitListener() {
+            @Override
+            public void onCommit(EditText et, View v) {
+                commentDialog.dismiss();
+            }
+        });
+        commentDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialogInterface, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getRepeatCount() == 0)
+                    commentDialog.cancel();
+                return false;
+            }
+        });
+
+
+        mHolder.ll_talk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                commentDialog.show();
             }
         });
     }
@@ -132,12 +168,14 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         TextView tv_like;
         ImageView iv_like;
         RecyclerView rc_photo;
+        RecyclerView rc_talk;
         LinearLayout ll_talk;
         LinearLayout ll_like;
         LinearLayout ll_share;
 
         MViewHolder(View itemView) {
             super(itemView);
+            rc_talk = itemView.findViewById(R.id.rc_talk);
             tv_talk = itemView.findViewById(R.id.tv_talk);
             iv_like = itemView.findViewById(R.id.iv_like);
             user_icon = itemView.findViewById(R.id.user_icon);
