@@ -38,6 +38,14 @@ public class CommentDialog extends Dialog implements View.OnClickListener {
         this.context = context;
     }
 
+    public void setEt_comment(String s) {
+        if (!TextUtils.isEmpty(s)) {
+            et_comment.setHint("回复 " + s);
+        }else{
+            et_comment.setHint("");
+        }
+    }
+
     public CommentDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
@@ -60,9 +68,7 @@ public class CommentDialog extends Dialog implements View.OnClickListener {
                 return false;
             }
         });
-        if (!TextUtils.isEmpty(toName)) {
-            et_comment.setHint("回复 " + toName);
-        }
+
         tv_commit.setOnClickListener(this);//提交
     }
 

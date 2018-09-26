@@ -48,6 +48,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.ItemsBean> {
     public int clickPosition = 0;
+    public int talkType;
+    private TalkAdapter talkAdapter;
 
     public BitisNewAdapter(Context context) {
         super(context);
@@ -74,6 +76,26 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             Glide.with(mContext).load(R.drawable.bt_like_nor).override(50, 50).into(mHolder.iv_like);
             mHolder.tv_like.setTextColor(getResource().getColor(R.color.line6));
         }
+        final CommentDialog commentDialog = new CommentDialog(mContext);
+        commentDialog.setOnCommitListener(new CommentDialog.OnCommitListener() {
+            @Override
+            public void onCommit(EditText et, View v) {
+                commentDialog.dismiss();
+                String content = et.getText().toString();
+                if (TextUtils.isEmpty(content)) {
+                    return;
+                }
+                talk(content, item, position, talkType);
+            }
+        });
+        commentDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialogInterface, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getRepeatCount() == 0)
+                    commentDialog.cancel();
+                return false;
+            }
+        });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
         mHolder.rc_photo.setLayoutManager(gridLayoutManager);
         RecyclerView.ItemDecoration itemDecoration = mHolder.rc_photo.getItemDecorationAt(0);
@@ -87,8 +109,23 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             bitisImageAdapter.addAll(item.getImages());
         }
         mHolder.rc_talk.setLayoutManager(new LinearLayoutManager(mContext));
-        mHolder.rc_talk.addItemDecoration(new AllItemDecoration(0, 2));
-        TalkAdapter talkAdapter = new TalkAdapter(mContext);
+        RecyclerView.ItemDecoration itemDecoration1 = mHolder.rc_talk.getItemDecorationAt(0);
+        if (itemDecoration1 == null) {
+            mHolder.rc_talk.addItemDecoration(new AllItemDecoration(0, 2));
+        }
+        talkAdapter = new TalkAdapter(mContext);
+        talkAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                talkAdapter.setClickPosition(position);
+                if (item.getMessages().get(position).getFromUid() == BaseAppApplication.getInstance().getLoginUser().getId()) {//点击了自己的留言
+                    return;
+                }
+                talkType = 1;
+                commentDialog.show();
+                commentDialog.setEt_comment(item.getMessages().get(position).getFromUname());
+            }
+        });
         mHolder.rc_talk.setAdapter(talkAdapter);
         talkAdapter.cleanDates();
         talkAdapter.addAll(item.getMessages());
@@ -103,44 +140,35 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
                 likebitis(mHolder.tv_like, mHolder.iv_like, item);
             }
         });
-        final CommentDialog commentDialog = new CommentDialog(mContext);
-        commentDialog.setOnCommitListener(new CommentDialog.OnCommitListener() {
-            @Override
-            public void onCommit(EditText et, View v) {
-                commentDialog.dismiss();
-                String content = et.getText().toString();
-                if (TextUtils.isEmpty(content)) {
-                    return;
-                }
-                talk(content, item, position);
-            }
-        });
-        commentDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialogInterface, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getRepeatCount() == 0)
-                    commentDialog.cancel();
-                return false;
-            }
-        });
 
 
         mHolder.ll_talk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                talkType = 0;
                 commentDialog.show();
+                commentDialog.setEt_comment("输入你想说的");
             }
         });
     }
 
-    private void talk(final String content, final BitisInfo.DataBean.ItemsBean itemsBean, final int position) {
+    private void talk(final String content, final BitisInfo.DataBean.ItemsBean itemsBean, final int position, final int talkType) {
         final UserInfo.DataBean loginUser = BaseAppApplication.getInstance().getLoginUser();
+
         RTalksBitisInfo rTalksBitisInfo = new RTalksBitisInfo();
-        rTalksBitisInfo.setFunctionName("AddPostMessage");
+        if (talkType == 0) {
+            rTalksBitisInfo.setFunctionName("AddPostMessage");
+        } else {
+            rTalksBitisInfo.setFunctionName("AddPostReply");
+        }
         RTalksBitisInfo.ParametersBean parametersBean = new RTalksBitisInfo.ParametersBean();
         parametersBean.setContent(content);
         parametersBean.setPostId(itemsBean.getId());
-        parametersBean.setToUid(itemsBean.getUserId());
+        if (talkType == 0) {//留言
+            parametersBean.setToUid(itemsBean.getUserId());
+        } else {//回复
+            parametersBean.setToUid(itemsBean.getMessages().get(talkAdapter.clickPosition).getFromUid());
+        }
         parametersBean.setUserId(loginUser.getId());
         rTalksBitisInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(mContext);
@@ -155,9 +183,14 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
                     messagesBean.setFromUid(loginUser.getId());
                     messagesBean.setFromUname(loginUser.getRealName());
                     messagesBean.setId(itemsBean.getId());
-                    messagesBean.setToUid(itemsBean.getUserId());
-                    messagesBean.setToUname("");
-                    BitisNewActivity.mInstance.get().addItemBean(messagesBean,position);
+                    if (talkType == 0) {
+                        messagesBean.setToUid(itemsBean.getUserId());
+                        messagesBean.setToUname("");
+                    } else {
+                        messagesBean.setToUid(itemsBean.getMessages().get(talkAdapter.clickPosition).getFromUid());
+                        messagesBean.setToUname(itemsBean.getMessages().get(talkAdapter.clickPosition).getFromUname());
+                    }
+                    BitisNewActivity.mInstance.get().addItemBean(messagesBean, position);
                     return;
                 }
                 ToastUtils.showShort(okTalkInfo.getMessage());
