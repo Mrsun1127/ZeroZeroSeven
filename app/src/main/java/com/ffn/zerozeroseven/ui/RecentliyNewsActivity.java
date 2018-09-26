@@ -35,24 +35,6 @@ public class RecentliyNewsActivity extends BaseRefreshActivity {
 
     @Override
     public void WantoDo() {
-        RClickBitisInfo rClickBitisInfo = new RClickBitisInfo();
-        rClickBitisInfo.setFunctionName("UpdatePostMessagesViewStatus");
-        RClickBitisInfo.ParametersBean parametersBean = new RClickBitisInfo.ParametersBean();
-        int size = recentliyNewsInfo.getData().getMessages().size();
-        Integer[] integers = new Integer[size];
-        for (int i = 0; i < size; i++) {
-            integers[i] = recentliyNewsInfo.getData().getMessages().get(i).getId();
-        }
-        parametersBean.setMessageIds(integers);
-        rClickBitisInfo.setParameters(parametersBean);
-        OkGoUtils okGoUtils = new OkGoUtils(RecentliyNewsActivity.this);
-        okGoUtils.httpPostJSON(rClickBitisInfo, true, false);
-        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
-            @Override
-            public void onSuccLoad(String response) {
-            }
-        });
-
     }
 
     @Override

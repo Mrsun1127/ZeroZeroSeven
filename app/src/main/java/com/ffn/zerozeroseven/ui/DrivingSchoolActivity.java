@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -20,8 +21,11 @@ import com.ffn.zerozeroseven.adapter.DriverHomeAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.DriverCountInfo;
+import com.ffn.zerozeroseven.bean.DriverLocalInfo;
 import com.ffn.zerozeroseven.bean.DriverSchoolMainInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RDiverDistanceInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RDriverCountInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RDriverLocal;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
@@ -61,6 +65,8 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
     private DriverSchoolMainInfo driverSchoolMainInfo;
     private String[] split;
     private LocationManager locationManager;
+    private int index = 0;
+    private int type = 0;
 
     @Override
     protected int setLayout() {
@@ -75,6 +81,80 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
             ToastUtils.showShort("请打开Gps方便定位");
         }
         requestCount();
+        requestLocal(index, type);
+    }
+
+    private void requestLocal(final int index, int type) {
+        RDriverLocal rDriverLocal = new RDriverLocal();
+        rDriverLocal.setFunctionName("ListDrivingByLocal");
+        RDriverLocal.ParametersBean parametersBean = new RDriverLocal.ParametersBean();
+        parametersBean.setPageSize(20);
+        parametersBean.setPageIndex(index);
+        if (type != 0) {
+            parametersBean.setPrice("price:1");
+        }
+        rDriverLocal.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(DrivingSchoolActivity.this);
+        okGoUtils.httpPostJSON(rDriverLocal, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                DriverLocalInfo driverLocalInfo = JSON.parseObject(response, DriverLocalInfo.class);
+                refreshlayout.finishRefresh();
+                if (driverLocalInfo.getCode() == 0 && driverLocalInfo.getData().getList() != null && driverLocalInfo.getData().getList().size() > 0) {
+                    if (index == 0) {
+                        driverHomeAdapter.cleanDates();
+                    } else {
+                        refreshlayout.finishLoadmore();
+                    }
+                    driverHomeAdapter.addAll(driverLocalInfo.getData().getList());
+                } else {
+                    if (index == 0) {
+                        driverHomeAdapter.cleanDates();
+                    } else {
+                        refreshlayout.finishLoadmore();
+                        ToastUtils.showShort("没有更多数据了");
+                    }
+                }
+            }
+        });
+    }
+
+    public void requestDistance(final int index) {
+
+        RDiverDistanceInfo rDiverDistanceInfo = new RDiverDistanceInfo();
+        rDiverDistanceInfo.setFunctionName("ListDrivingByNearby");
+        RDiverDistanceInfo.ParametersBean parametersBean = new RDiverDistanceInfo.ParametersBean();
+        parametersBean.setDistance("distance:1");
+//        parametersBean.setLatitude(Double.valueOf(split[0]));
+        parametersBean.setLatitude("28.000000000000000");
+//        parametersBean.setLongitude(Double.valueOf(split[1]));
+        parametersBean.setLongitude("113.000000000000000");
+        rDiverDistanceInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(DrivingSchoolActivity.this);
+        okGoUtils.httpPostJSON(rDiverDistanceInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                DriverLocalInfo driverLocalInfo = JSON.parseObject(response, DriverLocalInfo.class);
+                refreshlayout.finishRefresh();
+                if (driverLocalInfo.getCode() == 0 && driverLocalInfo.getData().getList() != null && driverLocalInfo.getData().getList().size() > 0) {
+                    if (index == 0) {
+                        driverHomeAdapter.cleanDates();
+                    } else {
+                        refreshlayout.finishLoadmore();
+                    }
+                    driverHomeAdapter.addAll(driverLocalInfo.getData().getList());
+                } else {
+                    if (index == 0) {
+                        driverHomeAdapter.cleanDates();
+                    } else {
+                        refreshlayout.finishLoadmore();
+                        ToastUtils.showShort("没有更多数据了");
+                    }
+                }
+            }
+        });
     }
 
     private void requestCount() {
@@ -119,7 +199,7 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
             @Override
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
-                bundle.putString("driverId", driverHomeAdapter.getItem(position).getDriving_id());
+                bundle.putString("driverId", String.valueOf(driverHomeAdapter.getItem(position).getDrivingId()));
                 ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, DrivingDetilsActivity.class, bundle);
             }
         });
@@ -128,16 +208,21 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
                     case R.id.rb_distance:
-                        postUrl = "http://api.map.baidu.com/geosearch/v3/nearby?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&sortby=distance:1&radius=100000";
-                        requestDate(postUrl, split[0], split[1], false, 0, 6);
+                        if (TextUtils.isEmpty(split[0])) {
+                            ToastUtils.showShort("正在获取您的位置");
+                            return;
+                        }
+                        index = 0;
+                        type = 3;
+                        requestDistance(index);
                         break;
                     case R.id.rb_price:
-                        postUrl = "http://api.map.baidu.com/geosearch/v3/local?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&sortby=price:1&filter=check_status:1";
-                        requestDate(postUrl, split[0], split[1], false, 0, 6);
+                        type = 1;
+                        requestLocal(index, type);
                         break;
                     case R.id.rb_other:
-                        postUrl = "http://api.map.baidu.com/geosearch/v3/local?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&filter=check_status:1";
-                        requestDate(postUrl, split[0], split[1], false, 0, 6);
+                        type = 0;
+                        requestLocal(index, type);
                         break;
                 }
             }
@@ -160,12 +245,6 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {  //从gps获取经纬度
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 requestPermisson();
             }
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -183,7 +262,7 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
                 longitude = location.getLongitude();
             }
         }
-        requestDate(postUrl, String.valueOf(longitude), String.valueOf(latitude), false, 0, 6);
+//        requestDate(postUrl, String.valueOf(longitude), String.valueOf(latitude), false, 0, 6);
         return longitude + "," + latitude;
     }
 
@@ -194,12 +273,6 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             requestPermisson();
         }
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
@@ -210,7 +283,7 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
             latitude = location.getLatitude();
             longitude = location.getLongitude();
         }
-        requestDate(postUrl, String.valueOf(longitude), String.valueOf(latitude), false, 0, 6);
+//        requestDate(postUrl, String.valueOf(longitude), String.valueOf(latitude), false, 0, 6);
         return longitude + "," + latitude;
     }
 
@@ -237,58 +310,6 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
     };
 
 
-    private String postUrl = "http://api.map.baidu.com/geosearch/v3/nearby?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&sortby=distance:1&radius=100000";
-    private String distanceUrl = "http://api.map.baidu.com/geosearch/v3/nearby?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&sortby=distance:1&radius=100000";
-    private String priceUrl = "http://api.map.baidu.com/geosearch/v3/local?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&sortby=price:1&filter=check_status:1";
-    private String otherUrl = "http://api.map.baidu.com/geosearch/v3/local?status=1&ak=i8WdSeZmGLma4ecnvs7YXIzXo8ok9Mvq&geotable_id=194571&filter=check_status:1";
-    private int index = 0;
-
-    private void requestDate(String url, String jingDu, String weiDu, final boolean b, final int index, int size) {
-        LogUtils.D("response", url + "&tags=驾校" + "&location=" + jingDu + "," + weiDu + "&pageIndex=" + index + "&pageSize=" + 6);
-        OkHttpUtils.get()
-                .url(url + "&tags=驾校" + "&location=" + jingDu + "," + weiDu + "&pageIndex=" + index + "&pageSize=" + 6)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        disLoadProgress();
-                    }
-
-                    @Override
-                    public void onBefore(Request request, int id) {
-                        super.onBefore(request, id);
-                        showLoadProgress();
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        disLoadProgress();
-                        if (b) {
-                            refreshlayout.finishRefresh();
-                        }
-                        LogUtils.D("response", response);
-                        driverSchoolMainInfo = JSON.parseObject(response, DriverSchoolMainInfo.class);
-                        if (driverSchoolMainInfo.getStatus() == 0 && driverSchoolMainInfo.getContents() != null && driverSchoolMainInfo.getContents().size() > 0) {
-                            if (index == 0) {
-                                driverHomeAdapter.cleanDates();
-                            } else {
-                                refreshlayout.finishLoadmore();
-                            }
-                            driverHomeAdapter.addAll(driverSchoolMainInfo.getContents());
-                        } else {
-                            if (index == 0) {
-                                driverHomeAdapter.cleanDates();
-                            } else {
-                                refreshlayout.finishLoadmore();
-                                ToastUtils.showShort("没有更多数据了");
-                            }
-                        }
-
-                    }
-                });
-    }
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -299,13 +320,21 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         index = 0;
-        requestDate(postUrl, split[0], split[1], true, index, 6);
+        if (type == 1 || type == 0) {
+            requestLocal(index, type);
+        } else {
+            requestDistance(index);
+        }
     }
 
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
         index++;
-        requestDate(postUrl, split[0], split[1], true, index, 6);
+        if (type == 1 || type == 0) {
+            requestLocal(index, type);
+        } else {
+            requestDistance(index);
+        }
     }
 }
 

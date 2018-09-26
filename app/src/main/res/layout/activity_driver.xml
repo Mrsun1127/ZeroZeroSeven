@@ -15,9 +15,9 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
-            android:background="#FAFAFA"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#FAFAFA">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toorbar"
@@ -139,16 +139,17 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/rb_distance"
+                        android:id="@+id/rb_other"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:button="@null"
                         android:checked="true"
                         android:gravity="center"
-                        android:text="距离最近"
+                        android:text="全部驾校"
                         android:textColor="@color/driver_text"
                         android:textSize="13sp" />
+
 
                     <View
                         android:layout_width="0.5dp"
@@ -173,15 +174,16 @@
                         android:background="@color/numberical_default_text" />
 
                     <RadioButton
-                        android:id="@+id/rb_other"
+                        android:id="@+id/rb_distance"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:button="@null"
                         android:gravity="center"
-                        android:text="其他驾校"
+                        android:text="距离最近"
                         android:textColor="@color/driver_text"
                         android:textSize="13sp" />
+
                 </RadioGroup>
             </LinearLayout>
         </android.support.design.widget.AppBarLayout>
