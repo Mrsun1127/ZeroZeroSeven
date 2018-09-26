@@ -8,6 +8,7 @@ import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.base.BaseRefreshActivity;
 import com.ffn.zerozeroseven.bean.BitisInfo;
+import com.ffn.zerozeroseven.bean.CountInfo;
 import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.RecentliyNewsInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RBitisRecentliyNewsInfo;
@@ -46,7 +47,7 @@ public class BitisNewActivity extends BaseRefreshActivity {
 
     private void requestCount() {
         RBitisRecentliyNewsInfo rBitisRecentliyNewsInfo = new RBitisRecentliyNewsInfo();
-        rBitisRecentliyNewsInfo.setFunctionName("ListLatestPostMessage");
+        rBitisRecentliyNewsInfo.setFunctionName("CountLatestMessage");
         RBitisRecentliyNewsInfo.ParametersBean parametersBean = new RBitisRecentliyNewsInfo.ParametersBean();
         parametersBean.setUserId(BaseAppApplication.getInstance().getLoginUser().getId());
         rBitisRecentliyNewsInfo.setParameters(parametersBean);
@@ -55,17 +56,15 @@ public class BitisNewActivity extends BaseRefreshActivity {
         okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                recentliyNewsInfo = JSON.parseObject(response, RecentliyNewsInfo.class);
-                if (recentliyNewsInfo.getCode() == 0) {
-                    if (recentliyNewsInfo.getData().getMessages() != null && recentliyNewsInfo.getData().getMessages().size() > 0) {
+                CountInfo countInfo = JSON.parseObject(response, CountInfo.class);
+                if (countInfo.getCode() == 0) {
+                    if (countInfo.getData().getCount() > 0) {
                         tv_news.setVisibility(View.VISIBLE);
-                        tv_news.setText(recentliyNewsInfo.getData().getMessages().size() + "条新信息");
-                    }else{
+                        tv_news.setText(countInfo.getData().getCount() + "条新信息");
+                    } else {
                         tv_news.setVisibility(View.GONE);
                     }
-                    return;
                 }
-                ZeroZeroSevenUtils.showCustonPop(BitisNewActivity.this, recentliyNewsInfo.getMessage(), tv_news);
             }
         });
     }
