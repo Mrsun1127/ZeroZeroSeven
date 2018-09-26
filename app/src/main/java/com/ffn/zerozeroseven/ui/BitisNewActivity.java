@@ -7,17 +7,26 @@ import com.ffn.zerozeroseven.base.BaseRefreshActivity;
 import com.ffn.zerozeroseven.bean.BitisInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.XiaoYuanQiangInfo;
 
+import java.lang.ref.WeakReference;
+
 public class BitisNewActivity extends BaseRefreshActivity {
 
     private BitisInfo bitisInfo;
+    public static WeakReference<BitisNewActivity> mInstance;
+    private BitisNewAdapter bitisNewAdapter;
 
     @Override
     protected BaseRecyclerAdapter setAdapter() {
+        mInstance = new WeakReference<>(this);
         setRight();
-        BitisNewAdapter bitisNewAdapter = new BitisNewAdapter(this);
+        bitisNewAdapter = new BitisNewAdapter(this);
         return bitisNewAdapter;
     }
 
+    public void addItemBean(BitisInfo.DataBean.ItemsBean.MessagesBean item, int position) {
+        bitisNewAdapter.getItem(position).getMessages().add(item);
+        bitisNewAdapter.notifyItemChanged(position);
+    }
 
     @Override
     protected String setTopTitle() {

@@ -17,12 +17,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.BitisInfo;
+import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
+import com.ffn.zerozeroseven.bean.OkTalkInfo;
 import com.ffn.zerozeroseven.bean.QiangShowInfo;
+import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DafenInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RTalksBitisInfo;
+import com.ffn.zerozeroseven.ui.BitisNewActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -31,6 +38,7 @@ import com.ffn.zerozeroseven.view.CommentDialog;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -51,7 +59,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final BitisInfo.DataBean.ItemsBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final BitisInfo.DataBean.ItemsBean item, final int position) {
         final MViewHolder mHolder = (MViewHolder) holder;
         Glide.with(mContext).load(item.getAvatar()).override(60, 60).into(mHolder.user_icon);
         mHolder.tv_phone.setText(TextUtils.isEmpty(item.getUserName()) ? ZeroZeroSevenUtils.phoneClose(item.getUserPhone()) : item.getUserName());
@@ -100,6 +108,11 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             @Override
             public void onCommit(EditText et, View v) {
                 commentDialog.dismiss();
+                String content = et.getText().toString();
+                if (TextUtils.isEmpty(content)) {
+                    return;
+                }
+                talk(content, item, position);
             }
         });
         commentDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
@@ -116,6 +129,38 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             @Override
             public void onClick(View view) {
                 commentDialog.show();
+            }
+        });
+    }
+
+    private void talk(final String content, final BitisInfo.DataBean.ItemsBean itemsBean, final int position) {
+        final UserInfo.DataBean loginUser = BaseAppApplication.getInstance().getLoginUser();
+        RTalksBitisInfo rTalksBitisInfo = new RTalksBitisInfo();
+        rTalksBitisInfo.setFunctionName("AddPostMessage");
+        RTalksBitisInfo.ParametersBean parametersBean = new RTalksBitisInfo.ParametersBean();
+        parametersBean.setContent(content);
+        parametersBean.setPostId(itemsBean.getId());
+        parametersBean.setToUid(itemsBean.getUserId());
+        parametersBean.setUserId(loginUser.getId());
+        rTalksBitisInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(mContext);
+        okGoUtils.httpPostJSON(rTalksBitisInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                OkTalkInfo okTalkInfo = JSON.parseObject(response, OkTalkInfo.class);
+                if (okTalkInfo.getCode() == 0) {
+                    BitisInfo.DataBean.ItemsBean.MessagesBean messagesBean = new BitisInfo.DataBean.ItemsBean.MessagesBean();
+                    messagesBean.setContent(content);
+                    messagesBean.setFromUid(loginUser.getId());
+                    messagesBean.setFromUname(loginUser.getRealName());
+                    messagesBean.setId(itemsBean.getId());
+                    messagesBean.setToUid(itemsBean.getUserId());
+                    messagesBean.setToUname("");
+                    BitisNewActivity.mInstance.get().addItemBean(messagesBean,position);
+                    return;
+                }
+                ToastUtils.showShort(okTalkInfo.getMessage());
             }
         });
     }
