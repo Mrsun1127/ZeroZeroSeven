@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.bean.UserInfo;
@@ -42,6 +43,8 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
     StateLayout commonStateLayout;
     @Bind(R.id.tv_title)
     TitleView titleView;
+    @Bind(R.id.tv_news)
+    public TextView tv_news;
     BaseRecyclerAdapter adapter;
     private KProgressHUD hud;
     private RgRefreshStatus rgRefreshStatus = RgRefreshStatus.IDLE;
@@ -108,6 +111,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
             public void ivMessAge() {
             }
         });
+
         titleView.setTopText(setTopTitle());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new SpaceItemDecoration(25));
@@ -253,7 +257,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
                 String json = response.body().string();
                 LogUtils.D("response", json);
                 readRespones(json);
-
+                WantoDo();
                 BaseAppApplication.mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -288,6 +292,10 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
                 });
             }
         });
+    }
+
+    public void WantoDo() {
+
     }
 
     @Override

@@ -404,26 +404,42 @@
         <activity
             android:name=".ui.DrivingSchoolActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.DrivingDetilsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.DriverClassTypeDetilsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.DriverCommitActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.JoinDriverSchoolActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.DriverDingDanListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.DriverOrderDetilsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.MapActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.BitisNewActivity"
+        <activity
+            android:name=".ui.DrivingDetilsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.DriverClassTypeDetilsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.DriverCommitActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.JoinDriverSchoolActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.DriverDingDanListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.DriverOrderDetilsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.BitisNewActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.ReleaseBitisActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.ReleaseBitisActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.RecentliyNewsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.BitisNewDetils"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
 
 
         <!-- Required SDK核心功能-->
