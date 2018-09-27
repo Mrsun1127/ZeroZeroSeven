@@ -27,6 +27,7 @@ import com.ffn.zerozeroseven.bean.RrunnerPayInfo;
 import com.ffn.zerozeroseven.bean.RunTypeInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RAddRunAdrInfo;
 import com.ffn.zerozeroseven.ui.ErrandAuitActivity;
+import com.ffn.zerozeroseven.ui.MrsunWebActivity;
 import com.ffn.zerozeroseven.ui.PayMoneyNewActivity;
 import com.ffn.zerozeroseven.ui.RunAdrListActivity;
 import com.ffn.zerozeroseven.ui.WebViewActivity;
@@ -225,7 +226,7 @@ public class ErrandHelpMineRunFragment extends BaseFragment {
                 Bundle bundle9 = new Bundle();
                 bundle9.putString("title", "发布协议");
                 bundle9.putString("url", AppConfig.WEBFABUCONTENT);
-                ZeroZeroSevenUtils.SwitchActivity(getContext(), WebViewActivity.class, bundle9);
+                ZeroZeroSevenUtils.SwitchActivity(getContext(), MrsunWebActivity.class, bundle9);
                 break;
             case R.id.tv_selectSadr:
                 Bundle bundle = new Bundle();

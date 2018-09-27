@@ -70,6 +70,6 @@ public class MrsunWebActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mAgentWeb.destroyAndKill();
+        mAgentWeb.destroy();
     }
 }
