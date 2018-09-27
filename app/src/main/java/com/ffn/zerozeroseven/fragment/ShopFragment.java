@@ -1,6 +1,7 @@
 package com.ffn.zerozeroseven.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -77,7 +78,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     private TextView tv_desc;
     private TextView tv_yysj2;
     private ImageView iv_in_bg;
-    private RelativeLayout rl_search;
+    private SearchView search_view;
     private ShopTitleAdapter titleAdapter;
 
     public static ShopFragment newInstance() {
@@ -124,8 +125,8 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView(View view) {
         badgeView = new QBadgeView(bfCxt);
+        search_view = view.findViewById(R.id.search_view);
         tv_yysj2 = view.findViewById(R.id.tv_yysj2);
-        rl_search = view.findViewById(R.id.rl_search);
         iv_icon = view.findViewById(R.id.iv_icon);
         iv_in_bg = view.findViewById(R.id.iv_in_bg);
         iv_in_bg.setScaleX(1.8f);
@@ -140,7 +141,6 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         ib_shopcar = view.findViewById(R.id.ib_shopcar);
         tv_name = view.findViewById(R.id.tv_name);
         ib_shopcar.setOnClickListener(this);
-        rl_search.setOnClickListener(this);
         badgeView.bindTarget(ib_shopcar);
         badgeView.setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
             @Override
@@ -186,7 +186,26 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
             }
         });
         mInstance = new WeakReference<>(this);
+        search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (!TextUtils.isEmpty(query)) {
+                    titleAdapter.setClickPosition(0);
+                    recycleview.scrollToPosition(0);
+                    ShopViewPagerAllFragment.mInstance.get().requestShopOnUp(query);
+                }
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        SearchView.SearchAutoComplete textView =  search_view.findViewById(R.id.search_src_text);
+        textView.setTextColor(getResources().getColor(R.color.black));
+        textView.setHint("搜索你想吃的");
+        textView.setTextSize(13);
     }
 
 
@@ -252,9 +271,6 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.rl_search:
-                ZeroZeroSevenUtils.FragmentSwitchActivity(bfCxt, SerachShopActivity.class, mInstance.get(), null, 1);
-                break;
             case R.id.ib_shopcar:
                 userInfo = BaseAppApplication.getInstance().getLoginUser();
                 if (userInfo != null) {
@@ -277,19 +293,6 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 2) {
-            String name = data.getStringExtra("name");
-            if (!TextUtils.isEmpty(name)) {
-                titleAdapter.setClickPosition(0);
-                recycleview.scrollToPosition(0);
-                ShopViewPagerAllFragment.mInstance.get().requestShopOnUp(name);
-            }
-        }
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(getActivity());
@@ -301,7 +304,6 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         MobclickAgent.onResume(getActivity());
         userInfo = BaseAppApplication.getInstance().getLoginUser();
         if (userInfo != null) {
-
             notifyCar();
         }
 

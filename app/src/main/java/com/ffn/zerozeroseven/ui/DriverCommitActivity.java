@@ -80,10 +80,10 @@ public class DriverCommitActivity extends BaseActivity {
             ToastUtils.showShort("请输入身份证");
             return;
         }
-        if (!cb_default.isChecked()) {
-            ToastUtils.showShort("请同意协议");
-            return;
-        }
+//        if (!cb_default.isChecked()) {
+//            ToastUtils.showShort("请同意协议");
+//            return;
+//        }
         DriverUserInfo driverUserInfo = new DriverUserInfo();
         driverUserInfo.idCard = idCard;
         driverUserInfo.name = name;
