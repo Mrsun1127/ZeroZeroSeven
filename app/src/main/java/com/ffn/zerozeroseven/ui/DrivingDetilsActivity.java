@@ -23,10 +23,13 @@ import com.ffn.zerozeroseven.fragment.DriverDetilsOneFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsThreeFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsTwoFragment;
 import com.ffn.zerozeroseven.fragment.MainFragment;
+import com.ffn.zerozeroseven.utlis.GlideImageLoader;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TopView;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
@@ -45,7 +48,7 @@ public class DrivingDetilsActivity extends BaseActivity {
     TopView topView;
 
     @Bind(R.id.banner)
-    MZBannerView banner;
+    Banner banner;
 
     @Bind(R.id.tv_name)
     TextView tv_name;
@@ -100,6 +103,9 @@ public class DrivingDetilsActivity extends BaseActivity {
                 finish();
             }
         });
+        banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
+        banner.setImageLoader(new GlideImageLoader());
+        banner.isAutoPlay(false);
     }
 
     @Override
@@ -146,33 +152,11 @@ public class DrivingDetilsActivity extends BaseActivity {
                     for (int i = 0; i < size; i++) {
                         images.add(driverDetilsInfo.getData().getDrivingSchool().getDrivingGalleryList().get(i).getPicUrl());
                     }
-                    banner.setPages(images, new MZHolderCreator() {
-                        @Override
-                        public BannerViewHolder createViewHolder() {
-                            return new BannerViewHolder();
-                        }
-                    });
+                    banner.setImages(images);
+                    banner.start();
                 }
             }
         });
-    }
-
-    public static class BannerViewHolder implements MZViewHolder<String> {
-        private ImageView mImageView;
-
-        @Override
-        public View createView(Context context) {
-            // 返回页面布局
-            View view = LayoutInflater.from(context).inflate(R.layout.item_driver_image, null);
-            mImageView = view.findViewById(R.id.image);
-            return view;
-        }
-
-        @Override
-        public void onBind(Context context, int position, String data) {
-            // 数据绑定
-            Glide.with(context).load(data).skipMemoryCache(true).into(mImageView);
-        }
     }
 
     @OnClick({R.id.rl_call, R.id.rl_ask, R.id.bt_talk})

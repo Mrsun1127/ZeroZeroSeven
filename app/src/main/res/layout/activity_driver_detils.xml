@@ -30,14 +30,11 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-                <com.zhouwei.mzbanner.MZBannerView
+                <com.youth.banner.Banner
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    app:canLoop="false"
-                    app:indicatorAlign="center"
-                    app:middle_page_cover="false"
-                    app:open_mz_mode="false" />
+                    android:layout_height="200dp" />
             </android.support.v7.widget.Toolbar>
 
             <RelativeLayout

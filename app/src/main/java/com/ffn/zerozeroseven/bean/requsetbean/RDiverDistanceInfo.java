@@ -59,15 +59,15 @@ public class RDiverDistanceInfo {
             this.latitude = latitude;
         }
 
-        public String getDistance() {
-            return distance;
+        public String getSortBy() {
+            return sortBy;
         }
 
-        public void setDistance(String distance) {
-            this.distance = distance;
+        public void setSortBy(String sortBy) {
+            this.sortBy = sortBy;
         }
 
-        private String distance;
+        private String sortBy;
 
     }
 }

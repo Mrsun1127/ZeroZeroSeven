@@ -41,17 +41,17 @@ public class RDriverLocal {
     public static class ParametersBean {
         /**
          */
-        private String price;
+        private String sortBy;
         private int pageSize;
         private int pageIndex;
 
 
-        public String getPrice() {
-            return price;
+        public String getSortBy() {
+            return sortBy;
         }
 
-        public void setPrice(String price) {
-            this.price = price;
+        public void setSortBy(String sortBy) {
+            this.sortBy = sortBy;
         }
 
         public int getPageSize() {
