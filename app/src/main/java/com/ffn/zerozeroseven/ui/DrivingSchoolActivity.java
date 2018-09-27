@@ -105,6 +105,8 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
                 refreshlayout.finishRefresh();
                 if (driverLocalInfo.getCode() == 0 && driverLocalInfo.getData().getList() != null && driverLocalInfo.getData().getList().size() > 0) {
                     if (index == 0) {
+                        stateLayout.setVisibility(View.GONE);
+                        refreshlayout.setVisibility(View.VISIBLE);
                         driverHomeAdapter.cleanDates();
                     } else {
                         refreshlayout.finishLoadmore();
@@ -113,6 +115,9 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
                 } else {
                     if (index == 0) {
                         driverHomeAdapter.cleanDates();
+                        stateLayout.setVisibility(View.VISIBLE);
+                        stateLayout.showError(StateLayout.noData);
+                        refreshlayout.setVisibility(View.GONE);
                     } else {
                         refreshlayout.finishLoadmore();
                         ToastUtils.showShort("没有更多数据了");
@@ -142,6 +147,8 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
                 refreshlayout.finishRefresh();
                 if (driverLocalInfo.getCode() == 0 && driverLocalInfo.getData().getList() != null && driverLocalInfo.getData().getList().size() > 0) {
                     if (index == 0) {
+                        stateLayout.setVisibility(View.GONE);
+                        refreshlayout.setVisibility(View.VISIBLE);
                         driverHomeAdapter.cleanDates();
                     } else {
                         refreshlayout.finishLoadmore();
@@ -149,6 +156,9 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
                     driverHomeAdapter.addAll(driverLocalInfo.getData().getList());
                 } else {
                     if (index == 0) {
+                        stateLayout.setVisibility(View.VISIBLE);
+                        stateLayout.showError(StateLayout.noData);
+                        refreshlayout.setVisibility(View.GONE);
                         driverHomeAdapter.cleanDates();
                     } else {
                         refreshlayout.finishLoadmore();
@@ -189,6 +199,17 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
             @Override
             public void Back() {
                 finish();
+            }
+        });
+        stateLayout.setOnStateCallListener(new StateLayout.OnStateLayoutCallListener() {
+            @Override
+            public void reCall() {
+                stateLayout.setVisibility(View.GONE);
+                if (type == 3) {
+                    requestDistance(index);
+                } else {
+                    requestLocal(index, type);
+                }
             }
         });
         refreshlayout.setOnLoadmoreListener(this);
@@ -239,13 +260,13 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
                 Bundle bundle = new Bundle();
                 bundle.putString("url", "https://www.lingling7.com/lingling7-res/app/driving/driving-process.html");
                 bundle.putString("title", "学车流程");
-                ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, MrsunWebActivity.class,bundle);
+                ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, MrsunWebActivity.class, bundle);
                 break;
             case R.id.bt_xuzhi:
                 Bundle bundle1 = new Bundle();
                 bundle1.putString("url", "https://www.lingling7.com/lingling7-res/app/driving/admission-Information.html");
                 bundle1.putString("title", "报名须知");
-                ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, MrsunWebActivity.class,bundle1);
+                ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, MrsunWebActivity.class, bundle1);
                 break;
 
         }
