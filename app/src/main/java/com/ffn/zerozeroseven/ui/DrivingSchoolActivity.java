@@ -1,14 +1,8 @@
 package com.ffn.zerozeroseven.ui;
 
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,6 +11,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.DriverHomeAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
@@ -27,7 +25,6 @@ import com.ffn.zerozeroseven.bean.DriverSchoolMainInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RDiverDistanceInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RDriverCountInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RDriverLocal;
-import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -38,19 +35,17 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.yanzhenjie.permission.AndPermission;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
+
+import java.lang.ref.WeakReference;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Call;
-import okhttp3.Request;
 
 
 public class DrivingSchoolActivity extends BaseActivity implements OnRefreshListener, OnLoadmoreListener {
+    public static WeakReference<DrivingSchoolActivity> mInstance;
     @Bind(R.id.topView)
     TopView topView;
     @Bind(R.id.rg_group)
@@ -65,25 +60,33 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
     TextView tv_count;
     private DriverHomeAdapter driverHomeAdapter;
     private DriverSchoolMainInfo driverSchoolMainInfo;
-    private String[] split;
+    public String[] split = new String[2];
     private LocationManager locationManager;
     private int index = 0;
     private int type = 0;
+    public LocationClient mLocationClient = null;
+    private MyLocationListener myListener = new MyLocationListener();
 
     @Override
     protected int setLayout() {
         return R.layout.activity_driver;
     }
 
+
     @Override
     protected void doMain() {
-        String jingWeidu = getLngAndLat(getApplicationContext());
-        split = jingWeidu.split(",");
-        if (split.length < 1) {
-            ToastUtils.showShort("请打开Gps方便定位");
-        }
+        mInstance = new WeakReference<>(this);
+        mLocationClient = new LocationClient(getApplicationContext());
+        //声明LocationClient类
+        mLocationClient.registerLocationListener(myListener);
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        option.setCoorType("bd09ll");
+        option.setOpenGps(true);
+        option.setIgnoreKillProcess(true);
+        mLocationClient.setLocOption(option);
+        mLocationClient.start();
         requestCount();
-        requestLocal(index, type);
     }
 
     private void requestLocal(final int index, int type) {
@@ -133,10 +136,10 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
         rDiverDistanceInfo.setFunctionName("ListDrivingByNearby");
         RDiverDistanceInfo.ParametersBean parametersBean = new RDiverDistanceInfo.ParametersBean();
         parametersBean.setSortBy("1");
-//        parametersBean.setLatitude(Double.valueOf(split[0]));
-        parametersBean.setLatitude("28.000000000000000");
-//        parametersBean.setLongitude(Double.valueOf(split[1]));
-        parametersBean.setLongitude("113.000000000000000");
+        parametersBean.setLatitude(split[0]);
+//        parametersBean.setLatitude("28.000000000000000");
+        parametersBean.setLongitude(split[1]);
+//        parametersBean.setLongitude("113.000000000000000");
         rDiverDistanceInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(DrivingSchoolActivity.this);
         okGoUtils.httpPostJSON(rDiverDistanceInfo, true, true);
@@ -272,86 +275,6 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
         }
     }
 
-    //获取权限
-    public void requestPermisson() {
-        AndPermission.with(DrivingSchoolActivity.this)
-                .requestCode(100)
-                .permission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-                .send();
-    }
-
-    //获取经纬度
-    private String getLngAndLat(Context context) {
-        double latitude = 0.0;
-        double longitude = 0.0;
-        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {  //从gps获取经纬度
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermisson();
-            }
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (location != null) {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-            } else {//当GPS信号弱没获取到位置的时候又从网络获取
-                return getLngAndLatWithNetwork();
-            }
-        } else {    //从网络获取经纬度
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (location != null) {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-            }
-        }
-//        requestDate(postUrl, String.valueOf(longitude), String.valueOf(latitude), false, 0, 6);
-        return longitude + "," + latitude;
-    }
-
-    //从网络获取经纬度
-    public String getLngAndLatWithNetwork() {
-        double latitude = 0.0;
-        double longitude = 0.0;
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermisson();
-        }
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
-        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-
-        if (location != null) {
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-        }
-//        requestDate(postUrl, String.valueOf(longitude), String.valueOf(latitude), false, 0, 6);
-        return longitude + "," + latitude;
-    }
-
-    static LocationListener locationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(Location location) {
-
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-
-        }
-    };
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -376,6 +299,21 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
             requestLocal(index, type);
         } else {
             requestDistance(index);
+        }
+    }
+
+    private class MyLocationListener extends BDAbstractLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+            //以下只列举部分获取经纬度相关（常用）的结果信息
+            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
+
+            double latitude = location.getLatitude();    //获取纬度信息
+            double longitude = location.getLongitude();    //获取经度信息
+            split[0] = String.valueOf(longitude);
+            split[1] = String.valueOf(latitude);
+            requestLocal(index, type);
         }
     }
 }
