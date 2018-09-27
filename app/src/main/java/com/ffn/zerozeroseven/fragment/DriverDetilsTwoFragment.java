@@ -62,9 +62,9 @@ public class DriverDetilsTwoFragment extends BaseFragment {
                 strings[0] = info.getData().getDrivingSchool().getDrivingPlaceList().get(position).getLongitude();
                 strings[1] = info.getData().getDrivingSchool().getDrivingPlaceList().get(position).getLatitude();
                 Bundle bundle = new Bundle();
-                bundle.putStringArray("array",strings);
-                bundle.putString("adr",info.getData().getDrivingSchool().getDrivingPlaceList().get(position).getAddress());
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, MapActivity.class,bundle);
+                bundle.putStringArray("array", strings);
+                bundle.putString("adr", info.getData().getDrivingSchool().getDrivingPlaceList().get(position).getName());
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, MapActivity.class, bundle);
             }
         });
         recycleview.setLayoutManager(new LinearLayoutManager(bfCxt));

@@ -34,7 +34,7 @@ public class DriverHomeAdapter extends BaseRecyclerAdapter<DriverLocalInfo.DataB
         MViewHolder mHolder = (MViewHolder) holder;
         Glide.with(mContext).load(item.getImage()).into(mHolder.iv_icon);
         mHolder.tv_name.setText(TextUtils.isEmpty(item.getTitle()) ? "加载中" : item.getTitle());
-        mHolder.tv_distance.setVisibility(View.GONE);
+        mHolder.tv_distance.setText(TextUtils.isEmpty(item.getDistance())||"0".equals(item.getDistance())?"":item.getDistance()+"km");
         mHolder.tv_count.setText(TextUtils.isEmpty(String.valueOf(item.getCount())) ? "加载中" : String.valueOf(item.getCount()));
         mHolder.tv_money.setText(TextUtils.isEmpty(String.valueOf(item.getPrice())) ? "加载中" : String.valueOf(item.getPrice()));
         mHolder.tv_adr.setText(TextUtils.isEmpty(item.getAddress()) ? "加载中" : item.getAddress());

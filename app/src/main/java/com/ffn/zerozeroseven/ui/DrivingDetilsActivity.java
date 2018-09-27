@@ -1,5 +1,6 @@
 package com.ffn.zerozeroseven.ui;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -149,9 +150,18 @@ public class DrivingDetilsActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.rl_call, R.id.rl_ask, R.id.bt_talk})
+    @OnClick({R.id.tv_adr, R.id.rl_call, R.id.rl_ask, R.id.bt_talk})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.tv_adr:
+                String[] strings = new String[2];
+                strings[0] = String.valueOf(driverDetilsInfo.getData().getDrivingSchool().getLongitude());
+                strings[1] = String.valueOf(driverDetilsInfo.getData().getDrivingSchool().getLatitude());
+                Bundle bundle = new Bundle();
+                bundle.putStringArray("array", strings);
+                bundle.putString("adr", driverDetilsInfo.getData().getDrivingSchool().getName());
+                ZeroZeroSevenUtils.SwitchActivity(DrivingDetilsActivity.this, MapActivity.class, bundle);
+                break;
             case R.id.rl_call:
                 ZeroZeroSevenUtils.requestCallMainifest(DrivingDetilsActivity.this);
                 ZeroZeroSevenUtils.MakingCalls(DrivingDetilsActivity.this, phoneNumber);
