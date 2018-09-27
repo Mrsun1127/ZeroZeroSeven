@@ -32,10 +32,10 @@ public class HisTalkAdapter extends BaseRecyclerAdapter<BitisHistoryInfo.DataBea
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, BitisHistoryInfo.DataBean.PostsBean.MessagesBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         if (TextUtils.isEmpty(item.getToUname())) {
-            mHolder.tv_fromName.setText(item.getFromUname());
+            mHolder.tv_fromName.setText(item.getFromUname()+":");
             mHolder.tv_center.setVisibility(View.GONE);
         } else {
-            mHolder.tv_ToName.setText(item.getToUname());
+            mHolder.tv_ToName.setText(item.getToUname()+":");
             mHolder.tv_fromName.setText(item.getFromUname());
             mHolder.tv_center.setVisibility(View.VISIBLE);
         }
