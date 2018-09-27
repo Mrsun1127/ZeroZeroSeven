@@ -156,6 +156,7 @@
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:id="@+id/rl_drive"
                         android:layout_width="0dp"
@@ -211,6 +212,7 @@
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:id="@+id/rl_jump"
                         android:layout_width="0dp"
@@ -409,8 +411,16 @@
             android:layout_width="match_parent"
             android:layout_height="177dp"
             android:layout_alignParentBottom="true"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_no"
+        android:layout_marginLeft="8dp"
+        android:layout_above="@+id/iv_show"
+        android:layout_width="45dp"
+        android:layout_height="20dp"
+        android:background="@drawable/idk" />
 
     <ImageView
         android:id="@+id/iv_show"
@@ -419,5 +429,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="25dp"
-        android:background="@drawable/dmooff" />
+        android:background="@drawable/dmopen" />
 </RelativeLayout>

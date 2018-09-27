@@ -699,6 +699,7 @@ public class MainFragment extends BaseFragment {
             if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
                 scrollTextView.stopAutoScroll();
             }
+            recyclerView.stop();
             banner.pause();//暂停轮播
         }
 
@@ -909,6 +910,7 @@ public class MainFragment extends BaseFragment {
         initHeadView();
         requestBaner();
         requestShop();
+        requestpopularList();
         //    05:00 - 09:00  09:00 - 11:30 11:30 - 14:00 14:00-17:00 17:00-19:00 19:00-24:00 24:00-05:00
         if (ZeroZeroSevenUtils.DateTodate(5, 9)) {
             requestHotBuyList("05:00", "09:00");
@@ -1200,9 +1202,11 @@ public class MainFragment extends BaseFragment {
 
     @Bind(R.id.tv_school)
     TextView tv_school;
-    boolean open = true;
+    boolean open = false;
     @Bind(R.id.iv_guanggao)
     ImageView iv_guanggao;
+    @Bind(R.id.iv_no)
+    ImageView iv_no;
 
 
     @OnClick({R.id.rl_jump, R.id.rl_drive, R.id.rl_lease, R.id.rl_errand, R.id.rl_jump_shop, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
@@ -1272,12 +1276,14 @@ public class MainFragment extends BaseFragment {
                     Glide.with(bfCxt).load(R.drawable.dmopen).into(iv_show);
                     recyclerView.setVisibility(View.VISIBLE);
                     requestpopularList();
+                    iv_no.setVisibility(View.VISIBLE);
                 } else {
                     open = true;
                     Glide.with(bfCxt).load(R.drawable.dmooff).into(iv_show);
                     okGoUtilspop.cancel();
                     recyclerView.stop();
                     recyclerView.setVisibility(View.GONE);
+                    iv_no.setVisibility(View.GONE);
                 }
                 break;
             case R.id.rl_snack:
@@ -1344,6 +1350,7 @@ public class MainFragment extends BaseFragment {
             if (tongzhiInfo != null && tongzhiInfo.getData().getList().size() >= 1) {
                 scrollTextView.startAutoScroll();
             }
+            recyclerView.start();
             requestTime();
             if (!TextUtils.isEmpty(userInfo.getSchoolName())) {
                 tv_school.setText(userInfo.getSchoolName());

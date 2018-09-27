@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content" android:layout_height="wrap_content"
-    >
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
     <RelativeLayout
-        android:background="@drawable/rectangle"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:background="@drawable/rectangle">
+
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginTop="12dp"
-            android:textColor="#000"
-            android:textSize="13sp"
-            android:layout_marginLeft="27dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:maxLength="20"
             android:text="小明 我有一句麻麻批对你讲"
-            android:layout_marginRight="5dp"/>
+            android:textColor="#000"
+            android:textSize="11sp" />
+
         <TextView
-            android:visibility="gone"
-            android:layout_toRightOf="@+id/tv_content"
             android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="5dp"
-            android:textSize="13sp"
-            android:textColor="#000"
-            android:layout_marginBottom="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@+id/tv_content"
             android:text="325班小美"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textColor="#000"
+            android:textSize="11sp"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </RelativeLayout>
