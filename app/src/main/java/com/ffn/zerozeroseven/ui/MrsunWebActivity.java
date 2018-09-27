@@ -48,7 +48,7 @@ public class MrsunWebActivity extends BaseActivity {
         String title = getIntent().getStringExtra("title");
         if (!TextUtils.isEmpty(title)) {
             if (title.length() > 8) {
-                titleView.setTopText(title.substring(0, 6)+"...");
+                titleView.setTopText(title.substring(0, 6) + "...");
             } else {
                 titleView.setTopText(title);
             }
@@ -65,5 +65,11 @@ public class MrsunWebActivity extends BaseActivity {
                 .createAgentWeb()//
                 .ready()
                 .go(url);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAgentWeb.destroyAndKill();
     }
 }

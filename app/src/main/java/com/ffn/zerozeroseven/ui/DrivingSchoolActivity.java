@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -44,6 +45,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Request;
 
@@ -228,6 +230,25 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
             }
         });
 
+    }
+
+    @OnClick({R.id.bt_liucheng, R.id.bt_xuzhi})
+    void setOnClicks(View v) {
+        switch (v.getId()) {
+            case R.id.bt_liucheng:
+                Bundle bundle = new Bundle();
+                bundle.putString("url", "https://www.lingling7.com/lingling7-res/app/driving/driving-process.html");
+                bundle.putString("title", "学车流程");
+                ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, MrsunWebActivity.class,bundle);
+                break;
+            case R.id.bt_xuzhi:
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("url", "https://www.lingling7.com/lingling7-res/app/driving/admission-Information.html");
+                bundle1.putString("title", "报名须知");
+                ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, MrsunWebActivity.class,bundle1);
+                break;
+
+        }
     }
 
     //获取权限
