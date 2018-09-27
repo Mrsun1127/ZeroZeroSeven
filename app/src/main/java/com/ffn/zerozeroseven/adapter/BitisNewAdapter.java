@@ -141,7 +141,11 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
                     @Override
                     public void doConfirm() {
                         confirmDialog.dismiss();
-                        deleteTalk(item, position);
+                        if (item.getMessages().get(position).isMessage()) {
+                            deleteLiuyan(item, position);
+                        } else {
+                            deleteTalk(item, position);
+                        }
 
                     }
 
@@ -178,6 +182,28 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         });
     }
 
+    private void deleteLiuyan(BitisInfo.DataBean.ItemsBean item, final int position) {
+        RDeleteTalkInfo rDeleteTalkInfo = new RDeleteTalkInfo();
+        rDeleteTalkInfo.setFunctionName("DeletePostMessage");
+        RDeleteTalkInfo.ParametersBean parametersBean = new RDeleteTalkInfo.ParametersBean();
+        parametersBean.setUserId(BaseAppApplication.getInstance().getLoginUser().getId());
+        parametersBean.setId(item.getMessages().get(position).getId());
+        rDeleteTalkInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(mContext);
+        okGoUtils.httpPostJSON(rDeleteTalkInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    BitisNewActivity.mInstance.get().removeItemBean(position);
+                    return;
+                }
+                ToastUtils.showShort(errorCodeInfo.getMessage());
+            }
+        });
+    }
+
     private void deleteTalk(BitisInfo.DataBean.ItemsBean itemsBean, final int position) {
         RDeleteTalkInfo rDeleteTalkInfo = new RDeleteTalkInfo();
         rDeleteTalkInfo.setFunctionName("DeletePostReply");
@@ -192,8 +218,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             public void onSuccLoad(String response) {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
-                    talkAdapter.removeItem(talkAdapter.getItem(position));
-                    notifyDataSetChanged();
+                    BitisNewActivity.mInstance.get().removeItemBean(position);
                     return;
                 }
                 ToastUtils.showShort(errorCodeInfo.getMessage());

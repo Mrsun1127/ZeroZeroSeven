@@ -256,6 +256,16 @@ public class BitisInfo {
                 private String content;
                 private String toUname;
 
+                public boolean isMessage() {
+                    return isMessage;
+                }
+
+                public void setMessage(boolean message) {
+                    isMessage = message;
+                }
+
+                private boolean isMessage;
+
                 public int getToUid() {
                     return toUid;
                 }
