@@ -168,6 +168,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             parametersBean.setToUid(itemsBean.getUserId());
         } else {//回复
             parametersBean.setToUid(itemsBean.getMessages().get(talkAdapter.clickPosition).getFromUid());
+            parametersBean.setMessageId(itemsBean.getMessages().get(talkAdapter.clickPosition).getId());
         }
         parametersBean.setUserId(loginUser.getId());
         rTalksBitisInfo.setParameters(parametersBean);

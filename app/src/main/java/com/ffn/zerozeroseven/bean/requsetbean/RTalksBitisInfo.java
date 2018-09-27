@@ -44,6 +44,15 @@ public class RTalksBitisInfo {
         private int userId;
         private int postId;
         private int toUid;
+        private int messageId;
+
+        public int getMessageId() {
+            return messageId;
+        }
+
+        public void setMessageId(int messageId) {
+            this.messageId = messageId;
+        }
 
         public int getUserId() {
             return userId;

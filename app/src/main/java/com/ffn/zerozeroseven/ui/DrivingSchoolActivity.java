@@ -101,13 +101,13 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
             public void onSuccLoad(String response) {
                 DriverLocalInfo driverLocalInfo = JSON.parseObject(response, DriverLocalInfo.class);
                 refreshlayout.finishRefresh();
-                if (driverLocalInfo.getCode() == 0 && driverLocalInfo.getData().getList() != null && driverLocalInfo.getData().getList().size() > 0) {
+                if (driverLocalInfo.getCode() == 0 && driverLocalInfo.getData().getItems() != null && driverLocalInfo.getData().getItems().size() > 0) {
                     if (index == 0) {
                         driverHomeAdapter.cleanDates();
                     } else {
                         refreshlayout.finishLoadmore();
                     }
-                    driverHomeAdapter.addAll(driverLocalInfo.getData().getList());
+                    driverHomeAdapter.addAll(driverLocalInfo.getData().getItems());
                 } else {
                     if (index == 0) {
                         driverHomeAdapter.cleanDates();
@@ -138,13 +138,13 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
             public void onSuccLoad(String response) {
                 DriverLocalInfo driverLocalInfo = JSON.parseObject(response, DriverLocalInfo.class);
                 refreshlayout.finishRefresh();
-                if (driverLocalInfo.getCode() == 0 && driverLocalInfo.getData().getList() != null && driverLocalInfo.getData().getList().size() > 0) {
+                if (driverLocalInfo.getCode() == 0 && driverLocalInfo.getData().getItems() != null && driverLocalInfo.getData().getItems().size() > 0) {
                     if (index == 0) {
                         driverHomeAdapter.cleanDates();
                     } else {
                         refreshlayout.finishLoadmore();
                     }
-                    driverHomeAdapter.addAll(driverLocalInfo.getData().getList());
+                    driverHomeAdapter.addAll(driverLocalInfo.getData().getItems());
                 } else {
                     if (index == 0) {
                         driverHomeAdapter.cleanDates();

@@ -54,12 +54,12 @@ public class RecentliyNewsActivity extends BaseRefreshActivity {
 
     @Override
     protected int setSize() {
-        return recentliyNewsInfo.getData().getMessages().size();
+        return recentliyNewsInfo.getData().getList().size();
     }
 
     @Override
     protected void addAll(BaseRecyclerAdapter adapter) {
-        adapter.addAll(recentliyNewsInfo.getData().getMessages());
+        adapter.addAll(recentliyNewsInfo.getData().getList());
     }
 
     @Override
@@ -68,6 +68,8 @@ public class RecentliyNewsActivity extends BaseRefreshActivity {
         rBitisRecentliyNewsInfo.setFunctionName("ListLatestPostMessage");
         RBitisRecentliyNewsInfo.ParametersBean parametersBean = new RBitisRecentliyNewsInfo.ParametersBean();
         parametersBean.setUserId(BaseAppApplication.getInstance().getLoginUser().getId());
+        parametersBean.setPageSize(20);
+        parametersBean.setPageIndex(pageNo);
         rBitisRecentliyNewsInfo.setParameters(parametersBean);
         return rBitisRecentliyNewsInfo;
     }

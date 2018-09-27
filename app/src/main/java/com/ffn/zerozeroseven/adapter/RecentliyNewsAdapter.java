@@ -14,7 +14,7 @@ import com.ffn.zerozeroseven.bean.RecentliyNewsInfo;
  * Created by GT on 2017/11/27.
  */
 
-public class RecentliyNewsAdapter extends BaseRecyclerAdapter<RecentliyNewsInfo.DataBean.MessagesBean> {
+public class RecentliyNewsAdapter extends BaseRecyclerAdapter<RecentliyNewsInfo.DataBean.ListBean> {
     public int clickPosition = 0;
 
     public RecentliyNewsAdapter(Context context) {
@@ -27,7 +27,7 @@ public class RecentliyNewsAdapter extends BaseRecyclerAdapter<RecentliyNewsInfo.
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, RecentliyNewsInfo.DataBean.MessagesBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, RecentliyNewsInfo.DataBean.ListBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         mHolder.tv_fromName.setText(item.getFromUname());
         mHolder.tv_content.setText(item.getContent());

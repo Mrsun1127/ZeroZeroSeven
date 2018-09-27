@@ -121,8 +121,8 @@ public class BitisNewDetils extends BaseActivity {
 
     @Override
     protected void doMain() {
-        RecentliyNewsInfo.DataBean.MessagesBean messagesBean
-                = (RecentliyNewsInfo.DataBean.MessagesBean) getIntent().getSerializableExtra("info");
+        RecentliyNewsInfo.DataBean.ListBean messagesBean
+                = (RecentliyNewsInfo.DataBean.ListBean) getIntent().getSerializableExtra("info");
         RBitisDeitlsInfo rBitisDeitlsInfo = new RBitisDeitlsInfo();
         rBitisDeitlsInfo.setFunctionName("QueryPost");
         RBitisDeitlsInfo.ParametersBean parametersBean = new RBitisDeitlsInfo.ParametersBean();
@@ -225,6 +225,7 @@ public class BitisNewDetils extends BaseActivity {
         if (talkType == 0) {//留言
             parametersBean.setToUid(bitisDetilsInfo.getData().getUserId());
         } else {//回复
+            parametersBean.setMessageId(bitisDetilsInfo.getData().getMessages().get(talkAdapter.clickPosition).getId());
             parametersBean.setToUid(bitisDetilsInfo.getData().getMessages().get(talkAdapter.clickPosition).getFromUid());
         }
         parametersBean.setUserId(loginUser.getId());
