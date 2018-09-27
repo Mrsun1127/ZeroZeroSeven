@@ -27,7 +27,7 @@ public class MapDistance {
             distance /= 1000;
             isBig = true;
         }
-        return (new DecimalFormat(".00").format(distance)) + (isBig ? "千米" : "米");
+        return (new DecimalFormat(".00").format(distance)) + (isBig ? "km" : "m");
     }
 
     public String getShortDistance(double lon1, double lat1, double lon2, double lat2) {

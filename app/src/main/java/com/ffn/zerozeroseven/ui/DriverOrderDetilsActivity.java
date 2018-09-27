@@ -106,6 +106,7 @@ public class DriverOrderDetilsActivity extends BaseActivity implements ActionShe
                     } else {
                         switch (driverDetilsInfo.getData().getDrivingOrder().getStatus()) {
                             case -1:
+                                bt_show.setText("继续申请退款");
                                 tv_status.setText("退款失败:" + driverDetilsInfo.getData().getDrivingOrder().getRefuseReason());
                                 break;
                             case 2:
