@@ -138,6 +138,7 @@ public class ShopViewPagerFragment extends BaseFragment implements BGARefreshLay
     }
 
     private void requestShop() {
+        ShopFragment.mInstance.get().cleanFoucs();
         setLoadPage();
         GoodsListInfo listInfo = new GoodsListInfo();
         listInfo.setFunctionName("ListSchoolGoods");

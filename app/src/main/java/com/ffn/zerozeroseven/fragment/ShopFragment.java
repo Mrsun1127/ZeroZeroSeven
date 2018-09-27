@@ -188,11 +188,17 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         mInstance = new WeakReference<>(this);
         search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(final String query) {
                 if (!TextUtils.isEmpty(query)) {
                     titleAdapter.setClickPosition(0);
                     recycleview.scrollToPosition(0);
                     ShopViewPagerAllFragment.mInstance.get().requestShopOnUp(query);
+                    BaseAppApplication.mainHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            viewPager.setCurrentItem(0);
+                        }
+                    },500);
                 }
                 return false;
             }
@@ -202,7 +208,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                 return false;
             }
         });
-        SearchView.SearchAutoComplete textView =  search_view.findViewById(R.id.search_src_text);
+        SearchView.SearchAutoComplete textView = search_view.findViewById(R.id.search_src_text);
         textView.setTextColor(getResources().getColor(R.color.black));
         textView.setHint("搜索你想吃的");
         textView.setTextSize(13);
@@ -306,7 +312,10 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         if (userInfo != null) {
             notifyCar();
         }
+    }
 
+    public void cleanFoucs() {
+        search_view.clearFocus();
     }
 
     public void notifyCar() {

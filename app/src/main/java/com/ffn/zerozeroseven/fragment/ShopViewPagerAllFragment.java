@@ -140,6 +140,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
     }
 
     private void requestShop() {
+        ShopFragment.mInstance.get().cleanFoucs();
         setLoadPage();
         GoodsListInfo listInfo = new GoodsListInfo();
         listInfo.setFunctionName("ListSchoolGoods");
@@ -207,6 +208,7 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
     }
 
     public void requestShopOnUp(String name) {
+        ShopFragment.mInstance.get().cleanFoucs();
         commonStateLayout.setVisibility(View.GONE);
         commonRefreshLayout.setVisibility(View.VISIBLE);
         rgRefreshStatus = RgRefreshStatus.IDLE;
