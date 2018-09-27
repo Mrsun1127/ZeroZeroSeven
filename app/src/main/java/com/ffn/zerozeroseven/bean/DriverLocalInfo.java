@@ -5,7 +5,7 @@ import java.util.List;
 public class DriverLocalInfo {
     /**
      * code : 0
-     * data : {"total":3,"pageIndex":0,"totalPage":1,"pageSize":20,"items":[{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537946817862.png","number":0,"uid":"2557645013","sellingTag":"多渠道,dqd","address":"车站中路","distance":"0","drivingId":3,"price":1,"count":1,"title":"明诚驾校"},{"image":"http://g.hiphotos.bdimg.com/lbsapi/wh%3D160%2C160/sign=b3bba93d7f8b4710ce7af5cdf5feefcc/2fdda3cc7cd98d1008f35d2d2c3fb80e7bec9082.jpg","number":0,"uid":"2560373625","sellingTag":"包接送","address":"湖南省长沙市芙蓉区农大路1号","distance":"0","drivingId":4,"price":0.4,"count":0,"title":"金龙驾校"},{"image":"http://192.168.3.199/lingling7-res/image/20180919/thumbnail1537340754887.png","number":0,"uid":"2563921017","sellingTag":"包接送","address":"练车场2号","distance":"0","drivingId":6,"price":0.4,"count":0,"title":"鸿运达驾培中心"}]}
+     * data : {"total":3,"pageIndex":0,"totalPage":1,"pageSize":20,"list":[{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537946817862.png","number":0,"uid":"2557645013","sellingTag":"多渠道,dqd","address":"车站中路","distance":"0","drivingId":3,"price":1,"count":1,"title":"明诚驾校"},{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537949906817.png","number":0,"uid":"2560373625","sellingTag":"包接送","address":"湖南省长沙市芙蓉区农大路1号","distance":"0","drivingId":4,"price":0.4,"count":0,"title":"金龙驾校"},{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537949906817.png","number":0,"uid":"2563921017","sellingTag":"包接送","address":"练车场2号","distance":"0","drivingId":6,"price":0.4,"count":0,"title":"鸿运达驾培中心"}]}
      * message : 请求成功
      */
 
@@ -43,14 +43,14 @@ public class DriverLocalInfo {
          * pageIndex : 0
          * totalPage : 1
          * pageSize : 20
-         * items : [{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537946817862.png","number":0,"uid":"2557645013","sellingTag":"多渠道,dqd","address":"车站中路","distance":"0","drivingId":3,"price":1,"count":1,"title":"明诚驾校"},{"image":"http://g.hiphotos.bdimg.com/lbsapi/wh%3D160%2C160/sign=b3bba93d7f8b4710ce7af5cdf5feefcc/2fdda3cc7cd98d1008f35d2d2c3fb80e7bec9082.jpg","number":0,"uid":"2560373625","sellingTag":"包接送","address":"湖南省长沙市芙蓉区农大路1号","distance":"0","drivingId":4,"price":0.4,"count":0,"title":"金龙驾校"},{"image":"http://192.168.3.199/lingling7-res/image/20180919/thumbnail1537340754887.png","number":0,"uid":"2563921017","sellingTag":"包接送","address":"练车场2号","distance":"0","drivingId":6,"price":0.4,"count":0,"title":"鸿运达驾培中心"}]
+         * list : [{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537946817862.png","number":0,"uid":"2557645013","sellingTag":"多渠道,dqd","address":"车站中路","distance":"0","drivingId":3,"price":1,"count":1,"title":"明诚驾校"},{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537949906817.png","number":0,"uid":"2560373625","sellingTag":"包接送","address":"湖南省长沙市芙蓉区农大路1号","distance":"0","drivingId":4,"price":0.4,"count":0,"title":"金龙驾校"},{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537949906817.png","number":0,"uid":"2563921017","sellingTag":"包接送","address":"练车场2号","distance":"0","drivingId":6,"price":0.4,"count":0,"title":"鸿运达驾培中心"}]
          */
 
         private int total;
         private int pageIndex;
         private int totalPage;
         private int pageSize;
-        private List<ItemsBean> items;
+        private List<ListBean> list;
 
         public int getTotal() {
             return total;
@@ -84,15 +84,15 @@ public class DriverLocalInfo {
             this.pageSize = pageSize;
         }
 
-        public List<ItemsBean> getItems() {
-            return items;
+        public List<ListBean> getList() {
+            return list;
         }
 
-        public void setItems(List<ItemsBean> items) {
-            this.items = items;
+        public void setList(List<ListBean> list) {
+            this.list = list;
         }
 
-        public static class ItemsBean {
+        public static class ListBean {
             /**
              * image : http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537946817862.png
              * number : 0

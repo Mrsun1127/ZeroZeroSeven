@@ -17,7 +17,7 @@ import com.ffn.zerozeroseven.bean.DriverLocalInfo;
  * Created by GT on 2017/11/27.
  */
 
-public class DriverHomeAdapter extends BaseRecyclerAdapter<DriverLocalInfo.DataBean.ItemsBean> {
+public class DriverHomeAdapter extends BaseRecyclerAdapter<DriverLocalInfo.DataBean.ListBean> {
     public int clickPosition = 0;
 
     public DriverHomeAdapter(Context context) {
@@ -30,7 +30,7 @@ public class DriverHomeAdapter extends BaseRecyclerAdapter<DriverLocalInfo.DataB
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, DriverLocalInfo.DataBean.ItemsBean item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, DriverLocalInfo.DataBean.ListBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
         Glide.with(mContext).load(item.getImage()).into(mHolder.iv_icon);
         mHolder.tv_name.setText(TextUtils.isEmpty(item.getTitle()) ? "加载中" : item.getTitle());
