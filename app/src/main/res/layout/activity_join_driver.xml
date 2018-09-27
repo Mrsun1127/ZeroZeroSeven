@@ -66,7 +66,6 @@
         android:gravity="center"
         android:hint="输入驾校名称"
         android:textColor="#2093ff"
-        android:textColorHint="#2093ff"
         android:textSize="13sp" />
 
     <com.ffn.zerozeroseven.view.ClearEditText
@@ -81,7 +80,6 @@
         android:hint="联系方式"
         android:inputType="phone"
         android:textColor="#2093ff"
-        android:textColorHint="#2093ff"
         android:textSize="13sp" />
 
     <Button
