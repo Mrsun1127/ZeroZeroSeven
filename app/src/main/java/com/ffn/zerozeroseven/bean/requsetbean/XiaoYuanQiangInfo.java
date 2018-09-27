@@ -51,7 +51,6 @@ public class XiaoYuanQiangInfo {
         private int pageSize;
         private int pageIndex;
 
-
         public String getPostType() {
             return postType;
         }

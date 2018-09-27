@@ -14,7 +14,6 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -22,14 +21,15 @@ import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.BitisHistoryInfo;
 import com.ffn.zerozeroseven.bean.BitisInfo;
 import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.OkTalkInfo;
-import com.ffn.zerozeroseven.bean.QiangShowInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DafenInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RDeleteTalkInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RTalksBitisInfo;
+import com.ffn.zerozeroseven.ui.BitisHistoryActivity;
 import com.ffn.zerozeroseven.ui.BitisNewActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
@@ -40,7 +40,6 @@ import com.ffn.zerozeroseven.view.ConfirmDialog;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -48,25 +47,25 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by GT on 2017/11/27.
  */
 
-public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.ItemsBean> {
+public class HistoryNewAdapter extends BaseRecyclerAdapter<BitisHistoryInfo.DataBean.PostsBean> {
     public int clickPosition = 0;
     public int talkType;
-    private TalkAdapter talkAdapter;
+    private HisTalkAdapter talkAdapter;
 
-    public BitisNewAdapter(Context context) {
+    public HistoryNewAdapter(Context context) {
         super(context);
     }
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        return new BitisNewAdapter.MViewHolder(mInflater.inflate(R.layout.item_bitis_new, parent, false));
+        return new HistoryNewAdapter.MViewHolder(mInflater.inflate(R.layout.item_bitis_new, parent, false));
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final BitisInfo.DataBean.ItemsBean item, final int topPosition) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final BitisHistoryInfo.DataBean.PostsBean item, final int TopPosition) {
         final MViewHolder mHolder = (MViewHolder) holder;
-        Glide.with(mContext).load(item.getAvatar()).override(60, 60).into(mHolder.user_icon);
-        mHolder.tv_phone.setText(TextUtils.isEmpty(item.getUserName()) ? ZeroZeroSevenUtils.phoneClose(item.getUserPhone()) : item.getUserName());
+        Glide.with(mContext).load(BaseAppApplication.getInstance().getLoginUser().getAvatar()).override(60, 60).into(mHolder.user_icon);
+        mHolder.tv_phone.setText(TextUtils.isEmpty(BaseAppApplication.getInstance().getLoginUser().getRealName()) ? ZeroZeroSevenUtils.phoneClose(BaseAppApplication.getInstance().getLoginUser().getPhone()) : item.getUserName());
         mHolder.tv_time.setText(item.getCreateTime());
         mHolder.tv_like.setText(String.valueOf(item.getLikeCount()));
         mHolder.tv_talk.setText(String.valueOf(item.getMessages() == null ? 0 : item.getMessages().size()));
@@ -87,7 +86,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
                 if (TextUtils.isEmpty(content)) {
                     return;
                 }
-                talk(content, item, topPosition, talkType);
+                talk(content, item, TopPosition, talkType);
             }
         });
         commentDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
@@ -115,7 +114,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         if (itemDecoration1 == null) {
             mHolder.rc_talk.addItemDecoration(new AllItemDecoration(0, 2));
         }
-        talkAdapter = new TalkAdapter(mContext);
+        talkAdapter = new HisTalkAdapter(mContext);
         talkAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
@@ -131,7 +130,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         talkAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override
             public void onLongClick(final int position, long itemId) {
-                clickPosition = topPosition;
+                clickPosition = TopPosition;
                 if (item.getMessages().get(position).getFromUid() != BaseAppApplication.getInstance().getLoginUser().getId()) {
                     return;
                 }
@@ -142,7 +141,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
                     @Override
                     public void doConfirm() {
                         confirmDialog.dismiss();
-                        if (item.getMessages().get(position).isMessage()) {
+                        if (item.getMessages().get(position).isIsMessage()) {
                             deleteLiuyan(item, position);
                         } else {
                             deleteTalk(item, position);
@@ -183,7 +182,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         });
     }
 
-    private void deleteLiuyan(BitisInfo.DataBean.ItemsBean item, final int position) {
+    private void deleteLiuyan(BitisHistoryInfo.DataBean.PostsBean item, final int position) {
         RDeleteTalkInfo rDeleteTalkInfo = new RDeleteTalkInfo();
         rDeleteTalkInfo.setFunctionName("DeletePostMessage");
         RDeleteTalkInfo.ParametersBean parametersBean = new RDeleteTalkInfo.ParametersBean();
@@ -197,7 +196,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             public void onSuccLoad(String response) {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
-                    BitisNewActivity.mInstance.get().removeItemBean(position);
+                    BitisHistoryActivity.mInstance.get().removeItemBean(position);
                     return;
                 }
                 ToastUtils.showShort(errorCodeInfo.getMessage());
@@ -205,7 +204,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         });
     }
 
-    private void deleteTalk(BitisInfo.DataBean.ItemsBean itemsBean, final int position) {
+    private void deleteTalk(BitisHistoryInfo.DataBean.PostsBean itemsBean, final int position) {
         RDeleteTalkInfo rDeleteTalkInfo = new RDeleteTalkInfo();
         rDeleteTalkInfo.setFunctionName("DeletePostReply");
         RDeleteTalkInfo.ParametersBean parametersBean = new RDeleteTalkInfo.ParametersBean();
@@ -219,7 +218,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             public void onSuccLoad(String response) {
                 ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
                 if (errorCodeInfo.getCode() == 0) {
-                    BitisNewActivity.mInstance.get().removeItemBean(position);
+                    BitisHistoryActivity.mInstance.get().removeItemBean(position);
                     return;
                 }
                 ToastUtils.showShort(errorCodeInfo.getMessage());
@@ -227,7 +226,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         });
     }
 
-    private void talk(final String content, final BitisInfo.DataBean.ItemsBean itemsBean, final int position, final int talkType) {
+    private void talk(final String content, final BitisHistoryInfo.DataBean.PostsBean itemsBean, final int position, final int talkType) {
         final UserInfo.DataBean loginUser = BaseAppApplication.getInstance().getLoginUser();
 
         RTalksBitisInfo rTalksBitisInfo = new RTalksBitisInfo();
@@ -254,7 +253,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             public void onSuccLoad(String response) {
                 OkTalkInfo okTalkInfo = JSON.parseObject(response, OkTalkInfo.class);
                 if (okTalkInfo.getCode() == 0) {
-                    BitisInfo.DataBean.ItemsBean.MessagesBean messagesBean = new BitisInfo.DataBean.ItemsBean.MessagesBean();
+                    BitisHistoryInfo.DataBean.PostsBean.MessagesBean messagesBean = new BitisHistoryInfo.DataBean.PostsBean.MessagesBean();
                     messagesBean.setContent(content);
                     messagesBean.setFromUid(loginUser.getId());
                     messagesBean.setFromUname(loginUser.getRealName());
@@ -262,13 +261,13 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
                     if (talkType == 0) {
                         messagesBean.setToUid(itemsBean.getUserId());
                         messagesBean.setToUname("");
-                        messagesBean.setMessage(true);
+                        messagesBean.setIsMessage(true);
                     } else {
                         messagesBean.setToUid(itemsBean.getMessages().get(talkAdapter.clickPosition).getFromUid());
                         messagesBean.setToUname(itemsBean.getMessages().get(talkAdapter.clickPosition).getFromUname());
-                        messagesBean.setMessage(false);
+                        messagesBean.setIsMessage(false);
                     }
-                    BitisNewActivity.mInstance.get().addItemBean(messagesBean, position);
+                    BitisHistoryActivity.mInstance.get().addItemBean(messagesBean, position);
                     return;
                 }
                 ToastUtils.showShort(okTalkInfo.getMessage());
@@ -276,7 +275,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         });
     }
 
-    private void likebitis(final TextView tv, final ImageView iv, final BitisInfo.DataBean.ItemsBean item) {
+    private void likebitis(final TextView tv, final ImageView iv, final BitisHistoryInfo.DataBean.PostsBean item) {
         DafenInfo dafenInfo1 = new DafenInfo();
         dafenInfo1.setFunctionName("UpdatePostLike");
         DafenInfo.ParametersBean parametersBean1 = new DafenInfo.ParametersBean();
