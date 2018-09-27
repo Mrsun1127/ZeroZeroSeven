@@ -36,6 +36,7 @@ import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ScreenUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
+import com.ffn.zerozeroseven.view.ConfirmDialog;
 import com.ffn.zerozeroseven.view.FullyLinearLayoutManager;
 import com.ffn.zerozeroseven.view.StateLayout;
 import com.willy.ratingbar.ScaleRatingBar;
@@ -81,10 +82,25 @@ public class ErrandMineRunFragment extends BaseFragment {
         recycleview.setLayoutManager(new FullyLinearLayoutManager(bfCxt));
         errandMineRunAdapter = new ErrandMineRunAdapter(bfCxt);
         recycleview.setAdapter(errandMineRunAdapter);
+        final ConfirmDialog confirmDialog = new ConfirmDialog(getActivity());
+        confirmDialog.setTitle("提示");
+        confirmDialog.setMessages("请提醒客户当面确认收货，否则订单仍视为未完成或进行中，系统将无法与您结算收益");
+
         errandMineRunAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position, long itemId) {
-                showTypeDialog(errandMineRunAdapter.getItem(position));
+            public void onItemClick(final int position, long itemId) {
+                confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm() {
+                        confirmDialog.dismiss();
+                        showTypeDialog(errandMineRunAdapter.getItem(position));
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        confirmDialog.dismiss();
+                    }
+                });
             }
         });
         common_stateLayout.setOnStateCallListener(new StateLayout.OnStateLayoutCallListener() {
