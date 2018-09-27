@@ -5,7 +5,7 @@ import java.util.List;
 public class DriverLocalInfo {
     /**
      * code : 0
-     * data : {"total":3,"pageIndex":0,"totalPage":1,"pageSize":20,"list":[{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537946817862.png","number":0,"uid":"2557645013","sellingTag":"多渠道,dqd","address":"车站中路","distance":"0","drivingId":3,"price":1,"count":1,"title":"明诚驾校"},{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537949906817.png","number":0,"uid":"2560373625","sellingTag":"包接送","address":"湖南省长沙市芙蓉区农大路1号","distance":"0","drivingId":4,"price":0.4,"count":0,"title":"金龙驾校"},{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537949906817.png","number":0,"uid":"2563921017","sellingTag":"包接送","address":"练车场2号","distance":"0","drivingId":6,"price":0.4,"count":0,"title":"鸿运达驾培中心"}]}
+     * data : {"total":3,"pageIndex":0,"totalPage":1,"pageSize":20,"list":[{"address":"天心区大托机场口","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538044472984.jpg","price":1,"latitude":28.073783,"name":"远征驾校","countSignUp":0,"commission":0,"id":13,"longitude":112.99757},{"address":"芙蓉区嘉雨路","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538033950077.jpg","price":2.48,"latitude":28,"name":"恒大驾校","countSignUp":0,"commission":0,"id":12,"longitude":113},{"address":"湖南省长沙市天心区城南路79号南门口地铁站附近79号南门口地铁站附近","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538031584898.jpg","price":1,"latitude":28.155898,"name":"鸿运达驾培中心","countSignUp":5,"commission":0,"id":11,"longitude":113.046822}]}
      * message : 请求成功
      */
 
@@ -43,7 +43,7 @@ public class DriverLocalInfo {
          * pageIndex : 0
          * totalPage : 1
          * pageSize : 20
-         * list : [{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537946817862.png","number":0,"uid":"2557645013","sellingTag":"多渠道,dqd","address":"车站中路","distance":"0","drivingId":3,"price":1,"count":1,"title":"明诚驾校"},{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537949906817.png","number":0,"uid":"2560373625","sellingTag":"包接送","address":"湖南省长沙市芙蓉区农大路1号","distance":"0","drivingId":4,"price":0.4,"count":0,"title":"金龙驾校"},{"image":"http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537949906817.png","number":0,"uid":"2563921017","sellingTag":"包接送","address":"练车场2号","distance":"0","drivingId":6,"price":0.4,"count":0,"title":"鸿运达驾培中心"}]
+         * list : [{"address":"天心区大托机场口","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538044472984.jpg","price":1,"latitude":28.073783,"name":"远征驾校","countSignUp":0,"commission":0,"id":13,"longitude":112.99757},{"address":"芙蓉区嘉雨路","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538033950077.jpg","price":2.48,"latitude":28,"name":"恒大驾校","countSignUp":0,"commission":0,"id":12,"longitude":113},{"address":"湖南省长沙市天心区城南路79号南门口地铁站附近79号南门口地铁站附近","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538031584898.jpg","price":1,"latitude":28.155898,"name":"鸿运达驾培中心","countSignUp":5,"commission":0,"id":11,"longitude":113.046822}]
          */
 
         private int total;
@@ -94,60 +94,26 @@ public class DriverLocalInfo {
 
         public static class ListBean {
             /**
-             * image : http://192.168.3.199/lingling7-res/image/20180926/thumbnail1537946817862.png
-             * number : 0
-             * uid : 2557645013
-             * sellingTag : 多渠道,dqd
-             * address : 车站中路
-             * distance : 0
-             * drivingId : 3
+             * address : 天心区大托机场口
+             * thumb : http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538044472984.jpg
              * price : 1
-             * count : 1
-             * title : 明诚驾校
+             * latitude : 28.073783
+             * name : 远征驾校
+             * countSignUp : 0
+             * commission : 0
+             * id : 13
+             * longitude : 112.99757
              */
 
-            private String image;
-            private int number;
-            private String uid;
-            private String sellingTag;
             private String address;
-            private String distance;
-            private int drivingId;
+            private String thumb;
             private Double price;
-            private int count;
-            private String title;
-
-            public String getImage() {
-                return image;
-            }
-
-            public void setImage(String image) {
-                this.image = image;
-            }
-
-            public int getNumber() {
-                return number;
-            }
-
-            public void setNumber(int number) {
-                this.number = number;
-            }
-
-            public String getUid() {
-                return uid;
-            }
-
-            public void setUid(String uid) {
-                this.uid = uid;
-            }
-
-            public String getSellingTag() {
-                return sellingTag;
-            }
-
-            public void setSellingTag(String sellingTag) {
-                this.sellingTag = sellingTag;
-            }
+            private double latitude;
+            private String name;
+            private int countSignUp;
+            private int commission;
+            private int id;
+            private double longitude;
 
             public String getAddress() {
                 return address;
@@ -157,20 +123,12 @@ public class DriverLocalInfo {
                 this.address = address;
             }
 
-            public String getDistance() {
-                return distance;
+            public String getThumb() {
+                return thumb;
             }
 
-            public void setDistance(String distance) {
-                this.distance = distance;
-            }
-
-            public int getDrivingId() {
-                return drivingId;
-            }
-
-            public void setDrivingId(int drivingId) {
-                this.drivingId = drivingId;
+            public void setThumb(String thumb) {
+                this.thumb = thumb;
             }
 
             public Double getPrice() {
@@ -181,20 +139,52 @@ public class DriverLocalInfo {
                 this.price = price;
             }
 
-            public int getCount() {
-                return count;
+            public double getLatitude() {
+                return latitude;
             }
 
-            public void setCount(int count) {
-                this.count = count;
+            public void setLatitude(double latitude) {
+                this.latitude = latitude;
             }
 
-            public String getTitle() {
-                return title;
+            public String getName() {
+                return name;
             }
 
-            public void setTitle(String title) {
-                this.title = title;
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public int getCountSignUp() {
+                return countSignUp;
+            }
+
+            public void setCountSignUp(int countSignUp) {
+                this.countSignUp = countSignUp;
+            }
+
+            public int getCommission() {
+                return commission;
+            }
+
+            public void setCommission(int commission) {
+                this.commission = commission;
+            }
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public double getLongitude() {
+                return longitude;
+            }
+
+            public void setLongitude(double longitude) {
+                this.longitude = longitude;
             }
         }
     }

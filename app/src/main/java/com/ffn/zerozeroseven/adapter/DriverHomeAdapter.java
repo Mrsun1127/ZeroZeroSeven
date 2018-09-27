@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.DriverLocalInfo;
+import com.ffn.zerozeroseven.ui.DrivingSchoolActivity;
+import com.ffn.zerozeroseven.utlis.MapDistance;
 
 /**
  * Created by GT on 2017/11/27.
@@ -32,10 +34,10 @@ public class DriverHomeAdapter extends BaseRecyclerAdapter<DriverLocalInfo.DataB
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, DriverLocalInfo.DataBean.ListBean item, int position) {
         MViewHolder mHolder = (MViewHolder) holder;
-        Glide.with(mContext).load(item.getImage()).into(mHolder.iv_icon);
-        mHolder.tv_name.setText(TextUtils.isEmpty(item.getTitle()) ? "加载中" : item.getTitle());
-        mHolder.tv_distance.setText(TextUtils.isEmpty(item.getDistance())||"0".equals(item.getDistance())?"":item.getDistance()+"km");
-        mHolder.tv_count.setText(TextUtils.isEmpty(String.valueOf(item.getCount())) ? "加载中" : String.valueOf(item.getCount()));
+        Glide.with(mContext).load(item.getThumb()).into(mHolder.iv_icon);
+        mHolder.tv_name.setText(TextUtils.isEmpty(item.getName()) ? "加载中" : item.getName());
+        mHolder.tv_distance.setText(MapDistance.getInstance().getShortDistance(item.getLongitude(), item.getLatitude(), Double.valueOf(DrivingSchoolActivity.mInstance.get().split[0]), Double.valueOf(DrivingSchoolActivity.mInstance.get().split[1])));
+        mHolder.tv_count.setText(TextUtils.isEmpty(String.valueOf(item.getCountSignUp())) ? "加载中" : String.valueOf(item.getCountSignUp()));
         mHolder.tv_money.setText(TextUtils.isEmpty(String.valueOf(item.getPrice())) ? "加载中" : String.valueOf(item.getPrice()));
         mHolder.tv_adr.setText(TextUtils.isEmpty(item.getAddress()) ? "加载中" : item.getAddress());
     }

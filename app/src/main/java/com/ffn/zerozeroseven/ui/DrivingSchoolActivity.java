@@ -96,7 +96,7 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
         parametersBean.setPageSize(20);
         parametersBean.setPageIndex(index);
         if (type != 0) {
-            parametersBean.setSortBy("1");
+            parametersBean.setSortBy("price");
         }
         rDriverLocal.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(DrivingSchoolActivity.this);
@@ -135,10 +135,9 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
         RDiverDistanceInfo rDiverDistanceInfo = new RDiverDistanceInfo();
         rDiverDistanceInfo.setFunctionName("ListDrivingByNearby");
         RDiverDistanceInfo.ParametersBean parametersBean = new RDiverDistanceInfo.ParametersBean();
-        parametersBean.setSortBy("1");
-        parametersBean.setLatitude(split[0]);
+        parametersBean.setLatitude(split[1]);
 //        parametersBean.setLatitude("28.000000000000000");
-        parametersBean.setLongitude(split[1]);
+        parametersBean.setLongitude(split[0]);
 //        parametersBean.setLongitude("113.000000000000000");
         rDiverDistanceInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(DrivingSchoolActivity.this);
@@ -225,7 +224,7 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
             @Override
             public void onItemClick(int position, long itemId) {
                 Bundle bundle = new Bundle();
-                bundle.putString("driverId", String.valueOf(driverHomeAdapter.getItem(position).getDrivingId()));
+                bundle.putString("driverId", String.valueOf(driverHomeAdapter.getItem(position).getId()));
                 ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, DrivingDetilsActivity.class, bundle);
             }
         });
