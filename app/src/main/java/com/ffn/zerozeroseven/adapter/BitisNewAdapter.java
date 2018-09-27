@@ -28,6 +28,7 @@ import com.ffn.zerozeroseven.bean.OkTalkInfo;
 import com.ffn.zerozeroseven.bean.QiangShowInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DafenInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.RDeleteTalkInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RTalksBitisInfo;
 import com.ffn.zerozeroseven.ui.BitisNewActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
@@ -35,6 +36,7 @@ import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.AllItemDecoration;
 import com.ffn.zerozeroseven.view.CommentDialog;
+import com.ffn.zerozeroseven.view.ConfirmDialog;
 import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
@@ -126,6 +128,30 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
                 commentDialog.setEt_comment(item.getMessages().get(position).getFromUname());
             }
         });
+        talkAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
+            @Override
+            public void onLongClick(final int position, long itemId) {
+                if (item.getMessages().get(position).getFromUid() != BaseAppApplication.getInstance().getLoginUser().getId()) {
+                    return;
+                }
+                final ConfirmDialog confirmDialog = new ConfirmDialog(mContext);
+                confirmDialog.setTitle("提示");
+                confirmDialog.setMessages("是否删除这条回复");
+                confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm() {
+                        confirmDialog.dismiss();
+                        deleteTalk(item, position);
+
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        confirmDialog.dismiss();
+                    }
+                });
+            }
+        });
         mHolder.rc_talk.setAdapter(talkAdapter);
         talkAdapter.cleanDates();
         talkAdapter.addAll(item.getMessages());
@@ -148,6 +174,29 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
                 talkType = 0;
                 commentDialog.show();
                 commentDialog.setEt_comment("输入你想说的");
+            }
+        });
+    }
+
+    private void deleteTalk(BitisInfo.DataBean.ItemsBean itemsBean, final int position) {
+        RDeleteTalkInfo rDeleteTalkInfo = new RDeleteTalkInfo();
+        rDeleteTalkInfo.setFunctionName("DeletePostReply");
+        RDeleteTalkInfo.ParametersBean parametersBean = new RDeleteTalkInfo.ParametersBean();
+        parametersBean.setUserId(BaseAppApplication.getInstance().getLoginUser().getId());
+        parametersBean.setId(itemsBean.getMessages().get(position).getId());
+        rDeleteTalkInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(mContext);
+        okGoUtils.httpPostJSON(rDeleteTalkInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo errorCodeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (errorCodeInfo.getCode() == 0) {
+                    talkAdapter.removeItem(talkAdapter.getItem(position));
+                    notifyDataSetChanged();
+                    return;
+                }
+                ToastUtils.showShort(errorCodeInfo.getMessage());
             }
         });
     }
