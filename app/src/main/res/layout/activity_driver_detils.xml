@@ -53,6 +53,7 @@
                     android:textSize="16sp" />
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/rl_call"
                     android:layout_width="31dp"
                     android:layout_height="29dp"

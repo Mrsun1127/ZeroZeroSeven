@@ -156,6 +156,22 @@
                         android:layout_height="20dp"
                         android:background="@color/numberical_default_text" />
 
+                    <RadioButton
+                        android:id="@+id/rb_distance"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="距离最近"
+                        android:textColor="@color/driver_text"
+                        android:textSize="13sp" />
+
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="20dp"
+                        android:background="@color/numberical_default_text" />
 
                     <RadioButton
                         android:id="@+id/rb_price"
@@ -168,21 +184,6 @@
                         android:textColor="@color/driver_text"
                         android:textSize="13sp" />
 
-                    <View
-                        android:layout_width="0.5dp"
-                        android:layout_height="20dp"
-                        android:background="@color/numberical_default_text" />
-
-                    <RadioButton
-                        android:id="@+id/rb_distance"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="距离最近"
-                        android:textColor="@color/driver_text"
-                        android:textSize="13sp" />
 
                 </RadioGroup>
             </LinearLayout>

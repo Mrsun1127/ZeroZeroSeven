@@ -32,6 +32,8 @@ public class DriverCommitActivity extends BaseActivity {
     CheckBox cb_default;
     @Bind(R.id.tv_phone)
     TextView tv_phone;
+    @Bind(R.id.tv_money)
+    TextView tv_money;
     public static WeakReference<DriverCommitActivity> mInstance;
 
     @Override
@@ -98,5 +100,6 @@ public class DriverCommitActivity extends BaseActivity {
     @Override
     protected void doMain() {
         tv_phone.setText(BaseAppApplication.getInstance().getLoginUser().getPhone());
+        tv_money.setText("费用总计："+getIntent().getStringExtra("money")+"元");
     }
 }

@@ -93,7 +93,7 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
         parametersBean.setPageSize(20);
         parametersBean.setPageIndex(index);
         if (type != 0) {
-            parametersBean.setSortBy("price:1");
+            parametersBean.setSortBy("1");
         }
         rDriverLocal.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(DrivingSchoolActivity.this);
@@ -127,7 +127,7 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
         RDiverDistanceInfo rDiverDistanceInfo = new RDiverDistanceInfo();
         rDiverDistanceInfo.setFunctionName("ListDrivingByNearby");
         RDiverDistanceInfo.ParametersBean parametersBean = new RDiverDistanceInfo.ParametersBean();
-        parametersBean.setSortBy("distance:1");
+        parametersBean.setSortBy("1");
 //        parametersBean.setLatitude(Double.valueOf(split[0]));
         parametersBean.setLatitude("28.000000000000000");
 //        parametersBean.setLongitude(Double.valueOf(split[1]));
