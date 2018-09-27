@@ -45,6 +45,15 @@
         android:text="@string/joindriver4"
         android:textColor="#333333"
         android:textSize="10sp" />
+    <TextView
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:text="@string/joindriver5"
+        android:textColor="#333333"
+        android:textSize="10sp" />
 
     <com.ffn.zerozeroseven.view.ClearEditText
         android:id="@+id/name"
@@ -52,7 +61,7 @@
         android:layout_height="37dp"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/lankongxin"
         android:gravity="center"
         android:hint="输入驾校名称"

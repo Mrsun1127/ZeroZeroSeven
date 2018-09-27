@@ -44,7 +44,7 @@ public class DriverDingDanListAdapter extends BaseRecyclerAdapter<DriverDingDanL
                 mHolder.tv_status.setText("支付成功");
                 break;
             case 2:
-                mHolder.tv_status.setText("取消订单");
+                mHolder.tv_status.setText("订单取消");
                 break;
             case 3:
                 mHolder.tv_status.setText("退款成功");
