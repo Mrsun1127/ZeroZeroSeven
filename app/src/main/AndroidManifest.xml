@@ -445,6 +445,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.WillDeleteActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.LookPicActivity" />
 
 
         <!-- Required SDK核心功能-->

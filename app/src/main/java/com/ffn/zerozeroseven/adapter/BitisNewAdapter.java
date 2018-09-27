@@ -2,6 +2,7 @@ package com.ffn.zerozeroseven.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +32,7 @@ import com.ffn.zerozeroseven.bean.requsetbean.DafenInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RDeleteTalkInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RTalksBitisInfo;
 import com.ffn.zerozeroseven.ui.BitisNewActivity;
+import com.ffn.zerozeroseven.ui.LookPicActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -41,6 +43,9 @@ import com.ffn.zerozeroseven.view.GridSpacingItemDecoration;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.zhy.http.okhttp.OkHttpUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -106,6 +111,14 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         }
         BitisImageAdapter bitisImageAdapter = new BitisImageAdapter(mContext);
         mHolder.rc_photo.setAdapter(bitisImageAdapter);
+        bitisImageAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("list", item.getImages());
+                ZeroZeroSevenUtils.SwitchActivity(mContext, LookPicActivity.class, bundle);
+            }
+        });
         if (item.getImages() != null && item.getImages().size() > 0) {
             bitisImageAdapter.cleanDates();
             bitisImageAdapter.addAll(item.getImages());

@@ -312,6 +312,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         if (userInfo != null) {
             notifyCar();
         }
+        cleanFoucs();
     }
 
     public void cleanFoucs() {

@@ -1,5 +1,6 @@
 package com.ffn.zerozeroseven.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BitisInfo {
@@ -122,7 +123,7 @@ public class BitisInfo {
             private int isAnonymity;
             private String userCollege;
             private int id;
-            private List<String> images;
+            private ArrayList<String> images;
             private List<MessagesBean> messages;
 
             public String getUserClazz() {
@@ -221,11 +222,11 @@ public class BitisInfo {
                 this.id = id;
             }
 
-            public List<String> getImages() {
+            public ArrayList<String> getImages() {
                 return images;
             }
 
-            public void setImages(List<String> images) {
+            public void setImages(ArrayList<String> images) {
                 this.images = images;
             }
 
