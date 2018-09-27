@@ -152,11 +152,32 @@
                             android:layout_below="@+id/iv_eight"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
-                            android:text="学校跑腿"
+                            android:text="校园跑腿"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_drive"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
+                        <ImageView
+                            android:id="@+id/iv_shi"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_shi"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="校园驾校"
+                            android:textColor="#333"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
 
                 </LinearLayout>
 
@@ -187,6 +208,28 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
                             android:text="电脑租赁"
+                            android:textColor="#333"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_jump"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_jump"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_jump"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:text="跳蚤市场"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </RelativeLayout>
@@ -261,28 +304,7 @@
                             android:textSize="13sp" />
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/rl_drive"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
 
-                        <ImageView
-                            android:id="@+id/iv_shi"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_centerHorizontal="true" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/iv_shi"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="4dp"
-                            android:text="驾校"
-                            android:textColor="#333"
-                            android:textSize="13sp" />
-                    </RelativeLayout>
                 </LinearLayout>
 
                 <RelativeLayout

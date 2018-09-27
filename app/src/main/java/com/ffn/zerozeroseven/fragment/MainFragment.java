@@ -238,6 +238,8 @@ public class MainFragment extends BaseFragment {
     ImageView iv_time_right;
     @Bind(R.id.iv_xinpin)
     ImageView iv_xinpin;
+    @Bind(R.id.iv_jump)
+    ImageView iv_jump;
 
     @Override
     protected void initView(View view) {
@@ -253,10 +255,11 @@ public class MainFragment extends BaseFragment {
         Glide.with(this).load(R.drawable.main_waimai).into(iv_seven);
         Glide.with(this).load(R.drawable.main_runner).into(iv_eight);
         Glide.with(this).load(R.drawable.main_lease).into(iv_nine);
-        Glide.with(this).load(R.drawable.main_lease).into(iv_shi);
+        Glide.with(this).load(R.drawable.main_driver).into(iv_shi);
         Glide.with(this).load(R.drawable.main_notify).into(iv_in);
         Glide.with(this).load(R.drawable.main_laba).into(iv_left);
         Glide.with(this).load(R.drawable.xinpin).into(iv_xinpin);
+        Glide.with(this).load(R.drawable.main_jumpa).into(iv_jump);
         mInstance = new WeakReference<>(this);
         scrollview.setScrollViewListener(new SmartScrollView.ScrollViewListener() {
             @Override
@@ -725,7 +728,7 @@ public class MainFragment extends BaseFragment {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("shopInfo", goodsInfo);
                     bundle.putString("back", "main");
-                    bundle.putString("type","shop");
+                    bundle.putString("type", "shop");
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, ShopDetilsActivity.class, bundle);
                 } else {
                     ToastUtils.showShort(goodsDetilsInfo.getMessage());
@@ -1201,9 +1204,20 @@ public class MainFragment extends BaseFragment {
     ImageView iv_guanggao;
 
 
-    @OnClick({R.id.rl_drive, R.id.rl_lease, R.id.rl_errand, R.id.rl_jump_shop, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
+    @OnClick({R.id.rl_jump, R.id.rl_drive, R.id.rl_lease, R.id.rl_errand, R.id.rl_jump_shop, R.id.rl_numberrical, R.id.iv_show, R.id.rl_snack, R.id.rl_computer, R.id.rl_integer, R.id.rl_local, R.id.iv_guanggao, R.id.rl_location, R.id.tv_school})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.rl_jump:
+                if (userInfo != null) {
+                    if ("943478288".equals(schoolIId)) {
+                        ZeroZeroSevenUtils.showCustonPop(bfCxt, "请先选择学校", recyclerView);
+                    } else {
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, JumpShopActivity.class);
+                    }
+                } else {
+                    ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
+                }
+                break;
             case R.id.rl_drive:
                 if (userInfo != null) {
                     if ("943478288".equals(schoolIId)) {

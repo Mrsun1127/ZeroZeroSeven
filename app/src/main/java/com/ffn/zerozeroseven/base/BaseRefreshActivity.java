@@ -11,6 +11,7 @@ import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.ui.MineWantGoQiangActivity;
 import com.ffn.zerozeroseven.ui.ReleaseBitisActivity;
 import com.ffn.zerozeroseven.utlis.LogUtils;
+import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.UiTipUtil;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.SpaceItemDecoration;
@@ -279,7 +280,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements OnRefr
                                 case PULL_DOWN:
                                     commonRefreshLayout.finishLoadmore();
                                     if (setSize() == 0) {
-                                        UiTipUtil.showToast(BaseRefreshActivity.this, R.string.no_more_data);
+                                        ToastUtils.showShort("没有更多数据了");
                                     } else {
                                         addAll(adapter);
                                     }
