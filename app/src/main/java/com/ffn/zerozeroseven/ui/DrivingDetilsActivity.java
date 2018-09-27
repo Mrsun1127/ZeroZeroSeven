@@ -1,19 +1,14 @@
 package com.ffn.zerozeroseven.ui;
 
-import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
-import com.ffn.zerozeroseven.adapter.ExamplePagerAdapter;
 import com.ffn.zerozeroseven.adapter.ShopViewPagerAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.bean.DriverDetilsInfo;
@@ -22,17 +17,12 @@ import com.ffn.zerozeroseven.fragment.DriverDetilsFourFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsOneFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsThreeFragment;
 import com.ffn.zerozeroseven.fragment.DriverDetilsTwoFragment;
-import com.ffn.zerozeroseven.fragment.MainFragment;
 import com.ffn.zerozeroseven.utlis.GlideImageLoader;
-import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.ffn.zerozeroseven.view.TopView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.zhouwei.mzbanner.MZBannerView;
-import com.zhouwei.mzbanner.holder.MZHolderCreator;
-import com.zhouwei.mzbanner.holder.MZViewHolder;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

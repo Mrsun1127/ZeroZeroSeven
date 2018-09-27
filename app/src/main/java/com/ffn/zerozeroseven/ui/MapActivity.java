@@ -35,9 +35,9 @@ public class MapActivity extends BaseActivity {
     @Bind(R.id.map)
     MapView mapView;
     private BaiduMap mBaiduMap;
-    private float latx = 28.199933f;
-    private float laty = 113.070635f;
-    private String lableName = "明诚驾校";
+    private Double latx;
+    private Double laty;
+    private String lableName;
 
     // 定位相关声明
     //自定义图标
@@ -67,7 +67,7 @@ public class MapActivity extends BaseActivity {
             @Override
             public void doConfirm() {
                 confirmDialog.dismiss();
-                startNavBaiDu("明诚驾校", latx, laty);
+                startNavBaiDu(lableName, latx, laty);
             }
 
             @Override
@@ -80,6 +80,10 @@ public class MapActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        String[] strings = getIntent().getStringArrayExtra("array");
+        latx = Double.valueOf(strings[1]);
+        laty = Double.valueOf(strings[0]);
+        lableName = getIntent().getStringExtra("adr");
         mBaiduMap = mapView.getMap();
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override

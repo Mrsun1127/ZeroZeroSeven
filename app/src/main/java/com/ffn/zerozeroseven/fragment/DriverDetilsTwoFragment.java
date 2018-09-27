@@ -58,8 +58,13 @@ public class DriverDetilsTwoFragment extends BaseFragment {
         driverOneAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-
-                ZeroZeroSevenUtils.SwitchActivity(bfCxt, MapActivity.class);
+                String[] strings = new String[2];
+                strings[0] = info.getData().getDrivingSchool().getDrivingPlaceList().get(position).getLongitude();
+                strings[1] = info.getData().getDrivingSchool().getDrivingPlaceList().get(position).getLatitude();
+                Bundle bundle = new Bundle();
+                bundle.putStringArray("array",strings);
+                bundle.putString("adr",info.getData().getDrivingSchool().getDrivingPlaceList().get(position).getAddress());
+                ZeroZeroSevenUtils.SwitchActivity(bfCxt, MapActivity.class,bundle);
             }
         });
         recycleview.setLayoutManager(new LinearLayoutManager(bfCxt));
