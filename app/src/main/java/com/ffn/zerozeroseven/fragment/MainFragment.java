@@ -69,6 +69,7 @@ import com.ffn.zerozeroseven.ui.ShopDetilsActivity;
 import com.ffn.zerozeroseven.ui.TakeAwayFoodActivity;
 import com.ffn.zerozeroseven.ui.UserSelectSchoolListActivity;
 import com.ffn.zerozeroseven.ui.WebViewActivity;
+import com.ffn.zerozeroseven.ui.WillDeleteActivity;
 import com.ffn.zerozeroseven.utlis.DownLoadManager;
 import com.ffn.zerozeroseven.utlis.LogUtils;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
@@ -1212,7 +1213,7 @@ public class MainFragment extends BaseFragment {
                     if ("943478288".equals(schoolIId)) {
                         ZeroZeroSevenUtils.showCustonPop(bfCxt, "请先选择学校", recyclerView);
                     } else {
-                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, JumpShopActivity.class);
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, WillDeleteActivity.class);
                     }
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);

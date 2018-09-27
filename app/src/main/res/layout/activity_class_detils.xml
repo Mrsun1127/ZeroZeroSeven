@@ -438,6 +438,7 @@
                 android:background="@color/line" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="9dp"
@@ -447,6 +448,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_talk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -458,6 +460,7 @@
                 android:textSize="13sp" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="9dp"
