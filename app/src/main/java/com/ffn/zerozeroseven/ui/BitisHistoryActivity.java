@@ -25,6 +25,11 @@ public class BitisHistoryActivity extends BaseRefreshActivity {
         return bitisNewAdapter;
     }
 
+    public void removeTopItem(int position) {
+        bitisNewAdapter.removeItem(position);
+        bitisNewAdapter.notifyDataSetChanged();
+    }
+
     @Override
     protected void doMain() {
     }

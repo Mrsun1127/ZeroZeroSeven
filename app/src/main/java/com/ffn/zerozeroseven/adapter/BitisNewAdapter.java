@@ -29,6 +29,7 @@ import com.ffn.zerozeroseven.bean.OkTalkInfo;
 import com.ffn.zerozeroseven.bean.QiangShowInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DafenInfo;
+import com.ffn.zerozeroseven.bean.requsetbean.DeleteTieInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RDeleteTalkInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RTalksBitisInfo;
 import com.ffn.zerozeroseven.ui.BitisNewActivity;
@@ -83,11 +84,36 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             Glide.with(mContext).load(R.drawable.bt_like_nor).override(50, 50).into(mHolder.iv_like);
             mHolder.tv_like.setTextColor(getResource().getColor(R.color.line6));
         }
-        final CommentDialog commentDialog = new CommentDialog(mContext);
-        commentDialog.setOnCommitListener(new CommentDialog.OnCommitListener() {
+        if (item.getUserId() == BaseAppApplication.getInstance().getLoginUser().getId()) {
+            mHolder.rl_delete.setVisibility(View.VISIBLE);
+        } else {
+            mHolder.rl_delete.setVisibility(View.GONE);
+        }
+        mHolder.rl_delete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCommit(EditText et, View v) {
-                commentDialog.dismiss();
+            public void onClick(View view) {
+                final ConfirmDialog confirmDialog = new ConfirmDialog(mContext);
+                confirmDialog.setTitle("提示");
+                confirmDialog.setMessages("是否删除该条帖子?");
+                confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm() {
+                        confirmDialog.dismiss();
+                        deleteTiezi(item, topPosition);
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        confirmDialog.dismiss();
+                    }
+                });
+            }
+        });
+                final CommentDialog commentDialog = new CommentDialog(mContext);
+                commentDialog.setOnCommitListener(new CommentDialog.OnCommitListener() {
+                    @Override
+                    public void onCommit(EditText et, View v) {
+                        commentDialog.dismiss();
                 String content = et.getText().toString();
                 if (TextUtils.isEmpty(content)) {
                     return;
@@ -192,6 +218,28 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
                 talkType = 0;
                 commentDialog.show();
                 commentDialog.setEt_comment("输入你想说的");
+            }
+        });
+    }
+
+    private void deleteTiezi(BitisInfo.DataBean.ItemsBean itemsBean, final int topPoition) {
+        DeleteTieInfo deleteTieInfo = new DeleteTieInfo();
+        deleteTieInfo.setFunctionName("DeleteUserPost");
+        DeleteTieInfo.ParametersBean parametersBean = new DeleteTieInfo.ParametersBean();
+        parametersBean.setUserId(BaseAppApplication.getInstance().getLoginUser().getId());
+        parametersBean.setPostId(itemsBean.getId());
+        deleteTieInfo.setParameters(parametersBean);
+        OkGoUtils okGoUtils = new OkGoUtils(mContext);
+        okGoUtils.httpPostJSON(deleteTieInfo, true, true);
+        okGoUtils.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
+            @Override
+            public void onSuccLoad(String response) {
+                ErrorCodeInfo codeInfo = JSON.parseObject(response, ErrorCodeInfo.class);
+                if (codeInfo.getCode() == 0) {
+                    BitisNewActivity.mInstance.get().removeTopItem(topPoition);
+                } else {
+                    ToastUtils.showShort(codeInfo.getMessage());
+                }
             }
         });
     }
@@ -341,9 +389,11 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         LinearLayout ll_talk;
         LinearLayout ll_like;
         LinearLayout ll_share;
+        RelativeLayout rl_delete;
 
         MViewHolder(View itemView) {
             super(itemView);
+            rl_delete = itemView.findViewById(R.id.rl_delete);
             rc_talk = itemView.findViewById(R.id.rc_talk);
             tv_talk = itemView.findViewById(R.id.tv_talk);
             iv_like = itemView.findViewById(R.id.iv_like);

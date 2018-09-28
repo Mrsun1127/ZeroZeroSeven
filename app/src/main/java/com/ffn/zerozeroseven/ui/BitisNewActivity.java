@@ -84,6 +84,11 @@ public class BitisNewActivity extends BaseRefreshActivity {
         bitisNewAdapter.notifyItemChanged(bitisNewAdapter.clickPosition);
     }
 
+    public void removeTopItem(int position) {
+        bitisNewAdapter.removeItem(position);
+        bitisNewAdapter.notifyDataSetChanged();
+    }
+
     @Override
     protected String setTopTitle() {
         return "许愿墙";
