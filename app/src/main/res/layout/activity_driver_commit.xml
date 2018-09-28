@@ -123,6 +123,8 @@
             android:textSize="16sp" />
 
         <com.ffn.zerozeroseven.view.ClearEditText
+            android:inputType="number"
+            android:digits="0123456789xyzXYZ"
             android:id="@+id/cle_card"
             android:layout_width="200dp"
             android:layout_height="match_parent"
