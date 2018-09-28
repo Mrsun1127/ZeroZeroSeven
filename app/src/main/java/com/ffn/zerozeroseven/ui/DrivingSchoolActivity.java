@@ -277,7 +277,13 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        if (mLocationClient != null && myListener != null) {
+            mLocationClient.unRegisterLocationListener(myListener);
+        }
+        myListener = null;
+        if (mLocationClient != null && mLocationClient.isStarted()) {
+            mLocationClient.stop();
+        }
     }
 
 
@@ -313,8 +319,10 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
             split[0] = String.valueOf(longitude);
             split[1] = String.valueOf(latitude);
             requestLocal(index, type);
+
         }
     }
+
 }
 
 
