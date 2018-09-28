@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.ffn.zerozeroseven.R;
+import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.BitisInfo;
@@ -48,6 +49,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -89,6 +91,26 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         } else {
             mHolder.rl_delete.setVisibility(View.GONE);
         }
+        mHolder.ll_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OnekeyShare oks = new OnekeyShare();
+                //关闭sso授权
+                oks.disableSSOWhenAuthorize();
+                // title标题，微信、QQ和QQ空间等平台使用
+                oks.setTitle("零零7许愿墙");
+                // titleUrl QQ和QQ空间跳转链接
+                oks.setTitleUrl(AppConfig.SHAREURL);
+                // text是分享文本，所有平台都需要这个字段
+                oks.setText(item.getContent());
+                // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+                oks.setImageUrl(AppConfig.LOGOURL);//确保SDcard下面存在此张图片
+                // url在微信、微博，Facebook等平台中使用
+                oks.setUrl(AppConfig.SHAREURL);
+                // 启动分享GUI
+                oks.show(mContext);
+            }
+        });
         mHolder.rl_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,11 +131,11 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
                 });
             }
         });
-                final CommentDialog commentDialog = new CommentDialog(mContext);
-                commentDialog.setOnCommitListener(new CommentDialog.OnCommitListener() {
-                    @Override
-                    public void onCommit(EditText et, View v) {
-                        commentDialog.dismiss();
+        final CommentDialog commentDialog = new CommentDialog(mContext);
+        commentDialog.setOnCommitListener(new CommentDialog.OnCommitListener() {
+            @Override
+            public void onCommit(EditText et, View v) {
+                commentDialog.dismiss();
                 String content = et.getText().toString();
                 if (TextUtils.isEmpty(content)) {
                     return;

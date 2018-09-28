@@ -18,6 +18,7 @@ import com.ffn.zerozeroseven.R;
 import com.ffn.zerozeroseven.adapter.BitisImageAdapter;
 import com.ffn.zerozeroseven.adapter.DetilsTalkAdapter;
 import com.ffn.zerozeroseven.adapter.TalkAdapter;
+import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
@@ -42,6 +43,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BitisNewDetils extends BaseActivity {
@@ -191,13 +193,30 @@ public class BitisNewDetils extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.ll_talk, R.id.ll_like})
+    @OnClick({R.id.ll_talk, R.id.ll_like, R.id.ll_share})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.ll_talk:
                 talkType = 0;
                 commentDialog.show();
                 commentDialog.setEt_comment("输入你想说的");
+                break;
+            case R.id.ll_share:
+                OnekeyShare oks = new OnekeyShare();
+                //关闭sso授权
+                oks.disableSSOWhenAuthorize();
+                // title标题，微信、QQ和QQ空间等平台使用
+                oks.setTitle("零零7许愿墙");
+                // titleUrl QQ和QQ空间跳转链接
+                oks.setTitleUrl(AppConfig.SHAREURL);
+                // text是分享文本，所有平台都需要这个字段
+                oks.setText(bitisDetilsInfo.getData().getContent());
+                // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+                oks.setImageUrl(AppConfig.LOGOURL);//确保SDcard下面存在此张图片
+                // url在微信、微博，Facebook等平台中使用
+                oks.setUrl(AppConfig.SHAREURL);
+                // 启动分享GUI
+                oks.show(BitisNewDetils.this);
                 break;
             case R.id.ll_like:
                 if (bitisDetilsInfo.getData().getIsLike() == 1) {
