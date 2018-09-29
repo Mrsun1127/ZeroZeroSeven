@@ -144,7 +144,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
                 if (dragState == 5) {
                     CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                     carShopInfo.getShopInfos().clear();
-                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     try {
                         FoodViewPagerAllFragment.mInstance.get().notifyShop();
                         FoodViewPagerFragment.mInstance.get().notifyShop();

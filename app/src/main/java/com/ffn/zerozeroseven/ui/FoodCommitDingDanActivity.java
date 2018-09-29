@@ -275,7 +275,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                         adapter.addAll(carShopInfo.getShopInfos());
                     }
                 }, 500);
-                BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                 notifyCar();
             }
 
@@ -375,7 +375,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
 //                    return;
 //                }
                 if ("跑腿费：¥null".equals(tv_runMoney.getText().toString())) {
-                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                     carShopInfo.getShopInfos().clear();
                     BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     ShopViewPagerAllFragment.mInstance.get().notifyShop();

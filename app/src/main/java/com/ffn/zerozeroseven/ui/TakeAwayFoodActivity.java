@@ -52,6 +52,6 @@ public class TakeAwayFoodActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SharePrefUtils.saveObject(TakeAwayFoodActivity.this, "foodcarShopInfo", BaseAppApplication.getInstance().getFoodcarShopInfo());
+        SharePrefUtils.saveObject(TakeAwayFoodActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
     }
 }

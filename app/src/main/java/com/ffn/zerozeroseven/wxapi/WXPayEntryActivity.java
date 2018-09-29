@@ -157,10 +157,10 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                             PayMoneyActivity.mInstance.get().finish();
                         } else if ("food".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
-                            CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                            CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                             carShopInfo.getShopInfos().clear();
-                            BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
-                            SharePrefUtils.saveObject(WXPayEntryActivity.this, "foodcarShopInfo", BaseAppApplication.getInstance().getFoodcarShopInfo());
+                            BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                            SharePrefUtils.saveObject(WXPayEntryActivity.this, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
                         } else if ("zhijie".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
                         } else if ("numberweikuan".equals(pay)) {

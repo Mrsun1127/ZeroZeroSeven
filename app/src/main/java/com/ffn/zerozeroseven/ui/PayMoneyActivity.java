@@ -86,7 +86,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
                 if ("shop".equals(carType)) {
                     carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                 } else if ("food".equals(carType)) {
-                    carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                    carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                 } else if ("lease".equals(carType)) {
                     carShopInfo = BaseAppApplication.getInstance().getLeasecarShopInfo();
                 }

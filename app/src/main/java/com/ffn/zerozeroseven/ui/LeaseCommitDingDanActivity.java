@@ -263,7 +263,7 @@ public class LeaseCommitDingDanActivity extends BaseActivity implements View.OnC
                         adapter.addAll(carShopInfo.getShopInfos());
                     }
                 }, 500);
-                BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                BaseAppApplication.getInstance().setLeasecarShopInfo(carShopInfo);
                 notifyCar();
             }
 

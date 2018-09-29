@@ -73,10 +73,10 @@ public class ZFBPayUtil {
                             gotoVp(0);
                         } else if ("food".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
-                            CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                            CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                             carShopInfo.getShopInfos().clear();
-                            BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
-                            SharePrefUtils.saveObject(mContext, "foodcarShopInfo", BaseAppApplication.getInstance().getFoodcarShopInfo());
+                            BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                            SharePrefUtils.saveObject(mContext, "carShopInfo", BaseAppApplication.getInstance().getCarShopInfo());
                             gotoVp(0);
                         } else if ("leasezhijie".equals(pay)) {
                             PayMoneyActivity.mInstance.get().finish();
