@@ -69,6 +69,8 @@ public class DriverCommitActivity extends BaseActivity {
         }
     }
 
+    int count = 0;
+
     private void checkSub() {
         String name = cle_name.getText().toString().trim();
         String idCard = cle_card.getText().toString().trim();
@@ -80,9 +82,12 @@ public class DriverCommitActivity extends BaseActivity {
             ToastUtils.showShort("请输入身份证");
             return;
         }
-        if(!ZeroZeroSevenUtils.isIDNumber(idCard)){
+        if (!ZeroZeroSevenUtils.isIDNumber(idCard)) {
             ToastUtils.showShort("请输入正确的身份证");
-            return;
+            count++;
+            if (count < 2) {
+                return;
+            }
         }
 //        if (!cb_default.isChecked()) {
 //            ToastUtils.showShort("请同意协议");
@@ -104,6 +109,6 @@ public class DriverCommitActivity extends BaseActivity {
     @Override
     protected void doMain() {
         tv_phone.setText(BaseAppApplication.getInstance().getLoginUser().getPhone());
-        tv_money.setText("费用总计："+getIntent().getStringExtra("money")+"元");
+        tv_money.setText("费用总计：" + getIntent().getStringExtra("money") + "元");
     }
 }

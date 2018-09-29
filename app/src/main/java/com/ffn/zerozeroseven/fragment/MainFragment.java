@@ -572,7 +572,12 @@ public class MainFragment extends BaseFragment {
                     int lastVersion = Integer.parseInt(appVersionInfo.getData().getLatestVersion().replace(".", ""));
                     LogUtils.D("curVersion", curVersion + ":::::" + lastVersion);
                     if (lastVersion > curVersion) {
-                        Tanchuang(appVersionInfo.getData().getLatestVersion(), appVersionInfo.getData().getReleaseNote(), appVersionInfo.getData().getTargetSize(), appVersionInfo.getData().getConstraint());
+                        BaseAppApplication.mainHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Tanchuang(appVersionInfo.getData().getLatestVersion(), appVersionInfo.getData().getReleaseNote(), appVersionInfo.getData().getTargetSize(), appVersionInfo.getData().getIsConstraint());
+                            }
+                        }, 5000);
                     }
                 }
 
