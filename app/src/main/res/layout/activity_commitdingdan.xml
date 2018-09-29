@@ -8,7 +8,7 @@
     <com.ffn.zerozeroseven.view.TitleView
         android:id="@+id/titleview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></com.ffn.zerozeroseven.view.TitleView>
+        android:layout_height="wrap_content"/>
 
     <RelativeLayout
         android:id="@+id/rl_addadr"
@@ -59,10 +59,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="20dp"
             android:layout_toRightOf="@+id/iv_location"
             android:textColor="@color/text_show_color"
-            android:textSize="16sp" />
+            android:textSize="13sp" />
 
         <ImageView
             android:id="@+id/iv_user"
@@ -78,10 +78,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="49dp"
+            android:layout_marginTop="52dp"
             android:layout_toRightOf="@+id/iv_location"
             android:textColor="@color/text_show_color"
-            android:textSize="16sp" />
+            android:textSize="13sp" />
 
         <ImageView
             android:id="@+id/iv_phone"
@@ -97,10 +97,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="81dp"
+            android:layout_marginTop="83dp"
             android:layout_toRightOf="@+id/iv_location"
             android:textColor="@color/text_show_color"
-            android:textSize="16sp" />
+            android:textSize="13sp" />
     </RelativeLayout>
 
     <LinearLayout
