@@ -125,7 +125,7 @@ public class DriverOrderDetilsActivity extends BaseActivity implements ActionShe
         });
     }
 
-    @OnClick({R.id.bt_show})
+    @OnClick({R.id.bt_show, R.id.tv_phone1})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.bt_show:
@@ -135,7 +135,10 @@ public class DriverOrderDetilsActivity extends BaseActivity implements ActionShe
                         .setCancelableOnTouchOutside(true)
                         .setListener(DriverOrderDetilsActivity.this).show();
                 break;
-
+            case R.id.tv_phone1:
+                ZeroZeroSevenUtils.requestCallMainifest(DriverOrderDetilsActivity.this);
+                ZeroZeroSevenUtils.MakingCalls(DriverOrderDetilsActivity.this, "0731-85315177");
+                break;
         }
     }
 
@@ -173,4 +176,5 @@ public class DriverOrderDetilsActivity extends BaseActivity implements ActionShe
             }
         });
     }
+
 }

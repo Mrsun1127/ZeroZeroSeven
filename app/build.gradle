@@ -9,7 +9,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 23
         renderscriptSupportModeEnabled true
-        versionCode 13
+        versionCode 15
         versionName "1.2.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }

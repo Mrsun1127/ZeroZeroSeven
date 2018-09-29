@@ -14,9 +14,9 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:orientation="vertical">
 
 
@@ -55,12 +55,14 @@
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="报考驾校："
                     android:textColor="@color/black"
                     android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv_driverName"
                     android:layout_width="wrap_content"
@@ -69,19 +71,22 @@
                     android:textColor="@color/line6"
                     android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="姓名："
                     android:textColor="@color/black"
                     android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
@@ -90,19 +95,22 @@
                     android:textColor="@color/line6"
                     android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="手机号码："
                     android:textColor="@color/black"
                     android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv_phone"
                     android:layout_width="wrap_content"
@@ -111,19 +119,22 @@
                     android:textColor="@color/line6"
                     android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="身份证号码："
                     android:textColor="@color/black"
                     android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv_idcard"
                     android:layout_width="wrap_content"
@@ -132,19 +143,22 @@
                     android:textColor="@color/line6"
                     android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="报考时间："
                     android:textColor="@color/black"
                     android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
@@ -153,19 +167,22 @@
                     android:textColor="@color/line6"
                     android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="报考金额："
                     android:textColor="@color/black"
                     android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv_money"
                     android:layout_width="wrap_content"
@@ -174,19 +191,22 @@
                     android:textColor="@color/line6"
                     android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="支付方式："
                     android:textColor="@color/black"
                     android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv_pay"
                     android:layout_width="wrap_content"
@@ -195,6 +215,17 @@
                     android:textColor="@color/line6"
                     android:textSize="13sp" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_phone1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginTop="6dp"
+                android:text="联系方式: 0731-85315177"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
         </LinearLayout>
     </com.ffn.zerozeroseven.view.UserDefineScrollView>
 </LinearLayout>
