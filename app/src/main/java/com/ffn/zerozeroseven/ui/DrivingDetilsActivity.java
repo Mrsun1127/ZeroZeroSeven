@@ -150,7 +150,7 @@ public class DrivingDetilsActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.tv_adr, R.id.rl_call, R.id.rl_ask, R.id.bt_talk})
+    @OnClick({R.id.tv_adr, R.id.rl_call, R.id.bt_talk})
     void setOnClicks(View v) {
         switch (v.getId()) {
             case R.id.tv_adr:
@@ -170,9 +170,7 @@ public class DrivingDetilsActivity extends BaseActivity {
                 ZeroZeroSevenUtils.requestCallMainifest(DrivingDetilsActivity.this);
                 ZeroZeroSevenUtils.MakingCalls(DrivingDetilsActivity.this, phoneNumber);
                 break;
-            case R.id.rl_ask:
-                ZeroZeroSevenUtils.SwitchActivity(DrivingDetilsActivity.this, JoinDriverSchoolActivity.class);
-                break;
+
         }
     }
 }

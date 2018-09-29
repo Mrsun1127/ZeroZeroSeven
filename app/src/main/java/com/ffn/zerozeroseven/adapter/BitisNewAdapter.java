@@ -27,7 +27,6 @@ import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.BitisInfo;
 import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.OkTalkInfo;
-import com.ffn.zerozeroseven.bean.QiangShowInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DafenInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.DeleteTieInfo;
@@ -60,9 +59,11 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
     public int clickPosition = 0;
     public int talkType;
     private TalkAdapter talkAdapter;
+    private int userId;
 
     public BitisNewAdapter(Context context) {
         super(context);
+        userId = BaseAppApplication.getInstance().getLoginUser().getId();
     }
 
     @Override
@@ -79,6 +80,14 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         mHolder.tv_like.setText(String.valueOf(item.getLikeCount()));
         mHolder.tv_talk.setText(String.valueOf(item.getMessages() == null ? 0 : item.getMessages().size()));
         mHolder.tv_content.setText(TextUtils.isEmpty(item.getContent()) ? "加载失败" : item.getContent());
+        if (item.getUserId() == userId) {
+            mHolder.ll_talk.setVisibility(View.GONE);
+            mHolder.rl_delete.setVisibility(View.VISIBLE);
+        } else {
+            mHolder.ll_talk.setVisibility(View.VISIBLE);
+            mHolder.rl_delete.setVisibility(View.GONE);
+        }
+
         if (item.getIsLike() == 1) {
             Glide.with(mContext).load(R.drawable.bit_like).override(50, 50).into(mHolder.iv_like);
             mHolder.tv_like.setTextColor(getResource().getColor(R.color.money));
@@ -86,11 +95,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             Glide.with(mContext).load(R.drawable.bt_like_nor).override(50, 50).into(mHolder.iv_like);
             mHolder.tv_like.setTextColor(getResource().getColor(R.color.line6));
         }
-        if (item.getUserId() == BaseAppApplication.getInstance().getLoginUser().getId()) {
-            mHolder.rl_delete.setVisibility(View.VISIBLE);
-        } else {
-            mHolder.rl_delete.setVisibility(View.GONE);
-        }
+
         mHolder.ll_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -181,7 +186,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             @Override
             public void onItemClick(int position, long itemId) {
                 talkAdapter.setClickPosition(position);
-                if (item.getMessages().get(position).getFromUid() == BaseAppApplication.getInstance().getLoginUser().getId()) {//点击了自己的留言
+                if (item.getMessages().get(position).getFromUid() == userId) {//点击了自己的留言
                     return;
                 }
                 talkType = 1;
@@ -193,7 +198,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
             @Override
             public void onLongClick(final int position, long itemId) {
                 clickPosition = topPosition;
-                if (item.getMessages().get(position).getFromUid() != BaseAppApplication.getInstance().getLoginUser().getId()) {
+                if (item.getMessages().get(position).getFromUid() != userId) {
                     return;
                 }
                 final ConfirmDialog confirmDialog = new ConfirmDialog(mContext);
@@ -248,7 +253,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         DeleteTieInfo deleteTieInfo = new DeleteTieInfo();
         deleteTieInfo.setFunctionName("DeleteUserPost");
         DeleteTieInfo.ParametersBean parametersBean = new DeleteTieInfo.ParametersBean();
-        parametersBean.setUserId(BaseAppApplication.getInstance().getLoginUser().getId());
+        parametersBean.setUserId(userId);
         parametersBean.setPostId(itemsBean.getId());
         deleteTieInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(mContext);
@@ -270,7 +275,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         RDeleteTalkInfo rDeleteTalkInfo = new RDeleteTalkInfo();
         rDeleteTalkInfo.setFunctionName("DeletePostMessage");
         RDeleteTalkInfo.ParametersBean parametersBean = new RDeleteTalkInfo.ParametersBean();
-        parametersBean.setUserId(BaseAppApplication.getInstance().getLoginUser().getId());
+        parametersBean.setUserId(userId);
         parametersBean.setId(item.getMessages().get(position).getId());
         rDeleteTalkInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(mContext);
@@ -292,7 +297,7 @@ public class BitisNewAdapter extends BaseRecyclerAdapter<BitisInfo.DataBean.Item
         RDeleteTalkInfo rDeleteTalkInfo = new RDeleteTalkInfo();
         rDeleteTalkInfo.setFunctionName("DeletePostReply");
         RDeleteTalkInfo.ParametersBean parametersBean = new RDeleteTalkInfo.ParametersBean();
-        parametersBean.setUserId(BaseAppApplication.getInstance().getLoginUser().getId());
+        parametersBean.setUserId(userId);
         parametersBean.setId(itemsBean.getMessages().get(position).getId());
         rDeleteTalkInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(mContext);

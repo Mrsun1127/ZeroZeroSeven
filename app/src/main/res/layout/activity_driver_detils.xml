@@ -113,31 +113,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </android.support.design.widget.CoordinatorLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_ask"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:drawableLeft="@drawable/driver_hezuo"
-            android:drawablePadding="8dp"
-            android:text="我是驾校，入驻零零7帮助"
-            android:textColor="@color/line2"
-            android:textSize="13sp" />
-
-        <ImageView
-            android:layout_width="6dp"
-            android:layout_height="11dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="11dp"
-            android:background="@drawable/driver_arrow" />
-    </RelativeLayout>
 
     <Button
         android:id="@+id/bt_talk"

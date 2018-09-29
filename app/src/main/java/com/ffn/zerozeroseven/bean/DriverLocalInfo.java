@@ -5,7 +5,7 @@ import java.util.List;
 public class DriverLocalInfo {
     /**
      * code : 0
-     * data : {"total":3,"pageIndex":0,"totalPage":1,"pageSize":20,"list":[{"address":"天心区大托机场口","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538044472984.jpg","price":1,"latitude":28.073783,"name":"远征驾校","countSignUp":0,"commission":0,"id":13,"longitude":112.99757},{"address":"芙蓉区嘉雨路","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538033950077.jpg","price":2.48,"latitude":28,"name":"恒大驾校","countSignUp":0,"commission":0,"id":12,"longitude":113},{"address":"湖南省长沙市天心区城南路79号南门口地铁站附近79号南门口地铁站附近","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538031584898.jpg","price":1,"latitude":28.155898,"name":"鸿运达驾培中心","countSignUp":5,"commission":0,"id":11,"longitude":113.046822}]}
+     * data : {"total":4,"pageIndex":0,"totalPage":1,"pageSize":20,"list":[{"address":"汽车北站湘江世纪城","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538060739133.jpg","price":0.5,"latitude":28.155898,"name":"国储电脑城","countSignUp":4,"commission":0,"id":14,"longitude":113.046822},{"address":"天心区大托机场口","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538044472984.jpg","price":1,"latitude":28.073783,"name":"远征驾校","countSignUp":0,"commission":0,"id":13,"longitude":112.99757},{"address":"芙蓉区嘉雨路","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538033950077.jpg","price":2.48,"latitude":28,"name":"恒大驾校","countSignUp":0,"commission":0,"id":12,"longitude":113},{"address":"湖南省长沙市天心区城南路79号南门口地铁站附近79号南门口地铁站附近","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538031584898.jpg","price":1,"latitude":28.155898,"name":"鸿运达驾培中心","countSignUp":5,"commission":0,"id":11,"longitude":113.046822}]}
      * message : 请求成功
      */
 
@@ -39,11 +39,11 @@ public class DriverLocalInfo {
 
     public static class DataBean {
         /**
-         * total : 3
+         * total : 4
          * pageIndex : 0
          * totalPage : 1
          * pageSize : 20
-         * list : [{"address":"天心区大托机场口","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538044472984.jpg","price":1,"latitude":28.073783,"name":"远征驾校","countSignUp":0,"commission":0,"id":13,"longitude":112.99757},{"address":"芙蓉区嘉雨路","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538033950077.jpg","price":2.48,"latitude":28,"name":"恒大驾校","countSignUp":0,"commission":0,"id":12,"longitude":113},{"address":"湖南省长沙市天心区城南路79号南门口地铁站附近79号南门口地铁站附近","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538031584898.jpg","price":1,"latitude":28.155898,"name":"鸿运达驾培中心","countSignUp":5,"commission":0,"id":11,"longitude":113.046822}]
+         * list : [{"address":"汽车北站湘江世纪城","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538060739133.jpg","price":0.5,"latitude":28.155898,"name":"国储电脑城","countSignUp":4,"commission":0,"id":14,"longitude":113.046822},{"address":"天心区大托机场口","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538044472984.jpg","price":1,"latitude":28.073783,"name":"远征驾校","countSignUp":0,"commission":0,"id":13,"longitude":112.99757},{"address":"芙蓉区嘉雨路","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538033950077.jpg","price":2.48,"latitude":28,"name":"恒大驾校","countSignUp":0,"commission":0,"id":12,"longitude":113},{"address":"湖南省长沙市天心区城南路79号南门口地铁站附近79号南门口地铁站附近","thumb":"http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538031584898.jpg","price":1,"latitude":28.155898,"name":"鸿运达驾培中心","countSignUp":5,"commission":0,"id":11,"longitude":113.046822}]
          */
 
         private int total;
@@ -94,20 +94,20 @@ public class DriverLocalInfo {
 
         public static class ListBean {
             /**
-             * address : 天心区大托机场口
-             * thumb : http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538044472984.jpg
-             * price : 1
-             * latitude : 28.073783
-             * name : 远征驾校
-             * countSignUp : 0
+             * address : 汽车北站湘江世纪城
+             * thumb : http://192.168.3.199/lingling7-res/image/20180927/thumbnail1538060739133.jpg
+             * price : 0.5
+             * latitude : 28.155898
+             * name : 国储电脑城
+             * countSignUp : 4
              * commission : 0
-             * id : 13
-             * longitude : 112.99757
+             * id : 14
+             * longitude : 113.046822
              */
 
             private String address;
             private String thumb;
-            private Double price;
+            private double price;
             private double latitude;
             private String name;
             private int countSignUp;
@@ -131,11 +131,11 @@ public class DriverLocalInfo {
                 this.thumb = thumb;
             }
 
-            public Double getPrice() {
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(Double price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 

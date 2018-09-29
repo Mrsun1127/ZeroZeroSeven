@@ -255,9 +255,12 @@ public class DrivingSchoolActivity extends BaseActivity implements OnRefreshList
 
     }
 
-    @OnClick({R.id.bt_liucheng, R.id.bt_xuzhi})
+    @OnClick({R.id.bt_liucheng, R.id.bt_xuzhi, R.id.rl_ask})
     void setOnClicks(View v) {
         switch (v.getId()) {
+            case R.id.rl_ask:
+                ZeroZeroSevenUtils.SwitchActivity(DrivingSchoolActivity.this, JoinDriverSchoolActivity.class);
+                break;
             case R.id.bt_liucheng:
                 Bundle bundle = new Bundle();
                 bundle.putString("url", "https://www.lingling7.com/lingling7-res/app/driving/driving-process.html");

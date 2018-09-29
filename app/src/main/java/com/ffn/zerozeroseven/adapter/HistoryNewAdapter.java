@@ -24,7 +24,6 @@ import com.ffn.zerozeroseven.base.AppConfig;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
 import com.ffn.zerozeroseven.bean.BitisHistoryInfo;
-import com.ffn.zerozeroseven.bean.BitisInfo;
 import com.ffn.zerozeroseven.bean.ErrorCodeInfo;
 import com.ffn.zerozeroseven.bean.OkTalkInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
@@ -33,7 +32,6 @@ import com.ffn.zerozeroseven.bean.requsetbean.DeleteTieInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RDeleteTalkInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.RTalksBitisInfo;
 import com.ffn.zerozeroseven.ui.BitisHistoryActivity;
-import com.ffn.zerozeroseven.ui.BitisNewActivity;
 import com.ffn.zerozeroseven.utlis.OkGoUtils;
 import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
@@ -55,9 +53,11 @@ public class HistoryNewAdapter extends BaseRecyclerAdapter<BitisHistoryInfo.Data
     public int clickPosition = 0;
     public int talkType;
     private HisTalkAdapter talkAdapter;
+    private int userId;
 
     public HistoryNewAdapter(Context context) {
         super(context);
+        userId = BaseAppApplication.getInstance().getLoginUser().getId();
     }
 
     @Override
@@ -80,6 +80,11 @@ public class HistoryNewAdapter extends BaseRecyclerAdapter<BitisHistoryInfo.Data
         } else {
             Glide.with(mContext).load(R.drawable.bt_like_nor).override(50, 50).into(mHolder.iv_like);
             mHolder.tv_like.setTextColor(getResource().getColor(R.color.line6));
+        }
+        if (item.getUserId() == userId) {
+            mHolder.ll_talk.setVisibility(View.GONE);
+        } else {
+            mHolder.ll_talk.setVisibility(View.VISIBLE);
         }
         mHolder.ll_share.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +168,7 @@ public class HistoryNewAdapter extends BaseRecyclerAdapter<BitisHistoryInfo.Data
             @Override
             public void onItemClick(int position, long itemId) {
                 talkAdapter.setClickPosition(position);
-                if (item.getMessages().get(position).getFromUid() == BaseAppApplication.getInstance().getLoginUser().getId()) {//点击了自己的留言
+                if (item.getMessages().get(position).getFromUid() == userId) {//点击了自己的留言
                     return;
                 }
                 talkType = 1;
@@ -175,7 +180,7 @@ public class HistoryNewAdapter extends BaseRecyclerAdapter<BitisHistoryInfo.Data
             @Override
             public void onLongClick(final int position, long itemId) {
                 clickPosition = TopPosition;
-                if (item.getMessages().get(position).getFromUid() != BaseAppApplication.getInstance().getLoginUser().getId()) {
+                if (item.getMessages().get(position).getFromUid() != userId) {
                     return;
                 }
                 final ConfirmDialog confirmDialog = new ConfirmDialog(mContext);
@@ -230,7 +235,7 @@ public class HistoryNewAdapter extends BaseRecyclerAdapter<BitisHistoryInfo.Data
         DeleteTieInfo deleteTieInfo = new DeleteTieInfo();
         deleteTieInfo.setFunctionName("DeleteUserPost");
         DeleteTieInfo.ParametersBean parametersBean = new DeleteTieInfo.ParametersBean();
-        parametersBean.setUserId(BaseAppApplication.getInstance().getLoginUser().getId());
+        parametersBean.setUserId(userId);
         parametersBean.setPostId(itemsBean.getId());
         deleteTieInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(mContext);
@@ -252,7 +257,7 @@ public class HistoryNewAdapter extends BaseRecyclerAdapter<BitisHistoryInfo.Data
         RDeleteTalkInfo rDeleteTalkInfo = new RDeleteTalkInfo();
         rDeleteTalkInfo.setFunctionName("DeletePostMessage");
         RDeleteTalkInfo.ParametersBean parametersBean = new RDeleteTalkInfo.ParametersBean();
-        parametersBean.setUserId(BaseAppApplication.getInstance().getLoginUser().getId());
+        parametersBean.setUserId(userId);
         parametersBean.setId(item.getMessages().get(position).getId());
         rDeleteTalkInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(mContext);
@@ -274,7 +279,7 @@ public class HistoryNewAdapter extends BaseRecyclerAdapter<BitisHistoryInfo.Data
         RDeleteTalkInfo rDeleteTalkInfo = new RDeleteTalkInfo();
         rDeleteTalkInfo.setFunctionName("DeletePostReply");
         RDeleteTalkInfo.ParametersBean parametersBean = new RDeleteTalkInfo.ParametersBean();
-        parametersBean.setUserId(BaseAppApplication.getInstance().getLoginUser().getId());
+        parametersBean.setUserId(userId);
         parametersBean.setId(itemsBean.getMessages().get(position).getId());
         rDeleteTalkInfo.setParameters(parametersBean);
         OkGoUtils okGoUtils = new OkGoUtils(mContext);
