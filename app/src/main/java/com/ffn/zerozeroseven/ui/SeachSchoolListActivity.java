@@ -103,11 +103,13 @@ public class SeachSchoolListActivity extends BaseActivity {
                     userInfo.setSchoolName(adapter.getItem(position).getName());
                     userInfo.setSchoolId(adapter.getItem(position).getId() + "");
                     BaseAppApplication.getInstance().setLoginUser(userInfo);
-                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
-                    carShopInfo.getShopInfos().clear();
-                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                   try {
+                       CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                       carShopInfo.getShopInfos().clear();
+                       BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                       SharePrefUtils.saveObject(SeachSchoolListActivity.this, "carShopInfo", carShopInfo);
+                   }catch (Exception e){}
                     SharePrefUtils.saveObject(SeachSchoolListActivity.this, "userInfo", userInfo);
-                    SharePrefUtils.saveObject(SeachSchoolListActivity.this, "carShopInfo", carShopInfo);
                     SearchSchoolActivity.inStance.get().finish();
                     finish();
                     MainFragment.mInstance.get().reQuest();

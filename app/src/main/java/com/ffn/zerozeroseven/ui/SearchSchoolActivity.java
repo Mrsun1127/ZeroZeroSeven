@@ -151,11 +151,13 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                     userInfo.setSchoolName(schoolListAdapter.getItem(position).getName());
                     userInfo.setSchoolId(schoolListAdapter.getItem(position).getId() + "");
                     BaseAppApplication.getInstance().setLoginUser(userInfo);
-                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
-                    carShopInfo.getShopInfos().clear();
-                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                    try {
+                        CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                        carShopInfo.getShopInfos().clear();
+                        BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
+                        SharePrefUtils.saveObject(SearchSchoolActivity.this, "carShopInfo", carShopInfo);
+                    }catch (Exception e){}
                     SharePrefUtils.saveObject(SearchSchoolActivity.this, "userInfo", userInfo);
-                    SharePrefUtils.saveObject(SearchSchoolActivity.this, "carShopInfo", carShopInfo);
                     finish();
                     MainFragment.mInstance.get().reQuest();
                     try {
