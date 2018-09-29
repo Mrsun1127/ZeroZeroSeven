@@ -126,9 +126,9 @@ public class SnacksFragment extends BaseReFreshFragment {
         }
         carShopInfo.setShopInfos(shopInfos);
         SharePrefUtils.saveObject(bfCxt, "zhijiecarShopInfo", carShopInfo);
-        Bundle bundle = new Bundle();
-        bundle.putString("payCate", item.getOrderCate());
-        ZeroZeroSevenUtils.SwitchActivity(bfCxt, ZhiJieCommitDingDanActivity.class, bundle);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("payCate", item.getOrderCate());
+        ZeroZeroSevenUtils.SwitchActivity(bfCxt, ZhiJieCommitDingDanActivity.class);
     }
 
     private void getShangChangInfo(final int position) {

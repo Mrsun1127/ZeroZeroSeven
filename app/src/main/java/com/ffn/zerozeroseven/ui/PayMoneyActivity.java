@@ -291,21 +291,21 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
         callNewDingDanInfo.setFunctionName("PayGoodsOrder");
         CallNewDingDanInfo.ParametersBean parametersBean1 = new CallNewDingDanInfo.ParametersBean();
         parametersBean1.setPayment(str);
-        if ("shop".equals(carType)) {
-            parametersBean1.setCate("ZH");
-            LogUtils.D("carType", "shop");
-        } else if ("food".equals(carType)) {
-            parametersBean1.setCate("WM");
-            LogUtils.D("carType", "food");
-        } else if ("zhijie".equals(carType)) {
-            if ("WM".equals(getIntent().getStringExtra("payCate"))) {
-                parametersBean1.setCate("WM");
-                LogUtils.D("carType", "zhijieWM");
-            } else {
-                parametersBean1.setCate("ZH");
-                LogUtils.D("carType", "zhijieZH");
-            }
-        }
+//        if ("shop".equals(carType)) {
+////            parametersBean1.setCate("ZH");
+//            LogUtils.D("carType", "shop");
+//        } else if ("food".equals(carType)) {
+////            parametersBean1.setCate("WM");
+//            LogUtils.D("carType", "food");
+//        } else if ("zhijie".equals(carType)) {
+//            if ("WM".equals(getIntent().getStringExtra("payCate"))) {
+//                parametersBean1.setCate("WM");
+//                LogUtils.D("carType", "zhijieWM");
+//            } else {
+//                parametersBean1.setCate("ZH");
+//                LogUtils.D("carType", "zhijieZH");
+//            }
+//        }
         parametersBean1.setTradeType("APP");
         OrderJsonInfo orderJsonInfo = new OrderJsonInfo();
         if (!TextUtils.isEmpty(reMark)) {
