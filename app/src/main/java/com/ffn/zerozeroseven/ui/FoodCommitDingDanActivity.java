@@ -92,7 +92,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
         badgeView.setBadgePadding(10, true);
         badgeView.setGravityOffset(-5, true);
         et_beizhu = findViewById(R.id.et_beizhu);
-        carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+        carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
         rl_selectadr = findViewById(R.id.rl_selectadr);
         rl_addadr = findViewById(R.id.rl_addadr);
         rl_selectadr.setOnClickListener(this);
@@ -111,9 +111,9 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
             @Override
             public void onDragStateChanged(int dragState, Badge badge, View targetView) {
                 if (dragState == 5) {
-                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                     carShopInfo.getShopInfos().clear();
-                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     try {
                         FoodViewPagerAllFragment.mInstance.get().notifyShop();
                         FoodViewPagerFragment.mInstance.get().notifyShop();
@@ -133,7 +133,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                 carShopInfo.getShopInfos().get(position).setBuyCount(carShopInfo.getShopInfos().get(position).getBuyCount() + 1);
                 adapter.cleanDates();
                 adapter.addAll(carShopInfo.getShopInfos());
-                BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                 notifyCar();
             }
         });
@@ -152,7 +152,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                         carShopInfo.getShopInfos().remove(position);
                         adapter.cleanDates();
                         adapter.addAll(carShopInfo.getShopInfos());
-                        BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                        BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                         notifyCar();
                     }
 
@@ -172,14 +172,14 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                     carShopInfo.getShopInfos().remove(position);
                     adapter.cleanDates();
                     adapter.addAll(carShopInfo.getShopInfos());
-                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     notifyCar();
                     return;
                 }
                 carShopInfo.getShopInfos().get(position).setBuyCount(carShopInfo.getShopInfos().get(position).getBuyCount() - 1);
                 adapter.cleanDates();
                 adapter.addAll(carShopInfo.getShopInfos());
-                BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                 notifyCar();
             }
         });
@@ -239,7 +239,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
     }
 
     public double reactMoney() {
-        carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+        carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
         double a = 0.0;
         if (carShopInfo == null) {
             return 0.0;
@@ -288,7 +288,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
     }
 
     public void notifyCar() {
-        CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+        CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
         if (carShopInfo == null || carShopInfo.getShopInfos().size() == 0) {
             badgeView.setBadgeNumber(0);
         } else {
@@ -377,7 +377,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                 if ("跑腿费：¥null".equals(tv_runMoney.getText().toString())) {
                     CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
                     carShopInfo.getShopInfos().clear();
-                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     ShopViewPagerAllFragment.mInstance.get().notifyShop();
                     ShopViewPagerFragment.mInstance.get().notifyShop();
                     adapter.cleanDates();
@@ -399,7 +399,7 @@ public class FoodCommitDingDanActivity extends BaseActivity implements View.OnCl
                 }
 
 
-                carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                 if (shouHuoInfo.getData().getAddresses() != null && shouHuoInfo.getData().getAddresses().size() > 0) {
                     if (carShopInfo != null && carShopInfo.getShopInfos().size() > 0) {
                         String reMark = et_beizhu.getText().toString().trim();

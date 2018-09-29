@@ -92,15 +92,27 @@ public class AppVersionInfo implements Parcelable {
         private String targetSize;
         private String latestVersion;
         private String downloadUrl;
-        private int constraint;
         private int id;
+        private int isConstraint;
+
+        public int getIsConstraint() {
+            return isConstraint;
+        }
+
+        public void setIsConstraint(int isConstraint) {
+            this.isConstraint = isConstraint;
+        }
+
+        public static Creator<DataBean> getCREATOR() {
+            return CREATOR;
+        }
+
         private String releaseNote;
 
         protected DataBean(Parcel in) {
             targetSize = in.readString();
             latestVersion = in.readString();
             downloadUrl = in.readString();
-            constraint = in.readInt();
             id = in.readInt();
             releaseNote = in.readString();
         }
@@ -144,13 +156,7 @@ public class AppVersionInfo implements Parcelable {
             this.downloadUrl = downloadUrl;
         }
 
-        public int getConstraint() {
-            return constraint;
-        }
 
-        public void setConstraint(int constraint) {
-            this.constraint = constraint;
-        }
 
         public int getId() {
             return id;
@@ -178,7 +184,6 @@ public class AppVersionInfo implements Parcelable {
             parcel.writeString(targetSize);
             parcel.writeString(latestVersion);
             parcel.writeString(downloadUrl);
-            parcel.writeInt(constraint);
             parcel.writeInt(id);
             parcel.writeString(releaseNote);
         }

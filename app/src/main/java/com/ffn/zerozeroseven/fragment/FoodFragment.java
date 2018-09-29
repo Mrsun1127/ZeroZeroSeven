@@ -142,7 +142,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
             public void onDragStateChanged(int dragState, Badge badge, View targetView) {
                 LogUtils.D("state", "" + dragState);
                 if (dragState == 5) {
-                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
                     carShopInfo.getShopInfos().clear();
                     BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
                     try {
@@ -299,7 +299,7 @@ public class FoodFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void notifyCar() {
-        final CarShopInfo carShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+        final CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
         try {
             if (carShopInfo == null || carShopInfo.getShopInfos().size() == 0) {
                 BaseAppApplication.mainHandler.postDelayed(new Runnable() {

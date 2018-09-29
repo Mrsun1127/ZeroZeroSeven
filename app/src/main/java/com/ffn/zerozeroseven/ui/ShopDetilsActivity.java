@@ -177,7 +177,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
         if ("shop".equals(jumpType)) {
             lastCarShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
         } else if ("food".equals(jumpType)) {
-            lastCarShopInfo = BaseAppApplication.getInstance().getFoodcarShopInfo();
+            lastCarShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
         }
     }
 
@@ -296,7 +296,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                             if ("shop".equals(jumpType)) {
                                 BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
                             } else if ("food".equals(jumpType)) {
-                                BaseAppApplication.getInstance().setFoodcarShopInfo(lastCarShopInfo);
+                                BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
                             }
                             ToastUtils.showShort("添加成功");
                             return;
@@ -315,7 +315,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                     if ("shop".equals(jumpType)) {
                         BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
                     } else if ("food".equals(jumpType)) {
-                        BaseAppApplication.getInstance().setFoodcarShopInfo(lastCarShopInfo);
+                        BaseAppApplication.getInstance().setCarShopInfo(lastCarShopInfo);
                     }
                     ToastUtils.showShort("添加成功");
                 } else {//购物车里面的东西是空的
@@ -334,7 +334,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                     if ("shop".equals(jumpType)) {
                         BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     } else if ("food".equals(jumpType)) {
-                        BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                        BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     }
                     ToastUtils.showShort("添加成功");
                 }
@@ -354,7 +354,7 @@ public class ShopDetilsActivity extends BaseActivity implements View.OnClickList
                 if ("shop".equals(jumpType)) {
                     BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                 } else if ("food".equals(jumpType)) {
-                    BaseAppApplication.getInstance().setFoodcarShopInfo(carShopInfo);
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                 }
                 ToastUtils.showShort("添加成功");
             }
