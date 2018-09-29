@@ -23,6 +23,7 @@ import com.ffn.zerozeroseven.adapter.SchoolListAdapter;
 import com.ffn.zerozeroseven.base.BaseActivity;
 import com.ffn.zerozeroseven.base.BaseAppApplication;
 import com.ffn.zerozeroseven.base.BaseRecyclerAdapter;
+import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.SchoolJsonInfo;
 import com.ffn.zerozeroseven.bean.SchoolListInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.IdSearchInfo;
@@ -150,9 +151,11 @@ public class SearchSchoolActivity extends BaseActivity implements View.OnClickLi
                     userInfo.setSchoolName(schoolListAdapter.getItem(position).getName());
                     userInfo.setSchoolId(schoolListAdapter.getItem(position).getId() + "");
                     BaseAppApplication.getInstance().setLoginUser(userInfo);
+                    CarShopInfo carShopInfo = BaseAppApplication.getInstance().getCarShopInfo();
+                    carShopInfo.getShopInfos().clear();
+                    BaseAppApplication.getInstance().setCarShopInfo(carShopInfo);
                     SharePrefUtils.saveObject(SearchSchoolActivity.this, "userInfo", userInfo);
-                    SharePrefUtils.saveObject(SearchSchoolActivity.this, "carShopInfo", null);
-                    SharePrefUtils.saveObject(SearchSchoolActivity.this, "foodcarShopInfo", null);
+                    SharePrefUtils.saveObject(SearchSchoolActivity.this, "carShopInfo", carShopInfo);
                     finish();
                     MainFragment.mInstance.get().reQuest();
                     try {
