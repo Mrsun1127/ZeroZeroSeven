@@ -392,9 +392,9 @@ public class WebViewActivity extends BaseActivity {
             webView.clearHistory();
             webView.clearView();
             webView.removeAllViews();
-//            webView.setWebChromeClient(null);
-//            webView.setWebViewClient(null);
-//            webView.clearCache(true);
+            webView.setWebChromeClient(null);
+            webView.setWebViewClient(null);
+            webView.clearCache(true);
             try {
                 webView.destroy();
             } catch (Throwable ex) {
