@@ -1222,7 +1222,7 @@ public class MainFragment extends BaseFragment {
                     if ("943478288".equals(schoolIId)) {
                         ZeroZeroSevenUtils.showCustonPop(bfCxt, "请先选择学校", recyclerView);
                     } else {
-                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, WillDeleteActivity.class);
+                        ZeroZeroSevenUtils.SwitchActivity(bfCxt, JumpShopActivity.class);
                     }
                 } else {
                     ZeroZeroSevenUtils.SwitchActivity(bfCxt, LoginActivity.class);
