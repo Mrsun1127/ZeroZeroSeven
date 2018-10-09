@@ -170,7 +170,9 @@ public class ShopViewPagerAllFragment extends BaseFragment implements BGARefresh
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                contentShowInfo = JSON.parseObject(response.body().string(), GoodsContentShowInfo.class);
+                String json = response.body().string();
+                LogUtils.D("response", json);
+                contentShowInfo = JSON.parseObject(json, GoodsContentShowInfo.class);
                 commonRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {

@@ -205,8 +205,22 @@ public class GoodsContentShowInfo implements Parcelable{
             private String promotionPrice;
             private Double price;
             private int stockNum;
+            private int salesNum;
             private int id;
             private String goodsName;
+
+            public int getSalesNum() {
+                return salesNum;
+            }
+
+            public void setSalesNum(int salesNum) {
+                this.salesNum = salesNum;
+            }
+
+            public static Creator<ProductsBean> getCREATOR() {
+                return CREATOR;
+            }
+
             private String marketPrice;
 
             public String getMarketPrice() {

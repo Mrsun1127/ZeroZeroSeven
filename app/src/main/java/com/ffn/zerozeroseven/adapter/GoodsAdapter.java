@@ -63,6 +63,9 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
         } else {
             mHolder.tv_price.setText("网络异常请刷新");
         }
+        mHolder.tv_salseNum.setText(String.valueOf(info.getSalesNum()));
+        mHolder.tv_stackNumber.setText(String.valueOf(info.getStockNum()));
+
         if (!TextUtils.isEmpty(info.getMarketPrice()) && !"0.0".equals(info.getMarketPrice())) {
             mHolder.tv_oldprice.setVisibility(View.VISIBLE);
             mHolder.tv_oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -132,6 +135,8 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
     private class MViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_icon;
         TextView tv_name;
+        TextView tv_stackNumber;
+        TextView tv_salseNum;
         TextView tv_price;
         TextView tv_oldprice;
         TextView tv_count;
@@ -141,6 +146,8 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsContentShowInfo.DataB
 
         MViewHolder(View itemView) {
             super(itemView);
+            tv_stackNumber = itemView.findViewById(R.id.tv_stackNumber);
+            tv_salseNum = itemView.findViewById(R.id.tv_salseNum);
             tv_oldprice = itemView.findViewById(R.id.tv_oldprice);
             iv_icon = itemView.findViewById(R.id.iv_icon);
             tv_name = itemView.findViewById(R.id.tv_name);
