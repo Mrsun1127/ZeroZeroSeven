@@ -481,7 +481,7 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
 
                 @Override
                 public void onCancel() {
-                    ToastUtils.showShort("取消登录");
+                    ToastUtils.showShort("授权失败");
                 }
             });
         }
