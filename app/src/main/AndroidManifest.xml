@@ -69,6 +69,23 @@
             android:process=":remote" />
 
         <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1106695247" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
@@ -440,18 +457,22 @@
             android:name=".ui.BitisNewDetils"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.BitisHistoryActivity"
+        <activity
+            android:name=".ui.BitisHistoryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.WillDeleteActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.LookPicActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".wxapi.WXEntryActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".ui.WillDeleteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.LookPicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:theme="@android:style/Theme.Light.NoTitleBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
 
 
         <!-- Required SDK核心功能-->

@@ -40,7 +40,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        api = WXAPIFactory.createWXAPI(this, "wx189141e4085fa0d1", false);
+        api = WXAPIFactory.createWXAPI(getApplicationContext(), "wx189141e4085fa0d1", false);
         api.registerApp("wx189141e4085fa0d1");
         //如果没回调onResp，八成是这句没有写
 //        api.handleIntent(getIntent(), this);
@@ -142,7 +142,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     //登录的方法
     private void getuser() {
-        LogUtils.D("response","调用登录接口");
+        LogUtils.D("response", "调用登录接口");
     }
 }
 

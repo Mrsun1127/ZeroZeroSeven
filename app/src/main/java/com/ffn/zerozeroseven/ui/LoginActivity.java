@@ -1,10 +1,12 @@
 package com.ffn.zerozeroseven.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ import com.ffn.zerozeroseven.base.BaseLoginActivity;
 import com.ffn.zerozeroseven.bean.CarShopInfo;
 import com.ffn.zerozeroseven.bean.CodeInfo;
 import com.ffn.zerozeroseven.bean.NumberRicalInfo;
+import com.ffn.zerozeroseven.bean.QQLoginInfo;
 import com.ffn.zerozeroseven.bean.UserInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.BindJiGuangInfo;
 import com.ffn.zerozeroseven.bean.requsetbean.CodeLoginInfo;
@@ -33,9 +36,16 @@ import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.UserInfoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.connect.auth.QQToken;
+import com.tencent.connect.common.Constants;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
+
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -51,6 +61,7 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
     private int LoginStatus = 0; //判断登录是以验证码还是用户名密码登录 0 验证码 1用户名密码
     Button bt_send;
     Button bt_wechat;
+    Button bt_qq;
     TextView tv_yanzhen;
     TextView tv_pwd;
     TextView tv_forgetpwd;
@@ -81,6 +92,7 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
     private static String[] PERMISSIONS_STORAGE = {
             "android.permission.READ_EXTERNAL_STORAGE",
             "android.permission.WRITE_EXTERNAL_STORAGE"};
+    private Tencent mTencent;
 
     public static void verifyStoragePermissions(Activity activity) {
 
@@ -103,6 +115,7 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         api = WXAPIFactory.createWXAPI(this, "wx189141e4085fa0d1", false);
         api.registerApp("wx189141e4085fa0d1");
         loginCode = "";
+        bt_qq = findViewById(R.id.bt_qq);
         bt_wechat = findViewById(R.id.bt_wechat);
         bt_send = findViewById(R.id.bt_send);
         tv_forgetpwd = findViewById(R.id.tv_forgetpwd);
@@ -176,6 +189,7 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
     }
 
     private void initClickListener() {
+        bt_qq.setOnClickListener(this);
         bt_wechat.setOnClickListener(this);
         bt_send.setOnClickListener(this);
         tv_yanzhen.setOnClickListener(this);
@@ -191,6 +205,10 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.bt_qq:
+                mTencent = Tencent.createInstance("1106695247", getApplicationContext());
+                mTencent.login(LoginActivity.this, "all", new BaseUiListener());
+                break;
             case R.id.bt_wechat:
                 if (!api.isWXAppInstalled()) {
                     ToastUtils.showShort("请下载微信客户端");
@@ -419,5 +437,63 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Tencent.onActivityResultData(requestCode, resultCode, data, new BaseUiListener());
+        if (requestCode == Constants.REQUEST_API) {
+            if (resultCode == Constants.REQUEST_LOGIN) {
+                Tencent.handleResultData(data, new BaseUiListener());
+            }
+        }
+
+    }
+
+    private class BaseUiListener implements IUiListener {
+        @Override
+        public void onComplete(Object response) {
+            Log.v("----TAG--", "-------------" + response.toString());
+            LogUtils.D("response", response.toString());
+            QQLoginInfo qqLoginInfo = JSON.parseObject(response.toString(), QQLoginInfo.class);
+            mTencent.setOpenId(qqLoginInfo.getOpenid());
+            mTencent.setAccessToken(qqLoginInfo.getAccess_token(),qqLoginInfo.getExpires_in());
+            QQToken qqToken = mTencent.getQQToken();
+            LogUtils.D("response", qqToken.getAccessToken()+"::"+qqToken.getAppId()+"::"+qqToken.getOpenId()+"::"+qqToken.getAuthSource());
+            com.tencent.connect.UserInfo info = new com.tencent.connect.UserInfo(getApplicationContext(), qqToken);
+            info.getUserInfo(new IUiListener() {
+                @Override
+                public void onComplete(Object o) {
+                    LogUtils.D("response", o.toString());
+                    try {
+                        ToastUtils.showShort("用户名：" + ((JSONObject) o).getString("nickname") + "用户姓名：" + ((JSONObject) o).getString("gender"));
+                    } catch (Exception e) {
+
+                    }
+                }
+
+                @Override
+                public void onError(UiError uiError) {
+                    ToastUtils.showShort("登录失败");
+                }
+
+                @Override
+                public void onCancel() {
+                    ToastUtils.showShort("取消登录");
+                }
+            });
+        }
+
+        @Override
+        public void onError(UiError uiError) {
+            ToastUtils.showShort("授权失败");
+        }
+
+        @Override
+        public void onCancel() {
+            ToastUtils.showShort("取消授权");
+        }
     }
 }

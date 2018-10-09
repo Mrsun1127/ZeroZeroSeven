@@ -83,7 +83,7 @@ dependencies {
     /*网络框架*/
     api 'com.zhy:okhttputils:2.6.2'
     implementation 'com.android.support:design:26.0.1'
-        implementation 'com.android.support:cardview-v7:26.0.1'
+    implementation 'com.android.support:cardview-v7:26.0.1'
 
     /*右滑返回Activity*/
     api 'com.aitangba:swipeback:1.0.1'
@@ -142,15 +142,15 @@ dependencies {
     //时间选择器
 
     //    compile 'com.stone.vega.library:VegaLayoutManager:1.0.6'//RecycleView的设置
+    api 'com.youth.banner:banner:1.4.10'
 
-    api 'com.youth.banner:banner:1.4.10'  //最新版本
+    //最新版本
     debugApi 'com.squareup.leakcanary:leakcanary-android:1.6.1'
     releaseApi 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
 
     //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.3'
 
     //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.3'
-
 
     //     debugCompile 'com.github.markzhai:blockcanary-android:1.5.0'
 
@@ -176,4 +176,5 @@ dependencies {
     //压缩图片
     api 'top.zibin:Luban:1.1.8'
     implementation files('libs/BaiduLBS_Android.jar')
+    implementation files('libs/open_sdk_r6008_lite.jar')
 }
