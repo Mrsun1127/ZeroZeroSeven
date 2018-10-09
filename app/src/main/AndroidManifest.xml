@@ -445,7 +445,13 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.WillDeleteActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.LookPicActivity" />
+        <activity android:name=".ui.LookPicActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".wxapi.WXEntryActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Light.NoTitleBar"/>
 
 
         <!-- Required SDK核心功能-->

@@ -33,6 +33,9 @@ import com.ffn.zerozeroseven.utlis.ToastUtils;
 import com.ffn.zerozeroseven.utlis.UserInfoUtils;
 import com.ffn.zerozeroseven.utlis.ZeroZeroSevenUtils;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.Map;
 
@@ -47,6 +50,7 @@ import cn.jpush.android.api.JPushInterface;
 public class LoginActivity extends BaseLoginActivity implements View.OnClickListener {
     private int LoginStatus = 0; //判断登录是以验证码还是用户名密码登录 0 验证码 1用户名密码
     Button bt_send;
+    Button bt_wechat;
     TextView tv_yanzhen;
     TextView tv_pwd;
     TextView tv_forgetpwd;
@@ -96,7 +100,10 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        api = WXAPIFactory.createWXAPI(this, "wx189141e4085fa0d1", false);
+        api.registerApp("wx189141e4085fa0d1");
         loginCode = "";
+        bt_wechat = findViewById(R.id.bt_wechat);
         bt_send = findViewById(R.id.bt_send);
         tv_forgetpwd = findViewById(R.id.tv_forgetpwd);
         tv_yanzhen = findViewById(R.id.tv_yanzhen);
@@ -169,6 +176,7 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
     }
 
     private void initClickListener() {
+        bt_wechat.setOnClickListener(this);
         bt_send.setOnClickListener(this);
         tv_yanzhen.setOnClickListener(this);
         tv_pwd.setOnClickListener(this);
@@ -178,9 +186,22 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         bt_login.setOnClickListener(this);
     }
 
+    private IWXAPI api;
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.bt_wechat:
+                if (!api.isWXAppInstalled()) {
+                    ToastUtils.showShort("请下载微信客户端");
+                    return;
+                }
+                final SendAuth.Req req = new SendAuth.Req();
+                req.scope = "snsapi_userinfo";
+                req.state = "wechat_sdk_xb_live_state";
+                api.sendReq(req);
+                finish();
+                break;
             case R.id.tv_yanzhen:
                 LoginStatus = 0;
                 ZeroZeroSevenUtils.setUnderline(this, tv_bottom, "去随便逛逛>>");
@@ -386,13 +407,13 @@ public class LoginActivity extends BaseLoginActivity implements View.OnClickList
         okGoUtils4.setOnLoadSuccess(new OkGoUtils.OnLoadSuccess() {
             @Override
             public void onSuccLoad(String response) {
-                if(!TextUtils.isEmpty(BaseAppApplication.getInstance().getLoginUser().getSchoolId())){
-                    if(!"0".equals(BaseAppApplication.getInstance().getLoginUser().getSchoolId())){
+                if (!TextUtils.isEmpty(BaseAppApplication.getInstance().getLoginUser().getSchoolId())) {
+                    if (!"0".equals(BaseAppApplication.getInstance().getLoginUser().getSchoolId())) {
                         ZeroZeroSevenUtils.SwitchActivity(LoginActivity.this, HomeActivity.class);
-                    }else{
+                    } else {
                         ZeroZeroSevenUtils.SwitchActivity(LoginActivity.this, UserSelectSchoolListActivity.class);
                     }
-                }else{
+                } else {
                     ZeroZeroSevenUtils.SwitchActivity(LoginActivity.this, UserSelectSchoolListActivity.class);
                 }
                 finish();
